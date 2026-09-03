@@ -3,7 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Isp99 |</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Isp99 | Aerospace Engineering</title>
 
     <style>
         body {
@@ -12,6 +14,7 @@
             margin: auto;
             padding: 30px;
             line-height: 1.7;
+            color: #222;
         }
 
         nav {
@@ -25,17 +28,45 @@
             font-weight: bold;
         }
 
+        nav a:hover {
+            text-decoration: underline;
+        }
+
         section {
             margin-bottom: 70px;
         }
 
         h1 {
             font-size: 40px;
+            margin-bottom: 10px;
         }
 
         h2 {
             border-bottom: 1px solid #ddd;
             padding-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        li a {
+            text-decoration: none;
+            color: #222;
+        }
+
+        li a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -49,46 +80,95 @@
     <a href="#research">Research</a>
 </nav>
 
+
 <section id="about">
+
     <h1>Isp99</h1>
 
-    <p>Aerospace Engineering Portfolio</p>
+    <p class="subtitle">
+        Aerospace Engineering · Study & Research
+    </p>
 
     <p>
-        This website contains my research, engineering projects,
-        and personal study notes.
+        Personal notes, projects, and research on aerodynamics,
+        fluid dynamics, computational methods, and high-speed flows.
     </p>
+
 </section>
 
+
 <section id="study">
+
     <h2>Study Notes</h2>
 
     <ul>
-        <li>Aerodynamics</li>
-        <li>Compressible Flow</li>
-        <li>Turbulence</li>
-        <li>CFD</li>
-        <li>Aeroelasticity</li>
+        <li>
+            <a href="study/aerodynamics/">
+                Aerodynamics
+            </a>
+        </li>
+
+        <li>
+            <a href="study/compressible-flow/">
+                Compressible Flow
+            </a>
+        </li>
+
+        <li>
+            <a href="study/turbulence/">
+                Turbulence
+            </a>
+        </li>
+
+        <li>
+            <a href="study/cfd/">
+                CFD
+            </a>
+        </li>
+
+        <li>
+            <a href="study/aeroelasticity/">
+                Aeroelasticity
+            </a>
+        </li>
     </ul>
+
 </section>
 
+
 <section id="projects">
+
     <h2>Projects</h2>
 
     <ul>
-        <li>Supersonic Cylinder CFD</li>
-        <li>OpenFOAM External Flow</li>
+        <li>
+            <a href="projects/supersonic-cylinder/">
+                Supersonic Cylinder CFD
+            </a>
+        </li>
+
+        <li>
+            <a href="projects/openfoam-external-flow/">
+                OpenFOAM External Flow
+            </a>
+        </li>
     </ul>
+
 </section>
 
+
 <section id="research">
+
     <h2>Research</h2>
 
     <p>
-        Research interests in aerospace engineering,
-        computational fluid dynamics, and high-speed flows.
+        Research interests include computational fluid dynamics,
+        high-speed aerodynamics, numerical methods,
+        and aerospace engineering applications.
     </p>
+
 </section>
+
 
 </body>
 </html>
