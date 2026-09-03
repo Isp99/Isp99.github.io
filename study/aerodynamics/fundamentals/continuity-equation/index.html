@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Continuity Equation | Isp99</title>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: auto;
+            padding: 30px;
+            line-height: 1.8;
+            color: #222;
+        }
+
+        nav {
+            margin-bottom: 50px;
+        }
+
+        nav a {
+            margin-right: 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            margin-top: 55px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        h3 {
+            margin-top: 35px;
+        }
+
+        p {
+            margin: 16px 0;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .equation-box {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        .note {
+            background: #f6f6f6;
+            padding: 18px;
+            margin: 25px 0;
+            border-left: 4px solid #888;
+        }
+
+        .contents {
+            background: #fafafa;
+            padding: 20px 30px;
+            margin: 30px 0 50px 0;
+        }
+
+        .contents a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .contents li {
+            margin: 6px 0;
+        }
+
+        footer {
+            margin-top: 80px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<nav>
+    <a href="/">Home</a>
+    <a href="/study/aerodynamics/">Aerodynamics</a>
+    <a href="/study/aerodynamics/fundamentals/">Fundamentals</a>
+</nav>
+
+
+<h1>Continuity Equation</h1>
+
+<p class="subtitle">
+    Conservation of Mass in Fluid Flow
+</p>
+
+
+<div class="contents">
+
+    <strong>Contents</strong>
+
+    <ol>
+        <li><a href="#concept">Concept</a></li>
+        <li><a href="#integral">Integral Form</a></li>
+        <li><a href="#differential">Differential Form</a></li>
+        <li><a href="#material">Material-Derivative Form</a></li>
+        <li><a href="#incompressible">Incompressible Flow</a></li>
+        <li><a href="#interpretation">Physical Interpretation</a></li>
+        <li><a href="#summary">Summary</a></li>
+    </ol>
+
+</div>
+
+
+<section id="concept">
+
+<h2>1. Concept</h2>
+
+<p>
+Continuity equation은 유체유동에서
+<strong>질량보존법칙(Conservation of Mass)</strong>을 수학적으로 표현한 식이다.
+</p>
+
+<p>
+유체가 어떤 Control volume을 통과한다고 생각해보자.
+Control volume 내부의 질량은 갑자기 생성되거나 소멸할 수 없다.
+따라서 내부 질량이 증가한다면 외부에서 그만큼의 질량이 들어온 것이고,
+내부 질량이 감소한다면 그만큼의 질량이 밖으로 빠져나간 것이다.
+</p>
+
+<div class="note">
+<strong>핵심 아이디어</strong><br><br>
+
+Control volume 내부의 질량 변화율
++
+Control surface를 통한 순유출 질량유량
+=
+0
+</div>
+
+</section>
+
+
+<section id="integral">
+
+<h2>2. Integral Form</h2>
+
+<p>
+먼저 하나의 동일한 유체입자 집합인 System을 생각하면,
+질량보존법칙에 의해 System의 전체 질량은 시간에 따라 변하지 않는다.
+</p>
+
+<div class="equation-box">
+
+$$
+\frac{d m_{\mathrm{system}}}{dt}=0
+$$
+
+</div>
+
+<p>
+하지만 실제 유체역학 문제에서는 유체입자 하나하나를 추적하기보다,
+공간에 고정된 <strong>Control volume</strong>을 사용하는 것이 편리하다.
+</p>
+
+<p>
+따라서 Reynolds Transport Theorem을 이용하여
+System에 대한 질량보존법칙을 Control volume 형태로 변환한다.
+질량에 대해서는 extensive property가
+</p>
+
+<div class="equation-box">
+
+$$
+B=m
+$$
+
+$$
+b=1
+$$
+
+</div>
+
+<p>
+이므로 Reynolds Transport Theorem에 대입하면
+</p>
+
+<div class="equation-box">
+
+$$
+\frac{\partial}{\partial t}
+\int_{CV}\rho\,dV
++
+\oint_{CS}
+\rho
+(\mathbf{u}\cdot\mathbf{n})
+\,dA
+=0
+$$
+
+</div>
+
+<p>
+이 식이 <strong>Integral Continuity Equation</strong>이다.
+</p>
+
+<h3>첫 번째 항</h3>
+
+<div class="equation-box">
+
+$$
+\frac{\partial}{\partial t}
+\int_{CV}\rho\,dV
+$$
+
+</div>
+
+<p>
+Control volume 내부에 존재하는 전체 질량의 시간변화율이다.
+즉 <strong>Mass accumulation</strong>을 의미한다.
+</p>
+
+<h3>두 번째 항</h3>
+
+<div class="equation-box">
+
+$$
+\oint_{CS}
+\rho(\mathbf{u}\cdot\mathbf{n})\,dA
+$$
+
+</div>
+
+<p>
+Control surface를 통해 밖으로 나가는
+<strong>Net mass flow rate</strong>를 나타낸다.
+</p>
+
+<p>
+여기서 $\mathbf{n}$은 Control surface의 바깥쪽을 향하는
+Unit normal vector이다.
+</p>
+
+<p>
+따라서
+</p>
+
+$$
+\mathbf{u}\cdot\mathbf{n} > 0
+$$
+
+<p>
+이면 유출이고,
+
+$$
+\mathbf{u}\cdot\mathbf{n} < 0
+$$
+
+<p>
+이면 유입이다.
+</p>
+
+</section>
+
+
+<section id="differential">
+
+<h2>3. Differential Form</h2>
+
+<p>
+Integral form은 유한한 Control volume 전체에 대한 질량보존을 나타낸다.
+하지만 CFD나 지배방정식을 다룰 때는
+공간의 각 점에서 성립하는 Differential form이 필요하다.
+</p>
+
+<p>
+Surface flux에 Gauss Divergence Theorem을 적용하면
+</p>
+
+<div class="equation-box">
+
+$$
+\oint_{CS}
+\rho\mathbf{u}\cdot\mathbf{n}\,dA
+=
+\int_{CV}
+\nabla\cdot(\rho\mathbf{u})\,dV
+$$
+
+</div>
+
+<p>
+Storage term도 고정된 Control volume에서는
+</p>
+
+<div class="equation-box">
+
+$$
+\frac{\partial}{\partial t}
+\int_{CV}\rho\,dV
+=
+\int_{CV}
+\frac{\partial\rho}{\partial t}
+\,dV
+$$
+
+</div>
+
+<p>
+로 쓸 수 있다.
+</p>
+
+<p>
+두 식을 Integral continuity equation에 대입하면
+</p>
+
+<div class="equation-box">
+
+$$
+\int_{CV}
+\left[
+\frac{\partial\rho}{\partial t}
++
+\nabla\cdot(\rho\mathbf{u})
+\right]
+dV
+=0
+$$
+
+</div>
+
+<p>
+Control volume은 임의로 선택할 수 있으므로
+모든 Control volume에서 위 적분이 0이 되려면 Integrand 자체가 0이어야 한다.
+</p>
+
+<div class="equation-box">
+
+$$
+\boxed{
+\frac{\partial\rho}{\partial t}
++
+\nabla\cdot(\rho\mathbf{u})
+=0
+}
+$$
+
+</div>
+
+<p>
+이 식이 <strong>Differential Continuity Equation</strong>이며,
+동시에 Conservative form이라고도 부른다.
+</p>
+
+</section>
+
+
+<section id="material">
+
+<h2>4. Material-Derivative Form</h2>
+
+<p>
+Continuity equation의 물리적 의미를 더 직접적으로 보기 위해
+Divergence term을 Product rule로 전개한다.
+</p>
+
+<div class="equation-box">
+
+$$
+\nabla\cdot(\rho\mathbf{u})
+=
+\mathbf{u}\cdot\nabla\rho
++
+\rho\nabla\cdot\mathbf{u}
+$$
+
+</div>
+
+<p>
+따라서
+</p>
+
+<div class="equation-box">
+
+$$
+\frac{\partial\rho}{\partial t}
++
+\mathbf{u}\cdot\nabla\rho
++
+\rho\nabla\cdot\mathbf{u}
+=0
+$$
+
+</div>
+
+<p>
+앞의 두 항은 Density의 Material derivative이다.
+</p>
+
+<div class="equation-box">
+
+$$
+\frac{D\rho}{Dt}
+=
+\frac{\partial\rho}{\partial t}
++
+\mathbf{u}\cdot\nabla\rho
+$$
+
+</div>
+
+<p>
+따라서 Continuity equation은
+</p>
+
+<div class="equation-box">
+
+$$
+\boxed{
+\frac{D\rho}{Dt}
+=
+-\rho\nabla\cdot\mathbf{u}
+}
+$$
+
+</div>
+
+<p>
+로 쓸 수 있다.
+</p>
+
+<p>
+이 형태는 질량보존을
+<strong>하나의 유체입자를 따라가며 관찰한 형태</strong>라고 볼 수 있다.
+</p>
+
+</section>
+
+
+<section id="incompressible">
+
+<h2>5. Incompressible Flow</h2>
+
+<p>
+Incompressible flow에서는 이동하는 유체입자의 Density가 변하지 않는다.
+</p>
+
+<div class="equation-box">
+
+$$
+\frac{D\rho}{Dt}=0
+$$
+
+</div>
+
+<p>
+이를 Material-derivative form의 Continuity equation에 대입하면
+</p>
+
+<div class="equation-box">
+
+$$
+0
+=
+-\rho\nabla\cdot\mathbf{u}
+$$
+
+</div>
+
+<p>
+Density가 0이 아니므로
+</p>
+
+<div class="equation-box">
+
+$$
+\boxed{
+\nabla\cdot\mathbf{u}=0
+}
+$$
+
+</div>
+
+<p>
+이 된다.
+</p>
+
+<div class="note">
+
+<strong>주의</strong><br><br>
+
+Steady flow와 Incompressible flow는 서로 다른 조건이다.
+
+<br><br>
+
+Steady flow:
+
+$$
+\frac{\partial}{\partial t}=0
+$$
+
+Incompressible flow:
+
+$$
+\frac{D\rho}{Dt}=0
+$$
+
+따라서 Steady하다고 해서 반드시 Incompressible인 것은 아니다.
+
+</div>
+
+</section>
+
+
+<section id="interpretation">
+
+<h2>6. Physical Interpretation</h2>
+
+<p>
+Material-derivative form을 다시 보면
+</p>
+
+<div class="equation-box">
+
+$$
+\frac{D\rho}{Dt}
+=
+-\rho\nabla\cdot\mathbf{u}
+$$
+
+</div>
+
+<p>
+Velocity divergence인
+$\nabla\cdot\mathbf{u}$는 유체요소가 국부적으로
+팽창하거나 수축하는 정도를 나타낸다.
+</p>
+
+<h3>Expansion</h3>
+
+<p>
+만약
+</p>
+
+$$
+\nabla\cdot\mathbf{u}>0
+$$
+
+<p>
+이면 유체요소가 팽창하고 있다는 뜻이다.
+따라서
+</p>
+
+$$
+\frac{D\rho}{Dt}<0
+$$
+
+<p>
+가 되어 Density가 감소한다.
+</p>
+
+<h3>Compression</h3>
+
+<p>
+반대로
+</p>
+
+$$
+\nabla\cdot\mathbf{u}<0
+$$
+
+<p>
+이면 유체요소가 압축되고 있으므로
+</p>
+
+$$
+\frac{D\rho}{Dt}>0
+$$
+
+<p>
+가 되어 Density가 증가한다.
+</p>
+
+<p>
+따라서 Continuity equation은 단순히
+“들어온 질량과 나간 질량이 같다”라는 문장을 넘어,
+<strong>Velocity field의 팽창과 Density 변화가 서로 어떻게 연결되는지</strong>
+보여주는 식이라고 볼 수 있다.
+</p>
+
+</section>
+
+
+<section id="summary">
+
+<h2>7. Summary</h2>
+
+<p>
+질량보존법칙으로부터 출발하여 다음 형태들을 얻을 수 있다.
+</p>
+
+<h3>Integral Form</h3>
+
+<div class="equation-box">
+
+$$
+\frac{\partial}{\partial t}
+\int_{CV}\rho\,dV
++
+\oint_{CS}
+\rho\mathbf{u}\cdot\mathbf{n}\,dA
+=0
+$$
+
+</div>
+
+
+<h3>Differential Conservative Form</h3>
+
+<div class="equation-box">
+
+$$
+\frac{\partial\rho}{\partial t}
++
+\nabla\cdot(\rho\mathbf{u})
+=0
+$$
+
+</div>
+
+
+<h3>Material-Derivative Form</h3>
+
+<div class="equation-box">
+
+$$
+\frac{D\rho}{Dt}
+=
+-\rho\nabla\cdot\mathbf{u}
+$$
+
+</div>
+
+
+<h3>Incompressible Form</h3>
+
+<div class="equation-box">
+
+$$
+\nabla\cdot\mathbf{u}=0
+$$
+
+</div>
+
+</section>
+
+
+<footer>
+
+<a href="/study/aerodynamics/fundamentals/">
+    ← Back to Fundamentals
+</a>
+
+</footer>
+
+
+</body>
+
+</html>
