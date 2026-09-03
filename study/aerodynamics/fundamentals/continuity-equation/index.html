@@ -1,3 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Continuity Equation | Isp99</title>
+
+    <!-- MathJax: LaTeX 수식 표시 -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: auto;
+            padding: 30px;
+            line-height: 1.8;
+            color: #222;
+        }
+
+        nav {
+            margin-bottom: 55px;
+        }
+
+        nav a {
+            margin-right: 25px;
+            text-decoration: none;
+            color: #222;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            margin-top: 60px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        h3 {
+            margin-top: 40px;
+        }
+
+        p {
+            margin: 16px 0;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+
+        .contents {
+            background: #fafafa;
+            padding: 20px 30px;
+            margin: 35px 0 50px 0;
+            border: 1px solid #eee;
+        }
+
+        .contents li {
+            margin: 7px 0;
+        }
+
+        .contents a {
+            color: #222;
+            text-decoration: none;
+        }
+
+        .contents a:hover {
+            text-decoration: underline;
+        }
+
+        .equation-box {
+            margin: 28px 0;
+            padding: 18px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            overflow-x: auto;
+            text-align: center;
+        }
+
+        .note {
+            background: #f6f6f6;
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 4px solid #888;
+        }
+
+        footer {
+            margin-top: 80px;
+            padding-top: 25px;
+            border-top: 1px solid #ddd;
+        }
+
+        footer a {
+            color: #222;
+        }
+
+    </style>
+</head>
+
+
 <body>
 
 <nav>
@@ -37,14 +161,14 @@
 
 <p>
 Continuity equation은 유체역학에서
-<strong>질량보존법칙(Conservation of Mass)</strong>을 나타내는 지배방정식이다.
-유체가 이동하고 압축되거나 팽창하더라도 질량 자체가 새롭게 생성되거나
-사라지는 것은 아니므로, 어떤 유체 System의 전체 질량은 일정하게 유지된다.
+<strong>질량보존법칙(Conservation of Mass)</strong>을 나타내는
+가장 기본적인 Governing equation 중 하나이다.
 </p>
 
 <p>
-따라서 하나의 동일한 유체입자 집합을 계속 따라간다고 생각하면,
-그 System에 포함된 전체 질량의 시간변화율은 항상 0이다.
+유체가 이동하거나 압축되고 팽창하더라도 질량 자체가 새롭게 생성되거나
+소멸하는 것은 아니다. 따라서 동일한 유체입자들의 집합인
+System을 계속 따라간다면 그 System에 포함된 전체 질량은 일정하게 유지된다.
 </p>
 
 <div class="equation-box">
@@ -56,21 +180,24 @@ $$
 </div>
 
 <p>
-이 식 자체는 매우 단순하지만 실제 유동 문제에서는 개별 유체입자를
-모두 추적하기 어렵다. 예를 들어 Nozzle, Pipe, Airfoil 주변 유동을 생각하면
-관심 있는 것은 특정 유체입자 하나의 움직임보다는
-<strong>특정 공간을 통과하는 유체의 거동</strong>이다.
+이 식은 질량보존법칙을 가장 직접적으로 나타낸다.
+그러나 실제 유체역학 문제에서 특정 유체입자들을 처음부터 끝까지
+추적하는 것은 일반적으로 불편하다.
 </p>
 
 <p>
-따라서 유체역학에서는 움직이는 System 대신 공간에 설정된
-<strong>Control volume</strong>을 사용하여 질량보존법칙을 표현한다.
-Continuity equation은 바로 이 질량보존법칙을
-Control-volume 관점 또는 공간의 각 점에서 사용할 수 있도록 나타낸 식이다.
+예를 들어 Pipe 내부 유동, Nozzle 유동 또는 Airfoil 주변 유동을 분석할 때는
+특정한 유체입자가 어디로 이동하는지를 추적하기보다,
+<strong>우리가 관심 있는 공간영역으로 얼마나 많은 유체가 들어오고
+나가는지</strong>를 분석하는 것이 더 유용하다.
+</p>
+
+<p>
+이 때문에 유체역학에서는 System 대신 공간상에 고정된
+<strong>Control volume</strong>을 이용하여 보존법칙을 표현한다.
 </p>
 
 </section>
-
 
 
 <section id="control-volume">
@@ -78,59 +205,66 @@ Control-volume 관점 또는 공간의 각 점에서 사용할 수 있도록 나
 <h2>2. System and Control Volume</h2>
 
 <p>
-System은 동일한 유체입자들의 집합을 의미한다.
-시간이 지나면서 System의 모양과 위치는 변할 수 있지만,
-System을 구성하는 유체입자 자체는 변하지 않는다.
+System은 시간에 따라 계속 동일한 유체입자들로 구성되는 물질영역이다.
+System의 위치와 형태는 유동에 따라 변화할 수 있지만,
+System을 구성하는 질량 자체는 변하지 않는다.
 </p>
 
 <p>
-반면 Control volume은 우리가 관심 있는 공간영역을 지정한 것이다.
+반면 Control volume은 분석자가 공간상에 임의로 설정한 영역이다.
 Control volume의 경계를 <strong>Control surface</strong>라고 하며,
-유체는 이 경계를 통해 들어오거나 밖으로 나갈 수 있다.
+유체는 Control surface를 통과하여 Control volume 안으로 들어오거나
+밖으로 나갈 수 있다.
 </p>
 
 <p>
-System에서는 질량이 항상 일정하지만 Control volume 내부의 질량은
-시간에 따라 변할 수 있다. 예를 들어 Control volume으로 들어오는 질량유량이
-나가는 질량유량보다 크다면 내부에 질량이 축적된다.
+따라서 System의 전체 질량은 항상 일정하지만,
+Control volume 내부에 존재하는 질량은 시간에 따라 변할 수 있다.
+</p>
+
+<p>
+예를 들어 Control volume으로 들어오는 질량유량이 나가는 질량유량보다
+크다면 내부에 질량이 축적된다. 반대로 나가는 질량유량이 더 크다면
+Control volume 내부의 질량은 감소한다.
 </p>
 
 <div class="note">
 
-<strong>Control-volume 관점의 질량보존</strong><br><br>
+<strong>Control-volume 관점의 질량보존</strong>
+
+<br><br>
 
 Control volume 내부의 질량 축적률
 
-<br>
+<br><br>
 
 +
 
-<br>
+<br><br>
 
 Control surface를 통한 Net outward mass flow rate
 
-<br>
+<br><br>
 
 =
 
-<br>
+<br><br>
 
 0
 
 </div>
 
 <p>
-즉 내부 질량이 증가한다면 그만큼 순유입이 존재해야 하고,
-반대로 내부 질량이 감소한다면 그만큼 순유출이 존재해야 한다.
+즉 Control volume 내부의 질량 변화와 경계를 통과하는 질량유량은
+서로 독립적인 현상이 아니라 질량보존법칙에 의해 직접 연결된다.
 </p>
 
 <p>
-System에 적용된 보존법칙을 Control-volume 형태로 변환하기 위해
+System에 적용된 질량보존법칙을 Control-volume 형태로 변환하기 위해
 <strong>Reynolds Transport Theorem</strong>을 사용한다.
 </p>
 
 </section>
-
 
 
 <section id="integral">
@@ -138,16 +272,21 @@ System에 적용된 보존법칙을 Control-volume 형태로 변환하기 위해
 <h2>3. Integral Continuity Equation</h2>
 
 <p>
-Reynolds Transport Theorem에서 Extensive property를 \(B\),
-단위질량당 Intensive property를 \(b\)라고 하면,
-질량보존의 경우에는
+Reynolds Transport Theorem에서 전체 Extensive property를 \(B\),
+단위질량당 Intensive property를 \(b\)라고 하자.
+</p>
+
+<p>
+질량보존을 적용하는 경우 전체 Property는 질량 자체이므로
 </p>
 
 <div class="equation-box">
 
 $$
-B=m,
-\qquad
+B=m
+$$
+
+$$
 b=1
 $$
 
@@ -158,34 +297,47 @@ $$
 </p>
 
 <p>
-여기서 \(b=1\)인 이유는 질량을 단위질량당 나타내면
-단순히 \(1\)이기 때문이다.
-따라서 일반적인 Reynolds Transport Theorem에 \(b=1\)을 대입하면
-질량에 대한 보존식이 얻어진다.
+여기서 \(b=1\)인 이유는 질량을 단위질량당 표현하면
+그 값이 단순히 1이기 때문이다.
+</p>
+
+<p>
+질량보존법칙
 </p>
 
 <div class="equation-box">
 
 $$
+\frac{d m_{\mathrm{system}}}{dt}=0
+$$
+
+</div>
+
+<p>
+에 Reynolds Transport Theorem을 적용하면 다음 식을 얻는다.
+</p>
+
+<div class="equation-box">
+
+$$
+\boxed{
 \frac{\partial}{\partial t}
 \int_{CV}\rho\,dV
 +
 \oint_{CS}
-\rho
-(\mathbf{u}\cdot\mathbf{n})
-\,dA
+\rho(\mathbf{u}\cdot\mathbf{n})\,dA
 =0
+}
 $$
 
 </div>
 
 <p>
 이 식을 <strong>Integral Continuity Equation</strong>이라고 한다.
-이제 각각의 항이 무엇을 의미하는지 살펴보자.
 </p>
 
 
-<h3>3.1 Mass Stored inside the Control Volume</h3>
+<h3>3.1 Mass Accumulation</h3>
 
 <div class="equation-box">
 
@@ -197,9 +349,24 @@ $$
 </div>
 
 <p>
-Density \(\rho\)는 단위체적당 질량이므로
-\(\rho\,dV\)는 작은 체적요소 \(dV\) 안에 존재하는 질량을 의미한다.
-이를 Control volume 전체에 적분하면
+Density \(\rho\)는 단위체적당 질량이다.
+따라서 작은 체적요소 \(dV\)에 대해
+</p>
+
+<div class="equation-box">
+
+$$
+\rho\,dV
+$$
+
+</div>
+
+<p>
+는 해당 체적요소 내부에 존재하는 질량을 의미한다.
+</p>
+
+<p>
+이를 Control volume 전체에 대해 적분하면
 </p>
 
 <div class="equation-box">
@@ -211,22 +378,42 @@ $$
 </div>
 
 <p>
-가 되어 Control volume 내부의 전체 질량을 얻는다.
-따라서 이를 시간에 대해 미분한 첫 번째 항은
-<strong>Control volume 내부 질량의 축적률</strong>이다.
+가 되어 Control volume 내부에 존재하는 전체 질량을 얻는다.
 </p>
 
 <p>
-이 값이 양수이면 Control volume 내부의 질량이 증가하고 있으며,
-음수이면 내부 질량이 감소하고 있다는 뜻이다.
+따라서 이를 시간에 대해 미분한
+</p>
+
+<div class="equation-box">
+
+$$
+\frac{\partial}{\partial t}
+\int_{CV}\rho\,dV
+$$
+
+</div>
+
+<p>
+는 <strong>Control volume 내부의 질량 축적률</strong>이다.
+</p>
+
+<p>
+이 항이 양수이면 내부 질량이 증가하고 있으며,
+음수이면 내부 질량이 감소하고 있음을 의미한다.
 </p>
 
 
 <h3>3.2 Mass Flux through the Control Surface</h3>
 
 <p>
-Control surface의 작은 면적요소 \(dA\)를 생각하자.
-이 면의 바깥쪽을 향하는 Unit normal vector를 \(\mathbf{n}\)이라 하면
+Control surface 위의 작은 면적요소 \(dA\)를 생각하자.
+이 Surface에서 바깥쪽을 향하는 Unit normal vector를
+\(\mathbf{n}\)이라고 한다.
+</p>
+
+<p>
+Velocity vector \(\mathbf{u}\)와 Normal vector의 Dot product
 </p>
 
 <div class="equation-box">
@@ -238,61 +425,78 @@ $$
 </div>
 
 <p>
-은 Velocity의 Surface-normal component이다.
+는 Velocity의 Surface-normal component를 나타낸다.
+</p>
+
+<p>
 따라서
 </p>
 
 <div class="equation-box">
 
 $$
-(\mathbf{u}\cdot\mathbf{n})\,dA
+(\mathbf{u}\cdot\mathbf{n})dA
 $$
 
 </div>
 
 <p>
-는 해당 면적을 통과하는 체적유량을 나타낸다.
-여기에 Density를 곱하면
+는 작은 면적 \(dA\)를 통해 단위시간당 통과하는 Volume,
+즉 체적유량을 의미한다.
+</p>
+
+<p>
+하지만 Continuity equation에서 필요한 것은 체적유량이 아니라
+<strong>질량유량</strong>이다.
+</p>
+
+<p>
+따라서 여기에 Density를 곱한다.
 </p>
 
 <div class="equation-box">
 
 $$
-\rho
-(\mathbf{u}\cdot\mathbf{n})
-\,dA
+\rho(\mathbf{u}\cdot\mathbf{n})dA
 $$
 
 </div>
 
 <p>
-가 되어 해당 면적을 통과하는 <strong>질량유량</strong>이 된다.
-</p>
-
-<p>
-왜 \(\rho\)를 곱하는지가 중요하다.
-\((\mathbf{u}\cdot\mathbf{n})dA\)만으로는
-단위가 \(\mathrm{m^3/s}\)인 체적유량일 뿐이다.
-Density \(\rho\,[\mathrm{kg/m^3}]\)를 곱해야
+단위를 확인하면
 </p>
 
 <div class="equation-box">
 
 $$
+\left[
 \frac{\mathrm{kg}}{\mathrm{m^3}}
-\frac{\mathrm{m^3}}{\mathrm{s}}
+\right]
+\left[
+\frac{\mathrm{m}}{\mathrm{s}}
+\right]
+\left[
+\mathrm{m^2}
+\right]
 =
+\left[
 \frac{\mathrm{kg}}{\mathrm{s}}
+\right]
 $$
 
 </div>
 
 <p>
-가 되어 실제 질량유량이 된다.
+가 되어 실제 질량유량의 단위가 얻어진다.
 </p>
 
 <p>
-이를 전체 Control surface에서 적분한
+즉 Density \(\rho\)를 곱하는 이유는
+<strong>체적유량을 질량유량으로 변환하기 위해서</strong>이다.
+</p>
+
+<p>
+이를 Control surface 전체에 적분하면
 </p>
 
 <div class="equation-box">
@@ -305,12 +509,17 @@ $$
 </div>
 
 <p>
-는 Control surface 전체를 통한
-<strong>Net outward mass flow rate</strong>이다.
+가 되고, 이 항은 Control surface 전체를 통한
+<strong>Net outward mass flow rate</strong>를 나타낸다.
 </p>
 
 <p>
-Normal vector는 항상 바깥쪽을 향하도록 정의하므로
+Normal vector \(\mathbf{n}\)은 항상 Control volume 바깥쪽을
+향하도록 정의된다.
+</p>
+
+<p>
+따라서
 </p>
 
 <div class="equation-box">
@@ -322,7 +531,11 @@ $$
 </div>
 
 <p>
-이면 유체가 Control volume 밖으로 나가는 <strong>Outflow</strong>이고,
+이면 Velocity가 바깥쪽을 향하므로 <strong>Outflow</strong>이다.
+</p>
+
+<p>
+반대로
 </p>
 
 <div class="equation-box">
@@ -334,13 +547,16 @@ $$
 </div>
 
 <p>
-이면 Control volume 안으로 들어오는 <strong>Inflow</strong>이다.
-따라서 하나의 Surface integral만으로 모든 Inlet과 Outlet을 동시에
-처리할 수 있다.
+이면 유체가 Control volume 내부로 들어오므로
+<strong>Inflow</strong>이다.
+</p>
+
+<p>
+이러한 부호 정의 덕분에 하나의 Surface integral을 이용하여
+모든 Inlet과 Outlet의 질량유량을 동시에 계산할 수 있다.
 </p>
 
 </section>
-
 
 
 <section id="differential">
@@ -348,21 +564,23 @@ $$
 <h2>4. Differential Continuity Equation</h2>
 
 <p>
-Integral continuity equation은 하나의 유한한 Control volume 전체에 대한
-질량보존을 표현한다.
+Integral continuity equation은 하나의 유한한 Control volume
+전체에 대해 질량이 어떻게 보존되는지를 나타낸다.
 </p>
 
 <p>
-하지만 Navier–Stokes equation과 같은 지배방정식을 만들거나
-CFD에서 공간 전체의 유동장을 계산하려면
-Control volume 전체가 아니라
-<strong>공간의 각 점에서 질량보존이 어떻게 성립하는지</strong>를
-나타내는 Differential form이 필요하다.
+그러나 실제 유동장을 계산하거나 Navier–Stokes equation과 같은
+Governing equation을 구성하려면 공간의 각 점에서 성립하는
+질량보존식을 표현할 필요가 있다.
 </p>
 
 <p>
-이를 위해 Surface integral을 Volume integral로 변환한다.
-Gauss Divergence Theorem을 적용하면
+이를 위해 Integral form을 Differential form으로 변환한다.
+</p>
+
+<p>
+먼저 Control surface에 대한 Surface integral에
+<strong>Gauss Divergence Theorem</strong>을 적용한다.
 </p>
 
 <div class="equation-box">
@@ -378,11 +596,24 @@ $$
 </div>
 
 <p>
-가 된다.
+이 관계를 이용하면 Control surface를 통과하는 Mass flux를
+Control volume 내부의 Volume integral로 표현할 수 있다.
 </p>
 
 <p>
-여기서 \(\rho\mathbf{u}\)는 Mass-flux vector이고,
+여기서
+</p>
+
+<div class="equation-box">
+
+$$
+\rho\mathbf{u}
+$$
+
+</div>
+
+<p>
+는 Mass-flux vector이고,
 </p>
 
 <div class="equation-box">
@@ -394,12 +625,12 @@ $$
 </div>
 
 <p>
-는 한 점 주변에서 질량유량이 얼마나 퍼져나가거나
-모여드는지를 나타내는 양으로 볼 수 있다.
+는 한 점 주변에서 Mass flux가 얼마나 퍼져나가거나
+모여드는지를 나타낸다.
 </p>
 
 <p>
-고정된 Control volume에서는 Storage term도 다음처럼 쓸 수 있다.
+고정된 Control volume에서는 Storage term도
 </p>
 
 <div class="equation-box">
@@ -415,7 +646,28 @@ $$
 </div>
 
 <p>
-두 관계를 Integral continuity equation에 대입하면
+로 쓸 수 있다.
+</p>
+
+<p>
+두 식을 Integral continuity equation에 대입하면
+</p>
+
+<div class="equation-box">
+
+$$
+\int_{CV}
+\frac{\partial\rho}{\partial t}\,dV
++
+\int_{CV}
+\nabla\cdot(\rho\mathbf{u})\,dV
+=0
+$$
+
+</div>
+
+<p>
+이고, 하나의 Volume integral로 묶으면
 </p>
 
 <div class="equation-box">
@@ -426,8 +678,7 @@ $$
 \frac{\partial\rho}{\partial t}
 +
 \nabla\cdot(\rho\mathbf{u})
-\right]
-dV
+\right]dV
 =0
 $$
 
@@ -438,13 +689,13 @@ $$
 </p>
 
 <p>
-여기서 중요한 점은 Control volume을 특정한 하나의 영역으로만
-선택한 것이 아니라 <strong>임의의 Control volume</strong>으로 선택할 수 있다는 것이다.
+여기서 Control volume은 특정한 하나의 영역만을 의미하는 것이 아니라
+임의의 위치와 크기로 선택할 수 있다.
 </p>
 
 <p>
-어떤 크기와 위치의 Control volume을 선택하더라도 위 적분이 항상 0이어야 하므로,
-그 안의 Integrand 자체가 각 점에서 0이어야 한다.
+어떠한 Control volume을 선택하더라도 위 적분값이 항상 0이어야 하므로,
+Integrand 자체가 각 점에서 0이어야 한다.
 </p>
 
 <div class="equation-box">
@@ -462,7 +713,10 @@ $$
 
 <p>
 이 식이 <strong>Differential Continuity Equation</strong>이다.
-또한 질량의 Flux가 Divergence 형태로 그대로 표현되어 있기 때문에
+</p>
+
+<p>
+또한 Mass flux가 Divergence 형태로 직접 표현되어 있기 때문에
 <strong>Conservative form</strong>이라고도 부른다.
 </p>
 
@@ -479,7 +733,11 @@ $$
 </div>
 
 <p>
-은 고정된 공간점에서 Density가 시간에 따라 변하는 정도를 나타내고,
+은 고정된 공간점에서 Density가 시간에 따라 변화하는
+<strong>Local change</strong>를 나타낸다.
+</p>
+
+<p>
 두 번째 항
 </p>
 
@@ -492,11 +750,11 @@ $$
 </div>
 
 <p>
-은 그 점 주변에서 Mass flux가 공간적으로 어떻게 유입되고 유출되는지를 나타낸다.
+은 주변 공간으로부터 들어오고 나가는 Mass flux의
+공간적 변화를 나타낸다.
 </p>
 
 </section>
-
 
 
 <section id="material">
@@ -504,13 +762,17 @@ $$
 <h2>5. Material-Derivative Form</h2>
 
 <p>
-Conservative form은 CFD와 보존법칙 표현에 매우 유용하지만,
-질량보존의 물리적 의미를 유체입자의 관점에서 이해하려면
-Material derivative 형태가 더 직관적이다.
+Conservative form은 질량보존법칙을 수학적으로 표현하거나
+CFD에서 Governing equation을 구성할 때 매우 유용하다.
 </p>
 
 <p>
-먼저 Product rule을 이용하여 Mass-flux divergence를 전개한다.
+하지만 하나의 유체입자가 실제로 어떻게 Density 변화를 경험하는지를
+이해하려면 Material derivative 형태가 더 직관적이다.
+</p>
+
+<p>
+먼저 Product rule을 이용하여 Divergence term을 전개하면
 </p>
 
 <div class="equation-box">
@@ -526,7 +788,11 @@ $$
 </div>
 
 <p>
-이를 Continuity equation에 대입하면
+이다.
+</p>
+
+<p>
+이를 Differential continuity equation에 대입하면
 </p>
 
 <div class="equation-box">
@@ -543,26 +809,11 @@ $$
 </div>
 
 <p>
-이 된다.
+을 얻는다.
 </p>
 
 <p>
-여기서 처음 두 항
-</p>
-
-<div class="equation-box">
-
-$$
-\frac{\partial\rho}{\partial t}
-+
-\mathbf{u}\cdot\nabla\rho
-$$
-
-</div>
-
-<p>
-은 Density의 Material derivative이다.
-따라서
+여기서 처음 두 항은 Density의 Material derivative이다.
 </p>
 
 <div class="equation-box">
@@ -578,7 +829,7 @@ $$
 </div>
 
 <p>
-를 이용하면 Continuity equation을
+따라서 Continuity equation은
 </p>
 
 <div class="equation-box">
@@ -594,28 +845,50 @@ $$
 </div>
 
 <p>
-로 쓸 수 있다.
+로 표현된다.
 </p>
 
 <p>
-이 식은 매우 중요한 물리적 의미를 가진다.
-왼쪽의 \(D\rho/Dt\)는 하나의 유체입자를 따라 이동하면서 관찰한
-Density의 시간변화율이다.
+왼쪽의
+</p>
+
+<div class="equation-box">
+
+$$
+\frac{D\rho}{Dt}
+$$
+
+</div>
+
+<p>
+는 하나의 유체입자를 따라 이동하면서 관찰한 Density의
+시간변화율을 의미한다.
 </p>
 
 <p>
-오른쪽의 \(\nabla\cdot\mathbf{u}\)는 그 유체입자를 둘러싼
-Velocity field가 국부적으로 팽창하는지 또는 수축하는지를 나타낸다.
+오른쪽의
+</p>
+
+<div class="equation-box">
+
+$$
+\nabla\cdot\mathbf{u}
+$$
+
+</div>
+
+<p>
+는 그 유체입자 주변의 Velocity field가 국부적으로
+팽창하는지 또는 수축하는지를 나타낸다.
 </p>
 
 <p>
-즉 Continuity equation은
-<strong>유체요소의 Volume 변화와 Density 변화가 질량보존에 의해 서로 연결되어 있다</strong>는
-것을 보여준다.
+즉 이 형태의 Continuity equation은
+<strong>유체요소의 Volume 변화와 Density 변화가
+질량보존에 의해 직접 연결되어 있음</strong>을 보여준다.
 </p>
 
 </section>
-
 
 
 <section id="incompressible">
@@ -624,7 +897,7 @@ Velocity field가 국부적으로 팽창하는지 또는 수축하는지를 나�
 
 <p>
 Incompressible flow는 이동하는 하나의 유체입자를 따라갔을 때
-그 입자의 Density가 변하지 않는 유동을 의미한다.
+그 유체입자의 Density가 변하지 않는 유동을 의미한다.
 </p>
 
 <div class="equation-box">
@@ -663,7 +936,10 @@ $$
 
 <p>
 가 된다.
-Density는 0이 아니므로 결국
+</p>
+
+<p>
+Density는 0이 아니므로
 </p>
 
 <div class="equation-box">
@@ -682,11 +958,11 @@ $$
 
 <p>
 따라서 Incompressible flow에서는 Velocity field가
-<strong>divergence-free</strong> 조건을 만족해야 한다.
+<strong>Divergence-free</strong> 조건을 만족해야 한다.
 </p>
 
 <p>
-Cartesian coordinates에서 이를 직접 전개하면
+Cartesian coordinate에서 이를 전개하면
 </p>
 
 <div class="equation-box">
@@ -708,29 +984,29 @@ $$
 
 <div class="note">
 
-<strong>Steady flow와 Incompressible flow는 같은 조건이 아니다.</strong>
+<strong>Steady flow와 Incompressible flow는 서로 다른 조건이다.</strong>
 
 <br><br>
 
-Steady flow는 고정된 공간점에서 물리량이 시간에 따라 변하지 않는다는 조건이다.
+Steady flow에서는 고정된 공간점에서 물리량이 시간에 따라 변하지 않는다.
 
 $$
 \frac{\partial}{\partial t}=0
 $$
 
-반면 Incompressible flow는 이동하는 유체입자의 Density가 변하지 않는다는 조건이다.
+반면 Incompressible flow에서는 이동하는 유체입자의 Density가
+시간에 따라 변하지 않는다.
 
 $$
 \frac{D\rho}{Dt}=0
 $$
 
 따라서 Steady flow라고 해서 반드시 Incompressible flow인 것은 아니며,
-반대로 Incompressible flow라고 해서 반드시 Steady flow인 것도 아니다.
+Incompressible flow라고 해서 반드시 Steady flow인 것도 아니다.
 
 </div>
 
 </section>
-
 
 
 <section id="interpretation">
@@ -738,7 +1014,7 @@ $$
 <h2>7. Physical Interpretation</h2>
 
 <p>
-Continuity equation의 Material-derivative form
+Continuity equation의 Material-derivative form을 다시 보면
 </p>
 
 <div class="equation-box">
@@ -752,15 +1028,15 @@ $$
 </div>
 
 <p>
-을 보면 Density 변화와 Velocity field의 팽창 또는 수축이
-직접적으로 연결되어 있음을 알 수 있다.
+Density 변화와 Velocity field의 팽창 또는 수축 사이의 관계를
+직접 확인할 수 있다.
 </p>
 
 
 <h3>7.1 Expansion</h3>
 
 <p>
-만약 한 유체요소 주변의 Velocity field가 바깥쪽으로 퍼져나간다면
+만약 유체요소 주변의 Velocity field가 바깥쪽으로 퍼져나간다면
 </p>
 
 <div class="equation-box">
@@ -773,7 +1049,10 @@ $$
 
 <p>
 이다.
-따라서
+</p>
+
+<p>
+Continuity equation에 의해
 </p>
 
 <div class="equation-box">
@@ -785,19 +1064,19 @@ $$
 </div>
 
 <p>
-가 되어 유체입자의 Density가 감소한다.
+가 되므로 유체입자의 Density는 감소한다.
 </p>
 
 <p>
-이는 동일한 질량을 가진 유체요소가 더 큰 Volume을 차지하게 되면
-Density가 감소해야 한다는 직관적인 결과와 일치한다.
+이는 동일한 질량을 가진 유체요소의 Volume이 증가하면
+단위체적당 질량인 Density가 감소해야 한다는 직관적인 결과와 일치한다.
 </p>
 
 
 <h3>7.2 Compression</h3>
 
 <p>
-반대로 주변 Velocity field가 한 점을 향해 수축하면
+반대로 주변 Velocity field가 안쪽으로 수축하고 있다면
 </p>
 
 <div class="equation-box">
@@ -809,7 +1088,11 @@ $$
 </div>
 
 <p>
-이고, 따라서
+이다.
+</p>
+
+<p>
+따라서
 </p>
 
 <div class="equation-box">
@@ -825,35 +1108,44 @@ $$
 </p>
 
 <p>
-즉 유체요소의 질량은 그대로인데 Volume이 감소하므로
-단위체적당 질량인 Density가 증가하는 것이다.
+즉 동일한 질량을 가진 유체요소가 더 작은 Volume으로 압축되므로
+단위체적당 질량이 증가하는 것이다.
 </p>
 
 
-<h3>7.3 What the Continuity Equation Actually Describes</h3>
+<h3>7.3 Meaning of the Continuity Equation</h3>
 
 <p>
-Continuity equation을 단순히
-“들어오는 질량과 나가는 질량이 같다”라고 기억할 수도 있지만,
-실제로는 그보다 더 일반적인 내용을 담고 있다.
+Continuity equation은 흔히
+“들어오는 질량과 나가는 질량이 같다”라는 표현으로 설명된다.
 </p>
 
 <p>
-Integral form에서는 Control volume 전체의
+그러나 이 설명은 Steady한 Control volume 문제에 대해서는 직관적이지만
+Continuity equation의 전체 의미를 모두 포함하지는 않는다.
+</p>
+
+<p>
+일반적인 Unsteady flow에서는 Control volume 내부에 질량이 축적될 수도 있으므로
+Inflow와 Outflow가 순간적으로 동일할 필요는 없다.
+그 차이가 바로 Control volume 내부의 질량 변화로 나타난다.
+</p>
+
+<p>
+따라서 Integral form에서는
 <strong>Mass accumulation과 Mass flux 사이의 관계</strong>를 나타내고,
-Differential form에서는 공간의 각 점에서
-<strong>Density 변화와 Mass-flux divergence 사이의 관계</strong>를 나타낸다.
+Differential form에서는
+<strong>공간의 각 점에서 Density 변화와 Mass-flux divergence의 관계</strong>를 나타낸다.
 </p>
 
 <p>
-또한 Material-derivative form에서는 하나의 유체입자를 따라가면서
-<strong>유체요소의 팽창 또는 압축이 Density 변화와 어떻게 연결되는지</strong>를 보여준다.
+Material-derivative form에서는 다시 하나의 유체입자를 따라가며
+<strong>유체요소의 팽창 및 압축과 Density 변화의 관계</strong>를 설명할 수 있다.
 </p>
 
 <p>
-따라서 Continuity equation은 이후 Momentum equation,
-Energy equation과 함께 유동장을 결정하는 가장 기본적인
-Governing equation 중 하나가 된다.
+이러한 질량보존식은 이후 Momentum equation 및 Energy equation과 함께
+유체유동을 기술하는 기본적인 Governing equation을 구성한다.
 </p>
 
 </section>
@@ -867,4 +1159,7 @@ Governing equation 중 하나가 된다.
 
 </footer>
 
+
 </body>
+
+</html>
