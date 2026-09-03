@@ -37,12 +37,6 @@
             margin-bottom: 5px;
         }
 
-        h2 {
-            margin-top: 55px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
         p {
             margin: 16px 0;
         }
@@ -53,21 +47,51 @@
             margin-bottom: 45px;
         }
 
-        ul {
-            padding-left: 22px;
+        .intro {
+            margin-bottom: 55px;
         }
 
-        li {
-            margin: 10px 0;
+        .chapter-list {
+            margin-top: 40px;
         }
 
-        li a {
+        .chapter {
+            margin-bottom: 50px;
+        }
+
+        .chapter-title {
+            font-size: 27px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .chapter-items {
+            list-style: none;
+            padding-left: 28px;
+            margin: 0;
+        }
+
+        .chapter-items li {
+            margin: 13px 0;
+            font-size: 18px;
+        }
+
+        .chapter-items a {
             color: #222;
             text-decoration: none;
         }
 
-        li a:hover {
+        .chapter-items a:hover {
             text-decoration: underline;
+        }
+
+        .section-number {
+            display: inline-block;
+            min-width: 42px;
+            font-weight: 700;
+            color: #666;
         }
 
         footer {
@@ -79,7 +103,6 @@
         footer a {
             color: #222;
         }
-
     </style>
 </head>
 
@@ -100,73 +123,114 @@
 </p>
 
 
-<p>
-This section covers the mathematical foundations and fundamental
-conservation laws used to describe fluid flow and aerodynamic phenomena.
-</p>
+<div class="intro">
+
+    <p>
+        This section covers the mathematical foundations and fundamental
+        conservation laws used to describe fluid flow and aerodynamic phenomena.
+    </p>
+
+    <p>
+        The topics include the mathematical description of a moving fluid particle,
+        the transformation between system and control-volume formulations,
+        and the conservation equations for mass, momentum, and energy.
+    </p>
+
+</div>
 
 
-<h2>Mathematical Foundation</h2>
-
-<ul>
-
-    <li>
-        <a href="material-derivative/">
-            Material Derivative
-        </a>
-    </li>
-
-    <li>
-        <a href="reynolds-transport-theorem/">
-            Reynolds Transport Theorem
-        </a>
-    </li>
-
-</ul>
+<div class="chapter-list">
 
 
-<h2>Conservation Laws</h2>
+    <section class="chapter">
 
-<ul>
+        <div class="chapter-title">
+            1. Mathematical Foundation
+        </div>
 
-    <li>
-        <a href="continuity-equation/">
-            Continuity Equation
-        </a>
-    </li>
+        <ul class="chapter-items">
 
-    <li>
-        <a href="momentum-equation/">
-            Conservation of Momentum
-        </a>
-    </li>
+            <li>
+                <a href="material-derivative/">
+                    <span class="section-number">1.1</span>
+                    Material Derivative
+                </a>
+            </li>
 
-    <li>
-        <a href="energy-equation/">
-            Conservation of Energy
-        </a>
-    </li>
+            <li>
+                <a href="reynolds-transport-theorem/">
+                    <span class="section-number">1.2</span>
+                    Reynolds Transport Theorem
+                </a>
+            </li>
 
-</ul>
+        </ul>
+
+    </section>
 
 
-<h2>Related Equations</h2>
+    <section class="chapter">
 
-<ul>
+        <div class="chapter-title">
+            2. Conservation Laws
+        </div>
 
-    <li>
-        <a href="newtonian-stress/">
-            Newtonian Stress Relation
-        </a>
-    </li>
+        <ul class="chapter-items">
 
-    <li>
-        <a href="euler-bernoulli/">
-            Euler and Bernoulli Equations
-        </a>
-    </li>
+            <li>
+                <a href="continuity-equation/">
+                    <span class="section-number">2.1</span>
+                    Continuity Equation
+                </a>
+            </li>
 
-</ul>
+            <li>
+                <a href="momentum-equation/">
+                    <span class="section-number">2.2</span>
+                    Conservation of Momentum
+                </a>
+            </li>
+
+            <li>
+                <a href="energy-equation/">
+                    <span class="section-number">2.3</span>
+                    Conservation of Energy
+                </a>
+            </li>
+
+        </ul>
+
+    </section>
+
+
+    <section class="chapter">
+
+        <div class="chapter-title">
+            3. Related Equations
+        </div>
+
+        <ul class="chapter-items">
+
+            <li>
+                <a href="newtonian-stress/">
+                    <span class="section-number">3.1</span>
+                    Newtonian Stress Relation
+                </a>
+            </li>
+
+            <li>
+                <a href="euler-bernoulli/">
+                    <span class="section-number">3.2</span>
+                    Euler and Bernoulli Equations
+                </a>
+            </li>
+
+        </ul>
+
+    </section>
+
+
+</div>
 
 
 <footer>
