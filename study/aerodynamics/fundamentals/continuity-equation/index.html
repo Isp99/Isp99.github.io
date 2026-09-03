@@ -4,87 +4,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="질량보존법칙과 Continuity equation의 Integral, Differential, Material-derivative form을 설명합니다.">
 
-    <title>Continuity Equation | Isp99</title>
+    <title>1.2 Conservation of Mass | Isp99</title>
 
-    <!-- MathJax: LaTeX 수식 표시 -->
     <script>
-        MathJax = {
+        window.MathJax = {
             tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: {
+                scale: 1.02
             }
         };
     </script>
-
-    <script
-        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 30px;
+        }
 
         body {
-            font-family: Arial, sans-serif;
-            max-width: 900px;
-            margin: auto;
-            padding: 30px;
-            line-height: 1.8;
-            color: #222;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 42px 34px 90px;
+            color: #202124;
+            background: #ffffff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
         }
 
         nav {
-            margin-bottom: 55px;
+            margin-bottom: 72px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e1e1e1;
         }
 
         nav a {
             margin-right: 25px;
-            text-decoration: none;
-            color: #222;
+            color: #333333;
+            font-size: 15px;
             font-weight: bold;
+            text-decoration: none;
         }
 
         nav a:hover {
             text-decoration: underline;
         }
 
+        h1,
+        h2,
+        h3 {
+            color: #161616;
+            line-height: 1.35;
+        }
+
         h1 {
-            font-size: 40px;
-            margin-bottom: 5px;
+            margin: 0 0 12px;
+            font-size: 42px;
+            letter-spacing: -0.04em;
         }
 
         h2 {
-            margin-top: 60px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #ddd;
+            margin: 95px 0 32px;
+            padding-bottom: 13px;
+            border-bottom: 1px solid #d8d8d8;
+            font-size: 29px;
+            letter-spacing: -0.025em;
         }
 
         h3 {
-            margin-top: 40px;
+            margin: 58px 0 26px;
+            font-size: 21px;
+            letter-spacing: -0.015em;
         }
 
         p {
-            margin: 16px 0;
+            margin: 0 0 29px;
+        }
+
+        strong {
+            color: #111111;
         }
 
         .subtitle {
-            color: #666;
+            margin-bottom: 55px;
+            color: #666666;
             font-size: 18px;
-            margin-bottom: 40px;
         }
 
         .contents {
+            margin: 45px 0 80px;
+            padding: 25px 31px;
+            border: 1px solid #dedede;
             background: #fafafa;
-            padding: 20px 30px;
-            margin: 35px 0 50px 0;
-            border: 1px solid #eee;
+        }
+
+        .contents strong {
+            display: block;
+            margin-bottom: 14px;
+        }
+
+        .contents ol {
+            margin: 0;
+            padding-left: 23px;
         }
 
         .contents li {
-            margin: 7px 0;
+            margin: 8px 0;
         }
 
         .contents a {
-            color: #222;
+            color: #333333;
             text-decoration: none;
         }
 
@@ -92,176 +132,224 @@
             text-decoration: underline;
         }
 
-        .equation-box {
-            margin: 28px 0;
-            padding: 18px;
-            border: 1px solid #bbb;
-            border-radius: 6px;
+        section {
+            margin-bottom: 105px;
+        }
+
+        .equation {
+            margin: 39px 0 50px;
+            padding: 24px 22px;
             overflow-x: auto;
+            border: 1px solid #c8c8c8;
+            border-radius: 5px;
+            background: #fdfdfd;
             text-align: center;
         }
 
+        .equation.main {
+            border: 1.5px solid #777777;
+            background: #fafafa;
+        }
+
+        .equation + p {
+            margin-top: 4px;
+        }
+
         .note {
+            margin: 43px 0 50px;
+            padding: 23px 26px;
+            border-left: 4px solid #888888;
             background: #f6f6f6;
-            padding: 20px;
-            margin: 30px 0;
-            border-left: 4px solid #888;
+        }
+
+        .note p:last-child {
+            margin-bottom: 0;
+        }
+
+        .derivation {
+            margin: 36px 0 45px;
+            padding-left: 25px;
+            border-left: 2px solid #e1e1e1;
+        }
+
+        .derivation p {
+            margin-bottom: 24px;
         }
 
         footer {
-            margin-top: 80px;
-            padding-top: 25px;
-            border-top: 1px solid #ddd;
+            margin-top: 95px;
+            padding-top: 28px;
+            border-top: 1px solid #dddddd;
         }
 
         footer a {
-            color: #222;
+            color: #333333;
         }
 
+        mjx-container[display="true"] {
+            margin: 0.8em 0 !important;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 0.2em 0;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 28px 20px 65px;
+                font-size: 16px;
+            }
+
+            nav {
+                margin-bottom: 55px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 0 16px 8px 0;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+
+            h2 {
+                margin-top: 75px;
+                font-size: 25px;
+            }
+
+            .equation {
+                margin: 34px 0 43px;
+                padding: 20px 14px;
+            }
+        }
     </style>
 </head>
 
-
 <body>
 
-<nav>
+<nav aria-label="Main navigation">
     <a href="/">Home</a>
     <a href="/study/aerodynamics/">Aerodynamics</a>
     <a href="/study/aerodynamics/fundamentals/">Fundamentals</a>
 </nav>
 
+<main>
 
-<h1>Continuity Equation</h1>
-
-<p class="subtitle">
-    Conservation of Mass in Fluid Flow
-</p>
-
+<header>
+    <h1>1.2 Conservation of Mass</h1>
+    <p class="subtitle">Integral and Differential Forms of the Continuity Equation</p>
+</header>
 
 <div class="contents">
-
     <strong>Contents</strong>
-
     <ol>
-        <li><a href="#concept">Conservation of Mass</a></li>
-        <li><a href="#control-volume">System and Control Volume</a></li>
+        <li><a href="#conservation">Conservation of Mass</a></li>
+        <li><a href="#system-control-volume">System and Control Volume</a></li>
         <li><a href="#integral">Integral Continuity Equation</a></li>
         <li><a href="#differential">Differential Continuity Equation</a></li>
         <li><a href="#material">Material-Derivative Form</a></li>
-        <li><a href="#incompressible">Incompressible Flow</a></li>
-        <li><a href="#interpretation">Physical Interpretation</a></li>
+        <li><a href="#incompressible">Incompressible Form</a></li>
+        <li><a href="#forms">Relation between the Different Forms</a></li>
     </ol>
-
 </div>
 
 
-<section id="concept">
+<section id="conservation">
 
 <h2>1. Conservation of Mass</h2>
 
 <p>
-Continuity equation은 유체역학에서
-<strong>질량보존법칙(Conservation of Mass)</strong>을 나타내는
-가장 기본적인 Governing equation 중 하나이다.
+질량보존법칙은 유체가 이동하고 변형되더라도 질량 자체는 새롭게 생성되거나
+소멸하지 않는다는 원리이다. 유체역학의 Continuity equation은 이 원리를
+유동장에 적용하여 수학적으로 표현한 Governing equation이다.
 </p>
 
 <p>
-유체가 이동하거나 압축되고 팽창하더라도 질량 자체가 새롭게 생성되거나
-소멸하는 것은 아니다. 따라서 동일한 유체입자들의 집합인
-System을 계속 따라간다면 그 System에 포함된 전체 질량은 일정하게 유지된다.
+동일한 유체입자들의 집합을 System이라 하면, System을 구성하는 입자들은
+시간에 따라 다른 위치로 이동할 수 있지만 그 전체 질량은 일정하다.
 </p>
 
-<div class="equation-box">
-
-$$
-\frac{d m_{\mathrm{system}}}{dt}=0
-$$
-
+<div class="equation main">
+\[
+\frac{\mathrm d m_{\mathrm{system}}}{\mathrm d t}=0
+\tag{1.2.1}
+\]
 </div>
 
 <p>
-이 식은 질량보존법칙을 가장 직접적으로 나타낸다.
-그러나 실제 유체역학 문제에서 특정 유체입자들을 처음부터 끝까지
-추적하는 것은 일반적으로 불편하다.
+식 (1.2.1)은 질량보존법칙을 가장 직접적으로 나타낸다. 그러나 System은
+유체입자들과 함께 이동하고 그 형태도 계속 변하므로, 고정된 공간에서 유동을
+기술하는 Eulerian description에 바로 사용하기에는 불편하다.
 </p>
 
 <p>
-예를 들어 Pipe 내부 유동, Nozzle 유동 또는 Airfoil 주변 유동을 분석할 때는
-특정한 유체입자가 어디로 이동하는지를 추적하기보다,
-<strong>우리가 관심 있는 공간영역으로 얼마나 많은 유체가 들어오고
-나가는지</strong>를 분석하는 것이 더 유용하다.
-</p>
-
-<p>
-이 때문에 유체역학에서는 System 대신 공간상에 고정된
-<strong>Control volume</strong>을 이용하여 보존법칙을 표현한다.
+따라서 유체역학에서는 System의 질량보존법칙을 공간에 설정한
+Control volume에 대한 관계식으로 변환한다. 이 변환을 통해 질량보존은
+Control volume 내부의 질량 변화와 경계를 통과하는 질량유량의 관계로 표현된다.
 </p>
 
 </section>
 
 
-<section id="control-volume">
+<section id="system-control-volume">
 
 <h2>2. System and Control Volume</h2>
 
 <p>
-System은 시간에 따라 계속 동일한 유체입자들로 구성되는 물질영역이다.
-System의 위치와 형태는 유동에 따라 변화할 수 있지만,
-System을 구성하는 질량 자체는 변하지 않는다.
+<strong>System</strong>은 시간에 따라 계속 동일한 유체입자들로 구성되는
+물질영역이다. System의 경계는 유체입자들과 함께 움직이므로 질량이 그 경계를
+통과하지 않는다.
 </p>
 
 <p>
-반면 Control volume은 분석자가 공간상에 임의로 설정한 영역이다.
-Control volume의 경계를 <strong>Control surface</strong>라고 하며,
-유체는 Control surface를 통과하여 Control volume 안으로 들어오거나
-밖으로 나갈 수 있다.
+<strong>Control volume</strong>은 유동을 해석하기 위해 공간상에 설정한 영역이며,
+그 경계를 <strong>Control surface</strong>라고 한다. Control volume은 공간에
+고정할 수 있으므로 유체가 Control surface를 통과하여 들어오거나 나갈 수 있다.
 </p>
 
 <p>
-따라서 System의 전체 질량은 항상 일정하지만,
-Control volume 내부에 존재하는 질량은 시간에 따라 변할 수 있다.
+따라서 System의 전체 질량은 항상 일정하지만, Control volume 내부의 질량은
+유입과 유출에 따라 시간적으로 변할 수 있다. Control volume 내부의 질량은
+Density를 Volume에 대해 적분하여 계산한다.
 </p>
 
-<p>
-예를 들어 Control volume으로 들어오는 질량유량이 나가는 질량유량보다
-크다면 내부에 질량이 축적된다. 반대로 나가는 질량유량이 더 크다면
-Control volume 내부의 질량은 감소한다.
-</p>
-
-<div class="note">
-
-<strong>Control-volume 관점의 질량보존</strong>
-
-<br><br>
-
-Control volume 내부의 질량 축적률
-
-<br><br>
-
-+
-
-<br><br>
-
-Control surface를 통한 Net outward mass flow rate
-
-<br><br>
-
+<div class="equation">
+\[
+m_{CV}
 =
-
-<br><br>
-
-0
-
+\int_{CV}\rho\,\mathrm dV
+\tag{1.2.2}
+\]
 </div>
 
 <p>
-즉 Control volume 내부의 질량 변화와 경계를 통과하는 질량유량은
-서로 독립적인 현상이 아니라 질량보존법칙에 의해 직접 연결된다.
+여기서 Density \(\rho\)는 단위체적당 질량이다. 따라서 미소체적
+\(\mathrm dV\) 안의 질량은 \(\rho\,\mathrm dV\)이며, 이를 Control volume
+전체에서 적분하면 내부의 전체 질량을 얻는다.
 </p>
 
 <p>
-System에 적용된 질량보존법칙을 Control-volume 형태로 변환하기 위해
-<strong>Reynolds Transport Theorem</strong>을 사용한다.
+System에 대한 Conservation law를 Control volume 형태로 바꾸는 일반적인 관계가
+Reynolds Transport Theorem이다. 전체 Extensive property를 \(B\), 단위질량당
+Intensive property를 \(b\)라 하면 고정된 Control volume에 대하여
+</p>
+
+<div class="equation">
+\[
+\frac{\mathrm d B_{\mathrm{system}}}{\mathrm d t}
+=
+\frac{\partial}{\partial t}
+\int_{CV}\rho b\,\mathrm dV
++
+\oint_{CS}\rho b
+(\mathbf u\cdot\mathbf n)\,\mathrm dA
+\tag{1.2.3}
+\]
+</div>
+
+<p>
+로 쓸 수 있다. 첫 번째 항은 Control volume 내부에 저장된 Property의 변화율이고,
+두 번째 항은 Control surface를 통해 외부로 운반되는 Property의 순유출률이다.
 </p>
 
 </section>
@@ -272,288 +360,138 @@ System에 적용된 질량보존법칙을 Control-volume 형태로 변환하기 
 <h2>3. Integral Continuity Equation</h2>
 
 <p>
-Reynolds Transport Theorem에서 전체 Extensive property를 \(B\),
-단위질량당 Intensive property를 \(b\)라고 하자.
+질량보존에서는 Extensive property가 질량 자체이므로 \(B=m\)이다. 단위질량당
+질량은 1이므로 이에 대응하는 Intensive property는 \(b=1\)이다.
 </p>
 
-<p>
-질량보존을 적용하는 경우 전체 Property는 질량 자체이므로
-</p>
-
-<div class="equation-box">
-
-$$
-B=m
-$$
-
-$$
+<div class="equation">
+\[
+B=m,
+\qquad
 b=1
-$$
-
+\tag{1.2.4}
+\]
 </div>
 
 <p>
-이 된다.
+식 (1.2.4)를 Reynolds Transport Theorem에 대입하고, System의 질량변화율이
+0이라는 식 (1.2.1)을 적용하면 다음의 Integral continuity equation을 얻는다.
 </p>
 
-<p>
-여기서 \(b=1\)인 이유는 질량을 단위질량당 표현하면
-그 값이 단순히 1이기 때문이다.
-</p>
-
-<p>
-질량보존법칙
-</p>
-
-<div class="equation-box">
-
-$$
-\frac{d m_{\mathrm{system}}}{dt}=0
-$$
-
-</div>
-
-<p>
-에 Reynolds Transport Theorem을 적용하면 다음 식을 얻는다.
-</p>
-
-<div class="equation-box">
-
-$$
+<div class="equation main">
+\[
 \boxed{
 \frac{\partial}{\partial t}
-\int_{CV}\rho\,dV
+\int_{CV}\rho\,\mathrm dV
 +
 \oint_{CS}
-\rho(\mathbf{u}\cdot\mathbf{n})\,dA
+\rho(\mathbf u\cdot\mathbf n)\,\mathrm dA
 =0
 }
-$$
-
+\tag{1.2.5}
+\]
 </div>
 
+
+<h3>3.1 Mass Accumulation inside the Control Volume</h3>
+
 <p>
-이 식을 <strong>Integral Continuity Equation</strong>이라고 한다.
+Integral continuity equation의 첫 번째 항은 Control volume 내부의 전체 질량을
+시간에 대해 미분한 것이다.
 </p>
 
-
-<h3>3.1 Mass Accumulation</h3>
-
-<div class="equation-box">
-
-$$
+<div class="equation">
+\[
 \frac{\partial}{\partial t}
-\int_{CV}\rho\,dV
-$$
-
+\int_{CV}\rho\,\mathrm dV
+\tag{1.2.6}
+\]
 </div>
 
 <p>
-Density \(\rho\)는 단위체적당 질량이다.
-따라서 작은 체적요소 \(dV\)에 대해
-</p>
-
-<div class="equation-box">
-
-$$
-\rho\,dV
-$$
-
-</div>
-
-<p>
-는 해당 체적요소 내부에 존재하는 질량을 의미한다.
+이 항은 <strong>Mass accumulation rate</strong>를 나타낸다. 값이 Positive이면
+Control volume 내부의 질량이 증가하고, Negative이면 내부 질량이 감소한다.
 </p>
 
 <p>
-이를 Control volume 전체에 대해 적분하면
-</p>
-
-<div class="equation-box">
-
-$$
-\int_{CV}\rho\,dV
-$$
-
-</div>
-
-<p>
-가 되어 Control volume 내부에 존재하는 전체 질량을 얻는다.
-</p>
-
-<p>
-따라서 이를 시간에 대해 미분한
-</p>
-
-<div class="equation-box">
-
-$$
-\frac{\partial}{\partial t}
-\int_{CV}\rho\,dV
-$$
-
-</div>
-
-<p>
-는 <strong>Control volume 내부의 질량 축적률</strong>이다.
-</p>
-
-<p>
-이 항이 양수이면 내부 질량이 증가하고 있으며,
-음수이면 내부 질량이 감소하고 있음을 의미한다.
+시간미분에 Partial derivative를 사용하는 이유는 Control volume을 공간에
+고정한 상태에서 내부 질량의 시간변화를 관찰하기 때문이다.
 </p>
 
 
 <h3>3.2 Mass Flux through the Control Surface</h3>
 
 <p>
-Control surface 위의 작은 면적요소 \(dA\)를 생각하자.
-이 Surface에서 바깥쪽을 향하는 Unit normal vector를
-\(\mathbf{n}\)이라고 한다.
+Control surface 위의 미소면적을 \(\mathrm dA\), 그 면에서 Control volume
+바깥쪽을 향하는 Unit normal vector를 \(\mathbf n\)이라 하자. Dot product
+\(\mathbf u\cdot\mathbf n\)은 Velocity의 Surface-normal component이다.
 </p>
 
-<p>
-Velocity vector \(\mathbf{u}\)와 Normal vector의 Dot product
-</p>
-
-<div class="equation-box">
-
-$$
-\mathbf{u}\cdot\mathbf{n}
-$$
-
+<div class="equation">
+\[
+(\mathbf u\cdot\mathbf n)\,\mathrm dA
+\tag{1.2.7}
+\]
 </div>
 
 <p>
-는 Velocity의 Surface-normal component를 나타낸다.
+식 (1.2.7)은 미소면적을 단위시간에 통과하는 Volume을 나타내므로 체적유량의
+단위를 갖는다. 그러나 질량보존식에 필요한 것은 체적유량이 아니라 질량유량이다.
+따라서 체적유량에 Density를 곱한다.
 </p>
 
-<p>
-따라서
-</p>
-
-<div class="equation-box">
-
-$$
-(\mathbf{u}\cdot\mathbf{n})dA
-$$
-
+<div class="equation main">
+\[
+\rho(\mathbf u\cdot\mathbf n)\,\mathrm dA
+\tag{1.2.8}
+\]
 </div>
 
 <p>
-는 작은 면적 \(dA\)를 통해 단위시간당 통과하는 Volume,
-즉 체적유량을 의미한다.
+Density를 곱하는 이유는 단위체적당 질량을 이용하여 Volume transport를
+Mass transport로 변환하기 위해서이다. 각 항의 단위를 확인하면
 </p>
 
-<p>
-하지만 Continuity equation에서 필요한 것은 체적유량이 아니라
-<strong>질량유량</strong>이다.
-</p>
-
-<p>
-따라서 여기에 Density를 곱한다.
-</p>
-
-<div class="equation-box">
-
-$$
-\rho(\mathbf{u}\cdot\mathbf{n})dA
-$$
-
-</div>
-
-<p>
-단위를 확인하면
-</p>
-
-<div class="equation-box">
-
-$$
-\left[
-\frac{\mathrm{kg}}{\mathrm{m^3}}
-\right]
-\left[
-\frac{\mathrm{m}}{\mathrm{s}}
-\right]
-\left[
-\mathrm{m^2}
-\right]
+<div class="equation">
+\[
+\underbrace{\rho}_{\mathrm{kg/m^3}}
+\underbrace{(\mathbf u\cdot\mathbf n)}_{\mathrm{m/s}}
+\underbrace{\mathrm dA}_{\mathrm{m^2}}
 =
-\left[
-\frac{\mathrm{kg}}{\mathrm{s}}
-\right]
-$$
-
+\underbrace{\mathrm d\dot m}_{\mathrm{kg/s}}
+\tag{1.2.9}
+\]
 </div>
 
 <p>
-가 되어 실제 질량유량의 단위가 얻어진다.
+가 된다. 따라서 \(\rho\mathbf u\)는 단위면적당 질량유량을 나타내는
+<strong>Mass-flux vector</strong>이다.
 </p>
 
 <p>
-즉 Density \(\rho\)를 곱하는 이유는
-<strong>체적유량을 질량유량으로 변환하기 위해서</strong>이다.
+이를 닫힌 Control surface 전체에서 적분하면 모든 면을 통한 질량유량의
+대수적인 합을 얻는다.
 </p>
 
-<p>
-이를 Control surface 전체에 적분하면
-</p>
-
-<div class="equation-box">
-
-$$
+<div class="equation">
+\[
 \oint_{CS}
-\rho(\mathbf{u}\cdot\mathbf{n})\,dA
-$$
-
+\rho(\mathbf u\cdot\mathbf n)\,\mathrm dA
+\tag{1.2.10}
+\]
 </div>
 
 <p>
-가 되고, 이 항은 Control surface 전체를 통한
-<strong>Net outward mass flow rate</strong>를 나타낸다.
+Normal vector가 바깥쪽을 향하도록 정의되므로
+\(\mathbf u\cdot\mathbf n&gt;0\)이면 Outflow이고,
+\(\mathbf u\cdot\mathbf n&lt;0\)이면 Inflow이다. 따라서 식 (1.2.10)은
+Control surface 전체를 통한 <strong>Net outward mass flow rate</strong>를 나타낸다.
 </p>
 
 <p>
-Normal vector \(\mathbf{n}\)은 항상 Control volume 바깥쪽을
-향하도록 정의된다.
-</p>
-
-<p>
-따라서
-</p>
-
-<div class="equation-box">
-
-$$
-\mathbf{u}\cdot\mathbf{n}>0
-$$
-
-</div>
-
-<p>
-이면 Velocity가 바깥쪽을 향하므로 <strong>Outflow</strong>이다.
-</p>
-
-<p>
-반대로
-</p>
-
-<div class="equation-box">
-
-$$
-\mathbf{u}\cdot\mathbf{n}<0
-$$
-
-</div>
-
-<p>
-이면 유체가 Control volume 내부로 들어오므로
-<strong>Inflow</strong>이다.
-</p>
-
-<p>
-이러한 부호 정의 덕분에 하나의 Surface integral을 이용하여
-모든 Inlet과 Outlet의 질량유량을 동시에 계산할 수 있다.
+결국 식 (1.2.5)는 Control volume 내부의 질량 축적률과 Control surface를 통한
+순유출 질량유량의 합이 0이라는 뜻이다. 순유출이 증가하면 내부 질량은 감소해야 하고,
+순유입이 발생하면 내부 질량은 증가해야 한다.
 </p>
 
 </section>
@@ -564,194 +502,107 @@ $$
 <h2>4. Differential Continuity Equation</h2>
 
 <p>
-Integral continuity equation은 하나의 유한한 Control volume
-전체에 대해 질량이 어떻게 보존되는지를 나타낸다.
+Integral continuity equation은 유한한 Control volume 전체에 대한 질량보존을
+나타낸다. 공간의 각 점에서 성립하는 Local equation을 얻으려면 Surface integral을
+Volume integral로 변환해야 한다.
 </p>
 
 <p>
-그러나 실제 유동장을 계산하거나 Navier–Stokes equation과 같은
-Governing equation을 구성하려면 공간의 각 점에서 성립하는
-질량보존식을 표현할 필요가 있다.
+Gauss divergence theorem을 Mass-flux vector \(\rho\mathbf u\)에 적용하면
 </p>
 
-<p>
-이를 위해 Integral form을 Differential form으로 변환한다.
-</p>
-
-<p>
-먼저 Control surface에 대한 Surface integral에
-<strong>Gauss Divergence Theorem</strong>을 적용한다.
-</p>
-
-<div class="equation-box">
-
-$$
+<div class="equation">
+\[
 \oint_{CS}
-\rho\mathbf{u}\cdot\mathbf{n}\,dA
+\rho\mathbf u\cdot\mathbf n\,\mathrm dA
 =
 \int_{CV}
-\nabla\cdot(\rho\mathbf{u})\,dV
-$$
-
+\nabla\cdot(\rho\mathbf u)\,\mathrm dV
+\tag{1.2.11}
+\]
 </div>
 
 <p>
-이 관계를 이용하면 Control surface를 통과하는 Mass flux를
-Control volume 내부의 Volume integral로 표현할 수 있다.
+가 된다. Divergence \(\nabla\cdot(\rho\mathbf u)\)는 한 점을 둘러싼
+미소체적에서 Mass flux가 순수하게 빠져나가는 정도를 나타낸다.
 </p>
 
 <p>
-여기서
+Control volume이 공간에 고정되어 있으면 Storage term의 시간미분을 Integral
+안으로 이동시킬 수 있다.
 </p>
 
-<div class="equation-box">
-
-$$
-\rho\mathbf{u}
-$$
-
-</div>
-
-<p>
-는 Mass-flux vector이고,
-</p>
-
-<div class="equation-box">
-
-$$
-\nabla\cdot(\rho\mathbf{u})
-$$
-
-</div>
-
-<p>
-는 한 점 주변에서 Mass flux가 얼마나 퍼져나가거나
-모여드는지를 나타낸다.
-</p>
-
-<p>
-고정된 Control volume에서는 Storage term도
-</p>
-
-<div class="equation-box">
-
-$$
+<div class="equation">
+\[
 \frac{\partial}{\partial t}
-\int_{CV}\rho\,dV
+\int_{CV}\rho\,\mathrm dV
 =
 \int_{CV}
-\frac{\partial\rho}{\partial t}\,dV
-$$
-
+\frac{\partial\rho}{\partial t}\,\mathrm dV
+\tag{1.2.12}
+\]
 </div>
 
 <p>
-로 쓸 수 있다.
+식 (1.2.11)과 식 (1.2.12)를 Integral continuity equation에 대입하면
 </p>
 
-<p>
-두 식을 Integral continuity equation에 대입하면
-</p>
-
-<div class="equation-box">
-
-$$
+<div class="derivation">
+<div class="equation">
+\[
 \int_{CV}
-\frac{\partial\rho}{\partial t}\,dV
+\frac{\partial\rho}{\partial t}\,\mathrm dV
 +
 \int_{CV}
-\nabla\cdot(\rho\mathbf{u})\,dV
+\nabla\cdot(\rho\mathbf u)\,\mathrm dV
 =0
-$$
-
+\tag{1.2.13}
+\]
 </div>
 
-<p>
-이고, 하나의 Volume integral로 묶으면
-</p>
+<p>두 항의 Integration domain이 같으므로 하나의 Integral로 묶을 수 있다.</p>
 
-<div class="equation-box">
-
-$$
+<div class="equation">
+\[
 \int_{CV}
 \left[
 \frac{\partial\rho}{\partial t}
 +
-\nabla\cdot(\rho\mathbf{u})
-\right]dV
+\nabla\cdot(\rho\mathbf u)
+\right]\mathrm dV
 =0
-$$
-
+\tag{1.2.14}
+\]
+</div>
 </div>
 
 <p>
-을 얻는다.
+Control volume은 유동장 내부에서 임의의 위치와 크기로 선택할 수 있다. 임의의
+Control volume에 대해 식 (1.2.14)가 항상 성립하려면 Integrand가 각 위치에서
+0이어야 한다.
 </p>
 
-<p>
-여기서 Control volume은 특정한 하나의 영역만을 의미하는 것이 아니라
-임의의 위치와 크기로 선택할 수 있다.
-</p>
-
-<p>
-어떠한 Control volume을 선택하더라도 위 적분값이 항상 0이어야 하므로,
-Integrand 자체가 각 점에서 0이어야 한다.
-</p>
-
-<div class="equation-box">
-
-$$
+<div class="equation main">
+\[
 \boxed{
 \frac{\partial\rho}{\partial t}
 +
-\nabla\cdot(\rho\mathbf{u})
+\nabla\cdot(\rho\mathbf u)
 =0
 }
-$$
-
+\tag{1.2.15}
+\]
 </div>
 
 <p>
-이 식이 <strong>Differential Continuity Equation</strong>이다.
+식 (1.2.15)가 <strong>Differential continuity equation</strong>이다. Mass flux가
+Divergence 형태로 나타나므로 <strong>Conservative form</strong>이라고도 한다.
 </p>
 
 <p>
-또한 Mass flux가 Divergence 형태로 직접 표현되어 있기 때문에
-<strong>Conservative form</strong>이라고도 부른다.
-</p>
-
-<p>
-첫 번째 항
-</p>
-
-<div class="equation-box">
-
-$$
-\frac{\partial\rho}{\partial t}
-$$
-
-</div>
-
-<p>
-은 고정된 공간점에서 Density가 시간에 따라 변화하는
-<strong>Local change</strong>를 나타낸다.
-</p>
-
-<p>
-두 번째 항
-</p>
-
-<div class="equation-box">
-
-$$
-\nabla\cdot(\rho\mathbf{u})
-$$
-
-</div>
-
-<p>
-은 주변 공간으로부터 들어오고 나가는 Mass flux의
-공간적 변화를 나타낸다.
+첫 번째 항 \(\partial\rho/\partial t\)는 고정된 공간점에서 Density가 시간에 따라
+변하는 Local change이고, 두 번째 항 \(\nabla\cdot(\rho\mathbf u)\)는 그 점 주변의
+미소체적을 통한 Net outward mass flux이다.
 </p>
 
 </section>
@@ -762,130 +613,81 @@ $$
 <h2>5. Material-Derivative Form</h2>
 
 <p>
-Conservative form은 질량보존법칙을 수학적으로 표현하거나
-CFD에서 Governing equation을 구성할 때 매우 유용하다.
+Conservative form은 고정된 공간에서 질량의 Local change와 Mass flux를 나타낸다.
+동일한 질량보존법칙을 하나의 유체입자를 따라가며 해석하려면 Divergence term에
+Product rule을 적용한다.
 </p>
 
-<p>
-하지만 하나의 유체입자가 실제로 어떻게 Density 변화를 경험하는지를
-이해하려면 Material derivative 형태가 더 직관적이다.
-</p>
-
-<p>
-먼저 Product rule을 이용하여 Divergence term을 전개하면
-</p>
-
-<div class="equation-box">
-
-$$
-\nabla\cdot(\rho\mathbf{u})
+<div class="equation">
+\[
+\nabla\cdot(\rho\mathbf u)
 =
-\mathbf{u}\cdot\nabla\rho
+\mathbf u\cdot\nabla\rho
 +
-\rho\nabla\cdot\mathbf{u}
-$$
-
+\rho\nabla\cdot\mathbf u
+\tag{1.2.16}
+\]
 </div>
 
 <p>
-이다.
+식 (1.2.16)을 Differential continuity equation에 대입하면
 </p>
 
-<p>
-이를 Differential continuity equation에 대입하면
-</p>
-
-<div class="equation-box">
-
-$$
+<div class="equation">
+\[
 \frac{\partial\rho}{\partial t}
 +
-\mathbf{u}\cdot\nabla\rho
+\mathbf u\cdot\nabla\rho
 +
-\rho\nabla\cdot\mathbf{u}
+\rho\nabla\cdot\mathbf u
 =0
-$$
-
+\tag{1.2.17}
+\]
 </div>
 
 <p>
-을 얻는다.
+를 얻는다. 처음 두 항은 이동하는 유체입자가 경험하는 Density의 시간변화율인
+Material derivative이다.
 </p>
 
-<p>
-여기서 처음 두 항은 Density의 Material derivative이다.
-</p>
-
-<div class="equation-box">
-
-$$
+<div class="equation">
+\[
 \frac{D\rho}{Dt}
 =
 \frac{\partial\rho}{\partial t}
 +
-\mathbf{u}\cdot\nabla\rho
-$$
-
+\mathbf u\cdot\nabla\rho
+\tag{1.2.18}
+\]
 </div>
 
 <p>
-따라서 Continuity equation은
+따라서 Continuity equation은 다음의 Material-derivative form으로 정리된다.
 </p>
 
-<div class="equation-box">
-
-$$
+<div class="equation main">
+\[
 \boxed{
 \frac{D\rho}{Dt}
 =
--\rho\nabla\cdot\mathbf{u}
+-\rho\nabla\cdot\mathbf u
 }
-$$
-
+\tag{1.2.19}
+\]
 </div>
 
 <p>
-로 표현된다.
+왼쪽의 \(D\rho/Dt\)는 하나의 유체입자를 따라가며 측정한 Density 변화율이다.
+오른쪽의 \(\nabla\cdot\mathbf u\)는 그 유체입자를 둘러싼 Velocity field가
+국부적으로 팽창하거나 수축하는 정도를 나타낸다.
 </p>
 
 <p>
-왼쪽의
-</p>
-
-<div class="equation-box">
-
-$$
-\frac{D\rho}{Dt}
-$$
-
-</div>
-
-<p>
-는 하나의 유체입자를 따라 이동하면서 관찰한 Density의
-시간변화율을 의미한다.
-</p>
-
-<p>
-오른쪽의
-</p>
-
-<div class="equation-box">
-
-$$
-\nabla\cdot\mathbf{u}
-$$
-
-</div>
-
-<p>
-는 그 유체입자 주변의 Velocity field가 국부적으로
-팽창하는지 또는 수축하는지를 나타낸다.
-</p>
-
-<p>
-즉 이 형태의 Continuity equation은
-<strong>유체요소의 Volume 변화와 Density 변화가
-질량보존에 의해 직접 연결되어 있음</strong>을 보여준다.
+\(\nabla\cdot\mathbf u&gt;0\)이면 유체요소의 Volume이 증가하므로
+\(D\rho/Dt&lt;0\)가 되어 Density가 감소한다. 반대로
+\(\nabla\cdot\mathbf u&lt;0\)이면 유체요소가 수축하므로 Density가 증가한다.
+즉 식 (1.2.19)는 유체요소의 Volume 변화와 Density 변화가 질량보존에 의해
+서로 반대 방향으로 연결된다는 것을 나타낸다.
 </p>
 
 </section>
@@ -893,272 +695,197 @@ $$
 
 <section id="incompressible">
 
-<h2>6. Incompressible Flow</h2>
+<h2>6. Incompressible Form</h2>
 
 <p>
-Incompressible flow는 이동하는 하나의 유체입자를 따라갔을 때
-그 유체입자의 Density가 변하지 않는 유동을 의미한다.
+Incompressibility는 하나의 유체입자를 따라 이동할 때 그 입자의 Density가
+변하지 않는다는 조건이다.
 </p>
 
-<div class="equation-box">
-
-$$
+<div class="equation">
+\[
 \frac{D\rho}{Dt}=0
-$$
-
+\tag{1.2.20}
+\]
 </div>
 
 <p>
-이를 Material-derivative form의 Continuity equation
+이를 Material-derivative form인 식 (1.2.19)에 대입하면
 </p>
 
-<div class="equation-box">
-
-$$
-\frac{D\rho}{Dt}
+<div class="derivation">
+<div class="equation">
+\[
+0
 =
--\rho\nabla\cdot\mathbf{u}
-$$
-
+-\rho\nabla\cdot\mathbf u
+\tag{1.2.21}
+\]
 </div>
 
-<p>
-에 대입하면
-</p>
+<p>Density는 0이 아니므로 양변을 \(\rho\)로 나누면</p>
 
-<div class="equation-box">
-
-$$
-0=-\rho\nabla\cdot\mathbf{u}
-$$
-
-</div>
-
-<p>
-가 된다.
-</p>
-
-<p>
-Density는 0이 아니므로
-</p>
-
-<div class="equation-box">
-
-$$
+<div class="equation main">
+\[
 \boxed{
-\nabla\cdot\mathbf{u}=0
+\nabla\cdot\mathbf u=0
 }
-$$
-
+\tag{1.2.22}
+\]
+</div>
 </div>
 
 <p>
-을 얻는다.
+를 얻는다. 따라서 Incompressible flow의 Velocity field는
+<strong>Divergence-free</strong> 조건을 만족한다. 이는 유체요소가 이동하고
+형태가 변하더라도 그 Volume은 변하지 않는다는 뜻이다.
 </p>
 
 <p>
-따라서 Incompressible flow에서는 Velocity field가
-<strong>Divergence-free</strong> 조건을 만족해야 한다.
+Cartesian coordinate에서 식 (1.2.22)를 성분으로 전개하면
 </p>
 
-<p>
-Cartesian coordinate에서 이를 전개하면
-</p>
-
-<div class="equation-box">
-
-$$
+<div class="equation">
+\[
 \frac{\partial u}{\partial x}
 +
 \frac{\partial v}{\partial y}
 +
 \frac{\partial w}{\partial z}
 =0
-$$
+\tag{1.2.23}
+\]
+</div>
 
+<h3>6.1 Steady Flow and Incompressible Flow</h3>
+
+<p>
+Steady flow와 Incompressible flow는 서로 다른 조건이다. Steady flow는 고정된
+공간점에서 물리량이 시간에 따라 변하지 않는다는 Eulerian condition이다.
+</p>
+
+<div class="equation">
+\[
+\frac{\partial (\,\cdot\,)}{\partial t}=0
+\tag{1.2.24}
+\]
 </div>
 
 <p>
-이 된다.
+반면 Incompressible flow는 이동하는 유체입자의 Density가 변하지 않는다는
+Lagrangian condition이다.
 </p>
 
-<div class="note">
-
-<strong>Steady flow와 Incompressible flow는 서로 다른 조건이다.</strong>
-
-<br><br>
-
-Steady flow에서는 고정된 공간점에서 물리량이 시간에 따라 변하지 않는다.
-
-$$
-\frac{\partial}{\partial t}=0
-$$
-
-반면 Incompressible flow에서는 이동하는 유체입자의 Density가
-시간에 따라 변하지 않는다.
-
-$$
+<div class="equation">
+\[
 \frac{D\rho}{Dt}=0
-$$
-
-따라서 Steady flow라고 해서 반드시 Incompressible flow인 것은 아니며,
-Incompressible flow라고 해서 반드시 Steady flow인 것도 아니다.
-
+\tag{1.2.25}
+\]
 </div>
+
+<p>
+따라서 Steady condition만으로 Incompressibility를 결론 내릴 수 없으며,
+Incompressibility만으로 Steady condition을 결론 내릴 수도 없다. 두 조건은
+각각 시간의존성과 유체입자의 Density 변화를 기준으로 별도로 판단해야 한다.
+</p>
 
 </section>
 
 
-<section id="interpretation">
+<section id="forms">
 
-<h2>7. Physical Interpretation</h2>
+<h2>7. Relation between the Different Forms</h2>
 
 <p>
-Continuity equation의 Material-derivative form을 다시 보면
+질량보존법칙의 여러 형태는 서로 다른 법칙이 아니라 동일한 Conservation law를
+서로 다른 관점에서 표현한 것이다.
 </p>
 
-<div class="equation-box">
+<h3>7.1 System Form</h3>
 
-$$
+<div class="equation">
+\[
+\frac{\mathrm d m_{\mathrm{system}}}{\mathrm d t}=0
+\tag{1.2.26}
+\]
+</div>
+
+<p>
+동일한 유체입자들의 집합을 따라가며 전체 질량이 일정함을 나타낸다.
+</p>
+
+<h3>7.2 Integral Control-Volume Form</h3>
+
+<div class="equation">
+\[
+\frac{\partial}{\partial t}
+\int_{CV}\rho\,\mathrm dV
++
+\oint_{CS}\rho\mathbf u\cdot\mathbf n\,\mathrm dA
+=0
+\tag{1.2.27}
+\]
+</div>
+
+<p>
+유한한 Control volume 내부의 Mass accumulation과 경계를 통한 Net outward
+mass flow의 균형을 나타낸다.
+</p>
+
+<h3>7.3 Conservative Differential Form</h3>
+
+<div class="equation">
+\[
+\frac{\partial\rho}{\partial t}
++
+\nabla\cdot(\rho\mathbf u)
+=0
+\tag{1.2.28}
+\]
+</div>
+
+<p>
+고정된 공간의 각 점에서 Density의 Local change와 Mass-flux divergence의
+균형을 나타낸다.
+</p>
+
+<h3>7.4 Material-Derivative Form</h3>
+
+<div class="equation">
+\[
 \frac{D\rho}{Dt}
 =
--\rho\nabla\cdot\mathbf{u}
-$$
-
+-\rho\nabla\cdot\mathbf u
+\tag{1.2.29}
+\]
 </div>
 
 <p>
-Density 변화와 Velocity field의 팽창 또는 수축 사이의 관계를
-직접 확인할 수 있다.
+이동하는 유체입자가 경험하는 Density 변화와 유체요소의 팽창 또는 수축을
+직접 연결한다.
 </p>
 
+<h3>7.5 Incompressible Form</h3>
 
-<h3>7.1 Expansion</h3>
-
-<p>
-만약 유체요소 주변의 Velocity field가 바깥쪽으로 퍼져나간다면
-</p>
-
-<div class="equation-box">
-
-$$
-\nabla\cdot\mathbf{u}>0
-$$
-
+<div class="equation">
+\[
+\nabla\cdot\mathbf u=0
+\tag{1.2.30}
+\]
 </div>
 
 <p>
-이다.
-</p>
-
-<p>
-Continuity equation에 의해
-</p>
-
-<div class="equation-box">
-
-$$
-\frac{D\rho}{Dt}<0
-$$
-
-</div>
-
-<p>
-가 되므로 유체입자의 Density는 감소한다.
-</p>
-
-<p>
-이는 동일한 질량을 가진 유체요소의 Volume이 증가하면
-단위체적당 질량인 Density가 감소해야 한다는 직관적인 결과와 일치한다.
-</p>
-
-
-<h3>7.2 Compression</h3>
-
-<p>
-반대로 주변 Velocity field가 안쪽으로 수축하고 있다면
-</p>
-
-<div class="equation-box">
-
-$$
-\nabla\cdot\mathbf{u}<0
-$$
-
-</div>
-
-<p>
-이다.
-</p>
-
-<p>
-따라서
-</p>
-
-<div class="equation-box">
-
-$$
-\frac{D\rho}{Dt}>0
-$$
-
-</div>
-
-<p>
-가 되어 Density가 증가한다.
-</p>
-
-<p>
-즉 동일한 질량을 가진 유체요소가 더 작은 Volume으로 압축되므로
-단위체적당 질량이 증가하는 것이다.
-</p>
-
-
-<h3>7.3 Meaning of the Continuity Equation</h3>
-
-<p>
-Continuity equation은 흔히
-“들어오는 질량과 나가는 질량이 같다”라는 표현으로 설명된다.
-</p>
-
-<p>
-그러나 이 설명은 Steady한 Control volume 문제에 대해서는 직관적이지만
-Continuity equation의 전체 의미를 모두 포함하지는 않는다.
-</p>
-
-<p>
-일반적인 Unsteady flow에서는 Control volume 내부에 질량이 축적될 수도 있으므로
-Inflow와 Outflow가 순간적으로 동일할 필요는 없다.
-그 차이가 바로 Control volume 내부의 질량 변화로 나타난다.
-</p>
-
-<p>
-따라서 Integral form에서는
-<strong>Mass accumulation과 Mass flux 사이의 관계</strong>를 나타내고,
-Differential form에서는
-<strong>공간의 각 점에서 Density 변화와 Mass-flux divergence의 관계</strong>를 나타낸다.
-</p>
-
-<p>
-Material-derivative form에서는 다시 하나의 유체입자를 따라가며
-<strong>유체요소의 팽창 및 압축과 Density 변화의 관계</strong>를 설명할 수 있다.
-</p>
-
-<p>
-이러한 질량보존식은 이후 Momentum equation 및 Energy equation과 함께
-유체유동을 기술하는 기본적인 Governing equation을 구성한다.
+Incompressible condition \(D\rho/Dt=0\)을 적용한 Continuity equation이며,
+유체요소의 Volume이 보존됨을 나타낸다.
 </p>
 
 </section>
 
+</main>
 
 <footer>
-
-<a href="/study/aerodynamics/fundamentals/">
-    ← Back to Fundamentals
-</a>
-
+    <a href="/study/aerodynamics/fundamentals/">← Back to Fundamentals</a>
 </footer>
-
 
 </body>
 
