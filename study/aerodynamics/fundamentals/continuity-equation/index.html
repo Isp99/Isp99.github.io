@@ -86,6 +86,16 @@
             margin: 0 0 30px;
         }
 
+        .explanation-list {
+            margin: 25px 0 38px;
+            padding-left: 27px;
+        }
+
+        .explanation-list li {
+            margin: 13px 0;
+            padding-left: 5px;
+        }
+
         .subtitle {
             margin-bottom: 48px;
             color: #666666;
@@ -244,11 +254,31 @@
                 \]
             </div>
 
+            <p>식에 나타난 두 항의 의미는 다음과 같다.</p>
+
+            <ul class="explanation-list">
+                <li>
+                    \(\displaystyle \frac{\partial}{\partial t}\int_{CV}\rho\,\mathrm dV\):
+                    Control volume 내부의 질량 축적률
+                </li>
+                <li>
+                    \(\displaystyle \oint_{CS}\rho\boldsymbol{u}\cdot\boldsymbol{n}\,\mathrm dA\):
+                    Control surface 전체를 통한 순유출 질량유량
+                </li>
+            </ul>
+
             <p>
-                첫 번째 항은 Control volume 내부에 들어 있는 질량의 시간변화율, 즉 질량 축적률이다. 두 번째 항은
-                Control surface 전체를 통과해 바깥으로 나가는 순질량유량을 뜻한다. \(\boldsymbol{n}\)은 바깥쪽을 향하는
-                단위 법선벡터이므로 \(\boldsymbol{u}\cdot\boldsymbol{n}\)이 양수인 곳에서는 유체가 유출되고, 음수인
-                곳에서는 유입된다. 따라서 내부 질량의 증가와 경계를 통한 순유출을 합하면 항상 0이 되어야 한다.
+                \(\boldsymbol{n}\)은 Control surface의 바깥쪽을 향하는 단위 법선벡터이므로,
+                \(\boldsymbol{u}\cdot\boldsymbol{n}\)의 부호에 따라 유입과 유출이 구분된다.
+            </p>
+
+            <ul class="explanation-list">
+                <li>\(\boldsymbol{u}\cdot\boldsymbol{n}>0\): Control volume 밖으로 유출</li>
+                <li>\(\boldsymbol{u}\cdot\boldsymbol{n}<0\): Control volume 안으로 유입</li>
+            </ul>
+
+            <p>
+                따라서 내부 질량의 증가와 경계를 통한 순유출을 합하면 항상 0이 되어야 한다.
             </p>
 
             <div class="equation main">
@@ -374,9 +404,23 @@
 
             <p>
                 이 식은 주변 Velocity field의 국부적인 팽창과 수축이 유체입자의 Density 변화로 이어진다는 뜻이다.
-                \(\nabla\cdot\boldsymbol{u}>0\)이면 유체가 팽창하므로 Density가 감소하고, 반대로
-                \(\nabla\cdot\boldsymbol{u}<0\)이면 유체가 수축하므로 Density가 증가한다. 즉, 오른쪽의 음수 부호는
-                체적 변화와 Density 변화가 서로 반대 방향임을 나타낸다.
+                Divergence의 부호에 따른 의미는 다음과 같다.
+            </p>
+
+            <ul class="explanation-list">
+                <li>
+                    \(\nabla\cdot\boldsymbol{u}>0\): 유체요소의 Volume이 증가하므로
+                    \(D\rho/Dt<0\)이 되어 Density가 감소
+                </li>
+                <li>
+                    \(\nabla\cdot\boldsymbol{u}<0\): 유체요소가 수축하므로
+                    \(D\rho/Dt>0\)이 되어 Density가 증가
+                </li>
+            </ul>
+
+            <p>
+                즉, 식의 음수 부호는 유체요소의 Volume 변화와 Density 변화가 질량보존에 의해 서로 반대 방향으로
+                연결됨을 나타낸다.
             </p>
         </section>
 
@@ -408,11 +452,20 @@
                 \]
             </div>
 
-            <p>
-                여기서 Steady flow와 Incompressible flow의 조건은 구분해야 한다. Steady flow는 한 위치에서 물리량이
-                시간에 따라 변하지 않는 \(\partial/\partial t=0\)을 뜻하고, Incompressible flow는 이동하는 유체입자의
-                Density가 변하지 않는 \(D\rho/Dt=0\)을 뜻한다. 따라서 두 조건은 서로 같은 가정이 아니다.
-            </p>
+            <p>여기서 Steady flow와 Incompressible flow의 조건은 다음과 같이 구분된다.</p>
+
+            <ul class="explanation-list">
+                <li>
+                    <strong>Steady flow:</strong> 한 위치에서 물리량이 시간에 따라 변하지 않는
+                    \(\partial/\partial t=0\)
+                </li>
+                <li>
+                    <strong>Incompressible flow:</strong> 이동하는 유체입자의 Density가 변하지 않는
+                    \(D\rho/Dt=0\)
+                </li>
+            </ul>
+
+            <p>따라서 Steady와 Incompressible은 서로 같은 조건이 아니다.</p>
         </section>
     </main>
 
