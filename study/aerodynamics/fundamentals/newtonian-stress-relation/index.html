@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rate-of-strain tensor와 Newtonian-fluid stress relation을 설명합니다.">
+
+    <title>3.1 Newtonian Stress Relation | Isp99</title>
+
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: {
+                scale: 1.02
+            }
+        };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="../fundamentals.css">
+</head>
+
+<body>
+    <nav>
+        <a href="#top">3.1 Newtonian Stress Relation</a>
+    </nav>
+
+    <main id="top">
+        <header>
+            <h1>3.1 Newtonian Stress Relation</h1>
+            <p class="subtitle">Rate of Strain, Viscous Stress, and Navier–Stokes Equation</p>
+            <p class="intro">Newtonian stress relation은 유체요소의 Deformation rate와 Viscous stress를 연결한다. Velocity-gradient tensor를 Strain과 Rotation으로 분해한 뒤, Incompressible constant-viscosity 조건에서 Viscous term이 어떻게 단순해지는지 정리한다.</p>
+        </header>
+
+        <aside class="contents" aria-label="목차">
+            <strong>Contents</strong>
+            <ol>
+                <li><a href="#rate-of-strain">Rate-of-Strain Tensor</a></li>
+                <li><a href="#newtonian-stress">Newtonian-Fluid Stress</a></li>
+                <li><a href="#incompressible-limit">Incompressible Constant-Viscosity Limit</a></li>
+            </ol>
+        </aside>
+
+        <section id="rate-of-strain">
+            <h2>1. Rate-of-Strain Tensor</h2>
+
+<p>
+                Velocity가 공간에 따라 달라지면 유체요소는 변형되거나 회전한다. 이를 구분하기 위해
+                Velocity-gradient tensor를 Symmetric part와 Antisymmetric part로 분해한다.
+            </p>
+
+            <div class="equation">
+                \[
+                    \begin{aligned}
+                    \nabla\boldsymbol{u}
+                    &=\mathbf{S}+\boldsymbol{\Omega}
+                    \\[2.8ex]
+                    \mathbf{S}
+                    &=\frac{1}{2}\left[
+                    \nabla\boldsymbol{u}
+                    +(\nabla\boldsymbol{u})^T
+                    \right]
+                    \\[2.8ex]
+                    \boldsymbol{\Omega}
+                    &=\frac{1}{2}\left[
+                    \nabla\boldsymbol{u}
+                    -(\nabla\boldsymbol{u})^T
+                    \right]
+                    \end{aligned}
+                    \tag{3.1.1}
+                \]
+            </div>
+
+            <p>두 Tensor는 유체요소의 서로 다른 운동을 나타낸다.</p>
+
+            <ul class="explanation-list">
+                <li>
+                    \(\mathbf S\): 유체요소의 길이와 각도가 변하는 실제
+                    <strong>Deformation rate</strong>
+                </li>
+                <li>
+                    \(\boldsymbol{\Omega}\): 형상을 바꾸지 않고 회전하는
+                    <strong>Rigid-body rotation</strong>
+                </li>
+            </ul>
+
+            <p>
+                Viscous stress는 단순히 유체요소가 회전하는 것만으로는 발생하지 않고, 유체요소가 변형되는
+                정도와 연결된다. 따라서 Newtonian fluid의 Viscous stress는 Rate-of-strain tensor
+                \(\mathbf S\)에 의존한다.
+            </p>
+        </section>
+
+        <section id="newtonian-stress">
+            <h2>2. Newtonian-Fluid Stress</h2>
+
+<p>
+                Isotropic Newtonian fluid에서는 Viscous stress와 Deformation rate 사이의 관계가 선형이며,
+                일반적인 Stress relation은 다음과 같다.
+            </p>
+
+            <div class="equation">
+                \[
+                    \boldsymbol{\tau}
+                    =2\mu\mathbf S
+                    +\lambda(\nabla\cdot\boldsymbol{u})\mathbf I
+                    \tag{3.1.2}
+                \]
+            </div>
+
+            <p>
+                첫 번째 항은 유체요소의 전단 및 형상변화와 연결되고, 두 번째 항은 Volume의 팽창과 수축에
+                해당하는 \(\nabla\cdot\boldsymbol{u}\)와 연결된다. Stokes' hypothesis
+                \(\lambda=-2\mu/3\)를 적용하고 \(2\mathbf S=\nabla\boldsymbol{u}
+                +(\nabla\boldsymbol{u})^T\)를 대입하면
+            </p>
+
+            <div class="equation main">
+                \[
+                    \boxed{\displaystyle
+                    \boldsymbol{\tau}
+                    =\mu\left[
+                    \nabla\boldsymbol{u}
+                    +(\nabla\boldsymbol{u})^T
+                    -\frac{2}{3}
+                    (\nabla\cdot\boldsymbol{u})\mathbf I
+                    \right]}
+                    \tag{3.1.3}
+                \]
+            </div>
+
+            <p>
+                이 식이 Velocity gradient와 Viscous stress를 연결하는 Newtonian stress relation이다.
+                Dynamic viscosity \(\mu\)는 동일한 Deformation rate에서 Viscous stress가 얼마나 크게
+                발생하는지를 결정한다.
+            </p>
+        </section>
+
+        <section id="incompressible-limit">
+            <h2>3. Incompressible Constant-Viscosity Limit</h2>
+
+<p>
+                Incompressible flow에서는 \(\nabla\cdot\boldsymbol{u}=0\)이므로 Volume 변화와 관련된 항이
+                사라진다. 또한 \(\mu\)가 Constant이면 Viscous-stress divergence는 다음과 같이 단순해진다.
+            </p>
+
+            <div class="equation">
+                \[
+                    \begin{aligned}
+                    \nabla\cdot\boldsymbol{\tau}
+                    &=\nabla\cdot\left[
+                    \mu\left(
+                    \nabla\boldsymbol{u}
+                    +(\nabla\boldsymbol{u})^T
+                    \right)\right]
+                    \\[2.8ex]
+                    &=\mu\nabla^2\boldsymbol{u}
+                    +\mu\nabla(\nabla\cdot\boldsymbol{u})
+                    \\[2.8ex]
+                    &=\mu\nabla^2\boldsymbol{u}
+                    \end{aligned}
+                    \tag{3.1.4}
+                \]
+            </div>
+
+            <p>
+                이 관계와 Material acceleration을 Momentum equation에 대입하면 Incompressible
+                Navier–Stokes momentum equation을 얻는다.
+            </p>
+
+            <div class="equation main">
+                \[
+                    \boxed{\displaystyle
+                    \rho\left[
+                    \frac{\partial\boldsymbol{u}}{\partial t}
+                    +(\boldsymbol{u}\cdot\nabla)\boldsymbol{u}
+                    \right]
+                    =-\nabla p+\mu\nabla^2\boldsymbol{u}
+                    +\rho\boldsymbol{f}}
+                    \tag{3.1.5}
+                \]
+            </div>
+
+            <p>
+                좌변은 유체입자의 단위체적당 Inertia를, 우변은 Pressure force, Viscous force, Body force의
+                합을 나타낸다.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <a href="../">← Fundamentals로 돌아가기</a>
+    </footer>
+</body>
+
+</html>
