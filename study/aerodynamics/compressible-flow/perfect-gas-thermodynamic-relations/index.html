@@ -74,10 +74,11 @@
                 <h1>1.1 Perfect-Gas Thermodynamic Relations</h1>
                 <p class="subtitle">Perfect-Gas Properties, Specific Heats, and Gibbs Relations</p>
                 <p class="intro">
-                    Perfect gas의 Thermodynamic relation은 Pressure, Density, Temperature, Internal energy,
-                    Enthalpy와 Entropy를 서로 연결한다. 먼저 Thermally perfect gas와 Calorically perfect
-                    gas의 가정을 구분하고, \(c_p\), \(c_v\), \(R\), \(\gamma\)의 관계를 유도한다. 이어서
-                    Gibbs relation을 이용하여 Perfect gas의 Entropy change를 정리한다.
+                    Incompressible flow에서는 Density를 Constant로 둘 수 있지만, Compressible flow에서는
+                    Pressure와 Temperature의 변화가 Density와 Energy의 변화로 직접 이어진다. 따라서 Conservation
+                    equation만으로는 유동을 완전히 결정할 수 없으며, Thermodynamic property들을 연결하는 관계가
+                    추가로 필요하다. 여기서는 그 역할을 하는 Perfect-gas model과 Specific heat relation을 정리하고,
+                    Gibbs relation을 이용하여 Entropy change까지 연결한다.
                 </p>
             </header>
 
@@ -92,9 +93,20 @@
             <section id="perfect-gas">
                 <h2>1. Thermally and Calorically Perfect Gas</h2>
 
+                <h3>압축성 유동에 Gas model이 필요한 이유</h3>
+
+                <p>
+                    Compressible flow에서는 \(u\), \(v\), \(w\), \(p\)뿐 아니라 \(\rho\)와 \(T\)도 함께
+                    변한다. Continuity equation은 Density의 변화를 포함하고, Momentum equation은 Pressure와
+                    Velocity를 연결하며, Energy equation은 Temperature와 Internal energy의 변화를 다룬다. 하지만
+                    이 식들만으로는 \(p\), \(\rho\), \(T\) 사이의 관계를 알 수 없으므로, 세 Property를 연결하는
+                    <strong>Equation of state</strong>가 있어야 Governing equation이 닫힌다.
+                </p>
+
                 <p>
                     <strong>Thermally perfect gas</strong>는 Pressure, Density, Temperature가 Ideal-gas
-                    equation of state를 따르는 Gas이다.
+                    equation of state를 따르는 Gas이다. 이는 분자 사이의 상호작용을 무시할 수 있는 범위에서
+                    Gas의 복잡한 Molecular behavior를 하나의 단순한 Property relation으로 나타낸 Model이다.
                 </p>
 
                 <div class="equation main">
@@ -105,9 +117,21 @@
                 </div>
 
                 <p>
-                    여기서 \(R\)은 Specific gas constant이다. <strong>Calorically perfect gas</strong>는 이
-                    관계에 더하여 Specific heat \(c_p\)와 \(c_v\)가 Temperature에 관계없이 Constant라고
-                    가정한다. 따라서 Specific internal energy와 Enthalpy를 다음과 같이 쓸 수 있다.
+                    여기서 \(R\)은 Gas의 종류에 따라 정해지는 Specific gas constant이다. 이 식은 Pressure가
+                    Density만으로 결정되는 것이 아니라 Temperature에도 의존한다는 점을 보여준다. 예를 들어 같은
+                    Density에서 Temperature가 증가하면 분자운동이 활발해지므로 Pressure가 증가하고, 같은
+                    Pressure에서 Temperature가 증가하면 Density는 감소해야 한다.
+                </p>
+
+                <h3>Internal energy와 Enthalpy를 Temperature로 표현</h3>
+
+                <p>
+                    <strong>Calorically perfect gas</strong>는 Ideal-gas equation에 더하여 Specific heat
+                    \(c_p\)와 \(c_v\)가 Temperature에 관계없이 Constant라고 가정한다. Internal energy \(e\)는
+                    분자의 무작위 Translational, Rotational, Vibrational motion에 저장된 Microscopic energy를
+                    나타낸다. 반면 Enthalpy \(h\)는 Internal energy에 Fluid를 밀어 넣거나 내보낼 때 필요한
+                    Pressure work \(p/\rho\)를 함께 묶은 Property이다. 따라서 질량이 Control surface를 통과하는
+                    유동 문제에서는 \(e\)보다 \(h\)가 Energy balance에 자연스럽게 나타난다.
                 </p>
 
                 <div class="equation">
@@ -153,7 +177,21 @@
                     \]
                 </div>
 
-                <p>Specific-heat ratio를 다음과 같이 정의한다.</p>
+                <p>
+                    \(c_v\)는 Constant-volume condition에서 Temperature를 높이는 데 필요한 Energy를 나타내고,
+                    \(c_p\)는 Constant-pressure condition에서 필요한 Energy를 나타낸다. Constant pressure에서는
+                    Gas가 팽창하면서 Pressure work까지 해야 하므로 일반적으로 \(c_p&gt;c_v\)이며, Perfect gas에서
+                    그 차이가 바로 \(R\)이 된다.
+                </p>
+
+                <h3>Specific-heat ratio의 의미</h3>
+
+                <p>
+                    Specific-heat ratio \(\gamma\)는 Gas에 공급된 Energy가 Temperature 변화와 Pressure work
+                    사이에 어떻게 나뉘는지를 나타내는 중요한 비율이다. 이후 Isentropic compression과 Expansion,
+                    Speed of sound에서 Pressure·Density·Temperature가 얼마나 민감하게 함께 변하는지를 결정한다.
+                    이를 다음과 같이 정의한다.
+                </p>
 
                 <div class="equation">
                     \[
@@ -190,16 +228,33 @@
                         \tag{1.1.7}
                     \]
                 </div>
+
+                <div class="concept-note">
+                    <p>
+                        <strong>핵심:</strong> Equation of state는 \(p\), \(\rho\), \(T\)를 연결하고,
+                        Calorically perfect-gas assumption은 \(e\)와 \(h\)까지 Temperature만의 함수로 단순화한다.
+                        이 두 단계가 있어야 Compressible-flow equation을 실제로 계산할 수 있는 형태로 닫을 수 있다.
+                    </p>
+                </div>
             </section>
 
             <section id="gibbs-relations">
                 <h2>2. Gibbs Relations</h2>
 
+                <h3>왜 Entropy relation이 필요한가</h3>
+
                 <p>
-                    Simple compressible substance에서 Entropy \(s\)는 Heat transfer와 Irreversibility를
-                    함께 추적하는 State variable이다. Gibbs relation은 Entropy change를 Temperature,
-                    Pressure, Specific volume과 같은 Thermodynamic property의 변화로 연결하는 Identity이다.
-                    Specific volume을 \(v=1/\rho\)라고 하면 두 Gibbs relation은 다음과 같다.
+                    First law는 Energy가 보존된다는 사실을 알려주지만, Process가 어느 방향으로 진행되는지 또는
+                    Friction과 Shock 같은 Irreversibility가 발생했는지는 구분하지 못한다. 이 정보를 나타내기 위해
+                    Entropy \(s\)를 사용한다. Compressible flow에서 Entropy는 Heat transfer와 Irreversibility를
+                    함께 추적하고, 실제 유동을 손실이 없는 기준 유동과 비교하게 해주는 State variable이다.
+                </p>
+
+                <p>
+                    Entropy 자체를 직접 다루기보다는 측정하거나 계산하기 쉬운 Temperature, Pressure, Internal
+                    energy, Enthalpy와 연결하는 편이 유용하다. Gibbs relation이 바로 이 연결을 제공한다. 여기서
+                    \(v=1/\rho\)는 Velocity가 아니라 단위질량당 부피인 <strong>Specific volume</strong>이며,
+                    Simple compressible substance에 대한 두 Gibbs relation은 다음과 같다.
                 </p>
 
                 <div class="equation">
@@ -212,6 +267,17 @@
                         \tag{1.1.8}
                     \]
                 </div>
+
+                <ul class="explanation-list">
+                    <li>
+                        \(T\,\mathrm ds=\mathrm de+p\,\mathrm dv\): Temperature와 Specific volume을 사용할 때
+                        편리한 Internal-energy form
+                    </li>
+                    <li>
+                        \(T\,\mathrm ds=\mathrm dh-v\,\mathrm dp\): Temperature와 Pressure를 사용할 때
+                        편리한 Enthalpy form
+                    </li>
+                </ul>
 
                 <p>
                     첫 번째 Gibbs relation에 \(e=c_vT\)와 \(p=RT/v\)를 대입한다. \(c_v\)가
@@ -288,6 +354,20 @@
                         -R\ln\left(\frac{p_2}{p_1}\right)}
                         \tag{1.1.13}
                     \]
+                </div>
+
+                <p>
+                    이 식을 사용하면 두 State의 Temperature와 Pressure만으로 Entropy change를 계산할 수 있다.
+                    특히 다음 절에서 \(s_2-s_1=0\)을 적용하면, 서로 독립적으로 보이던 Pressure와 Temperature가
+                    Isentropic process에서 반드시 따라야 하는 관계가 바로 도출된다.
+                </p>
+
+                <div class="concept-note">
+                    <p>
+                        Gibbs relation은 새로운 Conservation law가 아니라, 이미 정의된 Thermodynamic property들
+                        사이의 Identity이다. 그 역할은 Energy 변화와 Pressure–volume work를 Entropy 변화로 바꾸어
+                        Heat transfer와 Irreversibility를 판단할 수 있게 하는 데 있다.
+                    </p>
                 </div>
             </section>
 
