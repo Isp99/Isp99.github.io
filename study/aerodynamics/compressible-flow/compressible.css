@@ -192,7 +192,12 @@ body.article-page .left-sidebar .sidebar-inner {
     max-height: calc(100vh - 60px);
     overflow-y: auto;
     padding-right: 10px;
-    scrollbar-width: thin;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+body.article-page .left-sidebar .sidebar-inner::-webkit-scrollbar {
+    display: none;
 }
 
 body.article-page .sidebar-title {
@@ -217,7 +222,7 @@ body.article-page .sidebar-group {
 body.article-page .sidebar-group-title {
     margin: 0 0 10px;
     color: #555555;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 400;
 }
 
@@ -227,6 +232,10 @@ body.article-page .sidebar-link {
     border-left: 2px solid transparent;
     color: #777777;
     text-decoration: none;
+}
+
+body.article-page .left-sidebar .sidebar-link {
+    font-size: 14px;
 }
 
 body.article-page .sidebar-link:hover {
@@ -258,6 +267,10 @@ body.article-page .right-sidebar .sidebar-link {
 
     body.article-page .sidebar-group-title {
         font-size: 15px;
+    }
+
+    body.article-page .left-sidebar .sidebar-link {
+        font-size: 14px;
     }
 }
 
