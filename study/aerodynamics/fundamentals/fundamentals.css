@@ -28,7 +28,7 @@ nav {
 nav a {
     color: #333333;
     font-size: 15px;
-    font-weight: bold;
+    font-weight: 700;
     text-decoration: none;
 }
 
@@ -39,9 +39,10 @@ footer a:hover {
 }
 
 h1,
-h2 {
+h2,
+h3 {
     color: #161616;
-    line-height: 1.35;
+    line-height: 1.4;
 }
 
 h1 {
@@ -51,11 +52,17 @@ h1 {
 }
 
 h2 {
-    margin: 95px 0 32px;
+    margin: 95px 0 36px;
     padding-bottom: 13px;
     border-bottom: 1px solid #d8d8d8;
     font-size: 29px;
     letter-spacing: -0.025em;
+}
+
+h3 {
+    margin: 58px 0 24px;
+    font-size: 21px;
+    letter-spacing: -0.015em;
 }
 
 p {
@@ -64,6 +71,7 @@ p {
 
 strong {
     color: #111111;
+    font-weight: 700;
 }
 
 .subtitle {
@@ -74,6 +82,8 @@ strong {
 
 .intro {
     margin-bottom: 44px;
+    color: #30343a;
+    font-size: 17.5px;
 }
 
 .contents {
@@ -104,7 +114,15 @@ footer a {
 }
 
 section {
-    margin-bottom: 105px;
+    margin-bottom: 108px;
+}
+
+.topic-block {
+    margin: 52px 0 0;
+}
+
+.topic-block:first-of-type {
+    margin-top: 0;
 }
 
 .equation {
@@ -115,23 +133,41 @@ section {
 }
 
 .equation.main {
-    margin-top: 46px;
-    margin-bottom: 52px;
-    padding: 7px 0;
+    margin-top: 48px;
+    margin-bottom: 54px;
+    padding: 8px 0;
 }
 
 .equation + p {
     margin-top: 4px;
 }
 
-.explanation-list {
-    margin: 25px 0 38px;
+.explanation-list,
+.term-list {
+    margin: 26px 0 40px;
     padding-left: 40px;
 }
 
-.explanation-list li {
-    margin: 13px 0;
+.explanation-list li,
+.term-list li {
+    margin: 14px 0;
     padding-left: 5px;
+}
+
+.concept-note {
+    margin: 42px 0 46px;
+    padding: 24px 27px;
+    border-left: 4px solid #7b8794;
+    background: #f7f8fa;
+}
+
+.concept-note p:last-child,
+.concept-note ul:last-child {
+    margin-bottom: 0;
+}
+
+.transition {
+    margin-top: 50px;
 }
 
 footer {
@@ -151,6 +187,7 @@ mjx-container[display="true"] {
     body {
         padding: 28px 20px 65px;
         font-size: 16px;
+        line-height: 1.9;
     }
 
     nav {
@@ -166,11 +203,137 @@ mjx-container[display="true"] {
         font-size: 25px;
     }
 
+    h3 {
+        margin-top: 48px;
+        font-size: 20px;
+    }
+
     .contents {
         padding: 22px 24px;
     }
 
     .equation {
         margin: 36px 0 44px;
+    }
+
+    .concept-note {
+        margin: 36px 0 40px;
+        padding: 21px 22px;
+    }
+}
+
+/* =========================================================
+   Three-column article layout
+   These rules extend the base article styles above.
+   ========================================================= */
+
+body.article-page {
+    max-width: none;
+    padding: 0;
+}
+
+.page-layout {
+    display: grid;
+    grid-template-columns: 190px minmax(0, 760px) 190px;
+    gap: 45px;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 36px 30px 90px;
+}
+
+.main-content {
+    min-width: 0;
+}
+
+.article-page .main-content > nav {
+    margin-bottom: 30px;
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.left-sidebar,
+.right-sidebar {
+    min-width: 0;
+    padding-top: 2px;
+    color: #666666;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.sidebar-inner {
+    position: sticky;
+    top: 30px;
+}
+
+.sidebar-title {
+    display: block;
+    margin-bottom: 8px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid #dddddd;
+    color: #222222;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.sidebar-title-link:hover {
+    text-decoration: underline;
+}
+
+.sidebar-group {
+    margin-bottom: 18px;
+}
+
+.sidebar-group-title {
+    margin: 0 0 4px;
+    color: #555555;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.sidebar-link {
+    display: block;
+    padding: 5px 0 5px 11px;
+    border-left: 2px solid transparent;
+    color: #777777;
+    text-decoration: none;
+}
+
+.sidebar-link:hover {
+    color: #222222;
+}
+
+.sidebar-link.active {
+    border-left-color: #444444;
+    color: #161616;
+    font-weight: 700;
+}
+
+.right-sidebar .sidebar-link {
+    padding: 5px 0;
+    border-left: 0;
+}
+
+@media (max-width: 1100px) {
+    .page-layout {
+        display: block;
+        max-width: 860px;
+        padding: 44px 34px 90px;
+    }
+
+    .left-sidebar,
+    .right-sidebar {
+        display: none;
+    }
+}
+
+@media (max-width: 650px) {
+    .page-layout {
+        padding: 28px 20px 65px;
+    }
+
+    .article-page .main-content > nav {
+        margin-bottom: 24px;
     }
 }
