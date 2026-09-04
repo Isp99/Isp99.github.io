@@ -13,36 +13,165 @@
             max-width: 900px;
             margin: auto;
             padding: 30px;
-            line-height: 1.7;
+            line-height: 1.8;
             color: #222;
         }
 
         nav {
-            margin-bottom: 50px;
+            margin-bottom: 55px;
         }
 
         nav a {
             margin-right: 25px;
             text-decoration: none;
-            color: #333;
+            color: #222;
             font-weight: bold;
         }
 
+        nav a:hover {
+            text-decoration: underline;
+        }
+
         h1 {
-            font-size: 40px;
+            font-size: 42px;
+            margin-bottom: 5px;
         }
 
-        h2 {
-            margin-top: 50px;
+        p {
+            margin: 16px 0;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 45px;
+        }
+
+        .intro {
+            max-width: 760px;
+            margin-bottom: 65px;
+        }
+
+        .contents-section {
+            margin-top: 20px;
+            margin-bottom: 70px;
+        }
+
+        .contents-title {
+            font-size: 29px;
+            font-weight: 700;
+            margin-bottom: 22px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #d8d8d8;
+        }
+
+        .contents-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
             border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
         }
 
-        a {
-            color: #333;
+        .contents-list li {
+            margin: 0;
+        }
+
+        .contents-list a {
+            display: grid;
+            grid-template-columns: 32px 1fr 28px;
+            align-items: center;
+            gap: 8px;
+
+            padding: 24px 14px 24px 8px;
+
+            border-top: 1px solid #ddd;
+
+            color: #222;
+            text-decoration: none;
+
+            transition:
+                background-color 0.15s ease,
+                padding-left 0.15s ease;
+        }
+
+        .contents-list a:hover {
+            background-color: #f7f7f7;
+            padding-left: 14px;
+        }
+
+        .bullet {
+            font-size: 20px;
+            color: #666;
+            text-align: center;
+        }
+
+        .content-text {
+            min-width: 0;
+        }
+
+        .content-title {
+            display: block;
+            font-size: 21px;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 5px;
+        }
+
+        .content-description {
+            display: block;
+            font-size: 15px;
+            font-weight: 400;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .content-arrow {
+            font-size: 19px;
+            color: #777;
+            text-align: right;
+            transition: transform 0.15s ease;
+        }
+
+        .contents-list a:hover .content-arrow {
+            transform: translateX(4px);
+        }
+
+        footer {
+            margin-top: 80px;
+            padding-top: 25px;
+            border-top: 1px solid #ddd;
+        }
+
+        footer a {
+            color: #222;
+        }
+
+        @media (max-width: 650px) {
+
+            body {
+                padding: 22px;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+
+            .contents-list a {
+                grid-template-columns: 24px 1fr 20px;
+                padding: 20px 8px 20px 2px;
+            }
+
+            .content-title {
+                font-size: 19px;
+            }
+
+            .content-description {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
+
 
 <body>
 
@@ -55,73 +184,168 @@
 
 <h1>Aerodynamics</h1>
 
-<p>
-    Study notes on fundamental and applied aerodynamics.
+<p class="subtitle">
+    Fundamental and Applied Aerodynamics
 </p>
 
 
-<h2>Contents</h2>
+<div class="intro">
 
-<ul>
-  <li>
-    <a href="/study/aerodynamics/fundamentals/">
-        Fundamentals of Aerodynamics
+    <p>
+        Study notes covering the mathematical foundations,
+        governing equations, compressible flow, viscous flow,
+        turbulence, and hypersonic aerodynamics.
+    </p>
+
+</div>
+
+
+<section class="contents-section">
+
+    <div class="contents-title">
+        Contents
+    </div>
+
+
+    <ul class="contents-list">
+
+        <li>
+            <a href="fundamentals/">
+
+                <span class="bullet">•</span>
+
+                <span class="content-text">
+
+                    <span class="content-title">
+                        Fundamentals of Aerodynamics
+                    </span>
+
+                    <span class="content-description">
+                        Mathematical foundations and governing equations
+                    </span>
+
+                </span>
+
+                <span class="content-arrow">
+                    →
+                </span>
+
+            </a>
+        </li>
+
+
+        <li>
+            <a href="compressible-flow/">
+
+                <span class="bullet">•</span>
+
+                <span class="content-text">
+
+                    <span class="content-title">
+                        Compressible Flow
+                    </span>
+
+                    <span class="content-description">
+                        Isentropic flow, shock waves, and expansion waves
+                    </span>
+
+                </span>
+
+                <span class="content-arrow">
+                    →
+                </span>
+
+            </a>
+        </li>
+
+
+        <li>
+            <a href="viscous-flow-and-boundary-layers/">
+
+                <span class="bullet">•</span>
+
+                <span class="content-text">
+
+                    <span class="content-title">
+                        Viscous Flow and Boundary Layers
+                    </span>
+
+                    <span class="content-description">
+                        Viscous effects, boundary layers, and flow separation
+                    </span>
+
+                </span>
+
+                <span class="content-arrow">
+                    →
+                </span>
+
+            </a>
+        </li>
+
+
+        <li>
+            <a href="turbulence/">
+
+                <span class="bullet">•</span>
+
+                <span class="content-text">
+
+                    <span class="content-title">
+                        Turbulence
+                    </span>
+
+                    <span class="content-description">
+                        Turbulent flow, Reynolds averaging, and turbulence modeling
+                    </span>
+
+                </span>
+
+                <span class="content-arrow">
+                    →
+                </span>
+
+            </a>
+        </li>
+
+
+        <li>
+            <a href="hypersonic-flow/">
+
+                <span class="bullet">•</span>
+
+                <span class="content-text">
+
+                    <span class="content-title">
+                        Hypersonic Flow
+                    </span>
+
+                    <span class="content-description">
+                        High-speed flow and hypersonic aerodynamic phenomena
+                    </span>
+
+                </span>
+
+                <span class="content-arrow">
+                    →
+                </span>
+
+            </a>
+        </li>
+
+    </ul>
+
+</section>
+
+
+<footer>
+
+    <a href="/">
+        ← Back to Home
     </a>
-</li>
 
-<li>
-    <a href="/study/aerodynamics/compressible/">
-        Compressible Flow
-    </a>
-</li> 
-    
- <li>
-    <a href="/study/aerodynamics/viscous/">
-        Viscous Flow and Boundary Layers
-    </a>
-</li>
-    
-<li>
-    <a href="/study/aerodynamics/turbulence/">
-        Turbulence
-    </a>
-</li>
-<li>
-    <a href="/study/aerodynamics/hypersonic/">
-        Hypersonic Flow
-    </a>
-</li>
+</footer>
 
-</ul>
-
-
-<h2>Overview</h2>
-
-<p>
-    Aerodynamics is the study of the motion of air and the forces
-    generated by the interaction between fluid flow and solid bodies.
-</p>
-
-<p>
-    This page contains personal study notes covering governing equations,
-    compressible flow, viscous flow, boundary layers, shock waves,
-    and related aerodynamic phenomena.
-</p>
-
-
-<h2>Study Materials</h2>
-
-<ul>
-    <li>Lecture Notes</li>
-    <li>Derivations</li>
-    <li>Figures and Examples</li>
-    <li>PDF Documents</li>
-</ul>
-
-
-<p>
-    <a href="/">← Back to Home</a>
-</p>
 
 </body>
 
