@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Thermodynamic relations, nozzle flow, shock waves, and expansion waves in compressible aerodynamics.">
+
+    <title>Compressible Flow | Isp99</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 28px 70px;
+            color: #222222;
+            background: #ffffff;
+            font-family: Arial, "Noto Sans", sans-serif;
+            font-size: 16px;
+            line-height: 1.85;
+        }
+
+        h1,
+        h2 {
+            color: #171717;
+            line-height: 1.35;
+        }
+
+        h1 {
+            margin: 0 0 24px;
+            font-size: 40px;
+            letter-spacing: -0.025em;
+        }
+
+        .subtitle {
+            margin: 0 0 44px;
+            color: #5f5f5f;
+            font-size: 18px;
+        }
+
+        .intro {
+            margin-bottom: 58px;
+        }
+
+        .intro p {
+            margin: 0 0 18px;
+        }
+
+        .chapter {
+            margin: 0 0 66px;
+        }
+
+        .chapter h2 {
+            margin: 0 0 12px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid #d8d8d8;
+            font-size: 28px;
+            letter-spacing: -0.015em;
+        }
+
+        .chapter-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .chapter-list li {
+            margin: 0;
+        }
+
+        .chapter-list a {
+            display: grid;
+            grid-template-columns: 48px minmax(0, 1fr);
+            gap: 0;
+            align-items: baseline;
+            padding: 8px 28px;
+            color: #171717;
+            text-decoration: none;
+        }
+
+        .chapter-list a:hover {
+            text-decoration: underline;
+        }
+
+        .number {
+            color: #5f5f5f;
+            font-weight: 700;
+        }
+
+        .title {
+            min-width: 0;
+        }
+
+        footer {
+            margin-top: 82px;
+            padding-top: 24px;
+            border-top: 1px solid #d8d8d8;
+        }
+
+        footer a {
+            color: #222222;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 24px 20px 55px;
+                font-size: 15.5px;
+            }
+
+            h1 {
+                font-size: 33px;
+            }
+
+            .subtitle {
+                margin-bottom: 38px;
+                font-size: 17px;
+            }
+
+            .chapter {
+                margin-bottom: 54px;
+            }
+
+            .chapter h2 {
+                font-size: 24px;
+            }
+
+            .chapter-list a {
+                grid-template-columns: 46px minmax(0, 1fr);
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <header>
+            <h1>Compressible Flow</h1>
+            <p class="subtitle">Thermodynamic Relations, Shock Waves, and Expansion Flows</p>
+
+            <div class="intro">
+                <p>
+                    This section develops the fundamental relations used to describe compressible flow, where density
+                    variations play an essential role in the behavior of the fluid.
+                </p>
+
+                <p>
+                    The topics progress from perfect-gas thermodynamics and isentropic relations to stagnation
+                    properties, quasi-one-dimensional nozzle flow, shock waves, and Prandtl–Meyer expansion.
+                </p>
+            </div>
+        </header>
+
+        <section class="chapter" aria-labelledby="chapter-1">
+            <h2 id="chapter-1">1. Fundamentals of Compressible Flow</h2>
+
+            <ol class="chapter-list">
+                <li>
+                    <a href="perfect-gas-thermodynamic-relations/">
+                        <span class="number">1.1</span>
+                        <span class="title">Perfect-Gas Thermodynamic Relations</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="isentropic-relations/">
+                        <span class="number">1.2</span>
+                        <span class="title">Isentropic Relations</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="speed-of-sound-and-mach-number/">
+                        <span class="number">1.3</span>
+                        <span class="title">Speed of Sound and Mach Number</span>
+                    </a>
+                </li>
+            </ol>
+        </section>
+
+        <section class="chapter" aria-labelledby="chapter-2">
+            <h2 id="chapter-2">2. Stagnation State and Properties</h2>
+
+            <ol class="chapter-list">
+                <li>
+                    <a href="stagnation-temperature/">
+                        <span class="number">2.1</span>
+                        <span class="title">Stagnation Temperature</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="stagnation-pressure-and-density/">
+                        <span class="number">2.2</span>
+                        <span class="title">Stagnation Pressure and Density</span>
+                    </a>
+                </li>
+            </ol>
+        </section>
+
+        <section class="chapter" aria-labelledby="chapter-3">
+            <h2 id="chapter-3">3. Quasi-One-Dimensional Nozzle Flow</h2>
+
+            <ol class="chapter-list">
+                <li>
+                    <a href="area-velocity-relation/">
+                        <span class="number">3.1</span>
+                        <span class="title">Area–Velocity Relation</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="mass-flow-function-and-choking/">
+                        <span class="number">3.2</span>
+                        <span class="title">Mass-Flow Function and Choking</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="area-mach-number-relation/">
+                        <span class="number">3.3</span>
+                        <span class="title">Area–Mach Number Relation</span>
+                    </a>
+                </li>
+            </ol>
+        </section>
+
+        <section class="chapter" aria-labelledby="chapter-4">
+            <h2 id="chapter-4">4. Normal Shock Waves</h2>
+
+            <ol class="chapter-list">
+                <li>
+                    <a href="normal-shock-conservation-laws/">
+                        <span class="number">4.1</span>
+                        <span class="title">Derivation from Conservation Laws</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="normal-shock-property-ratios/">
+                        <span class="number">4.2</span>
+                        <span class="title">Normal-Shock Property Ratios</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="downstream-mach-number-and-entropy-change/">
+                        <span class="number">4.3</span>
+                        <span class="title">Downstream Mach Number and Entropy Change</span>
+                    </a>
+                </li>
+            </ol>
+        </section>
+
+        <section class="chapter" aria-labelledby="chapter-5">
+            <h2 id="chapter-5">5. Oblique Shock Waves</h2>
+
+            <ol class="chapter-list">
+                <li>
+                    <a href="normal-component-method/">
+                        <span class="number">5.1</span>
+                        <span class="title">Normal-Component Method</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="theta-beta-mach-relation/">
+                        <span class="number">5.2</span>
+                        <span class="title">Derivation of the Theta–Beta–Mach Relation</span>
+                    </a>
+                </li>
+            </ol>
+        </section>
+
+        <section class="chapter" aria-labelledby="chapter-6">
+            <h2 id="chapter-6">6. Prandtl–Meyer Expansion</h2>
+
+            <ol class="chapter-list">
+                <li>
+                    <a href="infinitesimal-isentropic-turning/">
+                        <span class="number">6.1</span>
+                        <span class="title">Infinitesimal Isentropic Turning</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="prandtl-meyer-function/">
+                        <span class="number">6.2</span>
+                        <span class="title">Derivation of the Prandtl–Meyer Function</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="finite-expansion-and-property-changes/">
+                        <span class="number">6.3</span>
+                        <span class="title">Finite Expansion and Property Changes</span>
+                    </a>
+                </li>
+            </ol>
+        </section>
+    </main>
+
+    <footer>
+        <a href="../">← Back to Aerodynamics</a>
+    </footer>
+</body>
+
+</html>
