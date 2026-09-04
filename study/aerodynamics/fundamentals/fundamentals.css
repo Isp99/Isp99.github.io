@@ -1,149 +1,176 @@
-/* =========================================================
-   Article page with sidebars
-   기존 본문 폭/간격은 그대로 유지
-   ========================================================= */
-
-body.article-page {
-    max-width: none;
-    margin: 0;
-    padding: 0;
+* {
+    box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 30px;
+}
 
-/* 전체 3열 배치 */
-.page-layout {
-    display: grid;
-
-    /* 가운데 860px = 기존 body 폭 그대로 */
-    grid-template-columns: 190px 860px 190px;
-    gap: 45px;
-
-    width: max-content;
-    max-width: 100%;
+body {
+    max-width: 860px;
     margin: 0 auto;
-}
-
-
-/* 기존 body의 레이아웃을 그대로 가운데에 이식 */
-.main-content {
-    width: 860px;
     padding: 44px 34px 90px;
-
     color: #202124;
     background: #ffffff;
-
     font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
     font-size: 17px;
     line-height: 2;
     word-break: keep-all;
 }
 
-
-/* =========================
-   Sidebars
-   ========================= */
-
-.left-sidebar,
-.right-sidebar {
-    padding-top: 44px;
-
-    color: #666666;
-    font-size: 14px;
-    line-height: 1.6;
+nav {
+    margin-bottom: 70px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e1e1e1;
 }
 
-.sidebar-inner {
-    position: sticky;
-    top: 30px;
-}
-
-.sidebar-title {
-    display: block;
-
-    margin-bottom: 14px;
-    padding-bottom: 9px;
-
-    border-bottom: 1px solid #dddddd;
-
-    color: #222222;
-    font-size: 14px;
-    font-weight: 700;
+nav a {
+    color: #333333;
+    font-size: 15px;
+    font-weight: bold;
     text-decoration: none;
 }
 
-.sidebar-title-link:hover {
+nav a:hover,
+.contents a:hover,
+footer a:hover {
     text-decoration: underline;
 }
 
-
-/* 왼쪽 chapter 구분 */
-.sidebar-group {
-    margin-bottom: 22px;
-}
-
-.sidebar-group-title {
-    margin-bottom: 6px;
-
-    color: #444444;
-    font-size: 13px;
-    font-weight: 700;
-}
-
-
-/* sidebar link */
-.sidebar-link {
-    display: block;
-
-    padding: 5px 0 5px 10px;
-
-    color: #777777;
-    text-decoration: none;
-
-    border-left: 2px solid transparent;
-}
-
-.sidebar-link:hover {
-    color: #222222;
-}
-
-.sidebar-link.active {
+h1,
+h2 {
     color: #161616;
-    font-weight: 700;
-    border-left-color: #444444;
+    line-height: 1.35;
 }
 
-
-/* 오른쪽 sidebar에는 세로선 제거 */
-.right-sidebar .sidebar-link {
-    padding-left: 0;
-    border-left: none;
+h1 {
+    margin: 0 0 12px;
+    font-size: 42px;
+    letter-spacing: -0.04em;
 }
 
+h2 {
+    margin: 95px 0 32px;
+    padding-bottom: 13px;
+    border-bottom: 1px solid #d8d8d8;
+    font-size: 29px;
+    letter-spacing: -0.025em;
+}
 
-/* =========================
-   Responsive
-   ========================= */
+p {
+    margin: 0 0 30px;
+}
 
-@media (max-width: 1300px) {
+strong {
+    color: #111111;
+}
 
-    .page-layout {
-        display: block;
-        width: auto;
-        max-width: 860px;
-        margin: 0 auto;
-    }
+.subtitle {
+    margin-bottom: 48px;
+    color: #666666;
+    font-size: 18px;
+}
 
-    .left-sidebar,
-    .right-sidebar {
-        display: none;
-    }
+.intro {
+    margin-bottom: 44px;
+}
+
+.contents {
+    margin: 45px 0 82px;
+    padding: 25px 31px;
+    border: 1px solid #dedede;
+    background: #fafafa;
+}
+
+.contents strong {
+    display: block;
+    margin-bottom: 14px;
+}
+
+.contents ol {
+    margin: 0;
+    padding-left: 23px;
+}
+
+.contents li {
+    margin: 8px 0;
+}
+
+.contents a,
+footer a {
+    color: #333333;
+    text-decoration: none;
+}
+
+section {
+    margin-bottom: 105px;
+}
+
+.equation {
+    margin: 42px 0 50px;
+    padding: 5px 0;
+    overflow-x: auto;
+    text-align: center;
+}
+
+.equation.main {
+    margin-top: 46px;
+    margin-bottom: 52px;
+    padding: 7px 0;
+}
+
+.equation + p {
+    margin-top: 4px;
+}
+
+.explanation-list {
+    margin: 25px 0 38px;
+    padding-left: 40px;
+}
+
+.explanation-list li {
+    margin: 13px 0;
+    padding-left: 5px;
+}
+
+footer {
+    margin-top: 95px;
+    padding-top: 28px;
+    border-top: 1px solid #dddddd;
+}
+
+mjx-container[display="true"] {
+    margin: 0.8em 0 !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.2em 0;
 }
 
 @media (max-width: 650px) {
-
-    .main-content {
-        width: 100%;
+    body {
         padding: 28px 20px 65px;
         font-size: 16px;
+    }
+
+    nav {
+        margin-bottom: 55px;
+    }
+
+    h1 {
+        font-size: 34px;
+    }
+
+    h2 {
+        margin-top: 75px;
+        font-size: 25px;
+    }
+
+    .contents {
+        padding: 22px 24px;
+    }
+
+    .equation {
+        margin: 36px 0 44px;
     }
 }
