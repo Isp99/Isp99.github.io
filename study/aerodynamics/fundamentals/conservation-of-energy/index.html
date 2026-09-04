@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="유체에 대한 First law와 Integral, Differential, Internal-energy equation을 유도합니다.">
+
+    <title>2.3 Conservation of Energy | Isp99</title>
+
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: {
+                scale: 1.02
+            }
+        };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="../fundamentals.css">
+</head>
+
+<body>
+    <nav>
+        <a href="#top">2.3 Conservation of Energy</a>
+    </nav>
+
+    <main id="top">
+        <header>
+            <h1>2.3 Conservation of Energy</h1>
+            <p class="subtitle">First Law, Total Energy, and Internal Energy</p>
+            <p class="intro">Conservation of energy는 System의 Energy 변화가 Heat와 Work의 전달로 결정된다는 First law of thermodynamics에서 출발한다. 이 절에서는 Total specific energy를 정의하고, Integral 및 Differential total-energy equation과 Internal-energy form을 정리한다.</p>
+        </header>
+
+        <aside class="contents" aria-label="목차">
+            <strong>Contents</strong>
+            <ol>
+                <li><a href="#total-specific-energy">Total Specific Energy</a></li>
+                <li><a href="#first-law">First Law of Thermodynamics</a></li>
+                <li><a href="#heat-and-work">Heat and Work Terms</a></li>
+                <li><a href="#integral-energy">Integral Total-Energy Equation</a></li>
+                <li><a href="#differential-energy">Differential Total-Energy Equation</a></li>
+                <li><a href="#internal-energy">Internal-Energy Form</a></li>
+            </ol>
+        </aside>
+
+        <section id="total-specific-energy">
+            <h2>1. Total Specific Energy</h2>
+
+<p>
+                유체가 단위질량당 가지고 있는 Total energy는 Internal energy, Kinetic energy, Potential energy의
+                합으로 정의된다.
+            </p>
+
+            <div class="equation">
+                \[
+                    e_t=e+\frac{V^2}{2}+gz
+                    \tag{2.3.1}
+                \]
+            </div>
+
+            <p>각 항은 단위질량당 Energy를 나타낸다.</p>
+
+            <ul class="explanation-list">
+                <li>\(e\): 분자의 미시적인 운동과 상호작용에 의한 <strong>Internal energy</strong></li>
+                <li>\(V^2/2\): 유체의 거시적인 운동에 의한 <strong>Kinetic energy</strong></li>
+                <li>\(gz\): 중력장 안의 위치에 의한 <strong>Potential energy</strong></li>
+            </ul>
+
+            <p>
+                여기서 Specific은 단위질량당이라는 뜻이므로 \(e_t\)의 단위는 \(\mathrm{J/kg}\)이다.
+                여기에 Density \(\rho\)를 곱한 \(\rho e_t\)는 단위체적당 Energy인
+                \(\mathrm{J/m^3}\)가 되며, Control volume 전체에 대해 적분할 수 있다.
+            </p>
+        </section>
+
+        <section id="first-law">
+            <h2>2. First Law of Thermodynamics</h2>
+
+<p>
+                First law of thermodynamics는 System의 Energy 변화가 Heat와 Work의 전달로 결정된다는
+                Energy conservation을 나타낸다. \(\dot W\)를 System이 외부에 한 Work로 정의하면
+            </p>
+
+            <div class="equation">
+                \[
+                    \frac{\mathrm dE_{\mathrm{system}}}{\mathrm dt}
+                    =\dot Q-\dot W
+                    \tag{2.3.2}
+                \]
+            </div>
+
+            <p>
+                System으로 들어오는 Heat는 Energy를 증가시키고, System이 외부에 하는 Work는 System의 Energy를
+                감소시키므로 두 항의 부호가 반대이다. 이 식을 Control volume에 적용하기 위해 RTT에서
+                \(b=e_t\)로 두면
+            </p>
+
+            <div class="equation">
+                \[
+                    \frac{\mathrm dE_{\mathrm{system}}}{\mathrm dt}
+                    =
+                    \frac{\partial}{\partial t}
+                    \int_{CV}\rho e_t\,\mathrm dV
+                    +\oint_{CS}\rho e_t
+                    (\boldsymbol{u}\cdot\boldsymbol{n})\,\mathrm dA
+                    \tag{2.3.3}
+                \]
+            </div>
+
+            <p>
+                첫 번째 항은 Control volume 내부의 Energy accumulation이고, 두 번째 항은 질량유동이 Control
+                surface를 통과하면서 운반하는 Total-energy flux이다.
+            </p>
+        </section>
+
+        <section id="heat-and-work">
+            <h2>3. Heat and Work Terms</h2>
+
+<p>
+                Control volume으로 전달되는 Heat는 Control surface를 통한 Heat conduction과 Control volume
+                내부에서 발생하는 Volumetric heating으로 나뉜다.
+            </p>
+
+            <div class="equation">
+                \[
+                    \dot Q
+                    =-\oint_{CS}\boldsymbol{q}\cdot\boldsymbol{n}\,\mathrm dA
+                    +\int_{CV}\dot q_v\,\mathrm dV
+                    \tag{2.3.4}
+                \]
+            </div>
+
+            <p>
+                \(\boldsymbol{q}\cdot\boldsymbol{n}>0\)은 바깥쪽으로 나가는 Conductive heat flux이므로,
+                Control volume으로 들어오는 Heat를 양수로 나타내기 위해 Surface integral 앞에 음의 부호가 붙는다.
+                Heat-flux vector는 Fourier's law에 의해 Temperature gradient와 반대 방향을 향한다.
+            </p>
+
+            <div class="equation">
+                \[
+                    \boldsymbol{q}=-k_f\nabla T
+                    \tag{2.3.5}
+                \]
+            </div>
+
+            <p>
+                Surface stress가 유체에 하는 Work rate는 Traction vector와 해당 면의 Velocity를 Dot product하여
+                계산한다.
+            </p>
+
+            <div class="equation">
+                \[
+                    \dot W_{\mathrm{surface,on\ fluid}}
+                    =\oint_{CS}
+                    (\boldsymbol{\sigma}\cdot\boldsymbol{n})
+                    \cdot\boldsymbol{u}\,\mathrm dA
+                    \tag{2.3.6}
+                \]
+            </div>
+
+            <p>
+                Stress tensor를 \(\boldsymbol{\sigma}=-p\mathbf I+\boldsymbol{\tau}\)로 분해하면 Surface work도
+                Pressure work와 Viscous-stress work로 나뉜다.
+            </p>
+
+            <div class="equation">
+                \[
+                    \begin{aligned}
+                    (\boldsymbol{\sigma}\cdot\boldsymbol{n})\cdot\boldsymbol{u}
+                    &=(-p\boldsymbol{n}
+                    +\boldsymbol{\tau}\cdot\boldsymbol{n})\cdot\boldsymbol{u}
+                    \\[2.8ex]
+                    &=-p(\boldsymbol{u}\cdot\boldsymbol{n})
+                    +(\boldsymbol{\tau}\cdot\boldsymbol{u})\cdot\boldsymbol{n}
+                    \end{aligned}
+                    \tag{2.3.7}
+                \]
+            </div>
+
+            <p>Body force가 유체에 하는 Work rate는 단위질량당 Force와 Velocity의 Dot product로 표현된다.</p>
+
+            <div class="equation">
+                \[
+                    \dot W_{\mathrm{body,on\ fluid}}
+                    =\int_{CV}
+                    \rho\boldsymbol{f}\cdot\boldsymbol{u}\,\mathrm dV
+                    \tag{2.3.8}
+                \]
+            </div>
+        </section>
+
+        <section id="integral-energy">
+            <h2>4. Integral Total-Energy Equation</h2>
+
+<p>
+                앞에서 정리한 Heat와 Work를 First law에 대입하면 Control volume에 대한 Integral total-energy
+                equation을 얻는다.
+            </p>
+
+            <div class="equation main">
+                \[
+                    \boxed{\displaystyle
+                    \begin{aligned}
+                    \frac{\partial}{\partial t}
+                    \int_{CV}\rho e_t\,\mathrm dV
+                    +\oint_{CS}\rho e_t
+                    (\boldsymbol{u}\cdot\boldsymbol{n})\,\mathrm dA
+                    ={}&
+                    -\oint_{CS}p\boldsymbol{u}\cdot\boldsymbol{n}\,\mathrm dA
+                    \\[2.8ex]
+                    &+\oint_{CS}
+                    (\boldsymbol{\tau}\cdot\boldsymbol{u})
+                    \cdot\boldsymbol{n}\,\mathrm dA
+                    \\[2.8ex]
+                    &-\oint_{CS}\boldsymbol{q}\cdot\boldsymbol{n}\,\mathrm dA
+                    +\int_{CV}\rho\boldsymbol{f}\cdot\boldsymbol{u}\,\mathrm dV
+                    +\int_{CV}\dot q_v\,\mathrm dV
+                    \end{aligned}}
+                    \tag{2.3.9}
+                \]
+            </div>
+
+            <p>우변의 항들은 Control volume의 Energy를 변화시키는 전달 경로를 나타낸다.</p>
+
+            <ul class="explanation-list">
+                <li>\(-\oint p\boldsymbol{u}\cdot\boldsymbol{n}\,\mathrm dA\): <strong>Pressure work</strong></li>
+                <li>\(\oint(\boldsymbol{\tau}\cdot\boldsymbol{u})\cdot\boldsymbol{n}\,\mathrm dA\): <strong>Viscous-stress work</strong></li>
+                <li>\(-\oint\boldsymbol{q}\cdot\boldsymbol{n}\,\mathrm dA\): Surface를 통한 <strong>Heat conduction</strong></li>
+                <li>\(\int\rho\boldsymbol{f}\cdot\boldsymbol{u}\,\mathrm dV\): <strong>Body-force work</strong></li>
+                <li>\(\int\dot q_v\,\mathrm dV\): Control volume 내부의 <strong>Volumetric heating</strong></li>
+            </ul>
+        </section>
+
+        <section id="differential-energy">
+            <h2>5. Differential Total-Energy Equation</h2>
+
+<p>
+                Integral equation의 Pressure-work flux를 좌변으로 옮기면 질량유동이 운반하는 Total-energy
+                flux와 하나로 묶을 수 있다.
+            </p>
+
+            <div class="equation">
+                \[
+                    \begin{aligned}
+                    &\oint_{CS}\rho e_t
+                    (\boldsymbol{u}\cdot\boldsymbol{n})\,\mathrm dA
+                    +\oint_{CS}p
+                    (\boldsymbol{u}\cdot\boldsymbol{n})\,\mathrm dA
+                    \\[2.8ex]
+                    &\qquad =
+                    \oint_{CS}(\rho e_t+p)
+                    \boldsymbol{u}\cdot\boldsymbol{n}\,\mathrm dA
+                    \end{aligned}
+                    \tag{2.3.10}
+                \]
+            </div>
+
+            <p>
+                Enthalpy는 \(h=e+p/\rho\)로 정의된다. 따라서 \(\rho e_t+p\)는 Internal energy와 Pressure
+                work가 결합된 Enthalpy를 사용하여 다음과 같이 쓸 수 있다.
+            </p>
+
+            <div class="equation">
+                \[
+                    \begin{aligned}
+                    \rho e_t+p
+                    &=\rho\left(e+\frac{V^2}{2}+gz\right)+p
+                    \\[2.8ex]
+                    &=\rho\left(h+\frac{V^2}{2}+gz\right)
+                    \end{aligned}
+                    \tag{2.3.11}
+                \]
+            </div>
+
+            <p>
+                즉, Enthalpy는 흐르는 유체가 운반하는 Internal energy와 그 질량을 경계 밖으로 밀어내는 데 필요한
+                Pressure work를 함께 나타낸다. 이후 식을 간결하게 쓰기 위해 Gravitational potential energy를
+                무시하고 \(E=e+V^2/2\)로 정의한다.
+            </p>
+
+            <div class="equation">
+                \[
+                    E=e+\frac{V^2}{2}
+                    \tag{2.3.12}
+                \]
+            </div>
+
+            <p>
+                각 Surface integral에 Divergence theorem을 적용한 뒤 모든 항을 하나의 Volume integral로
+                바꾼다. Control volume을 임의로 선택할 수 있으므로 Integrand 자체가 각 점에서 같아야 하며,
+                Differential total-energy equation은 다음과 같이 정리된다.
+            </p>
+
+            <div class="equation main">
+                \[
+                    \boxed{\displaystyle
+                    \frac{\partial(\rho E)}{\partial t}
+                    +\nabla\cdot[(\rho E+p)\boldsymbol{u}]
+                    =\nabla\cdot(\boldsymbol{\tau}\cdot\boldsymbol{u})
+                    -\nabla\cdot\boldsymbol{q}
+                    +\rho\boldsymbol{f}\cdot\boldsymbol{u}
+                    +\dot q_v}
+                    \tag{2.3.13}
+                \]
+            </div>
+        </section>
+
+        <section id="internal-energy">
+            <h2>6. Internal-Energy Form</h2>
+
+<p>
+                Total energy에서 Kinetic energy를 분리하기 위해 Momentum equation과
+                \(\boldsymbol{u}\)의 Dot product를 취한다.
+            </p>
+
+            <div class="equation">
+                \[
+                    \boldsymbol{u}\cdot
+                    \left(\rho\frac{D\boldsymbol{u}}{Dt}\right)
+                    =-\boldsymbol{u}\cdot\nabla p
+                    +\boldsymbol{u}\cdot
+                    (\nabla\cdot\boldsymbol{\tau})
+                    +\rho\boldsymbol{f}\cdot\boldsymbol{u}
+                    \tag{2.3.14}
+                \]
+            </div>
+
+            <p>이 식을 Kinetic-energy equation으로 바꾸는 데 다음 관계를 사용한다.</p>
+
+            <div class="equation">
+                \[
+                    \begin{aligned}
+                    \boldsymbol{u}\cdot\frac{D\boldsymbol{u}}{Dt}
+                    &=\frac{D}{Dt}\left(\frac{V^2}{2}\right)
+                    \\[2.8ex]
+                    \boldsymbol{u}\cdot\nabla p
+                    &=\nabla\cdot(p\boldsymbol{u})
+                    -p\nabla\cdot\boldsymbol{u}
+                    \\[2.8ex]
+                    \boldsymbol{u}\cdot
+                    (\nabla\cdot\boldsymbol{\tau})
+                    &=\nabla\cdot
+                    (\boldsymbol{\tau}\cdot\boldsymbol{u})
+                    -\boldsymbol{\tau}:\nabla\boldsymbol{u}
+                    \end{aligned}
+                    \tag{2.3.15}
+                \]
+            </div>
+
+            <p>
+                Total-energy equation에서 이렇게 얻은 Kinetic-energy equation을 빼면 Pressure work와 Viscous
+                work의 Divergence term이 서로 상쇄된다. 남는 식은 Internal energy의 변화만을 나타낸다.
+            </p>
+
+            <div class="equation main">
+                \[
+                    \boxed{\displaystyle
+                    \rho\frac{De}{Dt}
+                    =-p\nabla\cdot\boldsymbol{u}
+                    +\boldsymbol{\tau}:\nabla\boldsymbol{u}
+                    -\nabla\cdot\boldsymbol{q}
+                    +\dot q_v}
+                    \tag{2.3.16}
+                \]
+            </div>
+
+            <p>우변의 각 항은 Internal energy가 변하는 물리적 원인을 나타낸다.</p>
+
+            <ul class="explanation-list">
+                <li>\(-p\nabla\cdot\boldsymbol{u}\): 유체의 Compression 또는 Expansion에 의한 Work</li>
+                <li>\(\boldsymbol{\tau}:\nabla\boldsymbol{u}\): Viscous stress에 의한 <strong>Viscous dissipation</strong></li>
+                <li>\(-\nabla\cdot\boldsymbol{q}\): 주변과의 <strong>Heat conduction</strong></li>
+                <li>\(\dot q_v\): 단위체적당 <strong>Volumetric heating</strong></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <a href="../">← Fundamentals로 돌아가기</a>
+    </footer>
+</body>
+
+</html>
