@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Fundamentals of Aerodynamics | Isp99</title>
+    <title>Aerodynamics | Isp99</title>
 
     <style>
         body {
@@ -48,18 +48,14 @@
         }
 
         .intro {
-            margin-bottom: 55px;
+            margin-bottom: 60px;
         }
 
-        .chapter-list {
-            margin-top: 40px;
+        .section {
+            margin-bottom: 75px;
         }
 
-        .chapter {
-            margin-bottom: 80px;
-        }
-
-        .chapter-title {
+        .section-title {
             font-size: 27px;
             font-weight: 700;
             margin-bottom: 18px;
@@ -67,31 +63,54 @@
             border-bottom: 1px solid #ddd;
         }
 
-        .chapter-items {
-            list-style: none;
-            padding-left: 28px;
+        /* Contents */
+        .contents-list {
             margin: 0;
+            padding-left: 28px;
         }
 
-        .chapter-items li {
-            margin: 13px 0;
-            font-size: 18px;
+        .contents-list li {
+            margin: 18px 0;
+            padding-left: 5px;
         }
 
-        .chapter-items a {
+        .contents-list a {
+            font-size: 20px;
+            font-weight: 700;
             color: #222;
             text-decoration: none;
         }
 
-        .chapter-items a:hover {
+        .contents-list a:hover {
             text-decoration: underline;
         }
 
-        .section-number {
-            display: inline-block;
-            min-width: 42px;
-            font-weight: 700;
+        .content-description {
+            display: block;
+            margin-top: 2px;
+            font-size: 15px;
+            font-weight: 400;
             color: #666;
+        }
+
+        /* Study Materials */
+        .material-list {
+            margin: 0;
+            padding-left: 28px;
+        }
+
+        .material-list li {
+            margin: 12px 0;
+            font-size: 17px;
+        }
+
+        .material-list a {
+            color: #222;
+            text-decoration: none;
+        }
+
+        .material-list a:hover {
+            text-decoration: underline;
         }
 
         footer {
@@ -111,132 +130,139 @@
 
 <nav>
     <a href="/">Home</a>
-    <a href="/study/aerodynamics/">Aerodynamics</a>
     <a href="/#study">Study Notes</a>
+    <a href="/#projects">Projects</a>
 </nav>
 
 
-<h1>Fundamentals of Aerodynamics</h1>
+<h1>Aerodynamics</h1>
 
 <p class="subtitle">
-    Mathematical Foundations and Governing Equations
+    Fundamental and Applied Aerodynamics
 </p>
 
 
 <div class="intro">
 
     <p>
-        This section covers the mathematical foundations and fundamental
-        conservation laws used to describe fluid flow and aerodynamic phenomena.
+        This section contains study notes on the theoretical foundations
+        and fundamental concepts of aerodynamics.
     </p>
 
     <p>
-        The topics include the mathematical description of a moving fluid particle,
-        the transformation between system and control-volume formulations,
-        and the conservation equations for mass, momentum, and energy.
+        The topics cover governing equations, compressible flow,
+        viscous flow and boundary layers, turbulence,
+        and hypersonic flow.
     </p>
 
 </div>
 
 
-<div class="chapter-list">
+<section class="section">
+
+    <div class="section-title">
+        Contents
+    </div>
+
+    <ul class="contents-list">
+
+        <li>
+            <a href="fundamentals/">
+                Fundamentals of Aerodynamics
+
+                <span class="content-description">
+                    Mathematical foundations and governing equations
+                </span>
+            </a>
+        </li>
+
+        <li>
+            <a href="compressible-flow/">
+                Compressible Flow
+
+                <span class="content-description">
+                    Isentropic flow, shock waves, and expansion waves
+                </span>
+            </a>
+        </li>
+
+        <li>
+            <a href="viscous-flow-and-boundary-layers/">
+                Viscous Flow and Boundary Layers
+
+                <span class="content-description">
+                    Viscous effects, boundary layers, and flow separation
+                </span>
+            </a>
+        </li>
+
+        <li>
+            <a href="turbulence/">
+                Turbulence
+
+                <span class="content-description">
+                    Turbulent flow, Reynolds averaging, and turbulence modeling
+                </span>
+            </a>
+        </li>
+
+        <li>
+            <a href="hypersonic-flow/">
+                Hypersonic Flow
+
+                <span class="content-description">
+                    High-speed flow and hypersonic aerodynamic phenomena
+                </span>
+            </a>
+        </li>
+
+    </ul>
+
+</section>
 
 
-    <section class="chapter">
+<section class="section">
 
-        <div class="chapter-title">
-            1. Mathematical Foundation
-        </div>
+    <div class="section-title">
+        Overview
+    </div>
 
-        <ul class="chapter-items">
+    <p>
+        Aerodynamics is the study of fluid motion and the forces generated
+        by the interaction between a fluid flow and solid bodies.
+    </p>
 
-            <li>
-                <a href="material-derivative/">
-                    <span class="section-number">1.1</span>
-                    Material Derivative
-                </a>
-            </li>
+    <p>
+        These notes are organized from the mathematical foundations
+        and conservation laws to compressible, viscous, turbulent,
+        and high-speed aerodynamic flows.
+    </p>
 
-            <li>
-                <a href="reynolds-transport-theorem/">
-                    <span class="section-number">1.2</span>
-                    Reynolds Transport Theorem
-                </a>
-            </li>
-
-        </ul>
-
-    </section>
+</section>
 
 
-    <section class="chapter">
+<section class="section">
 
-        <div class="chapter-title">
-            2. Conservation Laws
-        </div>
+    <div class="section-title">
+        Study Materials
+    </div>
 
-        <ul class="chapter-items">
+    <ul class="material-list">
 
-            <li>
-                <a href="continuity-equation/">
-                    <span class="section-number">2.1</span>
-                    Continuity Equation
-                </a>
-            </li>
+        <li>Lecture Notes</li>
+        <li>Derivations</li>
+        <li>Figures and Examples</li>
+        <li>PDF Documents</li>
 
-            <li>
-                <a href="conservation-of-momentum/">
-                    <span class="section-number">2.2</span>
-                    Conservation of Momentum
-                </a>
-            </li>
+    </ul>
 
-            <li>
-                <a href="conservation-of-energy/">
-                    <span class="section-number">2.3</span>
-                    Conservation of Energy
-                </a>
-            </li>
-
-        </ul>
-
-    </section>
-
-
-    <section class="chapter">
-
-        <div class="chapter-title">
-            3. Related Equations
-        </div>
-
-        <ul class="chapter-items">
-
-            <li>
-                <a href="newtonian-stress-relation/">
-                    <span class="section-number">3.1</span>
-                    Newtonian Stress Relation
-                </a>
-            </li>
-
-            <li>
-                <a href="euler-and-bernoulli-equations/">
-                    <span class="section-number">3.2</span>
-                    Euler and Bernoulli Equations
-                </a>
-            </li>
-
-        </ul>
-
-    </section>
-
-
-</div>
+</section>
 
 
 <footer>
 
-    <a href="/study/aerodynamics/">
-        ← Back to Aerodynamics
+    <a href="/">
+        ← Back to Home
     </a>
 
 </footer>
