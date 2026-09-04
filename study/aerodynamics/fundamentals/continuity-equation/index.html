@@ -19,10 +19,64 @@
     <link rel="stylesheet" href="../fundamentals.css">
 </head>
 
-<body>
-    <nav><a href="#top">2.1 Continuity Equation</a></nav>
+<body class="article-page">
 
-    <main id="top">
+    <div class="page-layout">
+
+        <aside class="left-sidebar" aria-label="Fundamentals navigation">
+            <div class="sidebar-inner">
+
+                <a href="../" class="sidebar-title sidebar-title-link">
+                    Fundamentals
+                </a>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">1. Mathematical Foundation</div>
+
+                    <a href="../material-derivative/" class="sidebar-link">
+                        1.1 Material Derivative
+                    </a>
+
+                    <a href="../reynolds-transport-theorem/" class="sidebar-link">
+                        1.2 Reynolds Transport Theorem
+                    </a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">2. Conservation Laws</div>
+
+                    <a href="../continuity-equation/" class="sidebar-link active">
+                        2.1 Continuity Equation
+                    </a>
+
+                    <a href="../conservation-of-momentum/" class="sidebar-link">
+                        2.2 Conservation of Momentum
+                    </a>
+
+                    <a href="../conservation-of-energy/" class="sidebar-link">
+                        2.3 Conservation of Energy
+                    </a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">3. Related Equations</div>
+
+                    <a href="../newtonian-stress-relation/" class="sidebar-link">
+                        3.1 Newtonian Stress Relation
+                    </a>
+
+                    <a href="../euler-and-bernoulli-equations/" class="sidebar-link">
+                        3.2 Euler and Bernoulli Equations
+                    </a>
+                </div>
+
+            </div>
+        </aside>
+
+
+        <main class="main-content" id="top">
+
+            <nav><a href="#top">2.1 Continuity Equation</a></nav>
         <header>
             <h1>2.1 Continuity Equation</h1>
             <p class="subtitle">Integral, Differential, and Incompressible Forms</p>
@@ -33,16 +87,6 @@
                 form으로 차례로 정리한다.
             </p>
         </header>
-
-        <aside class="contents" aria-label="목차">
-            <strong>Contents</strong>
-            <ol>
-                <li><a href="#integral">Integral Continuity Equation</a></li>
-                <li><a href="#surface-to-volume">Conversion of Surface Flux to Volume Integral</a></li>
-                <li><a href="#material">Material-Derivative Form</a></li>
-                <li><a href="#incompressible">Incompressible Form</a></li>
-            </ol>
-        </aside>
 
         <section id="integral">
             <h2>1. Integral Continuity Equation</h2>
@@ -308,9 +352,40 @@
                 가능하므로, Steady와 Incompressible을 같은 가정으로 사용하면 안 된다.
             </p>
         </section>
-    </main>
 
-    <footer><a href="../">← Fundamentals로 돌아가기</a></footer>
+            <footer><a href="../">← Fundamentals로 돌아가기</a></footer>
+
+        </main>
+
+
+        <aside class="right-sidebar" aria-label="On this page">
+            <div class="sidebar-inner">
+
+                <div class="sidebar-title">
+                    On this page
+                </div>
+
+                <a href="#integral" class="sidebar-link">
+                    Integral Continuity Equation
+                </a>
+
+                <a href="#surface-to-volume" class="sidebar-link">
+                    Surface Flux to Volume Integral
+                </a>
+
+                <a href="#material" class="sidebar-link">
+                    Material-Derivative Form
+                </a>
+
+                <a href="#incompressible" class="sidebar-link">
+                    Incompressible Form
+                </a>
+
+            </div>
+        </aside>
+
+    </div>
+
 </body>
 
 </html>
