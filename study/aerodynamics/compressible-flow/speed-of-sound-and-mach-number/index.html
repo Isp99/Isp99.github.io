@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Isentropic perfect gas에서 speed of sound를 유도하고 Mach number의 의미를 설명합니다.">
+    <title>1.3 Speed of Sound and Mach Number | Isp99</title>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="../compressible.css">
+</head>
+
+<body class="article-page">
+    <div class="page-layout">
+        <aside class="left-sidebar" aria-label="Compressible Flow navigation">
+            <div class="sidebar-inner">
+                <a href="../" class="sidebar-title sidebar-title-link">Compressible Flow</a>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">1. Fundamentals of Compressible Flow</div>
+                    <a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link">1.1 Perfect-Gas Thermodynamic Relations</a>
+                    <a href="../isentropic-relations/" class="sidebar-link">1.2 Isentropic Relations</a>
+                    <a href="../speed-of-sound-and-mach-number/" class="sidebar-link active" aria-current="page">1.3 Speed of Sound and Mach Number</a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">2. Stagnation State and Properties</div>
+                    <a href="../stagnation-temperature/" class="sidebar-link">2.1 Stagnation Temperature</a>
+                    <a href="../stagnation-pressure-and-density/" class="sidebar-link">2.2 Stagnation Pressure and Density</a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">3. Quasi-One-Dimensional Nozzle Flow</div>
+                    <a href="../area-velocity-relation/" class="sidebar-link">3.1 Area–Velocity Relation</a>
+                    <a href="../mass-flow-function-and-choking/" class="sidebar-link">3.2 Mass-Flow Function and Choking</a>
+                    <a href="../area-mach-number-relation/" class="sidebar-link">3.3 Area–Mach Number Relation</a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">4. Normal Shock Waves</div>
+                    <a href="../normal-shock-conservation-laws/" class="sidebar-link">4.1 Derivation from Conservation Laws</a>
+                    <a href="../normal-shock-property-ratios/" class="sidebar-link">4.2 Normal-Shock Property Ratios</a>
+                    <a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link">4.3 Downstream Mach Number and Entropy Change</a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">5. Oblique Shock Waves</div>
+                    <a href="../normal-component-method/" class="sidebar-link">5.1 Normal-Component Method</a>
+                    <a href="../theta-beta-mach-relation/" class="sidebar-link">5.2 Derivation of the Theta–Beta–Mach Relation</a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">6. Prandtl–Meyer Expansion</div>
+                    <a href="../infinitesimal-isentropic-turning/" class="sidebar-link">6.1 Infinitesimal Isentropic Turning</a>
+                    <a href="../prandtl-meyer-function/" class="sidebar-link">6.2 Derivation of the Prandtl–Meyer Function</a>
+                    <a href="../finite-expansion-and-property-changes/" class="sidebar-link">6.3 Finite Expansion and Property Changes</a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content" id="top">
+            <nav><a href="#top">1.3 Speed of Sound and Mach Number</a></nav>
+
+            <header>
+                <h1>1.3 Speed of Sound and Mach Number</h1>
+                <p class="subtitle">Propagation of Pressure Disturbances in a Perfect Gas</p>
+                <p class="intro">
+                    Speed of sound는 매우 작은 Pressure disturbance가 Gas를 통해 전달되는 속도이다. 약한
+                    Disturbance의 변화가 Isentropic하다는 가정과 Perfect-gas relation을 이용하여 Speed of
+                    sound를 유도한다. 이어서 Flow speed와 Pressure information의 Propagation speed를 비교하는
+                    Mach number의 의미를 정리한다.
+                </p>
+            </header>
+
+            <aside class="contents" aria-label="Contents">
+                <strong>Contents</strong>
+                <ol>
+                    <li><a href="#speed-of-sound">Definition of the Speed of Sound</a></li>
+                    <li><a href="#mach-number">Mach Number</a></li>
+                </ol>
+            </aside>
+
+            <section id="speed-of-sound">
+                <h2>1. Definition of the Speed of Sound</h2>
+
+                <p>
+                    Sound wave는 매우 작은 <strong>Infinitesimal pressure disturbance</strong>이다. Disturbance가
+                    매우 빠르게 전달되므로 주변과 Heat를 교환할 시간이 짧고, 크기가 매우 작아 Irreversibility도
+                    무시할 수 있다. 따라서 Sound wave에 수반되는 변화는 Isentropic change로 근사한다.
+                </p>
+
+                <p>
+                    일반적인 Fluid에서 Speed of sound \(a\)는 Entropy \(s\)가 일정할 때 Pressure가 Density에
+                    따라 변하는 정도로 정의된다.
+                </p>
+
+                <div class="equation main">
+                    \[
+                        \boxed{\displaystyle
+                        a^2=\left(\frac{\partial p}{\partial\rho}\right)_s}
+                        \tag{1.3.1}
+                    \]
+                </div>
+
+                <p>
+                    Isentropic perfect gas에서는 Pressure–Density relation으로부터 \(p/\rho^\gamma\)가
+                    Constant이다. 이 Constant를 \(C\)라고 두면
+                </p>
+
+                <div class="equation">
+                    \[
+                        p=C\rho^\gamma
+                        \tag{1.3.2}
+                    \]
+                </div>
+
+                <p>Entropy가 일정한 상태에서 Density에 대해 미분하면</p>
+
+                <div class="equation">
+                    \[
+                        \begin{aligned}
+                        \left(\frac{\partial p}{\partial\rho}\right)_s
+                        &=\gamma C\rho^{\gamma-1}
+                        \\[2.8ex]
+                        &=\gamma\frac{C\rho^\gamma}{\rho}
+                        \\[2.8ex]
+                        &=\gamma\frac{p}{\rho}
+                        \end{aligned}
+                        \tag{1.3.3}
+                    \]
+                </div>
+
+                <p>
+                    이 결과를 Speed-of-sound definition에 대입하고, Ideal-gas relation
+                    \(p/\rho=RT\)를 이용하면
+                </p>
+
+                <div class="equation">
+                    \[
+                        \begin{aligned}
+                        a^2&=\gamma\frac{p}{\rho}
+                        \\[2.8ex]
+                        &=\gamma RT
+                        \end{aligned}
+                        \tag{1.3.4}
+                    \]
+                </div>
+
+                <div class="equation main">
+                    \[
+                        \boxed{\displaystyle
+                        a=\sqrt{\gamma\frac{p}{\rho}}
+                        =\sqrt{\gamma RT}}
+                        \tag{1.3.5}
+                    \]
+                </div>
+
+                <p>
+                    Calorically perfect gas에서는 \(\gamma\)와 \(R\)이 Constant이므로 Speed of sound는
+                    Temperature에 의해 결정된다.
+                </p>
+            </section>
+
+            <section id="mach-number">
+                <h2>2. Mach Number</h2>
+
+                <p>
+                    Mach number는 Flow speed \(V\)와 Pressure information의 Propagation speed인 \(a\)를
+                    비교하는 무차원수이다.
+                </p>
+
+                <div class="equation main">
+                    \[
+                        \boxed{\displaystyle M=\frac{V}{a}}
+                        \tag{1.3.6}
+                    \]
+                </div>
+
+                <ul class="explanation-list">
+                    <li>
+                        \(M&lt;1\): Flow speed가 Speed of sound보다 작으므로 Pressure information이
+                        <strong>Upstream과 Downstream 양쪽</strong>으로 전파 가능
+                    </li>
+                    <li>
+                        \(M&gt;1\): Flow speed가 Speed of sound보다 크므로 정지한 관찰자 기준에서 모든
+                        Infinitesimal disturbance가 <strong>Downstream</strong>으로 이동
+                    </li>
+                </ul>
+
+                <p>
+                    따라서 Mach number는 단순한 Velocity ratio가 아니라, 유동장 안에서 Pressure disturbance와
+                    그에 포함된 정보가 어느 방향으로 전달될 수 있는지를 나타낸다.
+                </p>
+            </section>
+
+            <footer><a href="../">← Compressible Flow로 돌아가기</a></footer>
+        </main>
+
+        <aside class="right-sidebar" aria-label="On this page">
+            <div class="sidebar-inner">
+                <div class="sidebar-title">On this page</div>
+                <a href="#speed-of-sound" class="sidebar-link">1. Definition of the Speed of Sound</a>
+                <a href="#mach-number" class="sidebar-link">2. Mach Number</a>
+            </div>
+        </aside>
+    </div>
+</body>
+
+</html>
