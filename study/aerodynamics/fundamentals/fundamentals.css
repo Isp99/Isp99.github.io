@@ -1,87 +1,149 @@
-/* ========================================
-   Three-column layout for article pages
-   ======================================== */
+/* =========================================================
+   Article page with sidebars
+   기존 본문 폭/간격은 그대로 유지
+   ========================================================= */
 
 body.article-page {
     max-width: none;
-    padding-left: 0;
-    padding-right: 0;
+    margin: 0;
+    padding: 0;
 }
 
+
+/* 전체 3열 배치 */
 .page-layout {
     display: grid;
-    grid-template-columns: 190px minmax(0, 760px) 190px;
+
+    /* 가운데 860px = 기존 body 폭 그대로 */
+    grid-template-columns: 190px 860px 190px;
     gap: 45px;
 
-    max-width: 1280px;
+    width: max-content;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 44px 30px 90px;
 }
 
+
+/* 기존 body의 레이아웃을 그대로 가운데에 이식 */
 .main-content {
-    min-width: 0;
+    width: 860px;
+    padding: 44px 34px 90px;
+
+    color: #202124;
+    background: #ffffff;
+
+    font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+    font-size: 17px;
+    line-height: 2;
+    word-break: keep-all;
 }
+
+
+/* =========================
+   Sidebars
+   ========================= */
 
 .left-sidebar,
 .right-sidebar {
+    padding-top: 44px;
+
+    color: #666666;
     font-size: 14px;
     line-height: 1.6;
-    color: #666;
 }
 
 .sidebar-inner {
     position: sticky;
-    top: 35px;
+    top: 30px;
 }
 
 .sidebar-title {
-    margin-bottom: 14px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #ddd;
-
-    font-size: 13px;
-    font-weight: 700;
-    color: #222;
-}
-
-.sidebar-link {
     display: block;
-    padding: 5px 0;
 
-    color: #666;
+    margin-bottom: 14px;
+    padding-bottom: 9px;
+
+    border-bottom: 1px solid #dddddd;
+
+    color: #222222;
+    font-size: 14px;
+    font-weight: 700;
     text-decoration: none;
 }
 
-.sidebar-link:hover {
-    color: #222;
+.sidebar-title-link:hover {
+    text-decoration: underline;
 }
 
-.sidebar-link.active {
-    color: #222;
+
+/* 왼쪽 chapter 구분 */
+.sidebar-group {
+    margin-bottom: 22px;
+}
+
+.sidebar-group-title {
+    margin-bottom: 6px;
+
+    color: #444444;
+    font-size: 13px;
     font-weight: 700;
 }
 
-.sidebar-link.active::before {
-    content: "•";
-    margin-right: 7px;
+
+/* sidebar link */
+.sidebar-link {
+    display: block;
+
+    padding: 5px 0 5px 10px;
+
+    color: #777777;
+    text-decoration: none;
+
+    border-left: 2px solid transparent;
 }
 
-@media (max-width: 1100px) {
+.sidebar-link:hover {
+    color: #222222;
+}
 
-    body.article-page {
-        max-width: 860px;
-        margin: 0 auto;
-        padding: 28px 20px 65px;
-    }
+.sidebar-link.active {
+    color: #161616;
+    font-weight: 700;
+    border-left-color: #444444;
+}
+
+
+/* 오른쪽 sidebar에는 세로선 제거 */
+.right-sidebar .sidebar-link {
+    padding-left: 0;
+    border-left: none;
+}
+
+
+/* =========================
+   Responsive
+   ========================= */
+
+@media (max-width: 1300px) {
 
     .page-layout {
         display: block;
-        max-width: none;
-        padding: 0;
+        width: auto;
+        max-width: 860px;
+        margin: 0 auto;
     }
 
     .left-sidebar,
     .right-sidebar {
         display: none;
+    }
+}
+
+@media (max-width: 650px) {
+
+    .main-content {
+        width: 100%;
+        padding: 28px 20px 65px;
+        font-size: 16px;
     }
 }
