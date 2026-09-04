@@ -4,19 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="유체의 Integral 및 Differential momentum equation을 Newton's second law에서 유도합니다.">
-
+    <meta name="description" content="유체의 Integral 및 Differential momentum equation과 Dyadic product의 의미를 설명합니다.">
     <title>2.2 Conservation of Momentum | Isp99</title>
-
     <script>
         window.MathJax = {
             tex: {
                 inlineMath: [['\\(', '\\)']],
                 displayMath: [['\\[', '\\]']]
             },
-            chtml: {
-                scale: 1.02
-            }
+            chtml: { scale: 1.02 }
         };
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -24,15 +20,18 @@
 </head>
 
 <body>
-    <nav>
-        <a href="#top">2.2 Conservation of Momentum</a>
-    </nav>
+    <nav><a href="#top">2.2 Conservation of Momentum</a></nav>
 
     <main id="top">
         <header>
             <h1>2.2 Conservation of Momentum</h1>
-            <p class="subtitle">Integral and Differential Momentum Equations</p>
-            <p class="intro">Conservation of momentum은 유체 System의 Linear momentum 변화율이 External force의 합과 같다는 Newton's second law에서 출발한다. RTT와 Divergence theorem을 사용하면 이를 Control volume의 Integral form과 한 점에서 성립하는 Differential form으로 나타낼 수 있다.</p>
+            <p class="subtitle">Momentum Transport, Dyadic Product, and Local Force Balance</p>
+            <p class="intro">
+                Conservation of momentum은 유체 System의 Linear momentum 변화율이 External force의 합과
+                같다는 Newton's second law에서 출발한다. Reynolds transport theorem으로 System을 Control
+                volume으로 바꾸고, Momentum flux를 Tensor로 표현하면 전체 영역의 Balance가 한 점에서 성립하는
+                Differential equation으로 연결된다.
+            </p>
         </header>
 
         <aside class="contents" aria-label="목차">
@@ -41,19 +40,21 @@
                 <li><a href="#newton-and-rtt">Newton's Second Law for a Fluid System</a></li>
                 <li><a href="#forces">Surface and Body Forces</a></li>
                 <li><a href="#integral-form">Integral Momentum Equation</a></li>
+                <li><a href="#dyadic-product">Dyadic Product and Momentum-Flux Tensor</a></li>
                 <li><a href="#differential-form">Differential Momentum Equation</a></li>
-                <li><a href="#stress-decomposition">Pressure and Viscous-Stress Decomposition</a></li>
-                <li><a href="#material-form">Conversion to Material-Derivative Form</a></li>
+                <li><a href="#material-form">Material-Derivative Form</a></li>
             </ol>
         </aside>
 
         <section id="newton-and-rtt">
             <h2>1. Newton's Second Law for a Fluid System</h2>
 
-<p>
-                Newton's second law를 유체 System에 적용하면 System의 Linear momentum 변화율은 System에
-                작용하는 External force의 합과 같다. Velocity \(\boldsymbol{u}\)는 단위질량당 Momentum이고,
-                \(\rho\boldsymbol{u}\)는 단위체적당 Momentum이므로 System 전체의 Momentum은 Volume integral로
+            <h3>System momentum의 변화율</h3>
+
+            <p>
+                Newton's second law를 유체 System에 적용하면 System의 Linear momentum 변화율은 외부에서
+                작용하는 힘의 합과 같다. Velocity \(\boldsymbol u\)는 단위질량당 Momentum이고,
+                \(\rho\boldsymbol u\)는 단위체적당 Momentum이므로 System 전체의 Momentum은 Volume integral로
                 표현된다.
             </p>
 
@@ -67,9 +68,9 @@
             </div>
 
             <p>
-                Linear momentum에 대한 Reynolds transport theorem에서는 Extensive property가
-                \(\boldsymbol{P}\), 단위질량당 Intensive property가 \(\boldsymbol{u}\)이므로 \(b=\boldsymbol{u}\)이다.
-                이를 RTT에 대입하면 System의 Momentum 변화율을 Control volume의 Storage와 Surface flux로 바꿀 수 있다.
+                왼쪽은 동일한 유체입자들을 따라가며 계산한 변화율이다. 이를 고정된 Control volume에서 사용하기
+                위해 Linear momentum에 Reynolds transport theorem을 적용한다. 이때 단위질량당 Property는
+                \(b=\boldsymbol u\)이다.
             </p>
 
             <div class="equation">
@@ -86,55 +87,70 @@
             </div>
 
             <p>
-                두 번째 항에서 \(\rho(\boldsymbol{u}\cdot\boldsymbol{n})\,\mathrm dA\)는 면적요소를 통과하는
-                질량유량이고, 여기에 단위질량당 Momentum \(\boldsymbol{u}\)를 곱하면 그 질량이 운반하는
-                Momentum flux가 된다.
+                Surface term에서
+                \(\rho(\boldsymbol u\cdot\boldsymbol n)\mathrm dA\)는 면적요소를 통과하는 질량유량이다.
+                여기에 단위질량당 Momentum \(\boldsymbol u\)를 곱하면 그 질량이 운반하는
+                <strong>Momentum transport rate</strong>가 된다.
             </p>
         </section>
 
         <section id="forces">
             <h2>2. Surface and Body Forces</h2>
 
-<p>
-                유체 System에 작용하는 External force는 Volume 전체에 분포하는 Body force와 경계면에 작용하는
-                Surface force로 나뉜다. \(\boldsymbol{f}\)를 단위질량당 Body force라고 하면 전체 Body force는
-            </p>
-
-            <div class="equation">
-                \[
-                    \boldsymbol{F}_{\mathrm{body}}
-                    =\int_{CV}\rho\boldsymbol{f}\,\mathrm dV
-                    \tag{2.2.3}
-                \]
-            </div>
+            <h3>경계면에 작용하는 Pressure와 Viscous force</h3>
 
             <p>
-                Surface force는 면의 방향에 따라 달라지는 Traction vector로 나타낸다. Cauchy stress tensor
-                \(\boldsymbol{\sigma}\)가 주어졌을 때, 바깥쪽 법선벡터가 \(\boldsymbol{n}\)인 면에 작용하는
-                Traction과 전체 Surface force는 다음과 같다.
+                유체에 작용하는 External force는 경계면을 통해 전달되는 Surface force와 체적 전체에 분포하는
+                Body force로 나뉜다. Surface force는 다시 <strong>Pressure에 의한 힘</strong>과
+                <strong>Viscous stress에 의한 힘</strong>으로 구분할 수 있다.
+            </p>
+
+            <p>
+                Pressure \(p\)는 면에 수직이며 Control volume의 안쪽을 향해 누른다. 반면
+                \(\boldsymbol n\)은 바깥쪽 단위 법선벡터이므로 면적요소에 작용하는 Pressure force에는 음의
+                부호가 붙는다. Viscous-stress tensor \(\boldsymbol\tau\)는 유체의 Deformation에 의해 생기는
+                Normal 및 Shear stress를 함께 나타내며, 해당 면에 작용하는 Viscous force는
+                \(\boldsymbol\tau\cdot\boldsymbol n\)으로 표현된다.
             </p>
 
             <div class="equation">
                 \[
                     \begin{aligned}
-                    \boldsymbol{t}^{(\boldsymbol{n})}
-                    &=\boldsymbol{\sigma}\cdot\boldsymbol{n}
+                    \boldsymbol F_{\mathrm{pressure}}
+                    &=-\oint_{CS}p\boldsymbol n\,\mathrm dA
                     \\[2.8ex]
-                    \boldsymbol{F}_{\mathrm{surface}}
+                    \boldsymbol F_{\mathrm{viscous}}
                     &=\oint_{CS}
-                    \boldsymbol{\sigma}\cdot\boldsymbol{n}\,\mathrm dA
+                    \boldsymbol\tau\cdot\boldsymbol n\,\mathrm dA
                     \end{aligned}
+                    \tag{2.2.3}
+                \]
+            </div>
+
+            <h3>Control volume 전체에 분포하는 Body force</h3>
+
+            <p>
+                Gravity나 Electromagnetic force처럼 유체의 질량 또는 체적 전체에 작용하는 힘을 Body force라고
+                한다. \(\boldsymbol f\)를 단위질량당 Body force로 두면 \(\rho\boldsymbol f\)는 단위체적당
+                힘이고, 전체 Body force는 다음과 같다.
+            </p>
+
+            <div class="equation">
+                \[
+                    \boldsymbol F_{\mathrm{body}}
+                    =\int_{CV}\rho\boldsymbol f\,\mathrm dV
                     \tag{2.2.4}
                 \]
             </div>
 
-            <p>따라서 Control volume에 작용하는 Total external force는 두 Force의 합으로 표현된다.</p>
+            <p>세 힘을 합하면 Control volume에 작용하는 Total external force가 된다.</p>
 
             <div class="equation">
                 \[
-                    \sum\boldsymbol{F}
-                    =\oint_{CS}\boldsymbol{\sigma}\cdot\boldsymbol{n}\,\mathrm dA
-                    +\int_{CV}\rho\boldsymbol{f}\,\mathrm dV
+                    \sum\boldsymbol F
+                    =-\oint_{CS}p\boldsymbol n\,\mathrm dA
+                    +\oint_{CS}\boldsymbol\tau\cdot\boldsymbol n\,\mathrm dA
+                    +\int_{CV}\rho\boldsymbol f\,\mathrm dV
                     \tag{2.2.5}
                 \]
             </div>
@@ -143,177 +159,233 @@
         <section id="integral-form">
             <h2>3. Integral Momentum Equation</h2>
 
-<p>
-                RTT로 표현한 Momentum 변화율과 Control volume에 작용하는 External force를 같게 두면 Integral
-                momentum equation을 얻는다.
+            <p>
+                Reynolds transport theorem으로 바꾼 Momentum 변화율을 Pressure, Viscous, Body force의
+                합과 같게 두면 Control volume에 대한 Integral momentum equation을 얻는다.
             </p>
 
             <div class="equation main">
                 \[
                     \boxed{\displaystyle
+                    \begin{aligned}
                     \frac{\partial}{\partial t}
-                    \int_{CV}\rho\boldsymbol{u}\,\mathrm dV
-                    +\oint_{CS}\rho\boldsymbol{u}
-                    (\boldsymbol{u}\cdot\boldsymbol{n})\,\mathrm dA
-                    =
-                    \oint_{CS}\boldsymbol{\sigma}\cdot\boldsymbol{n}\,\mathrm dA
-                    +\int_{CV}\rho\boldsymbol{f}\,\mathrm dV}
+                    \int_{CV}\rho\boldsymbol u\,\mathrm dV
+                    +\oint_{CS}\rho\boldsymbol u
+                    (\boldsymbol u\cdot\boldsymbol n)\,\mathrm dA
+                    ={}&
+                    -\oint_{CS}p\boldsymbol n\,\mathrm dA
+                    \\[2.8ex]
+                    &+\oint_{CS}
+                    \boldsymbol\tau\cdot\boldsymbol n\,\mathrm dA
+                    +\int_{CV}\rho\boldsymbol f\,\mathrm dV
+                    \end{aligned}}
                     \tag{2.2.6}
                 \]
             </div>
 
-            <p>각 항은 Control volume의 Momentum 변화와 그 원인을 나타낸다.</p>
+            <p>각 항은 Momentum이 변하는 방식과 그 원인을 구분한다.</p>
 
             <ul class="explanation-list">
                 <li>좌변 첫째 항: Control volume 내부의 <strong>Momentum accumulation</strong></li>
                 <li>좌변 둘째 항: 질량유동이 운반하는 Momentum의 <strong>Net outward transport</strong></li>
-                <li>우변 첫째 항: Control surface에 작용하는 <strong>Surface force</strong></li>
-                <li>우변 둘째 항: Control volume 전체에 작용하는 <strong>Body force</strong></li>
+                <li>우변 첫째 항: Control surface에 작용하는 <strong>Pressure force</strong></li>
+                <li>우변 둘째 항: Control surface에 작용하는 <strong>Viscous force</strong></li>
+                <li>우변 셋째 항: Control volume 전체에 분포하는 <strong>Body force</strong></li>
             </ul>
         </section>
 
-        <section id="differential-form">
-            <h2>4. Differential Momentum Equation</h2>
+        <section id="dyadic-product">
+            <h2>4. Dyadic Product and Momentum-Flux Tensor</h2>
 
-<p>
-                Integral form을 한 점에서 성립하는 Differential form으로 바꾸기 위해 Surface integral에
-                Divergence theorem을 적용한다. Convective momentum flux는 Tensor
-                \(\rho\boldsymbol{u}\otimes\boldsymbol{u}\)의 Divergence로, Surface-stress force는 Stress tensor의
-                Divergence로 변환된다.
+            <h3>Vector flux를 표현하는 Second-order tensor</h3>
+
+            <p>
+                Mass flux는 Scalar인 질량을 운반하므로 Vector \(\rho\boldsymbol u\)로 표현할 수 있다. 반면
+                Momentum은 그 자체가 Vector이다. 따라서 <strong>어느 방향의 Momentum이 어느 방향으로
+                운반되는지</strong>를 동시에 기록하려면 방향 인덱스가 두 개 필요하며, 이때 Second-order
+                tensor가 등장한다.
+            </p>
+
+            <p>
+                기호 \(\otimes\)는 두 Vector의 <strong>Dyadic product 또는 Tensor product</strong>를 뜻한다.
+                Dot product \(\boldsymbol a\cdot\boldsymbol b\)가 Scalar를 만드는 것과 달리,
+                Dyadic product \(\boldsymbol a\otimes\boldsymbol b\)는 각 성분의 곱을 배열한
+                Second-order tensor를 만든다.
             </p>
 
             <div class="equation">
                 \[
-                    \begin{aligned}
-                    \oint_{CS}\rho\boldsymbol{u}
-                    (\boldsymbol{u}\cdot\boldsymbol{n})\,\mathrm dA
-                    &=\int_{CV}\nabla\cdot
-                    (\rho\boldsymbol{u}\otimes\boldsymbol{u})\,\mathrm dV
-                    \\[2.8ex]
-                    \oint_{CS}\boldsymbol{\sigma}\cdot\boldsymbol{n}\,\mathrm dA
-                    &=\int_{CV}\nabla\cdot\boldsymbol{\sigma}\,\mathrm dV
-                    \end{aligned}
+                    (\boldsymbol u\otimes\boldsymbol u)_{ij}=u_i u_j
                     \tag{2.2.7}
                 \]
             </div>
 
-            <p>이 관계를 Integral momentum equation에 대입하여 모든 항을 하나의 Volume integral로 모으면</p>
+            <p>
+                \(\boldsymbol u=(u,v,w)\)라 하면 Dyadic product의 행렬형은 다음과 같다.
+            </p>
 
             <div class="equation">
                 \[
-                    \begin{aligned}
-                    &\int_{CV}\left[
-                    \frac{\partial(\rho\boldsymbol{u})}{\partial t}
-                    +\nabla\cdot(\rho\boldsymbol{u}\otimes\boldsymbol{u})
-                    \right]\mathrm dV
-                    \\[2.8ex]
-                    &\qquad =
-                    \int_{CV}\left[
-                    \nabla\cdot\boldsymbol{\sigma}
-                    +\rho\boldsymbol{f}
-                    \right]\mathrm dV
-                    \end{aligned}
+                    \boldsymbol u\otimes\boldsymbol u
+                    =
+                    \begin{bmatrix}
+                    u^2 & uv & uw\\
+                    vu & v^2 & vw\\
+                    wu & wv & w^2
+                    \end{bmatrix}
                     \tag{2.2.8}
                 \]
             </div>
 
+            <h3>Momentum-flux tensor의 첨자 의미</h3>
+
             <p>
-                Control volume을 임의로 선택할 수 있으므로 양변의 Integrand가 각 점에서 같아야 한다. 따라서
-                Stress tensor를 사용한 Differential momentum equation은
+                Density를 곱한 \(\rho\boldsymbol u\otimes\boldsymbol u\)를
+                <strong>Convective momentum-flux tensor</strong>라고 한다. 그 성분
+                \(\rho u_i u_j\)에서 두 첨자는 서로 다른 역할을 가진다.
             </p>
 
-            <div class="equation main">
-                \[
-                    \boxed{\displaystyle
-                    \frac{\partial(\rho\boldsymbol{u})}{\partial t}
-                    +\nabla\cdot(\rho\boldsymbol{u}\otimes\boldsymbol{u})
-                    =\nabla\cdot\boldsymbol{\sigma}
-                    +\rho\boldsymbol{f}}
-                    \tag{2.2.9}
-                \]
-            </div>
-        </section>
+            <ul class="explanation-list">
+                <li>\(i\): 운반되는 <strong>Momentum component</strong></li>
+                <li>\(j\): Momentum이 통과하는 <strong>Transport direction</strong></li>
+            </ul>
 
-        <section id="stress-decomposition">
-            <h2>5. Pressure and Viscous-Stress Decomposition</h2>
+            <p>
+                예를 들어 \(\rho uv\)는 \(x\)방향 Momentum \(\rho u\)가 \(y\)방향 Velocity \(v\)에 의해
+                운반되는 Flux를 나타낸다. 따라서 행렬의 대각성분만이 아니라 \(uv\), \(uw\), \(vw\)와 같은
+                교차성분도 실제 Momentum transport에 필요하다.
+            </p>
 
-<p>
-                Cauchy stress tensor는 모든 방향에 동일하게 작용하는 Isotropic pressure와 유체의 Deformation에
-                의해 생기는 Viscous stress로 분해된다. Pressure는 면을 누르는 방향으로 작용하므로 음의 부호가 붙는다.
+            <h3>Control surface의 Momentum flux와의 연결</h3>
+
+            <p>
+                Tensor를 면의 법선벡터 \(\boldsymbol n\)과 곱하면 그 면을 통과하는 Momentum-flux vector를
+                얻는다. Index notation에서 반복 첨자 \(j\)에 대해 합을 취하면
             </p>
 
             <div class="equation">
                 \[
-                    \boldsymbol{\sigma}
-                    =-p\mathbf{I}+\boldsymbol{\tau}
+                    \begin{aligned}
+                    \left[
+                    (\rho\boldsymbol u\otimes\boldsymbol u)
+                    \cdot\boldsymbol n
+                    \right]_i
+                    &=\rho u_i u_j n_j
+                    \\[2.8ex]
+                    &=\rho u_i(\boldsymbol u\cdot\boldsymbol n)
+                    \end{aligned}
+                    \tag{2.2.9}
+                \]
+            </div>
+
+            <p>따라서 Vector form으로는 다음 관계가 성립한다.</p>
+
+            <div class="equation main">
+                \[
+                    \boxed{\displaystyle
+                    (\rho\boldsymbol u\otimes\boldsymbol u)
+                    \cdot\boldsymbol n
+                    =\rho\boldsymbol u
+                    (\boldsymbol u\cdot\boldsymbol n)}
                     \tag{2.2.10}
                 \]
             </div>
 
-            <p>이 식의 Divergence를 취하면 Pressure force와 Viscous force가 분리된다.</p>
+            <div class="concept-note">
+                <p>
+                    오른쪽의 \(\boldsymbol u\cdot\boldsymbol n\)은 경계를 통과하는 Velocity이고, 앞의
+                    \(\rho\boldsymbol u\)는 단위체적당 Momentum이다. Dyadic product는 새로운 물리법칙을
+                    추가하는 기호가 아니라, 기존 Surface momentum flux를
+                    <strong>Divergence theorem에 적용할 수 있는 Tensor form</strong>으로 정리한 표현이다.
+                </p>
+            </div>
+        </section>
+
+        <section id="differential-form">
+            <h2>5. Differential Momentum Equation</h2>
+
+            <h3>Surface integral의 Volume integral 변환</h3>
+
+            <p>
+                Integral form을 한 점에서 성립하는 식으로 바꾸려면 모든 Surface integral에 Divergence
+                theorem을 적용한다. Momentum flux에는 앞에서 정의한 Dyadic product가 사용된다.
+            </p>
 
             <div class="equation">
                 \[
-                    \begin{aligned}
-                    \nabla\cdot\boldsymbol{\sigma}
-                    &=\nabla\cdot(-p\mathbf{I}+\boldsymbol{\tau})
-                    \\[2.8ex]
-                    &=-\nabla p+\nabla\cdot\boldsymbol{\tau}
-                    \end{aligned}
+                    \oint_{CS}\rho\boldsymbol u
+                    (\boldsymbol u\cdot\boldsymbol n)\,\mathrm dA
+                    =
+                    \int_{CV}\nabla\cdot
+                    (\rho\boldsymbol u\otimes\boldsymbol u)\,\mathrm dV
                     \tag{2.2.11}
                 \]
             </div>
 
-            <p>이를 Stress-tensor form에 대입하면 Conservative momentum equation을 얻는다.</p>
-
-            <div class="equation main">
-                \[
-                    \boxed{\displaystyle
-                    \frac{\partial(\rho\boldsymbol{u})}{\partial t}
-                    +\nabla\cdot(\rho\boldsymbol{u}\otimes\boldsymbol{u})
-                    =-\nabla p+\nabla\cdot\boldsymbol{\tau}
-                    +\rho\boldsymbol{f}}
-                    \tag{2.2.12}
-                \]
-            </div>
-        </section>
-
-        <section id="material-form">
-            <h2>6. Conversion to Material-Derivative Form</h2>
-
-<p>
-                Conservative form의 좌변을 Index notation으로 전개하면 Velocity의 Material derivative와
-                Continuity equation에 해당하는 부분으로 나눌 수 있다.
+            <p>
+                Pressure와 Viscous force도 각각 경계면의 힘에서 단위체적당 힘으로 변환된다.
             </p>
 
             <div class="equation">
                 \[
                     \begin{aligned}
-                    \frac{\partial(\rho u_i)}{\partial t}
-                    +\frac{\partial(\rho u_i u_j)}{\partial x_j}
-                    ={}&
-                    \rho\frac{\partial u_i}{\partial t}
-                    +u_i\frac{\partial\rho}{\partial t}
-                    +\rho u_j\frac{\partial u_i}{\partial x_j}
-                    +u_i\frac{\partial(\rho u_j)}{\partial x_j}
-                    \\[3.0ex]
-                    ={}&
-                    \rho\left(
-                    \frac{\partial u_i}{\partial t}
-                    +u_j\frac{\partial u_i}{\partial x_j}
-                    \right)
-                    +u_i\left[
-                    \frac{\partial\rho}{\partial t}
-                    +\frac{\partial(\rho u_j)}{\partial x_j}
-                    \right]
+                    -\oint_{CS}p\boldsymbol n\,\mathrm dA
+                    &=-\int_{CV}\nabla p\,\mathrm dV
+                    \\[2.8ex]
+                    \oint_{CS}\boldsymbol\tau\cdot\boldsymbol n\,\mathrm dA
+                    &=\int_{CV}\nabla\cdot\boldsymbol\tau\,\mathrm dV
+                    \end{aligned}
+                    \tag{2.2.12}
+                \]
+            </div>
+
+            <p>
+                이 관계들을 Integral momentum equation에 대입하여 하나의 Volume integral로 모으면
+            </p>
+
+            <div class="equation">
+                \[
+                    \begin{aligned}
+                    \int_{CV}\left[
+                    \frac{\partial(\rho\boldsymbol u)}{\partial t}
+                    +\nabla\cdot(\rho\boldsymbol u\otimes\boldsymbol u)
+                    \right]\mathrm dV
+                    =
+                    \int_{CV}\left[
+                    -\nabla p
+                    +\nabla\cdot\boldsymbol\tau
+                    +\rho\boldsymbol f
+                    \right]\mathrm dV
                     \end{aligned}
                     \tag{2.2.13}
                 \]
             </div>
 
             <p>
-                대괄호 안은 Continuity equation에 의해 0이다. 남은 첫 번째 괄호가 \(u_i\)의 Material
-                derivative이므로 Momentum transport 항은 다음과 같이 단순해진다.
+                Control volume을 임의로 선택할 수 있으므로 양변의 Integrand가 각 점에서 같아야 한다.
+                이로부터 Momentum의 Conservative differential form을 얻는다.
+            </p>
+
+            <div class="equation main">
+                \[
+                    \boxed{\displaystyle
+                    \frac{\partial(\rho\boldsymbol u)}{\partial t}
+                    +\nabla\cdot(\rho\boldsymbol u\otimes\boldsymbol u)
+                    =-\nabla p+\nabla\cdot\boldsymbol\tau
+                    +\rho\boldsymbol f}
+                    \tag{2.2.14}
+                \]
+            </div>
+        </section>
+
+        <section id="material-form">
+            <h2>6. Material-Derivative Form</h2>
+
+            <h3>Continuity equation에 의한 단순화</h3>
+
+            <p>
+                Conservative form의 좌변을 Index notation과 Product rule로 전개하면 Material derivative와
+                Continuity equation에 해당하는 부분이 분리된다.
             </p>
 
             <div class="equation">
@@ -321,41 +393,47 @@
                     \begin{aligned}
                     \frac{\partial(\rho u_i)}{\partial t}
                     +\frac{\partial(\rho u_i u_j)}{\partial x_j}
-                    &=
+                    ={}&
                     \rho\left(
                     \frac{\partial u_i}{\partial t}
                     +u_j\frac{\partial u_i}{\partial x_j}
                     \right)
                     \\[2.8ex]
-                    &=\rho\frac{Du_i}{Dt}
+                    &+u_i\left[
+                    \frac{\partial\rho}{\partial t}
+                    +\frac{\partial(\rho u_j)}{\partial x_j}
+                    \right]
                     \end{aligned}
-                    \tag{2.2.14}
-                \]
-            </div>
-
-            <p>따라서 Momentum equation의 Material-derivative form은</p>
-
-            <div class="equation main">
-                \[
-                    \boxed{\displaystyle
-                    \rho\frac{D\boldsymbol{u}}{Dt}
-                    =-\nabla p+\nabla\cdot\boldsymbol{\tau}
-                    +\rho\boldsymbol{f}}
                     \tag{2.2.15}
                 \]
             </div>
 
             <p>
-                이 식은 이동하는 유체입자에 국부적으로 적용한 Newton's second law이다.
-                좌변 \(\rho D\boldsymbol{u}/Dt\)는 단위체적당 Mass와 Acceleration의 곱이고, 우변은 단위체적당
-                Pressure, Viscous, Body force의 합이다.
+                대괄호 안은 Continuity equation이므로 0이다. 첫 번째 괄호는 \(u_i\)의 Material
+                derivative이며, Momentum transport의 두 항은 \(\rho D\boldsymbol u/Dt\)로 합쳐진다.
+            </p>
+
+            <div class="equation main">
+                \[
+                    \boxed{\displaystyle
+                    \rho\frac{D\boldsymbol u}{Dt}
+                    =-\nabla p+\nabla\cdot\boldsymbol\tau
+                    +\rho\boldsymbol f}
+                    \tag{2.2.16}
+                \]
+            </div>
+
+            <p>
+                이 식은 이동하는 유체입자에 적용한 Newton's second law이다.
+                좌변은 단위체적당 Mass와 Acceleration의 곱이고, 우변은 단위체적당
+                <strong>Pressure force, Viscous force, Body force</strong>의 합이다. Integral form이
+                Control volume 전체의 Momentum balance를 보여 준다면, Material form은 한 유체입자가 힘에
+                반응하여 어떻게 가속되는지를 직접 보여 준다.
             </p>
         </section>
     </main>
 
-    <footer>
-        <a href="../">← Fundamentals로 돌아가기</a>
-    </footer>
+    <footer><a href="../">← Fundamentals로 돌아가기</a></footer>
 </body>
 
 </html>
