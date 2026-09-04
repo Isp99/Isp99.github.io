@@ -17,6 +17,132 @@
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="../fundamentals.css">
+
+    <!--
+        Sidebar layout is kept in this page temporarily so it can be tested
+        without changing fundamentals.css.
+    -->
+    <style>
+        body.article-page {
+            max-width: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        body.article-page .page-layout {
+            display: grid !important;
+            grid-template-columns: 190px minmax(0, 760px) 190px;
+            gap: 45px;
+            width: 100%;
+            max-width: 1330px;
+            margin: 0 auto;
+            padding: 36px 30px 90px;
+        }
+
+        body.article-page .main-content {
+            min-width: 0;
+        }
+
+        body.article-page .main-content > nav {
+            margin: 0 0 30px;
+            padding: 0;
+            border: 0;
+        }
+
+        body.article-page .left-sidebar,
+        body.article-page .right-sidebar {
+            display: block;
+            min-width: 0;
+            padding-top: 2px;
+            color: #666666;
+            font-size: 14px;
+            line-height: 1.55;
+        }
+
+        body.article-page .sidebar-inner {
+            position: sticky;
+            top: 30px;
+        }
+
+        body.article-page .sidebar-title {
+            display: block;
+            margin-bottom: 8px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid #dddddd;
+            color: #222222;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        body.article-page .sidebar-title-link:hover {
+            text-decoration: underline;
+        }
+
+        body.article-page .sidebar-group {
+            margin-bottom: 18px;
+        }
+
+        body.article-page .sidebar-group-title {
+            margin: 0 0 4px;
+            color: #555555;
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        body.article-page .sidebar-link {
+            display: block;
+            padding: 5px 0 5px 11px;
+            border-left: 2px solid transparent;
+            color: #777777;
+            text-decoration: none;
+        }
+
+        body.article-page .sidebar-link:hover {
+            color: #222222;
+        }
+
+        body.article-page .sidebar-link.active {
+            border-left-color: #444444;
+            color: #161616;
+            font-weight: 700;
+        }
+
+        body.article-page .right-sidebar .sidebar-link {
+            padding: 5px 0;
+            border-left: 0;
+        }
+
+        @media (max-width: 1240px) and (min-width: 1101px) {
+            body.article-page .page-layout {
+                grid-template-columns: minmax(160px, 190px) minmax(0, 760px) minmax(160px, 190px);
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            body.article-page .page-layout {
+                display: block !important;
+                max-width: 860px;
+                padding: 44px 34px 90px;
+            }
+
+            body.article-page .left-sidebar,
+            body.article-page .right-sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 650px) {
+            body.article-page .page-layout {
+                padding: 28px 20px 65px;
+            }
+
+            body.article-page .main-content > nav {
+                margin-bottom: 24px;
+            }
+        }
+    </style>
 </head>
 
 <body class="article-page">
