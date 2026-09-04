@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Perfect gas의 isentropic pressure-temperature-density relations를 단계적으로 유도합니다.">
+    <title>1.2 Isentropic Relations | Isp99</title>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="../compressible.css">
+</head>
+
+<body class="article-page">
+    <div class="page-layout">
+        <aside class="left-sidebar" aria-label="Compressible Flow navigation">
+            <div class="sidebar-inner">
+                <a href="../" class="sidebar-title sidebar-title-link">Compressible Flow</a>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">1. Fundamentals of Compressible Flow</div>
+                    <a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link">1.1 Perfect-Gas Thermodynamic Relations</a>
+                    <a href="../isentropic-relations/" class="sidebar-link active" aria-current="page">1.2 Isentropic Relations</a>
+                    <a href="../speed-of-sound-and-mach-number/" class="sidebar-link">1.3 Speed of Sound and Mach Number</a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">2. Stagnation State and Properties</div>
+                    <a href="../stagnation-temperature/" class="sidebar-link">2.1 Stagnation Temperature</a>
+                    <a href="../stagnation-pressure-and-density/" class="sidebar-link">2.2 Stagnation Pressure and Density</a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">3. Quasi-One-Dimensional Nozzle Flow</div>
+                    <a href="../area-velocity-relation/" class="sidebar-link">3.1 Area–Velocity Relation</a>
+                    <a href="../mass-flow-function-and-choking/" class="sidebar-link">3.2 Mass-Flow Function and Choking</a>
+                    <a href="../area-mach-number-relation/" class="sidebar-link">3.3 Area–Mach Number Relation</a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">4. Normal Shock Waves</div>
+                    <a href="../normal-shock-conservation-laws/" class="sidebar-link">4.1 Derivation from Conservation Laws</a>
+                    <a href="../normal-shock-property-ratios/" class="sidebar-link">4.2 Normal-Shock Property Ratios</a>
+                    <a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link">4.3 Downstream Mach Number and Entropy Change</a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">5. Oblique Shock Waves</div>
+                    <a href="../normal-component-method/" class="sidebar-link">5.1 Normal-Component Method</a>
+                    <a href="../theta-beta-mach-relation/" class="sidebar-link">5.2 Derivation of the Theta–Beta–Mach Relation</a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">6. Prandtl–Meyer Expansion</div>
+                    <a href="../infinitesimal-isentropic-turning/" class="sidebar-link">6.1 Infinitesimal Isentropic Turning</a>
+                    <a href="../prandtl-meyer-function/" class="sidebar-link">6.2 Derivation of the Prandtl–Meyer Function</a>
+                    <a href="../finite-expansion-and-property-changes/" class="sidebar-link">6.3 Finite Expansion and Property Changes</a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content" id="top">
+            <nav><a href="#top">1.2 Isentropic Relations</a></nav>
+
+            <header>
+                <h1>1.2 Isentropic Relations</h1>
+                <p class="subtitle">Pressure, Temperature, and Density Relations for a Perfect Gas</p>
+                <p class="intro">
+                    Isentropic process는 Entropy가 일정하게 유지되는 Process이다. Perfect gas의 Gibbs
+                    relation에 \(\mathrm ds=0\)을 적용하면 Pressure, Temperature, Density 사이의 관계를
+                    유도할 수 있다. 이 관계는 Process가 Adiabatic일 뿐 아니라 Reversible이어야 성립한다.
+                </p>
+            </header>
+
+            <aside class="contents" aria-label="Contents">
+                <strong>Contents</strong>
+                <ol>
+                    <li><a href="#pressure-temperature">Pressure–Temperature Relation</a></li>
+                    <li><a href="#pressure-density">Pressure–Density Relation</a></li>
+                </ol>
+            </aside>
+
+            <section id="pressure-temperature">
+                <h2>1. Pressure–Temperature Relation</h2>
+
+                <p>
+                    Adiabatic이며 Reversible인 Process에서는 Entropy가 생성되지 않고 Heat transfer도 없으므로
+                    Entropy가 일정하다. 이러한 Constant-entropy process를 <strong>Isentropic
+                    process</strong>라고 한다.
+                </p>
+
+                <div class="equation main">
+                    \[
+                        \boxed{\displaystyle \mathrm ds=0}
+                        \tag{1.2.1}
+                    \]
+                </div>
+
+                <p>
+                    Adiabatic은 Heat transfer가 없다는 조건만을 의미한다. Shock이나 Friction처럼
+                    Irreversibility에 의해 Entropy가 생성되는 Adiabatic process는 Isentropic이 아니다.
+                </p>
+
+                <p>
+                    Calorically perfect gas의 Pressure–Temperature Gibbs relation은 다음과 같다.
+                </p>
+
+                <div class="equation">
+                    \[
+                        \mathrm ds
+                        =c_p\frac{\mathrm dT}{T}
+                        -R\frac{\mathrm dp}{p}
+                        \tag{1.2.2}
+                    \]
+                </div>
+
+                <p>여기에 Isentropic condition \(\mathrm ds=0\)을 적용하면</p>
+
+                <div class="equation">
+                    \[
+                        \begin{aligned}
+                        c_p\frac{\mathrm dT}{T}-R\frac{\mathrm dp}{p}&=0
+                        \\[2.8ex]
+                        c_p\frac{\mathrm dT}{T}&=R\frac{\mathrm dp}{p}
+                        \\[2.8ex]
+                        \frac{\mathrm dT}{T}&=\frac{R}{c_p}\frac{\mathrm dp}{p}
+                        \end{aligned}
+                        \tag{1.2.3}
+                    \]
+                </div>
+
+                <p>
+                    Perfect-gas specific-heat relation
+                    \(c_p=\gamma R/(\gamma-1)\)으로부터
+                </p>
+
+                <div class="equation">
+                    \[
+                        \frac{R}{c_p}=\frac{\gamma-1}{\gamma}
+                        \tag{1.2.4}
+                    \]
+                </div>
+
+                <p>State 1에서 State 2까지 적분하면</p>
+
+                <div class="equation">
+                    \[
+                        \begin{aligned}
+                        \int_{T_1}^{T_2}\frac{\mathrm dT}{T}
+                        &=\frac{\gamma-1}{\gamma}
+                        \int_{p_1}^{p_2}\frac{\mathrm dp}{p}
+                        \\[2.8ex]
+                        \ln\left(\frac{T_2}{T_1}\right)
+                        &=\frac{\gamma-1}{\gamma}
+                        \ln\left(\frac{p_2}{p_1}\right)
+                        \end{aligned}
+                        \tag{1.2.5}
+                    \]
+                </div>
+
+                <p>양변의 Exponential을 취하면 Pressure–Temperature relation을 얻는다.</p>
+
+                <div class="equation main">
+                    \[
+                        \boxed{\displaystyle
+                        \frac{T_2}{T_1}
+                        =\left(\frac{p_2}{p_1}\right)^{(\gamma-1)/\gamma}}
+                        \tag{1.2.6}
+                    \]
+                </div>
+            </section>
+
+            <section id="pressure-density">
+                <h2>2. Pressure–Density Relation</h2>
+
+                <p>
+                    두 State에 Ideal-gas equation \(T=p/(\rho R)\)를 적용하면 Temperature ratio를 Pressure와
+                    Density ratio로 나타낼 수 있다.
+                </p>
+
+                <div class="equation">
+                    \[
+                        \begin{aligned}
+                        \frac{T_2}{T_1}
+                        &=\frac{p_2/(\rho_2R)}{p_1/(\rho_1R)}
+                        \\[2.8ex]
+                        &=\frac{p_2}{p_1}\frac{\rho_1}{\rho_2}
+                        \end{aligned}
+                        \tag{1.2.7}
+                    \]
+                </div>
+
+                <p>
+                    이 결과를 앞에서 얻은
+                    \(T_2/T_1=(p_2/p_1)^{(\gamma-1)/\gamma}\)와 같게 두면
+                </p>
+
+                <div class="equation">
+                    \[
+                        \begin{aligned}
+                        \frac{p_2}{p_1}\frac{\rho_1}{\rho_2}
+                        &=\left(\frac{p_2}{p_1}\right)^{(\gamma-1)/\gamma}
+                        \\[2.8ex]
+                        \frac{\rho_2}{\rho_1}
+                        &=\left(\frac{p_2}{p_1}\right)^{1/\gamma}
+                        \end{aligned}
+                        \tag{1.2.8}
+                    \]
+                </div>
+
+                <p>
+                    두 번째 식을 \(\gamma\)제곱하면 Pressure–Density relation을 얻고, 이를
+                    Pressure–Temperature relation과 결합하면 Temperature–Density relation도 얻을 수 있다.
+                </p>
+
+                <div class="equation main">
+                    \[
+                        \boxed{\displaystyle
+                        \frac{p_2}{p_1}
+                        =\left(\frac{\rho_2}{\rho_1}\right)^\gamma,
+                        \qquad
+                        \frac{T_2}{T_1}
+                        =\left(\frac{\rho_2}{\rho_1}\right)^{\gamma-1}}
+                        \tag{1.2.9}
+                    \]
+                </div>
+            </section>
+
+            <footer><a href="../">← Compressible Flow로 돌아가기</a></footer>
+        </main>
+
+        <aside class="right-sidebar" aria-label="On this page">
+            <div class="sidebar-inner">
+                <div class="sidebar-title">On this page</div>
+                <a href="#pressure-temperature" class="sidebar-link">1. Pressure–Temperature Relation</a>
+                <a href="#pressure-density" class="sidebar-link">2. Pressure–Density Relation</a>
+            </div>
+        </aside>
+    </div>
+</body>
+
+</html>
