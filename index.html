@@ -8,167 +8,492 @@
     <title>Isp99 | Aerospace Engineering</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 900px;
-            margin: auto;
-            padding: 30px;
-            line-height: 1.7;
-            color: #222;
+        * {
+            box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 30px;
+        }
+
+        body {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 38px 90px;
+
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 16px;
+            line-height: 1.8;
+
+            color: #202124;
+            background: #ffffff;
+        }
+
+
+        /* =========================
+           Navigation
+        ========================= */
+
         nav {
-            margin-bottom: 60px;
+            margin-bottom: 65px;
         }
 
         nav a {
-            margin-right: 25px;
+            margin-right: 28px;
+
+            color: #222222;
+            font-size: 16px;
+            font-weight: 700;
             text-decoration: none;
-            color: #333;
-            font-weight: bold;
         }
 
         nav a:hover {
             text-decoration: underline;
         }
 
+
+        /* =========================
+           General
+        ========================= */
+
         section {
-            margin-bottom: 70px;
+            margin-bottom: 75px;
+        }
+
+        h1,
+        h2 {
+            color: #171717;
         }
 
         h1 {
-            font-size: 40px;
-            margin-bottom: 10px;
+            margin: 0 0 14px;
+
+            font-size: 42px;
+            line-height: 1.3;
+            letter-spacing: -0.5px;
         }
 
         h2 {
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
+            margin: 0 0 22px;
+
+            padding-bottom: 13px;
+
+            border-bottom: 1px solid #d8d8d8;
+
+            font-size: 27px;
+            line-height: 1.4;
         }
+
+        p {
+            margin: 14px 0;
+        }
+
+
+        /* =========================
+           About
+        ========================= */
 
         .subtitle {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
+
+            font-size: 19px;
+            font-weight: 700;
         }
 
-        ul {
-            padding-left: 22px;
+        .intro {
+            max-width: 820px;
+
+            color: #333333;
+            font-size: 17px;
+            line-height: 1.9;
         }
 
-        li {
-            margin-bottom: 5px;
+
+        /* =========================
+           Study / Project contents
+        ========================= */
+
+        .contents {
+            border-top: 1px solid #d8d8d8;
         }
 
-        li a {
+        .content-item {
+            display: flex;
+            align-items: center;
+
+            position: relative;
+
+            min-height: 106px;
+
+            padding: 22px 14px 22px 12px;
+
+            border-bottom: 1px solid #d8d8d8;
+
+            color: inherit;
             text-decoration: none;
-            color: #222;
+
+            transition:
+                background-color 0.15s ease,
+                padding-left 0.15s ease;
         }
 
-        li a:hover {
-            text-decoration: underline;
+        .content-item:hover {
+            padding-left: 17px;
+            background-color: #fafafa;
+        }
+
+        .bullet {
+            flex: 0 0 27px;
+
+            color: #777777;
+            font-size: 18px;
+        }
+
+        .content-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .content-title {
+            margin-bottom: 2px;
+
+            color: #171717;
+            font-size: 21px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .content-description {
+            color: #666666;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .arrow {
+            flex: 0 0 35px;
+
+            margin-left: 18px;
+
+            color: #777777;
+            font-size: 20px;
+            text-align: right;
+
+            transition: transform 0.15s ease;
+        }
+
+        .content-item:hover .arrow {
+            transform: translateX(4px);
+        }
+
+
+        /* =========================
+           Research
+        ========================= */
+
+        .research-text {
+            max-width: 820px;
+
+            font-size: 17px;
+            line-height: 1.9;
+        }
+
+
+        /* =========================
+           Mobile
+        ========================= */
+
+        @media (max-width: 650px) {
+
+            body {
+                padding: 24px 22px 70px;
+            }
+
+            nav {
+                margin-bottom: 50px;
+            }
+
+            nav a {
+                margin-right: 16px;
+                font-size: 14px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            h2 {
+                font-size: 25px;
+            }
+
+            .content-item {
+                min-height: 96px;
+                padding: 19px 8px;
+            }
+
+            .content-title {
+                font-size: 19px;
+            }
+
+            .content-description {
+                font-size: 14px;
+            }
+
+            .arrow {
+                margin-left: 8px;
+            }
         }
     </style>
 </head>
 
+
 <body>
 
-<nav>
-    <a href="#about">About</a>
-    <a href="#study">Study Notes</a>
-    <a href="#projects">Projects</a>
-    <a href="#research">Research</a>
-</nav>
+    <!-- =========================
+         Navigation
+    ========================== -->
+
+    <nav>
+        <a href="#about">About</a>
+        <a href="#study">Study Notes</a>
+        <a href="#projects">Projects</a>
+        <a href="#research">Research</a>
+    </nav>
 
 
-<section id="about">
+    <!-- =========================
+         About
+    ========================== -->
 
-    <h1>Isp99</h1>
+    <section id="about">
 
-    <p class="subtitle">
-        Aerospace Engineering · Study & Research
-    </p>
+        <h1>Isp99</h1>
 
-    <p>
-        Personal notes, projects, and research on aerodynamics,
-        fluid dynamics, computational methods, and high-speed flows.
-    </p>
+        <p class="subtitle">
+            Aerospace Engineering · Study & Research
+        </p>
 
-</section>
+        <p class="intro">
+            Personal notes, projects, and research on aerodynamics,
+            fluid dynamics, computational methods, and high-speed flows.
+        </p>
+
+    </section>
 
 
-<section id="study">
+    <!-- =========================
+         Study Notes
+    ========================== -->
 
-    <h2>Study Notes</h2>
+    <section id="study">
 
-    <ul>
-        <li>
-            <a href="study/aerodynamics/">
-                Aerodynamics
+        <h2>Study Notes</h2>
+
+        <div class="contents">
+
+
+            <!-- Aerodynamics -->
+
+            <a class="content-item" href="study/aerodynamics/">
+
+                <div class="bullet">•</div>
+
+                <div class="content-text">
+
+                    <div class="content-title">
+                        Aerodynamics
+                    </div>
+
+                    <div class="content-description">
+                        Governing equations, compressible flow,
+                        viscous flow, turbulence, and hypersonic aerodynamics
+                    </div>
+
+                </div>
+
+                <div class="arrow">→</div>
+
             </a>
-        </li>
 
-        <li>
-            <a href="study/rocket-propulsion/">
-                Rocket Propulsion Theorem
+
+            <!-- Rocket Propulsion -->
+
+            <a class="content-item" href="study/rocket-propulsion/">
+
+                <div class="bullet">•</div>
+
+                <div class="content-text">
+
+                    <div class="content-title">
+                        Rocket Propulsion Theory
+                    </div>
+
+                    <div class="content-description">
+                        Rocket performance, nozzle flow,
+                        propulsion fundamentals, and combustion
+                    </div>
+
+                </div>
+
+                <div class="arrow">→</div>
+
             </a>
-        </li>
 
-        <li>
-            <a href="study/optimization-method/">
-                Optimization Methodology
+
+            <!-- Optimization -->
+
+            <a class="content-item" href="study/optimization-method/">
+
+                <div class="bullet">•</div>
+
+                <div class="content-text">
+
+                    <div class="content-title">
+                        Optimization Methodology
+                    </div>
+
+                    <div class="content-description">
+                        Mathematical optimization,
+                        gradient-based methods, and engineering design optimization
+                    </div>
+
+                </div>
+
+                <div class="arrow">→</div>
+
             </a>
-        </li>
 
-        <li>
-            <a href="study/cfd/">
-                Computational Fulid Dynamics
+
+            <!-- CFD -->
+
+            <a class="content-item" href="study/cfd/">
+
+                <div class="bullet">•</div>
+
+                <div class="content-text">
+
+                    <div class="content-title">
+                        Computational Fluid Dynamics
+                    </div>
+
+                    <div class="content-description">
+                        Discretization, numerical methods,
+                        solution algorithms, and CFD fundamentals
+                    </div>
+
+                </div>
+
+                <div class="arrow">→</div>
+
             </a>
-        </li>
 
-        <li>
-            <a href="study/aeroelasticity/">
-                Aeroelasticity
+
+            <!-- Aeroelasticity -->
+
+            <a class="content-item" href="study/aeroelasticity/">
+
+                <div class="bullet">•</div>
+
+                <div class="content-text">
+
+                    <div class="content-title">
+                        Aeroelasticity
+                    </div>
+
+                    <div class="content-description">
+                        Structural dynamics, aerodynamic coupling,
+                        divergence, control reversal, and flutter
+                    </div>
+
+                </div>
+
+                <div class="arrow">→</div>
+
             </a>
-        </li>
-    </ul>
 
-</section>
+        </div>
+
+    </section>
 
 
-<section id="projects">
+    <!-- =========================
+         Projects
+    ========================== -->
 
-    <h2>Projects</h2>
+    <section id="projects">
 
-    <ul>
-        <li>
-            <a href="projects/supersonic-cylinder/">
-                Supersonic Cylinder CFD
+        <h2>Projects</h2>
+
+        <div class="contents">
+
+
+            <a class="content-item"
+               href="projects/supersonic-cylinder/">
+
+                <div class="bullet">•</div>
+
+                <div class="content-text">
+
+                    <div class="content-title">
+                        Supersonic Cylinder CFD
+                    </div>
+
+                    <div class="content-description">
+                        Supersonic flow simulation and
+                        validation using normal-shock relations
+                    </div>
+
+                </div>
+
+                <div class="arrow">→</div>
+
             </a>
-        </li>
 
-        <li>
-            <a href="projects/openfoam-external-flow/">
-                OpenFOAM External Flow
+
+            <a class="content-item"
+               href="projects/openfoam-external-flow/">
+
+                <div class="bullet">•</div>
+
+                <div class="content-text">
+
+                    <div class="content-title">
+                        OpenFOAM External Flow
+                    </div>
+
+                    <div class="content-description">
+                        External aerodynamic flow simulation
+                        and numerical analysis using OpenFOAM
+                    </div>
+
+                </div>
+
+                <div class="arrow">→</div>
+
             </a>
-        </li>
-    </ul>
 
-</section>
+        </div>
+
+    </section>
 
 
-<section id="research">
+    <!-- =========================
+         Research
+    ========================== -->
 
-    <h2>Research</h2>
+    <section id="research">
 
-    <p>
-        Research interests include computational fluid dynamics,
-        high-speed aerodynamics, numerical methods,
-        and aerospace engineering applications.
-    </p>
+        <h2>Research</h2>
 
-</section>
+        <p class="research-text">
+            Research interests include computational fluid dynamics,
+            high-speed aerodynamics, numerical methods,
+            and aerospace engineering applications.
+        </p>
+
+    </section>
 
 
 </body>
+
 </html>
