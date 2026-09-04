@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Material derivative와 Material acceleration의 정의 및 물리적 의미를 설명합니다.">
     <title>1.1 Material Derivative | Isp99</title>
+
     <script>
         window.MathJax = {
             tex: {
@@ -15,183 +16,440 @@
             chtml: { scale: 1.02 }
         };
     </script>
+
     <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="../fundamentals.css">
+
+    <style>
+        body.article-page {
+            max-width: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        body.article-page .page-layout {
+            display: grid !important;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            gap: 170px;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+
+        body.article-page .main-content {
+            min-width: 0;
+        }
+
+        body.article-page .main-content > nav {
+            margin: 0 0 30px;
+            padding: 0;
+            border: 0;
+        }
+
+        body.article-page .left-sidebar,
+        body.article-page .right-sidebar {
+            display: block;
+            min-width: 0;
+            padding-top: 2px;
+            color: #666666;
+            font-size: 16px;
+            line-height: 1.65;
+        }
+
+        body.article-page .sidebar-inner {
+            position: sticky;
+            top: 30px;
+        }
+
+        body.article-page .sidebar-title {
+            display: block;
+            margin-bottom: 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid #dddddd;
+            color: #222222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        body.article-page .sidebar-title-link:hover {
+            text-decoration: underline;
+        }
+
+        body.article-page .sidebar-group {
+            margin-bottom: 42px;
+        }
+
+        body.article-page .sidebar-group-title {
+            margin: 0 0 10px;
+            color: #555555;
+            font-size: 19.5px;
+            font-weight: 400;
+        }
+
+        body.article-page .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 30px;
+            border-left: 2px solid transparent;
+            color: #777777;
+            text-decoration: none;
+        }
+
+        body.article-page .sidebar-link:hover {
+            color: #222222;
+        }
+
+        body.article-page .sidebar-link.active {
+            border-left-color: #444444;
+            color: #161616;
+            font-weight: 700;
+        }
+
+        body.article-page .right-sidebar .sidebar-link {
+            padding: 18px 0;
+            border-left: 0;
+        }
+
+        @media (max-width: 1347px) and (min-width: 1101px) {
+            body.article-page .page-layout {
+                grid-template-columns: 180px minmax(0, 760px) 180px;
+                gap: 35px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            body.article-page .page-layout {
+                display: block !important;
+                max-width: 860px;
+                padding: 44px 34px 90px;
+            }
+
+            body.article-page .left-sidebar,
+            body.article-page .right-sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 650px) {
+            body.article-page .page-layout {
+                padding: 28px 20px 65px;
+            }
+
+            body.article-page .main-content > nav {
+                margin-bottom: 24px;
+            }
+        }
+    </style>
 </head>
 
-<body>
-    <nav><a href="#top">1.1 Material Derivative</a></nav>
+<body class="article-page">
+    <div class="page-layout">
 
-    <main id="top">
-        <header>
-            <h1>1.1 Material Derivative</h1>
-            <p class="subtitle">Eulerian Field, Moving Fluid Particle, and Material Acceleration</p>
-            <p class="intro">
-                Material derivative는 공간에 정의된 Field의 변화를 <strong>이동하는 유체입자가 실제로 경험하는
-                시간변화율</strong>로 바꾸어 준다. 고정된 위치에서 관찰한 변화와 입자가 공간을 이동하며 겪는 변화를
-                구분하면, Steady flow에서도 Acceleration이 존재할 수 있는 이유까지 자연스럽게 드러난다.
-            </p>
-        </header>
+        <aside class="left-sidebar" aria-label="Fundamentals navigation">
+            <div class="sidebar-inner">
+                <a href="../" class="sidebar-title sidebar-title-link">Fundamentals</a>
 
-        <aside class="contents" aria-label="목차">
-            <strong>Contents</strong>
-            <ol>
-                <li><a href="#field-and-particle">Eulerian Field and a Moving Fluid Particle</a></li>
-                <li><a href="#material-acceleration">Material Acceleration</a></li>
-            </ol>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">1. Mathematical Foundation</div>
+                    <a href="../material-derivative/"
+                       class="sidebar-link active"
+                       aria-current="page">
+                        1.1 Material Derivative
+                    </a>
+                    <a href="../reynolds-transport-theorem/"
+                       class="sidebar-link">
+                        1.2 Reynolds Transport Theorem
+                    </a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">2. Conservation Laws</div>
+                    <a href="../continuity-equation/"
+                       class="sidebar-link">
+                        2.1 Continuity Equation
+                    </a>
+                    <a href="../conservation-of-momentum/"
+                       class="sidebar-link">
+                        2.2 Conservation of Momentum
+                    </a>
+                    <a href="../conservation-of-energy/"
+                       class="sidebar-link">
+                        2.3 Conservation of Energy
+                    </a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">3. Related Equations</div>
+                    <a href="../newtonian-stress-relation/"
+                       class="sidebar-link">
+                        3.1 Newtonian Stress Relation
+                    </a>
+                    <a href="../euler-and-bernoulli-equations/"
+                       class="sidebar-link">
+                        3.2 Euler and Bernoulli Equations
+                    </a>
+                </div>
+            </div>
         </aside>
 
-        <section id="field-and-particle">
-            <h2>1. Eulerian Field and a Moving Fluid Particle</h2>
 
-            <h3>Field와 입자의 두 관점</h3>
+        <main class="main-content" id="top">
 
-            <p>
-                Eulerian description에서는 Velocity, Temperature, Density와 같은 물리량을
-                \(\phi=\phi(x,y,z,t)\)처럼 <strong>공간의 각 위치에 정의된 Field</strong>로 나타낸다. 이 표현은
-                실험 장비나 계산 격자처럼 고정된 위치에서 유동을 관찰할 때 편리하다.
-            </p>
+            <nav>
+                <a href="#top">1.1 Material Derivative</a>
+            </nav>
 
-            <p>
-                반면 Lagrangian description은 하나의 유체입자를 정한 뒤 그 입자를 따라간다. 유체입자는 계속
-                이동하므로 좌표도 시간의 함수가 된다.
-            </p>
+            <header>
+                <h1>1.1 Material Derivative</h1>
 
-            <div class="equation">
-                \[
-                    x=x(t), \qquad y=y(t), \qquad z=z(t)
-                    \tag{1.1.1}
-                \]
-            </div>
-
-            <p>
-                같은 물리현상을 두 관점으로 기술할 수 있지만, Conservation law에 등장하는 입자의 변화율을
-                Eulerian field만으로 표현하려면 두 관점을 이어 주는 연산자가 필요하다. 그 역할을 하는 것이
-                <strong>Material derivative</strong>이다.
-            </p>
-
-            <h3>Chain rule과 이동에 의한 변화</h3>
-
-            <p>
-                입자가 경험하는 \(\phi\)는 시간에 직접 의존할 뿐 아니라, 입자의 위치
-                \(x(t),y(t),z(t)\)를 통해서도 시간에 의존한다. 따라서 입자를 따라 미분할 때는 Chain rule을
-                사용해야 한다.
-            </p>
-
-            <div class="equation">
-                \[
-                    \begin{aligned}
-                    \frac{\mathrm d\phi}{\mathrm dt}
-                    &=\frac{\partial\phi}{\partial t}
-                    +\frac{\partial\phi}{\partial x}\frac{\mathrm dx}{\mathrm dt}
-                    +\frac{\partial\phi}{\partial y}\frac{\mathrm dy}{\mathrm dt}
-                    +\frac{\partial\phi}{\partial z}\frac{\mathrm dz}{\mathrm dt}
-                    \\[3.0ex]
-                    &=\frac{\partial\phi}{\partial t}
-                    +u\frac{\partial\phi}{\partial x}
-                    +v\frac{\partial\phi}{\partial y}
-                    +w\frac{\partial\phi}{\partial z}
-                    \\[3.0ex]
-                    &=\frac{\partial\phi}{\partial t}
-                    +\boldsymbol{u}\cdot\nabla\phi
-                    \end{aligned}
-                    \tag{1.1.2}
-                \]
-            </div>
-
-            <p>
-                여기서 \(\mathrm dx/\mathrm dt=u\), \(\mathrm dy/\mathrm dt=v\),
-                \(\mathrm dz/\mathrm dt=w\)는 입자의 Velocity component이다. 즉, 좌표의 시간변화가 Velocity로
-                바뀌면서 <strong>공간적 변화와 입자의 이동이 하나의 항</strong>으로 결합된다.
-            </p>
-
-            <div class="equation main">
-                \[
-                    \boxed{\displaystyle
-                    \frac{D\phi}{Dt}
-                    =\frac{\partial\phi}{\partial t}
-                    +\boldsymbol{u}\cdot\nabla\phi}
-                    \tag{1.1.3}
-                \]
-            </div>
-
-            <p>Material derivative를 이루는 두 항은 변화가 생기는 원인을 구분해 준다.</p>
-
-            <ul class="explanation-list">
-                <li>
-                    \(\partial\phi/\partial t\): 고정된 한 위치에서 Field 자체가 시간에 따라 변하는
-                    <strong>Local change</strong>
-                </li>
-                <li>
-                    \(\boldsymbol{u}\cdot\nabla\phi\): 입자가 공간 구배를 가로질러 이동하면서 겪는
-                    <strong>Convective change</strong>
-                </li>
-            </ul>
-        </section>
-
-        <section id="material-acceleration">
-            <h2>2. Material Acceleration</h2>
-
-            <h3>Velocity field에 대한 적용</h3>
-
-            <p>
-                Acceleration은 한 유체입자의 Velocity가 시간에 따라 변하는 비율이다. 따라서 Material
-                derivative의 대상에 Scalar \(\phi\) 대신 Velocity vector \(\boldsymbol{u}\)를 넣으면
-                <strong>유체입자의 실제 Acceleration</strong>을 얻는다.
-            </p>
-
-            <div class="equation">
-                \[
-                    \boldsymbol{a}=\frac{D\boldsymbol{u}}{Dt}
-                    \tag{1.1.4}
-                \]
-            </div>
-
-            <p>
-                \(x\)방향 성분을 전개하면 한 위치에서의 Velocity 변화와 공간적으로 다른 Velocity를 통과하며
-                생기는 변화가 분리되어 나타난다.
-            </p>
-
-            <div class="equation">
-                \[
-                    \begin{aligned}
-                    a_x
-                    &=\frac{Du}{Dt}
-                    \\[2.8ex]
-                    &=\frac{\partial u}{\partial t}
-                    +u\frac{\partial u}{\partial x}
-                    +v\frac{\partial u}{\partial y}
-                    +w\frac{\partial u}{\partial z}
-                    \end{aligned}
-                    \tag{1.1.5}
-                \]
-            </div>
-
-            <p>같은 전개를 세 방향에 적용하면 Vector form은 다음과 같다.</p>
-
-            <div class="equation main">
-                \[
-                    \boxed{\displaystyle
-                    \boldsymbol{a}
-                    =\frac{\partial\boldsymbol{u}}{\partial t}
-                    +(\boldsymbol{u}\cdot\nabla)\boldsymbol{u}}
-                    \tag{1.1.6}
-                \]
-            </div>
-
-            <div class="concept-note">
-                <p>
-                    <strong>Steady flow는 Acceleration이 0이라는 뜻이 아니다.</strong>
-                    Steady 조건은 고정된 위치에서 \(\partial\boldsymbol{u}/\partial t=0\)임을 뜻한다.
-                    Nozzle처럼 단면적에 따라 Velocity가 달라지는 유동에서는 입자가 이동하며 다른 Velocity를
-                    만나므로 Convective acceleration
-                    \((\boldsymbol{u}\cdot\nabla)\boldsymbol{u}\)가 남을 수 있다.
+                <p class="subtitle">
+                    Eulerian Field, Moving Fluid Particle, and Material Acceleration
                 </p>
-            </div>
-        </section>
-    </main>
 
-    <footer><a href="../">← Fundamentals로 돌아가기</a></footer>
+                <p class="intro">
+                    Material derivative는 공간에 정의된 Field의 변화를
+                    <strong>이동하는 유체입자가 실제로 경험하는 시간변화율</strong>로 바꾸어 준다.
+                    고정된 위치에서 관찰한 변화와 입자가 공간을 이동하며 겪는 변화를 구분하면,
+                    Steady flow에서도 Acceleration이 존재할 수 있는 이유까지 자연스럽게 드러난다.
+                </p>
+            </header>
+
+
+            <aside class="contents" aria-label="Contents">
+                <strong>Contents</strong>
+                <ol>
+                    <li>
+                        <a href="#field-and-particle">
+                            Eulerian Field and a Moving Fluid Particle
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#material-acceleration">
+                            Material Acceleration
+                        </a>
+                    </li>
+                </ol>
+            </aside>
+
+
+            <section id="field-and-particle">
+
+                <h2>1. Eulerian Field and a Moving Fluid Particle</h2>
+
+                <h3>Field와 입자의 두 관점</h3>
+
+                <p>
+                    Eulerian description에서는 Velocity, Temperature, Density와 같은 물리량을
+                    \(\phi=\phi(x,y,z,t)\)처럼
+                    <strong>공간의 각 위치에 정의된 Field</strong>로 나타낸다.
+                    이 표현은 실험 장비나 계산 격자처럼 고정된 위치에서 유동을 관찰할 때 편리하다.
+                </p>
+
+                <p>
+                    반면 Lagrangian description은 하나의 유체입자를 정한 뒤 그 입자를 따라간다.
+                    유체입자는 계속 이동하므로 좌표도 시간의 함수가 된다.
+                </p>
+
+                <div class="equation">
+                    \[
+                        x=x(t), \qquad y=y(t), \qquad z=z(t)
+                        \tag{1.1.1}
+                    \]
+                </div>
+
+                <p>
+                    같은 물리현상을 두 관점으로 기술할 수 있지만,
+                    Conservation law에 등장하는 입자의 변화율을 Eulerian field만으로 표현하려면
+                    두 관점을 이어 주는 연산자가 필요하다.
+                    그 역할을 하는 것이 <strong>Material derivative</strong>이다.
+                </p>
+
+
+                <h3>Chain rule과 이동에 의한 변화</h3>
+
+                <p>
+                    입자가 경험하는 \(\phi\)는 시간에 직접 의존할 뿐 아니라,
+                    입자의 위치 \(x(t),y(t),z(t)\)를 통해서도 시간에 의존한다.
+                    따라서 입자를 따라 미분할 때는 Chain rule을 사용해야 한다.
+                </p>
+
+                <div class="equation">
+                    \[
+                        \begin{aligned}
+                        \frac{\mathrm d\phi}{\mathrm dt}
+                        &=
+                        \frac{\partial\phi}{\partial t}
+                        +
+                        \frac{\partial\phi}{\partial x}
+                        \frac{\mathrm dx}{\mathrm dt}
+                        +
+                        \frac{\partial\phi}{\partial y}
+                        \frac{\mathrm dy}{\mathrm dt}
+                        +
+                        \frac{\partial\phi}{\partial z}
+                        \frac{\mathrm dz}{\mathrm dt}
+                        \\[3.0ex]
+                        &=
+                        \frac{\partial\phi}{\partial t}
+                        +
+                        u\frac{\partial\phi}{\partial x}
+                        +
+                        v\frac{\partial\phi}{\partial y}
+                        +
+                        w\frac{\partial\phi}{\partial z}
+                        \\[3.0ex]
+                        &=
+                        \frac{\partial\phi}{\partial t}
+                        +
+                        \boldsymbol{u}\cdot\nabla\phi
+                        \end{aligned}
+                        \tag{1.1.2}
+                    \]
+                </div>
+
+                <p>
+                    여기서 \(\mathrm dx/\mathrm dt=u\),
+                    \(\mathrm dy/\mathrm dt=v\),
+                    \(\mathrm dz/\mathrm dt=w\)는 입자의 Velocity component이다.
+                    즉, 좌표의 시간변화가 Velocity로 바뀌면서
+                    <strong>공간적 변화와 입자의 이동이 하나의 항</strong>으로 결합된다.
+                </p>
+
+                <div class="equation main">
+                    \[
+                        \boxed{\displaystyle
+                        \frac{D\phi}{Dt}
+                        =
+                        \frac{\partial\phi}{\partial t}
+                        +
+                        \boldsymbol{u}\cdot\nabla\phi}
+                        \tag{1.1.3}
+                    \]
+                </div>
+
+                <p>
+                    Material derivative를 이루는 두 항은 변화가 생기는 원인을 구분해 준다.
+                </p>
+
+                <ul class="explanation-list">
+                    <li>
+                        \(\partial\phi/\partial t\):
+                        고정된 한 위치에서 Field 자체가 시간에 따라 변하는
+                        <strong>Local change</strong>
+                    </li>
+
+                    <li>
+                        \(\boldsymbol{u}\cdot\nabla\phi\):
+                        입자가 공간 구배를 가로질러 이동하면서 겪는
+                        <strong>Convective change</strong>
+                    </li>
+                </ul>
+
+            </section>
+
+
+            <section id="material-acceleration">
+
+                <h2>2. Material Acceleration</h2>
+
+                <h3>Velocity field에 대한 적용</h3>
+
+                <p>
+                    Acceleration은 한 유체입자의 Velocity가 시간에 따라 변하는 비율이다.
+                    따라서 Material derivative의 대상에 Scalar \(\phi\) 대신
+                    Velocity vector \(\boldsymbol{u}\)를 넣으면
+                    <strong>유체입자의 실제 Acceleration</strong>을 얻는다.
+                </p>
+
+                <div class="equation">
+                    \[
+                        \boldsymbol{a}
+                        =
+                        \frac{D\boldsymbol{u}}{Dt}
+                        \tag{1.1.4}
+                    \]
+                </div>
+
+                <p>
+                    \(x\)방향 성분을 전개하면 한 위치에서의 Velocity 변화와
+                    공간적으로 다른 Velocity를 통과하며 생기는 변화가 분리되어 나타난다.
+                </p>
+
+                <div class="equation">
+                    \[
+                        \begin{aligned}
+                        a_x
+                        &=
+                        \frac{Du}{Dt}
+                        \\[2.8ex]
+                        &=
+                        \frac{\partial u}{\partial t}
+                        +
+                        u\frac{\partial u}{\partial x}
+                        +
+                        v\frac{\partial u}{\partial y}
+                        +
+                        w\frac{\partial u}{\partial z}
+                        \end{aligned}
+                        \tag{1.1.5}
+                    \]
+                </div>
+
+                <p>
+                    같은 전개를 세 방향에 적용하면 Vector form은 다음과 같다.
+                </p>
+
+                <div class="equation main">
+                    \[
+                        \boxed{\displaystyle
+                        \boldsymbol{a}
+                        =
+                        \frac{\partial\boldsymbol{u}}{\partial t}
+                        +
+                        (\boldsymbol{u}\cdot\nabla)\boldsymbol{u}}
+                        \tag{1.1.6}
+                    \]
+                </div>
+
+                <div class="concept-note">
+                    <p>
+                        <strong>Steady flow는 Acceleration이 0이라는 뜻이 아니다.</strong>
+                        Steady 조건은 고정된 위치에서
+                        \(\partial\boldsymbol{u}/\partial t=0\)임을 뜻한다.
+                        Nozzle처럼 단면적에 따라 Velocity가 달라지는 유동에서는
+                        입자가 이동하며 다른 Velocity를 만나므로 Convective acceleration
+                        \((\boldsymbol{u}\cdot\nabla)\boldsymbol{u}\)가 남을 수 있다.
+                    </p>
+                </div>
+
+            </section>
+
+
+            <footer>
+                <a href="../">← Fundamentals로 돌아가기</a>
+            </footer>
+
+        </main>
+
+
+        <aside class="right-sidebar" aria-label="On this page">
+            <div class="sidebar-inner">
+
+                <div class="sidebar-title">On this page</div>
+
+                <a href="#field-and-particle" class="sidebar-link">
+                    1. Eulerian Field and a Moving Fluid Particle
+                </a>
+
+                <a href="#material-acceleration" class="sidebar-link">
+                    2. Material Acceleration
+                </a>
+
+            </div>
+        </aside>
+
+    </div>
 </body>
 
 </html>
