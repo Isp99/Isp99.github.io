@@ -2,6 +2,7 @@
 <html lang="ko">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Rate-of-strain tensor에서 Newtonian stress relation과 incompressible Navier–Stokes equation이 만들어지는 과정을 설명합니다.">
@@ -95,14 +96,169 @@
             }
         }
     </style>
+
+
+    <style>
+        body.article-page {
+            max-width: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        body.article-page .page-layout {
+            display: grid !important;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            gap: 170px;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+
+        body.article-page .main-content {
+            min-width: 0;
+        }
+
+        body.article-page .main-content > nav {
+            margin: 0 0 30px;
+            padding: 0;
+            border: 0;
+        }
+
+        body.article-page .left-sidebar,
+        body.article-page .right-sidebar {
+            display: block;
+            min-width: 0;
+            padding-top: 2px;
+            color: #666666;
+            font-size: 16px;
+            line-height: 1.65;
+        }
+
+        body.article-page .sidebar-inner {
+            position: sticky;
+            top: 30px;
+        }
+
+        body.article-page .sidebar-title {
+            display: block;
+            margin-bottom: 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid #dddddd;
+            color: #222222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        body.article-page .sidebar-title-link:hover {
+            text-decoration: underline;
+        }
+
+        body.article-page .sidebar-group {
+            margin-bottom: 42px;
+        }
+
+        body.article-page .sidebar-group-title {
+            margin: 0 0 10px;
+            color: #555555;
+            font-size: 19.5px;
+            font-weight: 400;
+        }
+
+        body.article-page .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 30px;
+            border-left: 2px solid transparent;
+            color: #777777;
+            text-decoration: none;
+        }
+
+        body.article-page .sidebar-link:hover {
+            color: #222222;
+        }
+
+        body.article-page .sidebar-link.active {
+            border-left-color: #444444;
+            color: #161616;
+            font-weight: 700;
+        }
+
+        body.article-page .right-sidebar .sidebar-link {
+            padding: 18px 0;
+            border-left: 0;
+        }
+
+        @media (max-width: 1347px) and (min-width: 1101px) {
+            body.article-page .page-layout {
+                grid-template-columns: 180px minmax(0, 760px) 180px;
+                gap: 35px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            body.article-page .page-layout {
+                display: block !important;
+                max-width: 860px;
+                padding: 44px 34px 90px;
+            }
+
+            body.article-page .left-sidebar,
+            body.article-page .right-sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 650px) {
+            body.article-page .page-layout {
+                padding: 28px 20px 65px;
+            }
+
+            body.article-page .main-content > nav {
+                margin-bottom: 24px;
+            }
+        }
+    </style>
+
 </head>
 
-<body>
-    <nav>
-        <a href="#top">3.1 Newtonian Stress Relation</a>
-    </nav>
+<body class="article-page">
+    <div class="page-layout">
 
-    <main id="top">
+
+        <aside class="left-sidebar" aria-label="Fundamentals navigation">
+            <div class="sidebar-inner">
+                <a href="../" class="sidebar-title sidebar-title-link">Fundamentals</a>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">1. Mathematical Foundation</div>
+                    <a href="../material-derivative/" class="sidebar-link">1.1 Material Derivative</a>
+                    <a href="../reynolds-transport-theorem/" class="sidebar-link">1.2 Reynolds Transport Theorem</a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">2. Conservation Laws</div>
+                    <a href="../continuity-equation/" class="sidebar-link">2.1 Continuity Equation</a>
+                    <a href="../conservation-of-momentum/" class="sidebar-link">2.2 Conservation of Momentum</a>
+                    <a href="../conservation-of-energy/" class="sidebar-link">2.3 Conservation of Energy</a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">3. Related Equations</div>
+                    <a href="../newtonian-stress-relation/"
+                       class="sidebar-link active"
+                       aria-current="page">3.1 Newtonian Stress Relation</a>
+                    <a href="../euler-and-bernoulli-equations/" class="sidebar-link">3.2 Euler and Bernoulli Equations</a>
+                </div>
+            </div>
+        </aside>
+
+
+        <main class="main-content" id="top">
+            <nav>
+                <a href="#top">3.1 Newtonian Stress Relation</a>
+            </nav>
+
         <header>
             <h1>3.1 Newtonian Stress Relation</h1>
             <p class="subtitle">Rate of Strain, Viscous Stress, and Navier–Stokes Equation</p>
@@ -628,11 +784,25 @@
                 </p>
             </div>
         </section>
-    </main>
+    
 
-    <footer>
-        <a href="../">← Fundamentals로 돌아가기</a>
-    </footer>
+            <footer>
+                <a href="../">← Fundamentals로 돌아가기</a>
+            </footer>
+        </main>
+
+
+        <aside class="right-sidebar" aria-label="On this page">
+            <div class="sidebar-inner">
+                <div class="sidebar-title">On this page</div>
+                <a href="#rate-of-strain" class="sidebar-link">1. Rate-of-Strain Tensor</a>
+                <a href="#newtonian-stress" class="sidebar-link">2. Newtonian-Fluid Stress</a>
+                <a href="#incompressible-limit" class="sidebar-link">3. Incompressible Constant-Viscosity Limit</a>
+            </div>
+        </aside>
+
+
+    </div>
 </body>
 
 </html>
