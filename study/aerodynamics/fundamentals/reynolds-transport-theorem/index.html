@@ -1,1 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Material derivative와 Material acceleration의 정의 및 수학적 유도를 설명합니다.">
+
+    <title>1.1 Material Derivative | Isp99</title>
+
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: {
+                scale: 1.02
+            }
+        };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="../fundamentals.css">
+</head>
+
+<body>
+    <nav>
+        <a href="#top">1.1 Material Derivative</a>
+    </nav>
+
+    <main id="top">
+        <header>
+            <h1>1.1 Material Derivative</h1>
+            <p class="subtitle">Eulerian Field, Moving Fluid Particle, and Material Acceleration</p>
+            <p class="intro">Material derivative는 공간에 정의된 Field를 이동하는 유체입자가 실제로 경험하는 시간변화율로 바꾸어 준다. 이 절에서는 Chain rule로 Material derivative를 유도하고, 이를 Velocity에 적용하여 유체입자의 Acceleration을 정리한다.</p>
+        </header>
+
+        <aside class="contents" aria-label="목차">
+            <strong>Contents</strong>
+            <ol>
+                <li><a href="#field-and-particle">Eulerian Field and a Moving Fluid Particle</a></li>
+                <li><a href="#material-acceleration">Material Acceleration</a></li>
+            </ol>
+        </aside>
+
+        <section id="field-and-particle">
+            <h2>1. Eulerian Field and a Moving Fluid Particle</h2>
+
+<p>
+                Eulerian description은 고정된 공간좌표에서 물리량을
+                \(\phi=\phi(x,y,z,t)\)와 같은 Field로 나타낸다. 반면 Lagrangian description은 하나의
+                유체입자를 따라가면서 그 입자가 경험하는 물리량의 변화를 관찰한다. Material derivative는
+                Eulerian field로 주어진 물리량을 이처럼 이동하는 유체입자의 시간변화율로 바꾸는 연산자이다.
+            </p>
+
+            <p>
+                유체입자는 고정된 한 점에 머무르지 않고 시간에 따라 위치가 변하므로, 입자의 좌표는 다음과 같이
+                시간의 함수로 표현된다.
+            </p>
+
+            <div class="equation">
+                \[
+                    x=x(t), \qquad y=y(t), \qquad z=z(t)
+                    \tag{1.1.1}
+                \]
+            </div>
+
+            <p>
+                따라서 입자가 경험하는 \(\phi\)의 변화에는 한 위치에서의 시간변화뿐 아니라, 입자가 서로 다른
+                \(\phi\) 값을 갖는 위치로 이동하면서 생기는 변화도 함께 포함된다. 이를 Chain rule로 전개하면
+            </p>
+
+            <div class="equation">
+                \[
+                    \begin{aligned}
+                    \frac{\mathrm d\phi}{\mathrm dt}
+                    &=\frac{\partial\phi}{\partial t}
+                    +\frac{\partial\phi}{\partial x}\frac{\mathrm dx}{\mathrm dt}
+                    +\frac{\partial\phi}{\partial y}\frac{\mathrm dy}{\mathrm dt}
+                    +\frac{\partial\phi}{\partial z}\frac{\mathrm dz}{\mathrm dt}
+                    \\[3.0ex]
+                    &=\frac{\partial\phi}{\partial t}
+                    +u\frac{\partial\phi}{\partial x}
+                    +v\frac{\partial\phi}{\partial y}
+                    +w\frac{\partial\phi}{\partial z}
+                    \\[3.0ex]
+                    &=\frac{\partial\phi}{\partial t}
+                    +\boldsymbol{u}\cdot\nabla\phi
+                    \end{aligned}
+                    \tag{1.1.2}
+                \]
+            </div>
+
+            <p>
+                여기서 \(\mathrm dx/\mathrm dt=u\), \(\mathrm dy/\mathrm dt=v\),
+                \(\mathrm dz/\mathrm dt=w\)는 유체입자의 각 방향 Velocity component이다. 따라서 Material
+                derivative는 다음과 같이 정리된다.
+            </p>
+
+            <div class="equation main">
+                \[
+                    \boxed{\displaystyle
+                    \frac{D\phi}{Dt}
+                    =\frac{\partial\phi}{\partial t}
+                    +\boldsymbol{u}\cdot\nabla\phi}
+                    \tag{1.1.3}
+                \]
+            </div>
+
+            <p>두 항은 서로 다른 원인으로 생기는 변화를 나타낸다.</p>
+
+            <ul class="explanation-list">
+                <li>
+                    \(\partial\phi/\partial t\): 고정된 한 위치에서 시간에 따라 발생하는
+                    <strong>Local change</strong>
+                </li>
+                <li>
+                    \(\boldsymbol{u}\cdot\nabla\phi\): 유체입자가 공간 구배를 통과하면서 경험하는
+                    <strong>Convective change</strong>
+                </li>
+            </ul>
+        </section>
+
+        <section id="material-acceleration">
+            <h2>2. Material Acceleration</h2>
+
+<p>
+                Material derivative에 \(\phi=\boldsymbol{u}\)를 대입하면 유체입자의 Acceleration을 얻는다.
+                Velocity field 자체를 이동하는 입자를 따라 미분하는 것이므로
+            </p>
+
+            <div class="equation">
+                \[
+                    \boldsymbol{a}=\frac{D\boldsymbol{u}}{Dt}
+                    \tag{1.1.4}
+                \]
+            </div>
+
+            <p>\(x\)방향 성분을 전개하면 Local acceleration과 Convective acceleration이 분리되어 나타난다.</p>
+
+            <div class="equation">
+                \[
+                    \begin{aligned}
+                    a_x
+                    &=\frac{Du}{Dt}
+                    \\[2.8ex]
+                    &=\frac{\partial u}{\partial t}
+                    +u\frac{\partial u}{\partial x}
+                    +v\frac{\partial u}{\partial y}
+                    +w\frac{\partial u}{\partial z}
+                    \end{aligned}
+                    \tag{1.1.5}
+                \]
+            </div>
+
+            <p>같은 관계를 세 방향에 적용하면 Vector form은 다음과 같다.</p>
+
+            <div class="equation main">
+                \[
+                    \boxed{\displaystyle
+                    \boldsymbol{a}
+                    =\frac{\partial\boldsymbol{u}}{\partial t}
+                    +(\boldsymbol{u}\cdot\nabla)\boldsymbol{u}}
+                    \tag{1.1.6}
+                \]
+            </div>
+
+            <p>
+                Steady flow에서는 \(\partial\boldsymbol{u}/\partial t=0\)이지만, 공간에 따라 Velocity가
+                달라진다면 유체입자는 이동하면서 다른 Velocity를 경험한다. 따라서 Steady라는 조건만으로
+                Convective acceleration까지 0이 되는 것은 아니다.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <a href="../">← Fundamentals로 돌아가기</a>
+    </footer>
+</body>
+
+</html>
 
