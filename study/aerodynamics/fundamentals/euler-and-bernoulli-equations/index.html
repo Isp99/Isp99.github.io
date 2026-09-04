@@ -17,234 +17,396 @@
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="../fundamentals.css">
+
+    <style>
+        body.article-page {
+            max-width: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        body.article-page .page-layout {
+            display: grid !important;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            gap: 170px;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+
+        body.article-page .main-content {
+            min-width: 0;
+        }
+
+        body.article-page .main-content > nav {
+            margin: 0 0 30px;
+            padding: 0;
+            border: 0;
+        }
+
+        body.article-page .left-sidebar,
+        body.article-page .right-sidebar {
+            display: block;
+            min-width: 0;
+            padding-top: 2px;
+            color: #666666;
+            font-size: 16px;
+            line-height: 1.65;
+        }
+
+        body.article-page .sidebar-inner {
+            position: sticky;
+            top: 30px;
+        }
+
+        body.article-page .sidebar-title {
+            display: block;
+            margin-bottom: 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid #dddddd;
+            color: #222222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        body.article-page .sidebar-title-link:hover {
+            text-decoration: underline;
+        }
+
+        body.article-page .sidebar-group {
+            margin-bottom: 42px;
+        }
+
+        body.article-page .sidebar-group-title {
+            margin: 0 0 10px;
+            color: #555555;
+            font-size: 19.5px;
+            font-weight: 400;
+        }
+
+        body.article-page .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 30px;
+            border-left: 2px solid transparent;
+            color: #777777;
+            text-decoration: none;
+        }
+
+        body.article-page .sidebar-link:hover {
+            color: #222222;
+        }
+
+        body.article-page .sidebar-link.active {
+            border-left-color: #444444;
+            color: #161616;
+            font-weight: 700;
+        }
+
+        body.article-page .right-sidebar .sidebar-link {
+            padding: 18px 0;
+            border-left: 0;
+        }
+
+        @media (max-width: 1347px) and (min-width: 1101px) {
+            body.article-page .page-layout {
+                grid-template-columns: 180px minmax(0, 760px) 180px;
+                gap: 35px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            body.article-page .page-layout {
+                display: block !important;
+                max-width: 860px;
+                padding: 44px 34px 90px;
+            }
+
+            body.article-page .left-sidebar,
+            body.article-page .right-sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 650px) {
+            body.article-page .page-layout {
+                padding: 28px 20px 65px;
+            }
+
+            body.article-page .main-content > nav {
+                margin-bottom: 24px;
+            }
+        }
+    </style>
 </head>
 
-<body>
-    <nav><a href="#top">3.2 Euler and Bernoulli Equations</a></nav>
+<body class="article-page">
+    <div class="page-layout">
 
-    <main id="top">
-        <header>
-            <h1>3.2 Euler and Bernoulli Equations</h1>
-            <p class="subtitle">Inviscid Momentum Balance and Streamline Integration</p>
-            <p class="intro">
-                Euler equation은 Viscous force를 무시할 수 있는 유동의 Momentum equation이다. 이 식을 Steady
-                flow의 Streamline 방향으로 정리하면 Pressure, Speed, 높이 사이의 Energy-like balance가
-                나타난다. Bernoulli equation은 별개의 경험식이 아니라 <strong>Euler equation을 정해진 조건에서
-                적분한 결과</strong>이다.
-            </p>
-        </header>
+        <aside class="left-sidebar" aria-label="Fundamentals navigation">
+            <div class="sidebar-inner">
+                <a href="../" class="sidebar-title sidebar-title-link">Fundamentals</a>
 
-        <aside class="contents" aria-label="목차">
-            <strong>Contents</strong>
-            <ol>
-                <li><a href="#euler-equation">Euler Equation</a></li>
-                <li><a href="#streamline">Momentum Balance Along a Streamline</a></li>
-                <li><a href="#bernoulli-equation">Bernoulli Equation</a></li>
-            </ol>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">1. Mathematical Foundation</div>
+                    <a href="../material-derivative/" class="sidebar-link">1.1 Material Derivative</a>
+                    <a href="../reynolds-transport-theorem/" class="sidebar-link">1.2 Reynolds Transport Theorem</a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">2. Conservation Laws</div>
+                    <a href="../continuity-equation/" class="sidebar-link">2.1 Continuity Equation</a>
+                    <a href="../conservation-of-momentum/" class="sidebar-link">2.2 Conservation of Momentum</a>
+                    <a href="../conservation-of-energy/" class="sidebar-link">2.3 Conservation of Energy</a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">3. Related Equations</div>
+                    <a href="../newtonian-stress-relation/" class="sidebar-link">3.1 Newtonian Stress Relation</a>
+                    <a href="../euler-and-bernoulli-equations/"
+                       class="sidebar-link active"
+                       aria-current="page">3.2 Euler and Bernoulli Equations</a>
+                </div>
+            </div>
         </aside>
 
-        <section id="euler-equation">
-            <h2>1. Euler Equation</h2>
+        <main class="main-content" id="top">
+            <nav><a href="#top">3.2 Euler and Bernoulli Equations</a></nav>
 
-            <h3>Inviscid approximation</h3>
-
-            <p>
-                일반적인 Momentum equation에는 Pressure, Viscous, Body force가 포함된다. 이 가운데
-                Viscous-stress divergence가 다른 항에 비해 충분히 작으면
-                \(\nabla\cdot\boldsymbol\tau\)를 무시하여 다음 식을 얻는다.
-            </p>
-
-            <div class="equation main">
-                \[
-                    \boxed{\displaystyle
-                    \rho\frac{D\boldsymbol u}{Dt}
-                    =-\nabla p+\rho\boldsymbol f}
-                    \tag{3.2.1}
-                \]
-            </div>
-
-            <p>
-                이것이 Euler equation이다. <strong>Inviscid approximation</strong>은 유체의 Viscosity가
-                수학적으로 반드시 0이라는 뜻이 아니라, 관심 영역의 Momentum balance에서 Viscous force의
-                영향이 작아 생략한다는 뜻이다. Wall 근처의 Boundary layer처럼 Velocity gradient가 큰 영역에는
-                같은 근사가 적절하지 않을 수 있다.
-            </p>
-
-            <h3>Steady flow에서 남는 Acceleration</h3>
-
-            <p>
-                Steady 조건에서는 Local acceleration
-                \(\partial\boldsymbol u/\partial t\)가 사라지지만, 공간적으로 Velocity가 달라지면 Convective
-                acceleration은 남는다. Body force를 잠시 제외하면 Euler equation은
-            </p>
-
-            <div class="equation">
-                \[
-                    \rho(\boldsymbol u\cdot\nabla)\boldsymbol u
-                    =-\nabla p
-                    \tag{3.2.2}
-                \]
-            </div>
-
-            <p>
-                즉, 유체입자가 유동장을 따라 Speed나 방향을 바꾸려면 그 Acceleration과 균형을 이루는 Pressure
-                gradient가 필요하다.
-            </p>
-        </section>
-
-        <section id="streamline">
-            <h2>2. Momentum Balance Along a Streamline</h2>
-
-            <h3>Streamline 방향의 미소이동</h3>
-
-            <p>
-                Streamline은 모든 점에서 Velocity vector에 접하는 곡선이다. Streamline을 따라 잰 거리 \(s\)와
-                Speed \(V=|\boldsymbol u|\)를 사용하면 미소이동은 다음 관계를 만족한다.
-            </p>
-
-            <div class="equation">
-                \[
-                    \frac{\mathrm dx}{u}
-                    =\frac{\mathrm dy}{v}
-                    =\frac{\mathrm dz}{w}
-                    =\frac{\mathrm ds}{V}
-                    \tag{3.2.3}
-                \]
-            </div>
-
-            <p>
-                Steady Euler equation을 이 접선 방향으로 투영하면 Vector momentum balance에서 Streamline
-                방향의 Scalar balance만 남는다. 왼쪽의 Convective acceleration은 Speed의 변화율
-                \(V\,\mathrm dV/\mathrm ds\)가 되고, Pressure gradient의 접선성분은
-                \(\mathrm dp/\mathrm ds\)가 된다.
-            </p>
-
-            <div class="equation">
-                \[
-                    \rho V\frac{\mathrm dV}{\mathrm ds}
-                    =-\frac{\mathrm dp}{\mathrm ds}
-                    \tag{3.2.4}
-                \]
-            </div>
-
-            <p>
-                양변에 \(\mathrm ds/\rho\)를 곱하면 Streamline을 따라 일어나는 Speed 변화와 Pressure 변화가
-                직접 연결된다.
-            </p>
-
-            <div class="equation">
-                \[
-                    V\,\mathrm dV+\frac{\mathrm dp}{\rho}=0
-                    \tag{3.2.5}
-                \]
-            </div>
-
-            <p>
-                여기서 \(V\,\mathrm dV=\mathrm d(V^2/2)\)이므로, Kinetic energy의 변화가 커지면 같은
-                Streamline 위에서 Pressure term은 반대 방향으로 변한다.
-            </p>
-
-            <div class="equation">
-                \[
-                    \mathrm d\left(\frac{V^2}{2}\right)
-                    +\frac{\mathrm dp}{\rho}=0
-                    \tag{3.2.6}
-                \]
-            </div>
-
-            <h3>Gravity의 포함</h3>
-
-            <p>
-                Body force가 Gravity인 경우 \(\boldsymbol f=-g\boldsymbol e_z\)이다. Streamline 방향으로
-                이동할 때 Gravity가 만드는 Potential-energy 변화 \(g\,\mathrm dz\)를 포함하면
-            </p>
-
-            <div class="equation">
-                \[
-                    \mathrm d\left(\frac{V^2}{2}\right)
-                    +\frac{\mathrm dp}{\rho}
-                    +g\,\mathrm dz
-                    =0
-                    \tag{3.2.7}
-                \]
-            </div>
-
-            <p>
-                이 Differential relation은 Pressure, Kinetic, Potential energy가 Streamline을 따라 서로
-                전환되는 방식을 보여 준다.
-            </p>
-        </section>
-
-        <section id="bernoulli-equation">
-            <h2>3. Bernoulli Equation</h2>
-
-            <h3>Constant-density flow의 적분</h3>
-
-            <p>
-                Density가 일정하면 \(1/\rho\)를 Pressure integral 밖으로 꺼낼 수 있다. Streamline 위의 두
-                점 사이에서 앞의 Differential equation을 적분하면
-            </p>
-
-            <div class="equation">
-                \[
-                    \int \mathrm d\left(\frac{V^2}{2}\right)
-                    +\frac{1}{\rho}\int\mathrm dp
-                    +g\int\mathrm dz
-                    =0
-                    \tag{3.2.8}
-                \]
-            </div>
-
-            <div class="equation main">
-                \[
-                    \boxed{\displaystyle
-                    \frac{p}{\rho}
-                    +\frac{V^2}{2}
-                    +gz
-                    =\text{constant along a streamline}}
-                    \tag{3.2.9}
-                \]
-            </div>
-
-            <p>
-                세 항의 단위는 모두 \(\mathrm{J/kg}\)이며, 단위질량당 Mechanical energy로 해석할 수 있다.
-            </p>
-
-            <ul class="explanation-list">
-                <li>\(p/\rho\): 유체를 밀어 이동시키는 데 연결된 <strong>Pressure term</strong></li>
-                <li>\(V^2/2\): 유체입자의 <strong>Kinetic energy</strong></li>
-                <li>\(gz\): 중력장 안의 <strong>Potential energy</strong></li>
-            </ul>
-
-            <h3>적용 조건과 적분상수의 범위</h3>
-
-            <p>위 형태의 Bernoulli equation에는 다음 조건이 포함되어 있다.</p>
-
-            <ul class="explanation-list">
-                <li><strong>Steady flow:</strong> Local acceleration을 제외</li>
-                <li><strong>Inviscid approximation:</strong> Viscous loss를 제외</li>
-                <li><strong>Along a streamline:</strong> Euler equation을 Streamline 접선방향으로 적분</li>
-                <li><strong>Constant density:</strong> \(\int\mathrm dp/\rho\)를 \(p/\rho\)로 단순화</li>
-                <li><strong>Gravity as the body force:</strong> Potential term을 \(gz\)로 표현</li>
-            </ul>
-
-            <div class="concept-note">
-                <p>
-                    식의 constant는 기본적으로 <strong>한 Streamline을 따라 일정한 값</strong>이다. 서로 다른
-                    Streamline에 같은 상수를 바로 적용할 수 있는지는 유동의 추가 성질을 확인해야 한다. 또한 Pump,
-                    Turbine, Heat transfer, Viscous loss가 중요한 실제 장치에서는 그 효과를 별도의 항으로
-                    포함한 Energy equation을 사용한다.
+            <header>
+                <h1>3.2 Euler and Bernoulli Equations</h1>
+                <p class="subtitle">Inviscid Momentum Balance and Streamline Integration</p>
+                <p class="intro">
+                    Euler equation은 Viscous force를 무시할 수 있는 유동의 Momentum equation이다. 이 식을 Steady
+                    flow의 Streamline 방향으로 정리하면 Pressure, Speed, 높이 사이의 Energy-like balance가
+                    나타난다. Bernoulli equation은 별개의 경험식이 아니라 <strong>Euler equation을 정해진 조건에서
+                    적분한 결과</strong>이다.
                 </p>
+            </header>
+
+            <aside class="contents" aria-label="목차">
+                <strong>Contents</strong>
+                <ol>
+                    <li><a href="#euler-equation">Euler Equation</a></li>
+                    <li><a href="#streamline">Momentum Balance Along a Streamline</a></li>
+                    <li><a href="#bernoulli-equation">Bernoulli Equation</a></li>
+                </ol>
+            </aside>
+
+            <section id="euler-equation">
+                <h2>1. Euler Equation</h2>
+
+                <h3>Inviscid approximation</h3>
+
+                <p>
+                    일반적인 Momentum equation에는 Pressure, Viscous, Body force가 포함된다. 이 가운데
+                    Viscous-stress divergence가 다른 항에 비해 충분히 작으면
+                    \(\nabla\cdot\boldsymbol\tau\)를 무시하여 다음 식을 얻는다.
+                </p>
+
+                <div class="equation main">
+                    \[
+                        \boxed{\displaystyle
+                        \rho\frac{D\boldsymbol u}{Dt}
+                        =-\nabla p+\rho\boldsymbol f}
+                        \tag{3.2.1}
+                    \]
+                </div>
+
+                <p>
+                    이것이 Euler equation이다. <strong>Inviscid approximation</strong>은 유체의 Viscosity가
+                    수학적으로 반드시 0이라는 뜻이 아니라, 관심 영역의 Momentum balance에서 Viscous force의
+                    영향이 작아 생략한다는 뜻이다. Wall 근처의 Boundary layer처럼 Velocity gradient가 큰 영역에는
+                    같은 근사가 적절하지 않을 수 있다.
+                </p>
+
+                <h3>Steady flow에서 남는 Acceleration</h3>
+
+                <p>
+                    Steady 조건에서는 Local acceleration
+                    \(\partial\boldsymbol u/\partial t\)가 사라지지만, 공간적으로 Velocity가 달라지면 Convective
+                    acceleration은 남는다. Body force를 잠시 제외하면 Euler equation은
+                </p>
+
+                <div class="equation">
+                    \[
+                        \rho(\boldsymbol u\cdot\nabla)\boldsymbol u
+                        =-\nabla p
+                        \tag{3.2.2}
+                    \]
+                </div>
+
+                <p>
+                    즉, 유체입자가 유동장을 따라 Speed나 방향을 바꾸려면 그 Acceleration과 균형을 이루는 Pressure
+                    gradient가 필요하다.
+                </p>
+            </section>
+
+            <section id="streamline">
+                <h2>2. Momentum Balance Along a Streamline</h2>
+
+                <h3>Streamline 방향의 미소이동</h3>
+
+                <p>
+                    Streamline은 모든 점에서 Velocity vector에 접하는 곡선이다. Streamline을 따라 잰 거리 \(s\)와
+                    Speed \(V=|\boldsymbol u|\)를 사용하면 미소이동은 다음 관계를 만족한다.
+                </p>
+
+                <div class="equation">
+                    \[
+                        \frac{\mathrm dx}{u}
+                        =\frac{\mathrm dy}{v}
+                        =\frac{\mathrm dz}{w}
+                        =\frac{\mathrm ds}{V}
+                        \tag{3.2.3}
+                    \]
+                </div>
+
+                <p>
+                    Steady Euler equation을 이 접선 방향으로 투영하면 Vector momentum balance에서 Streamline
+                    방향의 Scalar balance만 남는다. 왼쪽의 Convective acceleration은 Speed의 변화율
+                    \(V\,\mathrm dV/\mathrm ds\)가 되고, Pressure gradient의 접선성분은
+                    \(\mathrm dp/\mathrm ds\)가 된다.
+                </p>
+
+                <div class="equation">
+                    \[
+                        \rho V\frac{\mathrm dV}{\mathrm ds}
+                        =-\frac{\mathrm dp}{\mathrm ds}
+                        \tag{3.2.4}
+                    \]
+                </div>
+
+                <p>
+                    양변에 \(\mathrm ds/\rho\)를 곱하면 Streamline을 따라 일어나는 Speed 변화와 Pressure 변화가
+                    직접 연결된다.
+                </p>
+
+                <div class="equation">
+                    \[
+                        V\,\mathrm dV+\frac{\mathrm dp}{\rho}=0
+                        \tag{3.2.5}
+                    \]
+                </div>
+
+                <p>
+                    여기서 \(V\,\mathrm dV=\mathrm d(V^2/2)\)이므로, Kinetic energy의 변화가 커지면 같은
+                    Streamline 위에서 Pressure term은 반대 방향으로 변한다.
+                </p>
+
+                <div class="equation">
+                    \[
+                        \mathrm d\left(\frac{V^2}{2}\right)
+                        +\frac{\mathrm dp}{\rho}=0
+                        \tag{3.2.6}
+                    \]
+                </div>
+
+                <h3>Gravity의 포함</h3>
+
+                <p>
+                    Body force가 Gravity인 경우 \(\boldsymbol f=-g\boldsymbol e_z\)이다. Streamline 방향으로
+                    이동할 때 Gravity가 만드는 Potential-energy 변화 \(g\,\mathrm dz\)를 포함하면
+                </p>
+
+                <div class="equation">
+                    \[
+                        \mathrm d\left(\frac{V^2}{2}\right)
+                        +\frac{\mathrm dp}{\rho}
+                        +g\,\mathrm dz
+                        =0
+                        \tag{3.2.7}
+                    \]
+                </div>
+
+                <p>
+                    이 Differential relation은 Pressure, Kinetic, Potential energy가 Streamline을 따라 서로
+                    전환되는 방식을 보여 준다.
+                </p>
+            </section>
+
+            <section id="bernoulli-equation">
+                <h2>3. Bernoulli Equation</h2>
+
+                <h3>Constant-density flow의 적분</h3>
+
+                <p>
+                    Density가 일정하면 \(1/\rho\)를 Pressure integral 밖으로 꺼낼 수 있다. Streamline 위의 두
+                    점 사이에서 앞의 Differential equation을 적분하면
+                </p>
+
+                <div class="equation">
+                    \[
+                        \int \mathrm d\left(\frac{V^2}{2}\right)
+                        +\frac{1}{\rho}\int\mathrm dp
+                        +g\int\mathrm dz
+                        =0
+                        \tag{3.2.8}
+                    \]
+                </div>
+
+                <div class="equation main">
+                    \[
+                        \boxed{\displaystyle
+                        \frac{p}{\rho}
+                        +\frac{V^2}{2}
+                        +gz
+                        =\text{constant along a streamline}}
+                        \tag{3.2.9}
+                    \]
+                </div>
+
+                <p>
+                    세 항의 단위는 모두 \(\mathrm{J/kg}\)이며, 단위질량당 Mechanical energy로 해석할 수 있다.
+                </p>
+
+                <ul class="explanation-list">
+                    <li>\(p/\rho\): 유체를 밀어 이동시키는 데 연결된 <strong>Pressure term</strong></li>
+                    <li>\(V^2/2\): 유체입자의 <strong>Kinetic energy</strong></li>
+                    <li>\(gz\): 중력장 안의 <strong>Potential energy</strong></li>
+                </ul>
+
+                <h3>적용 조건과 적분상수의 범위</h3>
+
+                <p>위 형태의 Bernoulli equation에는 다음 조건이 포함되어 있다.</p>
+
+                <ul class="explanation-list">
+                    <li><strong>Steady flow:</strong> Local acceleration을 제외</li>
+                    <li><strong>Inviscid approximation:</strong> Viscous loss를 제외</li>
+                    <li><strong>Along a streamline:</strong> Euler equation을 Streamline 접선방향으로 적분</li>
+                    <li><strong>Constant density:</strong> \(\int\mathrm dp/\rho\)를 \(p/\rho\)로 단순화</li>
+                    <li><strong>Gravity as the body force:</strong> Potential term을 \(gz\)로 표현</li>
+                </ul>
+
+                <div class="concept-note">
+                    <p>
+                        식의 constant는 기본적으로 <strong>한 Streamline을 따라 일정한 값</strong>이다. 서로 다른
+                        Streamline에 같은 상수를 바로 적용할 수 있는지는 유동의 추가 성질을 확인해야 한다. 또한 Pump,
+                        Turbine, Heat transfer, Viscous loss가 중요한 실제 장치에서는 그 효과를 별도의 항으로
+                        포함한 Energy equation을 사용한다.
+                    </p>
+                </div>
+
+                <p>
+                    Compressible barotropic flow처럼 Density가 Pressure에 따라 변하면 Pressure term을
+                    \(p/\rho\)로 단순화하지 않고 \(\int \mathrm dp/\rho\)의 형태로 유지한다.
+                </p>
+            </section>
+
+            <footer><a href="../">← Fundamentals로 돌아가기</a></footer>
+        </main>
+
+        <aside class="right-sidebar" aria-label="On this page">
+            <div class="sidebar-inner">
+                <div class="sidebar-title">On this page</div>
+                <a href="#euler-equation" class="sidebar-link">1. Euler Equation</a>
+                <a href="#streamline" class="sidebar-link">2. Momentum Balance Along a Streamline</a>
+                <a href="#bernoulli-equation" class="sidebar-link">3. Bernoulli Equation</a>
             </div>
+        </aside>
 
-            <p>
-                Compressible barotropic flow처럼 Density가 Pressure에 따라 변하면 Pressure term을
-                \(p/\rho\)로 단순화하지 않고 \(\int \mathrm dp/\rho\)의 형태로 유지한다.
-            </p>
-        </section>
-    </main>
-
-    <footer><a href="../">← Fundamentals로 돌아가기</a></footer>
+    </div>
 </body>
 
 </html>
