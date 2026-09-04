@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="System의 변화율을 Control-volume storage와 Surface flux로 바꾸는 Reynolds transport theorem을 설명합니다.">
     <title>1.2 Reynolds Transport Theorem | Isp99</title>
+
     <script>
         window.MathJax = {
             tex: {
@@ -15,184 +16,438 @@
             chtml: { scale: 1.02 }
         };
     </script>
+
     <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="../fundamentals.css">
+
+    <style>
+        body.article-page {
+            max-width: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        body.article-page .page-layout {
+            display: grid !important;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            gap: 170px;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+
+        body.article-page .main-content {
+            min-width: 0;
+        }
+
+        body.article-page .main-content > nav {
+            margin: 0 0 30px;
+            padding: 0;
+            border: 0;
+        }
+
+        body.article-page .left-sidebar,
+        body.article-page .right-sidebar {
+            display: block;
+            min-width: 0;
+            padding-top: 2px;
+            color: #666666;
+            font-size: 16px;
+            line-height: 1.65;
+        }
+
+        body.article-page .sidebar-inner {
+            position: sticky;
+            top: 30px;
+        }
+
+        body.article-page .sidebar-title {
+            display: block;
+            margin-bottom: 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid #dddddd;
+            color: #222222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        body.article-page .sidebar-title-link:hover {
+            text-decoration: underline;
+        }
+
+        body.article-page .sidebar-group {
+            margin-bottom: 42px;
+        }
+
+        body.article-page .sidebar-group-title {
+            margin: 0 0 10px;
+            color: #555555;
+            font-size: 19.5px;
+            font-weight: 400;
+        }
+
+        body.article-page .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 30px;
+            border-left: 2px solid transparent;
+            color: #777777;
+            text-decoration: none;
+        }
+
+        body.article-page .sidebar-link:hover {
+            color: #222222;
+        }
+
+        body.article-page .sidebar-link.active {
+            border-left-color: #444444;
+            color: #161616;
+            font-weight: 700;
+        }
+
+        body.article-page .right-sidebar .sidebar-link {
+            padding: 18px 0;
+            border-left: 0;
+        }
+
+        @media (max-width: 1347px) and (min-width: 1101px) {
+            body.article-page .page-layout {
+                grid-template-columns: 180px minmax(0, 760px) 180px;
+                gap: 35px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            body.article-page .page-layout {
+                display: block !important;
+                max-width: 860px;
+                padding: 44px 34px 90px;
+            }
+
+            body.article-page .left-sidebar,
+            body.article-page .right-sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 650px) {
+            body.article-page .page-layout {
+                padding: 28px 20px 65px;
+            }
+
+            body.article-page .main-content > nav {
+                margin-bottom: 24px;
+            }
+        }
+    </style>
 </head>
 
-<body>
-    <nav><a href="#top">1.2 Reynolds Transport Theorem</a></nav>
+<body class="article-page">
+    <div class="page-layout">
 
-    <main id="top">
-        <header>
-            <h1>1.2 Reynolds Transport Theorem</h1>
-            <p class="subtitle">System, Control Volume, Storage, and Surface Flux</p>
-            <p class="intro">
-                Conservation law는 본래 동일한 물질입자들의 집합인 System에 적용된다. 그러나 실제 유동 해석은
-                관이나 Nozzle처럼 <strong>공간에 정해 둔 영역</strong>을 기준으로 수행하는 경우가 많다.
-                Reynolds transport theorem은 System의 변화율을 Control volume 내부의 Storage와 경계를 통한
-                Flux로 바꾸어 두 관점을 연결한다.
-            </p>
-        </header>
+        <aside class="left-sidebar" aria-label="Fundamentals navigation">
+            <div class="sidebar-inner">
+                <a href="../" class="sidebar-title sidebar-title-link">Fundamentals</a>
 
-        <aside class="contents" aria-label="목차">
-            <strong>Contents</strong>
-            <ol>
-                <li><a href="#system-and-control-volume">System and Control Volume</a></li>
-                <li><a href="#storage-and-flux">Storage and Flux Decomposition</a></li>
-                <li><a href="#choice-of-property">Choice of the Property</a></li>
-            </ol>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">1. Mathematical Foundation</div>
+                    <a href="../material-derivative/" class="sidebar-link">
+                        1.1 Material Derivative
+                    </a>
+                    <a href="../reynolds-transport-theorem/"
+                       class="sidebar-link active"
+                       aria-current="page">
+                        1.2 Reynolds Transport Theorem
+                    </a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">2. Conservation Laws</div>
+                    <a href="../continuity-equation/" class="sidebar-link">
+                        2.1 Continuity Equation
+                    </a>
+                    <a href="../conservation-of-momentum/" class="sidebar-link">
+                        2.2 Conservation of Momentum
+                    </a>
+                    <a href="../conservation-of-energy/" class="sidebar-link">
+                        2.3 Conservation of Energy
+                    </a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">3. Related Equations</div>
+                    <a href="../newtonian-stress-relation/" class="sidebar-link">
+                        3.1 Newtonian Stress Relation
+                    </a>
+                    <a href="../euler-and-bernoulli-equations/" class="sidebar-link">
+                        3.2 Euler and Bernoulli Equations
+                    </a>
+                </div>
+            </div>
         </aside>
 
-        <section id="system-and-control-volume">
-            <h2>1. System and Control Volume</h2>
 
-            <h3>따라가는 영역과 고정된 영역</h3>
+        <main class="main-content" id="top">
 
-            <p>
-                System은 시간이 지나도 <strong>동일한 유체입자들</strong>로 이루어진다. 경계가 입자와 함께
-                이동하므로 질량보존이나 Newton's second law를 직접 적용하기에는 자연스럽지만, 매 순간 변하는
-                경계를 추적해야 한다는 불편이 있다.
-            </p>
+            <nav>
+                <a href="#top">1.2 Reynolds Transport Theorem</a>
+            </nav>
 
-            <p>
-                Control volume은 해석자가 공간에 정한 영역이며 그 경계를 Control surface라고 한다. 유체는
-                Control surface를 자유롭게 통과할 수 있으므로, 내부에 저장된 양뿐 아니라 경계를 통해 운반되는
-                양도 함께 계산해야 한다.
-            </p>
-
-            <h3>Extensive property와 Intensive property</h3>
-
-            <p>
-                System 전체가 가진 물리량을 \(B\), 이에 대응하는 단위질량당 물리량을 \(b\)라고 두면 다음과
-                같이 쓸 수 있다.
-            </p>
-
-            <div class="equation">
-                \[
-                    B_{\mathrm{system}}
-                    =\int_{\mathrm{system}}\rho b\,\mathrm dV
-                    \tag{1.2.1}
-                \]
-            </div>
-
-            <p>세 기호는 같은 Property를 서로 다른 기준으로 표현한다.</p>
-
-            <ul class="term-list">
-                <li>\(B\): System 전체가 가진 <strong>Extensive property</strong></li>
-                <li>\(b\): \(B\)를 단위질량당 나타낸 <strong>Intensive property</strong></li>
-                <li>\(\rho b\): Volume integral에 사용할 수 있는 <strong>단위체적당 property</strong></li>
-            </ul>
-
-            <p>
-                \(b\)에 Density \(\rho\)를 곱하는 과정은 단위질량당 양을 단위체적당 양으로 바꾸는 과정이다.
-                이렇게 얻은 \(\rho b\)를 체적에 대해 적분하면 System 전체의 \(B\)가 된다.
-            </p>
-        </section>
-
-        <section id="storage-and-flux">
-            <h2>2. Storage and Flux Decomposition</h2>
-
-            <h3>Control volume 내부의 Storage</h3>
-
-            <p>
-                고정된 Control volume 안에 들어 있는 Property는 \(\rho b\)의 Volume integral로 계산한다.
-                이 값의 시간변화율이 <strong>Storage rate</strong>이다.
-            </p>
-
-            <div class="equation">
-                \[
-                    \frac{\partial}{\partial t}
-                    \int_{CV}\rho b\,\mathrm dV
-                    \tag{1.2.2}
-                \]
-            </div>
-
-            <p>
-                이 항은 현재 영역 안에 얼마가 쌓이거나 줄어드는지만 나타낸다. 경계를 통과해 나간 Property는
-                내부에 남아 있지 않으므로 별도의 Flux 항이 필요하다.
-            </p>
-
-            <h3>Control surface를 통한 Flux</h3>
-
-            <p>
-                면적요소 \(\mathrm dA\)의 바깥쪽 단위 법선벡터를 \(\boldsymbol n\)이라 하면,
-                \((\boldsymbol u\cdot\boldsymbol n)\mathrm dA\)는 그 면을 바깥 방향으로 통과하는 체적유량이다.
-                여기에 단위체적당 Property \(\rho b\)를 곱하면 면적요소를 통한 Property transport rate가 된다.
-            </p>
-
-            <div class="equation">
-                \[
-                    \rho b(\boldsymbol{u}\cdot\boldsymbol{n})\,\mathrm dA
-                    \tag{1.2.3}
-                \]
-            </div>
-
-            <p>이를 닫힌 Control surface 전체에 대해 더하면 Net outward flux를 얻는다.</p>
-
-            <div class="equation">
-                \[
-                    \oint_{CS}\rho b
-                    (\boldsymbol{u}\cdot\boldsymbol{n})\,\mathrm dA
-                    \tag{1.2.4}
-                \]
-            </div>
-
-            <p>
-                System의 변화율은 <strong>Control volume 안에서 변한 양</strong>과
-                <strong>Control surface 밖으로 운반된 양</strong>을 합해야 복원된다. 따라서 Reynolds
-                transport theorem은 다음과 같이 정리된다.
-            </p>
-
-            <div class="equation main">
-                \[
-                    \boxed{\displaystyle
-                    \frac{\mathrm d B_{\mathrm{system}}}{\mathrm dt}
-                    =\frac{\partial}{\partial t}\int_{CV}\rho b\,\mathrm dV
-                    +\oint_{CS}\rho b
-                    (\boldsymbol{u}\cdot\boldsymbol{n})\,\mathrm dA}
-                    \tag{1.2.5}
-                \]
-            </div>
-
-            <p>\(\boldsymbol n\)이 바깥쪽을 향하므로 내적의 부호가 유입과 유출을 구분한다.</p>
-
-            <ul class="explanation-list">
-                <li>\(\boldsymbol{u}\cdot\boldsymbol{n}>0\): 바깥 방향 성분이 있으므로 <strong>Outflow</strong></li>
-                <li>\(\boldsymbol{u}\cdot\boldsymbol{n}<0\): 안쪽 방향 성분이 있으므로 <strong>Inflow</strong></li>
-            </ul>
-
-            <div class="concept-note">
-                <p>
-                    Surface integral 앞에 별도의 유입·유출 부호를 붙일 필요는 없다.
-                    \(\boldsymbol u\cdot\boldsymbol n\) 자체가 방향을 포함하므로 하나의 닫힌 Surface integral이
-                    모든 입구와 출구의 <strong>순수송량</strong>을 동시에 계산한다.
+            <header>
+                <h1>1.2 Reynolds Transport Theorem</h1>
+                <p class="subtitle">System, Control Volume, Storage, and Surface Flux</p>
+                <p class="intro">
+                    Conservation law는 본래 동일한 물질입자들의 집합인 System에 적용된다.
+                    그러나 실제 유동 해석은 관이나 Nozzle처럼 <strong>공간에 정해 둔 영역</strong>을
+                    기준으로 수행하는 경우가 많다. Reynolds transport theorem은 System의 변화율을
+                    Control volume 내부의 Storage와 경계를 통한 Flux로 바꾸어 두 관점을 연결한다.
                 </p>
+            </header>
+
+
+            <aside class="contents" aria-label="Contents">
+                <strong>Contents</strong>
+                <ol>
+                    <li>
+                        <a href="#system-and-control-volume">
+                            System and Control Volume
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#storage-and-flux">
+                            Storage and Flux Decomposition
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#choice-of-property">
+                            Choice of the Property
+                        </a>
+                    </li>
+                </ol>
+            </aside>
+
+
+            <section id="system-and-control-volume">
+
+                <h2>1. System and Control Volume</h2>
+
+                <h3>따라가는 영역과 고정된 영역</h3>
+
+                <p>
+                    System은 시간이 지나도 <strong>동일한 유체입자들</strong>로 이루어진다.
+                    경계가 입자와 함께 이동하므로 질량보존이나 Newton's second law를 직접 적용하기에는
+                    자연스럽지만, 매 순간 변하는 경계를 추적해야 한다는 불편이 있다.
+                </p>
+
+                <p>
+                    Control volume은 해석자가 공간에 정한 영역이며 그 경계를 Control surface라고 한다.
+                    유체는 Control surface를 자유롭게 통과할 수 있으므로, 내부에 저장된 양뿐 아니라
+                    경계를 통해 운반되는 양도 함께 계산해야 한다.
+                </p>
+
+                <h3>Extensive property와 Intensive property</h3>
+
+                <p>
+                    System 전체가 가진 물리량을 \(B\), 이에 대응하는 단위질량당 물리량을 \(b\)라고 두면
+                    다음과 같이 쓸 수 있다.
+                </p>
+
+                <div class="equation">
+                    \[
+                        B_{\mathrm{system}}
+                        =\int_{\mathrm{system}}\rho b\,\mathrm dV
+                        \tag{1.2.1}
+                    \]
+                </div>
+
+                <p>
+                    세 기호는 같은 Property를 서로 다른 기준으로 표현한다.
+                </p>
+
+                <ul class="term-list">
+                    <li>
+                        \(B\): System 전체가 가진
+                        <strong>Extensive property</strong>
+                    </li>
+                    <li>
+                        \(b\): \(B\)를 단위질량당 나타낸
+                        <strong>Intensive property</strong>
+                    </li>
+                    <li>
+                        \(\rho b\): Volume integral에 사용할 수 있는
+                        <strong>단위체적당 property</strong>
+                    </li>
+                </ul>
+
+                <p>
+                    \(b\)에 Density \(\rho\)를 곱하는 과정은 단위질량당 양을 단위체적당 양으로
+                    바꾸는 과정이다. 이렇게 얻은 \(\rho b\)를 체적에 대해 적분하면
+                    System 전체의 \(B\)가 된다.
+                </p>
+
+            </section>
+
+
+            <section id="storage-and-flux">
+
+                <h2>2. Storage and Flux Decomposition</h2>
+
+                <h3>Control volume 내부의 Storage</h3>
+
+                <p>
+                    고정된 Control volume 안에 들어 있는 Property는 \(\rho b\)의 Volume integral로 계산한다.
+                    이 값의 시간변화율이 <strong>Storage rate</strong>이다.
+                </p>
+
+                <div class="equation">
+                    \[
+                        \frac{\partial}{\partial t}
+                        \int_{CV}\rho b\,\mathrm dV
+                        \tag{1.2.2}
+                    \]
+                </div>
+
+                <p>
+                    이 항은 현재 영역 안에 얼마가 쌓이거나 줄어드는지만 나타낸다.
+                    경계를 통과해 나간 Property는 내부에 남아 있지 않으므로 별도의 Flux 항이 필요하다.
+                </p>
+
+                <h3>Control surface를 통한 Flux</h3>
+
+                <p>
+                    면적요소 \(\mathrm dA\)의 바깥쪽 단위 법선벡터를 \(\boldsymbol n\)이라 하면,
+                    \((\boldsymbol u\cdot\boldsymbol n)\mathrm dA\)는 그 면을 바깥 방향으로 통과하는
+                    체적유량이다. 여기에 단위체적당 Property \(\rho b\)를 곱하면
+                    면적요소를 통한 Property transport rate가 된다.
+                </p>
+
+                <div class="equation">
+                    \[
+                        \rho b(\boldsymbol{u}\cdot\boldsymbol{n})\,\mathrm dA
+                        \tag{1.2.3}
+                    \]
+                </div>
+
+                <p>
+                    이를 닫힌 Control surface 전체에 대해 더하면 Net outward flux를 얻는다.
+                </p>
+
+                <div class="equation">
+                    \[
+                        \oint_{CS}\rho b
+                        (\boldsymbol{u}\cdot\boldsymbol{n})\,\mathrm dA
+                        \tag{1.2.4}
+                    \]
+                </div>
+
+                <p>
+                    System의 변화율은 <strong>Control volume 안에서 변한 양</strong>과
+                    <strong>Control surface 밖으로 운반된 양</strong>을 합해야 복원된다.
+                    따라서 Reynolds transport theorem은 다음과 같이 정리된다.
+                </p>
+
+                <div class="equation main">
+                    \[
+                        \boxed{\displaystyle
+                        \frac{\mathrm d B_{\mathrm{system}}}{\mathrm dt}
+                        =
+                        \frac{\partial}{\partial t}
+                        \int_{CV}\rho b\,\mathrm dV
+                        +
+                        \oint_{CS}\rho b
+                        (\boldsymbol{u}\cdot\boldsymbol{n})\,\mathrm dA}
+                        \tag{1.2.5}
+                    \]
+                </div>
+
+                <p>
+                    \(\boldsymbol n\)이 바깥쪽을 향하므로 내적의 부호가 유입과 유출을 구분한다.
+                </p>
+
+                <ul class="explanation-list">
+                    <li>
+                        \(\boldsymbol{u}\cdot\boldsymbol{n}>0\):
+                        바깥 방향 성분이 있으므로 <strong>Outflow</strong>
+                    </li>
+                    <li>
+                        \(\boldsymbol{u}\cdot\boldsymbol{n}<0\):
+                        안쪽 방향 성분이 있으므로 <strong>Inflow</strong>
+                    </li>
+                </ul>
+
+                <div class="concept-note">
+                    <p>
+                        Surface integral 앞에 별도의 유입·유출 부호를 붙일 필요는 없다.
+                        \(\boldsymbol u\cdot\boldsymbol n\) 자체가 방향을 포함하므로 하나의 닫힌
+                        Surface integral이 모든 입구와 출구의 <strong>순수송량</strong>을 동시에 계산한다.
+                    </p>
+                </div>
+
+            </section>
+
+
+            <section id="choice-of-property">
+
+                <h2>3. Choice of the Property</h2>
+
+                <p>
+                    Reynolds transport theorem은 특정 Conservation law가 아니라,
+                    System 표현을 Control-volume 표현으로 바꾸는 <strong>공통 변환식</strong>이다.
+                    따라서 식의 구조는 유지하고 분석할 물리량에 맞추어 \(B\)와 \(b\)만 선택한다.
+                </p>
+
+                <ul class="explanation-list">
+                    <li>
+                        <strong>Mass conservation:</strong>
+                        \(B=m,\quad b=1\)
+                    </li>
+                    <li>
+                        <strong>Linear momentum conservation:</strong>
+                        \(B=\boldsymbol P,\quad b=\boldsymbol u\)
+                    </li>
+                    <li>
+                        <strong>Energy conservation:</strong>
+                        \(B=E,\quad b=e+V^2/2+gz\)
+                    </li>
+                </ul>
+
+                <p>
+                    이후의 Continuity, Momentum, Energy equation은 서로 다른 법칙처럼 보이지만,
+                    모두 이 선택을 Reynolds transport theorem에 대입한 뒤 각 System law와 결합하여 얻는다.
+                </p>
+
+            </section>
+
+
+            <footer>
+                <a href="../">← Fundamentals로 돌아가기</a>
+            </footer>
+
+        </main>
+
+
+        <aside class="right-sidebar" aria-label="On this page">
+            <div class="sidebar-inner">
+
+                <div class="sidebar-title">On this page</div>
+
+                <a href="#system-and-control-volume" class="sidebar-link">
+                    1. System and Control Volume
+                </a>
+
+                <a href="#storage-and-flux" class="sidebar-link">
+                    2. Storage and Flux Decomposition
+                </a>
+
+                <a href="#choice-of-property" class="sidebar-link">
+                    3. Choice of the Property
+                </a>
+
             </div>
-        </section>
+        </aside>
 
-        <section id="choice-of-property">
-            <h2>3. Choice of the Property</h2>
-
-            <p>
-                Reynolds transport theorem은 특정 Conservation law가 아니라, System 표현을 Control-volume
-                표현으로 바꾸는 <strong>공통 변환식</strong>이다. 따라서 식의 구조는 유지하고 분석할 물리량에
-                맞추어 \(B\)와 \(b\)만 선택한다.
-            </p>
-
-            <ul class="explanation-list">
-                <li><strong>Mass conservation:</strong> \(B=m,\quad b=1\)</li>
-                <li><strong>Linear momentum conservation:</strong> \(B=\boldsymbol P,\quad b=\boldsymbol u\)</li>
-                <li><strong>Energy conservation:</strong> \(B=E,\quad b=e+V^2/2+gz\)</li>
-            </ul>
-
-            <p>
-                이후의 Continuity, Momentum, Energy equation은 서로 다른 법칙처럼 보이지만, 모두 이 선택을
-                Reynolds transport theorem에 대입한 뒤 각 System law와 결합하여 얻는다.
-            </p>
-        </section>
-    </main>
-
-    <footer><a href="../">← Fundamentals로 돌아가기</a></footer>
+    </div>
 </body>
 
 </html>
