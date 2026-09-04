@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Perfect gas의 열역학 관계와 Gibbs relation을 단계적으로 유도합니다.">
+    <title>1.1 Perfect-Gas Thermodynamic Relations | Isp99</title>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="../compressible.css">
+</head>
+
+<body class="article-page">
+    <div class="page-layout">
+        <aside class="left-sidebar" aria-label="Compressible Flow navigation">
+            <div class="sidebar-inner">
+                <a href="../" class="sidebar-title sidebar-title-link">Compressible Flow</a>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">1. Fundamentals of Compressible Flow</div>
+                    <a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link active" aria-current="page">1.1 Perfect-Gas Thermodynamic Relations</a>
+                    <a href="../isentropic-relations/" class="sidebar-link">1.2 Isentropic Relations</a>
+                    <a href="../speed-of-sound-and-mach-number/" class="sidebar-link">1.3 Speed of Sound and Mach Number</a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">2. Stagnation State and Properties</div>
+                    <a href="../stagnation-temperature/" class="sidebar-link">2.1 Stagnation Temperature</a>
+                    <a href="../stagnation-pressure-and-density/" class="sidebar-link">2.2 Stagnation Pressure and Density</a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">3. Quasi-One-Dimensional Nozzle Flow</div>
+                    <a href="../area-velocity-relation/" class="sidebar-link">3.1 Area–Velocity Relation</a>
+                    <a href="../mass-flow-function-and-choking/" class="sidebar-link">3.2 Mass-Flow Function and Choking</a>
+                    <a href="../area-mach-number-relation/" class="sidebar-link">3.3 Area–Mach Number Relation</a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">4. Normal Shock Waves</div>
+                    <a href="../normal-shock-conservation-laws/" class="sidebar-link">4.1 Derivation from Conservation Laws</a>
+                    <a href="../normal-shock-property-ratios/" class="sidebar-link">4.2 Normal-Shock Property Ratios</a>
+                    <a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link">4.3 Downstream Mach Number and Entropy Change</a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">5. Oblique Shock Waves</div>
+                    <a href="../normal-component-method/" class="sidebar-link">5.1 Normal-Component Method</a>
+                    <a href="../theta-beta-mach-relation/" class="sidebar-link">5.2 Derivation of the Theta–Beta–Mach Relation</a>
+                </div>
+
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">6. Prandtl–Meyer Expansion</div>
+                    <a href="../infinitesimal-isentropic-turning/" class="sidebar-link">6.1 Infinitesimal Isentropic Turning</a>
+                    <a href="../prandtl-meyer-function/" class="sidebar-link">6.2 Derivation of the Prandtl–Meyer Function</a>
+                    <a href="../finite-expansion-and-property-changes/" class="sidebar-link">6.3 Finite Expansion and Property Changes</a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content" id="top">
+            <nav><a href="#top">1.1 Perfect-Gas Thermodynamic Relations</a></nav>
+
+            <header>
+                <h1>1.1 Perfect-Gas Thermodynamic Relations</h1>
+                <p class="subtitle">Perfect-Gas Properties, Specific Heats, and Gibbs Relations</p>
+                <p class="intro">
+                    Perfect gas의 Thermodynamic relation은 Pressure, Density, Temperature, Internal energy,
+                    Enthalpy와 Entropy를 서로 연결한다. 먼저 Thermally perfect gas와 Calorically perfect
+                    gas의 가정을 구분하고, \(c_p\), \(c_v\), \(R\), \(\gamma\)의 관계를 유도한다. 이어서
+                    Gibbs relation을 이용하여 Perfect gas의 Entropy change를 정리한다.
+                </p>
+            </header>
+
+            <aside class="contents" aria-label="Contents">
+                <strong>Contents</strong>
+                <ol>
+                    <li><a href="#perfect-gas">Thermally and Calorically Perfect Gas</a></li>
+                    <li><a href="#gibbs-relations">Gibbs Relations</a></li>
+                </ol>
+            </aside>
+
+            <section id="perfect-gas">
+                <h2>1. Thermally and Calorically Perfect Gas</h2>
+
+                <p>
+                    <strong>Thermally perfect gas</strong>는 Pressure, Density, Temperature가 Ideal-gas
+                    equation of state를 따르는 Gas이다.
+                </p>
+
+                <div class="equation main">
+                    \[
+                        \boxed{\displaystyle p=\rho RT}
+                        \tag{1.1.1}
+                    \]
+                </div>
+
+                <p>
+                    여기서 \(R\)은 Specific gas constant이다. <strong>Calorically perfect gas</strong>는 이
+                    관계에 더하여 Specific heat \(c_p\)와 \(c_v\)가 Temperature에 관계없이 Constant라고
+                    가정한다. 따라서 Specific internal energy와 Enthalpy를 다음과 같이 쓸 수 있다.
+                </p>
+
+                <div class="equation">
+                    \[
+                        \begin{aligned}
+                        e&=c_vT
+                        \\[2.5ex]
+                        h&=e+\frac{p}{\rho}
+                        \end{aligned}
+                        \tag{1.1.2}
+                    \]
+                </div>
+
+                <p>
+                    Enthalpy 정의에 \(e=c_vT\)와 Ideal-gas relation으로부터 얻은
+                    \(p/\rho=RT\)를 대입하면
+                </p>
+
+                <div class="equation">
+                    \[
+                        \begin{aligned}
+                        h
+                        &=c_vT+RT
+                        \\[2.8ex]
+                        &=(c_v+R)T
+                        \end{aligned}
+                        \tag{1.1.3}
+                    \]
+                </div>
+
+                <p>
+                    Calorically perfect gas에서 \(h=c_pT\)이므로 두 Enthalpy 표현을 같게 두면
+                </p>
+
+                <div class="equation">
+                    \[
+                        \begin{aligned}
+                        c_pT&=(c_v+R)T
+                        \\[2.8ex]
+                        c_p-c_v&=R
+                        \end{aligned}
+                        \tag{1.1.4}
+                    \]
+                </div>
+
+                <p>Specific-heat ratio를 다음과 같이 정의한다.</p>
+
+                <div class="equation">
+                    \[
+                        \gamma=\frac{c_p}{c_v}
+                        \tag{1.1.5}
+                    \]
+                </div>
+
+                <p>
+                    \(c_v=c_p/\gamma\)를 \(c_p-c_v=R\)에 대입하여 \(c_p\)를 정리하면
+                </p>
+
+                <div class="equation">
+                    \[
+                        \begin{aligned}
+                        c_p-\frac{c_p}{\gamma}&=R
+                        \\[2.8ex]
+                        c_p\left(1-\frac{1}{\gamma}\right)&=R
+                        \\[2.8ex]
+                        c_p&=\frac{\gamma R}{\gamma-1}
+                        \end{aligned}
+                        \tag{1.1.6}
+                    \]
+                </div>
+
+                <p>같은 관계에서 \(c_v=c_p/\gamma\)를 이용하면 최종적으로</p>
+
+                <div class="equation main">
+                    \[
+                        \boxed{\displaystyle
+                        c_p=\frac{\gamma R}{\gamma-1},
+                        \qquad
+                        c_v=\frac{R}{\gamma-1}}
+                        \tag{1.1.7}
+                    \]
+                </div>
+            </section>
+
+            <section id="gibbs-relations">
+                <h2>2. Gibbs Relations</h2>
+
+                <p>
+                    Simple compressible substance에서 Entropy \(s\)는 Heat transfer와 Irreversibility를
+                    함께 추적하는 State variable이다. Gibbs relation은 Entropy change를 Temperature,
+                    Pressure, Specific volume과 같은 Thermodynamic property의 변화로 연결하는 Identity이다.
+                    Specific volume을 \(v=1/\rho\)라고 하면 두 Gibbs relation은 다음과 같다.
+                </p>
+
+                <div class="equation">
+                    \[
+                        \begin{aligned}
+                        T\,\mathrm ds&=\mathrm de+p\,\mathrm dv
+                        \\[2.5ex]
+                        T\,\mathrm ds&=\mathrm dh-v\,\mathrm dp
+                        \end{aligned}
+                        \tag{1.1.8}
+                    \]
+                </div>
+
+                <p>
+                    첫 번째 Gibbs relation에 \(e=c_vT\)와 \(p=RT/v\)를 대입한다. \(c_v\)가
+                    Constant이므로 \(\mathrm de=c_v\,\mathrm dT\)가 된다.
+                </p>
+
+                <div class="equation">
+                    \[
+                        \begin{aligned}
+                        T\,\mathrm ds
+                        &=c_v\,\mathrm dT+p\,\mathrm dv
+                        \\[2.8ex]
+                        &=c_v\,\mathrm dT+\frac{RT}{v}\,\mathrm dv
+                        \end{aligned}
+                        \tag{1.1.9}
+                    \]
+                </div>
+
+                <p>양변을 \(T\)로 나누면 Temperature와 Specific volume으로 표현한 Entropy relation을 얻는다.</p>
+
+                <div class="equation main">
+                    \[
+                        \boxed{\displaystyle
+                        \mathrm ds
+                        =c_v\frac{\mathrm dT}{T}
+                        +R\frac{\mathrm dv}{v}}
+                        \tag{1.1.10}
+                    \]
+                </div>
+
+                <p>
+                    두 번째 Gibbs relation에는 \(h=c_pT\)와 Ideal-gas equation으로부터 얻은
+                    \(v=RT/p\)를 대입한다.
+                </p>
+
+                <div class="equation">
+                    \[
+                        \begin{aligned}
+                        T\,\mathrm ds
+                        &=c_p\,\mathrm dT-\frac{RT}{p}\,\mathrm dp
+                        \\[2.8ex]
+                        \mathrm ds
+                        &=c_p\frac{\mathrm dT}{T}
+                        -R\frac{\mathrm dp}{p}
+                        \end{aligned}
+                        \tag{1.1.11}
+                    \]
+                </div>
+
+                <p>
+                    Calorically perfect gas에서는 \(c_p\)와 \(R\)이 Constant이므로 State 1에서 State 2까지
+                    직접 적분할 수 있다.
+                </p>
+
+                <div class="equation">
+                    \[
+                        \begin{aligned}
+                        s_2-s_1
+                        &=c_p\int_{T_1}^{T_2}\frac{\mathrm dT}{T}
+                        -R\int_{p_1}^{p_2}\frac{\mathrm dp}{p}
+                        \\[3.0ex]
+                        &=c_p\ln\left(\frac{T_2}{T_1}\right)
+                        -R\ln\left(\frac{p_2}{p_1}\right)
+                        \end{aligned}
+                        \tag{1.1.12}
+                    \]
+                </div>
+
+                <div class="equation main">
+                    \[
+                        \boxed{\displaystyle
+                        s_2-s_1
+                        =c_p\ln\left(\frac{T_2}{T_1}\right)
+                        -R\ln\left(\frac{p_2}{p_1}\right)}
+                        \tag{1.1.13}
+                    \]
+                </div>
+            </section>
+
+            <footer><a href="../">← Compressible Flow로 돌아가기</a></footer>
+        </main>
+
+        <aside class="right-sidebar" aria-label="On this page">
+            <div class="sidebar-inner">
+                <div class="sidebar-title">On this page</div>
+                <a href="#perfect-gas" class="sidebar-link">1. Thermally and Calorically Perfect Gas</a>
+                <a href="#gibbs-relations" class="sidebar-link">2. Gibbs Relations</a>
+            </div>
+        </aside>
+    </div>
+</body>
+
+</html>
