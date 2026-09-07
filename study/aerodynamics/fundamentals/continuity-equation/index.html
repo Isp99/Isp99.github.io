@@ -253,9 +253,9 @@
                     연속방정식은 <strong>질량보존법칙</strong>을 유동장에 표현한 식이다.
                     동일한 유체입자들을 따라가면 전체 질량은 일정하게 유지되고, 공간에 고정된 영역을 관찰하면
                     내부 질량의 변화가 경계를 통한 질량의 유입·유출과 균형을 이룬다.
-                    이 관계를 검사체적 전체에 대해 나타내면 <strong>적분형</strong>이 되고,
+                    이 관계를 Control volume 전체에 대해 나타내면 <strong>적분형</strong>이 되고,
                     각 위치에서의 관계로 나타내면 <strong>미분형</strong>이 된다.
-                    같은 식을 물질미분으로 정리하면 유체입자의 밀도 변화와 국부적인 팽창·수축의 관계를 얻는다.
+                    같은 식을 Material derivative로 정리하면 유체입자의 밀도 변화와 국부적인 팽창·수축의 관계를 얻는다.
                 </p>
             </header>
 
@@ -271,11 +271,11 @@
 
             <section id="integral" aria-labelledby="integral-title">
                 <h2 id="integral-title">1. Integral Continuity Equation</h2>
-                <h3>계에 대한 질량보존법칙</h3>
+                <h3>Conservation of Mass for a System</h3>
                 <p>
-                    <strong>계</strong>는 처음에 선택한 동일한 유체입자들의 집합이다.
-                    시간이 지나면서 계의 위치와 형상은 달라질 수 있지만, 계를 구성하는 유체입자들은 그대로 유지된다.
-                    따라서 질량보존법칙은 <strong>계의 전체 질량에 대한 시간변화율이 0</strong>이라는 조건으로 표현된다.
+                    <strong>System</strong>은 처음에 선택한 동일한 유체입자들의 집합이다.
+                    시간이 지나면서 System의 위치와 형상은 달라질 수 있지만, System을 구성하는 유체입자들은 그대로 유지된다.
+                    따라서 질량보존법칙은 <strong>System의 전체 질량에 대한 시간변화율이 0</strong>이라는 조건으로 표현된다.
                 </p>
                 <div class="equation">
                     \[
@@ -288,22 +288,22 @@
                 <p>
                     여기서 \(\rho\)는 단위체적당 질량인 <strong>밀도</strong>이고,
                     \(\rho\,\mathrm dV\)는 미소체적 \(\mathrm dV\)에 포함된 질량이다.
-                    전체 질량이 일정하다는 조건은 계 내부의 밀도가 모든 위치와 시간에서 같다는 뜻까지 포함하지 않는다.
+                    전체 질량이 일정하다는 조건은 System 내부의 밀도가 모든 위치와 시간에서 같다는 뜻까지 포함하지 않는다.
                     유체요소가 팽창하거나 수축하면 밀도가 변하더라도 전체 질량은 보존될 수 있다.
                 </p>
 
-                <h3>레이놀즈 수송정리의 적용</h3>
+                <h3>Application of the Reynolds Transport Theorem</h3>
                 <p>
-                    공간에 고정된 <strong>검사체적</strong>에는 시간이 지나면서 서로 다른 유체입자들이 들어오고 나간다.
-                    따라서 검사체적 내부의 질량은 계의 질량과 달리 변할 수 있다.
-                    계에 대한 질량보존법칙을 이러한 고정 영역의 관계로 옮기는 데
-                    <strong>레이놀즈 수송정리</strong>를 사용한다.
+                    공간에 고정된 <strong>Control volume</strong>에는 시간이 지나면서 서로 다른 유체입자들이 들어오고 나간다.
+                    따라서 Control volume 내부의 질량은 System의 질량과 달리 변할 수 있다.
+                    System에 대한 질량보존법칙을 이러한 고정 영역의 관계로 옮기는 데
+                    <strong>Reynolds transport theorem</strong>을 사용한다.
                 </p>
                 <p>
-                    계 전체가 가진 물리량을 \(B\), 단위질량당 물리량을 \(b\)라 하면,
-                    고정된 검사체적에 대한 레이놀즈 수송정리는 다음과 같다.
-                    \(CV\)는 검사체적, \(CS\)는 이를 둘러싼 닫힌 검사면이며,
-                    \(\boldsymbol u\)는 속도 벡터, \(\boldsymbol n\)은 검사면의
+                    System 전체가 가진 물리량인 <strong>Extensive property</strong>를 \(B\), 단위질량당 물리량을 \(b\)라 하면,
+                    고정된 Control volume에 대한 Reynolds transport theorem은 다음과 같다.
+                    \(CV\)는 Control volume, \(CS\)는 이를 둘러싼 닫힌 Control surface이며,
+                    \(\boldsymbol u\)는 속도 벡터, \(\boldsymbol n\)은 Control surface의
                     <strong>바깥쪽을 향하는 단위 법선벡터</strong>이다.
                 </p>
                 <div class="equation">
@@ -321,7 +321,7 @@
                     질량에 대해서는 \(B=m\)이고, 단위질량당 질량은 \(b=1\)이다.
                     식 (2.1.2)에 이 두 관계를 대입하면 좌변은 \(\mathrm d m_{\mathrm{system}}/\mathrm dt\)가 되고,
                     우변의 \(\rho b\)는 \(\rho\)가 된다.
-                    여기에 식 (2.1.1)의 질량보존 조건을 대입하면 <strong>적분형 연속방정식</strong>을 얻는다.
+                    여기에 식 (2.1.1)의 질량보존 조건을 대입하면 <strong>Integral continuity equation</strong>을 얻는다.
                 </p>
                 <div class="equation main">
                     \[
@@ -334,15 +334,15 @@
                 </div>
                 <ul class="explanation-list">
                     <li>
-                        <strong>질량 축적률</strong>,
+                        <strong>Accumulation rate</strong>,
                         \(\displaystyle \frac{\partial}{\partial t}\int_{CV}\rho\,\mathrm dV\):
-                        검사체적 내부에 포함된 질량의 시간변화율이다.
+                        Control volume 내부에 포함된 질량의 시간변화율이다.
                         내부 질량이 증가하면 양수이고, 감소하면 음수이다.
                     </li>
                     <li>
-                        <strong>질량의 순유출률</strong>,
+                        <strong>Net outward mass flow rate</strong>,
                         \(\displaystyle \oint_{CS}\rho(\boldsymbol u\cdot\boldsymbol n)\,\mathrm dA\):
-                        검사면 전체에서 유출되는 질량유량과 유입되는 질량유량의 차이다.
+                        Control surface 전체에서 유출되는 질량유량과 유입되는 질량유량의 차이다.
                         유출이 더 크면 양수이고, 유입이 더 크면 음수이다.
                     </li>
                 </ul>
@@ -351,7 +351,7 @@
                     식 (2.1.3)은 <strong>내부 질량의 증가율과 경계를 통한 질량의 순유출률의 합이 0</strong>이라는 관계를 나타낸다.
                 </p>
 
-                <h3>질량유속의 방향과 부호</h3>
+                <h3>Direction and Sign of Mass Flux</h3>
                 <p>
                     미소면적 \(\mathrm dA\)를 실제로 통과하는 유동은 속도의 법선방향 성분
                     \(\boldsymbol u\cdot\boldsymbol n\)에 의해 결정된다.
@@ -370,11 +370,11 @@
                 <ul class="explanation-list">
                     <li>
                         \(\boldsymbol u\cdot\boldsymbol n>0\): 속도가 바깥쪽 법선방향 성분을 가지므로
-                        <strong>유출</strong>에 해당한다.
+                        <strong>Outflow</strong>에 해당한다.
                     </li>
                     <li>
                         \(\boldsymbol u\cdot\boldsymbol n<0\): 속도가 안쪽 법선방향 성분을 가지므로
-                        <strong>유입</strong>에 해당한다.
+                        <strong>Inflow</strong>에 해당한다.
                     </li>
                     <li>
                         \(\boldsymbol u\cdot\boldsymbol n=0\): 해당 면을 통과하는 질량유량이 0이다.
@@ -400,19 +400,19 @@
                     \]
                 </div>
                 <p>
-                    유입이 유출보다 크면 검사체적 내부의 질량이 증가하고, 유출이 유입보다 크면 감소한다.
+                    유입이 유출보다 크면 Control volume 내부의 질량이 증가하고, 유출이 유입보다 크면 감소한다.
                     이와 같이 적분형은 <strong>경계를 통한 질량의 이동과 내부에 저장된 질량의 변화</strong>를 직접 연결한다.
                 </p>
             </section>
 
             <section id="surface-to-volume" aria-labelledby="differential-title">
                 <h2 id="differential-title">2. Differential Continuity Equation</h2>
-                <h3>면적분을 체적적분으로 변환</h3>
+                <h3>Conversion of Surface Flux to a Volume Integral</h3>
                 <p>
-                    적분형은 검사체적 전체에 대한 질량보존을 나타낸다.
+                    적분형은 Control volume 전체에 대한 질량보존을 나타낸다.
                     이를 각 위치에서의 관계로 정리하려면 질량 축적 항과 경계를 통한 수송 항을
                     <strong>동일한 체적적분</strong>으로 표현해야 한다.
-                    면적분을 체적적분으로 바꾸는 관계는 <strong>가우스 발산정리</strong>이다.
+                    면적분을 체적적분으로 바꾸는 관계는 <strong>Gauss divergence theorem</strong>이다.
                 </p>
                 <div class="equation">
                     \[
@@ -422,7 +422,7 @@
                     \]
                 </div>
                 <p>
-                    \(\rho\boldsymbol u\)는 <strong>질량유속 벡터</strong>이며 단위는
+                    \(\rho\boldsymbol u\)는 <strong>Mass-flux vector</strong>이며 단위는
                     \(\mathrm{kg/(m^2\,s)}\)이다.
                     이 벡터의 법선방향 성분 \(\rho\boldsymbol u\cdot\boldsymbol n\)은
                     해당 면의 단위면적을 통과하는 질량유량을 나타낸다.
@@ -432,10 +432,10 @@
                 <p>
                     식 (2.1.6)의 좌변은 경계를 통해 빠져나가는 순질량유량을 면 전체에서 합한 것이고,
                     우변은 각 위치의 단위체적당 순유출률을 내부 체적 전체에서 합한 것이다.
-                    발산정리는 이 두 계산이 동일한 값을 준다는 관계이다.
+                    Divergence theorem은 이 두 계산이 동일한 값을 준다는 관계이다.
                 </p>
                 <p class="transition">
-                    <strong>고정된 검사체적</strong>에서는 적분영역이 시간에 따라 변하지 않는다.
+                    <strong>고정된 Control volume</strong>에서는 적분영역이 시간에 따라 변하지 않는다.
                     따라서 밀도가 충분히 매끄럽게 변하는 경우 질량 축적 항의 시간미분을 적분 안으로 옮길 수 있다.
                 </p>
                 <div class="equation">
@@ -463,11 +463,11 @@
                     \]
                 </div>
 
-                <h3>임의의 검사체적과 국소 질량보존</h3>
+                <h3>Local Mass Balance in an Arbitrary Control Volume</h3>
                 <p>
                     특정한 영역에서 적분값이 0이라는 사실만으로는 적분되는 양이 각 점에서 0이라고 결론낼 수 없다.
                     영역 내부의 양수와 음수가 서로 상쇄될 수 있기 때문이다.
-                    여기서 사용되는 조건은 식 (2.1.8)이 <strong>임의의 위치와 크기로 선택한 모든 검사체적</strong>에 대해
+                    여기서 사용되는 조건은 식 (2.1.8)이 <strong>임의의 위치와 크기로 선택한 모든 Control volume</strong>에 대해
                     성립한다는 것이다.
                 </p>
                 <p>
@@ -487,9 +487,9 @@
                     \]
                 </div>
                 <p>
-                    이것이 질량보존의 <strong>보존형 미분식</strong>이다.
-                    단위체적당 질량인 \(\rho\)와 질량유속 벡터인 \(\rho\boldsymbol u\)가
-                    각각 시간미분과 발산의 형태로 나타난다.
+                    이것이 질량보존의 <strong>Conservative differential form</strong>이다.
+                    단위체적당 질량인 \(\rho\)와 Mass-flux vector인 \(\rho\boldsymbol u\)가
+                    각각 시간미분과 Divergence의 형태로 나타난다.
                     각 점에 대한 위의 유도는 밀도와 속도가 필요한 미분을 가질 만큼 매끄러운 영역에서 적용된다.
                 </p>
                 <div class="concept-note">
@@ -502,11 +502,11 @@
                     </p>
                 </div>
 
-                <h3>직교좌표계에서의 성분 표현</h3>
+                <h3>Cartesian Component Form</h3>
                 <p>
                     속도 벡터를 \(\boldsymbol u=(u,v,w)\)로 두면,
                     \(u\), \(v\), \(w\)는 각각 \(x\), \(y\), \(z\) 방향의 속도 성분이다.
-                    질량유속 벡터의 발산을 성분별로 전개하면 식 (2.1.9)는 다음과 같다.
+                    Mass-flux vector의 Divergence를 성분별로 전개하면 식 (2.1.9)는 다음과 같다.
                 </p>
                 <div class="equation">
                     \[
@@ -518,7 +518,7 @@
                     \]
                 </div>
                 <p>
-                    각 공간미분은 해당 방향의 질량유속이 위치에 따라 변하는 정도를 나타낸다.
+                    각 공간미분은 해당 방향의 Mass flux가 위치에 따라 변하는 정도를 나타낸다.
                     세 방향의 기여를 합하면 한 점 주위에서의 전체 순유출률이 되고,
                     이것이 그 위치의 밀도 변화와 연결된다.
                 </p>
@@ -526,7 +526,7 @@
 
             <section id="material" aria-labelledby="material-title">
                 <h2 id="material-title">3. Material-Derivative Form</h2>
-                <h3>질량유속의 발산 전개</h3>
+                <h3>Expansion of the Mass-Flux Divergence</h3>
                 <p>
                     미분형 연속방정식을 <strong>이동하는 유체입자의 관점</strong>으로 정리하려면
                     \(\nabla\cdot(\rho\boldsymbol u)\)를 밀도의 변화와 속도의 변화로 나누어 전개한다.
@@ -566,7 +566,7 @@
                         \tag{2.1.12}
                     \]
                 </div>
-                <p>식 (2.1.12)를 보존형 미분식에 대입하면 다음과 같다.</p>
+                <p>식 (2.1.12)를 Conservative differential form에 대입하면 다음과 같다.</p>
                 <div class="equation">
                     \[
                         \frac{\partial\rho}{\partial t}
@@ -576,13 +576,13 @@
                     \]
                 </div>
 
-                <h3>유체입자를 따라 관찰한 밀도의 변화</h3>
+                <h3>Density Change Following a Fluid Particle</h3>
                 <p>
                     이동하는 유체입자는 시간이 흐르는 동안 서로 다른 위치를 지나간다.
                     따라서 입자가 경험하는 밀도의 변화에는
                     <strong>고정된 위치에서의 시간변화</strong>와
                     <strong>밀도가 공간적으로 달라지는 영역을 이동하면서 경험하는 변화</strong>가 함께 포함된다.
-                    이 둘의 합이 밀도의 <strong>물질미분</strong>이다.
+                    이 둘의 합이 밀도의 <strong>Material derivative</strong>이다.
                 </p>
                 <div class="equation">
                     \[
@@ -594,9 +594,9 @@
                 </div>
                 <p>
                     식 (2.1.13)의 앞의 두 항을 \(D\rho/Dt\)로 묶으면
-                    <strong>물질미분으로 표현한 연속방정식</strong>을 얻는다.
-                    이 과정에는 질량보존식의 전개와 물질미분의 정의만 사용되며,
-                    Steady 또는 비압축성 가정은 들어가지 않는다.
+                    <strong>Material-derivative form</strong>을 얻는다.
+                    이 과정에는 질량보존식의 전개와 Material derivative의 정의만 사용되며,
+                    Steady 또는 Incompressible 가정은 들어가지 않는다.
                 </p>
                 <div class="equation main">
                     \[
@@ -609,11 +609,11 @@
                 </div>
                 <p>
                     좌변은 유체입자 자신의 밀도 변화율이고,
-                    우변에는 그 입자 주위의 <strong>속도장의 발산</strong>이 나타난다.
+                    우변에는 그 입자 주위의 <strong>속도장의 Divergence</strong>가 나타난다.
                     두 양을 연결하는 부호는 질량이 일정한 유체요소에서 밀도와 체적이 반대 방향으로 변한다는 사실에서 나온다.
                 </p>
 
-                <h3>속도장의 발산과 유체요소의 부피변화</h3>
+                <h3>Velocity Divergence and Volume Change</h3>
                 <p>
                     동일한 유체입자들로 이루어진 미소 유체요소를 따라가며 관찰하자.
                     이 요소의 체적을 \(\delta V(t)\), 질량을 \(\delta m\)이라 한다.
@@ -649,7 +649,7 @@
                 </div>
                 <p>
                     식 (2.1.15)와 식 (2.1.17)의 우변을 비교하고 \(\rho>0\)임을 사용하면,
-                    속도장의 발산이 <strong>미소 유체요소의 단위체적당 부피변화율</strong>과 같음을 알 수 있다.
+                    속도장의 Divergence가 <strong>미소 유체요소의 단위체적당 부피변화율</strong>과 같음을 알 수 있다.
                 </p>
                 <div class="equation main">
                     \[
@@ -663,15 +663,15 @@
                 <p>
                     \(\mathrm d(\delta V)/\mathrm dt\)를 요소 자신의 체적으로 나누었으므로,
                     식 (2.1.18)은 <strong>단위시간당 상대적인 부피변화</strong>를 나타내며 단위는 \(\mathrm{s^{-1}}\)이다.
-                    따라서 속도장의 발산과 밀도 변화는 다음과 같이 해석된다.
+                    따라서 속도장의 Divergence와 밀도 변화는 다음과 같이 해석된다.
                 </p>
                 <ul class="explanation-list">
                     <li>
-                        \(\nabla\cdot\boldsymbol u>0\): 유체요소가 <strong>팽창</strong>하여 체적이 증가한다.
+                        \(\nabla\cdot\boldsymbol u>0\): <strong>Expansion</strong>에 해당하며, 유체요소의 체적이 증가한다.
                         동일한 질량이 더 큰 체적을 차지하므로 \(D\rho/Dt<0\)이고, 입자의 밀도가 감소한다.
                     </li>
                     <li>
-                        \(\nabla\cdot\boldsymbol u<0\): 유체요소가 <strong>압축</strong>되어 체적이 감소한다.
+                        \(\nabla\cdot\boldsymbol u<0\): <strong>Compression</strong>에 해당하며, 유체요소의 체적이 감소한다.
                         동일한 질량이 더 작은 체적을 차지하므로 \(D\rho/Dt>0\)이고, 입자의 밀도가 증가한다.
                     </li>
                 </ul>
@@ -679,7 +679,7 @@
                     <p>
                         \(\nabla\cdot(\rho\boldsymbol u)\)는 <strong>고정된 미소영역에서 단위체적당 질량의 순유출률</strong>이고,
                         \(\nabla\cdot\boldsymbol u\)는 <strong>이동하는 미소 유체요소의 상대적인 부피변화율</strong>이다.
-                        두 발산은 식 (2.1.12)로 연결되며, 밀도가 공간적으로 변할 때는
+                        두 Divergence는 식 (2.1.12)로 연결되며, 밀도가 공간적으로 변할 때는
                         \(\boldsymbol u\cdot\nabla\rho\) 항까지 함께 고려된다.
                     </p>
                 </div>
@@ -687,10 +687,10 @@
 
             <section id="incompressible" aria-labelledby="incompressible-title">
                 <h2 id="incompressible-title">4. Incompressible Form</h2>
-                <h3>비압축성 조건</h3>
+                <h3>Incompressibility Condition</h3>
                 <p>
-                    <strong>비압축성 유동</strong>에서는 각 유체입자를 따라 관찰한 밀도가 시간에 따라 변하지 않는다.
-                    따라서 연속방정식에 적용하는 비압축성 조건은 다음과 같다.
+                    <strong>Incompressible flow</strong>에서는 각 유체입자를 따라 관찰한 밀도가 시간에 따라 변하지 않는다.
+                    따라서 연속방정식에 적용하는 Incompressibility의 조건은 다음과 같다.
                 </p>
                 <div class="equation">
                     \[
@@ -699,10 +699,10 @@
                     \]
                 </div>
                 <p>
-                    물질미분으로 표현한 식 (2.1.15)에 이 조건을 대입하면
+                    Material derivative로 표현한 식 (2.1.15)에 이 조건을 대입하면
                     \(\rho\nabla\cdot\boldsymbol u=0\)이 된다.
                     \(\rho>0\)인 유체에서 밀도로 나누면
-                    <strong>비압축성 연속방정식</strong>을 얻는다.
+                    <strong>Incompressible continuity equation</strong>을 얻는다.
                 </p>
                 <div class="equation main">
                     \[
@@ -721,12 +721,12 @@
                     요소의 형상은 변할 수 있으나, 국부적인 체적의 증가나 감소는 없다.
                 </p>
 
-                <h3>밀도의 공간분포와 물질미분</h3>
+                <h3>Density Distribution and Material Derivative</h3>
                 <p>
                     \(D\rho/Dt=0\)은 <strong>각 입자가 자신의 밀도를 유지한다</strong>는 조건이다.
                     서로 다른 입자들이 처음부터 서로 다른 밀도를 가질 수 있으므로,
                     이 조건만으로 유동장 전체의 밀도가 공간적으로 균일하다고 결론낼 수는 없다.
-                    물질미분을 전개하면 다음 관계가 남는다.
+                    Material derivative를 전개하면 다음 관계가 남는다.
                 </p>
                 <div class="equation">
                     \[
@@ -736,7 +736,7 @@
                     \]
                 </div>
                 <p>
-                    따라서 비압축성 유동에서도 고정된 위치의 밀도는 시간에 따라 달라질 수 있다.
+                    따라서 Incompressible flow에서도 고정된 위치의 밀도는 시간에 따라 달라질 수 있다.
                     서로 다른 밀도를 유지하는 입자들이 그 위치를 차례로 지나가면,
                     그 지점에서 관찰하는 \(\partial\rho/\partial t\)가 0이 아닐 수 있기 때문이다.
                     식 (2.1.21)은 이 시간변화가 공간적인 밀도 분포와 입자의 이동에 의해 결정됨을 나타낸다.
@@ -745,18 +745,18 @@
                     유동장 전체에서 \(\rho=\rho_0=\mathrm{constant}\)로 두는 경우에는
                     \(\partial\rho/\partial t=0\)과 \(\nabla\rho=\boldsymbol 0\)이 모두 성립하므로
                     \(D\rho/Dt=0\)도 자동으로 만족한다.
-                    <strong>공간과 시간에 걸쳐 일정한 밀도</strong>는 비압축성 조건을 만족시키는 충분조건이며,
+                    <strong>공간과 시간에 걸쳐 일정한 밀도</strong>는 Incompressibility를 만족시키는 충분조건이며,
                     각 입자의 밀도가 일정하다는 조건보다 더 강한 가정이다.
                 </p>
 
-                <h3>Steady와 비압축성의 구분</h3>
+                <h3>Steady and Incompressible Flow</h3>
                 <p>
                     <strong>Steady</strong>는 고정된 위치에서 관찰하는 유동장이 시간에 따라 변하지 않는 조건이고,
-                    <strong>비압축성</strong>은 이동하는 유체입자의 밀도가 변하지 않는 조건이다.
+                    <strong>Incompressible</strong>은 이동하는 유체입자의 밀도가 변하지 않는 조건이다.
                     각 조건에 대응하는 관찰 기준과 미분은 다음과 같다.
                 </p>
                 <div class="comparison-wrap">
-                    <table class="comparison" aria-label="Steady와 비압축성 조건 비교">
+                    <table class="comparison" aria-label="Steady와 Incompressible 조건 비교">
                         <thead>
                             <tr>
                                 <th scope="col">조건</th>
@@ -771,7 +771,7 @@
                                 <td>\(\partial/\partial t=0\)</td>
                             </tr>
                             <tr>
-                                <th scope="row">비압축성</th>
+                                <th scope="row">Incompressible</th>
                                 <td>이동하는 유체입자의 밀도</td>
                                 <td>\(D\rho/Dt=0\)</td>
                             </tr>
@@ -781,7 +781,7 @@
                 <p>
                     Steady 유동에서는 \(\partial\rho/\partial t=0\)이지만,
                     입자는 공간적으로 다른 밀도를 갖는 위치로 이동할 수 있다.
-                    따라서 물질미분에는 다음 항이 남는다.
+                    따라서 Material derivative에는 다음 항이 남는다.
                 </p>
                 <div class="equation">
                     \[
@@ -793,10 +793,10 @@
                 </div>
                 <p>
                     \(\boldsymbol u\cdot\nabla\rho\ne0\)이면 Steady 유동에서도
-                    입자가 경험하는 밀도는 변하며, 이는 <strong>Steady 압축성 유동</strong>에 해당한다.
+                    입자가 경험하는 밀도는 변하며, 이는 <strong>Steady compressible flow</strong>에 해당한다.
                     또한 \(\nabla\cdot\boldsymbol u=0\)을 유지하면서 속도장이 시간에 따라 변하는
-                    <strong>Unsteady 비압축성 유동</strong>도 가능하다.
-                    따라서 Steady 여부와 비압축성 조건은 각각의 조건에 따라 구분하여 적용한다.
+                    <strong>Unsteady incompressible flow</strong>도 가능하다.
+                    따라서 Steady 여부와 Incompressibility는 각각의 조건에 따라 구분하여 적용한다.
                 </p>
             </section>
 
