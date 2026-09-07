@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Euler equation을 Streamline 방향으로 정리하여 Bernoulli equation을 유도하고 적용 조건을 설명합니다.">
+    <meta name="description" content="점성에 의한 힘을 무시할 수 있는 영역에서는 운동량방정식이 Euler equation으로 단순화된다. 이 식에 Steady 조건을 적용하고 Streamline 방향으로 투영하면 속도, 압력, 높이 사이의 관계를 얻는다. 밀도가 일정한 구간에서 이 관계를 적분한 결과가 Bernoulli equation이다. 각 단순화에 사용한 조건을 구분하면, 어떤 두 위치 사이에서 이 식을 적용할 수 있는지 판단할 수 있다.">
     <title>3.2 Euler and Bernoulli Equations | Isp99</title>
     <script>
         window.MathJax = {
@@ -16,397 +15,555 @@
         };
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="stylesheet" href="../fundamentals.css">
-
+    <!-- Page styles are self-contained. This file can replace euler-and-bernoulli-equations/index.html. -->
     <style>
-        body.article-page {
-            max-width: none !important;
-            margin: 0 !important;
-            padding: 0 !important;
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
         }
 
-        body.article-page .page-layout {
-            display: grid !important;
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
             grid-template-columns: 270px minmax(0, 860px) 270px;
-            gap: 170px;
+            column-gap: 170px;
+            justify-content: center;
             width: 100%;
             max-width: 1800px;
             margin: 0 auto;
             padding: 36px 24px 90px;
         }
-
-        body.article-page .main-content {
-            min-width: 0;
-        }
-
-        body.article-page .main-content > nav {
+        .main-content { min-width: 0; }
+        .main-content > nav {
             margin: 0 0 30px;
-            padding: 0;
-            border: 0;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
         }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
 
-        body.article-page .left-sidebar,
-        body.article-page .right-sidebar {
-            display: block;
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
             min-width: 0;
             padding-top: 2px;
-            color: #666666;
+            color: var(--muted);
             font-size: 16px;
             line-height: 1.65;
         }
-
-        body.article-page .sidebar-inner {
+        .sidebar-inner {
             position: sticky;
             top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
         }
-
-        body.article-page .sidebar-title {
+        .sidebar-title {
             display: block;
-            margin-bottom: 16px;
+            margin: 0 0 16px;
             padding-bottom: 9px;
-            border-bottom: 1px solid #dddddd;
-            color: #222222;
+            border-bottom: 1px solid var(--line);
+            color: #222;
             font-size: 20px;
             font-weight: 700;
             text-decoration: none;
         }
-
-        body.article-page .sidebar-title-link:hover {
-            text-decoration: underline;
-        }
-
-        body.article-page .sidebar-group {
-            margin-bottom: 42px;
-        }
-
-        body.article-page .sidebar-group-title {
-            margin: 0 0 10px;
-            color: #555555;
-            font-size: 19.5px;
-            font-weight: 400;
-        }
-
-        body.article-page .sidebar-link {
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
             display: block;
-            padding: 4px 0 4px 30px;
+            padding: 4px 0 4px 24px;
             border-left: 2px solid transparent;
-            color: #777777;
+            color: #777;
             text-decoration: none;
         }
-
-        body.article-page .sidebar-link:hover {
-            color: #222222;
-        }
-
-        body.article-page .sidebar-link.active {
-            border-left-color: #444444;
-            color: #161616;
-            font-weight: 700;
-        }
-
-        body.article-page .right-sidebar .sidebar-link {
-            padding: 18px 0;
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
             border-left: 0;
         }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
 
-        @media (max-width: 1347px) and (min-width: 1101px) {
-            body.article-page .page-layout {
-                grid-template-columns: 180px minmax(0, 760px) 180px;
-                gap: 35px;
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
             }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
         }
-
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
         @media (max-width: 1100px) {
-            body.article-page .page-layout {
-                display: block !important;
-                max-width: 860px;
-                padding: 44px 34px 90px;
-            }
-
-            body.article-page .left-sidebar,
-            body.article-page .right-sidebar {
-                display: none;
-            }
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
         }
-
         @media (max-width: 650px) {
-            body.article-page .page-layout {
-                padding: 28px 20px 65px;
-            }
-
-            body.article-page .main-content > nav {
-                margin-bottom: 24px;
-            }
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
         }
     </style>
 </head>
-
-<body class="article-page">
-    <div class="page-layout">
-
-        <aside class="left-sidebar" aria-label="Fundamentals navigation">
-            <div class="sidebar-inner">
-                <a href="../" class="sidebar-title sidebar-title-link">Fundamentals</a>
-
+<body class="article-page"><div class="page-layout">
+<aside class="left-sidebar" aria-label="Fundamentals navigation">
+            <nav class="sidebar-inner">
+                <a href="../" class="sidebar-title">Fundamentals</a>
                 <div class="sidebar-group">
                     <div class="sidebar-group-title">1. Mathematical Foundation</div>
-                    <a href="../material-derivative/" class="sidebar-link">1.1 Material Derivative</a>
-                    <a href="../reynolds-transport-theorem/" class="sidebar-link">1.2 Reynolds Transport Theorem</a>
+                    <a href="../material-derivative/" class="sidebar-link"><span class="item-number">1.1</span> Material Derivative</a>
+                    <a href="../reynolds-transport-theorem/" class="sidebar-link"><span class="item-number">1.2</span> Reynolds Transport Theorem</a>
                 </div>
-
                 <div class="sidebar-group">
                     <div class="sidebar-group-title">2. Conservation Laws</div>
-                    <a href="../continuity-equation/" class="sidebar-link">2.1 Continuity Equation</a>
-                    <a href="../conservation-of-momentum/" class="sidebar-link">2.2 Conservation of Momentum</a>
-                    <a href="../conservation-of-energy/" class="sidebar-link">2.3 Conservation of Energy</a>
+                    <a href="../continuity-equation/" class="sidebar-link"><span class="item-number">2.1</span> Continuity Equation</a>
+                    <a href="../conservation-of-momentum/" class="sidebar-link"><span class="item-number">2.2</span> Conservation of Momentum</a>
+                    <a href="../conservation-of-energy/" class="sidebar-link"><span class="item-number">2.3</span> Conservation of Energy</a>
                 </div>
-
                 <div class="sidebar-group">
                     <div class="sidebar-group-title">3. Related Equations</div>
-                    <a href="../newtonian-stress-relation/" class="sidebar-link">3.1 Newtonian Stress Relation</a>
-                    <a href="../euler-and-bernoulli-equations/"
-                       class="sidebar-link active"
-                       aria-current="page">3.2 Euler and Bernoulli Equations</a>
+                    <a href="../newtonian-stress-relation/" class="sidebar-link"><span class="item-number">3.1</span> Newtonian Stress Relation</a>
+                    <a href="../euler-and-bernoulli-equations/" class="sidebar-link active" aria-current="page"><span class="item-number">3.2</span> Euler and Bernoulli Equations</a>
                 </div>
-            </div>
+            </nav>
         </aside>
+<main class="main-content" id="top">
+<nav aria-label="Current article"><a href="#top">3.2 Euler and Bernoulli Equations</a></nav>
+<header><h1>3.2 Euler and Bernoulli Equations</h1><p class="subtitle">Inviscid Momentum Balance and Streamline Integration</p><p class="intro">
+    점성에 의한 힘을 무시할 수 있는 영역에서는 운동량방정식이 <strong>Euler equation</strong>으로 단순화된다.
+    이 식에 Steady 조건을 적용하고 Streamline 방향으로 투영하면 속도, 압력, 높이 사이의 관계를 얻는다.
+    밀도가 일정한 구간에서 이 관계를 적분한 결과가 Bernoulli equation이다.
+    각 단순화에 사용한 조건을 구분하면, 어떤 두 위치 사이에서 이 식을 적용할 수 있는지 판단할 수 있다.
+</p></header>
+<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#euler-equation">Euler Equation</a></li><li><a href="#streamline">Momentum Balance Along a Streamline</a></li><li><a href="#bernoulli-equation">Bernoulli Equation</a></li></ol></aside>
+<section id="euler-equation" aria-labelledby="euler-equation-title">
+    <h2 id="euler-equation-title">1. Euler Equation</h2>
+    <h3>Inviscid Approximation</h3>
+    <p>
+        유체의 운동량방정식은
+        \(\rho D\boldsymbol u/Dt=-\nabla p+\nabla\cdot\boldsymbol\tau+\rho\boldsymbol f\)이다.
+        여기서 \(\boldsymbol f\)는 단위질량당 Body force이고,
+        \(\nabla\cdot\boldsymbol\tau\)는 단위체적당 점성력이다.
+        관심 영역에서 점성력의 기여를 무시하는 <strong>Inviscid approximation</strong>을 적용하면 다음과 같다.
+    </p>
+    <div class="equation main">\[
+        \boxed{\displaystyle
+        \rho\frac{D\boldsymbol u}{Dt}
+        =-\nabla p+\rho\boldsymbol f}
+        \tag{3.2.1}
+    \]</div>
+    <p>
+        이것이 Euler equation이다.
+        점성력을 제외했으므로 압력 차이와 Body force가 유체입자의 가속도를 결정한다.
+        실제 유체의 점성계수가 반드시 0이라는 뜻은 아니며,
+        선택한 영역과 현상에서 점성력이 다른 힘에 비해 작다는 근사로 사용할 수 있다.
+        벽면 근처의 Boundary layer처럼 속도 기울기가 큰 영역에서는 이 근사를 별도로 검토해야 한다.
+    </p>
+    <p>
+        식 (3.2.1) 자체에는 Steady나 일정한 밀도 조건이 들어 있지 않다.
+        따라서 시간에 따라 변하는 유동이나 밀도가 변하는 유동에서도,
+        점성력의 생략이 타당하다면 Euler equation을 사용할 수 있다.
+    </p>
+    <h3>Steady Momentum Balance</h3>
+    <p>
+        Steady 유동에서는 고정된 위치의 속도가 시간에 따라 변하지 않으므로
+        \(\partial\boldsymbol u/\partial t=\boldsymbol0\)이다.
+        Body force도 없는 경우에는 Material derivative의 대류 항만 남아 다음 식을 얻는다.
+    </p>
+    <div class="equation">\[
+        \rho(\boldsymbol u\cdot\nabla)\boldsymbol u=-\nabla p
+        \tag{3.2.2}
+    \]</div>
+    <p>
+        <strong>Steady라고 해서 유체입자의 가속도가 0인 것은 아니다.</strong>
+        입자가 이동하면서 속도의 크기나 방향이 달라지면
+        \((\boldsymbol u\cdot\nabla)\boldsymbol u\)가 남는다.
+        식 (3.2.2)는 이 가속도가 압력의 공간적인 변화와 균형을 이룬다는 뜻이다.
+        이후 중력을 포함할 때는 식 (3.2.1)의 Body force 항을 다시 유지한다.
+    </p>
+</section>
 
-        <main class="main-content" id="top">
-            <nav><a href="#top">3.2 Euler and Bernoulli Equations</a></nav>
+<section id="streamline" aria-labelledby="streamline-title">
+    <h2 id="streamline-title">2. Momentum Balance Along a Streamline</h2>
+    <h3>Streamline Geometry and Tangent Direction</h3>
+    <p>
+        <strong>Streamline</strong>은 한 순간의 모든 점에서 그 점의 속도 벡터와 접하는 곡선이다.
+        곡선을 따라 유동 방향으로 증가하는 길이 좌표를 \(s\), 위치를 \(\boldsymbol r(s)\)라 하자.
+        속도의 크기가 \(V=|\boldsymbol u|&gt;0\)인 점에서는 단위 접선벡터 \(\boldsymbol t\)를 다음과 같이 쓸 수 있다.
+    </p>
+    <div class="equation">\[
+        \boldsymbol t=\frac{\mathrm d\boldsymbol r}{\mathrm ds}
+        =\frac{\boldsymbol u}{V},
+        \qquad \boldsymbol u=V\boldsymbol t,
+        \qquad \boldsymbol t\cdot\boldsymbol t=1
+        \tag{3.2.3}
+    \]</div>
+    <p>
+        \(\boldsymbol u=(u,v,w)\)이므로 각 성분에 대해
+        \(\mathrm dx/\mathrm ds=u/V\), \(\mathrm dy/\mathrm ds=v/V\), \(\mathrm dz/\mathrm ds=w/V\)이다.
+        각 분모가 0이 아닌 구간에서는 이를 다음과 같은 성분비로도 표현한다.
+    </p>
+    <div class="equation">\[
+        \frac{\mathrm dx}{u}
+        =\frac{\mathrm dy}{v}
+        =\frac{\mathrm dz}{w}
+        =\frac{\mathrm ds}{V}
+        \tag{3.2.4}
+    \]</div>
+    <p>
+        특정 속도 성분이 0이면 그 성분으로 나눈 비를 사용하지 않고 식 (3.2.3)의 벡터 관계를 사용한다.
+        또한 Streamline은 한 순간의 방향을 나타내는 곡선이므로,
+        Unsteady 유동에서는 유체입자가 실제로 지나온 궤적과 일반적으로 다르다.
+        여기서는 Steady 조건을 적용하므로 입자는 고정된 Streamline을 따라 이동한다.
+    </p>
+    <h3>Directional Derivative Along a Streamline</h3>
+    <p>
+        압력을 곡선 위의 함수 \(p(\boldsymbol r(s))\)로 보면 Chain rule에 의해
+        곡선을 따른 변화율이 \(\boldsymbol t\cdot\nabla p\)가 된다.
+        또한 \(\boldsymbol u=V\boldsymbol t\)이므로 대류 미분 연산자는 다음과 같이 표현된다.
+    </p>
+    <div class="equation">\[
+        \frac{\mathrm dp}{\mathrm ds}=\boldsymbol t\cdot\nabla p,
+        \qquad
+        \boldsymbol u\cdot\nabla
+        =V\boldsymbol t\cdot\nabla
+        =V\frac{\mathrm d}{\mathrm ds}
+        \tag{3.2.5}
+    \]</div>
+    <p>
+        여기서 \(\mathrm d/\mathrm ds\)는 선택한 Streamline을 따른 공간미분이다.
+        시간미분과 동일한 연산자는 아니며, 유체입자의 이동 속도 \(V\)를 곱해야 시간당 변화율이 된다.
+        벡터에 적용할 때는 속도의 크기뿐 아니라 접선 방향의 변화도 함께 미분해야 한다.
+    </p>
+    <h3>Tangential and Normal Acceleration</h3>
+    <p>
+        단위 접선벡터의 길이는 항상 1이다.
+        따라서 \(\boldsymbol t\cdot\boldsymbol t=1\)을 \(s\)로 미분하면
+        \(\mathrm d\boldsymbol t/\mathrm ds\)가 접선벡터에 수직임을 알 수 있다.
+    </p>
+    <div class="equation">\[
+        \frac{\mathrm d}{\mathrm ds}(\boldsymbol t\cdot\boldsymbol t)
+        =2\boldsymbol t\cdot\frac{\mathrm d\boldsymbol t}{\mathrm ds}=0
+        \tag{3.2.6}
+    \]</div>
+    <p>
+        식 (3.2.5)를 속도 벡터에 적용하고 Product rule을 사용하면 대류 가속도가 두 항으로 나뉜다.
+    </p>
+    <div class="equation">\[
+        \begin{aligned}
+            (\boldsymbol u\cdot\nabla)\boldsymbol u
+            &=V\frac{\mathrm d(V\boldsymbol t)}{\mathrm ds}
+            \\[2.8ex]
+            &=V\frac{\mathrm dV}{\mathrm ds}\boldsymbol t
+            +V^2\frac{\mathrm d\boldsymbol t}{\mathrm ds}
+        \end{aligned}
+        \tag{3.2.7}
+    \]</div>
+    <ul class="explanation-list">
+        <li><strong>Tangential acceleration</strong>: \(V\,\mathrm dV/\mathrm ds\)는 속도의 크기 변화에 따른 접선 방향 가속도이다.</li>
+        <li><strong>Normal acceleration</strong>: \(V^2\,\mathrm d\boldsymbol t/\mathrm ds\)는 Streamline이 휘어 속도 방향이 바뀌면서 생기는 가속도이다.</li>
+    </ul>
+    <p>
+        곡선 유동에서 두 번째 항이 실제로 0인 것은 아니다.
+        다만 Euler equation을 접선 방향으로 투영하면,
+        식 (3.2.6)에 의해 두 번째 항과 \(\boldsymbol t\)의 내적이 0이 된다.
+        Body force가 없는 Steady 유동에서 식 (3.2.2)에 \(\boldsymbol t\)를 내적하면 다음과 같다.
+    </p>
+    <div class="equation">\[
+        \rho V\frac{\mathrm dV}{\mathrm ds}
+        =-\frac{\mathrm dp}{\mathrm ds}
+        \tag{3.2.8}
+    \]</div>
+    <p>
+        접선 방향에서 속도의 크기가 증가하는 구간은 압력이 감소하는 구간에 대응한다.
+        이 관계에 \(\mathrm ds/\rho\)를 곱하고
+        \(V\,\mathrm dV=\mathrm d(V^2/2)\)를 사용하면 다음 미분형을 얻는다.
+    </p>
+    <div class="equation">\[
+        \mathrm d\left(\frac{V^2}{2}\right)+\frac{\mathrm dp}{\rho}=0
+        \tag{3.2.9}
+    \]</div>
+    <p>
+        여기까지는 밀도를 상수로 두지 않았다.
+        \(\mathrm dp/\rho\)를 \(\mathrm d(p/\rho)\)로 바꾸는 단계는 별도의 밀도 조건을 필요로 한다.
+    </p>
+    <h3>Gravity Along a Streamline</h3>
+    <p>
+        중력을 포함하고 높이 \(z\)의 양의 방향을 위쪽으로 잡으면
+        \(\boldsymbol f=-g\boldsymbol e_z\)이다.
+        \(\boldsymbol e_z\cdot\boldsymbol t=\mathrm dz/\mathrm ds\)이므로,
+        중력의 접선 성분은 \(-g\,\mathrm dz/\mathrm ds\)이다.
+        따라서 Steady Euler equation의 접선 방향 성분은 다음과 같이 바뀐다.
+    </p>
+    <div class="equation">\[
+        \begin{aligned}
+            \rho V\frac{\mathrm dV}{\mathrm ds}
+            &=-\frac{\mathrm dp}{\mathrm ds}
+            -\rho g\frac{\mathrm dz}{\mathrm ds}
+            \\[2.8ex]
+            \mathrm d\left(\frac{V^2}{2}\right)
+            +\frac{\mathrm dp}{\rho}+g\,\mathrm dz&=0
+        \end{aligned}
+        \tag{3.2.10}
+    \]</div>
+    <p>
+        높이 변화가 있으면 속도와 압력의 관계에 중력 위치에너지의 변화가 함께 들어간다.
+        그러므로 서로 다른 높이의 두 점을 비교할 때는 속도와 압력 두 항만으로 변화를 판단할 수 없다.
+    </p>
+</section>
 
-            <header>
-                <h1>3.2 Euler and Bernoulli Equations</h1>
-                <p class="subtitle">Inviscid Momentum Balance and Streamline Integration</p>
-                <p class="intro">
-                    Euler equation은 Viscous force를 무시할 수 있는 유동의 Momentum equation이다. 이 식을 Steady
-                    flow의 Streamline 방향으로 정리하면 Pressure, Speed, 높이 사이의 Energy-like balance가
-                    나타난다. Bernoulli equation은 별개의 경험식이 아니라 <strong>Euler equation을 정해진 조건에서
-                    적분한 결과</strong>이다.
-                </p>
-            </header>
+<section id="bernoulli-equation" aria-labelledby="bernoulli-equation-title">
+    <h2 id="bernoulli-equation-title">3. Bernoulli Equation</h2>
+    <h3>Integration Between Two Points</h3>
+    <p>
+        동일한 Streamline 위의 두 위치를 1과 2로 두고 식 (3.2.10)을 적분한다.
+        중력가속도 \(g\)가 일정하다면 운동에너지와 위치에너지 부분을 바로 적분할 수 있다.
+        압력 부분은 우선 밀도가 위치에 따라 달라질 가능성을 유지한다.
+    </p>
+    <div class="equation">\[
+        \frac{V_2^2-V_1^2}{2}
+        +\int_{s_1}^{s_2}\frac{1}{\rho(s)}
+        \frac{\mathrm dp}{\mathrm ds}\,\mathrm ds
+        +g(z_2-z_1)=0
+        \tag{3.2.11}
+    \]</div>
+    <p>
+        적분하는 구간에서 밀도가 일정하면 \(1/\rho\)를 적분 밖으로 꺼낼 수 있다.
+        이때 압력 부분은 다음과 같이 두 위치의 압력 차이로 정리된다.
+    </p>
+    <div class="equation">\[
+        \int_{s_1}^{s_2}\frac{1}{\rho}
+        \frac{\mathrm dp}{\mathrm ds}\,\mathrm ds
+        =\frac{1}{\rho}\int_{p_1}^{p_2}\mathrm dp
+        =\frac{p_2-p_1}{\rho}
+        \tag{3.2.12}
+    \]</div>
+    <p>
+        따라서 압력, 속도, 높이의 다음 조합이 선택한 Streamline을 따라 일정하다.
+    </p>
+    <div class="equation main">\[
+        \boxed{\displaystyle
+        \frac{V^2}{2}+\frac p\rho+gz
+        =C\qquad\text{along a streamline}}
+        \tag{3.2.13}
+    \]</div>
+    <p>
+        이것이 일정한 밀도에서의 Bernoulli equation이다.
+        두 위치의 값을 직접 비교할 때는 다음 형태로 쓴다.
+    </p>
+    <div class="equation">\[
+        \frac{V_1^2}{2}+\frac{p_1}{\rho}+gz_1
+        =\frac{V_2^2}{2}+\frac{p_2}{\rho}+gz_2
+        \tag{3.2.14}
+    \]</div>
+    <h3>Mechanical-Energy Terms</h3>
+    <ul class="explanation-list">
+        <li><strong>Kinetic-energy term</strong>, \(V^2/2\): 단위질량당 거시적인 운동에너지이다.</li>
+        <li><strong>Pressure-work term</strong>, \(p/\rho\): 흐르는 유체의 압력에 의한 일과 관련된 단위질량당 항이다. 내부에너지 \(e\) 자체를 나타내는 항은 아니다.</li>
+        <li><strong>Gravitational-potential term</strong>, \(gz\): 단위질량당 중력 위치에너지이다.</li>
+    </ul>
+    <p>
+        세 항의 단위는 모두 \(\mathrm{J/kg}\)이다.
+        같은 높이에서 이 식의 조건을 만족하면 속도의 크기가 큰 위치의 압력이 더 낮다.
+        높이가 달라지면 위치에너지의 변화도 함께 계산해야 한다.
+        이 결과는 Euler equation의 접선 방향 성분을 적분한 것이므로,
+        열과 내부에너지까지 다루는 일반적인 전체 에너지식과 역할을 구분한다.
+    </p>
+    <h3>Conditions for the Constant-Density Form</h3>
+    <ul class="explanation-list">
+        <li><strong>Steady</strong>: 선택한 기준계에서 유동장이 시간에 따라 변하지 않아야 한다. 이 조건으로 Local acceleration 항을 제거했다.</li>
+        <li><strong>Inviscid</strong>: 적분하는 영역에서 점성력의 기여를 무시할 수 있어야 한다. 이 조건으로 운동량방정식을 Euler equation으로 단순화했다.</li>
+        <li><strong>Along a streamline</strong>: 비교하는 두 점은 같은 Streamline 위에 있어야 한다. 적분상수 \(C\)는 Streamline마다 달라질 수 있다.</li>
+        <li><strong>Constant density</strong>: \(\mathrm dp/\rho\)를 \(p/\rho\)로 적분할 수 있도록 해당 구간의 밀도가 일정해야 한다.</li>
+        <li><strong>Gravity as the body force</strong>: 여기서는 Body force로 일정한 중력만 포함했다. 중력의 영향을 생략하거나 높이가 같으면 해당 위치에너지 차이가 사라진다.</li>
+    </ul>
+    <p>
+        Incompressible 유동에서는 \(D\rho/Dt=0\)이고, Steady 조건을 함께 적용하면
+        \(\boldsymbol u\cdot\nabla\rho=V\,\mathrm d\rho/\mathrm ds=0\)이다.
+        따라서 \(V&gt;0\)인 Streamline을 따라 밀도가 일정하여 위 적분을 수행할 수 있다.
+        다만 이것만으로 서로 다른 Streamline의 밀도나 적분상수까지 모두 같다고 결론 내릴 수는 없다.
+        유동장 전체에 같은 \(C\)를 사용하려면 이를 뒷받침하는 추가 조건이 필요하다.
+    </p>
+    <h3>Variable Density and Limits of Application</h3>
+    <p>
+        밀도가 변하면 일반적으로 \(\mathrm dp/\rho\)를 \(\mathrm d(p/\rho)\)로 바꿀 수 없다.
+        압력에 따른 밀도 관계 \(\rho=\rho(p)\)가 주어지는 경우에는 그 관계를 사용하여 적분할 수 있다.
+        기준 압력을 \(p_*\)로 정하면 다음과 같이 표현된다.
+    </p>
+    <div class="equation">\[
+        \frac{V^2}{2}
+        +\int_{p_*}^{p}\frac{\mathrm dp'}{\rho(p')}
+        +gz=C
+        \tag{3.2.15}
+    \]</div>
+    <p>
+        \(\rho=\rho(p)\) 관계가 없더라도 식 (3.2.11)의 Streamline을 따른 적분형은 유지된다.
+        다만 그 값을 계산하려면 경로를 따른 압력과 밀도의 변화가 필요하다.
+        밀도 변화를 무시할 수 없는 문제에 일정한 밀도의 \(p/\rho\) 형태를 그대로 대입해서는 안 된다.
+    </p>
+    <p>
+        점성에 의한 손실이나 펌프·터빈이 주고받는 일이 중요한 구간에서는 단순한 식 (3.2.14)만으로 두 점을 연결할 수 없다.
+        해당 작용을 포함한 운동량 또는 에너지 수지를 세워야 한다.
+        열전달로 내부에너지와 밀도가 변하는 문제에서도 전체 에너지식과 물성 관계를 함께 확인해야 한다.
+        Bernoulli equation의 적용 범위는 이 유도에서 생략한 항과 실제 유동의 조건을 비교하여 결정한다.
+    </p>
+</section>
+<footer><a href="../">← Fundamentals로 돌아가기</a></footer>
+</main>
+<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#euler-equation" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Euler Equation</span></a><a href="#streamline" class="sidebar-link"><span class="item-number">2.</span><span>Momentum Balance Along a Streamline</span></a><a href="#bernoulli-equation" class="sidebar-link"><span class="item-number">3.</span><span>Bernoulli Equation</span></a></nav></aside>
+</div>
+<script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
 
-            <aside class="contents" aria-label="목차">
-                <strong>Contents</strong>
-                <ol>
-                    <li><a href="#euler-equation">Euler Equation</a></li>
-                    <li><a href="#streamline">Momentum Balance Along a Streamline</a></li>
-                    <li><a href="#bernoulli-equation">Bernoulli Equation</a></li>
-                </ol>
-            </aside>
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
 
-            <section id="euler-equation">
-                <h2>1. Euler Equation</h2>
-
-                <h3>Inviscid approximation</h3>
-
-                <p>
-                    일반적인 Momentum equation에는 Pressure, Viscous, Body force가 포함된다. 이 가운데
-                    Viscous-stress divergence가 다른 항에 비해 충분히 작으면
-                    \(\nabla\cdot\boldsymbol\tau\)를 무시하여 다음 식을 얻는다.
-                </p>
-
-                <div class="equation main">
-                    \[
-                        \boxed{\displaystyle
-                        \rho\frac{D\boldsymbol u}{Dt}
-                        =-\nabla p+\rho\boldsymbol f}
-                        \tag{3.2.1}
-                    \]
-                </div>
-
-                <p>
-                    이것이 Euler equation이다. <strong>Inviscid approximation</strong>은 유체의 Viscosity가
-                    수학적으로 반드시 0이라는 뜻이 아니라, 관심 영역의 Momentum balance에서 Viscous force의
-                    영향이 작아 생략한다는 뜻이다. Wall 근처의 Boundary layer처럼 Velocity gradient가 큰 영역에는
-                    같은 근사가 적절하지 않을 수 있다.
-                </p>
-
-                <h3>Steady flow에서 남는 Acceleration</h3>
-
-                <p>
-                    Steady 조건에서는 Local acceleration
-                    \(\partial\boldsymbol u/\partial t\)가 사라지지만, 공간적으로 Velocity가 달라지면 Convective
-                    acceleration은 남는다. Body force를 잠시 제외하면 Euler equation은
-                </p>
-
-                <div class="equation">
-                    \[
-                        \rho(\boldsymbol u\cdot\nabla)\boldsymbol u
-                        =-\nabla p
-                        \tag{3.2.2}
-                    \]
-                </div>
-
-                <p>
-                    즉, 유체입자가 유동장을 따라 Speed나 방향을 바꾸려면 그 Acceleration과 균형을 이루는 Pressure
-                    gradient가 필요하다.
-                </p>
-            </section>
-
-            <section id="streamline">
-                <h2>2. Momentum Balance Along a Streamline</h2>
-
-                <h3>Streamline 방향의 미소이동</h3>
-
-                <p>
-                    Streamline은 모든 점에서 Velocity vector에 접하는 곡선이다. Streamline을 따라 잰 거리 \(s\)와
-                    Speed \(V=|\boldsymbol u|\)를 사용하면 미소이동은 다음 관계를 만족한다.
-                </p>
-
-                <div class="equation">
-                    \[
-                        \frac{\mathrm dx}{u}
-                        =\frac{\mathrm dy}{v}
-                        =\frac{\mathrm dz}{w}
-                        =\frac{\mathrm ds}{V}
-                        \tag{3.2.3}
-                    \]
-                </div>
-
-                <p>
-                    Steady Euler equation을 이 접선 방향으로 투영하면 Vector momentum balance에서 Streamline
-                    방향의 Scalar balance만 남는다. 왼쪽의 Convective acceleration은 Speed의 변화율
-                    \(V\,\mathrm dV/\mathrm ds\)가 되고, Pressure gradient의 접선성분은
-                    \(\mathrm dp/\mathrm ds\)가 된다.
-                </p>
-
-                <div class="equation">
-                    \[
-                        \rho V\frac{\mathrm dV}{\mathrm ds}
-                        =-\frac{\mathrm dp}{\mathrm ds}
-                        \tag{3.2.4}
-                    \]
-                </div>
-
-                <p>
-                    양변에 \(\mathrm ds/\rho\)를 곱하면 Streamline을 따라 일어나는 Speed 변화와 Pressure 변화가
-                    직접 연결된다.
-                </p>
-
-                <div class="equation">
-                    \[
-                        V\,\mathrm dV+\frac{\mathrm dp}{\rho}=0
-                        \tag{3.2.5}
-                    \]
-                </div>
-
-                <p>
-                    여기서 \(V\,\mathrm dV=\mathrm d(V^2/2)\)이므로, Kinetic energy의 변화가 커지면 같은
-                    Streamline 위에서 Pressure term은 반대 방향으로 변한다.
-                </p>
-
-                <div class="equation">
-                    \[
-                        \mathrm d\left(\frac{V^2}{2}\right)
-                        +\frac{\mathrm dp}{\rho}=0
-                        \tag{3.2.6}
-                    \]
-                </div>
-
-                <h3>Gravity의 포함</h3>
-
-                <p>
-                    Body force가 Gravity인 경우 \(\boldsymbol f=-g\boldsymbol e_z\)이다. Streamline 방향으로
-                    이동할 때 Gravity가 만드는 Potential-energy 변화 \(g\,\mathrm dz\)를 포함하면
-                </p>
-
-                <div class="equation">
-                    \[
-                        \mathrm d\left(\frac{V^2}{2}\right)
-                        +\frac{\mathrm dp}{\rho}
-                        +g\,\mathrm dz
-                        =0
-                        \tag{3.2.7}
-                    \]
-                </div>
-
-                <p>
-                    이 Differential relation은 Pressure, Kinetic, Potential energy가 Streamline을 따라 서로
-                    전환되는 방식을 보여 준다.
-                </p>
-            </section>
-
-            <section id="bernoulli-equation">
-                <h2>3. Bernoulli Equation</h2>
-
-                <h3>Constant-density flow의 적분</h3>
-
-                <p>
-                    Density가 일정하면 \(1/\rho\)를 Pressure integral 밖으로 꺼낼 수 있다. Streamline 위의 두
-                    점 사이에서 앞의 Differential equation을 적분하면
-                </p>
-
-                <div class="equation">
-                    \[
-                        \int \mathrm d\left(\frac{V^2}{2}\right)
-                        +\frac{1}{\rho}\int\mathrm dp
-                        +g\int\mathrm dz
-                        =0
-                        \tag{3.2.8}
-                    \]
-                </div>
-
-                <div class="equation main">
-                    \[
-                        \boxed{\displaystyle
-                        \frac{p}{\rho}
-                        +\frac{V^2}{2}
-                        +gz
-                        =\text{constant along a streamline}}
-                        \tag{3.2.9}
-                    \]
-                </div>
-
-                <p>
-                    세 항의 단위는 모두 \(\mathrm{J/kg}\)이며, 단위질량당 Mechanical energy로 해석할 수 있다.
-                </p>
-
-                <ul class="explanation-list">
-                    <li>\(p/\rho\): 유체를 밀어 이동시키는 데 연결된 <strong>Pressure term</strong></li>
-                    <li>\(V^2/2\): 유체입자의 <strong>Kinetic energy</strong></li>
-                    <li>\(gz\): 중력장 안의 <strong>Potential energy</strong></li>
-                </ul>
-
-                <h3>적용 조건과 적분상수의 범위</h3>
-
-                <p>위 형태의 Bernoulli equation에는 다음 조건이 포함되어 있다.</p>
-
-                <ul class="explanation-list">
-                    <li><strong>Steady flow:</strong> Local acceleration을 제외</li>
-                    <li><strong>Inviscid approximation:</strong> Viscous loss를 제외</li>
-                    <li><strong>Along a streamline:</strong> Euler equation을 Streamline 접선방향으로 적분</li>
-                    <li><strong>Constant density:</strong> \(\int\mathrm dp/\rho\)를 \(p/\rho\)로 단순화</li>
-                    <li><strong>Gravity as the body force:</strong> Potential term을 \(gz\)로 표현</li>
-                </ul>
-
-                <div class="concept-note">
-                    <p>
-                        식의 constant는 기본적으로 <strong>한 Streamline을 따라 일정한 값</strong>이다. 서로 다른
-                        Streamline에 같은 상수를 바로 적용할 수 있는지는 유동의 추가 성질을 확인해야 한다. 또한 Pump,
-                        Turbine, Heat transfer, Viscous loss가 중요한 실제 장치에서는 그 효과를 별도의 항으로
-                        포함한 Energy equation을 사용한다.
-                    </p>
-                </div>
-
-                <p>
-                    Compressible barotropic flow처럼 Density가 Pressure에 따라 변하면 Pressure term을
-                    \(p/\rho\)로 단순화하지 않고 \(\int \mathrm dp/\rho\)의 형태로 유지한다.
-                </p>
-            </section>
-
-            <footer><a href="../">← Fundamentals로 돌아가기</a></footer>
-        </main>
-
-        <aside class="right-sidebar" aria-label="On this page">
-            <div class="sidebar-inner">
-                <div class="sidebar-title">On this page</div>
-                <a href="#euler-equation" class="sidebar-link">1. Euler Equation</a>
-                <a href="#streamline" class="sidebar-link">2. Momentum Balance Along a Streamline</a>
-                <a href="#bernoulli-equation" class="sidebar-link">3. Bernoulli Equation</a>
-            </div>
-        </aside>
-
-    </div>
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script>
 </body>
-
 </html>

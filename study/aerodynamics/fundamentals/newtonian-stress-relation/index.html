@@ -1,808 +1,599 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Rate-of-strain tensor에서 Newtonian stress relation과 incompressible Navier–Stokes equation이 만들어지는 과정을 설명합니다.">
-
+    <meta name="description" content="운동량방정식에는 점성응력 \(\boldsymbol\tau\)가 포함되지만, 보존법칙만으로는 이 응력을 속도장에서 계산할 수 없다. 이를 위해 유체의 물성을 나타내는 Constitutive relation이 필요하다. Newtonian fluid에서는 점성응력이 국소적인 변형률 속도에 선형적으로 의존한다. 속도 기울기를 변형과 회전으로 분해한 뒤 이 관계를 적용하면, Incompressible 조건과 일정한 점성계수 아래에서 점성력 항이 속도의 Laplacian으로 정리된다.">
     <title>3.1 Newtonian Stress Relation | Isp99</title>
-
     <script>
         window.MathJax = {
             tex: {
                 inlineMath: [['\\(', '\\)']],
                 displayMath: [['\\[', '\\]']]
             },
-            chtml: {
-                scale: 1.02
-            }
+            chtml: { scale: 1.02 }
         };
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="stylesheet" href="../fundamentals.css">
-
+    <!-- Page styles are self-contained. This file can replace newtonian-stress-relation/index.html. -->
     <style>
-        /* 개념이나 설명 주제가 바뀔 때 적용되는 간격 */
-        section {
-            margin-top: 78px;
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
         }
 
-        section:first-of-type {
-            margin-top: 0;
-        }
-
-        section > h2 {
-            margin-bottom: 30px;
-        }
-
-        .topic-block {
-            margin: 48px 0;
-        }
-
-        .topic-block h3 {
-            margin: 0 0 20px;
-            font-size: 1.22rem;
-        }
-
-        .equation {
-            margin: 34px 0;
-            overflow-x: auto;
-            overflow-y: hidden;
-        }
-
-        .equation.main {
-            margin: 42px 0;
-        }
-
-        .explanation-list,
-        .term-list {
-            margin: 26px 0 34px;
-        }
-
-        .explanation-list li + li,
-        .term-list li + li {
-            margin-top: 14px;
-        }
-
-        .concept-note {
-            margin: 34px 0;
-            padding: 20px 24px;
-            border-left: 4px solid #4263a8;
-            background: #f5f7fb;
-        }
-
-        .concept-note strong:first-child {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .transition {
-            margin-top: 44px;
-        }
-
-        @media (max-width: 640px) {
-            section {
-                margin-top: 60px;
-            }
-
-            .topic-block {
-                margin: 38px 0;
-            }
-
-            .concept-note {
-                padding: 17px 18px;
-            }
-        }
-    </style>
-
-
-    <style>
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
         body.article-page {
-            max-width: none !important;
-            margin: 0 !important;
-            padding: 0 !important;
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
         }
 
-        body.article-page .page-layout {
-            display: grid !important;
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
             grid-template-columns: 270px minmax(0, 860px) 270px;
-            gap: 170px;
+            column-gap: 170px;
+            justify-content: center;
             width: 100%;
             max-width: 1800px;
             margin: 0 auto;
             padding: 36px 24px 90px;
         }
-
-        body.article-page .main-content {
-            min-width: 0;
-        }
-
-        body.article-page .main-content > nav {
+        .main-content { min-width: 0; }
+        .main-content > nav {
             margin: 0 0 30px;
-            padding: 0;
-            border: 0;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
         }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
 
-        body.article-page .left-sidebar,
-        body.article-page .right-sidebar {
-            display: block;
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
             min-width: 0;
             padding-top: 2px;
-            color: #666666;
+            color: var(--muted);
             font-size: 16px;
             line-height: 1.65;
         }
-
-        body.article-page .sidebar-inner {
+        .sidebar-inner {
             position: sticky;
             top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
         }
-
-        body.article-page .sidebar-title {
+        .sidebar-title {
             display: block;
-            margin-bottom: 16px;
+            margin: 0 0 16px;
             padding-bottom: 9px;
-            border-bottom: 1px solid #dddddd;
-            color: #222222;
+            border-bottom: 1px solid var(--line);
+            color: #222;
             font-size: 20px;
             font-weight: 700;
             text-decoration: none;
         }
-
-        body.article-page .sidebar-title-link:hover {
-            text-decoration: underline;
-        }
-
-        body.article-page .sidebar-group {
-            margin-bottom: 42px;
-        }
-
-        body.article-page .sidebar-group-title {
-            margin: 0 0 10px;
-            color: #555555;
-            font-size: 19.5px;
-            font-weight: 400;
-        }
-
-        body.article-page .sidebar-link {
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
             display: block;
-            padding: 4px 0 4px 30px;
+            padding: 4px 0 4px 24px;
             border-left: 2px solid transparent;
-            color: #777777;
+            color: #777;
             text-decoration: none;
         }
-
-        body.article-page .sidebar-link:hover {
-            color: #222222;
-        }
-
-        body.article-page .sidebar-link.active {
-            border-left-color: #444444;
-            color: #161616;
-            font-weight: 700;
-        }
-
-        body.article-page .right-sidebar .sidebar-link {
-            padding: 18px 0;
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
             border-left: 0;
         }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
 
-        @media (max-width: 1347px) and (min-width: 1101px) {
-            body.article-page .page-layout {
-                grid-template-columns: 180px minmax(0, 760px) 180px;
-                gap: 35px;
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
             }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
         }
-
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
         @media (max-width: 1100px) {
-            body.article-page .page-layout {
-                display: block !important;
-                max-width: 860px;
-                padding: 44px 34px 90px;
-            }
-
-            body.article-page .left-sidebar,
-            body.article-page .right-sidebar {
-                display: none;
-            }
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
         }
-
         @media (max-width: 650px) {
-            body.article-page .page-layout {
-                padding: 28px 20px 65px;
-            }
-
-            body.article-page .main-content > nav {
-                margin-bottom: 24px;
-            }
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
         }
     </style>
-
 </head>
-
-<body class="article-page">
-    <div class="page-layout">
-
-
-        <aside class="left-sidebar" aria-label="Fundamentals navigation">
-            <div class="sidebar-inner">
-                <a href="../" class="sidebar-title sidebar-title-link">Fundamentals</a>
-
+<body class="article-page"><div class="page-layout">
+<aside class="left-sidebar" aria-label="Fundamentals navigation">
+            <nav class="sidebar-inner">
+                <a href="../" class="sidebar-title">Fundamentals</a>
                 <div class="sidebar-group">
                     <div class="sidebar-group-title">1. Mathematical Foundation</div>
-                    <a href="../material-derivative/" class="sidebar-link">1.1 Material Derivative</a>
-                    <a href="../reynolds-transport-theorem/" class="sidebar-link">1.2 Reynolds Transport Theorem</a>
+                    <a href="../material-derivative/" class="sidebar-link"><span class="item-number">1.1</span> Material Derivative</a>
+                    <a href="../reynolds-transport-theorem/" class="sidebar-link"><span class="item-number">1.2</span> Reynolds Transport Theorem</a>
                 </div>
-
                 <div class="sidebar-group">
                     <div class="sidebar-group-title">2. Conservation Laws</div>
-                    <a href="../continuity-equation/" class="sidebar-link">2.1 Continuity Equation</a>
-                    <a href="../conservation-of-momentum/" class="sidebar-link">2.2 Conservation of Momentum</a>
-                    <a href="../conservation-of-energy/" class="sidebar-link">2.3 Conservation of Energy</a>
+                    <a href="../continuity-equation/" class="sidebar-link"><span class="item-number">2.1</span> Continuity Equation</a>
+                    <a href="../conservation-of-momentum/" class="sidebar-link"><span class="item-number">2.2</span> Conservation of Momentum</a>
+                    <a href="../conservation-of-energy/" class="sidebar-link"><span class="item-number">2.3</span> Conservation of Energy</a>
                 </div>
-
                 <div class="sidebar-group">
                     <div class="sidebar-group-title">3. Related Equations</div>
-                    <a href="../newtonian-stress-relation/"
-                       class="sidebar-link active"
-                       aria-current="page">3.1 Newtonian Stress Relation</a>
-                    <a href="../euler-and-bernoulli-equations/" class="sidebar-link">3.2 Euler and Bernoulli Equations</a>
+                    <a href="../newtonian-stress-relation/" class="sidebar-link active" aria-current="page"><span class="item-number">3.1</span> Newtonian Stress Relation</a>
+                    <a href="../euler-and-bernoulli-equations/" class="sidebar-link"><span class="item-number">3.2</span> Euler and Bernoulli Equations</a>
                 </div>
-            </div>
-        </aside>
-
-
-        <main class="main-content" id="top">
-            <nav>
-                <a href="#top">3.1 Newtonian Stress Relation</a>
             </nav>
-
-        <header>
-            <h1>3.1 Newtonian Stress Relation</h1>
-            <p class="subtitle">Rate of Strain, Viscous Stress, and Navier–Stokes Equation</p>
-
-            <p class="intro">
-                Momentum equation에는 Pressure force와 함께 Viscous force가 나타난다.
-                그러나 이 식만으로는
-                <strong>Viscous stress \(\boldsymbol{\tau}\)를 계산할 수 없다.</strong>
-                Stress를 Velocity field로부터 구하려면 유체가 얼마나 변형되고
-                있는지 먼저 나타내고, 그 Deformation rate와 Stress 사이의 관계를
-                정해야 한다. 이 역할을 하는 식이
-                <strong>Newtonian stress relation</strong>이다.
-            </p>
-        </header>
-
-        <aside class="contents" aria-label="목차">
-            <strong>Contents</strong>
-
-            <ol>
-                <li>
-                    <a href="#rate-of-strain">Rate-of-Strain Tensor</a>
-                </li>
-                <li>
-                    <a href="#newtonian-stress">Newtonian-Fluid Stress</a>
-                </li>
-                <li>
-                    <a href="#incompressible-limit">
-                        Incompressible Constant-Viscosity Limit
-                    </a>
-                </li>
-            </ol>
         </aside>
-
-        <section id="rate-of-strain">
-            <h2>1. Rate-of-Strain Tensor</h2>
-
-            <p>
-                한 점에서의 Velocity만 알아서는 유체요소가 어떻게 변형되는지
-                판단할 수 없다. 주변 위치에서 Velocity가 얼마나 달라지는지를
-                함께 보아야 하며, 이 공간적 변화를 모은 것이
-                <strong>
-                    Velocity-gradient tensor
-                    \(\nabla\boldsymbol{u}\)
-                </strong>이다.
-            </p>
-
-            <div class="topic-block">
-                <h3>Deformation과 Rotation의 분리</h3>
-
-                <p>
-                    Velocity gradient에는 유체요소의 길이와 각도를 바꾸는
-                    운동뿐 아니라, 형상을 유지한 채 회전시키는 운동도 함께
-                    들어 있다. Viscous stress와 직접 연결되는 것은 이 중
-                    <strong>실제 Deformation</strong>이므로 두 운동을 구분할
-                    필요가 있다.
-                </p>
-
-                <p>
-                    임의의 Tensor는 Transpose와의 합과 차를 이용하여
-                    Symmetric part와 Antisymmetric part로 나눌 수 있다.
-                    이를 Velocity-gradient tensor에 적용하면
-                </p>
-
-                <div class="equation">
-                    \[
-                        \begin{aligned}
-                        \nabla\boldsymbol{u}
-                        &=\mathbf{S}+\boldsymbol{\Omega}
-                        \\[2.8ex]
-                        \mathbf{S}
-                        &=\frac{1}{2}\left[
-                        \nabla\boldsymbol{u}
-                        +(\nabla\boldsymbol{u})^T
-                        \right]
-                        \\[2.8ex]
-                        \boldsymbol{\Omega}
-                        &=\frac{1}{2}\left[
-                        \nabla\boldsymbol{u}
-                        -(\nabla\boldsymbol{u})^T
-                        \right]
-                        \end{aligned}
-                        \tag{3.1.1}
-                    \]
-                </div>
-
-                <p>각 Tensor의 Component는 다음과 같다.</p>
-
-                <div class="equation">
-                    \[
-                        \begin{aligned}
-                        S_{ij}
-                        &=
-                        \frac{1}{2}\left(
-                        \frac{\partial u_i}{\partial x_j}
-                        +
-                        \frac{\partial u_j}{\partial x_i}
-                        \right)
-                        \\[2.8ex]
-                        \Omega_{ij}
-                        &=
-                        \frac{1}{2}\left(
-                        \frac{\partial u_i}{\partial x_j}
-                        -
-                        \frac{\partial u_j}{\partial x_i}
-                        \right)
-                        \end{aligned}
-                        \tag{3.1.2}
-                    \]
-                </div>
-            </div>
-
-            <ul class="explanation-list">
-                <li>
-                    \(\mathbf S\)는 유체요소의 길이와 각도가 변하는 정도를
-                    나타내며 <strong>Rate-of-strain tensor</strong>라고 부름
-                </li>
-
-                <li>
-                    \(\boldsymbol{\Omega}\)는 유체요소의 형상을 바꾸지 않는
-                    <strong>Rigid-body rotation</strong>을 나타냄
-                </li>
-            </ul>
-
-            <p>
-                유체 전체가 같은 각속도로 회전하기만 한다면 인접한 유체층
-                사이의 상대적인 Deformation은 발생하지 않는다. 따라서
-                <strong>
-                    단순한 Rigid-body rotation 자체는 Viscous stress를
-                    만들지 않는다.
-                </strong>
-                Newtonian fluid의 Viscous stress가
-                \(\nabla\boldsymbol{u}\) 전체가 아니라 Symmetric part
-                \(\mathbf S\)와 연결되는 이유가 여기에 있다.
-            </p>
-        </section>
-
-        <section id="newtonian-stress">
-            <h2>2. Newtonian-Fluid Stress</h2>
-
-            <p>
-                유체의 운동학적 상태를 \(\mathbf S\)로 나타냈다면, 다음에는 이
-                Deformation이 얼마만큼의 Viscous stress를 만드는지 정해야 한다.
-                이처럼
-                <strong>
-                    물질의 Deformation과 Stress를 연결하는 관계
-                </strong>를 Constitutive relation이라고 한다.
-            </p>
-
-            <div class="topic-block">
-                <h3>Newtonian Fluid의 Constitutive Relation</h3>
-
-                <p>
-                    <strong>
-                        Newtonian fluid는 Viscous stress가 순간적인
-                        Deformation rate에 선형적으로 비례한다고 가정하는
-                        유체
-                    </strong>이다. 또한 Isotropic fluid에서는 물질의 점성
-                    특성이 방향에 따라 달라지지 않으므로, 가장 일반적인
-                    선형 Stress relation을 다음과 같이 나타낼 수 있다.
-                </p>
-
-                <div class="equation">
-                    \[
-                        \boldsymbol{\tau}
-                        =
-                        2\mu\mathbf S
-                        +
-                        \lambda
-                        (\nabla\cdot\boldsymbol{u})\mathbf I
-                        \tag{3.1.3}
-                    \]
-                </div>
-
-                <ul class="term-list">
-                    <li>
-                        \(2\mu\mathbf S\): 유체요소의 Shear deformation과
-                        형상변화에 의해 발생하는 Stress
-                    </li>
-
-                    <li>
-                        \(\mu\): Deformation rate에 대한 저항의 크기를
-                        나타내는 Dynamic viscosity
-                    </li>
-
-                    <li>
-                        \(\nabla\cdot\boldsymbol{u}\): 유체요소의 체적 팽창
-                        또는 수축률
-                    </li>
-
-                    <li>
-                        \(\lambda\): 체적변화와 관련된 Isotropic viscous
-                        stress를 결정하는 Second viscosity coefficient
-                    </li>
-                </ul>
-
-                <p>
-                    첫 번째 항은 방향에 따라 달라지는 Deformation과 연결된다.
-                    반면 두 번째 항은 Identity tensor \(\mathbf I\)에
-                    비례하므로 모든 방향에 동일하게 작용하며,
-                    <strong>유체요소의 체적변화</strong>와 연결된다.
-                </p>
-            </div>
-
-            <div class="topic-block">
-                <h3>Stokes’ Hypothesis의 도입</h3>
-
-                <p>
-                    식 \((3.1.3)\)에는 \(\mu\)와 \(\lambda\)라는 두 개의
-                    Viscosity coefficient가 들어 있다. 따라서 이 식을 실제
-                    계산에 사용하려면 두 계수의 값을 각각 알아야 한다. 많은
-                    일반적인 유동 해석에서는 이를 단순화하기 위해
-                    <strong>두 계수 사이에 추가적인 관계</strong>를 부여하며,
-                    가장 널리 사용되는 것이
-                    <strong>Stokes’ hypothesis</strong>이다.
-                </p>
-
-                <p>
-                    체적 팽창과 수축에 대한 점성 저항은 Bulk viscosity
-                    \(\zeta\)로 나타낼 수 있으며, \(\lambda\)와 다음 관계를 가짐
-                </p>
-
-                <div class="equation">
-                    \[
-                        \zeta
-                        =
-                        \lambda+\frac{2}{3}\mu
-                        \tag{3.1.4}
-                    \]
-                </div>
-
-                <p>
-                    <strong>
-                        Stokes’ hypothesis는 Bulk viscosity를 0으로 두는 가정
-                    </strong>이다. 따라서
-                </p>
-
-                <div class="equation">
-                    \[
-                        \zeta=0
-                        \qquad\Longrightarrow\qquad
-                        \lambda=-\frac{2}{3}\mu
-                        \tag{3.1.5}
-                    \]
-                </div>
-
-                <p>
-                    이 가정을 사용하면 독립적인 두 Viscosity coefficient가
-                    하나의 Dynamic viscosity \(\mu\)로 정리된다. 그 결과
-                    <strong>
-                        Viscous stress를 Velocity gradient와 \(\mu\)만으로
-                        나타낼 수 있어 Momentum equation을 닫을 수 있다.
-                    </strong>
-                </p>
-
-                <div class="concept-note">
-                    <strong>Stokes’ Hypothesis의 의미</strong>
-
-                    Stokes’ hypothesis는 수학적으로 항상 성립하는 항등식이나
-                    모든 유체에 적용되는 물리법칙이 아니다.
-                    <strong>
-                        Bulk viscosity의 영향을 무시하여 Constitutive
-                        relation을 단순화하는 모델링 가정
-                    </strong>이다.
-                </div>
-            </div>
-
-            <div class="topic-block">
-                <h3>Velocity Gradient를 이용한 Stress 표현</h3>
-
-                <p>
-                    이제
-                    \(2\mathbf S
-                    =\nabla\boldsymbol{u}
-                    +(\nabla\boldsymbol{u})^T\)와
-                    \(\lambda=-2\mu/3\)을 식 \((3.1.3)\)에 대입함
-                </p>
-
-                <div class="equation">
-                    \[
-                        \begin{aligned}
-                        \boldsymbol{\tau}
-                        &=
-                        2\mu\mathbf S
-                        +
-                        \lambda
-                        (\nabla\cdot\boldsymbol{u})\mathbf I
-                        \\[2.8ex]
-                        &=
-                        \mu\left[
-                        \nabla\boldsymbol{u}
-                        +(\nabla\boldsymbol{u})^T
-                        \right]
-                        -
-                        \frac{2}{3}\mu
-                        (\nabla\cdot\boldsymbol{u})\mathbf I
-                        \\[2.8ex]
-                        &=
-                        \mu\left[
-                        \nabla\boldsymbol{u}
-                        +(\nabla\boldsymbol{u})^T
-                        -\frac{2}{3}
-                        (\nabla\cdot\boldsymbol{u})\mathbf I
-                        \right]
-                        \end{aligned}
-                    \]
-                </div>
-
-                <div class="equation main">
-                    \[
-                        \boxed{\displaystyle
-                        \boldsymbol{\tau}
-                        =
-                        \mu\left[
-                        \nabla\boldsymbol{u}
-                        +(\nabla\boldsymbol{u})^T
-                        -\frac{2}{3}
-                        (\nabla\cdot\boldsymbol{u})\mathbf I
-                        \right]}
-                        \tag{3.1.6}
-                    \]
-                </div>
-
-                <p>
-                    이 식이 <strong>Newtonian stress relation</strong>이다.
-                    Velocity field가 주어지면 각 방향의 Velocity gradient로부터
-                    Viscous-stress tensor를 계산할 수 있다. 즉, Momentum
-                    equation에 남아 있던
-                    <strong>
-                        미지의 Viscous stress를 유동변수인 Velocity와 연결해
-                        주는 식
-                    </strong>이다.
-                </p>
-            </div>
-        </section>
-
-        <section id="incompressible-limit">
-            <h2>3. Incompressible Constant-Viscosity Limit</h2>
-
-            <p>
-                일반적인 Newtonian stress relation은 Compressible flow에도
-                적용할 수 있다. 그러나
-                <strong>Incompressible flow와 Constant viscosity</strong>를
-                가정하면 Viscous term이 크게 단순해지고, 익숙한
-                Navier–Stokes equation의 Laplacian 형태를 얻을 수 있다.
-            </p>
-
-            <div class="topic-block">
-                <h3>Incompressible Condition의 적용</h3>
-
-                <p>
-                    <strong>
-                        Incompressible flow에서는 이동하는 유체요소의 체적이
-                        변하지 않으므로
-                    </strong>
-                    Velocity divergence가 0이 됨
-                </p>
-
-                <div class="equation">
-                    \[
-                        \nabla\cdot\boldsymbol{u}=0
-                    \]
-                </div>
-
-                <p>
-                    따라서 체적 팽창과 수축에 해당하는 항이 사라지고,
-                    Newtonian stress relation은
-                </p>
-
-                <div class="equation">
-                    \[
-                        \boldsymbol{\tau}
-                        =
-                        \mu\left[
-                        \nabla\boldsymbol{u}
-                        +(\nabla\boldsymbol{u})^T
-                        \right]
-                        \tag{3.1.7}
-                    \]
-                </div>
-            </div>
-
-            <div class="topic-block">
-                <h3>Viscous-Stress Divergence의 정리</h3>
-
-                <p>
-                    Momentum equation에는 \(\boldsymbol{\tau}\) 자체가 아니라
-                    \(\nabla\cdot\boldsymbol{\tau}\)가 들어간다. 이는
-                    유체요소의 각 면에 작용하는 Viscous force를 모두 합한
-                    <strong>단위체적당 Net viscous force</strong>를 의미한다.
-                </p>
-
-                <p>
-                    Dynamic viscosity \(\mu\)가 공간적으로 일정하면 미분
-                    연산 밖으로 꺼낼 수 있으므로
-                </p>
-
-                <div class="equation">
-                    \[
-                        \begin{aligned}
-                        \nabla\cdot\boldsymbol{\tau}
-                        &=
-                        \nabla\cdot\left[
-                        \mu\left(
-                        \nabla\boldsymbol{u}
-                        +(\nabla\boldsymbol{u})^T
-                        \right)\right]
-                        \\[2.8ex]
-                        &=
-                        \mu\nabla^2\boldsymbol{u}
-                        +
-                        \mu\nabla
-                        (\nabla\cdot\boldsymbol{u})
-                        \\[2.8ex]
-                        &=
-                        \mu\nabla^2\boldsymbol{u}
-                        \end{aligned}
-                        \tag{3.1.8}
-                    \]
-                </div>
-
-                <p>
-                    두 번째 줄에서는
-                    \(\nabla\cdot(\nabla\boldsymbol{u})^T
-                    =\nabla(\nabla\cdot\boldsymbol{u})\)를 사용하였다.
-                    마지막 줄에서는 Incompressible condition
-                    \(\nabla\cdot\boldsymbol{u}=0\)을 적용하였다.
-                </p>
-
-                <div class="concept-note">
-                    <strong>Laplacian 형태의 물리적 의미</strong>
-
-                    \(\nabla^2\boldsymbol{u}\)는 한 위치의 Velocity가 주변
-                    Velocity 분포와 얼마나 다른지를 나타낸다. Viscosity는
-                    이러한 Velocity 차이를 줄이는 방향으로 Momentum을
-                    전달하므로, \(\mu\nabla^2\boldsymbol{u}\)는
-                    <strong>
-                        Viscosity에 의한 Momentum diffusion
-                    </strong>을 의미한다.
-                </div>
-
-                <p>
-                    만약 \(\mu\)가 위치나 Temperature에 따라 변한다면
-                    \(\mu\)를 미분 밖으로 꺼낼 수 없으며, Viscosity gradient와
-                    관련된 항이 추가로 남는다. 따라서
-                    \(\nabla\cdot\boldsymbol{\tau}
-                    =\mu\nabla^2\boldsymbol{u}\)라는 단순한 형태에는
-                    <strong>
-                        Incompressible condition뿐 아니라
-                        Constant-viscosity 가정도 필요하다.
-                    </strong>
-                </p>
-            </div>
-
-            <div class="topic-block">
-                <h3>Incompressible Navier–Stokes Equation</h3>
-
-                <p>
-                    앞에서 얻은
-                    \(\nabla\cdot\boldsymbol{\tau}
-                    =\mu\nabla^2\boldsymbol{u}\)를 Differential momentum
-                    equation에 대입하면
-                </p>
-
-                <div class="equation main">
-                    \[
-                        \boxed{\displaystyle
-                        \rho\left[
-                        \frac{\partial\boldsymbol{u}}{\partial t}
-                        +(\boldsymbol{u}\cdot\nabla)\boldsymbol{u}
-                        \right]
-                        =
-                        -\nabla p
-                        +\mu\nabla^2\boldsymbol{u}
-                        +\rho\boldsymbol{f}}
-                        \tag{3.1.9}
-                    \]
-                </div>
-
-                <p>
-                    각 항은 이동하는 유체입자의 Momentum 변화와 그 원인이
-                    되는 Force를 나타냄
-                </p>
-
-                <ul class="term-list">
-                    <li>
-                        \(\rho\,\partial\boldsymbol{u}/\partial t\):
-                        고정된 위치에서 시간에 따라 발생하는
-                        Local acceleration
-                    </li>
-
-                    <li>
-                        \(\rho(\boldsymbol{u}\cdot\nabla)\boldsymbol{u}\):
-                        유체입자가 공간적으로 다른 Velocity 영역으로 이동하면서
-                        경험하는 Convective acceleration
-                    </li>
-
-                    <li>
-                        \(-\nabla p\): Pressure 차이에 의해 발생하는
-                        단위체적당 Pressure force
-                    </li>
-
-                    <li>
-                        \(\mu\nabla^2\boldsymbol{u}\): Viscosity에 의한
-                        단위체적당 Momentum diffusion
-                    </li>
-
-                    <li>
-                        \(\rho\boldsymbol{f}\): Gravity와 같이 유체의
-                        Volume 전체에 작용하는 Body force
-                    </li>
-                </ul>
-
-                <p class="transition">
-                    결국 Newtonian stress relation은 단순한 Stress 공식이
-                    아니라,
-                    <strong>
-                        Momentum equation의 Viscous force를 Velocity field로
-                        표현할 수 있게 만드는 Constitutive relation
-                    </strong>이다. Incompressible flow와 Constant viscosity
-                    조건에서는 이 관계가 Laplacian 형태로 단순화되며, 그 결과
-                    위의 Incompressible Navier–Stokes momentum equation을
-                    얻게 된다.
-                </p>
-            </div>
-        </section>
-    
-
-            <footer>
-                <a href="../">← Fundamentals로 돌아가기</a>
-            </footer>
-        </main>
-
-
-        <aside class="right-sidebar" aria-label="On this page">
-            <div class="sidebar-inner">
-                <div class="sidebar-title">On this page</div>
-                <a href="#rate-of-strain" class="sidebar-link">1. Rate-of-Strain Tensor</a>
-                <a href="#newtonian-stress" class="sidebar-link">2. Newtonian-Fluid Stress</a>
-                <a href="#incompressible-limit" class="sidebar-link">3. Incompressible Constant-Viscosity Limit</a>
-            </div>
-        </aside>
-
-
-    </div>
+<main class="main-content" id="top">
+<nav aria-label="Current article"><a href="#top">3.1 Newtonian Stress Relation</a></nav>
+<header><h1>3.1 Newtonian Stress Relation</h1><p class="subtitle">Rate of Strain, Viscous Stress, and Navier–Stokes Equation</p><p class="intro">
+    운동량방정식에는 점성응력 \(\boldsymbol\tau\)가 포함되지만, 보존법칙만으로는 이 응력을 속도장에서 계산할 수 없다.
+    이를 위해 유체의 물성을 나타내는 <strong>Constitutive relation</strong>이 필요하다.
+    Newtonian fluid에서는 점성응력이 국소적인 변형률 속도에 선형적으로 의존한다.
+    속도 기울기를 변형과 회전으로 분해한 뒤 이 관계를 적용하면,
+    Incompressible 조건과 일정한 점성계수 아래에서 점성력 항이 속도의 Laplacian으로 정리된다.
+</p></header>
+<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#rate-of-strain">Rate-of-Strain Tensor</a></li><li><a href="#newtonian-stress">Newtonian-Fluid Stress</a></li><li><a href="#incompressible-limit">Incompressible Constant-Viscosity Limit</a></li></ol></aside>
+<section id="rate-of-strain" aria-labelledby="rate-of-strain-title">
+    <h2 id="rate-of-strain-title">1. Rate-of-Strain Tensor</h2>
+    <h3>Velocity Gradient and Relative Motion</h3>
+    <p>
+        한 점의 속도는 그 위치의 유체가 얼마나 빠르게 움직이는지 알려준다.
+        그러나 유체요소의 변형은 그 속도 자체가 아니라 <strong>서로 가까운 위치 사이의 속도 차이</strong>에 의해 결정된다.
+        \(\boldsymbol x\)와 \(\boldsymbol x+\delta\boldsymbol r\)에서의 속도를 비교하고
+        Taylor expansion의 1차항까지 취하면 다음과 같다.
+    </p>
+    <div class="equation">\[
+        \delta\boldsymbol u
+        =\boldsymbol u(\boldsymbol x+\delta\boldsymbol r,t)-\boldsymbol u(\boldsymbol x,t)
+        \simeq(\nabla\boldsymbol u)\,\delta\boldsymbol r
+        \tag{3.1.1}
+    \]</div>
+    <p>
+        여기서는 속도 기울기의 성분을
+        \((\nabla\boldsymbol u)_{ij}=\partial u_i/\partial x_j\)로 정의한다.
+        행의 첨자 \(i\)는 속도 성분을, 열의 첨자 \(j\)는 그 성분을 미분하는 공간 방향을 나타낸다.
+        따라서 이 텐서는 임의의 방향으로 떨어진 두 입자의 상대적인 속도를 결정한다.
+        모든 위치의 속도에 같은 병진 속도를 더해도 속도 기울기는 변하지 않는다.
+    </p>
+    <h3>Symmetric and Antisymmetric Parts</h3>
+    <p>
+        임의의 정사각행렬은 대칭 성분과 반대칭 성분의 합으로 분해할 수 있다.
+        이를 속도 기울기에 적용하여 <strong>Rate-of-strain tensor</strong> \(\mathbf S\)와
+        <strong>Rotation tensor</strong> \(\boldsymbol\Omega\)를 정의한다.
+    </p>
+    <div class="equation">\[
+        \begin{aligned}
+            \nabla\boldsymbol u&=\mathbf S+\boldsymbol\Omega
+            \\[2.8ex]
+            \mathbf S&=\frac12\left[\nabla\boldsymbol u+
+            (\nabla\boldsymbol u)^{\mathsf T}\right],
+            \qquad \mathbf S^{\mathsf T}=\mathbf S
+            \\[2.8ex]
+            \boldsymbol\Omega&=\frac12\left[\nabla\boldsymbol u-
+            (\nabla\boldsymbol u)^{\mathsf T}\right],
+            \qquad \boldsymbol\Omega^{\mathsf T}=-\boldsymbol\Omega
+        \end{aligned}
+        \tag{3.1.2}
+    \]</div>
+    <p>
+        각 성분으로 쓰면 대칭 성분은 서로 바뀐 두 기울기의 평균이고, 반대칭 성분은 그 차이의 절반이다.
+    </p>
+    <div class="equation">\[
+        S_{ij}=\frac12\left(\frac{\partial u_i}{\partial x_j}
+        +\frac{\partial u_j}{\partial x_i}\right),
+        \qquad
+        \Omega_{ij}=\frac12\left(\frac{\partial u_i}{\partial x_j}
+        -\frac{\partial u_j}{\partial x_i}\right)
+        \tag{3.1.3}
+    \]</div>
+    <h3>Deformation and Local Rigid-Body Rotation</h3>
+    <p>
+        두 유체입자 사이의 미소 변위벡터를 \(\delta\boldsymbol r\)라 하면,
+        그 시간변화율은 두 입자의 상대적인 속도이다.
+        미소량의 1차 관계에서 \(\mathrm d(\delta\boldsymbol r)/\mathrm dt
+        =(\nabla\boldsymbol u)\delta\boldsymbol r\)이므로,
+        두 입자 사이 거리의 제곱은 다음과 같이 변한다.
+    </p>
+    <div class="equation">\[
+        \begin{aligned}
+            \frac{\mathrm d}{\mathrm dt}|\delta\boldsymbol r|^2
+            &=2\,\delta\boldsymbol r^{\mathsf T}
+            (\nabla\boldsymbol u)\,\delta\boldsymbol r
+            \\[2.8ex]
+            &=2\,\delta\boldsymbol r^{\mathsf T}\mathbf S\,\delta\boldsymbol r
+        \end{aligned}
+        \tag{3.1.4}
+    \]</div>
+    <p>
+        반대칭 행렬은 모든 벡터에 대해
+        \(\delta\boldsymbol r^{\mathsf T}\boldsymbol\Omega\delta\boldsymbol r=0\)을 만족한다.
+        따라서 \(\boldsymbol\Omega\)는 미소 선분의 길이를 바꾸지 않으며 국소적인 강체 회전에 해당한다.
+        반면 \(\mathbf S\)는 방향에 따른 길이와 각도의 변화를 결정한다.
+        <strong>강체 회전 자체는 변형을 만들지 않으므로, Newtonian 점성응력은 \(\boldsymbol\Omega\)가 아니라 \(\mathbf S\)에 연결된다.</strong>
+    </p>
+    <ul class="explanation-list">
+        <li><strong>Normal strain rate</strong>: \(S_{ii}=\partial u_i/\partial x_i\)는 \(i\)방향 미소 선분의 단위길이당 늘어나는 속도이다. 양수이면 늘어나고 음수이면 줄어든다.</li>
+        <li><strong>Shear strain rate</strong>: \(i\ne j\)인 \(S_{ij}\)는 서로 직교한 두 방향 사이의 각도 변화에 관련된다. Engineering shear strain rate는 \(2S_{ij}\)로 정의된다.</li>
+        <li><strong>Volumetric strain rate</strong>: 대각 성분의 합은 유체요소의 단위체적당 부피 변화율이다.</li>
+    </ul>
+    <p>
+        대각 성분을 합하는 연산을 Trace라 하며, \(\mathbf S\)의 Trace는 속도의 Divergence와 같다.
+        이를 \(\theta\)로 나타내면 다음과 같다.
+    </p>
+    <div class="equation">\[
+        \theta=\operatorname{tr}\mathbf S
+        =S_{11}+S_{22}+S_{33}
+        =\frac{\partial u}{\partial x}
+        +\frac{\partial v}{\partial y}
+        +\frac{\partial w}{\partial z}
+        =\nabla\cdot\boldsymbol u
+        \tag{3.1.5}
+    \]</div>
+    <p>
+        \(\mathbf S\)와 \(\boldsymbol\Omega\), \(\theta\)의 단위는 모두 \(\mathrm{s^{-1}}\)이다.
+        \(\mathbf S\)에는 모양의 변화와 부피의 변화가 모두 들어 있다.
+        따라서 \(\mathbf S\) 전체를 부피 변화가 없는 전단 성분으로만 해석해서는 안 된다.
+    </p>
+</section>
+
+<section id="newtonian-stress" aria-labelledby="newtonian-stress-title">
+    <h2 id="newtonian-stress-title">2. Newtonian-Fluid Stress</h2>
+    <h3>Isotropic Linear Constitutive Relation</h3>
+    <p>
+        Newtonian fluid에서는 점성응력이 변형률 속도에 선형적으로 의존한다.
+        또한 물성에 특별한 방향이 없는 등방성 유체를 가정하면,
+        점성응력은 \(\mathbf S\)에 비례하는 항과 부피 변화율에 비례하는 등방성 항으로 표현된다.
+    </p>
+    <div class="equation main">\[
+        \boxed{\displaystyle
+        \boldsymbol\tau=2\mu\mathbf S
+        +\lambda(\nabla\cdot\boldsymbol u)\mathbf I}
+        \tag{3.1.6}
+    \]</div>
+    <ul class="explanation-list">
+        <li><strong>Dynamic viscosity</strong>, \(\mu\): 변형률 속도와 점성응력을 연결하는 점성계수이다.</li>
+        <li><strong>Second viscosity coefficient</strong>, \(\lambda\): 부피 변화율에 비례하는 추가적인 등방성 응력 항의 계수이다.</li>
+        <li><strong>Identity tensor</strong>, \(\mathbf I\): 대각 성분이 1이고 나머지 성분이 0인 텐서로, \(\lambda\theta\mathbf I\)가 모든 방향에 같은 수직응력을 주도록 한다.</li>
+    </ul>
+    <p>
+        \(\mu\)와 \(\lambda\)의 단위는 \(\mathrm{Pa\,s}\)이다.
+        변형률 속도의 단위가 \(\mathrm{s^{-1}}\)이므로 응력의 단위 \(\mathrm{Pa}\)를 얻는다.
+        전체 응력은 여전히 \(\boldsymbol\sigma=-p\mathbf I+\boldsymbol\tau\)이며,
+        점성응력을 정하는 식 (3.1.6)은 압력 항과 구분된다.
+    </p>
+    <h3>Deviatoric Strain Rate and Bulk Viscosity</h3>
+    <p>
+        모양의 변화와 부피의 변화를 분리하려면 \(\mathbf S\)에서 대각 성분의 평균을 뺀다.
+        3차원에서 \(\mathbf I\)의 Trace는 3이므로,
+        다음과 같이 정의한 <strong>Deviatoric strain-rate tensor</strong> \(\mathbf S'\)의 Trace는 0이다.
+    </p>
+    <div class="equation">\[
+        \mathbf S'=\mathbf S-\frac{\theta}{3}\mathbf I,
+        \qquad \operatorname{tr}\mathbf S'=0,
+        \qquad \mathbf S=\mathbf S'+\frac{\theta}{3}\mathbf I
+        \tag{3.1.7}
+    \]</div>
+    <p>
+        식 (3.1.7)을 일반적인 Newtonian 응력관계에 대입하면,
+        \(2\mu\mathbf S\)에 포함되어 있던 부피 변화의 기여도 명시적으로 분리된다.
+    </p>
+    <div class="equation">\[
+        \begin{aligned}
+            \boldsymbol\tau
+            &=2\mu\mathbf S'
+            +\left(\lambda+\frac{2\mu}{3}\right)\theta\mathbf I
+            \\[2.8ex]
+            &=2\mu\mathbf S'+\zeta\theta\mathbf I,
+            \qquad \zeta=\lambda+\frac{2\mu}{3}
+        \end{aligned}
+        \tag{3.1.8}
+    \]</div>
+    <p>
+        \(\zeta\)는 <strong>Bulk viscosity</strong>이다.
+        \(2\mu\mathbf S'\)는 부피 변화와 분리된 변형에 대한 응력이고,
+        \(\zeta\theta\mathbf I\)는 부피 변화에 대한 점성응력이다.
+        따라서 \(\lambda\)와 \(\zeta\)는 서로 다른 계수이며 같은 이름으로 취급하지 않는다.
+        보통의 수동적인 Newtonian 유체에서 점성에 의한 소산이 음수가 되지 않으려면
+        \(\mu\ge0\), \(\zeta\ge0\)이어야 한다.
+    </p>
+    <h3>Stokes' Hypothesis</h3>
+    <p>
+        <strong>Stokes' hypothesis</strong>는 Bulk viscosity를 0으로 두는 추가 가정이다.
+        식 (3.1.8)에서 이 조건을 적용하면 두 점성계수 사이의 관계가 정해진다.
+    </p>
+    <div class="equation">\[
+        \zeta=0
+        \quad\Longleftrightarrow\quad
+        \lambda=-\frac{2\mu}{3}
+        \tag{3.1.9}
+    \]</div>
+    <p>
+        이를 식 (3.1.6)에 대입하고 \(\mathbf S\)의 정의를 펼치면 다음 응력관계를 얻는다.
+    </p>
+    <div class="equation main">\[
+        \boxed{\displaystyle
+        \boldsymbol\tau
+        =\mu\left[
+        \nabla\boldsymbol u+(\nabla\boldsymbol u)^{\mathsf T}
+        -\frac23(\nabla\cdot\boldsymbol u)\mathbf I
+        \right]}
+        \tag{3.1.10}
+    \]</div>
+    <p>
+        이 식은 Newtonian 관계에 Stokes' hypothesis까지 적용한 결과이다.
+        모든 Newtonian 유체가 이 추가 가정을 정확히 만족하는 것은 아니다.
+        또한 <strong>Stokes' hypothesis는 \(\theta=0\)을 뜻하지 않는다.</strong>
+        유체가 팽창하거나 압축되더라도 \(\zeta=0\)을 가정할 수 있으며,
+        이 경우 점성응력의 Trace가 0이 된다.
+        부피 변화 자체를 제한하는 Incompressible 조건과 점성계수 사이의 관계를 정하는 가정은 구분해야 한다.
+    </p>
+</section>
+
+<section id="incompressible-limit" aria-labelledby="incompressible-limit-title">
+    <h2 id="incompressible-limit-title">3. Incompressible Constant-Viscosity Limit</h2>
+    <h3>Stress Simplification under Incompressibility</h3>
+    <p>
+        질량보존을 만족하는 Incompressible 유동에서는 유체입자의 밀도가 이동 중에 변하지 않으므로
+        \(D\rho/Dt=0\), \(\nabla\cdot\boldsymbol u=0\)이다.
+        이 조건을 일반적인 Newtonian 관계인 식 (3.1.6)에 적용하면
+        \(\lambda(\nabla\cdot\boldsymbol u)\mathbf I\)가 사라진다.
+    </p>
+    <div class="equation">\[
+        \boldsymbol\tau=2\mu\mathbf S
+        =\mu\left[\nabla\boldsymbol u+(\nabla\boldsymbol u)^{\mathsf T}\right],
+        \qquad \nabla\cdot\boldsymbol u=0
+        \tag{3.1.11}
+    \]</div>
+    <p>
+        이 단순화에는 <strong>Stokes' hypothesis가 필요하지 않다.</strong>
+        \(\lambda\)의 값과 관계없이 부피 변화율이 0이기 때문에 해당 항이 사라진다.
+        여기까지는 \(\mu\)가 공간에서 일정하다는 가정도 사용하지 않았다.
+    </p>
+    <h3>Divergence of the Viscous Stress</h3>
+    <p>
+        운동량방정식에 들어가는 점성력은 응력 자체가 아니라 \(\nabla\cdot\boldsymbol\tau\)이다.
+        텐서의 Divergence는
+        \((\nabla\cdot\boldsymbol\tau)_i=\sum_j\partial\tau_{ij}/\partial x_j\)로 정의한다.
+        \(\mu\)가 공간에서 일정하면 미분 밖으로 꺼낼 수 있으므로 각 성분은 다음과 같이 전개된다.
+    </p>
+    <div class="equation">\[
+        \begin{aligned}
+            (\nabla\cdot\boldsymbol\tau)_i
+            &=\mu\sum_{j=1}^{3}\frac{\partial}{\partial x_j}
+            \left(\frac{\partial u_i}{\partial x_j}
+            +\frac{\partial u_j}{\partial x_i}\right)
+            \\[2.8ex]
+            &=\mu\sum_{j=1}^{3}\frac{\partial^2u_i}{\partial x_j^2}
+            +\mu\frac{\partial}{\partial x_i}
+            \left(\sum_{j=1}^{3}\frac{\partial u_j}{\partial x_j}\right)
+            \\[2.8ex]
+            &=\mu\nabla^2u_i+\mu\frac{\partial}{\partial x_i}
+            (\nabla\cdot\boldsymbol u)
+        \end{aligned}
+        \tag{3.1.12}
+    \]</div>
+    <p>
+        두 번째 줄에서는 속도장이 충분히 매끄러워 혼합 편미분의 순서를 바꿀 수 있다고 가정했다.
+        마지막 항은 Incompressible 조건에 의해 0이므로, 벡터 형태로 쓰면 다음과 같다.
+    </p>
+    <div class="equation main">\[
+        \boxed{\nabla\cdot\boldsymbol\tau=\mu\nabla^2\boldsymbol u}
+        \tag{3.1.13}
+    \]</div>
+    <p>
+        \(\nabla^2\)는 <strong>Laplacian</strong>이며, Cartesian 좌표에서 각 속도 성분에 독립적으로 적용된다.
+        예를 들어 \(\nabla^2u=\partial^2u/\partial x^2+
+        \partial^2u/\partial y^2+\partial^2u/\partial z^2\)이다.
+        따라서 \(\nabla^2\boldsymbol u\)는 스칼라가 아니라 세 성분을 가진 벡터이다.
+    </p>
+    <h3>Spatially Varying Viscosity</h3>
+    <p>
+        \(\mu\)가 위치에 따라 달라지면 Product rule에 의해 점성계수의 기울기가 포함된다.
+        Incompressible 조건을 유지하더라도 다음 추가 항이 남는다.
+    </p>
+    <div class="equation">\[
+        (\nabla\cdot\boldsymbol\tau)_i
+        =\mu\nabla^2u_i
+        +\sum_{j=1}^{3}\frac{\partial\mu}{\partial x_j}
+        \left(\frac{\partial u_i}{\partial x_j}
+        +\frac{\partial u_j}{\partial x_i}\right)
+        \tag{3.1.14}
+    \]</div>
+    <p>
+        따라서 \(\nabla\cdot\boldsymbol\tau\)를 \(\mu\nabla^2\boldsymbol u\)로 바꾸려면,
+        Incompressible 조건과 함께 \(\nabla\mu=\boldsymbol0\)인 공간적으로 일정한 점성계수를 확인해야 한다.
+    </p>
+    <h3>Incompressible Navier–Stokes Equation</h3>
+    <p>
+        운동량방정식
+        \(\rho D\boldsymbol u/Dt=-\nabla p+\nabla\cdot\boldsymbol\tau+\rho\boldsymbol f\)에
+        식 (3.1.13)을 대입하고 Material derivative를 펼친다.
+        그러면 일정한 점성계수를 가진 Newtonian 유체의 Incompressible Navier–Stokes equation을 얻는다.
+    </p>
+    <div class="equation main">\[
+        \boxed{\displaystyle
+        \rho\left[
+        \frac{\partial\boldsymbol u}{\partial t}
+        +(\boldsymbol u\cdot\nabla)\boldsymbol u
+        \right]
+        =-\nabla p+\mu\nabla^2\boldsymbol u+\rho\boldsymbol f}
+        \tag{3.1.15}
+    \]</div>
+    <ul class="explanation-list">
+        <li><strong>Local acceleration contribution</strong>, \(\rho\,\partial\boldsymbol u/\partial t\): 고정된 위치에서 속도가 시간에 따라 변하는 가속도에 밀도를 곱한 항이다.</li>
+        <li><strong>Convective acceleration contribution</strong>, \(\rho(\boldsymbol u\cdot\nabla)\boldsymbol u\): 유체입자가 공간적으로 다른 속도의 위치로 이동하며 경험하는 가속도에 밀도를 곱한 항이다.</li>
+        <li><strong>Pressure force density</strong>, \(-\nabla p\): 압력의 공간적인 차이에 의해 생기는 단위체적당 힘이다.</li>
+        <li><strong>Viscous force density</strong>, \(\mu\nabla^2\boldsymbol u\): 점성응력의 공간적인 차이에 의해 생기는 단위체적당 힘이다.</li>
+        <li><strong>Body force density</strong>, \(\rho\boldsymbol f\): 중력 등 체적 전체에 분포한 단위체적당 힘이다.</li>
+    </ul>
+    <p>
+        모든 항의 단위는 \(\mathrm{N/m^3}\)이다.
+        점성력의 Laplacian 형태는 운동량이 점성에 의해 주변으로 전달되는 확산의 성격을 나타낸다.
+        응력이 속도의 1차 공간미분에 비례하고, 순점성력은 그 응력의 공간미분이므로 속도의 2차 미분이 나타난다.
+        이 운동량방정식은 \(\nabla\cdot\boldsymbol u=0\)과 함께 사용한다.
+        Steady 조건은 따로 가정하지 않았으므로 시간에 따라 변하는 유동에도 적용할 수 있다.
+    </p>
+</section>
+<footer><a href="../">← Fundamentals로 돌아가기</a></footer>
+</main>
+<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#rate-of-strain" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Rate-of-Strain Tensor</span></a><a href="#newtonian-stress" class="sidebar-link"><span class="item-number">2.</span><span>Newtonian-Fluid Stress</span></a><a href="#incompressible-limit" class="sidebar-link"><span class="item-number">3.</span><span>Incompressible Constant-Viscosity Limit</span></a></nav></aside>
+</div>
+<script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script>
 </body>
-
 </html>

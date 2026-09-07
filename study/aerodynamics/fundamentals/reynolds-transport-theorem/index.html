@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="System의 변화율을 Control-volume storage와 Surface flux로 바꾸는 Reynolds transport theorem을 설명합니다.">
+    <meta name="description" content="Reynolds transport theorem은 동일한 유체입자들로 이루어진 System의 물리량 변화율을 공간에 정한 Control volume에서 계산할 수 있도록 연결하는 정리이다. 고정된 영역에서 관찰할 때는 내부에 저장된 양의 변화와 경계를 넘어 이동한 입자들이 운반하는 양을 함께 고려한다. 이 두 기여가 Storage rate와 Net outward flux이다. 질량·운동량·에너지 보존식은 이 관계에 각 물리량과 System에 대한 법칙을 대입하여 얻는다.">
     <title>1.2 Reynolds Transport Theorem | Isp99</title>
-
     <script>
         window.MathJax = {
             tex: {
@@ -16,438 +14,540 @@
             chtml: { scale: 1.02 }
         };
     </script>
-
     <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="stylesheet" href="../fundamentals.css">
-
+    <!-- Page styles are self-contained. This file can replace reynolds-transport-theorem/index.html. -->
     <style>
-        body.article-page {
-            max-width: none !important;
-            margin: 0 !important;
-            padding: 0 !important;
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
         }
 
-        body.article-page .page-layout {
-            display: grid !important;
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
             grid-template-columns: 270px minmax(0, 860px) 270px;
-            gap: 170px;
+            column-gap: 170px;
+            justify-content: center;
             width: 100%;
             max-width: 1800px;
             margin: 0 auto;
             padding: 36px 24px 90px;
         }
-
-        body.article-page .main-content {
-            min-width: 0;
-        }
-
-        body.article-page .main-content > nav {
+        .main-content { min-width: 0; }
+        .main-content > nav {
             margin: 0 0 30px;
-            padding: 0;
-            border: 0;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
         }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
 
-        body.article-page .left-sidebar,
-        body.article-page .right-sidebar {
-            display: block;
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
             min-width: 0;
             padding-top: 2px;
-            color: #666666;
+            color: var(--muted);
             font-size: 16px;
             line-height: 1.65;
         }
-
-        body.article-page .sidebar-inner {
+        .sidebar-inner {
             position: sticky;
             top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
         }
-
-        body.article-page .sidebar-title {
+        .sidebar-title {
             display: block;
-            margin-bottom: 16px;
+            margin: 0 0 16px;
             padding-bottom: 9px;
-            border-bottom: 1px solid #dddddd;
-            color: #222222;
+            border-bottom: 1px solid var(--line);
+            color: #222;
             font-size: 20px;
             font-weight: 700;
             text-decoration: none;
         }
-
-        body.article-page .sidebar-title-link:hover {
-            text-decoration: underline;
-        }
-
-        body.article-page .sidebar-group {
-            margin-bottom: 42px;
-        }
-
-        body.article-page .sidebar-group-title {
-            margin: 0 0 10px;
-            color: #555555;
-            font-size: 19.5px;
-            font-weight: 400;
-        }
-
-        body.article-page .sidebar-link {
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
             display: block;
-            padding: 4px 0 4px 30px;
+            padding: 4px 0 4px 24px;
             border-left: 2px solid transparent;
-            color: #777777;
+            color: #777;
             text-decoration: none;
         }
-
-        body.article-page .sidebar-link:hover {
-            color: #222222;
-        }
-
-        body.article-page .sidebar-link.active {
-            border-left-color: #444444;
-            color: #161616;
-            font-weight: 700;
-        }
-
-        body.article-page .right-sidebar .sidebar-link {
-            padding: 18px 0;
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
             border-left: 0;
         }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
 
-        @media (max-width: 1347px) and (min-width: 1101px) {
-            body.article-page .page-layout {
-                grid-template-columns: 180px minmax(0, 760px) 180px;
-                gap: 35px;
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
             }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
         }
-
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
         @media (max-width: 1100px) {
-            body.article-page .page-layout {
-                display: block !important;
-                max-width: 860px;
-                padding: 44px 34px 90px;
-            }
-
-            body.article-page .left-sidebar,
-            body.article-page .right-sidebar {
-                display: none;
-            }
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
         }
-
         @media (max-width: 650px) {
-            body.article-page .page-layout {
-                padding: 28px 20px 65px;
-            }
-
-            body.article-page .main-content > nav {
-                margin-bottom: 24px;
-            }
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
         }
     </style>
 </head>
-
-<body class="article-page">
-    <div class="page-layout">
-
-        <aside class="left-sidebar" aria-label="Fundamentals navigation">
-            <div class="sidebar-inner">
-                <a href="../" class="sidebar-title sidebar-title-link">Fundamentals</a>
-
+<body class="article-page"><div class="page-layout">
+<aside class="left-sidebar" aria-label="Fundamentals navigation">
+            <nav class="sidebar-inner">
+                <a href="../" class="sidebar-title">Fundamentals</a>
                 <div class="sidebar-group">
                     <div class="sidebar-group-title">1. Mathematical Foundation</div>
-                    <a href="../material-derivative/" class="sidebar-link">
-                        1.1 Material Derivative
-                    </a>
-                    <a href="../reynolds-transport-theorem/"
-                       class="sidebar-link active"
-                       aria-current="page">
-                        1.2 Reynolds Transport Theorem
-                    </a>
+                    <a href="../material-derivative/" class="sidebar-link"><span class="item-number">1.1</span> Material Derivative</a>
+                    <a href="../reynolds-transport-theorem/" class="sidebar-link active" aria-current="page"><span class="item-number">1.2</span> Reynolds Transport Theorem</a>
                 </div>
-
                 <div class="sidebar-group">
                     <div class="sidebar-group-title">2. Conservation Laws</div>
-                    <a href="../continuity-equation/" class="sidebar-link">
-                        2.1 Continuity Equation
-                    </a>
-                    <a href="../conservation-of-momentum/" class="sidebar-link">
-                        2.2 Conservation of Momentum
-                    </a>
-                    <a href="../conservation-of-energy/" class="sidebar-link">
-                        2.3 Conservation of Energy
-                    </a>
+                    <a href="../continuity-equation/" class="sidebar-link"><span class="item-number">2.1</span> Continuity Equation</a>
+                    <a href="../conservation-of-momentum/" class="sidebar-link"><span class="item-number">2.2</span> Conservation of Momentum</a>
+                    <a href="../conservation-of-energy/" class="sidebar-link"><span class="item-number">2.3</span> Conservation of Energy</a>
                 </div>
-
                 <div class="sidebar-group">
                     <div class="sidebar-group-title">3. Related Equations</div>
-                    <a href="../newtonian-stress-relation/" class="sidebar-link">
-                        3.1 Newtonian Stress Relation
-                    </a>
-                    <a href="../euler-and-bernoulli-equations/" class="sidebar-link">
-                        3.2 Euler and Bernoulli Equations
-                    </a>
+                    <a href="../newtonian-stress-relation/" class="sidebar-link"><span class="item-number">3.1</span> Newtonian Stress Relation</a>
+                    <a href="../euler-and-bernoulli-equations/" class="sidebar-link"><span class="item-number">3.2</span> Euler and Bernoulli Equations</a>
                 </div>
-            </div>
-        </aside>
-
-
-        <main class="main-content" id="top">
-
-            <nav>
-                <a href="#top">1.2 Reynolds Transport Theorem</a>
             </nav>
-
-            <header>
-                <h1>1.2 Reynolds Transport Theorem</h1>
-                <p class="subtitle">System, Control Volume, Storage, and Surface Flux</p>
-                <p class="intro">
-                    Conservation law는 본래 동일한 물질입자들의 집합인 System에 적용된다.
-                    그러나 실제 유동 해석은 관이나 Nozzle처럼 <strong>공간에 정해 둔 영역</strong>을
-                    기준으로 수행하는 경우가 많다. Reynolds transport theorem은 System의 변화율을
-                    Control volume 내부의 Storage와 경계를 통한 Flux로 바꾸어 두 관점을 연결한다.
-                </p>
-            </header>
-
-
-            <aside class="contents" aria-label="Contents">
-                <strong>Contents</strong>
-                <ol>
-                    <li>
-                        <a href="#system-and-control-volume">
-                            System and Control Volume
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#storage-and-flux">
-                            Storage and Flux Decomposition
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#choice-of-property">
-                            Choice of the Property
-                        </a>
-                    </li>
-                </ol>
-            </aside>
-
-
-            <section id="system-and-control-volume">
-
-                <h2>1. System and Control Volume</h2>
-
-                <h3>따라가는 영역과 고정된 영역</h3>
-
-                <p>
-                    System은 시간이 지나도 <strong>동일한 유체입자들</strong>로 이루어진다.
-                    경계가 입자와 함께 이동하므로 질량보존이나 Newton's second law를 직접 적용하기에는
-                    자연스럽지만, 매 순간 변하는 경계를 추적해야 한다는 불편이 있다.
-                </p>
-
-                <p>
-                    Control volume은 해석자가 공간에 정한 영역이며 그 경계를 Control surface라고 한다.
-                    유체는 Control surface를 자유롭게 통과할 수 있으므로, 내부에 저장된 양뿐 아니라
-                    경계를 통해 운반되는 양도 함께 계산해야 한다.
-                </p>
-
-                <h3>Extensive property와 Intensive property</h3>
-
-                <p>
-                    System 전체가 가진 물리량을 \(B\), 이에 대응하는 단위질량당 물리량을 \(b\)라고 두면
-                    다음과 같이 쓸 수 있다.
-                </p>
-
-                <div class="equation">
-                    \[
-                        B_{\mathrm{system}}
-                        =\int_{\mathrm{system}}\rho b\,\mathrm dV
-                        \tag{1.2.1}
-                    \]
-                </div>
-
-                <p>
-                    세 기호는 같은 Property를 서로 다른 기준으로 표현한다.
-                </p>
-
-                <ul class="term-list">
-                    <li>
-                        \(B\): System 전체가 가진
-                        <strong>Extensive property</strong>
-                    </li>
-                    <li>
-                        \(b\): \(B\)를 단위질량당 나타낸
-                        <strong>Intensive property</strong>
-                    </li>
-                    <li>
-                        \(\rho b\): Volume integral에 사용할 수 있는
-                        <strong>단위체적당 property</strong>
-                    </li>
-                </ul>
-
-                <p>
-                    \(b\)에 Density \(\rho\)를 곱하는 과정은 단위질량당 양을 단위체적당 양으로
-                    바꾸는 과정이다. 이렇게 얻은 \(\rho b\)를 체적에 대해 적분하면
-                    System 전체의 \(B\)가 된다.
-                </p>
-
-            </section>
-
-
-            <section id="storage-and-flux">
-
-                <h2>2. Storage and Flux Decomposition</h2>
-
-                <h3>Control volume 내부의 Storage</h3>
-
-                <p>
-                    고정된 Control volume 안에 들어 있는 Property는 \(\rho b\)의 Volume integral로 계산한다.
-                    이 값의 시간변화율이 <strong>Storage rate</strong>이다.
-                </p>
-
-                <div class="equation">
-                    \[
-                        \frac{\partial}{\partial t}
-                        \int_{CV}\rho b\,\mathrm dV
-                        \tag{1.2.2}
-                    \]
-                </div>
-
-                <p>
-                    이 항은 현재 영역 안에 얼마가 쌓이거나 줄어드는지만 나타낸다.
-                    경계를 통과해 나간 Property는 내부에 남아 있지 않으므로 별도의 Flux 항이 필요하다.
-                </p>
-
-                <h3>Control surface를 통한 Flux</h3>
-
-                <p>
-                    면적요소 \(\mathrm dA\)의 바깥쪽 단위 법선벡터를 \(\boldsymbol n\)이라 하면,
-                    \((\boldsymbol u\cdot\boldsymbol n)\mathrm dA\)는 그 면을 바깥 방향으로 통과하는
-                    체적유량이다. 여기에 단위체적당 Property \(\rho b\)를 곱하면
-                    면적요소를 통한 Property transport rate가 된다.
-                </p>
-
-                <div class="equation">
-                    \[
-                        \rho b(\boldsymbol{u}\cdot\boldsymbol{n})\,\mathrm dA
-                        \tag{1.2.3}
-                    \]
-                </div>
-
-                <p>
-                    이를 닫힌 Control surface 전체에 대해 더하면 Net outward flux를 얻는다.
-                </p>
-
-                <div class="equation">
-                    \[
-                        \oint_{CS}\rho b
-                        (\boldsymbol{u}\cdot\boldsymbol{n})\,\mathrm dA
-                        \tag{1.2.4}
-                    \]
-                </div>
-
-                <p>
-                    System의 변화율은 <strong>Control volume 안에서 변한 양</strong>과
-                    <strong>Control surface 밖으로 운반된 양</strong>을 합해야 복원된다.
-                    따라서 Reynolds transport theorem은 다음과 같이 정리된다.
-                </p>
-
-                <div class="equation main">
-                    \[
-                        \boxed{\displaystyle
-                        \frac{\mathrm d B_{\mathrm{system}}}{\mathrm dt}
-                        =
-                        \frac{\partial}{\partial t}
-                        \int_{CV}\rho b\,\mathrm dV
-                        +
-                        \oint_{CS}\rho b
-                        (\boldsymbol{u}\cdot\boldsymbol{n})\,\mathrm dA}
-                        \tag{1.2.5}
-                    \]
-                </div>
-
-                <p>
-                    \(\boldsymbol n\)이 바깥쪽을 향하므로 내적의 부호가 유입과 유출을 구분한다.
-                </p>
-
-                <ul class="explanation-list">
-                    <li>
-                        \(\boldsymbol{u}\cdot\boldsymbol{n}>0\):
-                        바깥 방향 성분이 있으므로 <strong>Outflow</strong>
-                    </li>
-                    <li>
-                        \(\boldsymbol{u}\cdot\boldsymbol{n}<0\):
-                        안쪽 방향 성분이 있으므로 <strong>Inflow</strong>
-                    </li>
-                </ul>
-
-                <div class="concept-note">
-                    <p>
-                        Surface integral 앞에 별도의 유입·유출 부호를 붙일 필요는 없다.
-                        \(\boldsymbol u\cdot\boldsymbol n\) 자체가 방향을 포함하므로 하나의 닫힌
-                        Surface integral이 모든 입구와 출구의 <strong>순수송량</strong>을 동시에 계산한다.
-                    </p>
-                </div>
-
-            </section>
-
-
-            <section id="choice-of-property">
-
-                <h2>3. Choice of the Property</h2>
-
-                <p>
-                    Reynolds transport theorem은 특정 Conservation law가 아니라,
-                    System 표현을 Control-volume 표현으로 바꾸는 <strong>공통 변환식</strong>이다.
-                    따라서 식의 구조는 유지하고 분석할 물리량에 맞추어 \(B\)와 \(b\)만 선택한다.
-                </p>
-
-                <ul class="explanation-list">
-                    <li>
-                        <strong>Mass conservation:</strong>
-                        \(B=m,\quad b=1\)
-                    </li>
-                    <li>
-                        <strong>Linear momentum conservation:</strong>
-                        \(B=\boldsymbol P,\quad b=\boldsymbol u\)
-                    </li>
-                    <li>
-                        <strong>Energy conservation:</strong>
-                        \(B=E,\quad b=e+V^2/2+gz\)
-                    </li>
-                </ul>
-
-                <p>
-                    이후의 Continuity, Momentum, Energy equation은 서로 다른 법칙처럼 보이지만,
-                    모두 이 선택을 Reynolds transport theorem에 대입한 뒤 각 System law와 결합하여 얻는다.
-                </p>
-
-            </section>
-
-
-            <footer>
-                <a href="../">← Fundamentals로 돌아가기</a>
-            </footer>
-
-        </main>
-
-
-        <aside class="right-sidebar" aria-label="On this page">
-            <div class="sidebar-inner">
-
-                <div class="sidebar-title">On this page</div>
-
-                <a href="#system-and-control-volume" class="sidebar-link">
-                    1. System and Control Volume
-                </a>
-
-                <a href="#storage-and-flux" class="sidebar-link">
-                    2. Storage and Flux Decomposition
-                </a>
-
-                <a href="#choice-of-property" class="sidebar-link">
-                    3. Choice of the Property
-                </a>
-
-            </div>
         </aside>
+<main class="main-content" id="top">
+<nav aria-label="Current article"><a href="#top">1.2 Reynolds Transport Theorem</a></nav>
+<header><h1>1.2 Reynolds Transport Theorem</h1><p class="subtitle">System, Control Volume, Storage, and Surface Flux</p><p class="intro">
+    <strong>Reynolds transport theorem</strong>은 동일한 유체입자들로 이루어진 System의 물리량 변화율을
+    공간에 정한 Control volume에서 계산할 수 있도록 연결하는 정리이다.
+    고정된 영역에서 관찰할 때는 내부에 저장된 양의 변화와 경계를 넘어 이동한 입자들이 운반하는 양을 함께 고려한다.
+    이 두 기여가 <strong>Storage rate</strong>와 <strong>Net outward flux</strong>이다.
+    질량·운동량·에너지 보존식은 이 관계에 각 물리량과 System에 대한 법칙을 대입하여 얻는다.
+</p></header>
+<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#system-and-control-volume">System and Control Volume</a></li><li><a href="#storage-and-flux">Storage and Flux Decomposition</a></li><li><a href="#choice-of-property">Choice of the Property</a></li></ol></aside>
+<section id="system-and-control-volume" aria-labelledby="system-title">
+    <h2 id="system-title">1. System and Control Volume</h2>
+    <h3>Following Matter and Observing a Fixed Region</h3>
+    <p>
+        <strong>System</strong>은 처음에 선택한 동일한 유체입자들의 집합이다.
+        경계가 입자들과 함께 움직이므로 시간이 지나면서 위치와 형상이 바뀔 수 있지만,
+        System을 구성하는 입자들은 유지된다. 질량보존법칙이나 Newton's second law는 이러한 동일한 물질입자들의 집합에 적용된다.
+    </p>
+    <p>
+        <strong>Control volume</strong>은 해석자가 지정한 공간 영역이고,
+        이를 둘러싼 닫힌 경계를 <strong>Control surface</strong>라고 한다.
+        이 절에서는 위치와 형상이 시간에 따라 변하지 않는 고정된 Control volume을 다룬다.
+        유체가 경계를 통과하므로 서로 다른 시각에 그 내부를 차지하는 입자들은 달라질 수 있다.
+    </p>
+    <p>
+        따라서 고정된 영역 안의 물리량을 두 시각에서 비교한 값에는 입자의 유입·유출 효과가 포함되어 있다.
+        System의 변화율을 계산하려면 <strong>처음 선택한 입자들이 경계 밖으로 운반한 양을 더하고,
+        외부에서 새로 들어온 입자들이 운반한 양을 빼는 과정</strong>이 필요하다.
+    </p>
 
-    </div>
+    <h3>Extensive and Specific Properties</h3>
+    <p>
+        질량·운동량·에너지처럼 각 부분이 가진 값을 합하여 전체 값을 구할 수 있는 물리량을
+        <strong>Extensive property</strong>라 하고 \(B\)로 나타낸다.
+        이에 대응하는 단위질량당 물리량을 <strong>Specific property</strong> \(b\)로 정의한다.
+        미소 질량 \(\mathrm dm\)이 가진 물리량이 \(\mathrm dB\)이면 다음과 같다.
+    </p>
+    <div class="equation">\[
+        b=\frac{\mathrm dB}{\mathrm dm},\qquad
+        \mathrm dB=b\,\mathrm dm=\rho b\,\mathrm dV
+        \tag{1.2.1}
+    \]</div>
+    <p>
+        \(\rho\)는 밀도이므로 \(\mathrm dm=\rho\,\mathrm dV\)이다.
+        따라서 \(b\)에 밀도를 곱한 \(\rho b\)는 단위체적당 물리량이며,
+        이를 System 전체에 대해 적분하면 전체 물리량을 얻는다.
+    </p>
+    <div class="equation">\[
+        B_{\mathrm{system}}(t)
+        =\int_{\mathrm{system}(t)}b\,\mathrm dm
+        =\int_{\mathrm{system}(t)}\rho b\,\mathrm dV
+        \tag{1.2.2}
+    \]</div>
+    <ul class="explanation-list">
+        <li><strong>Extensive property</strong>, \(B\): 선택한 물질 전체가 가진 양이다.</li>
+        <li><strong>Specific property</strong>, \(b\): 단위질량당 물리량이다. 위치와 시간에 따라 달라질 수 있다.</li>
+        <li><strong>Property per unit volume</strong>, \(\rho b\): 체적적분에 사용하는 단위체적당 물리량이다.</li>
+    </ul>
+    <p>
+        \(b\)가 영역 내부에서 일정할 때는 \(B=mb\)로 단순화된다.
+        일반적인 유동에서는 위치마다 \(b\)와 밀도가 다를 수 있으므로 식 (1.2.2)의 적분 형태를 사용한다.
+        아래 유도는 스칼라 물리량에 대해 쓰며, 운동량과 같은 벡터 물리량에는 성분별로 같은 관계를 적용한다.
+    </p>
+</section>
+
+<section id="storage-and-flux" aria-labelledby="storage-title">
+    <h2 id="storage-title">2. Storage and Flux Decomposition</h2>
+    <h3>Storage Rate in a Fixed Control Volume</h3>
+    <p>
+        시각 \(t\)에 Control volume 내부를 차지하는 유체가 가진 물리량을 \(B_{CV}(t)\)라 한다.
+        이 값은 \(\rho b\)를 고정된 영역에서 적분하여 계산하며, 그 시간변화율이 Storage rate이다.
+        적분영역이 일정하고 물리량이 충분히 매끄러우면 시간미분을 적분 안으로 옮길 수 있다.
+    </p>
+    <div class="equation">\[
+        \begin{aligned}
+            B_{CV}(t)&=\int_{CV}\rho b\,\mathrm dV
+            \\[2.8ex]
+            \frac{\mathrm dB_{CV}}{\mathrm dt}
+            &=\frac{\partial}{\partial t}\int_{CV}\rho b\,\mathrm dV
+            =\int_{CV}\frac{\partial(\rho b)}{\partial t}\,\mathrm dV
+        \end{aligned}
+        \tag{1.2.3}
+    \]</div>
+    <p>
+        이 항의 관찰 기준은 동일한 공간 영역이다.
+        내부를 차지하는 입자들이 바뀌어도 매 순간 그 영역에 저장된 물리량을 계산하므로,
+        <strong>같은 입자들을 따라간 System의 변화율과는 구분</strong>된다.
+    </p>
+
+    <h3>Property Transport Across a Surface</h3>
+    <p>
+        미소면적 \(\mathrm dA\)의 바깥쪽 단위 법선벡터를 \(\boldsymbol n\)이라 하자.
+        면을 통과하는 유동은 속도의 법선방향 성분 \(\boldsymbol u\cdot\boldsymbol n\)으로 결정된다.
+        짧은 시간 \(\mathrm dt\) 동안 면을 통과하는 부호를 포함한 체적은
+        \((\boldsymbol u\cdot\boldsymbol n)\,\mathrm dA\,\mathrm dt\)이다.
+        여기에 \(\rho b\)를 곱하고 시간으로 나누면 해당 면을 통한 물리량의 수송률을 얻는다.
+    </p>
+    <div class="equation">\[
+        \mathrm d\dot B_{CS}
+        =\rho b(\boldsymbol u\cdot\boldsymbol n)\,\mathrm dA
+        \tag{1.2.4}
+    \]</div>
+    <ul class="explanation-list">
+        <li><strong>Outflow</strong>, \(\boldsymbol u\cdot\boldsymbol n>0\): 유체가 Control volume 바깥으로 이동한다.</li>
+        <li><strong>Inflow</strong>, \(\boldsymbol u\cdot\boldsymbol n<0\): 유체가 Control volume 안으로 이동한다.</li>
+    </ul>
+    <p>
+        속도가 면에 평행하면 법선방향 성분이 0이므로 그 면을 통한 수송도 0이다.
+        닫힌 Control surface 전체에서 식 (1.2.4)를 합하면 유출과 유입을 함께 포함한 Net outward flux가 된다.
+    </p>
+    <div class="equation">\[
+        \oint_{CS}\rho b(\boldsymbol u\cdot\boldsymbol n)\,\mathrm dA
+        \tag{1.2.5}
+    \]</div>
+    <div class="concept-note"><p>
+        유입·유출의 방향은 \(\boldsymbol u\cdot\boldsymbol n\)으로 판단한다.
+        운동량의 한 성분처럼 \(b\) 자체가 음수가 될 수 있는 경우에는
+        <strong>수송되는 물리량의 부호에도 \(b\)의 부호가 함께 반영</strong>된다.
+        따라서 일반적인 물리량의 Flux 부호와 질량이 이동하는 방향을 구분하여 해석한다.
+    </p></div>
+
+    <h3>Coincident System and Control Volume</h3>
+    <p>
+        기준시각 \(t\)에 Control volume을 채우고 있는 모든 유체입자를 하나의 System으로 선택하자.
+        이 순간 두 영역은 정확히 일치하므로 다음 관계가 성립한다.
+    </p>
+    <div class="equation">\[
+        B_{\mathrm{system}}(t)=B_{CV}(t)
+        \tag{1.2.6}
+    \]</div>
+    <p>
+        그 뒤 짧은 시간 \(\Delta t\)가 지나면 처음 선택한 입자 중 일부가 밖으로 나가고,
+        System에 속하지 않았던 입자가 Control volume 안으로 들어온다.
+        시각 \(t+\Delta t\)에서 두 영역을 다음 세 부분으로 나누어 비교한다.
+    </p>
+    <ul class="explanation-list">
+        <li><strong>Common region</strong>, \(R\): 처음 선택한 System의 입자들이 Control volume 안에 남아 있는 영역이다.</li>
+        <li><strong>Outflow region</strong>: 처음 선택한 System의 입자들이 Control volume 바깥에 위치한 영역이다.</li>
+        <li><strong>Inflow region</strong>: 외부에서 들어온 입자들이 Control volume 안을 차지하는 영역이다.</li>
+    </ul>
+    <p>
+        각 영역이 가진 물리량을 \(B_R\), \(B_{\mathrm{out}}\), \(B_{\mathrm{in}}\)으로 두자.
+        아래 세 값은 모두 <strong>같은 시각 \(t+\Delta t\)에서 평가</strong>한다.
+        그러면 System과 Control volume의 물리량은 각각 다음과 같이 나뉜다.
+    </p>
+    <div class="equation">\[
+        \begin{aligned}
+            B_{\mathrm{system}}(t+\Delta t)&=B_R+B_{\mathrm{out}}
+            \\[2.8ex]
+            B_{CV}(t+\Delta t)&=B_R+B_{\mathrm{in}}
+        \end{aligned}
+        \tag{1.2.7}
+    \]</div>
+    <p>
+        두 식에서 공통영역의 양 \(B_R\)을 소거하면
+        \(B_{\mathrm{system}}(t+\Delta t)=B_{CV}(t+\Delta t)+B_{\mathrm{out}}-B_{\mathrm{in}}\)이다.
+        여기에 식 (1.2.6)을 사용하여 기준시각의 값을 빼고 \(\Delta t\)로 나누면 다음과 같다.
+    </p>
+    <div class="equation">\[
+        \begin{aligned}
+            \frac{B_{\mathrm{system}}(t+\Delta t)-B_{\mathrm{system}}(t)}{\Delta t}
+            &=\frac{B_{CV}(t+\Delta t)-B_{CV}(t)}{\Delta t}
+            \\[2.8ex]
+            &\quad+\frac{B_{\mathrm{out}}-B_{\mathrm{in}}}{\Delta t}
+        \end{aligned}
+        \tag{1.2.8}
+    \]</div>
+    <p>
+        \(\Delta t\to0\)의 극한에서 첫째 항은 고정된 영역의 Storage rate가 된다.
+        마지막 항은 경계를 통과한 순수송량을 시간으로 나눈 값이므로 식 (1.2.5)의 Surface integral에 접근한다.
+    </p>
+    <div class="equation">\[
+        \lim_{\Delta t\to0}\frac{B_{\mathrm{out}}-B_{\mathrm{in}}}{\Delta t}
+        =\oint_{CS}\rho b(\boldsymbol u\cdot\boldsymbol n)\,\mathrm dA
+        \tag{1.2.9}
+    \]</div>
+
+    <h3>Reynolds Transport Theorem for a Fixed Control Volume</h3>
+    <p>
+        식 (1.2.8)에 위의 극한을 적용하면 고정된 Control volume에 대한
+        <strong>Reynolds transport theorem</strong>을 얻는다.
+    </p>
+    <div class="equation main">\[
+        \boxed{\displaystyle
+        \begin{aligned}
+            \frac{\mathrm dB_{\mathrm{system}}}{\mathrm dt}
+            &=\frac{\partial}{\partial t}\int_{CV}\rho b\,\mathrm dV
+            \\[2.8ex]
+            &\quad+\oint_{CS}\rho b(\boldsymbol u\cdot\boldsymbol n)\,\mathrm dA
+        \end{aligned}}
+        \tag{1.2.10}
+    \]</div>
+    <p>
+        왼쪽은 선택한 동일한 입자들의 물리량 변화율이고,
+        오른쪽은 고정된 영역에 저장된 양의 변화율과 경계를 통한 순수송률의 합이다.
+        모든 항의 단위는 물리량/시간이다. 기준시각 \(t\)는 임의로 선택할 수 있으므로,
+        이 정리는 <strong>각 순간 Control volume과 일치하는 System의 변화율</strong>을 계산하는 관계가 된다.
+    </p>
+    <div class="concept-note"><p>
+        식 (1.2.6)은 두 영역이 일치하는 기준시각의 관계이다.
+        이후에도 동일한 System을 따라가면 입자들이 이동하므로 두 영역은 일반적으로 달라진다.
+        따라서 그 순간 물리량이 같다는 이유만으로 <strong>두 시간변화율까지 같다고 둘 수는 없다.</strong>
+        그 차이가 식 (1.2.10)의 Surface flux로 나타난다.
+    </p></div>
+</section>
+
+<section id="choice-of-property" aria-labelledby="property-title">
+    <h2 id="property-title">3. Choice of the Property</h2>
+    <h3>Mass, Linear Momentum, and Total Energy</h3>
+    <p>
+        Reynolds transport theorem은 관찰 영역 사이의 관계를 나타낸다.
+        계산할 물리량에 따라 \(B\)와 \(b\)를 선택하고,
+        <strong>System의 변화율을 결정하는 물리법칙</strong>을 왼쪽에 적용하면 해당 보존식을 얻는다.
+    </p>
+    <div class="comparison-wrap"><table class="comparison" aria-label="물리량에 따른 RTT 변수 선택">
+        <thead><tr><th scope="col">Physical quantity</th><th scope="col">Extensive property</th><th scope="col">Specific property</th></tr></thead>
+        <tbody>
+            <tr><th scope="row">Mass</th><td>\(B=m\)</td><td>\(b=1\)</td></tr>
+            <tr><th scope="row">Linear momentum</th><td>\(B=\boldsymbol P\)</td><td>\(b=\boldsymbol u\)</td></tr>
+            <tr><th scope="row">Total energy</th><td>\(B=E_{\mathrm{system}}\)</td><td>\(b=e+V^2/2+gz\)</td></tr>
+        </tbody>
+    </table></div>
+    <h3>Mass Conservation</h3>
+    <p>
+        질량을 선택하면 단위질량당 질량은 1이다.
+        \(b=1\)을 대입하고 System의 질량보존 조건 \(\mathrm dm_{\mathrm{system}}/\mathrm dt=0\)을 사용하면
+        다음 Integral continuity equation을 얻는다.
+    </p>
+    <div class="equation">\[
+        \frac{\partial}{\partial t}\int_{CV}\rho\,\mathrm dV
+        +\oint_{CS}\rho(\boldsymbol u\cdot\boldsymbol n)\,\mathrm dA=0
+        \tag{1.2.11}
+    \]</div>
+    <h3>Linear Momentum</h3>
+    <p>
+        운동량은 질량과 속도의 곱이므로 단위질량당 운동량은 속도 벡터이다.
+        따라서 \(b=\boldsymbol u\)를 선택하며, 전체 운동량은 다음과 같다.
+    </p>
+    <div class="equation">\[
+        \boldsymbol P_{\mathrm{system}}
+        =\int_{\mathrm{system}}\rho\boldsymbol u\,\mathrm dV
+        \tag{1.2.12}
+    \]</div>
+    <p>
+        관성기준계에서 이 System의 운동량 변화율은 외력의 합과 같다.
+        이 조건을 적용하면 각 속도 성분에 대한 Storage와 Momentum flux가 외력과 균형을 이루는 운동량방정식이 된다.
+    </p>
+    <h3>Total Energy</h3>
+    <p>
+        단위질량당 총에너지는 내부에너지 \(e\), 운동에너지 \(V^2/2\), 중력 위치에너지 \(gz\)의 합으로 쓴다.
+        여기서 \(V=|\boldsymbol u|\)는 속력, \(g\)는 일정한 중력가속도의 크기,
+        \(z\)는 기준면에서 위쪽으로 잰 높이이다. 세 항의 단위는 모두 \(\mathrm{J/kg}\)이다.
+    </p>
+    <div class="equation">\[
+        E_{\mathrm{system}}
+        =\int_{\mathrm{system}}\rho\left(e+\frac{V^2}{2}+gz\right)\,\mathrm dV
+        \tag{1.2.13}
+    \]</div>
+    <p>
+        에너지의 경우에는 System의 변화율을 열과 일의 전달에 연결하는
+        <strong>First law of thermodynamics</strong>를 적용한다.
+        따라서 에너지나 운동량을 선택할 때 System의 변화율을 일괄적으로 0으로 두지 않고,
+        각 물리법칙이 규정하는 열·일 또는 외력의 기여를 사용한다.
+    </p>
+</section>
+<footer><a href="../">← Fundamentals로 돌아가기</a></footer>
+</main>
+<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#system-and-control-volume" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>System and Control Volume</span></a><a href="#storage-and-flux" class="sidebar-link"><span class="item-number">2.</span><span>Storage and Flux Decomposition</span></a><a href="#choice-of-property" class="sidebar-link"><span class="item-number">3.</span><span>Choice of the Property</span></a></nav></aside>
+</div>
+<script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script>
 </body>
-
 </html>

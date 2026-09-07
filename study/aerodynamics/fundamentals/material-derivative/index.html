@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Material derivative와 Material acceleration의 정의 및 물리적 의미를 설명합니다.">
+    <meta name="description" content="Material derivative는 이동하는 유체입자가 실제로 경험하는 물리량의 시간변화율이다. 공간에 정의된 온도·밀도·속도 등의 분포를 알고 있다면, 입자가 어느 위치로 움직이는지를 함께 고려하여 이 변화율을 계산할 수 있다. 고정된 위치에서의 변화와 입자의 이동에 따른 변화를 분리하면, 유동장이 시간에 따라 변하지 않는 Steady flow에서도 입자가 가속될 수 있는 관계가 드러난다.">
     <title>1.1 Material Derivative | Isp99</title>
-
     <script>
         window.MathJax = {
             tex: {
@@ -16,440 +14,469 @@
             chtml: { scale: 1.02 }
         };
     </script>
-
     <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="stylesheet" href="../fundamentals.css">
-
+    <!-- Page styles are self-contained. This file can replace material-derivative/index.html. -->
     <style>
-        body.article-page {
-            max-width: none !important;
-            margin: 0 !important;
-            padding: 0 !important;
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
         }
 
-        body.article-page .page-layout {
-            display: grid !important;
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
             grid-template-columns: 270px minmax(0, 860px) 270px;
-            gap: 170px;
+            column-gap: 170px;
+            justify-content: center;
             width: 100%;
             max-width: 1800px;
             margin: 0 auto;
             padding: 36px 24px 90px;
         }
-
-        body.article-page .main-content {
-            min-width: 0;
-        }
-
-        body.article-page .main-content > nav {
+        .main-content { min-width: 0; }
+        .main-content > nav {
             margin: 0 0 30px;
-            padding: 0;
-            border: 0;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
         }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
 
-        body.article-page .left-sidebar,
-        body.article-page .right-sidebar {
-            display: block;
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
             min-width: 0;
             padding-top: 2px;
-            color: #666666;
+            color: var(--muted);
             font-size: 16px;
             line-height: 1.65;
         }
-
-        body.article-page .sidebar-inner {
+        .sidebar-inner {
             position: sticky;
             top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
         }
-
-        body.article-page .sidebar-title {
+        .sidebar-title {
             display: block;
-            margin-bottom: 16px;
+            margin: 0 0 16px;
             padding-bottom: 9px;
-            border-bottom: 1px solid #dddddd;
-            color: #222222;
+            border-bottom: 1px solid var(--line);
+            color: #222;
             font-size: 20px;
             font-weight: 700;
             text-decoration: none;
         }
-
-        body.article-page .sidebar-title-link:hover {
-            text-decoration: underline;
-        }
-
-        body.article-page .sidebar-group {
-            margin-bottom: 42px;
-        }
-
-        body.article-page .sidebar-group-title {
-            margin: 0 0 10px;
-            color: #555555;
-            font-size: 19.5px;
-            font-weight: 400;
-        }
-
-        body.article-page .sidebar-link {
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
             display: block;
-            padding: 4px 0 4px 30px;
+            padding: 4px 0 4px 24px;
             border-left: 2px solid transparent;
-            color: #777777;
+            color: #777;
             text-decoration: none;
         }
-
-        body.article-page .sidebar-link:hover {
-            color: #222222;
-        }
-
-        body.article-page .sidebar-link.active {
-            border-left-color: #444444;
-            color: #161616;
-            font-weight: 700;
-        }
-
-        body.article-page .right-sidebar .sidebar-link {
-            padding: 18px 0;
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
             border-left: 0;
         }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
 
-        @media (max-width: 1347px) and (min-width: 1101px) {
-            body.article-page .page-layout {
-                grid-template-columns: 180px minmax(0, 760px) 180px;
-                gap: 35px;
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
             }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
         }
-
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
         @media (max-width: 1100px) {
-            body.article-page .page-layout {
-                display: block !important;
-                max-width: 860px;
-                padding: 44px 34px 90px;
-            }
-
-            body.article-page .left-sidebar,
-            body.article-page .right-sidebar {
-                display: none;
-            }
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
         }
-
         @media (max-width: 650px) {
-            body.article-page .page-layout {
-                padding: 28px 20px 65px;
-            }
-
-            body.article-page .main-content > nav {
-                margin-bottom: 24px;
-            }
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
         }
     </style>
 </head>
-
-<body class="article-page">
-    <div class="page-layout">
-
-        <aside class="left-sidebar" aria-label="Fundamentals navigation">
-            <div class="sidebar-inner">
-                <a href="../" class="sidebar-title sidebar-title-link">Fundamentals</a>
-
+<body class="article-page"><div class="page-layout">
+<aside class="left-sidebar" aria-label="Fundamentals navigation">
+            <nav class="sidebar-inner">
+                <a href="../" class="sidebar-title">Fundamentals</a>
                 <div class="sidebar-group">
                     <div class="sidebar-group-title">1. Mathematical Foundation</div>
-                    <a href="../material-derivative/"
-                       class="sidebar-link active"
-                       aria-current="page">
-                        1.1 Material Derivative
-                    </a>
-                    <a href="../reynolds-transport-theorem/"
-                       class="sidebar-link">
-                        1.2 Reynolds Transport Theorem
-                    </a>
+                    <a href="../material-derivative/" class="sidebar-link active" aria-current="page"><span class="item-number">1.1</span> Material Derivative</a>
+                    <a href="../reynolds-transport-theorem/" class="sidebar-link"><span class="item-number">1.2</span> Reynolds Transport Theorem</a>
                 </div>
-
                 <div class="sidebar-group">
                     <div class="sidebar-group-title">2. Conservation Laws</div>
-                    <a href="../continuity-equation/"
-                       class="sidebar-link">
-                        2.1 Continuity Equation
-                    </a>
-                    <a href="../conservation-of-momentum/"
-                       class="sidebar-link">
-                        2.2 Conservation of Momentum
-                    </a>
-                    <a href="../conservation-of-energy/"
-                       class="sidebar-link">
-                        2.3 Conservation of Energy
-                    </a>
+                    <a href="../continuity-equation/" class="sidebar-link"><span class="item-number">2.1</span> Continuity Equation</a>
+                    <a href="../conservation-of-momentum/" class="sidebar-link"><span class="item-number">2.2</span> Conservation of Momentum</a>
+                    <a href="../conservation-of-energy/" class="sidebar-link"><span class="item-number">2.3</span> Conservation of Energy</a>
                 </div>
-
                 <div class="sidebar-group">
                     <div class="sidebar-group-title">3. Related Equations</div>
-                    <a href="../newtonian-stress-relation/"
-                       class="sidebar-link">
-                        3.1 Newtonian Stress Relation
-                    </a>
-                    <a href="../euler-and-bernoulli-equations/"
-                       class="sidebar-link">
-                        3.2 Euler and Bernoulli Equations
-                    </a>
+                    <a href="../newtonian-stress-relation/" class="sidebar-link"><span class="item-number">3.1</span> Newtonian Stress Relation</a>
+                    <a href="../euler-and-bernoulli-equations/" class="sidebar-link"><span class="item-number">3.2</span> Euler and Bernoulli Equations</a>
                 </div>
-            </div>
-        </aside>
-
-
-        <main class="main-content" id="top">
-
-            <nav>
-                <a href="#top">1.1 Material Derivative</a>
             </nav>
-
-            <header>
-                <h1>1.1 Material Derivative</h1>
-
-                <p class="subtitle">
-                    Eulerian Field, Moving Fluid Particle, and Material Acceleration
-                </p>
-
-                <p class="intro">
-                    Material derivative는 공간에 정의된 Field의 변화를
-                    <strong>이동하는 유체입자가 실제로 경험하는 시간변화율</strong>로 바꾸어 준다.
-                    고정된 위치에서 관찰한 변화와 입자가 공간을 이동하며 겪는 변화를 구분하면,
-                    Steady flow에서도 Acceleration이 존재할 수 있는 이유까지 자연스럽게 드러난다.
-                </p>
-            </header>
-
-
-            <aside class="contents" aria-label="Contents">
-                <strong>Contents</strong>
-                <ol>
-                    <li>
-                        <a href="#field-and-particle">
-                            Eulerian Field and a Moving Fluid Particle
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#material-acceleration">
-                            Material Acceleration
-                        </a>
-                    </li>
-                </ol>
-            </aside>
-
-
-            <section id="field-and-particle">
-
-                <h2>1. Eulerian Field and a Moving Fluid Particle</h2>
-
-                <h3>Field와 입자의 두 관점</h3>
-
-                <p>
-                    Eulerian description에서는 Velocity, Temperature, Density와 같은 물리량을
-                    \(\phi=\phi(x,y,z,t)\)처럼
-                    <strong>공간의 각 위치에 정의된 Field</strong>로 나타낸다.
-                    이 표현은 실험 장비나 계산 격자처럼 고정된 위치에서 유동을 관찰할 때 편리하다.
-                </p>
-
-                <p>
-                    반면 Lagrangian description은 하나의 유체입자를 정한 뒤 그 입자를 따라간다.
-                    유체입자는 계속 이동하므로 좌표도 시간의 함수가 된다.
-                </p>
-
-                <div class="equation">
-                    \[
-                        x=x(t), \qquad y=y(t), \qquad z=z(t)
-                        \tag{1.1.1}
-                    \]
-                </div>
-
-                <p>
-                    같은 물리현상을 두 관점으로 기술할 수 있지만,
-                    Conservation law에 등장하는 입자의 변화율을 Eulerian field만으로 표현하려면
-                    두 관점을 이어 주는 연산자가 필요하다.
-                    그 역할을 하는 것이 <strong>Material derivative</strong>이다.
-                </p>
-
-
-                <h3>Chain rule과 이동에 의한 변화</h3>
-
-                <p>
-                    입자가 경험하는 \(\phi\)는 시간에 직접 의존할 뿐 아니라,
-                    입자의 위치 \(x(t),y(t),z(t)\)를 통해서도 시간에 의존한다.
-                    따라서 입자를 따라 미분할 때는 Chain rule을 사용해야 한다.
-                </p>
-
-                <div class="equation">
-                    \[
-                        \begin{aligned}
-                        \frac{\mathrm d\phi}{\mathrm dt}
-                        &=
-                        \frac{\partial\phi}{\partial t}
-                        +
-                        \frac{\partial\phi}{\partial x}
-                        \frac{\mathrm dx}{\mathrm dt}
-                        +
-                        \frac{\partial\phi}{\partial y}
-                        \frac{\mathrm dy}{\mathrm dt}
-                        +
-                        \frac{\partial\phi}{\partial z}
-                        \frac{\mathrm dz}{\mathrm dt}
-                        \\[3.0ex]
-                        &=
-                        \frac{\partial\phi}{\partial t}
-                        +
-                        u\frac{\partial\phi}{\partial x}
-                        +
-                        v\frac{\partial\phi}{\partial y}
-                        +
-                        w\frac{\partial\phi}{\partial z}
-                        \\[3.0ex]
-                        &=
-                        \frac{\partial\phi}{\partial t}
-                        +
-                        \boldsymbol{u}\cdot\nabla\phi
-                        \end{aligned}
-                        \tag{1.1.2}
-                    \]
-                </div>
-
-                <p>
-                    여기서 \(\mathrm dx/\mathrm dt=u\),
-                    \(\mathrm dy/\mathrm dt=v\),
-                    \(\mathrm dz/\mathrm dt=w\)는 입자의 Velocity component이다.
-                    즉, 좌표의 시간변화가 Velocity로 바뀌면서
-                    <strong>공간적 변화와 입자의 이동이 하나의 항</strong>으로 결합된다.
-                </p>
-
-                <div class="equation main">
-                    \[
-                        \boxed{\displaystyle
-                        \frac{D\phi}{Dt}
-                        =
-                        \frac{\partial\phi}{\partial t}
-                        +
-                        \boldsymbol{u}\cdot\nabla\phi}
-                        \tag{1.1.3}
-                    \]
-                </div>
-
-                <p>
-                    Material derivative를 이루는 두 항은 변화가 생기는 원인을 구분해 준다.
-                </p>
-
-                <ul class="explanation-list">
-                    <li>
-                        \(\partial\phi/\partial t\):
-                        고정된 한 위치에서 Field 자체가 시간에 따라 변하는
-                        <strong>Local change</strong>
-                    </li>
-
-                    <li>
-                        \(\boldsymbol{u}\cdot\nabla\phi\):
-                        입자가 공간 구배를 가로질러 이동하면서 겪는
-                        <strong>Convective change</strong>
-                    </li>
-                </ul>
-
-            </section>
-
-
-            <section id="material-acceleration">
-
-                <h2>2. Material Acceleration</h2>
-
-                <h3>Velocity field에 대한 적용</h3>
-
-                <p>
-                    Acceleration은 한 유체입자의 Velocity가 시간에 따라 변하는 비율이다.
-                    따라서 Material derivative의 대상에 Scalar \(\phi\) 대신
-                    Velocity vector \(\boldsymbol{u}\)를 넣으면
-                    <strong>유체입자의 실제 Acceleration</strong>을 얻는다.
-                </p>
-
-                <div class="equation">
-                    \[
-                        \boldsymbol{a}
-                        =
-                        \frac{D\boldsymbol{u}}{Dt}
-                        \tag{1.1.4}
-                    \]
-                </div>
-
-                <p>
-                    \(x\)방향 성분을 전개하면 한 위치에서의 Velocity 변화와
-                    공간적으로 다른 Velocity를 통과하며 생기는 변화가 분리되어 나타난다.
-                </p>
-
-                <div class="equation">
-                    \[
-                        \begin{aligned}
-                        a_x
-                        &=
-                        \frac{Du}{Dt}
-                        \\[2.8ex]
-                        &=
-                        \frac{\partial u}{\partial t}
-                        +
-                        u\frac{\partial u}{\partial x}
-                        +
-                        v\frac{\partial u}{\partial y}
-                        +
-                        w\frac{\partial u}{\partial z}
-                        \end{aligned}
-                        \tag{1.1.5}
-                    \]
-                </div>
-
-                <p>
-                    같은 전개를 세 방향에 적용하면 Vector form은 다음과 같다.
-                </p>
-
-                <div class="equation main">
-                    \[
-                        \boxed{\displaystyle
-                        \boldsymbol{a}
-                        =
-                        \frac{\partial\boldsymbol{u}}{\partial t}
-                        +
-                        (\boldsymbol{u}\cdot\nabla)\boldsymbol{u}}
-                        \tag{1.1.6}
-                    \]
-                </div>
-
-                <div class="concept-note">
-                    <p>
-                        <strong>Steady flow는 Acceleration이 0이라는 뜻이 아니다.</strong>
-                        Steady 조건은 고정된 위치에서
-                        \(\partial\boldsymbol{u}/\partial t=0\)임을 뜻한다.
-                        Nozzle처럼 단면적에 따라 Velocity가 달라지는 유동에서는
-                        입자가 이동하며 다른 Velocity를 만나므로 Convective acceleration
-                        \((\boldsymbol{u}\cdot\nabla)\boldsymbol{u}\)가 남을 수 있다.
-                    </p>
-                </div>
-
-            </section>
-
-
-            <footer>
-                <a href="../">← Fundamentals로 돌아가기</a>
-            </footer>
-
-        </main>
-
-
-        <aside class="right-sidebar" aria-label="On this page">
-            <div class="sidebar-inner">
-
-                <div class="sidebar-title">On this page</div>
-
-                <a href="#field-and-particle" class="sidebar-link">
-                    1. Eulerian Field and a Moving Fluid Particle
-                </a>
-
-                <a href="#material-acceleration" class="sidebar-link">
-                    2. Material Acceleration
-                </a>
-
-            </div>
         </aside>
+<main class="main-content" id="top">
+<nav aria-label="Current article"><a href="#top">1.1 Material Derivative</a></nav>
+<header><h1>1.1 Material Derivative</h1><p class="subtitle">Eulerian Field, Moving Fluid Particle, and Material Acceleration</p><p class="intro">
+    <strong>Material derivative</strong>는 이동하는 유체입자가 실제로 경험하는 물리량의 시간변화율이다.
+    공간에 정의된 온도·밀도·속도 등의 분포를 알고 있다면, 입자가 어느 위치로 움직이는지를 함께 고려하여 이 변화율을 계산할 수 있다.
+    고정된 위치에서의 변화와 입자의 이동에 따른 변화를 분리하면, 유동장이 시간에 따라 변하지 않는
+    <strong>Steady flow에서도 입자가 가속될 수 있는 관계</strong>가 드러난다.
+</p></header>
+<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#field-and-particle">Eulerian Field and a Moving Fluid Particle</a></li><li><a href="#material-acceleration">Material Acceleration</a></li></ol></aside>
+<section id="field-and-particle" aria-labelledby="eulerian-title">
+    <h2 id="eulerian-title">1. Eulerian Field and a Moving Fluid Particle</h2>
+    <h3>Eulerian and Lagrangian Descriptions</h3>
+    <p>
+        <strong>Eulerian description</strong>은 공간의 각 위치에 물리량을 정의하는 관점이다.
+        어떤 스칼라 물리량을 \(\phi\)라 하면 \(\phi=\phi(x,y,z,t)\)로 나타낸다.
+        이 함수에 특정한 좌표와 시각을 대입하면 그 위치에서 관찰하는 물리량의 값을 얻는다.
+        여기서 \(\partial\phi/\partial t\)는 \(x,y,z\)를 고정한 채 시간만 변화시켜 계산한 미분이다.
+    </p>
+    <p>
+        <strong>Lagrangian description</strong>은 하나의 유체입자를 선택한 뒤 그 입자를 따라가는 관점이다.
+        입자가 움직이면 위치도 시간에 따라 달라지므로, 입자의 궤적을 다음과 같이 나타낸다.
+    </p>
+    <div class="equation">\[
+        \boldsymbol x_p(t)=\bigl(x_p(t),y_p(t),z_p(t)\bigr)
+        \tag{1.1.1}
+    \]</div>
+    <p>
+        아래첨자 \(p\)는 선택한 입자의 위치임을 나타낸다.
+        그 입자가 경험하는 물리량은 공간에 정의된 함수 \(\phi\)에 입자의 위치를 대입한 값이다.
+    </p>
+    <div class="equation">\[
+        \phi_p(t)=\phi\bigl(x_p(t),y_p(t),z_p(t),t\bigr)
+        \tag{1.1.2}
+    \]</div>
+    <p>
+        이 식에는 시간에 직접 의존하는 부분과 입자의 위치를 통해 시간에 의존하는 부분이 함께 들어 있다.
+        따라서 입자를 따라 관찰한 변화율을 구할 때는 <strong>시간과 위치의 변화가 만드는 기여를 모두 포함</strong>해야 한다.
+    </p>
 
-    </div>
+    <h3>Chain Rule Along a Particle Trajectory</h3>
+    <p>
+        식 (1.1.2)에 합성함수의 미분법인 <strong>Chain rule</strong>을 적용한다.
+        입자의 궤적을 따라 시간미분하면 다음 네 항이 나타난다.
+    </p>
+    <div class="equation">\[
+        \begin{aligned}
+            \frac{\mathrm d\phi_p}{\mathrm dt}
+            &=\frac{\partial\phi}{\partial t}
+            +\frac{\partial\phi}{\partial x}\frac{\mathrm dx_p}{\mathrm dt}
+            \\[2.8ex]
+            &\quad+\frac{\partial\phi}{\partial y}\frac{\mathrm dy_p}{\mathrm dt}
+            +\frac{\partial\phi}{\partial z}\frac{\mathrm dz_p}{\mathrm dt}
+        \end{aligned}
+        \tag{1.1.3}
+    \]</div>
+    <p>
+        우변의 편미분은 모두 현재 입자의 위치 \(\boldsymbol x_p(t)\)에서 평가한다.
+        첫째 항은 고정된 위치에서의 시간변화이고, 나머지 세 항은 각 방향의 공간 구배에 그 방향의 이동속도를 곱한 값이다.
+        유체입자는 그 위치의 유체 속도로 움직이므로 다음 관계가 성립한다.
+    </p>
+    <div class="equation">\[
+        \frac{\mathrm dx_p}{\mathrm dt}=u,\qquad
+        \frac{\mathrm dy_p}{\mathrm dt}=v,\qquad
+        \frac{\mathrm dz_p}{\mathrm dt}=w
+        \tag{1.1.4}
+    \]</div>
+    <p>
+        여기서 \(\boldsymbol u=(u,v,w)\)는 속도 벡터이다.
+        식 (1.1.4)를 식 (1.1.3)에 대입하면, 입자가 경험하는 변화율을 공간상의 물리량 분포와 속도로 표현할 수 있다.
+    </p>
+    <div class="equation">\[
+        \frac{\mathrm d\phi_p}{\mathrm dt}
+        =\frac{\partial\phi}{\partial t}
+        +u\frac{\partial\phi}{\partial x}
+        +v\frac{\partial\phi}{\partial y}
+        +w\frac{\partial\phi}{\partial z}
+        \tag{1.1.5}
+    \]</div>
+
+    <h3>Material-Derivative Operator</h3>
+    <p>
+        공간미분을 모은 벡터는
+        \(\nabla\phi=(\partial\phi/\partial x,\partial\phi/\partial y,\partial\phi/\partial z)\)이다.
+        따라서 식 (1.1.5)의 공간 변화에 해당하는 세 항은 \(\boldsymbol u\cdot\nabla\phi\)로 묶인다.
+        입자를 따라 관찰한 변화율을 \(D\phi/Dt\)로 표기하면 다음 정의를 얻는다.
+    </p>
+    <div class="equation main">\[
+        \boxed{\displaystyle
+        \frac{D\phi}{Dt}=\frac{\partial\phi}{\partial t}
+        +\boldsymbol u\cdot\nabla\phi}
+        \tag{1.1.6}
+    \]</div>
+    <ul class="explanation-list">
+        <li><strong>Local change</strong>, \(\partial\phi/\partial t\):
+            고정된 한 위치에서 물리량 자체가 시간에 따라 변하는 기여이다.</li>
+        <li><strong>Convective change</strong>, \(\boldsymbol u\cdot\nabla\phi\):
+            입자가 공간적으로 다른 값을 갖는 위치로 이동하면서 경험하는 기여이다.</li>
+    </ul>
+    <p>
+        두 항의 단위는 모두 물리량의 단위를 시간으로 나눈 값이다.
+        공간 구배의 단위는 물리량/길이이고, 여기에 길이/시간의 단위를 갖는 속도를 곱하면 시간변화율이 된다.
+        입자의 이동방향으로 물리량이 증가하면 Convective change가 양수이고, 감소하면 음수이다.
+    </p>
+    <div class="equation">\[
+        \frac{D}{Dt}=\frac{\partial}{\partial t}
+        +u\frac{\partial}{\partial x}
+        +v\frac{\partial}{\partial y}
+        +w\frac{\partial}{\partial z}
+        \tag{1.1.7}
+    \]</div>
+    <p>
+        식 (1.1.7)은 뒤에 오는 물리량에 작용하는 미분 연산자이다.
+        \(\boldsymbol u\cdot\nabla\)는 속도와 공간미분을 결합한 연산이며,
+        그 뒤에 오는 물리량을 미분한 뒤 각 방향의 기여를 합한다.
+    </p>
+
+    <h3>Steady Flow and Convective Change</h3>
+    <p>
+        <strong>Steady flow</strong>에서는 고정된 위치의 유동 물리량이 시간에 따라 변하지 않는다.
+        따라서 해당 물리량에 대해 \(\partial\phi/\partial t=0\)이지만,
+        공간 구배와 입자의 이동에 따른 기여는 남을 수 있다.
+    </p>
+    <div class="equation">\[
+        \frac{D\phi}{Dt}=\boldsymbol u\cdot\nabla\phi
+        \qquad\text{(Steady flow)}
+        \tag{1.1.8}
+    \]</div>
+    <div class="concept-note"><p>
+        <strong>고정된 위치에서 값이 일정한 조건</strong>과
+        <strong>입자가 이동하는 동안 경험하는 값이 일정한 조건</strong>은 서로 다르다.
+        Steady flow에서도 이동방향의 공간 구배가 존재하면 \(D\phi/Dt\)는 0이 아닐 수 있다.
+        반대로 그 방향의 구배가 0이면 Convective change도 0이다.
+    </p></div>
+</section>
+
+<section id="material-acceleration" aria-labelledby="acceleration-title">
+    <h2 id="acceleration-title">2. Material Acceleration</h2>
+    <h3>Material Derivative of the Velocity Field</h3>
+    <p>
+        가속도는 유체입자 자신의 속도가 시간에 따라 변하는 비율이다.
+        따라서 속도 벡터의 각 성분에 Material derivative를 적용하면 그 입자의 가속도를 얻는다.
+        궤적을 따라 \(\boldsymbol u_p(t)=\boldsymbol u(\boldsymbol x_p(t),t)\)로 두면 다음과 같다.
+    </p>
+    <div class="equation">\[
+        \boldsymbol a
+        =\frac{\mathrm d\boldsymbol u_p}{\mathrm dt}
+        =\frac{D\boldsymbol u}{Dt}
+        \tag{1.1.9}
+    \]</div>
+    <p>
+        \(x\) 방향 속도 성분 \(u\)에 식 (1.1.7)을 적용하면,
+        한 점에서의 속도 변화와 세 방향으로 이동하면서 경험하는 속도 변화가 함께 나타난다.
+    </p>
+    <div class="equation">\[
+        a_x=\frac{\partial u}{\partial t}
+        +u\frac{\partial u}{\partial x}
+        +v\frac{\partial u}{\partial y}
+        +w\frac{\partial u}{\partial z}
+        \tag{1.1.10}
+    \]</div>
+    <p>
+        \(y,z\) 방향에도 동일하게 적용하여 세 성분을 모으면
+        <strong>Material acceleration</strong>의 벡터 표현을 얻는다.
+    </p>
+    <div class="equation main">\[
+        \boxed{\displaystyle
+        \boldsymbol a=\frac{D\boldsymbol u}{Dt}
+        =\frac{\partial\boldsymbol u}{\partial t}
+        +(\boldsymbol u\cdot\nabla)\boldsymbol u}
+        \tag{1.1.11}
+    \]</div>
+    <p>
+        \((\boldsymbol u\cdot\nabla)\boldsymbol u\)에서는 괄호 안의 미분 연산자가 뒤의 속도 벡터에 성분별로 작용한다.
+        결과는 세 개의 가속도 성분을 갖는 벡터이며, 각 성분의 단위는 \(\mathrm{m/s^2}\)이다.
+    </p>
+    <ul class="explanation-list">
+        <li><strong>Local acceleration</strong>, \(\partial\boldsymbol u/\partial t\):
+            고정된 위치에서 속도장이 시간에 따라 변하여 생기는 가속도이다.</li>
+        <li><strong>Convective acceleration</strong>, \((\boldsymbol u\cdot\nabla)\boldsymbol u\):
+            입자가 공간적으로 다른 속도를 갖는 위치로 이동하여 생기는 가속도이다.</li>
+    </ul>
+    <h3>Acceleration in a Steady Flow</h3>
+    <p>
+        Steady flow에서는 Local acceleration이 0이고, 전체 가속도는 Convective acceleration으로 결정된다.
+        Nozzle과 같이 위치에 따라 속도가 달라지는 유동에서는
+        <strong>각 위치의 속도가 시간에 따라 일정해도 입자는 이동하면서 가속될 수 있다.</strong>
+        이때 속도 벡터의 변화에는 크기의 변화와 방향의 변화가 모두 포함된다.
+    </p>
+    <p>
+        이후 운동량방정식에 나타나는 \(\rho D\boldsymbol u/Dt\)는
+        이 입자 가속도에 단위체적당 질량을 곱한 값이다.
+        따라서 Material derivative는 공간에 표현된 유동장으로부터 유체입자에 적용되는 운동법칙을 계산할 수 있게 한다.
+    </p>
+</section>
+<footer><a href="../">← Fundamentals로 돌아가기</a></footer>
+</main>
+<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#field-and-particle" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Eulerian Field and a Moving Fluid Particle</span></a><a href="#material-acceleration" class="sidebar-link"><span class="item-number">2.</span><span>Material Acceleration</span></a></nav></aside>
+</div>
+<script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script>
 </body>
-
 </html>
