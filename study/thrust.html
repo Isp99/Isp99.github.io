@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Momentum thrust, pressure thrust, and nozzle expansion ratio">
+    <title>1.1 Thrust | Isp99</title>
+    <link rel="stylesheet" href="../rocket-propulsion.css">
+    <script defer src="../mathjax-config.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer src="../navigation.js"></script>
+</head>
+<body class="article-page">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<div class="page-layout">
+<aside class="sidebar chapter-sidebar" aria-label="Study contents"><div class="sidebar-title">Contents</div><a class="sidebar-home" href="../index.html">Rocket Propulsion System</a><details open><summary><span class="chapter-number">1</span>Fundamentals</summary><ul><li class="chapter-overview"><a href="../fundamentals/index.html">Chapter overview</a></li><li><a href="../fundamentals/thrust.html" aria-current="page"><span class="nav-number">1.1</span><span>Thrust</span></a></li><li><a href="../fundamentals/specific-impulse.html"><span class="nav-number">1.2</span><span>Effective Exhaust Velocity and Specific Impulse</span></a></li><li><a href="../fundamentals/combustion-and-nozzle-performance.html"><span class="nav-number">1.3</span><span>Characteristic Velocity and Thrust Coefficient</span></a></li><li><a href="../fundamentals/vehicle-performance-parameters.html"><span class="nav-number">1.4</span><span>Vehicle Performance Parameters</span></a></li><li><a href="../fundamentals/tsiolkovsky-rocket-equation.html"><span class="nav-number">1.5</span><span>Tsiolkovsky Rocket Equation</span></a></li><li><a href="../fundamentals/mission-performance.html"><span class="nav-number">1.6</span><span>Design Methodology and Mission Performance</span></a></li></ul></details><details><summary><span class="chapter-number">2</span>Thermodynamics and Nozzle</summary><ul><li class="chapter-overview"><a href="../thermodynamics-and-nozzle/index.html">Chapter overview</a></li><li><a href="../thermodynamics-and-nozzle/thermodynamic-relations.html"><span class="nav-number">2.1</span><span>Thermodynamic Relations</span></a></li><li><a href="../thermodynamics-and-nozzle/ideal-nozzle-assumptions.html"><span class="nav-number">2.2</span><span>Ideal Nozzle Assumptions</span></a></li><li><a href="../thermodynamics-and-nozzle/nozzle-structure-and-area-velocity.html"><span class="nav-number">2.3</span><span>Nozzle Structure and Area-Velocity Relation</span></a></li><li><a href="../thermodynamics-and-nozzle/velocity-and-throat-conditions.html"><span class="nav-number">2.4</span><span>Flow Velocity and Throat Conditions</span></a></li><li><a href="../thermodynamics-and-nozzle/cd-nozzle-flow-regimes.html"><span class="nav-number">2.5</span><span>Flow Regimes in a CD Nozzle</span></a></li></ul></details><details><summary><span class="chapter-number">3</span>Liquid Rocket</summary><ul><li class="chapter-overview"><a href="../liquid-rocket/index.html">Chapter overview</a></li><li><a href="../liquid-rocket/overview.html"><span class="nav-number">3.1</span><span>Liquid Rocket Overview</span></a></li><li><a href="../liquid-rocket/gas-pressurized-feed-system.html"><span class="nav-number">3.2</span><span>Gas-Pressurized Feed System</span></a></li><li><a href="../liquid-rocket/turbopump-feed-system.html"><span class="nav-number">3.3</span><span>Turbopump Feed System</span></a></li><li><a href="../liquid-rocket/electric-pump-feed-system.html"><span class="nav-number">3.4</span><span>Electric Pump Feed System</span></a></li><li><a href="../liquid-rocket/gas-generator-cycle.html"><span class="nav-number">3.5</span><span>Gas Generator Cycle</span></a></li><li><a href="../liquid-rocket/tap-off-cycle.html"><span class="nav-number">3.6</span><span>Tap-off Cycle</span></a></li><li><a href="../liquid-rocket/coolant-bleed-cycle.html" class="pending-link"><span class="nav-number">3.7</span><span>Coolant Bleed Cycle<span class="pending-mark"> · In progress</span></span></a></li><li><a href="../liquid-rocket/expander-cycle.html"><span class="nav-number">3.8</span><span>Expander Cycle</span></a></li><li><a href="../liquid-rocket/staged-combustion-cycle.html"><span class="nav-number">3.9</span><span>Staged Combustion Cycle</span></a></li><li><a href="../liquid-rocket/propellant-classification.html"><span class="nav-number">3.10</span><span>Propellant Classification</span></a></li><li><a href="../liquid-rocket/propellant-properties.html"><span class="nav-number">3.11</span><span>Propellant Properties</span></a></li><li><a href="../liquid-rocket/liquid-fuels.html" class="pending-link"><span class="nav-number">3.12</span><span>Liquid Fuels<span class="pending-mark"> · In progress</span></span></a></li><li><a href="../liquid-rocket/liquid-oxidizers.html" class="pending-link"><span class="nav-number">3.13</span><span>Liquid Oxidizers<span class="pending-mark"> · In progress</span></span></a></li></ul></details><details><summary><span class="chapter-number">4</span>Solid Rocket</summary><ul><li class="chapter-overview"><a href="../solid-rocket/index.html">Chapter overview</a></li><li><a href="../solid-rocket/overview.html"><span class="nav-number">4.1</span><span>Solid Rocket Overview</span></a></li><li><a href="../solid-rocket/internal-ballistics-and-grain.html"><span class="nav-number">4.2</span><span>Internal Ballistics and Grain Geometry</span></a></li><li><a href="../solid-rocket/propellant-burning-rate.html"><span class="nav-number">4.3</span><span>Propellant Burning Rate</span></a></li><li><a href="../solid-rocket/mass-flow-and-chamber-pressure.html"><span class="nav-number">4.4</span><span>Mass Flow and Chamber Pressure</span></a></li></ul></details></aside>
+<div class="article-main">
+    <nav class="site-nav" aria-label="Main navigation">
+    <a href="/">Home</a>
+    <a href="/#study">Study Notes</a>
+    <a href="/#projects">Projects</a>
+</nav>
+    <p class="breadcrumbs"><a href="../index.html">Rocket Propulsion System</a><span class="sep">/</span><a href="index.html">Fundamentals</a></p>
+    <main id="main-content">
+        <header class="article-header"><h1>1.1 Thrust</h1><p class="subtitle">Momentum thrust, pressure thrust, and nozzle expansion ratio</p></header>
+        <!-- Editorial scope: PDF pp. 6–8. -->
+        <div class="article-intro"><p><strong>Thrust</strong>는 추진제를 배출하면서 로켓이 받는 힘이다. 배출되는 유체의 운동량뿐 아니라 노즐 출구와 주위의 압력 차이도 추력에 기여하므로, 두 효과를 함께 고려한다.</p></div><nav class="in-page-contents" aria-label="Article contents"><h2>Contents</h2><ol><li><a href="#momentum-balance"><span class="toc-num">1</span><span>Momentum Balance</span></a></li><li><a href="#chamber-conditions"><span class="toc-num">2</span><span>Chamber Conditions</span></a></li><li><a href="#expansion-ratio"><span class="toc-num">3</span><span>Expansion Ratio</span></a></li></ol></nav><section class="article-section" id="momentum-balance"><h2><span class="section-number">1.</span>Momentum Balance</h2><figure class="narrow"><img src="../assets/thrust-control-volume.png" width="486" height="566" alt="Control volume of a rocket engine." loading="lazy"><figcaption>Control volume of a rocket engine.</figcaption></figure><p>로켓 엔진을 둘러싼 <strong>Control volume</strong>에 축 방향의 <strong>Momentum equation</strong>을 적용하면 다음과 같다.</p><div class="equation">\[
+\frac{d}{dt}\int_{\mathrm{CV}}\rho V_x\,d\mathcal{V}+\int_{\mathrm{CS}}V_x(\rho\mathbf{V}\cdot\mathbf{n})\,dA=\sum F_x
+\]</div><p><strong>Steady flow</strong>에서는 Control volume 내부에 저장된 운동량이 시간에 따라 변하지 않는다. 출구의 상태량이 단면에서 균일하다고 두면 운동량 유출은 질량유량과 출구속도의 곱으로 정리된다.</p><div class="equation">\[
+\begin{aligned}
+      \frac{d}{dt}\int_{\mathrm{CV}}\rho V_x\,d\mathcal{V}&=0,\\
+      \dot m&=\rho_eV_eA_e,\\
+      \int_{\mathrm{CS}}V_x(\rho\mathbf{V}\cdot\mathbf n)\,dA&=\dot mV_e.
+      \end{aligned}
+\]</div><p>그림의 축 방향 힘을 추력의 크기 \(F\), 주위 압력 \(p_a\), 출구 압력 \(p_e\)로 나타내면 \(\sum F_x=F+p_aA_e-p_eA_e\)이다. 이를 대입하면 <strong>Thrust equation</strong>을 얻는다.</p><div class="equation result">\[
+F=\dot mV_e+(p_e-p_a)A_e
+\]</div><div class="concept"><h3>Momentum Thrust</h3><p>\(\dot mV_e\)는 추진제가 배출되면서 전달하는 운동량에 의한 추력이다. 질량유량이나 출구속도가 커지면 이 항이 증가한다.</p></div><div class="concept"><h3>Pressure Thrust</h3><p>\((p_e-p_a)A_e\)는 출구 압력과 주위 압력의 차이에 의한 추력이다. \(p_e=p_a\)이면 0이 된다.</p></div></section><section class="article-section" id="chamber-conditions"><h2><span class="section-number">2.</span>Chamber Conditions</h2><p><strong>Ideal nozzle</strong>의 출구속도를 대입하면, 추력을 연소실의 정체 온도 \(T_0\), 정체 압력 \(p_0\), 비열비 \(k\), 기체상수 \(R\)로 나타낼 수 있다.</p><div class="equation">\[
+F=\dot m\sqrt{\frac{2k}{k-1}RT_0\left[1-\left(\frac{p_e}{p_0}\right)^{(k-1)/k}\right]}+(p_e-p_a)A_e
+\]</div><p>다른 조건이 같을 때 연소실 온도가 높거나 출구 대비 연소실 압력이 높으면 출구속도가 증가한다. <strong>Choked mass flow</strong>를 함께 대입하면 다음 형태가 된다.</p><div class="equation">\[
+F=p_0A_t\sqrt{\frac{2k^2}{k-1}\left(\frac{2}{k+1}\right)^{(k+1)/(k-1)}\left[1-\left(\frac{p_e}{p_0}\right)^{(k-1)/k}\right]}+(p_e-p_a)A_e
+\]</div><p>이 표현에서는 노즐 목 면적 \(A_t\)와 연소실 압력 \(p_0\)가 추력의 크기를 정하는 기준으로 나타난다. 누리호 1단은 75톤급 엔진 네 개를 묶어 총 300톤급 추력을 구성한다.</p></section><section class="article-section" id="expansion-ratio"><h2><span class="section-number">3.</span>Expansion Ratio</h2><p><strong>Expansion ratio</strong>는 노즐 출구 면적을 목 면적으로 나눈 값이다. 노즐에서 기체를 얼마나 팽창시키는지를 나타낸다.</p><div class="equation result">\[
+\varepsilon=\frac{A_e}{A_t}
+\]</div><p>설계 주위 압력에서 \(p_e=p_a\)가 되도록 팽창시키는 상태를 <strong>Perfect expansion</strong>이라고 한다. 이때 Pressure thrust는 0이며 \(F=\dot mV_e\)이다. 주어진 연소실 조건과 목 면적에서 출구 면적을 변화시켜 비교할 때, 이 조건에서 이상 추력이 최대가 된다.</p></section>
+    </main>
+    <footer>
+        <a href="index.html">← Back to Fundamentals of Rocket Propulsion</a>
+        <nav class="article-pagination" aria-label="Previous and next articles"><span></span><a href="../fundamentals/specific-impulse.html"><span class="direction">Next</span>1.2 Effective Exhaust Velocity and Specific Impulse</a></nav>
+    </footer>
+</div>
+<aside class="sidebar page-toc" aria-label="On this page"><div class="sidebar-title">On this page</div><ol><li><a href="#momentum-balance"><span class="toc-num">1</span><span>Momentum Balance</span></a></li><li><a href="#chamber-conditions"><span class="toc-num">2</span><span>Chamber Conditions</span></a></li><li><a href="#expansion-ratio"><span class="toc-num">3</span><span>Expansion Ratio</span></a></li></ol></aside>
+</div>
+</body>
+</html>
