@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rocket Propulsion System | Isp99</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 14px 50px 80px;
+            color: #202124;
+            background: #ffffff;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        nav {
+            margin-bottom: 58px;
+        }
+
+        nav a {
+            margin-right: 28px;
+            color: #171717;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            margin: 0 0 18px;
+            color: #171717;
+            font-size: 42px;
+            line-height: 1.3;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            margin: 0 0 44px;
+            color: #666666;
+            font-size: 18px;
+        }
+
+        .intro {
+            max-width: 850px;
+            margin: 0 0 66px;
+            color: #222222;
+            font-size: 17px;
+            line-height: 1.9;
+        }
+
+        h2 {
+            margin: 0 0 22px;
+            padding-bottom: 13px;
+            border-bottom: 1px solid #d8d8d8;
+            color: #171717;
+            font-size: 29px;
+            line-height: 1.4;
+        }
+
+        .contents {
+            border-top: 1px solid #d8d8d8;
+        }
+
+        .content-item {
+            display: flex;
+            align-items: center;
+            min-height: 107px;
+            padding: 22px 14px 22px 18px;
+            border-bottom: 1px solid #d8d8d8;
+            color: inherit;
+            text-decoration: none;
+            transition: background-color 0.15s ease, padding-left 0.15s ease;
+        }
+
+        .content-item:hover {
+            padding-left: 23px;
+            background-color: #fafafa;
+        }
+
+        .bullet {
+            flex: 0 0 30px;
+            color: #777777;
+            font-size: 17px;
+        }
+
+        .content-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .content-title {
+            margin-bottom: 2px;
+            color: #171717;
+            font-size: 21px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .content-description {
+            color: #666666;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .arrow {
+            flex: 0 0 35px;
+            margin-left: 18px;
+            color: #777777;
+            font-size: 20px;
+            text-align: right;
+            transition: transform 0.15s ease;
+        }
+
+        .content-item:hover .arrow {
+            transform: translateX(4px);
+        }
+
+        footer {
+            margin-top: 78px;
+            padding-top: 25px;
+            border-top: 1px solid #d8d8d8;
+        }
+
+        footer a {
+            color: #171717;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 20px 22px 70px;
+            }
+
+            nav {
+                margin-bottom: 48px;
+            }
+
+            nav a {
+                margin-right: 16px;
+                font-size: 14px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .content-item {
+                min-height: 96px;
+                padding: 19px 8px;
+            }
+
+            .content-title {
+                font-size: 19px;
+            }
+
+            .content-description {
+                font-size: 14px;
+            }
+
+            .arrow {
+                margin-left: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/#study">Study Notes</a>
+        <a href="/#projects">Projects</a>
+    </nav>
+
+    <h1>Rocket Propulsion System</h1>
+
+    <p class="subtitle">
+        Fundamentals and Applied Rocket Propulsion
+    </p>
+
+    <p class="intro">
+        Study notes covering rocket performance, thermodynamics, nozzle flow,
+        liquid rocket propulsion, and solid rocket propulsion.
+    </p>
+
+    <h2>Contents</h2>
+
+    <div class="contents">
+
+        <a class="content-item" href="fundamentals/">
+            <div class="bullet">•</div>
+            <div class="content-text">
+                <div class="content-title">Fundamentals of Rocket Propulsion</div>
+                <div class="content-description">
+                    Thrust, specific impulse, characteristic velocity, thrust coefficient, and vehicle performance
+                </div>
+            </div>
+            <div class="arrow">→</div>
+        </a>
+
+        <a class="content-item" href="thermodynamics-and-nozzle/">
+            <div class="bullet">•</div>
+            <div class="content-text">
+                <div class="content-title">Thermodynamics and Nozzle</div>
+                <div class="content-description">
+                    Thermodynamics, ideal nozzle assumptions, nozzle fundamentals, and CD-nozzle flow
+                </div>
+            </div>
+            <div class="arrow">→</div>
+        </a>
+
+        <a class="content-item" href="liquid-rocket/">
+            <div class="bullet">•</div>
+            <div class="content-text">
+                <div class="content-title">Liquid Rocket</div>
+                <div class="content-description">
+                    Basic overview, propellant feed systems, engine cycles, and liquid propellants
+                </div>
+            </div>
+            <div class="arrow">→</div>
+        </a>
+
+        <a class="content-item" href="solid-rocket/">
+            <div class="bullet">•</div>
+            <div class="content-text">
+                <div class="content-title">Solid Rocket</div>
+                <div class="content-description">
+                    Basic overview, internal ballistics, propellant burning rate, and mass-flow relations
+                </div>
+            </div>
+            <div class="arrow">→</div>
+        </a>
+
+    </div>
+
+    <footer>
+        <a href="/">← Back to Home</a>
+    </footer>
+
+</body>
+</html>
