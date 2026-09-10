@@ -255,7 +255,13 @@
     <h2 id="newton-title">1. Newton's Second Law for a Fluid System</h2>
     <h3>System Momentum and External Force</h3>
     <p>
-        관성기준계에서 동일한 유체입자들로 이루어진 System을 관찰한다.
+        운동량은 질량에 속도 벡터를 곱한 양으로, 물질이 어느 방향으로 얼마나 운동하고 있는지를 나타낸다.
+        힘의 작용을 시간에 따른 운동량 변화와 연결하는 법칙이 <strong>Newton's second law</strong>이다.
+        유체의 어느 부분을 계속 비교하는지 분명히 하기 위해 동일한 유체입자들로 이루어진 System을 관찰한다.
+    </p>
+    <p>
+        여기서는 외력이 없는 물체가 일정한 속도를 유지하는 <strong>Inertial frame</strong>인 관성기준계를 사용한다.
+        이 기준에서는 좌표계의 가속 때문에 생기는 추가 항 없이 외력과 운동량 변화율을 연결할 수 있다.
         미소 질량 \(\mathrm dm\)이 가진 운동량은 \(\boldsymbol u\,\mathrm dm\)이고,
         \(\mathrm dm=\rho\,\mathrm dV\)이므로 전체 운동량은 \(\rho\boldsymbol u\)의 체적적분이다.
         따라서 Newton's second law는 다음과 같다.
@@ -272,6 +278,13 @@
         왼쪽의 관찰 대상은 시간이 지나도 동일한 유체입자들이다.
     </p>
     <h3>Reynolds Transport Theorem for Momentum</h3>
+    <p>
+        Newton's second law의 왼쪽은 동일한 입자들의 운동량 변화율이다.
+        반면 고정된 Control volume에서는 다른 속도를 가진 입자들이 들어오고 나가므로,
+        내부 운동량의 변화만으로 그 System의 변화율을 계산할 수 없다.
+        <strong>Reynolds transport theorem</strong>은 이 차이를 경계를 통한 운동량 수송으로 보정하여,
+        입자의 법칙을 고정 영역의 운동량 수지에 적용할 수 있게 한다.
+    </p>
     <p>
         단위질량당 운동량은 속도 벡터이므로 RTT에서 \(B=\boldsymbol P\), \(b=\boldsymbol u\)를 선택한다.
         각 순간 Control volume과 일치하는 System의 변화율을 고정된 영역의 양으로 나타내면 다음과 같다.
@@ -296,6 +309,11 @@
     <h2 id="forces-title">2. Surface and Body Forces</h2>
     <h3>Pressure and Viscous Traction</h3>
     <p>
+        유체에 작용하는 힘을 영역 전체에서 합하려면, 경계의 각 위치에서 단위면적당 얼마의 힘이 전달되는지 알아야 한다.
+        이 단위면적당 힘을 나타내는 것이 응력이다.
+        같은 점에서도 면의 방향에 따라 힘의 방향과 크기가 달라질 수 있으므로, 면의 법선방향을 함께 지정한다.
+    </p>
+    <p>
         경계를 통해 전달되는 힘을 <strong>Surface force</strong>라 한다.
         압력 \(p\)는 유체요소를 안쪽으로 누르며, \(\boldsymbol n\)은 바깥쪽 단위 법선벡터이다.
         따라서 단위면적에 작용하는 압력에 의한 힘은 \(-p\boldsymbol n\)으로 표현된다.
@@ -306,6 +324,13 @@
         주어진 면에 작용하는 단위면적당 힘을 <strong>Traction vector</strong>라 하며,
         전체 응력텐서 \(\boldsymbol\sigma\)를 사용하면 다음과 같다.
     </p>
+    <p>
+        <strong>Stress tensor</strong>는 한 점에서 면의 법선방향을 입력하면 그 면의 Traction vector를 정해 주는 양이다.
+        \(\sigma_{ij}\)는 법선이 \(j\)방향인 면에 작용하는 단위면적당 힘의 \(i\)성분이다.
+        따라서 면의 방향과 힘의 방향을 나타내는 두 첨자가 필요하며,
+        \(\boldsymbol\sigma\cdot\boldsymbol n\)으로 임의의 방향을 가진 면의 힘을 계산할 수 있다.
+        이 표현은 압력이 주는 수직방향 힘과 점성응력이 주는 힘을 하나의 경계 적분으로 정리하게 한다.
+    </p>
     <div class="equation">\[
         \boldsymbol\sigma=-p\mathbf I+\boldsymbol\tau,
         \qquad
@@ -315,6 +340,9 @@
     \]</div>
     <p>
         \(\mathbf I\)는 Identity tensor이다.
+        어떤 벡터에 작용해도 그 벡터를 그대로 돌려주므로 \(\mathbf I\cdot\boldsymbol n=\boldsymbol n\)이다.
+        따라서 \(-p\mathbf I\)는 면의 방향이 달라도 항상 \(-p\boldsymbol n\)을 주며,
+        모든 방향에서 압력이 면을 수직으로 누른다는 성질을 표현한다.
         \(\boldsymbol\tau\)에는 점성에 의한 수직응력과 전단응력이 모두 포함될 수 있다.
         각 면적요소의 힘을 닫힌 경계 전체에서 합하면 두 종류의 Surface force를 얻는다.
     </p>
@@ -329,7 +357,10 @@
     <h3>Body Force per Unit Mass</h3>
     <p>
         중력처럼 유체의 질량 또는 체적 전체에 분포하여 작용하는 힘을 <strong>Body force</strong>라 한다.
+        경계면을 통해서만 전달되는 힘과 달리 내부 각 부분의 질량에도 작용하므로 체적적분으로 합한다.
         단위질량당 힘을 \(\boldsymbol f\)로 정의하면 \(\rho\boldsymbol f\)는 단위체적당 힘이다.
+        단위질량당 값을 사용하면 밀도가 다른 위치에서도 같은 힘의 법칙을 적용하고,
+        실제 질량의 차이는 \(\rho\)를 곱해 반영할 수 있다.
         \(\boldsymbol f\)의 단위는 \(\mathrm{N/kg}=\mathrm{m/s^2}\)이며, 전체 힘은 다음 체적적분으로 구한다.
     </p>
     <div class="equation">\[
@@ -346,6 +377,9 @@
     <h2 id="integral-title">3. Integral Momentum Equation</h2>
     <h3>Momentum Storage, Transport, and Force</h3>
     <p>
+        <strong>Integral momentum equation</strong>은 선택한 영역 전체에서 운동량의 축적과 수송이 외력에 의해 어떻게 결정되는지 나타낸다.
+        이 형태를 사용하면 내부의 모든 입자 궤적을 구하지 않고도,
+        경계를 통과하는 유동과 표면·체적에 작용하는 힘을 같은 운동량 수지에 놓을 수 있다.
         식 (2.2.2)의 운동량 변화율을 식 (2.2.4), (2.2.5)의 외력 합과 같게 두면
         고정된 Control volume의 <strong>Integral momentum equation</strong>을 얻는다.
     </p>
@@ -381,9 +415,15 @@
     <h2 id="dyadic-title">4. Dyadic Product and Momentum-Flux Tensor</h2>
     <h3>Two Indices for Momentum Transport</h3>
     <p>
+        질량 수송은 한 면을 통과한 질량유량 하나로 표현할 수 있다.
+        운동량 수송에서는 그 질량이 \(x,y,z\)방향의 운동량을 각각 얼마나 운반하는지까지 구분해야 한다.
+        또한 같은 운동량 성분도 서로 다른 방향의 면을 통과할 수 있다.
         운동량 수송에는 <strong>어느 방향의 운동량 성분이 어느 방향으로 이동하는지</strong>라는 두 정보가 필요하다.
         이를 나타내는 두 첨자를 \(i,j\)라 하면, \(i\)는 운동량 성분, \(j\)는 수송 방향이다.
         두 벡터의 각 성분을 곱하여 배열하는 <strong>Dyadic product</strong>를 \(\otimes\)로 나타낸다.
+        \(\rho u_j\)는 \(j\)방향 면의 단위면적당 질량 수송률이고,
+        여기에 단위질량당 \(i\)방향 운동량 \(u_i\)를 곱하면 \(\rho u_i u_j\)를 얻는다.
+        Dyadic product는 이 아홉 가지 방향 조합을 한 번에 기록하는 역할을 한다.
     </p>
     <div class="equation">\[
         (\boldsymbol a\otimes\boldsymbol b)_{ij}=a_i b_j,
@@ -394,6 +434,9 @@
     <p>
         내적 \(\boldsymbol a\cdot\boldsymbol b\)은 대응하는 성분의 곱을 더하여 하나의 스칼라를 만든다.
         Dyadic product는 두 방향의 정보를 유지한 <strong>Second-order tensor</strong>를 만든다.
+        여기서 차수 2는 두 첨자가 필요하다는 뜻이다.
+        좌표축을 정하면 이 텐서를 \(3\times3\) 행렬로 표현할 수 있고,
+        법선벡터와 결합하면 그 면을 통과하는 세 성분의 운동량 수송을 다시 벡터로 얻는다.
         \(\boldsymbol u=(u,v,w)\)인 경우 행렬 표현은 다음과 같다.
     </p>
     <div class="equation">\[
@@ -410,8 +453,16 @@
         대각성분은 운동량 성분과 수송 방향이 같을 때의 기여이고, 비대각성분은 서로 다른 방향의 결합을 나타낸다.
         따라서 한 개의 벡터만으로는 이 모든 수송 정보를 기록할 수 없다.
     </p>
+    <p>
+        \(\rho u_i u_j\)의 단위는 \(\mathrm{kg/(m\,s^2)}=\mathrm{N/m^2}\)이다.
+        이는 단위면적당 운동량 수송률의 단위이며 응력의 단위와 같다.
+        운동량 수송텐서는 질량이 움직이면서 운반하는 운동량을, 응력텐서는 면을 사이에 두고 전달되는 힘을 나타낸다.
+        두 양은 같은 운동량 수지에 들어가지만 서로 다른 전달 과정을 기록한다.
+    </p>
     <h3>Flux Through a Surface with Normal Vector</h3>
     <p>
+        Momentum-flux tensor를 만들었으면 실제 경계면의 방향에 맞는 수송을 꺼내야 한다.
+        법선의 성분은 각 좌표 방향의 수송이 그 면을 통과하는 데 얼마나 기여하는지 결정한다.
         법선이 \(\boldsymbol n\)인 면을 통과하는 수송을 구하려면 Tensor의 수송 방향 첨자를 법선과 내적한다.
         반복 첨자 \(j\)에 대해 1부터 3까지 합한다는 약속을 사용하면 다음과 같다.
     </p>
@@ -440,9 +491,16 @@
     <h2 id="differential-title">5. Differential Momentum Equation</h2>
     <h3>Divergence of the Momentum-Flux Tensor</h3>
     <p>
+        영역 전체의 운동량 수지를 각 위치의 관계로 바꾸려면 경계의 순수송을 단위체적당 값으로 표현해야 한다.
+        <strong>Tensor divergence</strong>는 각 운동량 성분에 대해 유출과 유입의 공간적인 불균형을 계산한다.
+        각 성분의 결과를 모으므로 질량유속의 Divergence와 달리 결과가 벡터이다.
+    </p>
+    <p>
         이 페이지에서 Tensor의 Divergence는
         \((\nabla\cdot\mathbf A)_i=\sum_j\partial A_{ij}/\partial x_j\)로 사용한다.
         각 운동량 성분에 대해 세 수송 방향의 공간미분을 합하는 정의이다.
+        Gauss divergence theorem은 경계의 순수송이 내부의 Divergence를 체적 전체에서 합한 값과 같다는 정리이다.
+        운동량 성분마다 이 관계를 적용하면 세 방향의 수송을 체적적분으로 바꿀 수 있다.
         식 (2.2.10)에 Divergence theorem을 적용하면 다음 관계를 얻는다.
     </p>
     <div class="equation">\[
@@ -452,6 +510,9 @@
     \]</div>
     <h3>Force per Unit Volume</h3>
     <p>
+        한 점의 가속도와 비교할 힘은 영역 전체의 힘이 아니라 그 위치의 단위체적당 힘이다.
+        반대쪽 면에 작용하는 응력이 같으면 힘이 상쇄될 수 있으므로,
+        국소적인 순힘은 응력의 값 자체보다 주변 위치 사이의 차이에 의해 결정된다.
         압력과 점성응력의 경계 적분에도 같은 정리를 적용한다.
         압력에 의한 힘은 압력 구배로, 점성력은 점성응력의 Divergence로 표현된다.
     </p>
@@ -485,12 +546,16 @@
         \begin{aligned}
             \frac{\partial(\rho\boldsymbol u)}{\partial t}
             +\nabla\cdot(\rho\boldsymbol u\otimes\boldsymbol u)
-            &=-\nabla p+\nabla\cdot\boldsymbol\tau+\rho\boldsymbol f
+            &=-\nabla p+\nabla\cdot\boldsymbol\tau
+            \\[2.8ex]
+            &\quad+\rho\boldsymbol f
         \end{aligned}}
         \tag{2.2.14}
     \]</div>
     <p>
         모든 항의 단위는 \(\mathrm{N/m^3}\)이다.
+        이 식이 보존형인 것은 저장된 운동량의 시간변화와 운동량 수송의 Divergence를 그대로 유지하기 때문이다.
+        따라서 각 위치의 운동량 수지를 적분하여 영역 전체의 수지로 되돌릴 수 있다.
         특히 \(-\nabla p\)는 압력이 높은 쪽에서 낮은 쪽을 향하는 단위체적당 힘이며,
         \(\nabla\cdot\boldsymbol\tau\)는 미소 유체요소의 여러 면에 작용하는 점성력의 합을 체적으로 나눈 값이다.
     </p>
@@ -500,6 +565,9 @@
     <h2 id="material-title">6. Material-Derivative Form</h2>
     <h3>Product Rule and Continuity Equation</h3>
     <p>
+        보존형은 축적과 수송을 보여 주지만, 유체입자 자신의 가속도는 두 항에 나뉘어 들어 있다.
+        이를 힘과 직접 비교하려면 밀도와 속도의 곱을 전개하여 입자의 속도 변화에 해당하는 항들을 모아야 한다.
+        <strong>Product rule</strong>은 두 양의 곱을 미분할 때 각각이 변하는 기여를 나누어 계산하는 법칙이다.
         보존형 식의 왼쪽을 \(i\)번째 성분에 대해 전개한다.
         시간미분에서는 밀도와 속도 성분의 곱을 나누고,
         공간미분에서는 \(u_i\)와 질량유속 \(\rho u_j\)의 곱을 나누면 다음과 같다.
@@ -533,6 +601,9 @@
     <p>
         대괄호 안은 연속방정식이므로 0이다.
         첫째 괄호는 속도 성분 \(u_i\)의 Material derivative이다.
+        Material derivative는 공간에 표현된 속도장에서 동일한 입자가 경험하는 시간변화율을 계산한다.
+        이 변환에서 남는 밀도 변화와 질량 수송의 묶음은 질량보존에 의해 상쇄되므로,
+        운동량의 변화에서 입자의 가속도만 분리할 수 있다.
         이 관계는 질량보존에서 나오며, 밀도가 일정하다는 가정을 추가하지 않는다.
     </p>
     <div class="equation main">\[
@@ -547,6 +618,9 @@
         오른쪽은 단위체적당 압력에 의한 힘, 점성력, Body force의 합이다.
         따라서 이 식은 <strong>이동하는 유체입자에 국소적으로 적용한 Newton's second law</strong>이다.
         적분형은 영역 전체의 운동량 수지를, 이 형태는 각 입자가 힘에 반응하여 가속되는 관계를 직접 나타낸다.
+        다만 이 보존법칙만으로 점성응력의 값을 정할 수는 없다.
+        속도장으로부터 응력을 계산하려면 유체의 물성을 나타내는 관계가 더 필요하며,
+        Newtonian stress relation은 그 관계를 제공한다.
     </p>
 </section>
 <footer><a href="../">← Fundamentals로 돌아가기</a></footer>
