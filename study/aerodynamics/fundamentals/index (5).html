@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="운동량방정식에는 점성응력 \(\boldsymbol\tau\)가 포함되지만, 보존법칙만으로는 이 응력을 속도장에서 계산할 수 없다. 이를 위해 유체의 물성을 나타내는 Constitutive relation이 필요하다. 이는 특정 물질에서 응력과 변형 같은 물리량들이 어떻게 연결되는지 정하는 관계로, 보존법칙에 남아 있는 응력을 실제 유동장으로부터 계산할 수 있게 한다. Newtonian fluid에서는 점성응력이 국소적인 변형률 속도에 선형적으로 의존한다. 속도 기울기를 변형과 회전으로 분해한 뒤 이 관계를 적용하면, Incompressible 조건과 일정한 점성계수 아래에서 점성력 항이 속도의 Laplacian으로 정리된다.">
+    <title>3.1 Newtonian Stress Relation | Isp99</title>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Page styles are self-contained. This file can replace newtonian-stress-relation/index.html. -->
+    <style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style>
+</head>
+<body class="article-page"><div class="page-layout">
+<aside class="left-sidebar" aria-label="Fundamentals navigation">
+            <nav class="sidebar-inner">
+                <a href="../" class="sidebar-title">Fundamentals</a>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">1. Mathematical Foundation</div>
+                    <a href="../material-derivative/" class="sidebar-link"><span class="item-number">1.1</span> Material Derivative</a>
+                    <a href="../reynolds-transport-theorem/" class="sidebar-link"><span class="item-number">1.2</span> Reynolds Transport Theorem</a>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">2. Conservation Laws</div>
+                    <a href="../continuity-equation/" class="sidebar-link"><span class="item-number">2.1</span> Continuity Equation</a>
+                    <a href="../conservation-of-momentum/" class="sidebar-link"><span class="item-number">2.2</span> Conservation of Momentum</a>
+                    <a href="../conservation-of-energy/" class="sidebar-link"><span class="item-number">2.3</span> Conservation of Energy</a>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">3. Related Equations</div>
+                    <a href="../newtonian-stress-relation/" class="sidebar-link active" aria-current="page"><span class="item-number">3.1</span> Newtonian Stress Relation</a>
+                    <a href="../euler-and-bernoulli-equations/" class="sidebar-link"><span class="item-number">3.2</span> Euler and Bernoulli Equations</a>
+                </div>
+            </nav>
+        </aside>
+<main class="main-content" id="top">
+<nav aria-label="Current article"><a href="#top">3.1 Newtonian Stress Relation</a></nav>
+<header><h1>3.1 Newtonian Stress Relation</h1><p class="subtitle">Rate of Strain, Viscous Stress, and Navier–Stokes Equation</p><p class="intro">
+    운동량방정식에는 점성응력 \(\boldsymbol\tau\)가 포함되지만, 보존법칙만으로는 이 응력을 속도장에서 계산할 수 없다.
+    이를 위해 유체의 물성을 나타내는 <strong>Constitutive relation</strong>이 필요하다.
+    이는 특정 물질에서 응력과 변형 같은 물리량들이 어떻게 연결되는지 정하는 관계로,
+    보존법칙에 남아 있는 응력을 실제 유동장으로부터 계산할 수 있게 한다.
+    Newtonian fluid에서는 점성응력이 국소적인 변형률 속도에 선형적으로 의존한다.
+    속도 기울기를 변형과 회전으로 분해한 뒤 이 관계를 적용하면,
+    Incompressible 조건과 일정한 점성계수 아래에서 점성력 항이 속도의 Laplacian으로 정리된다.
+</p></header>
+<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#rate-of-strain">Rate-of-Strain Tensor</a></li><li><a href="#newtonian-stress">Newtonian-Fluid Stress</a></li><li><a href="#incompressible-limit">Incompressible Constant-Viscosity Limit</a></li></ol></aside>
+<section id="rate-of-strain" aria-labelledby="rate-of-strain-title">
+    <h2 id="rate-of-strain-title">1. Rate-of-Strain Tensor</h2>
+    <h3>Velocity Gradient and Relative Motion</h3>
+    <p>
+        한 점의 속도는 그 위치의 유체가 얼마나 빠르게 움직이는지 알려준다.
+        그러나 유체요소의 변형은 그 속도 자체가 아니라 <strong>서로 가까운 위치 사이의 속도 차이</strong>에 의해 결정된다.
+        \(\boldsymbol x\)와 \(\boldsymbol x+\delta\boldsymbol r\)에서의 속도를 비교하고
+        Taylor expansion의 1차항까지 취하면 다음과 같다.
+    </p>
+    <p>
+        <strong>Taylor expansion</strong>은 한 점의 함수값과 그 점에서의 미분을 사용하여 가까운 위치의 함수값을 표현하는 방법이다.
+        두 점이 충분히 가까우면 거리의 1차항으로 상대적인 속도를 나타낼 수 있고,
+        그 계수가 <strong>Velocity gradient</strong>이다.
+        이 근사는 변형을 일으키는 두 입자 사이의 속도 차이를 한 점의 공간미분으로 계산하게 한다.
+    </p>
+    <div class="equation">\[
+        \delta\boldsymbol u
+        =\boldsymbol u(\boldsymbol x+\delta\boldsymbol r,t)-\boldsymbol u(\boldsymbol x,t)
+        \simeq(\nabla\boldsymbol u)\,\delta\boldsymbol r
+        \tag{3.1.1}
+    \]</div>
+    <p>
+        여기서는 속도 기울기의 성분을
+        \((\nabla\boldsymbol u)_{ij}=\partial u_i/\partial x_j\)로 정의한다.
+        행의 첨자 \(i\)는 속도 성분을, 열의 첨자 \(j\)는 그 성분을 미분하는 공간 방향을 나타낸다.
+        따라서 이 텐서는 임의의 방향으로 떨어진 두 입자의 상대적인 속도를 결정한다.
+        모든 위치의 속도에 같은 병진 속도를 더해도 속도 기울기는 변하지 않는다.
+    </p>
+    <h3>Symmetric and Antisymmetric Parts</h3>
+    <p>
+        속도의 공간적인 차이에는 유체요소가 늘어나거나 찌그러지는 변형과, 모양을 유지한 채 회전하는 운동이 함께 포함될 수 있다.
+        점성응력을 변형과 연결하려면 이 둘을 구분해야 한다.
+        속도 기울기의 대칭 성분과 반대칭 성분은 이 구분을 수학적으로 수행한다.
+    </p>
+    <p>
+        임의의 정사각행렬은 대칭 성분과 반대칭 성분의 합으로 분해할 수 있다.
+        이를 속도 기울기에 적용하여 <strong>Rate-of-strain tensor</strong> \(\mathbf S\)와
+        <strong>Rotation tensor</strong> \(\boldsymbol\Omega\)를 정의한다.
+        위첨자 \(\mathsf T\)는 행과 열을 바꾸는 Transpose를 뜻한다.
+        원래 행렬과 Transpose를 더하면 두 첨자를 바꾸어도 같은 성분이,
+        빼면 두 첨자를 바꿀 때 부호가 반대인 성분이 분리된다.
+    </p>
+    <div class="equation">
+\[
+\begin{aligned}
+    &\nabla\boldsymbol u=\mathbf S+\boldsymbol\Omega,\qquad \mathbf S=\frac12\left[\nabla\boldsymbol u+
+            (\nabla\boldsymbol u)^{\mathsf T}\right],
+            \qquad \mathbf S^{\mathsf T}=\mathbf S
+    \\[2.8ex]
+    &\boldsymbol\Omega=\frac12\left[\nabla\boldsymbol u-
+            (\nabla\boldsymbol u)^{\mathsf T}\right],
+            \qquad \boldsymbol\Omega^{\mathsf T}=-\boldsymbol\Omega
+\end{aligned}
+\tag{3.1.2}
+\]
+</div>
+    <p>
+        각 성분으로 쓰면 대칭 성분은 서로 바뀐 두 기울기의 평균이고, 반대칭 성분은 그 차이의 절반이다.
+    </p>
+    <div class="equation">\[
+        S_{ij}=\frac12\left(\frac{\partial u_i}{\partial x_j}
+        +\frac{\partial u_j}{\partial x_i}\right),
+        \qquad
+        \Omega_{ij}=\frac12\left(\frac{\partial u_i}{\partial x_j}
+        -\frac{\partial u_j}{\partial x_i}\right)
+        \tag{3.1.3}
+    \]</div>
+    <h3>Deformation and Local Rigid-Body Rotation</h3>
+    <p>
+        <strong>Rate of strain</strong>은 현재 모양이 얼마나 변형되어 있는지가 아니라, 그 모양이 얼마나 빠르게 바뀌는지를 나타낸다.
+        이를 확인하려면 유체입자 사이의 거리와 각도의 변화율을 살펴보면 된다.
+        두 입자 사이의 거리가 변하는 데 어떤 텐서 성분이 기여하는지 계산하면,
+        대칭·반대칭 분해를 점성응력에 사용하는 물리적 근거가 드러난다.
+    </p>
+    <p>
+        두 유체입자 사이의 미소 변위벡터를 \(\delta\boldsymbol r\)라 하면,
+        그 시간변화율은 두 입자의 상대적인 속도이다.
+        미소량의 1차 관계에서 \(\mathrm d(\delta\boldsymbol r)/\mathrm dt
+        =(\nabla\boldsymbol u)\delta\boldsymbol r\)이므로,
+        두 입자 사이 거리의 제곱은 다음과 같이 변한다.
+    </p>
+    <div class="equation">
+\[
+\frac{\mathrm d}{\mathrm dt}|\delta\boldsymbol r|^2
+            =2\,\delta\boldsymbol r^{\mathsf T}
+            (\nabla\boldsymbol u)\,\delta\boldsymbol r =2\,\delta\boldsymbol r^{\mathsf T}\mathbf S\,\delta\boldsymbol r
+\tag{3.1.4}
+\]
+</div>
+    <p>
+        반대칭 행렬은 모든 벡터에 대해
+        \(\delta\boldsymbol r^{\mathsf T}\boldsymbol\Omega\delta\boldsymbol r=0\)을 만족한다.
+        따라서 \(\boldsymbol\Omega\)는 미소 선분의 길이를 바꾸지 않으며 국소적인 강체 회전에 해당한다.
+        반면 \(\mathbf S\)는 방향에 따른 길이와 각도의 변화를 결정한다.
+        <strong>강체 회전 자체는 변형을 만들지 않으므로, Newtonian 점성응력은 \(\boldsymbol\Omega\)가 아니라 \(\mathbf S\)에 연결된다.</strong>
+    </p>
+    <ul class="explanation-list">
+        <li><strong>Normal strain rate</strong>: \(S_{ii}=\partial u_i/\partial x_i\)는 \(i\)방향 미소 선분의 단위길이당 늘어나는 속도이다. 양수이면 늘어나고 음수이면 줄어든다.</li>
+        <li><strong>Shear strain rate</strong>: \(i\ne j\)인 \(S_{ij}\)는 서로 직교한 두 방향 사이의 각도 변화에 관련된다. Engineering shear strain rate는 \(2S_{ij}\)로 정의된다.</li>
+        <li><strong>Volumetric strain rate</strong>: 대각 성분의 합은 유체요소의 단위체적당 부피 변화율이다.</li>
+    </ul>
+    <p>
+        대각 성분을 합하는 연산을 <strong>Trace</strong>라 한다.
+        각 방향의 상대적인 길이 변화율을 더하면 미소체적의 상대적인 부피 변화율이 된다.
+        따라서 Trace를 사용하면 여러 방향의 변형 성분에서 전체 부피 변화에 해당하는 양을 하나의 스칼라로 꺼낼 수 있다.
+        \(\mathbf S\)의 Trace는 속도의 Divergence와 같다.
+        이를 \(\theta\)로 나타내면 다음과 같다.
+    </p>
+    <div class="equation">\[
+        \theta=\operatorname{tr}\mathbf S
+        =S_{11}+S_{22}+S_{33}
+        =\frac{\partial u}{\partial x}
+        +\frac{\partial v}{\partial y}
+        +\frac{\partial w}{\partial z}
+        =\nabla\cdot\boldsymbol u
+        \tag{3.1.5}
+    \]</div>
+    <p>
+        \(\mathbf S\)와 \(\boldsymbol\Omega\), \(\theta\)의 단위는 모두 \(\mathrm{s^{-1}}\)이다.
+        \(\mathbf S\)에는 모양의 변화와 부피의 변화가 모두 들어 있다.
+        따라서 \(\mathbf S\) 전체를 부피 변화가 없는 전단 성분으로만 해석해서는 안 된다.
+    </p>
+</section>
+
+<section id="newtonian-stress" aria-labelledby="newtonian-stress-title">
+    <h2 id="newtonian-stress-title">2. Newtonian-Fluid Stress</h2>
+    <h3>Isotropic Linear Constitutive Relation</h3>
+    <p>
+        Newtonian fluid에서는 점성응력이 변형률 속도에 선형적으로 의존한다.
+        여기서 선형이라는 뜻은 같은 물성 상태에서 변형률 속도를 두 배로 하면 점성응력도 두 배가 된다는 것이다.
+        또한 물성에 특별한 방향이 없는 등방성 유체를 가정하면,
+        점성응력은 \(\mathbf S\)에 비례하는 항과 부피 변화율에 비례하는 등방성 항으로 표현된다.
+        <strong>Isotropy</strong>는 좌표축의 방향을 바꾸어도 물질의 반응 법칙이 달라지지 않는 성질이다.
+        이 성질과 선형성을 사용하면 방향별로 독립적인 계수를 모두 지정하는 대신,
+        두 점성계수 \(\mu,\lambda\)로 응력관계를 표현할 수 있다.
+    </p>
+    <div class="equation main">\[
+        \boxed{\displaystyle
+        \boldsymbol\tau=2\mu\mathbf S
+        +\lambda(\nabla\cdot\boldsymbol u)\mathbf I}
+        \tag{3.1.6}
+    \]</div>
+    <ul class="explanation-list">
+        <li><strong>Dynamic viscosity</strong>, \(\mu\): 변형률 속도와 점성응력을 연결하는 점성계수이다.</li>
+        <li><strong>Second viscosity coefficient</strong>, \(\lambda\): 부피 변화율에 비례하는 추가적인 등방성 응력 항의 계수이다.</li>
+        <li><strong>Identity tensor</strong>, \(\mathbf I\): 대각 성분이 1이고 나머지 성분이 0인 텐서로, \(\lambda\theta\mathbf I\)가 모든 방향에 같은 수직응력을 주도록 한다.</li>
+    </ul>
+    <p>
+        \(\mu\)와 \(\lambda\)의 단위는 \(\mathrm{Pa\,s}\)이다.
+        변형률 속도의 단위가 \(\mathrm{s^{-1}}\)이므로 응력의 단위 \(\mathrm{Pa}\)를 얻는다.
+        전체 응력은 여전히 \(\boldsymbol\sigma=-p\mathbf I+\boldsymbol\tau\)이며,
+        점성응력을 정하는 식 (3.1.6)은 압력 항과 구분된다.
+        \(\mu\)와 \(\lambda\)는 물질의 상태에 따라 달라질 수 있다.
+        따라서 Newtonian이라는 조건은 변형률 속도에 대한 관계를 정하며,
+        점성계수가 공간과 시간에서 항상 일정하다는 가정까지 포함하지는 않는다.
+    </p>
+    <h3>Deviatoric Strain Rate and Bulk Viscosity</h3>
+    <p>
+        일반적인 \(\mathbf S\)에는 부피를 유지하면서 모양이 바뀌는 부분과 전체 부피가 늘거나 줄어드는 부분이 함께 들어 있다.
+        두 변화에 대한 점성 반응을 따로 해석하려면, 모든 방향에 동일한 팽창·수축을 주는 성분을 먼저 분리해야 한다.
+        Trace가 \(\theta\)이므로 각 방향에 \(\theta/3\)씩 배분한 \((\theta/3)\mathbf I\)가 그 등방성 성분이다.
+    </p>
+    <p>
+        모양의 변화와 부피의 변화를 분리하려면 \(\mathbf S\)에서 대각 성분의 평균을 뺀다.
+        3차원에서 \(\mathbf I\)의 Trace는 3이므로,
+        다음과 같이 정의한 <strong>Deviatoric strain-rate tensor</strong> \(\mathbf S'\)의 Trace는 0이다.
+        Deviatoric은 이 등방성 성분을 제거한 나머지를 뜻한다.
+        이 성분에는 각도 변화뿐 아니라 한 방향으로 늘고 다른 방향으로 줄어 전체 부피를 유지하는 변형도 포함된다.
+    </p>
+    <div class="equation">\[
+        \mathbf S'=\mathbf S-\frac{\theta}{3}\mathbf I,
+        \qquad \operatorname{tr}\mathbf S'=0,
+        \qquad \mathbf S=\mathbf S'+\frac{\theta}{3}\mathbf I
+        \tag{3.1.7}
+    \]</div>
+    <p>
+        식 (3.1.7)을 일반적인 Newtonian 응력관계에 대입하면,
+        \(2\mu\mathbf S\)에 포함되어 있던 부피 변화의 기여도 명시적으로 분리된다.
+    </p>
+    <div class="equation">
+\[
+\boldsymbol\tau
+            =2\mu\mathbf S'
+            +\left(\lambda+\frac{2\mu}{3}\right)\theta\mathbf I =2\mu\mathbf S'+\zeta\theta\mathbf I,
+            \qquad \zeta=\lambda+\frac{2\mu}{3}
+\tag{3.1.8}
+\]
+</div>
+    <p>
+        \(\zeta\)는 <strong>Bulk viscosity</strong>이다.
+        부피 변화율과 그에 따른 등방성 점성응력을 연결하는 계수이므로,
+        유체의 압축·팽창에 대한 점성 반응을 모양 변화에 대한 반응과 분리하여 나타낸다.
+        \(2\mu\mathbf S'\)는 부피 변화와 분리된 변형에 대한 응력이고,
+        \(\zeta\theta\mathbf I\)는 부피 변화에 대한 점성응력이다.
+        따라서 \(\lambda\)와 \(\zeta\)는 서로 다른 계수이며 같은 이름으로 취급하지 않는다.
+        보통의 수동적인 Newtonian 유체에서 점성에 의한 소산이 음수가 되지 않으려면
+        \(\mu\ge0\), \(\zeta\ge0\)이어야 한다.
+    </p>
+    <h3>Stokes' Hypothesis</h3>
+    <p>
+        <strong>Stokes' hypothesis</strong>는 Bulk viscosity를 0으로 두는 추가 가정이다.
+        부피 변화에 대한 등방성 점성응력의 기여를 생략하면 독립적으로 지정해야 할 점성계수가 하나 줄어든다.
+        그 결과 점성응력을 \(\mu\)와 속도 기울기만으로 표현할 수 있다.
+        이 단순화가 해당 유체와 조건에 적합한지 판단한 뒤 사용해야 한다.
+        식 (3.1.8)에서 이 조건을 적용하면 두 점성계수 사이의 관계가 정해진다.
+    </p>
+    <div class="equation">\[
+        \zeta=0
+        \quad\Longleftrightarrow\quad
+        \lambda=-\frac{2\mu}{3}
+        \tag{3.1.9}
+    \]</div>
+    <p>
+        이를 식 (3.1.6)에 대입하고 \(\mathbf S\)의 정의를 펼치면 다음 응력관계를 얻는다.
+    </p>
+    <div class="equation main">\[
+        \boxed{\displaystyle
+        \boldsymbol\tau
+        =\mu\left[
+        \nabla\boldsymbol u+(\nabla\boldsymbol u)^{\mathsf T}
+        -\frac23(\nabla\cdot\boldsymbol u)\mathbf I
+        \right]}
+        \tag{3.1.10}
+    \]</div>
+    <p>
+        이 식은 Newtonian 관계에 Stokes' hypothesis까지 적용한 결과이다.
+        모든 Newtonian 유체가 이 추가 가정을 정확히 만족하는 것은 아니다.
+        또한 <strong>Stokes' hypothesis는 \(\theta=0\)을 뜻하지 않는다.</strong>
+        유체가 팽창하거나 압축되더라도 \(\zeta=0\)을 가정할 수 있으며,
+        이 경우 점성응력의 Trace가 0이 된다.
+        부피 변화 자체를 제한하는 Incompressible 조건과 점성계수 사이의 관계를 정하는 가정은 구분해야 한다.
+    </p>
+</section>
+
+<section id="incompressible-limit" aria-labelledby="incompressible-limit-title">
+    <h2 id="incompressible-limit-title">3. Incompressible Constant-Viscosity Limit</h2>
+    <h3>Stress Simplification under Incompressibility</h3>
+    <p>
+        Incompressible 조건은 유체요소가 이동하는 동안 자신의 부피를 유지한다는 제약이다.
+        따라서 부피 변화율에 비례하는 응력 항은 물성계수의 값과 관계없이 기여하지 않는다.
+        이 조건을 적용하면 일반적인 응력관계에서 실제로 남는 변형 성분만 추릴 수 있다.
+        질량보존을 만족하는 Incompressible 유동에서는 유체입자의 밀도가 이동 중에 변하지 않으므로
+        \(D\rho/Dt=0\), \(\nabla\cdot\boldsymbol u=0\)이다.
+        이 조건을 일반적인 Newtonian 관계인 식 (3.1.6)에 적용하면
+        \(\lambda(\nabla\cdot\boldsymbol u)\mathbf I\)가 사라진다.
+    </p>
+    <div class="equation">\[
+        \boldsymbol\tau=2\mu\mathbf S
+        =\mu\left[\nabla\boldsymbol u+(\nabla\boldsymbol u)^{\mathsf T}\right],
+        \qquad \nabla\cdot\boldsymbol u=0
+        \tag{3.1.11}
+    \]</div>
+    <p>
+        이 단순화에는 <strong>Stokes' hypothesis가 필요하지 않다.</strong>
+        \(\lambda\)의 값과 관계없이 부피 변화율이 0이기 때문에 해당 항이 사라진다.
+        여기까지는 \(\mu\)가 공간에서 일정하다는 가정도 사용하지 않았다.
+    </p>
+    <h3>Divergence of the Viscous Stress</h3>
+    <p>
+        운동량방정식에 들어가는 점성력은 응력 자체가 아니라 \(\nabla\cdot\boldsymbol\tau\)이다.
+        응력은 한 면을 통해 전달되는 단위면적당 힘이고,
+        Divergence는 미소 유체요소의 여러 면에 작용하는 힘을 합한 단위체적당 순힘을 나타낸다.
+        따라서 속도 기울기로 구한 응력을 운동량방정식에 사용하려면 그 공간적인 불균형을 한 번 더 미분하여 계산해야 한다.
+        텐서의 Divergence는
+        \((\nabla\cdot\boldsymbol\tau)_i=\sum_j\partial\tau_{ij}/\partial x_j\)로 정의한다.
+        \(\mu\)가 공간에서 일정하면 미분 밖으로 꺼낼 수 있으므로 각 성분은 다음과 같이 전개된다.
+    </p>
+    <p>
+        이 전개에서 사용하는 <strong>Laplacian</strong> \(\nabla^2\)는 서로 수직인 세 방향의 2차 공간미분을 합한 연산자이다.
+        예를 들어 \(\nabla^2u=\partial^2u/\partial x^2+
+        \partial^2u/\partial y^2+\partial^2u/\partial z^2\)이다.
+        응력이 이미 속도의 1차 미분에 비례하므로, 순힘을 구하는 추가 미분에서 이 2차 미분 조합이 나타난다.
+    </p>
+    <div class="equation">
+\[
+\begin{aligned}
+    &(\nabla\cdot\boldsymbol\tau)_i
+            =\mu\sum_{j=1}^{3}\frac{\partial}{\partial x_j}
+            \left(\frac{\partial u_i}{\partial x_j}
+            +\frac{\partial u_j}{\partial x_i}\right)
+    \\[2.8ex]
+    &=\mu\sum_{j=1}^{3}\frac{\partial^2u_i}{\partial x_j^2}
+            +\mu\frac{\partial}{\partial x_i}
+            \left(\sum_{j=1}^{3}\frac{\partial u_j}{\partial x_j}\right) =\mu\nabla^2u_i+\mu\frac{\partial}{\partial x_i}
+            (\nabla\cdot\boldsymbol u)
+\end{aligned}
+\tag{3.1.12}
+\]
+</div>
+    <p>
+        두 번째 줄에서는 속도장이 충분히 매끄러워 혼합 편미분의 순서를 바꿀 수 있다고 가정했다.
+        마지막 항은 Incompressible 조건에 의해 0이므로, 벡터 형태로 쓰면 다음과 같다.
+    </p>
+    <div class="equation main">\[
+        \boxed{\nabla\cdot\boldsymbol\tau=\mu\nabla^2\boldsymbol u}
+        \tag{3.1.13}
+    \]</div>
+    <p>
+        Cartesian 좌표에서 Laplacian은 각 속도 성분에 독립적으로 적용된다.
+        따라서 \(\nabla^2\boldsymbol u\)는 스칼라가 아니라 세 성분을 가진 벡터이다.
+        이 표현으로 점성력 항을 속도장의 공간미분만으로 계산할 수 있다.
+    </p>
+    <h3>Spatially Varying Viscosity</h3>
+    <p>
+        \(\mu\)가 위치에 따라 달라지면 Product rule에 의해 점성계수의 기울기가 포함된다.
+        이때 두 위치의 응력 차이는 속도 기울기의 차이뿐 아니라 같은 변형에 반응하는 점성계수의 차이에서도 생긴다.
+        따라서 속도의 Laplacian만 남기는 단순화가 가능한지 확인하려면 점성계수의 공간 분포도 확인해야 한다.
+        Incompressible 조건을 유지하더라도 다음 추가 항이 남는다.
+    </p>
+    <div class="equation">\[
+        (\nabla\cdot\boldsymbol\tau)_i
+        =\mu\nabla^2u_i
+        +\sum_{j=1}^{3}\frac{\partial\mu}{\partial x_j}
+        \left(\frac{\partial u_i}{\partial x_j}
+        +\frac{\partial u_j}{\partial x_i}\right)
+        \tag{3.1.14}
+    \]</div>
+    <p>
+        따라서 \(\nabla\cdot\boldsymbol\tau\)를 \(\mu\nabla^2\boldsymbol u\)로 바꾸려면,
+        Incompressible 조건과 함께 \(\nabla\mu=\boldsymbol0\)인 공간적으로 일정한 점성계수를 확인해야 한다.
+    </p>
+    <h3>Incompressible Navier–Stokes Equation</h3>
+    <p>
+        <strong>Navier–Stokes equation</strong>은 운동량 보존법칙에 Newtonian 유체의 응력관계를 대입한 운동방정식이다.
+        보존법칙에 미지의 응력으로 남아 있던 항을 속도 기울기와 점성계수로 표현하므로,
+        유체의 운동과 물성에 따른 점성 작용을 하나의 관계에서 계산할 수 있다.
+        여기서는 그중 Incompressible 조건과 일정한 점성계수를 적용한 형태를 구한다.
+    </p>
+    <p>
+        운동량방정식
+        \(\rho D\boldsymbol u/Dt=-\nabla p+\nabla\cdot\boldsymbol\tau+\rho\boldsymbol f\)에
+        식 (3.1.13)을 대입하고 Material derivative를 펼친다.
+        그러면 일정한 점성계수를 가진 Newtonian 유체의 Incompressible Navier–Stokes equation을 얻는다.
+    </p>
+    <div class="equation main">\[
+        \boxed{\displaystyle
+        \rho\left[
+        \frac{\partial\boldsymbol u}{\partial t}
+        +(\boldsymbol u\cdot\nabla)\boldsymbol u
+        \right]
+        =-\nabla p+\mu\nabla^2\boldsymbol u+\rho\boldsymbol f}
+        \tag{3.1.15}
+    \]</div>
+    <ul class="explanation-list">
+        <li><strong>Local acceleration contribution</strong>, \(\rho\,\partial\boldsymbol u/\partial t\): 고정된 위치에서 속도가 시간에 따라 변하는 가속도에 밀도를 곱한 항이다.</li>
+        <li><strong>Convective acceleration contribution</strong>, \(\rho(\boldsymbol u\cdot\nabla)\boldsymbol u\): 유체입자가 공간적으로 다른 속도의 위치로 이동하며 경험하는 가속도에 밀도를 곱한 항이다.</li>
+        <li><strong>Pressure force density</strong>, \(-\nabla p\): 압력의 공간적인 차이에 의해 생기는 단위체적당 힘이다.</li>
+        <li><strong>Viscous force density</strong>, \(\mu\nabla^2\boldsymbol u\): 점성응력의 공간적인 차이에 의해 생기는 단위체적당 힘이다.</li>
+        <li><strong>Body force density</strong>, \(\rho\boldsymbol f\): 중력 등 체적 전체에 분포한 단위체적당 힘이다.</li>
+    </ul>
+    <p>
+        모든 항의 단위는 \(\mathrm{N/m^3}\)이다.
+        점성력의 Laplacian 형태는 운동량이 점성에 의해 주변으로 전달되는 확산의 성격을 나타낸다.
+        응력이 속도의 1차 공간미분에 비례하고, 순점성력은 그 응력의 공간미분이므로 속도의 2차 미분이 나타난다.
+        이 운동량방정식은 \(\nabla\cdot\boldsymbol u=0\)과 함께 사용한다.
+        Steady 조건은 따로 가정하지 않았으므로 시간에 따라 변하는 유동에도 적용할 수 있다.
+    </p>
+</section>
+<footer><a href="../">← Fundamentals로 돌아가기</a></footer>
+</main>
+<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#rate-of-strain" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Rate-of-Strain Tensor</span></a><a href="#newtonian-stress" class="sidebar-link"><span class="item-number">2.</span><span>Newtonian-Fluid Stress</span></a><a href="#incompressible-limit" class="sidebar-link"><span class="item-number">3.</span><span>Incompressible Constant-Viscosity Limit</span></a></nav></aside>
+</div>
+<script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script>
+</body>
+</html>

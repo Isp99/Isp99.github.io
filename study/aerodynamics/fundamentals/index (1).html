@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="운동량 보존식은 유체 System의 운동량 변화율이 외력의 합과 같다는 Newton&#x27;s second law에서 출발한다. Reynolds transport theorem을 사용하면 이 관계를 고정된 Control volume의 축적과 수송으로 표현할 수 있다. 운동량은 벡터이므로 수송 방향과 운동량 성분을 함께 기록하는 Momentum-flux tensor가 등장한다. 경계를 통한 수송과 힘을 체적적분으로 바꾼 뒤 연속방정식을 적용하면, 각 유체입자의 가속도와 힘의 관계를 얻는다.">
+    <title>2.2 Conservation of Momentum | Isp99</title>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Page styles are self-contained. This file can replace conservation-of-momentum/index.html. -->
+    <style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style>
+</head>
+<body class="article-page"><div class="page-layout">
+<aside class="left-sidebar" aria-label="Fundamentals navigation">
+            <nav class="sidebar-inner">
+                <a href="../" class="sidebar-title">Fundamentals</a>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">1. Mathematical Foundation</div>
+                    <a href="../material-derivative/" class="sidebar-link"><span class="item-number">1.1</span> Material Derivative</a>
+                    <a href="../reynolds-transport-theorem/" class="sidebar-link"><span class="item-number">1.2</span> Reynolds Transport Theorem</a>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">2. Conservation Laws</div>
+                    <a href="../continuity-equation/" class="sidebar-link"><span class="item-number">2.1</span> Continuity Equation</a>
+                    <a href="../conservation-of-momentum/" class="sidebar-link active" aria-current="page"><span class="item-number">2.2</span> Conservation of Momentum</a>
+                    <a href="../conservation-of-energy/" class="sidebar-link"><span class="item-number">2.3</span> Conservation of Energy</a>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title">3. Related Equations</div>
+                    <a href="../newtonian-stress-relation/" class="sidebar-link"><span class="item-number">3.1</span> Newtonian Stress Relation</a>
+                    <a href="../euler-and-bernoulli-equations/" class="sidebar-link"><span class="item-number">3.2</span> Euler and Bernoulli Equations</a>
+                </div>
+            </nav>
+        </aside>
+<main class="main-content" id="top">
+<nav aria-label="Current article"><a href="#top">2.2 Conservation of Momentum</a></nav>
+<header><h1>2.2 Conservation of Momentum</h1><p class="subtitle">Momentum Transport, Dyadic Product, and Local Force Balance</p><p class="intro">
+    운동량 보존식은 <strong>유체 System의 운동량 변화율이 외력의 합과 같다</strong>는 Newton's second law에서 출발한다.
+    Reynolds transport theorem을 사용하면 이 관계를 고정된 Control volume의 축적과 수송으로 표현할 수 있다.
+    운동량은 벡터이므로 수송 방향과 운동량 성분을 함께 기록하는 <strong>Momentum-flux tensor</strong>가 등장한다.
+    경계를 통한 수송과 힘을 체적적분으로 바꾼 뒤 연속방정식을 적용하면, 각 유체입자의 가속도와 힘의 관계를 얻는다.
+</p></header>
+<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#newton-and-rtt">Newton's Second Law for a Fluid System</a></li><li><a href="#forces">Surface and Body Forces</a></li><li><a href="#integral-form">Integral Momentum Equation</a></li><li><a href="#dyadic-product">Dyadic Product and Momentum-Flux Tensor</a></li><li><a href="#differential-form">Differential Momentum Equation</a></li><li><a href="#material-form">Material-Derivative Form</a></li></ol></aside>
+<section id="newton-and-rtt" aria-labelledby="newton-title">
+    <h2 id="newton-title">1. Newton's Second Law for a Fluid System</h2>
+    <h3>System Momentum and External Force</h3>
+    <p>
+        운동량은 질량에 속도 벡터를 곱한 양으로, 물질이 어느 방향으로 얼마나 운동하고 있는지를 나타낸다.
+        힘의 작용을 시간에 따른 운동량 변화와 연결하는 법칙이 <strong>Newton's second law</strong>이다.
+        유체의 어느 부분을 계속 비교하는지 분명히 하기 위해 동일한 유체입자들로 이루어진 System을 관찰한다.
+    </p>
+    <p>
+        여기서는 외력이 없는 물체가 일정한 속도를 유지하는 <strong>Inertial frame</strong>인 관성기준계를 사용한다.
+        이 기준에서는 좌표계의 가속 때문에 생기는 추가 항 없이 외력과 운동량 변화율을 연결할 수 있다.
+        미소 질량 \(\mathrm dm\)이 가진 운동량은 \(\boldsymbol u\,\mathrm dm\)이고,
+        \(\mathrm dm=\rho\,\mathrm dV\)이므로 전체 운동량은 \(\rho\boldsymbol u\)의 체적적분이다.
+        따라서 Newton's second law는 다음과 같다.
+    </p>
+    <div class="equation">\[
+        \boldsymbol P_{\mathrm{system}}=\int_{\mathrm{system}(t)}\rho\boldsymbol u\,\mathrm dV,
+        \qquad
+        \frac{\mathrm d\boldsymbol P_{\mathrm{system}}}{\mathrm dt}=\sum\boldsymbol F
+        \tag{2.2.1}
+    \]</div>
+    <p>
+        \(\sum\boldsymbol F\)는 System에 작용하는 외력의 벡터 합이다.
+        System의 운동량은 외력이 작용하면 변할 수 있으므로, 변화율을 일괄적으로 0으로 두지 않는다.
+        왼쪽의 관찰 대상은 시간이 지나도 동일한 유체입자들이다.
+    </p>
+    <h3>Reynolds Transport Theorem for Momentum</h3>
+    <p>
+        Newton's second law의 왼쪽은 동일한 입자들의 운동량 변화율이다.
+        반면 고정된 Control volume에서는 다른 속도를 가진 입자들이 들어오고 나가므로,
+        내부 운동량의 변화만으로 그 System의 변화율을 계산할 수 없다.
+        <strong>Reynolds transport theorem</strong>은 이 차이를 경계를 통한 운동량 수송으로 보정하여,
+        입자의 법칙을 고정 영역의 운동량 수지에 적용할 수 있게 한다.
+    </p>
+    <p>
+        단위질량당 운동량은 속도 벡터이므로 RTT에서 \(B=\boldsymbol P\), \(b=\boldsymbol u\)를 선택한다.
+        각 순간 Control volume과 일치하는 System의 변화율을 고정된 영역의 양으로 나타내면 다음과 같다.
+    </p>
+    <div class="equation">
+\[
+\frac{\mathrm d\boldsymbol P_{\mathrm{system}}}{\mathrm dt}
+            =\frac{\partial}{\partial t}\int_{CV}\rho\boldsymbol u\,\mathrm dV +\oint_{CS}\rho\boldsymbol u(\boldsymbol u\cdot\boldsymbol n)\,\mathrm dA
+\tag{2.2.2}
+\]
+</div>
+    <p>
+        \(\rho(\boldsymbol u\cdot\boldsymbol n)\,\mathrm dA\)는 미소면적을 통과하는 부호를 포함한 질량유량이다.
+        여기에 단위질량당 운동량 \(\boldsymbol u\)를 곱하면 그 유동이 운반하는 운동량의 시간당 값이 된다.
+        이 수송 항의 단위는 \(\mathrm{kg\,m/s^2}=\mathrm N\)으로, 외력과 같은 단위이다.
+    </p>
+</section>
+
+<section id="forces" aria-labelledby="forces-title">
+    <h2 id="forces-title">2. Surface and Body Forces</h2>
+    <h3>Pressure and Viscous Traction</h3>
+    <p>
+        유체에 작용하는 힘을 영역 전체에서 합하려면, 경계의 각 위치에서 단위면적당 얼마의 힘이 전달되는지 알아야 한다.
+        이 단위면적당 힘을 나타내는 것이 응력이다.
+        같은 점에서도 면의 방향에 따라 힘의 방향과 크기가 달라질 수 있으므로, 면의 법선방향을 함께 지정한다.
+    </p>
+    <p>
+        경계를 통해 전달되는 힘을 <strong>Surface force</strong>라 한다.
+        압력 \(p\)는 유체요소를 안쪽으로 누르며, \(\boldsymbol n\)은 바깥쪽 단위 법선벡터이다.
+        따라서 단위면적에 작용하는 압력에 의한 힘은 \(-p\boldsymbol n\)으로 표현된다.
+    </p>
+    <p>
+        점성응력을 나타내는 텐서를 \(\boldsymbol\tau\)라 하면, 같은 면에 작용하는 점성력은
+        단위면적당 \(\boldsymbol\tau\cdot\boldsymbol n\)이다.
+        주어진 면에 작용하는 단위면적당 힘을 <strong>Traction vector</strong>라 하며,
+        전체 응력텐서 \(\boldsymbol\sigma\)를 사용하면 다음과 같다.
+    </p>
+    <p>
+        <strong>Stress tensor</strong>는 한 점에서 면의 법선방향을 입력하면 그 면의 Traction vector를 정해 주는 양이다.
+        \(\sigma_{ij}\)는 법선이 \(j\)방향인 면에 작용하는 단위면적당 힘의 \(i\)성분이다.
+        따라서 면의 방향과 힘의 방향을 나타내는 두 첨자가 필요하며,
+        \(\boldsymbol\sigma\cdot\boldsymbol n\)으로 임의의 방향을 가진 면의 힘을 계산할 수 있다.
+        이 표현은 압력이 주는 수직방향 힘과 점성응력이 주는 힘을 하나의 경계 적분으로 정리하게 한다.
+    </p>
+    <div class="equation">\[
+        \boldsymbol\sigma=-p\mathbf I+\boldsymbol\tau,
+        \qquad
+        \boldsymbol t(\boldsymbol n)=\boldsymbol\sigma\cdot\boldsymbol n
+        =-p\boldsymbol n+\boldsymbol\tau\cdot\boldsymbol n
+        \tag{2.2.3}
+    \]</div>
+    <p>
+        \(\mathbf I\)는 Identity tensor이다.
+        어떤 벡터에 작용해도 그 벡터를 그대로 돌려주므로 \(\mathbf I\cdot\boldsymbol n=\boldsymbol n\)이다.
+        따라서 \(-p\mathbf I\)는 면의 방향이 달라도 항상 \(-p\boldsymbol n\)을 주며,
+        모든 방향에서 압력이 면을 수직으로 누른다는 성질을 표현한다.
+        \(\boldsymbol\tau\)에는 점성에 의한 수직응력과 전단응력이 모두 포함될 수 있다.
+        각 면적요소의 힘을 닫힌 경계 전체에서 합하면 두 종류의 Surface force를 얻는다.
+    </p>
+    <div class="equation">
+\[
+\boldsymbol F_{\mathrm{pressure}}=-\oint_{CS}p\boldsymbol n\,\mathrm dA,\qquad \boldsymbol F_{\mathrm{viscous}}=\oint_{CS}\boldsymbol\tau\cdot\boldsymbol n\,\mathrm dA
+\tag{2.2.4}
+\]
+</div>
+    <h3>Body Force per Unit Mass</h3>
+    <p>
+        중력처럼 유체의 질량 또는 체적 전체에 분포하여 작용하는 힘을 <strong>Body force</strong>라 한다.
+        경계면을 통해서만 전달되는 힘과 달리 내부 각 부분의 질량에도 작용하므로 체적적분으로 합한다.
+        단위질량당 힘을 \(\boldsymbol f\)로 정의하면 \(\rho\boldsymbol f\)는 단위체적당 힘이다.
+        단위질량당 값을 사용하면 밀도가 다른 위치에서도 같은 힘의 법칙을 적용하고,
+        실제 질량의 차이는 \(\rho\)를 곱해 반영할 수 있다.
+        \(\boldsymbol f\)의 단위는 \(\mathrm{N/kg}=\mathrm{m/s^2}\)이며, 전체 힘은 다음 체적적분으로 구한다.
+    </p>
+    <div class="equation">\[
+        \boldsymbol F_{\mathrm{body}}=\int_{CV}\rho\boldsymbol f\,\mathrm dV
+        \tag{2.2.5}
+    \]</div>
+    <p>
+        따라서 운동량방정식의 외력은 압력, 점성응력, Body force의 기여를 합한 값이다.
+        여기서 점성응력과 속도 사이의 구체적인 관계는 아직 가정하지 않았다.
+    </p>
+</section>
+
+<section id="integral-form" aria-labelledby="integral-title">
+    <h2 id="integral-title">3. Integral Momentum Equation</h2>
+    <h3>Momentum Storage, Transport, and Force</h3>
+    <p>
+        <strong>Integral momentum equation</strong>은 선택한 영역 전체에서 운동량의 축적과 수송이 외력에 의해 어떻게 결정되는지 나타낸다.
+        이 형태를 사용하면 내부의 모든 입자 궤적을 구하지 않고도,
+        경계를 통과하는 유동과 표면·체적에 작용하는 힘을 같은 운동량 수지에 놓을 수 있다.
+        식 (2.2.2)의 운동량 변화율을 식 (2.2.4), (2.2.5)의 외력 합과 같게 두면
+        고정된 Control volume의 <strong>Integral momentum equation</strong>을 얻는다.
+    </p>
+    <div class="equation main">
+\[
+\boxed{\displaystyle
+        \begin{aligned}
+    &\frac{\partial}{\partial t}\int_{CV}\rho\boldsymbol u\,\mathrm dV
+            +\oint_{CS}\rho\boldsymbol u(\boldsymbol u\cdot\boldsymbol n)\,\mathrm dA
+    \\[2.8ex]
+    &=-\oint_{CS}p\boldsymbol n\,\mathrm dA
+            +\oint_{CS}\boldsymbol\tau\cdot\boldsymbol n\,\mathrm dA +\int_{CV}\rho\boldsymbol f\,\mathrm dV
+\end{aligned}}
+\tag{2.2.6}
+\]
+</div>
+    <ul class="explanation-list">
+        <li><strong>Momentum accumulation</strong>: 고정된 영역 안에 저장된 운동량의 시간변화율이다.</li>
+        <li><strong>Net outward momentum transport</strong>: 경계를 통해 유출되는 운동량과 유입되는 운동량의 수송률 차이다.</li>
+        <li><strong>Pressure force</strong>: 경계면을 안쪽으로 누르는 압력에 의한 힘이다.</li>
+        <li><strong>Viscous force</strong>: 경계면을 통해 점성응력이 전달하는 힘이다.</li>
+        <li><strong>Body force</strong>: 내부 체적 전체에 분포하여 작용하는 힘이다.</li>
+    </ul>
+    <p>
+        이 식은 벡터 방정식이므로 세 방향의 운동량 수지를 동시에 나타낸다.
+        유입·유출 방향은 \(\boldsymbol u\cdot\boldsymbol n\)으로 정하고,
+        운반되는 운동량의 각 성분에는 \(u,v,w\)의 부호도 함께 반영한다.
+        따라서 경계 수송을 계산할 때 속도의 크기만으로 벡터를 대체할 수는 없다.
+    </p>
+</section>
+
+<section id="dyadic-product" aria-labelledby="dyadic-title">
+    <h2 id="dyadic-title">4. Dyadic Product and Momentum-Flux Tensor</h2>
+    <h3>Two Indices for Momentum Transport</h3>
+    <p>
+        질량 수송은 한 면을 통과한 질량유량 하나로 표현할 수 있다.
+        운동량 수송에서는 그 질량이 \(x,y,z\)방향의 운동량을 각각 얼마나 운반하는지까지 구분해야 한다.
+        또한 같은 운동량 성분도 서로 다른 방향의 면을 통과할 수 있다.
+        운동량 수송에는 <strong>어느 방향의 운동량 성분이 어느 방향으로 이동하는지</strong>라는 두 정보가 필요하다.
+        이를 나타내는 두 첨자를 \(i,j\)라 하면, \(i\)는 운동량 성분, \(j\)는 수송 방향이다.
+        두 벡터의 각 성분을 곱하여 배열하는 <strong>Dyadic product</strong>를 \(\otimes\)로 나타낸다.
+        \(\rho u_j\)는 \(j\)방향 면의 단위면적당 질량 수송률이고,
+        여기에 단위질량당 \(i\)방향 운동량 \(u_i\)를 곱하면 \(\rho u_i u_j\)를 얻는다.
+        Dyadic product는 이 아홉 가지 방향 조합을 한 번에 기록하는 역할을 한다.
+    </p>
+    <div class="equation">\[
+        (\boldsymbol a\otimes\boldsymbol b)_{ij}=a_i b_j,
+        \qquad
+        (\rho\boldsymbol u\otimes\boldsymbol u)_{ij}=\rho u_i u_j
+        \tag{2.2.7}
+    \]</div>
+    <p>
+        내적 \(\boldsymbol a\cdot\boldsymbol b\)은 대응하는 성분의 곱을 더하여 하나의 스칼라를 만든다.
+        Dyadic product는 두 방향의 정보를 유지한 <strong>Second-order tensor</strong>를 만든다.
+        여기서 차수 2는 두 첨자가 필요하다는 뜻이다.
+        좌표축을 정하면 이 텐서를 \(3\times3\) 행렬로 표현할 수 있고,
+        법선벡터와 결합하면 그 면을 통과하는 세 성분의 운동량 수송을 다시 벡터로 얻는다.
+        \(\boldsymbol u=(u,v,w)\)인 경우 행렬 표현은 다음과 같다.
+    </p>
+    <div class="equation">\[
+        \rho\boldsymbol u\otimes\boldsymbol u
+        =\rho\begin{bmatrix}
+            u^2&uv&uw\\[1.2ex]
+            vu&v^2&vw\\[1.2ex]
+            wu&wv&w^2
+        \end{bmatrix}
+        \tag{2.2.8}
+    \]</div>
+    <p>
+        예를 들어 첫째 행·둘째 열의 \(\rho uv\)는 \(x\) 방향 운동량이 \(y\) 방향으로 수송되는 Flux이다.
+        대각성분은 운동량 성분과 수송 방향이 같을 때의 기여이고, 비대각성분은 서로 다른 방향의 결합을 나타낸다.
+        따라서 한 개의 벡터만으로는 이 모든 수송 정보를 기록할 수 없다.
+    </p>
+    <p>
+        \(\rho u_i u_j\)의 단위는 \(\mathrm{kg/(m\,s^2)}=\mathrm{N/m^2}\)이다.
+        이는 단위면적당 운동량 수송률의 단위이며 응력의 단위와 같다.
+        운동량 수송텐서는 질량이 움직이면서 운반하는 운동량을, 응력텐서는 면을 사이에 두고 전달되는 힘을 나타낸다.
+        두 양은 같은 운동량 수지에 들어가지만 서로 다른 전달 과정을 기록한다.
+    </p>
+    <h3>Flux Through a Surface with Normal Vector</h3>
+    <p>
+        Momentum-flux tensor를 만들었으면 실제 경계면의 방향에 맞는 수송을 꺼내야 한다.
+        법선의 성분은 각 좌표 방향의 수송이 그 면을 통과하는 데 얼마나 기여하는지 결정한다.
+        법선이 \(\boldsymbol n\)인 면을 통과하는 수송을 구하려면 Tensor의 수송 방향 첨자를 법선과 내적한다.
+        반복 첨자 \(j\)에 대해 1부터 3까지 합한다는 약속을 사용하면 다음과 같다.
+    </p>
+    <div class="equation">
+\[
+\left[(\rho\boldsymbol u\otimes\boldsymbol u)\cdot\boldsymbol n\right]_i
+            =\rho u_i u_j n_j =\rho u_i(\boldsymbol u\cdot\boldsymbol n)
+\tag{2.2.9}
+\]
+</div>
+    <div class="equation main">\[
+        \boxed{\displaystyle
+        (\rho\boldsymbol u\otimes\boldsymbol u)\cdot\boldsymbol n
+        =\rho\boldsymbol u(\boldsymbol u\cdot\boldsymbol n)}
+        \tag{2.2.10}
+    \]</div>
+    <p>
+        이 결과는 적분형 운동량방정식에 이미 등장한 경계 수송 항과 같다.
+        Dyadic product는 이 수송을 각 방향에 대해 정리하여 Divergence theorem을 적용할 수 있게 하는 표현이다.
+    </p>
+</section>
+
+<section id="differential-form" aria-labelledby="differential-title">
+    <h2 id="differential-title">5. Differential Momentum Equation</h2>
+    <h3>Divergence of the Momentum-Flux Tensor</h3>
+    <p>
+        영역 전체의 운동량 수지를 각 위치의 관계로 바꾸려면 경계의 순수송을 단위체적당 값으로 표현해야 한다.
+        <strong>Tensor divergence</strong>는 각 운동량 성분에 대해 유출과 유입의 공간적인 불균형을 계산한다.
+        각 성분의 결과를 모으므로 질량유속의 Divergence와 달리 결과가 벡터이다.
+    </p>
+    <p>
+        이 페이지에서 Tensor의 Divergence는
+        \((\nabla\cdot\mathbf A)_i=\sum_j\partial A_{ij}/\partial x_j\)로 사용한다.
+        각 운동량 성분에 대해 세 수송 방향의 공간미분을 합하는 정의이다.
+        Gauss divergence theorem은 경계의 순수송이 내부의 Divergence를 체적 전체에서 합한 값과 같다는 정리이다.
+        운동량 성분마다 이 관계를 적용하면 세 방향의 수송을 체적적분으로 바꿀 수 있다.
+        식 (2.2.10)에 Divergence theorem을 적용하면 다음 관계를 얻는다.
+    </p>
+    <div class="equation">\[
+        \oint_{CS}\rho\boldsymbol u(\boldsymbol u\cdot\boldsymbol n)\,\mathrm dA
+        =\int_{CV}\nabla\cdot(\rho\boldsymbol u\otimes\boldsymbol u)\,\mathrm dV
+        \tag{2.2.11}
+    \]</div>
+    <h3>Force per Unit Volume</h3>
+    <p>
+        한 점의 가속도와 비교할 힘은 영역 전체의 힘이 아니라 그 위치의 단위체적당 힘이다.
+        반대쪽 면에 작용하는 응력이 같으면 힘이 상쇄될 수 있으므로,
+        국소적인 순힘은 응력의 값 자체보다 주변 위치 사이의 차이에 의해 결정된다.
+        압력과 점성응력의 경계 적분에도 같은 정리를 적용한다.
+        압력에 의한 힘은 압력 구배로, 점성력은 점성응력의 Divergence로 표현된다.
+    </p>
+    <div class="equation">
+\[
+-\oint_{CS}p\boldsymbol n\,\mathrm dA=-\int_{CV}\nabla p\,\mathrm dV,\qquad \oint_{CS}\boldsymbol\tau\cdot\boldsymbol n\,\mathrm dA
+            =\int_{CV}\nabla\cdot\boldsymbol\tau\,\mathrm dV
+\tag{2.2.12}
+\]
+</div>
+    <p>
+        고정된 Control volume에서는 시간미분도 적분 안으로 옮길 수 있다.
+        모든 항을 한쪽으로 모으면 다음 체적적분이 임의의 Control volume에서 0이 되어야 한다.
+    </p>
+    <div class="equation">\[
+        \int_{CV}\left[
+        \frac{\partial(\rho\boldsymbol u)}{\partial t}
+        +\nabla\cdot(\rho\boldsymbol u\otimes\boldsymbol u)
+        +\nabla p-\nabla\cdot\boldsymbol\tau-\rho\boldsymbol f
+        \right]\mathrm dV=0
+        \tag{2.2.13}
+    \]</div>
+    <p>
+        충분히 매끄러운 유동장에서 임의의 위치와 크기로 영역을 선택해도 이 관계가 성립하므로,
+        대괄호 안의 양은 각 점에서 0이어야 한다. 이에 따라 <strong>Conservative differential form</strong>을 얻는다.
+    </p>
+    <div class="equation main">
+\[
+\boxed{\displaystyle
+        \frac{\partial(\rho\boldsymbol u)}{\partial t}
+            +\nabla\cdot(\rho\boldsymbol u\otimes\boldsymbol u)
+            =-\nabla p+\nabla\cdot\boldsymbol\tau +\rho\boldsymbol f}
+\tag{2.2.14}
+\]
+</div>
+    <p>
+        모든 항의 단위는 \(\mathrm{N/m^3}\)이다.
+        이 식이 보존형인 것은 저장된 운동량의 시간변화와 운동량 수송의 Divergence를 그대로 유지하기 때문이다.
+        따라서 각 위치의 운동량 수지를 적분하여 영역 전체의 수지로 되돌릴 수 있다.
+        특히 \(-\nabla p\)는 압력이 높은 쪽에서 낮은 쪽을 향하는 단위체적당 힘이며,
+        \(\nabla\cdot\boldsymbol\tau\)는 미소 유체요소의 여러 면에 작용하는 점성력의 합을 체적으로 나눈 값이다.
+    </p>
+</section>
+
+<section id="material-form" aria-labelledby="material-title">
+    <h2 id="material-title">6. Material-Derivative Form</h2>
+    <h3>Product Rule and Continuity Equation</h3>
+    <p>
+        보존형은 축적과 수송을 보여 주지만, 유체입자 자신의 가속도는 두 항에 나뉘어 들어 있다.
+        이를 힘과 직접 비교하려면 밀도와 속도의 곱을 전개하여 입자의 속도 변화에 해당하는 항들을 모아야 한다.
+        <strong>Product rule</strong>은 두 양의 곱을 미분할 때 각각이 변하는 기여를 나누어 계산하는 법칙이다.
+        보존형 식의 왼쪽을 \(i\)번째 성분에 대해 전개한다.
+        시간미분에서는 밀도와 속도 성분의 곱을 나누고,
+        공간미분에서는 \(u_i\)와 질량유속 \(\rho u_j\)의 곱을 나누면 다음과 같다.
+    </p>
+    <div class="equation">
+\[
+\frac{\partial(\rho u_i)}{\partial t}
+            =\rho\frac{\partial u_i}{\partial t}+u_i\frac{\partial\rho}{\partial t},\qquad \frac{\partial(\rho u_i u_j)}{\partial x_j}
+            =\rho u_j\frac{\partial u_i}{\partial x_j}
+            +u_i\frac{\partial(\rho u_j)}{\partial x_j}
+\tag{2.2.15}
+\]
+</div>
+    <p>
+        두 식을 더하고 \(\rho\)가 곱해진 항과 \(u_i\)가 곱해진 항을 각각 묶는다.
+    </p>
+    <div class="equation">
+\[
+\frac{\partial(\rho u_i)}{\partial t}
+            +\frac{\partial(\rho u_i u_j)}{\partial x_j}
+            =\rho\left(\frac{\partial u_i}{\partial t}
+            +u_j\frac{\partial u_i}{\partial x_j}\right) +u_i\left[\frac{\partial\rho}{\partial t}
+            +\frac{\partial(\rho u_j)}{\partial x_j}\right]
+\tag{2.2.16}
+\]
+</div>
+    <p>
+        대괄호 안은 연속방정식이므로 0이다.
+        첫째 괄호는 속도 성분 \(u_i\)의 Material derivative이다.
+        Material derivative는 공간에 표현된 속도장에서 동일한 입자가 경험하는 시간변화율을 계산한다.
+        이 변환에서 남는 밀도 변화와 질량 수송의 묶음은 질량보존에 의해 상쇄되므로,
+        운동량의 변화에서 입자의 가속도만 분리할 수 있다.
+        이 관계는 질량보존에서 나오며, 밀도가 일정하다는 가정을 추가하지 않는다.
+    </p>
+    <div class="equation main">\[
+        \boxed{\displaystyle
+        \rho\frac{D\boldsymbol u}{Dt}
+        =-\nabla p+\nabla\cdot\boldsymbol\tau+\rho\boldsymbol f}
+        \tag{2.2.17}
+    \]</div>
+    <h3>Local Newton's Second Law</h3>
+    <p>
+        왼쪽은 단위체적당 질량에 입자의 가속도를 곱한 값이고,
+        오른쪽은 단위체적당 압력에 의한 힘, 점성력, Body force의 합이다.
+        따라서 이 식은 <strong>이동하는 유체입자에 국소적으로 적용한 Newton's second law</strong>이다.
+        적분형은 영역 전체의 운동량 수지를, 이 형태는 각 입자가 힘에 반응하여 가속되는 관계를 직접 나타낸다.
+        다만 이 보존법칙만으로 점성응력의 값을 정할 수는 없다.
+        속도장으로부터 응력을 계산하려면 유체의 물성을 나타내는 관계가 더 필요하며,
+        Newtonian stress relation은 그 관계를 제공한다.
+    </p>
+</section>
+<footer><a href="../">← Fundamentals로 돌아가기</a></footer>
+</main>
+<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#newton-and-rtt" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Newton's Second Law for a Fluid System</span></a><a href="#forces" class="sidebar-link"><span class="item-number">2.</span><span>Surface and Body Forces</span></a><a href="#integral-form" class="sidebar-link"><span class="item-number">3.</span><span>Integral Momentum Equation</span></a><a href="#dyadic-product" class="sidebar-link"><span class="item-number">4.</span><span>Dyadic Product and Momentum-Flux Tensor</span></a><a href="#differential-form" class="sidebar-link"><span class="item-number">5.</span><span>Differential Momentum Equation</span></a><a href="#material-form" class="sidebar-link"><span class="item-number">6.</span><span>Material-Derivative Form</span></a></nav></aside>
+</div>
+<script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script>
+</body>
+</html>
