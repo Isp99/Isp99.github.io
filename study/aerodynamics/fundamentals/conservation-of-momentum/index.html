@@ -289,15 +289,13 @@
         단위질량당 운동량은 속도 벡터이므로 RTT에서 \(B=\boldsymbol P\), \(b=\boldsymbol u\)를 선택한다.
         각 순간 Control volume과 일치하는 System의 변화율을 고정된 영역의 양으로 나타내면 다음과 같다.
     </p>
-    <div class="equation">\[
-        \begin{aligned}
-            \frac{\mathrm d\boldsymbol P_{\mathrm{system}}}{\mathrm dt}
-            &=\frac{\partial}{\partial t}\int_{CV}\rho\boldsymbol u\,\mathrm dV
-            \\[2.8ex]
-            &\quad+\oint_{CS}\rho\boldsymbol u(\boldsymbol u\cdot\boldsymbol n)\,\mathrm dA
-        \end{aligned}
-        \tag{2.2.2}
-    \]</div>
+    <div class="equation">
+\[
+\frac{\mathrm d\boldsymbol P_{\mathrm{system}}}{\mathrm dt}
+            =\frac{\partial}{\partial t}\int_{CV}\rho\boldsymbol u\,\mathrm dV +\oint_{CS}\rho\boldsymbol u(\boldsymbol u\cdot\boldsymbol n)\,\mathrm dA
+\tag{2.2.2}
+\]
+</div>
     <p>
         \(\rho(\boldsymbol u\cdot\boldsymbol n)\,\mathrm dA\)는 미소면적을 통과하는 부호를 포함한 질량유량이다.
         여기에 단위질량당 운동량 \(\boldsymbol u\)를 곱하면 그 유동이 운반하는 운동량의 시간당 값이 된다.
@@ -346,14 +344,12 @@
         \(\boldsymbol\tau\)에는 점성에 의한 수직응력과 전단응력이 모두 포함될 수 있다.
         각 면적요소의 힘을 닫힌 경계 전체에서 합하면 두 종류의 Surface force를 얻는다.
     </p>
-    <div class="equation">\[
-        \begin{aligned}
-            \boldsymbol F_{\mathrm{pressure}}&=-\oint_{CS}p\boldsymbol n\,\mathrm dA
-            \\[2.8ex]
-            \boldsymbol F_{\mathrm{viscous}}&=\oint_{CS}\boldsymbol\tau\cdot\boldsymbol n\,\mathrm dA
-        \end{aligned}
-        \tag{2.2.4}
-    \]</div>
+    <div class="equation">
+\[
+\boldsymbol F_{\mathrm{pressure}}=-\oint_{CS}p\boldsymbol n\,\mathrm dA,\qquad \boldsymbol F_{\mathrm{viscous}}=\oint_{CS}\boldsymbol\tau\cdot\boldsymbol n\,\mathrm dA
+\tag{2.2.4}
+\]
+</div>
     <h3>Body Force per Unit Mass</h3>
     <p>
         중력처럼 유체의 질량 또는 체적 전체에 분포하여 작용하는 힘을 <strong>Body force</strong>라 한다.
@@ -383,19 +379,19 @@
         식 (2.2.2)의 운동량 변화율을 식 (2.2.4), (2.2.5)의 외력 합과 같게 두면
         고정된 Control volume의 <strong>Integral momentum equation</strong>을 얻는다.
     </p>
-    <div class="equation main">\[
-        \boxed{\displaystyle
+    <div class="equation main">
+\[
+\boxed{\displaystyle
         \begin{aligned}
-            &\frac{\partial}{\partial t}\int_{CV}\rho\boldsymbol u\,\mathrm dV
+    &\frac{\partial}{\partial t}\int_{CV}\rho\boldsymbol u\,\mathrm dV
             +\oint_{CS}\rho\boldsymbol u(\boldsymbol u\cdot\boldsymbol n)\,\mathrm dA
-            \\[2.8ex]
-            &\qquad=-\oint_{CS}p\boldsymbol n\,\mathrm dA
-            +\oint_{CS}\boldsymbol\tau\cdot\boldsymbol n\,\mathrm dA
-            \\[2.8ex]
-            &\qquad\quad+\int_{CV}\rho\boldsymbol f\,\mathrm dV
-        \end{aligned}}
-        \tag{2.2.6}
-    \]</div>
+    \\[2.8ex]
+    &=-\oint_{CS}p\boldsymbol n\,\mathrm dA
+            +\oint_{CS}\boldsymbol\tau\cdot\boldsymbol n\,\mathrm dA +\int_{CV}\rho\boldsymbol f\,\mathrm dV
+\end{aligned}}
+\tag{2.2.6}
+\]
+</div>
     <ul class="explanation-list">
         <li><strong>Momentum accumulation</strong>: 고정된 영역 안에 저장된 운동량의 시간변화율이다.</li>
         <li><strong>Net outward momentum transport</strong>: 경계를 통해 유출되는 운동량과 유입되는 운동량의 수송률 차이다.</li>
@@ -466,15 +462,13 @@
         법선이 \(\boldsymbol n\)인 면을 통과하는 수송을 구하려면 Tensor의 수송 방향 첨자를 법선과 내적한다.
         반복 첨자 \(j\)에 대해 1부터 3까지 합한다는 약속을 사용하면 다음과 같다.
     </p>
-    <div class="equation">\[
-        \begin{aligned}
-            \left[(\rho\boldsymbol u\otimes\boldsymbol u)\cdot\boldsymbol n\right]_i
-            &=\rho u_i u_j n_j
-            \\[2.8ex]
-            &=\rho u_i(\boldsymbol u\cdot\boldsymbol n)
-        \end{aligned}
-        \tag{2.2.9}
-    \]</div>
+    <div class="equation">
+\[
+\left[(\rho\boldsymbol u\otimes\boldsymbol u)\cdot\boldsymbol n\right]_i
+            =\rho u_i u_j n_j =\rho u_i(\boldsymbol u\cdot\boldsymbol n)
+\tag{2.2.9}
+\]
+</div>
     <div class="equation main">\[
         \boxed{\displaystyle
         (\rho\boldsymbol u\otimes\boldsymbol u)\cdot\boldsymbol n
@@ -516,15 +510,13 @@
         압력과 점성응력의 경계 적분에도 같은 정리를 적용한다.
         압력에 의한 힘은 압력 구배로, 점성력은 점성응력의 Divergence로 표현된다.
     </p>
-    <div class="equation">\[
-        \begin{aligned}
-            -\oint_{CS}p\boldsymbol n\,\mathrm dA&=-\int_{CV}\nabla p\,\mathrm dV
-            \\[2.8ex]
-            \oint_{CS}\boldsymbol\tau\cdot\boldsymbol n\,\mathrm dA
-            &=\int_{CV}\nabla\cdot\boldsymbol\tau\,\mathrm dV
-        \end{aligned}
-        \tag{2.2.12}
-    \]</div>
+    <div class="equation">
+\[
+-\oint_{CS}p\boldsymbol n\,\mathrm dA=-\int_{CV}\nabla p\,\mathrm dV,\qquad \oint_{CS}\boldsymbol\tau\cdot\boldsymbol n\,\mathrm dA
+            =\int_{CV}\nabla\cdot\boldsymbol\tau\,\mathrm dV
+\tag{2.2.12}
+\]
+</div>
     <p>
         고정된 Control volume에서는 시간미분도 적분 안으로 옮길 수 있다.
         모든 항을 한쪽으로 모으면 다음 체적적분이 임의의 Control volume에서 0이 되어야 한다.
@@ -541,17 +533,15 @@
         충분히 매끄러운 유동장에서 임의의 위치와 크기로 영역을 선택해도 이 관계가 성립하므로,
         대괄호 안의 양은 각 점에서 0이어야 한다. 이에 따라 <strong>Conservative differential form</strong>을 얻는다.
     </p>
-    <div class="equation main">\[
-        \boxed{\displaystyle
-        \begin{aligned}
-            \frac{\partial(\rho\boldsymbol u)}{\partial t}
+    <div class="equation main">
+\[
+\boxed{\displaystyle
+        \frac{\partial(\rho\boldsymbol u)}{\partial t}
             +\nabla\cdot(\rho\boldsymbol u\otimes\boldsymbol u)
-            &=-\nabla p+\nabla\cdot\boldsymbol\tau
-            \\[2.8ex]
-            &\quad+\rho\boldsymbol f
-        \end{aligned}}
-        \tag{2.2.14}
-    \]</div>
+            =-\nabla p+\nabla\cdot\boldsymbol\tau +\rho\boldsymbol f}
+\tag{2.2.14}
+\]
+</div>
     <p>
         모든 항의 단위는 \(\mathrm{N/m^3}\)이다.
         이 식이 보존형인 것은 저장된 운동량의 시간변화와 운동량 수송의 Divergence를 그대로 유지하기 때문이다.
@@ -572,32 +562,28 @@
         시간미분에서는 밀도와 속도 성분의 곱을 나누고,
         공간미분에서는 \(u_i\)와 질량유속 \(\rho u_j\)의 곱을 나누면 다음과 같다.
     </p>
-    <div class="equation">\[
-        \begin{aligned}
-            \frac{\partial(\rho u_i)}{\partial t}
-            &=\rho\frac{\partial u_i}{\partial t}+u_i\frac{\partial\rho}{\partial t}
-            \\[2.8ex]
-            \frac{\partial(\rho u_i u_j)}{\partial x_j}
-            &=\rho u_j\frac{\partial u_i}{\partial x_j}
+    <div class="equation">
+\[
+\frac{\partial(\rho u_i)}{\partial t}
+            =\rho\frac{\partial u_i}{\partial t}+u_i\frac{\partial\rho}{\partial t},\qquad \frac{\partial(\rho u_i u_j)}{\partial x_j}
+            =\rho u_j\frac{\partial u_i}{\partial x_j}
             +u_i\frac{\partial(\rho u_j)}{\partial x_j}
-        \end{aligned}
-        \tag{2.2.15}
-    \]</div>
+\tag{2.2.15}
+\]
+</div>
     <p>
         두 식을 더하고 \(\rho\)가 곱해진 항과 \(u_i\)가 곱해진 항을 각각 묶는다.
     </p>
-    <div class="equation">\[
-        \begin{aligned}
-            \frac{\partial(\rho u_i)}{\partial t}
+    <div class="equation">
+\[
+\frac{\partial(\rho u_i)}{\partial t}
             +\frac{\partial(\rho u_i u_j)}{\partial x_j}
-            &=\rho\left(\frac{\partial u_i}{\partial t}
-            +u_j\frac{\partial u_i}{\partial x_j}\right)
-            \\[2.8ex]
-            &\quad+u_i\left[\frac{\partial\rho}{\partial t}
+            =\rho\left(\frac{\partial u_i}{\partial t}
+            +u_j\frac{\partial u_i}{\partial x_j}\right) +u_i\left[\frac{\partial\rho}{\partial t}
             +\frac{\partial(\rho u_j)}{\partial x_j}\right]
-        \end{aligned}
-        \tag{2.2.16}
-    \]</div>
+\tag{2.2.16}
+\]
+</div>
     <p>
         대괄호 안은 연속방정식이므로 0이다.
         첫째 괄호는 속도 성분 \(u_i\)의 Material derivative이다.

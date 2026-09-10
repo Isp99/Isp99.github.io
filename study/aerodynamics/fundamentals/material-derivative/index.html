@@ -255,13 +255,23 @@
     <h2 id="eulerian-title">1. Eulerian Field and a Moving Fluid Particle</h2>
     <h3>Eulerian and Lagrangian Descriptions</h3>
     <p>
+        유체의 상태를 나타내려면 <strong>어느 위치의 값을 보는지, 어느 입자의 값을 보는지</strong>를 먼저 정해야 한다.
+        한 위치의 속도가 일정해도 그곳을 통과한 입자는 다른 위치에서 다른 속도를 가질 수 있기 때문이다.
+        공간상의 분포를 기록하는 관점과 동일한 입자의 변화를 추적하는 관점을 구분하면,
+        같은 유동을 표현하면서도 서로 다른 시간변화율이 나타나는 이유를 설명할 수 있다.
+    </p>
+    <p>
         <strong>Eulerian description</strong>은 공간의 각 위치에 물리량을 정의하는 관점이다.
         어떤 스칼라 물리량을 \(\phi\)라 하면 \(\phi=\phi(x,y,z,t)\)로 나타낸다.
         이 함수에 특정한 좌표와 시각을 대입하면 그 위치에서 관찰하는 물리량의 값을 얻는다.
         여기서 \(\partial\phi/\partial t\)는 \(x,y,z\)를 고정한 채 시간만 변화시켜 계산한 미분이다.
+        이 표현은 한 시각의 유동 분포를 비교하고, 가까운 위치 사이의 차이를 공간미분으로 계산하는 데 적합하다.
+        \(\phi\)처럼 각 위치에 값을 부여한 함수를 <strong>Field</strong>라 한다.
+        밀도·온도처럼 방향 없이 하나의 값으로 정해지는 물리량은 스칼라이며, 속도처럼 방향별 성분이 필요한 물리량은 벡터이다.
     </p>
     <p>
         <strong>Lagrangian description</strong>은 하나의 유체입자를 선택한 뒤 그 입자를 따라가는 관점이다.
+        입자가 받는 힘과 가속도를 연결할 때는 동일한 입자의 운동을 비교해야 하므로 이 관점이 필요하다.
         입자가 움직이면 위치도 시간에 따라 달라지므로, 입자의 궤적을 다음과 같이 나타낸다.
     </p>
     <div class="equation">\[
@@ -271,6 +281,7 @@
     <p>
         아래첨자 \(p\)는 선택한 입자의 위치임을 나타낸다.
         그 입자가 경험하는 물리량은 공간에 정의된 함수 \(\phi\)에 입자의 위치를 대입한 값이다.
+        궤적 \(\boldsymbol x_p(t)\)는 공간에 주어진 분포에서 매 순간 읽어야 할 위치를 지정하는 역할을 한다.
     </p>
     <div class="equation">\[
         \phi_p(t)=\phi\bigl(x_p(t),y_p(t),z_p(t),t\bigr)
@@ -283,20 +294,22 @@
 
     <h3>Chain Rule Along a Particle Trajectory</h3>
     <p>
-        식 (1.1.2)에 합성함수의 미분법인 <strong>Chain rule</strong>을 적용한다.
-        입자의 궤적을 따라 시간미분하면 다음 네 항이 나타난다.
+        <strong>Chain rule</strong>은 한 함수가 다른 변수를 통해 간접적으로 변할 때,
+        그 중간 변수의 변화까지 포함하여 전체 변화율을 구하는 미분법이다.
+        식 (1.1.2)의 시간은 \(\phi\)의 마지막 변수로 직접 들어갈 뿐 아니라
+        \(x_p(t),y_p(t),z_p(t)\)를 통해서도 영향을 준다.
+        따라서 \(\partial\phi/\partial t\)만 계산하면 이동에 따른 변화를 빠뜨린다.
+        각 의존 경로의 기여를 합하면 입자의 궤적을 따른 시간미분에 다음 네 항이 나타난다.
     </p>
-    <div class="equation">\[
-        \begin{aligned}
-            \frac{\mathrm d\phi_p}{\mathrm dt}
-            &=\frac{\partial\phi}{\partial t}
-            +\frac{\partial\phi}{\partial x}\frac{\mathrm dx_p}{\mathrm dt}
-            \\[2.8ex]
-            &\quad+\frac{\partial\phi}{\partial y}\frac{\mathrm dy_p}{\mathrm dt}
+    <div class="equation">
+\[
+\frac{\mathrm d\phi_p}{\mathrm dt}
+            =\frac{\partial\phi}{\partial t}
+            +\frac{\partial\phi}{\partial x}\frac{\mathrm dx_p}{\mathrm dt} +\frac{\partial\phi}{\partial y}\frac{\mathrm dy_p}{\mathrm dt}
             +\frac{\partial\phi}{\partial z}\frac{\mathrm dz_p}{\mathrm dt}
-        \end{aligned}
-        \tag{1.1.3}
-    \]</div>
+\tag{1.1.3}
+\]
+</div>
     <p>
         우변의 편미분은 모두 현재 입자의 위치 \(\boldsymbol x_p(t)\)에서 평가한다.
         첫째 항은 고정된 위치에서의 시간변화이고, 나머지 세 항은 각 방향의 공간 구배에 그 방향의 이동속도를 곱한 값이다.
@@ -323,8 +336,14 @@
 
     <h3>Material-Derivative Operator</h3>
     <p>
-        공간미분을 모은 벡터는
+        공간적으로 물리량이 달라진다는 사실만으로 입자가 경험할 변화율이 정해지는 것은 아니다.
+        입자가 실제로 어느 방향으로 움직이는지도 함께 알아야 한다.
+        이를 표현하는 <strong>Gradient</strong>는 각 공간 방향의 변화율을 모은 벡터로,
         \(\nabla\phi=(\partial\phi/\partial x,\partial\phi/\partial y,\partial\phi/\partial z)\)이다.
+        속도와의 내적 \(\boldsymbol u\cdot\nabla\phi\)는 각 방향의 이동 속도에 그 방향의 구배를 곱한 뒤 합한다.
+        따라서 공간 구배 중에서 <strong>입자의 실제 이동에 따라 경험하는 변화</strong>를 시간당 값으로 계산한다.
+    </p>
+    <p>
         따라서 식 (1.1.5)의 공간 변화에 해당하는 세 항은 \(\boldsymbol u\cdot\nabla\phi\)로 묶인다.
         입자를 따라 관찰한 변화율을 \(D\phi/Dt\)로 표기하면 다음 정의를 얻는다.
     </p>
@@ -356,11 +375,16 @@
         식 (1.1.7)은 뒤에 오는 물리량에 작용하는 미분 연산자이다.
         \(\boldsymbol u\cdot\nabla\)는 속도와 공간미분을 결합한 연산이며,
         그 뒤에 오는 물리량을 미분한 뒤 각 방향의 기여를 합한다.
+        같은 연산자를 밀도에 적용하면 입자의 밀도 변화율이 되고, 속도에 적용하면 입자의 가속도가 된다.
+        이처럼 <strong>공간에 표현된 물리량을 동일한 입자의 변화율로 바꾸는 역할</strong>을 하나의 연산자로 묶어 두면,
+        질량·운동량·에너지 보존식에서 같은 변환을 일관되게 사용할 수 있다.
     </p>
 
     <h3>Steady Flow and Convective Change</h3>
     <p>
         <strong>Steady flow</strong>에서는 고정된 위치의 유동 물리량이 시간에 따라 변하지 않는다.
+        이 조건은 유동 분포 자체의 시간변화를 생략하여 해석을 단순화할 때 사용한다.
+        그러나 공간상의 위치마다 값이 같다는 조건은 포함하지 않으므로, 입자의 이동 효과는 별도로 남겨야 한다.
         따라서 해당 물리량에 대해 \(\partial\phi/\partial t=0\)이지만,
         공간 구배와 입자의 이동에 따른 기여는 남을 수 있다.
     </p>
@@ -382,6 +406,9 @@
     <h3>Material Derivative of the Velocity Field</h3>
     <p>
         가속도는 유체입자 자신의 속도가 시간에 따라 변하는 비율이다.
+        Newton's second law에 필요한 가속도도 바로 이 값이다.
+        고정된 위치의 속도 변화만으로는 입자의 이동에 따른 변화를 모두 포함할 수 없으므로,
+        힘의 법칙에 사용할 가속도를 구할 때 Material derivative가 필요하다.
         따라서 속도 벡터의 각 성분에 Material derivative를 적용하면 그 입자의 가속도를 얻는다.
         궤적을 따라 \(\boldsymbol u_p(t)=\boldsymbol u(\boldsymbol x_p(t),t)\)로 두면 다음과 같다.
     </p>
@@ -416,6 +443,8 @@
     <p>
         \((\boldsymbol u\cdot\nabla)\boldsymbol u\)에서는 괄호 안의 미분 연산자가 뒤의 속도 벡터에 성분별로 작용한다.
         결과는 세 개의 가속도 성분을 갖는 벡터이며, 각 성분의 단위는 \(\mathrm{m/s^2}\)이다.
+        이 식에서 Local acceleration과 Convective acceleration을 분리하면,
+        유동이 시간에 따라 바뀌어서 생긴 가속도와 공간상의 속도 차이를 통과하며 생긴 가속도를 구분할 수 있다.
     </p>
     <ul class="explanation-list">
         <li><strong>Local acceleration</strong>, \(\partial\boldsymbol u/\partial t\):

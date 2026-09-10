@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="점성에 의한 힘을 무시할 수 있는 영역에서는 운동량방정식이 Euler equation으로 단순화된다. 이 식에 Steady 조건을 적용하고 Streamline 방향으로 투영하면 속도, 압력, 높이 사이의 관계를 얻는다. 밀도가 일정한 구간에서 이 관계를 적분한 결과가 Bernoulli equation이다. 각 단순화에 사용한 조건을 구분하면, 어떤 두 위치 사이에서 이 식을 적용할 수 있는지 판단할 수 있다.">
+    <meta name="description" content="점성에 의한 힘을 무시할 수 있는 영역에서는 운동량방정식이 Euler equation으로 단순화된다. 유동장이 시간에 따라 바뀌지 않는 Steady 조건을 적용하고, 각 점의 속도 방향을 따라 연결한 곡선인 Streamline 방향으로 식을 투영하면 속도, 압력, 높이 사이의 관계를 얻는다. 밀도가 일정한 구간에서 이 관계를 적분한 결과가 Bernoulli equation이다. 각 단순화에 사용한 조건을 구분하면, 어떤 두 위치 사이에서 이 식을 적용할 수 있는지 판단할 수 있다.">
     <title>3.2 Euler and Bernoulli Equations | Isp99</title>
     <script>
         window.MathJax = {
@@ -246,7 +246,8 @@
 <nav aria-label="Current article"><a href="#top">3.2 Euler and Bernoulli Equations</a></nav>
 <header><h1>3.2 Euler and Bernoulli Equations</h1><p class="subtitle">Inviscid Momentum Balance and Streamline Integration</p><p class="intro">
     점성에 의한 힘을 무시할 수 있는 영역에서는 운동량방정식이 <strong>Euler equation</strong>으로 단순화된다.
-    이 식에 Steady 조건을 적용하고 Streamline 방향으로 투영하면 속도, 압력, 높이 사이의 관계를 얻는다.
+    유동장이 시간에 따라 바뀌지 않는 Steady 조건을 적용하고,
+    각 점의 속도 방향을 따라 연결한 곡선인 Streamline 방향으로 식을 투영하면 속도, 압력, 높이 사이의 관계를 얻는다.
     밀도가 일정한 구간에서 이 관계를 적분한 결과가 Bernoulli equation이다.
     각 단순화에 사용한 조건을 구분하면, 어떤 두 위치 사이에서 이 식을 적용할 수 있는지 판단할 수 있다.
 </p></header>
@@ -254,6 +255,11 @@
 <section id="euler-equation" aria-labelledby="euler-equation-title">
     <h2 id="euler-equation-title">1. Euler Equation</h2>
     <h3>Inviscid Approximation</h3>
+    <p>
+        유동을 지배하는 힘의 기여가 어느 정도인지 구분하면 중요한 작용을 유지하면서 운동방정식을 단순화할 수 있다.
+        <strong>Inviscid</strong>는 관심 영역의 운동량 수지에서 점성력의 기여를 생략한다는 뜻이다.
+        이 근사를 사용하면 압력과 Body force에 의한 가속도의 관계를 직접 살펴볼 수 있다.
+    </p>
     <p>
         유체의 운동량방정식은
         \(\rho D\boldsymbol u/Dt=-\nabla p+\nabla\cdot\boldsymbol\tau+\rho\boldsymbol f\)이다.
@@ -272,7 +278,9 @@
         점성력을 제외했으므로 압력 차이와 Body force가 유체입자의 가속도를 결정한다.
         실제 유체의 점성계수가 반드시 0이라는 뜻은 아니며,
         선택한 영역과 현상에서 점성력이 다른 힘에 비해 작다는 근사로 사용할 수 있다.
-        벽면 근처의 Boundary layer처럼 속도 기울기가 큰 영역에서는 이 근사를 별도로 검토해야 한다.
+        <strong>Boundary layer</strong>는 벽면의 영향이 집중되어 벽과 수직인 방향으로 속도가 빠르게 변하는 얇은 유동영역이다.
+        이처럼 속도 기울기가 큰 영역에서는 점성계수가 작아도 응력의 기여가 중요해질 수 있으므로,
+        Inviscid 근사가 적합한지 별도로 검토해야 한다.
     </p>
     <p>
         식 (3.2.1) 자체에는 Steady나 일정한 밀도 조건이 들어 있지 않다.
@@ -283,6 +291,8 @@
     <p>
         Steady 유동에서는 고정된 위치의 속도가 시간에 따라 변하지 않으므로
         \(\partial\boldsymbol u/\partial t=\boldsymbol0\)이다.
+        이 조건을 적용하면 가속도에서 시간에 따른 유동 분포의 변화가 제거되고, 공간상의 속도 차이를 통과하는 효과가 남는다.
+        따라서 이후에는 시간에 변하는 경로를 추적하지 않고 고정된 Streamline을 따라 공간적인 관계를 적분할 수 있다.
         Body force도 없는 경우에는 Material derivative의 대류 항만 남아 다음 식을 얻는다.
     </p>
     <div class="equation">\[
@@ -302,8 +312,16 @@
     <h2 id="streamline-title">2. Momentum Balance Along a Streamline</h2>
     <h3>Streamline Geometry and Tangent Direction</h3>
     <p>
+        Euler equation은 세 방향의 힘과 가속도를 함께 나타내는 벡터 방정식이다.
+        속도의 크기와 압력이 흐름을 따라 어떻게 바뀌는지 구하려면,
+        이 벡터 관계에서 <strong>유체가 향하는 방향의 성분</strong>을 꺼내는 것이 직접적이다.
+        Streamline은 그 방향을 각 위치에서 연결해 주므로, 공간상의 운동량방정식을 흐름을 따른 관계로 정리하는 기준이 된다.
+    </p>
+    <p>
         <strong>Streamline</strong>은 한 순간의 모든 점에서 그 점의 속도 벡터와 접하는 곡선이다.
         곡선을 따라 유동 방향으로 증가하는 길이 좌표를 \(s\), 위치를 \(\boldsymbol r(s)\)라 하자.
+        길이 좌표 \(s\)는 곡선 위에서 실제로 잰 거리이다.
+        곡선이 휘어도 이동방향의 변화를 같은 좌표로 표현할 수 있으므로, 특정한 Cartesian 축 하나를 따르는 거리와 구분하여 사용한다.
         속도의 크기가 \(V=|\boldsymbol u|&gt;0\)인 점에서는 단위 접선벡터 \(\boldsymbol t\)를 다음과 같이 쓸 수 있다.
     </p>
     <div class="equation">\[
@@ -316,6 +334,8 @@
     <p>
         \(\boldsymbol u=(u,v,w)\)이므로 각 성분에 대해
         \(\mathrm dx/\mathrm ds=u/V\), \(\mathrm dy/\mathrm ds=v/V\), \(\mathrm dz/\mathrm ds=w/V\)이다.
+        단위 접선벡터는 속도의 크기를 제거하고 방향만 남긴 벡터이다.
+        따라서 힘이나 가속도에 \(\boldsymbol t\)를 내적하면 유동 방향의 성분만 계산할 수 있다.
         각 분모가 0이 아닌 구간에서는 이를 다음과 같은 성분비로도 표현한다.
     </p>
     <div class="equation">\[
@@ -332,6 +352,12 @@
         여기서는 Steady 조건을 적용하므로 입자는 고정된 Streamline을 따라 이동한다.
     </p>
     <h3>Directional Derivative Along a Streamline</h3>
+    <p>
+        <strong>Directional derivative</strong>는 선택한 방향으로 단위거리만큼 움직일 때 물리량이 얼마나 변하는지 나타낸다.
+        압력의 Gradient \(\nabla p\)에는 모든 좌표 방향의 변화율이 들어 있으므로,
+        그중 Streamline 방향의 변화를 구하려면 접선벡터와 내적한다.
+        이를 사용하면 공간상의 \(\nabla p\)를 곡선 위의 미분 \(\mathrm dp/\mathrm ds\)로 바꿀 수 있다.
+    </p>
     <p>
         압력을 곡선 위의 함수 \(p(\boldsymbol r(s))\)로 보면 Chain rule에 의해
         곡선을 따른 변화율이 \(\boldsymbol t\cdot\nabla p\)가 된다.
@@ -352,6 +378,11 @@
     </p>
     <h3>Tangential and Normal Acceleration</h3>
     <p>
+        속도 벡터는 크기가 변해서도, 방향이 바뀌어서도 달라질 수 있다.
+        크기의 변화는 접선 방향 가속도를 만들고, 방향의 변화는 접선에 수직인 가속도를 만든다.
+        이 둘을 나누면 Streamline 방향으로 운동량방정식을 투영할 때 어떤 항이 속력 변화와 연결되는지 확인할 수 있다.
+    </p>
+    <p>
         단위 접선벡터의 길이는 항상 1이다.
         따라서 \(\boldsymbol t\cdot\boldsymbol t=1\)을 \(s\)로 미분하면
         \(\mathrm d\boldsymbol t/\mathrm ds\)가 접선벡터에 수직임을 알 수 있다.
@@ -364,16 +395,14 @@
     <p>
         식 (3.2.5)를 속도 벡터에 적용하고 Product rule을 사용하면 대류 가속도가 두 항으로 나뉜다.
     </p>
-    <div class="equation">\[
-        \begin{aligned}
-            (\boldsymbol u\cdot\nabla)\boldsymbol u
-            &=V\frac{\mathrm d(V\boldsymbol t)}{\mathrm ds}
-            \\[2.8ex]
-            &=V\frac{\mathrm dV}{\mathrm ds}\boldsymbol t
+    <div class="equation">
+\[
+(\boldsymbol u\cdot\nabla)\boldsymbol u
+            =V\frac{\mathrm d(V\boldsymbol t)}{\mathrm ds} =V\frac{\mathrm dV}{\mathrm ds}\boldsymbol t
             +V^2\frac{\mathrm d\boldsymbol t}{\mathrm ds}
-        \end{aligned}
-        \tag{3.2.7}
-    \]</div>
+\tag{3.2.7}
+\]
+</div>
     <ul class="explanation-list">
         <li><strong>Tangential acceleration</strong>: \(V\,\mathrm dV/\mathrm ds\)는 속도의 크기 변화에 따른 접선 방향 가속도이다.</li>
         <li><strong>Normal acceleration</strong>: \(V^2\,\mathrm d\boldsymbol t/\mathrm ds\)는 Streamline이 휘어 속도 방향이 바뀌면서 생기는 가속도이다.</li>
@@ -401,8 +430,16 @@
     <p>
         여기까지는 밀도를 상수로 두지 않았다.
         \(\mathrm dp/\rho\)를 \(\mathrm d(p/\rho)\)로 바꾸는 단계는 별도의 밀도 조건을 필요로 한다.
+        실제로 \(\mathrm d(p/\rho)=\mathrm dp/\rho-(p/\rho^2)\,\mathrm d\rho\)이므로,
+        밀도가 변할 때는 추가 항이 생긴다.
+        미분형을 먼저 유지하면 이후 적분 단계에서 어떤 가정을 사용했는지 분명히 구분할 수 있다.
     </p>
     <h3>Gravity Along a Streamline</h3>
+    <p>
+        유체가 높이가 다른 위치로 이동하면 중력도 이동방향으로 일을 할 수 있다.
+        따라서 압력의 변화만으로 속력의 변화를 설명하려면 높이 차이의 영향을 먼저 확인해야 한다.
+        중력의 접선 성분을 포함하면 이 기여가 단위질량당 위치에너지 변화 \(g\,\mathrm dz\)로 정리된다.
+    </p>
     <p>
         중력을 포함하고 높이 \(z\)의 양의 방향을 위쪽으로 잡으면
         \(\boldsymbol f=-g\boldsymbol e_z\)이다.
@@ -410,17 +447,15 @@
         중력의 접선 성분은 \(-g\,\mathrm dz/\mathrm ds\)이다.
         따라서 Steady Euler equation의 접선 방향 성분은 다음과 같이 바뀐다.
     </p>
-    <div class="equation">\[
-        \begin{aligned}
-            \rho V\frac{\mathrm dV}{\mathrm ds}
-            &=-\frac{\mathrm dp}{\mathrm ds}
-            -\rho g\frac{\mathrm dz}{\mathrm ds}
-            \\[2.8ex]
-            \mathrm d\left(\frac{V^2}{2}\right)
-            +\frac{\mathrm dp}{\rho}+g\,\mathrm dz&=0
-        \end{aligned}
-        \tag{3.2.10}
-    \]</div>
+    <div class="equation">
+\[
+\rho V\frac{\mathrm dV}{\mathrm ds}
+            =-\frac{\mathrm dp}{\mathrm ds}
+            -\rho g\frac{\mathrm dz}{\mathrm ds},\qquad \mathrm d\left(\frac{V^2}{2}\right)
+            +\frac{\mathrm dp}{\rho}+g\,\mathrm dz=0
+\tag{3.2.10}
+\]
+</div>
     <p>
         높이 변화가 있으면 속도와 압력의 관계에 중력 위치에너지의 변화가 함께 들어간다.
         그러므로 서로 다른 높이의 두 점을 비교할 때는 속도와 압력 두 항만으로 변화를 판단할 수 없다.
@@ -430,6 +465,11 @@
 <section id="bernoulli-equation" aria-labelledby="bernoulli-equation-title">
     <h2 id="bernoulli-equation-title">3. Bernoulli Equation</h2>
     <h3>Integration Between Two Points</h3>
+    <p>
+        미분형은 서로 가까운 두 위치 사이의 변화율을 나타낸다.
+        실제로 떨어진 두 위치의 압력과 속도를 비교하려면 이 관계를 두 점 사이에서 적분해야 한다.
+        <strong>Bernoulli equation</strong>은 이 적분을 통해 압력에 의한 일, 운동에너지, 위치에너지의 관계를 두 위치의 값으로 표현한 결과이다.
+    </p>
     <p>
         동일한 Streamline 위의 두 위치를 1과 2로 두고 식 (3.2.10)을 적분한다.
         중력가속도 \(g\)가 일정하다면 운동에너지와 위치에너지 부분을 바로 적분할 수 있다.
@@ -464,6 +504,9 @@
     \]</div>
     <p>
         이것이 일정한 밀도에서의 Bernoulli equation이다.
+        적분상수 \(C\)는 선택한 Streamline의 어느 점에서 계산해도 같은 값을 주는 조합이다.
+        한 점의 값을 알고 있으면 다른 점의 압력·속도·높이 사이의 관계를 구할 수 있으므로,
+        경로 중간의 모든 변화율을 각각 알지 않아도 두 위치를 연결할 수 있다.
         두 위치의 값을 직접 비교할 때는 다음 형태로 쓴다.
     </p>
     <div class="equation">\[
@@ -472,6 +515,11 @@
         \tag{3.2.14}
     \]</div>
     <h3>Mechanical-Energy Terms</h3>
+    <p>
+        식 (3.2.13)은 운동량방정식을 적분해서 얻었지만, 각 항의 단위는 단위질량당 에너지이다.
+        이 형태로 정리하면 압력이 하는 일과 높이의 변화가 속도의 변화로 어떻게 연결되는지 해석할 수 있다.
+        세 항을 같은 단위로 비교하는 것이 Bernoulli equation의 물리적인 역할이다.
+    </p>
     <ul class="explanation-list">
         <li><strong>Kinetic-energy term</strong>, \(V^2/2\): 단위질량당 거시적인 운동에너지이다.</li>
         <li><strong>Pressure-work term</strong>, \(p/\rho\): 흐르는 유체의 압력에 의한 일과 관련된 단위질량당 항이다. 내부에너지 \(e\) 자체를 나타내는 항은 아니다.</li>
@@ -479,12 +527,20 @@
     </ul>
     <p>
         세 항의 단위는 모두 \(\mathrm{J/kg}\)이다.
+        압력 항의 \(1/\rho\)는 압력을 단위질량당 일로 환산한다.
+        경계에서 압력이 미소체적 \(\mathrm dV\)를 밀어내며 하는 일은 \(p\,\mathrm dV\)이고,
+        그 체적의 질량 \(\rho\,\mathrm dV\)로 나누면 \(p/\rho\)가 된다.
         같은 높이에서 이 식의 조건을 만족하면 속도의 크기가 큰 위치의 압력이 더 낮다.
         높이가 달라지면 위치에너지의 변화도 함께 계산해야 한다.
         이 결과는 Euler equation의 접선 방향 성분을 적분한 것이므로,
         열과 내부에너지까지 다루는 일반적인 전체 에너지식과 역할을 구분한다.
     </p>
     <h3>Conditions for the Constant-Density Form</h3>
+    <p>
+        Bernoulli equation을 적용할 때는 식의 모양뿐 아니라 그 식을 얻으며 사용한 조건도 함께 확인해야 한다.
+        아래 조건들은 각각 시간변화와 점성력을 생략하고, 공간미분을 Streamline을 따른 적분으로 바꾸는 역할을 했다.
+        이 구분을 알면 주어진 유동에서 단순한 두 점 관계를 사용할 수 있는지 판단할 수 있다.
+    </p>
     <ul class="explanation-list">
         <li><strong>Steady</strong>: 선택한 기준계에서 유동장이 시간에 따라 변하지 않아야 한다. 이 조건으로 Local acceleration 항을 제거했다.</li>
         <li><strong>Inviscid</strong>: 적분하는 영역에서 점성력의 기여를 무시할 수 있어야 한다. 이 조건으로 운동량방정식을 Euler equation으로 단순화했다.</li>
@@ -502,7 +558,9 @@
     <h3>Variable Density and Limits of Application</h3>
     <p>
         밀도가 변하면 일반적으로 \(\mathrm dp/\rho\)를 \(\mathrm d(p/\rho)\)로 바꿀 수 없다.
+        이때는 압력 변화에 대해 각 위치의 단위질량이 받는 일이 서로 다른 밀도로 환산된다.
         압력에 따른 밀도 관계 \(\rho=\rho(p)\)가 주어지는 경우에는 그 관계를 사용하여 적분할 수 있다.
+        이 관계가 압력 적분의 각 단계에서 사용할 밀도를 지정해 주기 때문에, 압력만을 적분변수로 삼을 수 있다.
         기준 압력을 \(p_*\)로 정하면 다음과 같이 표현된다.
     </p>
     <div class="equation">\[
