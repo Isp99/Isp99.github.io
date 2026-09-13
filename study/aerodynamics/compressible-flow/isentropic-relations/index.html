@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Perfect gas의 isentropic pressure-temperature-density relations를 단계적으로 유도합니다.">
+    <meta name="description" content="Isentropic relation은 Entropy가 일정한 두 상태의 압력·온도·밀도를 연결하는 관계이다. 상태방정식만으로는 압력이 변할 때 온도와 밀도가 각각 얼마나 변하는지 정할 수 없다. 여기에 Entropy가 일정하다는 조건을 더하면 한 물리량의 변화로 나머지 변화를 계산할 수 있다.">
     <title>1.2 Isentropic Relations | Isp99</title>
     <script>
         window.MathJax = {
@@ -16,293 +15,331 @@
         };
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="stylesheet" href="../compressible.css">
+    <!-- Page styles are self-contained. This file can replace isentropic-relations/index.html. -->
+    <style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style>
 </head>
+<body class="article-page"><div class="page-layout">
+<aside class="left-sidebar" aria-label="Compressible Flow navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Compressible Flow</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals of Compressible Flow</div><a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link"><span class="item-number">1.1</span> Perfect-Gas Thermodynamic Relations</a><a href="../isentropic-relations/" class="sidebar-link active" aria-current="page"><span class="item-number">1.2</span> Isentropic Relations</a><a href="../speed-of-sound-and-mach-number/" class="sidebar-link"><span class="item-number">1.3</span> Speed of Sound and Mach Number</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Stagnation State and Properties</div><a href="../stagnation-temperature/" class="sidebar-link"><span class="item-number">2.1</span> Stagnation Temperature</a><a href="../stagnation-pressure-and-density/" class="sidebar-link"><span class="item-number">2.2</span> Stagnation Pressure and Density</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Quasi-One-Dimensional Nozzle Flow</div><a href="../area-velocity-relation/" class="sidebar-link"><span class="item-number">3.1</span> Area–Velocity Relation</a><a href="../mass-flow-function-and-choking/" class="sidebar-link"><span class="item-number">3.2</span> Mass-Flow Function and Choking</a><a href="../area-mach-number-relation/" class="sidebar-link"><span class="item-number">3.3</span> Area–Mach Number Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Normal Shock Waves</div><a href="../normal-shock-conservation-laws/" class="sidebar-link"><span class="item-number">4.1</span> Derivation from Conservation Laws</a><a href="../normal-shock-property-ratios/" class="sidebar-link"><span class="item-number">4.2</span> Normal-Shock Property Ratios</a><a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link"><span class="item-number">4.3</span> Downstream Mach Number and Entropy Change</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Oblique Shock Waves</div><a href="../normal-component-method/" class="sidebar-link"><span class="item-number">5.1</span> Normal-Component Method</a><a href="../theta-beta-mach-relation/" class="sidebar-link"><span class="item-number">5.2</span> Derivation of the Theta–Beta–Mach Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Prandtl–Meyer Expansion</div><a href="../infinitesimal-isentropic-turning/" class="sidebar-link"><span class="item-number">6.1</span> Infinitesimal Isentropic Turning</a><a href="../prandtl-meyer-function/" class="sidebar-link"><span class="item-number">6.2</span> Derivation of the Prandtl–Meyer Function</a><a href="../finite-expansion-and-property-changes/" class="sidebar-link"><span class="item-number">6.3</span> Finite Expansion and Property Changes</a></div></nav></aside>
+<main class="main-content" id="top">
+<nav aria-label="Current article"><a href="#top">1.2 Isentropic Relations</a></nav>
+<header><h1>1.2 Isentropic Relations</h1><p class="subtitle">Constant Entropy and Pressure–Temperature–Density Relations</p><p class="intro"><strong>Isentropic relation</strong>은 Entropy가 일정한 두 상태의 압력·온도·밀도를 연결하는 관계이다. 상태방정식만으로는 압력이 변할 때 온도와 밀도가 각각 얼마나 변하는지 정할 수 없다. 여기에 Entropy가 일정하다는 조건을 더하면 한 물리량의 변화로 나머지 변화를 계산할 수 있다.</p></header>
+<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#pressure-temperature-relation">Pressure–Temperature Relation</a></li><li><a href="#pressure-density-relation">Pressure–Density Relation</a></li></ol></aside>
+<section id="pressure-temperature-relation" aria-labelledby="pressure-temperature-relation-title"><h2 id="pressure-temperature-relation-title">1. Pressure–Temperature Relation</h2>
+<h3>Isentropic Process</h3>
+<p><strong>Isentropic process</strong>는 Entropy가 일정하게 유지되는 과정이다. 열전달이 없는 Adiabatic 조건과 Entropy가 생성되지 않는 Reversible 조건이 함께 성립하면 이 과정으로 다룰 수 있다.</p>
+<div class="equation" id="eq-isentropicCondition">
+\[
+\mathrm ds=0
+\tag{1.2.1}
+\]
+</div>
+<p>Adiabatic은 외부와 열을 주고받지 않는다는 뜻이다. 마찰이나 Shock처럼 Entropy를 생성하는 과정까지 배제하는 조건은 아니므로, <strong>열전달이 없다는 이유만으로 Isentropic relation을 적용할 수는 없다.</strong> 여기서는 비열이 일정한 Calorically perfect gas를 가정한다.</p>
+<h3>Differential Relation</h3>
+<p>온도와 압력으로 나타낸 Entropy 관계식 <a href="../perfect-gas-thermodynamic-relations/#eq-entropyTp">(1.1.12)</a>에 \(\mathrm ds=0\)을 대입하면</p>
+<div class="equation" id="eq-isentropicTpDifferentialStart">
+\[
+c_p\frac{\mathrm dT}{T}-R\frac{\mathrm dp}{p}=0,\qquad c_p\frac{\mathrm dT}{T}=R\frac{\mathrm dp}{p}
+\tag{1.2.2}
+\]
+</div>
+<p>\(c_p\)로 나누고 식 <a href="../perfect-gas-thermodynamic-relations/#eq-specificHeatsGamma">(1.1.7)</a>의 비열 관계를 사용하면 온도와 압력의 상대적인 변화가 연결된다.</p>
+<div class="equation" id="eq-isentropicTpDifferential">
+\[
+\frac{\mathrm dT}{T}=\frac{R}{c_p}\frac{\mathrm dp}{p}=\frac{\gamma-1}{\gamma}\frac{\mathrm dp}{p}
+\tag{1.2.3}
+\]
+</div>
+<p>여기서 \(\mathrm dT/T\)와 \(\mathrm dp/p\)는 각각 현재 값에 대한 작은 변화의 비율이다. \(\gamma&gt;1\)이므로 두 변화의 부호는 같다. 즉 Isentropic 압축으로 압력이 올라가면 온도도 올라간다.</p>
+<h3>Integration between Two States</h3>
+<p>상태 1에서 상태 2까지 적분하면</p>
+<div class="equation" id="eq-isentropicTpIntegral">
+\[
+\int_{T_1}^{T_2}\frac{\mathrm dT}{T}=\frac{\gamma-1}{\gamma}\int_{p_1}^{p_2}\frac{\mathrm dp}{p}
+\tag{1.2.4}
+\]
+</div>
+<div class="equation" id="eq-isentropicTpLog">
+\[
+\ln\left(\frac{T_2}{T_1}\right)=\frac{\gamma-1}{\gamma}\ln\left(\frac{p_2}{p_1}\right)
+\tag{1.2.5}
+\]
+</div>
+<p>로그를 풀면 두 상태 사이의 유한한 변화에 적용할 수 있는 결과를 얻는다.</p>
+<div class="equation main" id="eq-isentropicTp">
+\[
+\boxed{\displaystyle \frac{T_2}{T_1}=\left(\frac{p_2}{p_1}\right)^{(\gamma-1)/\gamma}}
+\tag{1.2.6}
+\]
+</div>
+</section>
+<section id="pressure-density-relation" aria-labelledby="pressure-density-relation-title"><h2 id="pressure-density-relation-title">2. Pressure–Density Relation</h2>
+<h3>Connection through the Equation of State</h3>
+<p>온도 대신 밀도로 유동을 표현하려면 상태방정식을 함께 사용한다. 두 상태에 \(T=p/(\rho R)\)를 적용하면</p>
+<div class="equation" id="eq-isentropicEquationOfStateRatio">
+\[
+\frac{T_2}{T_1}=\frac{p_2/(\rho_2R)}{p_1/(\rho_1R)}=\frac{p_2}{p_1}\frac{\rho_1}{\rho_2}
+\tag{1.2.7}
+\]
+</div>
+<p>이 결과를 식 <a href="#eq-isentropicTp">(1.2.6)</a>와 같게 두면</p>
+<div class="equation" id="eq-isentropicDensityIntermediate">
+\[
+\frac{p_2}{p_1}\frac{\rho_1}{\rho_2}=\left(\frac{p_2}{p_1}\right)^{(\gamma-1)/\gamma}
+\tag{1.2.8}
+\]
+</div>
+<p>압력비의 지수를 정리하면 \(\rho_2/\rho_1=(p_2/p_1)^{1/\gamma}\)이다. 이 식과 상태방정식을 이용하여 압력비와 온도비를 밀도비로 표현하면</p>
+<div class="equation main" id="eq-isentropicRelations">
+\[
+\boxed{\displaystyle \frac{p_2}{p_1}=\left(\frac{\rho_2}{\rho_1}\right)^\gamma,\qquad \frac{T_2}{T_1}=\left(\frac{\rho_2}{\rho_1}\right)^{\gamma-1}}
+\tag{1.2.9}
+\]
+</div>
+<p>이 관계는 같은 Isentropic 변화 안에서 \(p/\rho^\gamma\)가 일정하다는 뜻이다. 다음 페이지에서는 이 압력–밀도 관계를 미분하여 음속을 구한다. 또한 유동을 Isentropic하게 정지시키면 어떤 압력과 밀도에 도달하는지 계산할 때도 같은 관계를 사용한다.</p>
+</section>
+<footer><a href="../">← Compressible Flow로 돌아가기</a></footer>
+</main>
+<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#pressure-temperature-relation" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Pressure–Temperature Relation</span></a><a href="#pressure-density-relation" class="sidebar-link"><span class="item-number">2.</span><span>Pressure–Density Relation</span></a></nav></aside>
+</div>
+<script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
 
-<body class="article-page">
-    <div class="page-layout">
-        <aside class="left-sidebar" aria-label="Compressible Flow navigation">
-            <div class="sidebar-inner">
-                <a href="../" class="sidebar-title sidebar-title-link">Compressible Flow</a>
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
 
-                <div class="sidebar-group">
-                    <div class="sidebar-group-title">1. Fundamentals of Compressible Flow</div>
-                    <a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link">1.1 Perfect-Gas Thermodynamic Relations</a>
-                    <a href="../isentropic-relations/" class="sidebar-link active" aria-current="page">1.2 Isentropic Relations</a>
-                    <a href="../speed-of-sound-and-mach-number/" class="sidebar-link">1.3 Speed of Sound and Mach Number</a>
-                </div>
-
-                <div class="sidebar-group">
-                    <div class="sidebar-group-title">2. Stagnation State and Properties</div>
-                    <a href="../stagnation-temperature/" class="sidebar-link">2.1 Stagnation Temperature</a>
-                    <a href="../stagnation-pressure-and-density/" class="sidebar-link">2.2 Stagnation Pressure and Density</a>
-                </div>
-
-                <div class="sidebar-group">
-                    <div class="sidebar-group-title">3. Quasi-One-Dimensional Nozzle Flow</div>
-                    <a href="../area-velocity-relation/" class="sidebar-link">3.1 Area–Velocity Relation</a>
-                    <a href="../mass-flow-function-and-choking/" class="sidebar-link">3.2 Mass-Flow Function and Choking</a>
-                    <a href="../area-mach-number-relation/" class="sidebar-link">3.3 Area–Mach Number Relation</a>
-                </div>
-
-                <div class="sidebar-group">
-                    <div class="sidebar-group-title">4. Normal Shock Waves</div>
-                    <a href="../normal-shock-conservation-laws/" class="sidebar-link">4.1 Derivation from Conservation Laws</a>
-                    <a href="../normal-shock-property-ratios/" class="sidebar-link">4.2 Normal-Shock Property Ratios</a>
-                    <a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link">4.3 Downstream Mach Number and Entropy Change</a>
-                </div>
-
-                <div class="sidebar-group">
-                    <div class="sidebar-group-title">5. Oblique Shock Waves</div>
-                    <a href="../normal-component-method/" class="sidebar-link">5.1 Normal-Component Method</a>
-                    <a href="../theta-beta-mach-relation/" class="sidebar-link">5.2 Derivation of the Theta–Beta–Mach Relation</a>
-                </div>
-
-                <div class="sidebar-group">
-                    <div class="sidebar-group-title">6. Prandtl–Meyer Expansion</div>
-                    <a href="../infinitesimal-isentropic-turning/" class="sidebar-link">6.1 Infinitesimal Isentropic Turning</a>
-                    <a href="../prandtl-meyer-function/" class="sidebar-link">6.2 Derivation of the Prandtl–Meyer Function</a>
-                    <a href="../finite-expansion-and-property-changes/" class="sidebar-link">6.3 Finite Expansion and Property Changes</a>
-                </div>
-            </div>
-        </aside>
-
-        <main class="main-content" id="top">
-            <nav><a href="#top">1.2 Isentropic Relations</a></nav>
-
-            <header>
-                <h1>1.2 Isentropic Relations</h1>
-                <p class="subtitle">Pressure, Temperature, and Density Relations for a Perfect Gas</p>
-                <p class="intro">
-                    Compressible flow에서는 Pressure가 변하면 Density와 Temperature도 함께 변하므로 세
-                    Property를 각각 독립적으로 정할 수 없다. Heat transfer와 Irreversibility가 없는 이상적인
-                    변화를 기준으로 삼으면 이들의 관계를 하나의 간단한 형태로 묶을 수 있는데, 이것이 Isentropic
-                    relation이다. Perfect gas의 Gibbs relation에 \(\mathrm ds=0\)을 적용하여 Pressure,
-                    Temperature, Density가 어떤 비율로 함께 변하는지 단계적으로 유도한다.
-                </p>
-            </header>
-
-            <aside class="contents" aria-label="Contents">
-                <strong>Contents</strong>
-                <ol>
-                    <li><a href="#pressure-temperature">Pressure–Temperature Relation</a></li>
-                    <li><a href="#pressure-density">Pressure–Density Relation</a></li>
-                </ol>
-            </aside>
-
-            <section id="pressure-temperature">
-                <h2>1. Pressure–Temperature Relation</h2>
-
-                <h3>Isentropic Process의 개념과 적용 조건</h3>
-
-                <p>
-                    실제 Compressible flow에는 Heat transfer, Viscosity, Friction, Shock 등 여러 효과가 동시에
-                    존재할 수 있다. 그러나 이러한 손실 효과가 없는 Smooth compression 또는 Expansion을 먼저
-                    해석하면, 복잡한 실제 유동을 비교할 수 있는 기준 상태를 얻을 수 있다. 이 기준이
-                    <strong>Isentropic process</strong>이다.
-                </p>
-
-                <p>
-                    Adiabatic이며 Reversible인 Process에서는 외부와 Heat를 교환하지 않고 내부에서도 Entropy가
-                    생성되지 않으므로, 유체입자의 Entropy가 일정하게 유지된다.
-                </p>
-
-                <div class="equation main">
-                    \[
-                        \boxed{\displaystyle \mathrm ds=0}
-                        \tag{1.2.1}
-                    \]
-                </div>
-
-                <p>
-                    Adiabatic은 Heat transfer가 없다는 조건만을 의미한다. Shock이나 Friction처럼
-                    Irreversibility에 의해 Entropy가 생성되는 Adiabatic process는 Isentropic이 아니다.
-                </p>
-
-                <ul class="explanation-list">
-                    <li><strong>Adiabatic:</strong> 경계를 통한 Heat transfer가 없음</li>
-                    <li><strong>Reversible:</strong> Friction, Viscous dissipation, Shock과 같은 손실이 없음</li>
-                    <li><strong>Isentropic:</strong> 두 조건을 모두 만족하여 Entropy가 일정함</li>
-                </ul>
-
-                <div class="concept-note">
-                    <p>
-                        Isentropic relation은 모든 Compressible flow에 자동으로 적용되는 법칙이 아니다. Shock
-                        전후처럼 Property가 불연속적으로 변하거나 Friction으로 Entropy가 생성되는 구간에는 직접
-                        적용할 수 없고, 손실이 없는 Smooth flow의 기준 관계로 사용한다.
-                    </p>
-                </div>
-
-                <h3>Gibbs relation에 Constant-entropy condition 적용</h3>
-
-                <p>
-                    Calorically perfect gas의 Pressure–Temperature Gibbs relation은 다음과 같다.
-                </p>
-
-                <div class="equation">
-                    \[
-                        \mathrm ds
-                        =c_p\frac{\mathrm dT}{T}
-                        -R\frac{\mathrm dp}{p}
-                        \tag{1.2.2}
-                    \]
-                </div>
-
-                <p>여기에 Isentropic condition \(\mathrm ds=0\)을 적용하면</p>
-
-                <div class="equation">
-                    \[
-                        \begin{aligned}
-                        c_p\frac{\mathrm dT}{T}-R\frac{\mathrm dp}{p}&=0
-                        \\[2.8ex]
-                        c_p\frac{\mathrm dT}{T}&=R\frac{\mathrm dp}{p}
-                        \\[2.8ex]
-                        \frac{\mathrm dT}{T}&=\frac{R}{c_p}\frac{\mathrm dp}{p}
-                        \end{aligned}
-                        \tag{1.2.3}
-                    \]
-                </div>
-
-                <p>
-                    Perfect-gas specific-heat relation
-                    \(c_p=\gamma R/(\gamma-1)\)으로부터
-                </p>
-
-                <div class="equation">
-                    \[
-                        \frac{R}{c_p}=\frac{\gamma-1}{\gamma}
-                        \tag{1.2.4}
-                    \]
-                </div>
-
-                <p>State 1에서 State 2까지 적분하면</p>
-
-                <div class="equation">
-                    \[
-                        \begin{aligned}
-                        \int_{T_1}^{T_2}\frac{\mathrm dT}{T}
-                        &=\frac{\gamma-1}{\gamma}
-                        \int_{p_1}^{p_2}\frac{\mathrm dp}{p}
-                        \\[2.8ex]
-                        \ln\left(\frac{T_2}{T_1}\right)
-                        &=\frac{\gamma-1}{\gamma}
-                        \ln\left(\frac{p_2}{p_1}\right)
-                        \end{aligned}
-                        \tag{1.2.5}
-                    \]
-                </div>
-
-                <p>양변의 Exponential을 취하면 Pressure–Temperature relation을 얻는다.</p>
-
-                <div class="equation main">
-                    \[
-                        \boxed{\displaystyle
-                        \frac{T_2}{T_1}
-                        =\left(\frac{p_2}{p_1}\right)^{(\gamma-1)/\gamma}}
-                        \tag{1.2.6}
-                    \]
-                </div>
-
-                <p>
-                    이 관계는 Isentropic compression에서 Pressure가 증가하면 Temperature도 함께 증가하고,
-                    Isentropic expansion에서 Pressure가 감소하면 Temperature도 함께 감소함을 보여준다. 즉,
-                    외부에서 Heat를 공급하지 않아도 Compression work가 Internal energy로 바뀌어 Temperature가
-                    올라갈 수 있으며, Expansion에서는 반대로 Gas가 일을 하면서 Temperature가 내려간다.
-                </p>
-            </section>
-
-            <section id="pressure-density">
-                <h2>2. Pressure–Density Relation</h2>
-
-                <h3>Pressure–Density Relation의 도출</h3>
-
-                <p>
-                    Continuity equation에는 Density가 직접 나타나고 Momentum equation에는 Pressure가 직접
-                    나타난다. 따라서 Pressure와 Density를 바로 연결해 두면 두 Governing equation 사이의 결합을
-                    이해하고 계산하기 쉬워진다. Ideal-gas equation을 이용하여 앞의 Pressure–Temperature
-                    relation에서 Temperature를 제거하면 이 관계를 얻을 수 있다.
-                </p>
-
-                <p>
-                    두 State에 Ideal-gas equation \(T=p/(\rho R)\)를 적용하면 Temperature ratio를 Pressure와
-                    Density ratio만으로 나타낼 수 있다.
-                </p>
-
-                <div class="equation">
-                    \[
-                        \begin{aligned}
-                        \frac{T_2}{T_1}
-                        &=\frac{p_2/(\rho_2R)}{p_1/(\rho_1R)}
-                        \\[2.8ex]
-                        &=\frac{p_2}{p_1}\frac{\rho_1}{\rho_2}
-                        \end{aligned}
-                        \tag{1.2.7}
-                    \]
-                </div>
-
-                <p>
-                    이 결과를 앞에서 얻은
-                    \(T_2/T_1=(p_2/p_1)^{(\gamma-1)/\gamma}\)와 같게 두면
-                </p>
-
-                <div class="equation">
-                    \[
-                        \begin{aligned}
-                        \frac{p_2}{p_1}\frac{\rho_1}{\rho_2}
-                        &=\left(\frac{p_2}{p_1}\right)^{(\gamma-1)/\gamma}
-                        \\[2.8ex]
-                        \frac{\rho_2}{\rho_1}
-                        &=\left(\frac{p_2}{p_1}\right)^{1/\gamma}
-                        \end{aligned}
-                        \tag{1.2.8}
-                    \]
-                </div>
-
-                <p>
-                    두 번째 식을 \(\gamma\)제곱하면 Pressure–Density relation을 얻고, 이를
-                    Pressure–Temperature relation과 결합하면 Temperature–Density relation도 얻을 수 있다.
-                </p>
-
-                <div class="equation main">
-                    \[
-                        \boxed{\displaystyle
-                        \frac{p_2}{p_1}
-                        =\left(\frac{\rho_2}{\rho_1}\right)^\gamma,
-                        \qquad
-                        \frac{T_2}{T_1}
-                        =\left(\frac{\rho_2}{\rho_1}\right)^{\gamma-1}}
-                        \tag{1.2.9}
-                    \]
-                </div>
-
-                <p>
-                    첫 번째 식은 Isentropic process에서 Pressure와 Density가 단순 비례하지 않음을 보여준다.
-                    Gas를 압축하면 단위부피 안의 질량이 증가할 뿐 아니라 Compression work로 Temperature도
-                    상승하므로, Pressure는 Density보다 더 민감하게 증가한다. 그 민감도를 결정하는 지수가
-                    Specific-heat ratio \(\gamma\)이다.
-                </p>
-
-                <div class="concept-note">
-                    <p>
-                        <strong>핵심:</strong> Isentropic condition이 주어지면 \(p\), \(T\), \(\rho\) 중 하나의
-                        변화만 알아도 나머지 두 Property의 변화를 계산할 수 있다. 이후 Speed of sound를 유도할 때도
-                        바로 이 Pressure–Density relation이 Gas의 압축성, 즉 Pressure disturbance에 대한 반응을
-                        결정한다.
-                    </p>
-                </div>
-            </section>
-
-            <footer><a href="../">← Compressible Flow로 돌아가기</a></footer>
-        </main>
-
-        <aside class="right-sidebar" aria-label="On this page">
-            <div class="sidebar-inner">
-                <div class="sidebar-title">On this page</div>
-                <a href="#pressure-temperature" class="sidebar-link">1. Pressure–Temperature Relation</a>
-                <a href="#pressure-density" class="sidebar-link">2. Pressure–Density Relation</a>
-            </div>
-        </aside>
-    </div>
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script>
 </body>
-
 </html>

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Compressible flow에서는 압력이나 온도가 변할 때 밀도도 함께 달라질 수 있다. 따라서 질량·운동량·에너지 보존식에 더하여, 이 물리량들이 서로 어떻게 연결되는지를 나타내는 열역학 관계가 필요하다. 여기서는 Perfect gas의 상태방정식과 비열 관계를 정리하고, 이후 Isentropic flow와 Shock을 구분하는 데 사용되는 Entropy 관계를 유도한다.">
-    <title>1.1 Perfect-Gas Thermodynamic Relations | Isp99</title>
+    <meta name="description" content="Choking은 주어진 상류 상태와 노즐 단면에서 질량유량이 최대값에 도달하는 상태이다. 하류 압력을 계속 낮추어도 질량유량이 무한히 증가하지 않는 이유를 설명하려면, 질량유량을 Mach number의 함수로 나타내야 한다. 여기서는 앞 페이지와 같은 Steady, Isentropic 노즐 유동과 Calorically perfect gas를 가정한다.">
+    <title>3.2 Mass-Flow Function and Choking | Isp99</title>
     <script>
         window.MathJax = {
             tex: {
@@ -15,7 +15,7 @@
         };
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <!-- Page styles are self-contained. This file can replace perfect-gas-thermodynamic-relations/index.html. -->
+    <!-- Page styles are self-contained. This file can replace mass-flow-function-and-choking/index.html. -->
     <style>
         :root {
             color-scheme: light;
@@ -221,117 +221,103 @@
     </style>
 </head>
 <body class="article-page"><div class="page-layout">
-<aside class="left-sidebar" aria-label="Compressible Flow navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Compressible Flow</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals of Compressible Flow</div><a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link active" aria-current="page"><span class="item-number">1.1</span> Perfect-Gas Thermodynamic Relations</a><a href="../isentropic-relations/" class="sidebar-link"><span class="item-number">1.2</span> Isentropic Relations</a><a href="../speed-of-sound-and-mach-number/" class="sidebar-link"><span class="item-number">1.3</span> Speed of Sound and Mach Number</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Stagnation State and Properties</div><a href="../stagnation-temperature/" class="sidebar-link"><span class="item-number">2.1</span> Stagnation Temperature</a><a href="../stagnation-pressure-and-density/" class="sidebar-link"><span class="item-number">2.2</span> Stagnation Pressure and Density</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Quasi-One-Dimensional Nozzle Flow</div><a href="../area-velocity-relation/" class="sidebar-link"><span class="item-number">3.1</span> Area–Velocity Relation</a><a href="../mass-flow-function-and-choking/" class="sidebar-link"><span class="item-number">3.2</span> Mass-Flow Function and Choking</a><a href="../area-mach-number-relation/" class="sidebar-link"><span class="item-number">3.3</span> Area–Mach Number Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Normal Shock Waves</div><a href="../normal-shock-conservation-laws/" class="sidebar-link"><span class="item-number">4.1</span> Derivation from Conservation Laws</a><a href="../normal-shock-property-ratios/" class="sidebar-link"><span class="item-number">4.2</span> Normal-Shock Property Ratios</a><a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link"><span class="item-number">4.3</span> Downstream Mach Number and Entropy Change</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Oblique Shock Waves</div><a href="../normal-component-method/" class="sidebar-link"><span class="item-number">5.1</span> Normal-Component Method</a><a href="../theta-beta-mach-relation/" class="sidebar-link"><span class="item-number">5.2</span> Derivation of the Theta–Beta–Mach Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Prandtl–Meyer Expansion</div><a href="../infinitesimal-isentropic-turning/" class="sidebar-link"><span class="item-number">6.1</span> Infinitesimal Isentropic Turning</a><a href="../prandtl-meyer-function/" class="sidebar-link"><span class="item-number">6.2</span> Derivation of the Prandtl–Meyer Function</a><a href="../finite-expansion-and-property-changes/" class="sidebar-link"><span class="item-number">6.3</span> Finite Expansion and Property Changes</a></div></nav></aside>
+<aside class="left-sidebar" aria-label="Compressible Flow navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Compressible Flow</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals of Compressible Flow</div><a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link"><span class="item-number">1.1</span> Perfect-Gas Thermodynamic Relations</a><a href="../isentropic-relations/" class="sidebar-link"><span class="item-number">1.2</span> Isentropic Relations</a><a href="../speed-of-sound-and-mach-number/" class="sidebar-link"><span class="item-number">1.3</span> Speed of Sound and Mach Number</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Stagnation State and Properties</div><a href="../stagnation-temperature/" class="sidebar-link"><span class="item-number">2.1</span> Stagnation Temperature</a><a href="../stagnation-pressure-and-density/" class="sidebar-link"><span class="item-number">2.2</span> Stagnation Pressure and Density</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Quasi-One-Dimensional Nozzle Flow</div><a href="../area-velocity-relation/" class="sidebar-link"><span class="item-number">3.1</span> Area–Velocity Relation</a><a href="../mass-flow-function-and-choking/" class="sidebar-link active" aria-current="page"><span class="item-number">3.2</span> Mass-Flow Function and Choking</a><a href="../area-mach-number-relation/" class="sidebar-link"><span class="item-number">3.3</span> Area–Mach Number Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Normal Shock Waves</div><a href="../normal-shock-conservation-laws/" class="sidebar-link"><span class="item-number">4.1</span> Derivation from Conservation Laws</a><a href="../normal-shock-property-ratios/" class="sidebar-link"><span class="item-number">4.2</span> Normal-Shock Property Ratios</a><a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link"><span class="item-number">4.3</span> Downstream Mach Number and Entropy Change</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Oblique Shock Waves</div><a href="../normal-component-method/" class="sidebar-link"><span class="item-number">5.1</span> Normal-Component Method</a><a href="../theta-beta-mach-relation/" class="sidebar-link"><span class="item-number">5.2</span> Derivation of the Theta–Beta–Mach Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Prandtl–Meyer Expansion</div><a href="../infinitesimal-isentropic-turning/" class="sidebar-link"><span class="item-number">6.1</span> Infinitesimal Isentropic Turning</a><a href="../prandtl-meyer-function/" class="sidebar-link"><span class="item-number">6.2</span> Derivation of the Prandtl–Meyer Function</a><a href="../finite-expansion-and-property-changes/" class="sidebar-link"><span class="item-number">6.3</span> Finite Expansion and Property Changes</a></div></nav></aside>
 <main class="main-content" id="top">
-<nav aria-label="Current article"><a href="#top">1.1 Perfect-Gas Thermodynamic Relations</a></nav>
-<header><h1>1.1 Perfect-Gas Thermodynamic Relations</h1><p class="subtitle">Equation of State, Specific Heats, and Entropy</p><p class="intro"><strong>Compressible flow</strong>에서는 압력이나 온도가 변할 때 밀도도 함께 달라질 수 있다. 따라서 질량·운동량·에너지 보존식에 더하여, 이 물리량들이 서로 어떻게 연결되는지를 나타내는 열역학 관계가 필요하다. 여기서는 Perfect gas의 상태방정식과 비열 관계를 정리하고, 이후 Isentropic flow와 Shock을 구분하는 데 사용되는 Entropy 관계를 유도한다.</p></header>
-<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#thermally-and-calorically-perfect-gas">Thermally and Calorically Perfect Gas</a></li><li><a href="#gibbs-relations">Gibbs Relations</a></li></ol></aside>
-<section id="thermally-and-calorically-perfect-gas" aria-labelledby="thermally-and-calorically-perfect-gas-title"><h2 id="thermally-and-calorically-perfect-gas-title">1. Thermally and Calorically Perfect Gas</h2>
-<h3>Equation of State</h3>
-<p><strong>Equation of state</strong>는 같은 상태에 있는 압력·밀도·온도 사이의 관계이다. 이 관계가 있으면 세 값을 서로 독립적으로 정하는 대신, 두 값으로 나머지 하나를 계산할 수 있다. Thermally perfect gas는 다음 Ideal-gas equation of state를 따르며, 내부에너지는 온도의 함수로 나타낸다.</p>
-<div class="equation" id="eq-idealGas">
+<nav aria-label="Current article"><a href="#top">3.2 Mass-Flow Function and Choking</a></nav>
+<header><h1>3.2 Mass-Flow Function and Choking</h1><p class="subtitle">Mach-Number Dependence, Maximum Flow, and the Sonic Section</p><p class="intro"><strong>Choking</strong>은 주어진 상류 상태와 노즐 단면에서 질량유량이 최대값에 도달하는 상태이다. 하류 압력을 계속 낮추어도 질량유량이 무한히 증가하지 않는 이유를 설명하려면, 질량유량을 Mach number의 함수로 나타내야 한다. 여기서는 앞 페이지와 같은 Steady, Isentropic 노즐 유동과 Calorically perfect gas를 가정한다.</p></header>
+<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#mass-flow-rate-written-with-mach-number">Mass Flow Rate Written with Mach Number</a></li><li><a href="#maximum-mass-flow-rate">Maximum Mass Flow Rate</a></li><li><a href="#choked-mass-flow-rate">Choked Mass Flow Rate</a></li></ol></aside>
+<section id="mass-flow-rate-written-with-mach-number" aria-labelledby="mass-flow-rate-written-with-mach-number-title"><h2 id="mass-flow-rate-written-with-mach-number-title">1. Mass Flow Rate Written with Mach Number</h2>
+<p>질량보존식 \(\dot m=\rho VA\)에 \(\rho=p/(RT)\)와 \(V=M\sqrt{\gamma RT}\)를 대입하면</p>
+<div class="equation" id="eq-nozzleMassLocal">
 \[
-p=\rho RT
-\tag{1.1.1}
+\dot m=\rho VA=\frac{p}{RT}M\sqrt{\gamma RT}\,A=ApM\sqrt{\frac{\gamma}{RT}}
+\tag{3.2.1}
 \]
 </div>
-<p>여기서 \(p\)는 압력, \(\rho\)는 밀도, \(T\)는 절대온도이고, \(R\)은 해당 기체의 단위질량당 기체상수이다. 이 가정만으로 비열이 일정해지는 것은 아니다. <strong>Calorically perfect gas</strong>는 여기에 정압비열 \(c_p\)와 정적비열 \(c_v\)도 일정하다는 조건을 추가한다. 이후 유도에서는 이 조건을 사용하여 온도 변화와 에너지 변화를 간단히 연결한다.</p>
-<h3>Internal Energy and Enthalpy</h3>
-<p>단위질량당 내부에너지 \(e\)는 기체 내부의 열적 상태를 나타내는 에너지이다. <strong>Enthalpy</strong> \(h\)는 여기에 \(p/\rho\)를 더한 값으로, 유체를 밀어 넣거나 내보내는 데 필요한 압력에 의한 일을 함께 다룰 때 사용한다. 따라서 유동의 에너지방정식에서는 \(e\)보다 \(h\)로 쓰면 식이 간단해지는 경우가 많다.</p>
-<div class="equation" id="eq-energyEnthalpyDefinitions">
+<p>이 식은 현재 단면의 압력과 온도를 사용한다. 서로 다른 단면을 같은 기준으로 비교하려면 일정하게 유지되는 \(p_0,T_0\)로 바꾸는 것이 편리하다. Stagnation relation을 정리하면</p>
+<div class="equation" id="eq-massFunctionStaticPressure">
 \[
-e=c_vT,\qquad h=e+\frac{p}{\rho}
-\tag{1.1.2}
+p=p_0\left(1+\frac{\gamma-1}{2}M^2\right)^{-\gamma/(\gamma-1)}
+\tag{3.2.2}
 \]
 </div>
-<p>내부에너지의 기준을 위와 같이 잡고, Enthalpy의 정의에 \(e=c_vT\)와 상태방정식의 \(p/\rho=RT\)를 대입하면</p>
-<div class="equation" id="eq-enthalpyTemperature">
+<div class="equation" id="eq-massFunctionStaticTemperature">
 \[
-h=c_vT+RT=(c_v+R)T=c_pT
-\tag{1.1.3}
+T=T_0\left(1+\frac{\gamma-1}{2}M^2\right)^{-1}
+\tag{3.2.3}
 \]
 </div>
-<p>같은 온도 \(T\)의 계수를 비교하면 다음 관계를 얻는다.</p>
-<div class="equation" id="eq-mayerRelation">
+<p>압력은 그대로 곱해지고 온도는 \(1/\sqrt T\)로 들어가므로, 두 식을 <a href="#eq-nozzleMassLocal">(3.2.1)</a>에 대입하면 공통 괄호의 지수는 \(-\gamma/(\gamma-1)+1/2\)가 된다.</p>
+<div class="equation" id="eq-massFunctionExponent">
 \[
-c_p-c_v=R
-\tag{1.1.4}
+-\frac{\gamma}{\gamma-1}+\frac12=-\frac{\gamma+1}{2(\gamma-1)}
+\tag{3.2.4}
 \]
 </div>
-<p>정압 상태에서는 온도가 올라갈 때 기체가 팽창하면서 외부에 하는 일도 고려해야 한다. 이 때문에 같은 온도 변화에 필요한 에너지를 나타내는 비열은 \(c_p\)가 \(c_v\)보다 크다. 두 비열의 비를 <strong>Specific-heat ratio</strong> \(\gamma\)로 정의한다.</p>
-<div class="equation" id="eq-gammaDefinition">
+<div class="equation main" id="eq-nozzleMassFlowFunction">
 \[
-\gamma=\frac{c_p}{c_v}
-\tag{1.1.5}
+\boxed{\displaystyle \dot m=A\frac{p_0}{\sqrt{T_0}}\sqrt{\frac{\gamma}{R}}\,M\left(1+\frac{\gamma-1}{2}M^2\right)^{-\frac{\gamma+1}{2(\gamma-1)}}}
+\tag{3.2.5}
 \]
 </div>
-<p>\(c_v=c_p/\gamma\)를 식 <a href="#eq-mayerRelation">(1.1.4)</a>에 대입하면 \(R\)과 \(\gamma\)만으로 두 비열을 정리할 수 있다.</p>
-<div class="equation" id="eq-cpRearrangement">
-\[
-c_p-\frac{c_p}{\gamma}=R,\qquad c_p\left(1-\frac{1}{\gamma}\right)=R
-\tag{1.1.6}
-\]
-</div>
-<div class="equation main" id="eq-specificHeatsGamma">
-\[
-\boxed{\displaystyle c_p=\frac{\gamma R}{\gamma-1},\qquad c_v=\frac{R}{\gamma-1}}
-\tag{1.1.7}
-\]
-</div>
-<p>이 관계는 뒤에서 에너지방정식의 \(c_p\)를 Mach number에 포함된 \(\gamma R\)과 연결할 때 반복해서 사용된다.</p>
+<p>\(A,p_0,T_0\)와 기체가 정해지면 남은 변화는 Mach number에만 의존한다. 이처럼 질량유량의 Mach number 의존성을 따로 나타낸 부분을 <strong>Mass-flow function</strong>으로 다룬다.</p>
 </section>
-<section id="gibbs-relations" aria-labelledby="gibbs-relations-title"><h2 id="gibbs-relations-title">2. Gibbs Relations</h2>
-<h3>Entropy and Thermodynamic State</h3>
-<p><strong>Entropy</strong> \(s\)는 열전달과 과정의 비가역성을 구분하여 상태 변화를 다루는 데 필요한 물리량이다. 예를 들어 외부와 열을 주고받지 않아도 Shock을 통과하면 Entropy는 증가한다. 따라서 열전달이 없다는 조건과 Entropy가 일정하다는 조건은 구분해야 한다.</p>
-<p><strong>Gibbs relation</strong>은 Entropy의 변화를 온도·압력·비체적과 같은 상태량의 변화로 나타내는 열역학 관계이다. 이를 사용하면 Entropy를 직접 알지 못해도 압력과 온도의 변화로 \(\mathrm ds\)를 계산할 수 있다. 압력에 의한 팽창·압축 일을 고려하는 Simple compressible substance에 대해</p>
-<div class="equation" id="eq-gibbsH">
+<section id="maximum-mass-flow-rate" aria-labelledby="maximum-mass-flow-rate-title"><h2 id="maximum-mass-flow-rate-title">2. Maximum Mass Flow Rate</h2>
+<h3>Mach-Number Function</h3>
+<p>상수로 묶이는 부분을 제외하고 Mach number에 따라 달라지는 부분을 \(F(M)\)으로 정의한다. 이 함수의 최대값을 찾으면 동일한 조건에서 가능한 최대 질량유량을 구할 수 있다.</p>
+<div class="equation" id="eq-massFunctionDefinition">
 \[
-T\,\mathrm ds=\mathrm de+p\,\mathrm dv,\qquad T\,\mathrm ds=\mathrm dh-v\,\mathrm dp
-\tag{1.1.8}
+F(M)=M\left(1+\frac{\gamma-1}{2}M^2\right)^{-\frac{\gamma+1}{2(\gamma-1)}}
+\tag{3.2.6}
 \]
 </div>
-<p>여기서 \(v=1/\rho\)는 단위질량이 차지하는 체적인 <strong>Specific volume</strong>이다. 이 페이지의 소문자 \(v\)는 속도가 아니며, 이후 유동의 속력은 대문자 \(V\)로 표시한다. Gibbs relation은 상태량 사이의 관계이므로, 실제 과정이 Isentropic일 때만 성립하는 식은 아니다.</p>
-<h3>Entropy in Terms of Temperature and Volume</h3>
-<p>첫 번째 Gibbs relation에 \(\mathrm de=c_v\,\mathrm dT\)와 \(p=RT/v\)를 대입하면</p>
-<div class="equation" id="eq-gibbsEnergySubstitution">
+<p>곱과 거듭제곱을 그대로 미분하는 대신 로그를 취하면 각 항이 분리된다. \(M&gt;0\)에서 \(F&gt;0\)이므로 \(F\)의 최대점과 \(\ln F\)의 최대점은 같다.</p>
+<div class="equation" id="eq-massFunctionLog">
 \[
-T\,\mathrm ds=c_v\,\mathrm dT+p\,\mathrm dv=c_v\,\mathrm dT+\frac{RT}{v}\,\mathrm dv
-\tag{1.1.9}
+\ln F=\ln M-\frac{\gamma+1}{2(\gamma-1)}\ln\left(1+\frac{\gamma-1}{2}M^2\right)
+\tag{3.2.7}
 \]
 </div>
-<p>양변을 \(T\)로 나누면 온도와 비체적의 변화로 Entropy 변화를 나타낼 수 있다.</p>
-<div class="equation" id="eq-entropyTv">
+<div class="equation" id="eq-massFunctionLogDerivative">
 \[
-\mathrm ds=c_v\frac{\mathrm dT}{T}+R\frac{\mathrm dv}{v}
-\tag{1.1.10}
+\frac{\mathrm d(\ln F)}{\mathrm dM}=\frac1M-\frac{\gamma+1}{2}\frac{M}{1+\frac{\gamma-1}{2}M^2}
+\tag{3.2.8}
 \]
 </div>
-<h3>Entropy in Terms of Temperature and Pressure</h3>
-<p>유동에서는 비체적보다 압력으로 상태를 표현하는 경우가 많다. 두 번째 Gibbs relation에 \(\mathrm dh=c_p\,\mathrm dT\)와 \(v=RT/p\)를 대입하면</p>
-<div class="equation" id="eq-gibbsEnthalpySubstitution">
+<h3>Maximum Condition</h3>
+<p>위 미분값을 0으로 두고 분모를 정리하면</p>
+<div class="equation" id="eq-massFunctionStationary">
 \[
-T\,\mathrm ds=c_p\,\mathrm dT-\frac{RT}{p}\,\mathrm dp
-\tag{1.1.11}
+1+\frac{\gamma-1}{2}M^2=\frac{\gamma+1}{2}M^2,\qquad M^2=1
+\tag{3.2.9}
 \]
 </div>
-<div class="equation" id="eq-entropyTp">
+<p>\(M&gt;0\)이므로 가능한 값은 \(M=1\)이다. 실제로 식 <a href="#eq-massFunctionLogDerivative">(3.2.8)</a>의 부호는 \(M&lt;1\)에서 양수, \(M&gt;1\)에서 음수이므로 이 지점은 최대점이다.</p>
+<div class="equation main" id="eq-chokingCondition">
 \[
-\mathrm ds=c_p\frac{\mathrm dT}{T}-R\frac{\mathrm dp}{p}
-\tag{1.1.12}
+\boxed{\displaystyle \left.\frac{\mathrm d\dot m}{\mathrm dM}\right|_{p_0,T_0,A}=0\quad\Longrightarrow\quad M=1}
+\tag{3.2.10}
 \]
 </div>
-<p>\(c_p\)와 \(R\)이 일정하므로 상태 1에서 상태 2까지 적분하면 각 항이 로그로 정리된다.</p>
-<div class="equation main" id="eq-entropyChangePerfectGas">
+<p>따라서 같은 단면적과 Stagnation state에서 통과할 수 있는 질량유량은 Sonic state일 때 최대이다. 이것이 Choking을 질량유량의 한계로 정의하는 수학적 근거이다.</p>
+</section>
+<section id="choked-mass-flow-rate" aria-labelledby="choked-mass-flow-rate-title"><h2 id="choked-mass-flow-rate-title">3. Choked Mass Flow Rate</h2>
+<h3>Evaluation at the Sonic State</h3>
+<p>Sonic section의 단면적을 \(A^*\)로 표시한다. 별표는 \(M=1\)인 기준 상태를 뜻한다. 식 <a href="#eq-nozzleMassFlowFunction">(3.2.5)</a>에 \(M=1\)을 대입하면 괄호 안은 \((\gamma+1)/2\)가 되고, 음의 지수를 정리하여</p>
+<div class="equation main" id="eq-chokedMassFlow">
 \[
-\boxed{\displaystyle s_2-s_1=c_p\ln\left(\frac{T_2}{T_1}\right)-R\ln\left(\frac{p_2}{p_1}\right)}
-\tag{1.1.13}
+\boxed{\displaystyle \dot m^*=A^*\frac{p_0}{\sqrt{T_0}}\sqrt{\frac{\gamma}{R}}\left(\frac{2}{\gamma+1}\right)^{\frac{\gamma+1}{2(\gamma-1)}}}
+\tag{3.2.11}
 \]
 </div>
-<p>이 결과에 \(s_2=s_1\)을 적용하면 Isentropic relation을 얻는다. 반대로 Shock 전후의 온도비와 압력비를 대입하면 Entropy가 얼마나 증가하는지 확인할 수 있다. 같은 식이 두 경우에 쓰이지만, 적용하는 과정의 조건은 서로 다르다.</p>
+<p>이 식에서 \(\dot m^*\)는 같은 상류 Stagnation state와 Sonic section에 대응하는 최대 질량유량이다. 실제 노즐이 Throat에서 Choking되면 \(A^*\)는 Throat area와 같다.</p>
+<h3>Information Propagation at the Throat</h3>
+<p>압력 교란은 유체를 기준으로 음속 \(a\)로 전달된다. Throat에서 \(V=a\)가 되면, 유동을 거슬러 진행하려는 작은 교란도 그 지점을 상류 방향으로 통과할 수 없게 된다. 따라서 Choking 이후에는 하류 압력을 더 낮추는 변화가 상류 저장부의 유량을 계속 증가시키는 방식으로 전달되지 않는다.</p>
+<p><strong>상류의 \(p_0,T_0\)와 Throat area가 같다면</strong>, Choking 이후 하류 압력을 더 낮추어도 질량유량은 증가하지 않는다. 이 조건들을 바꾸면 식 <a href="#eq-chokedMassFlow">(3.2.11)</a> 자체가 달라지므로 최대 질량유량도 달라진다.</p>
 </section>
 <footer><a href="../">← Compressible Flow로 돌아가기</a></footer>
 </main>
-<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#thermally-and-calorically-perfect-gas" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Thermally and Calorically Perfect Gas</span></a><a href="#gibbs-relations" class="sidebar-link"><span class="item-number">2.</span><span>Gibbs Relations</span></a></nav></aside>
+<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#mass-flow-rate-written-with-mach-number" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Mass Flow Rate Written with Mach Number</span></a><a href="#maximum-mass-flow-rate" class="sidebar-link"><span class="item-number">2.</span><span>Maximum Mass Flow Rate</span></a><a href="#choked-mass-flow-rate" class="sidebar-link"><span class="item-number">3.</span><span>Choked Mass Flow Rate</span></a></nav></aside>
 </div>
 <script>
         (() => {

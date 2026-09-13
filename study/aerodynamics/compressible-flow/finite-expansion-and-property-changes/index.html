@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Speed of sound는 유체에 생긴 아주 작은 압력 교란이 주변으로 전달되는 속도이다. 유동의 속력만으로는 압력 변화가 상류까지 전달될 수 있는지 판단하기 어렵다. 그 유체에서의 음속과 비교한 Mach number를 사용하면 유동과 압력 정보 전달의 상대적인 빠르기를 구분할 수 있다.">
-    <title>1.3 Speed of Sound and Mach Number | Isp99</title>
+    <meta name="description" content="앞 페이지의 Prandtl–Meyer function은 작은 팽창 회전을 적분한 결과이다. 이제 Finite expansion에 적용하면, 주어진 유입 Mach number와 전체 회전각으로 출구 Mach number를 구할 수 있다. 이후 Isentropic relation을 사용하여 압력·온도·밀도의 변화까지 계산한다.">
+    <title>6.3 Finite Expansion and Property Changes | Isp99</title>
     <script>
         window.MathJax = {
             tex: {
@@ -15,7 +15,7 @@
         };
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <!-- Page styles are self-contained. This file can replace speed-of-sound-and-mach-number/index.html. -->
+    <!-- Page styles are self-contained. This file can replace finite-expansion-and-property-changes/index.html. -->
     <style>
         :root {
             color-scheme: light;
@@ -221,54 +221,53 @@
     </style>
 </head>
 <body class="article-page"><div class="page-layout">
-<aside class="left-sidebar" aria-label="Compressible Flow navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Compressible Flow</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals of Compressible Flow</div><a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link"><span class="item-number">1.1</span> Perfect-Gas Thermodynamic Relations</a><a href="../isentropic-relations/" class="sidebar-link"><span class="item-number">1.2</span> Isentropic Relations</a><a href="../speed-of-sound-and-mach-number/" class="sidebar-link active" aria-current="page"><span class="item-number">1.3</span> Speed of Sound and Mach Number</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Stagnation State and Properties</div><a href="../stagnation-temperature/" class="sidebar-link"><span class="item-number">2.1</span> Stagnation Temperature</a><a href="../stagnation-pressure-and-density/" class="sidebar-link"><span class="item-number">2.2</span> Stagnation Pressure and Density</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Quasi-One-Dimensional Nozzle Flow</div><a href="../area-velocity-relation/" class="sidebar-link"><span class="item-number">3.1</span> Area–Velocity Relation</a><a href="../mass-flow-function-and-choking/" class="sidebar-link"><span class="item-number">3.2</span> Mass-Flow Function and Choking</a><a href="../area-mach-number-relation/" class="sidebar-link"><span class="item-number">3.3</span> Area–Mach Number Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Normal Shock Waves</div><a href="../normal-shock-conservation-laws/" class="sidebar-link"><span class="item-number">4.1</span> Derivation from Conservation Laws</a><a href="../normal-shock-property-ratios/" class="sidebar-link"><span class="item-number">4.2</span> Normal-Shock Property Ratios</a><a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link"><span class="item-number">4.3</span> Downstream Mach Number and Entropy Change</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Oblique Shock Waves</div><a href="../normal-component-method/" class="sidebar-link"><span class="item-number">5.1</span> Normal-Component Method</a><a href="../theta-beta-mach-relation/" class="sidebar-link"><span class="item-number">5.2</span> Derivation of the Theta–Beta–Mach Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Prandtl–Meyer Expansion</div><a href="../infinitesimal-isentropic-turning/" class="sidebar-link"><span class="item-number">6.1</span> Infinitesimal Isentropic Turning</a><a href="../prandtl-meyer-function/" class="sidebar-link"><span class="item-number">6.2</span> Derivation of the Prandtl–Meyer Function</a><a href="../finite-expansion-and-property-changes/" class="sidebar-link"><span class="item-number">6.3</span> Finite Expansion and Property Changes</a></div></nav></aside>
+<aside class="left-sidebar" aria-label="Compressible Flow navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Compressible Flow</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals of Compressible Flow</div><a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link"><span class="item-number">1.1</span> Perfect-Gas Thermodynamic Relations</a><a href="../isentropic-relations/" class="sidebar-link"><span class="item-number">1.2</span> Isentropic Relations</a><a href="../speed-of-sound-and-mach-number/" class="sidebar-link"><span class="item-number">1.3</span> Speed of Sound and Mach Number</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Stagnation State and Properties</div><a href="../stagnation-temperature/" class="sidebar-link"><span class="item-number">2.1</span> Stagnation Temperature</a><a href="../stagnation-pressure-and-density/" class="sidebar-link"><span class="item-number">2.2</span> Stagnation Pressure and Density</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Quasi-One-Dimensional Nozzle Flow</div><a href="../area-velocity-relation/" class="sidebar-link"><span class="item-number">3.1</span> Area–Velocity Relation</a><a href="../mass-flow-function-and-choking/" class="sidebar-link"><span class="item-number">3.2</span> Mass-Flow Function and Choking</a><a href="../area-mach-number-relation/" class="sidebar-link"><span class="item-number">3.3</span> Area–Mach Number Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Normal Shock Waves</div><a href="../normal-shock-conservation-laws/" class="sidebar-link"><span class="item-number">4.1</span> Derivation from Conservation Laws</a><a href="../normal-shock-property-ratios/" class="sidebar-link"><span class="item-number">4.2</span> Normal-Shock Property Ratios</a><a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link"><span class="item-number">4.3</span> Downstream Mach Number and Entropy Change</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Oblique Shock Waves</div><a href="../normal-component-method/" class="sidebar-link"><span class="item-number">5.1</span> Normal-Component Method</a><a href="../theta-beta-mach-relation/" class="sidebar-link"><span class="item-number">5.2</span> Derivation of the Theta–Beta–Mach Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Prandtl–Meyer Expansion</div><a href="../infinitesimal-isentropic-turning/" class="sidebar-link"><span class="item-number">6.1</span> Infinitesimal Isentropic Turning</a><a href="../prandtl-meyer-function/" class="sidebar-link"><span class="item-number">6.2</span> Derivation of the Prandtl–Meyer Function</a><a href="../finite-expansion-and-property-changes/" class="sidebar-link active" aria-current="page"><span class="item-number">6.3</span> Finite Expansion and Property Changes</a></div></nav></aside>
 <main class="main-content" id="top">
-<nav aria-label="Current article"><a href="#top">1.3 Speed of Sound and Mach Number</a></nav>
-<header><h1>1.3 Speed of Sound and Mach Number</h1><p class="subtitle">Small Pressure Disturbances and Information Propagation</p><p class="intro"><strong>Speed of sound</strong>는 유체에 생긴 아주 작은 압력 교란이 주변으로 전달되는 속도이다. 유동의 속력만으로는 압력 변화가 상류까지 전달될 수 있는지 판단하기 어렵다. 그 유체에서의 음속과 비교한 <strong>Mach number</strong>를 사용하면 유동과 압력 정보 전달의 상대적인 빠르기를 구분할 수 있다.</p></header>
-<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#definition-of-the-speed-of-sound">Definition of the Speed of Sound</a></li><li><a href="#mach-number">Mach Number</a></li></ol></aside>
-<section id="definition-of-the-speed-of-sound" aria-labelledby="definition-of-the-speed-of-sound-title"><h2 id="definition-of-the-speed-of-sound-title">1. Definition of the Speed of Sound</h2>
-<h3>Small Pressure Disturbance</h3>
-<p>어느 지점의 압력이 조금 바뀌면 인접한 유체가 압축되거나 팽창하고, 그 변화가 다시 주변으로 전달된다. 이처럼 작은 압력·밀도 변화가 퍼져 나가는 파동이 <strong>Sound wave</strong>이다. 따라서 음속과 작은 압력 교란의 전파속도는 같은 현상을 가리킨다. 여기서 말하는 소리는 사람이 들을 수 있는 주파수 범위로 한정되지 않는다.</p>
-<p>교란의 크기가 매우 작고 한 번의 압축·팽창 동안 열전달과 소산의 영향이 작으면 그 변화를 Isentropic으로 근사한다. 이때 음속은 다음 관계로 정의된다.</p>
-<div class="equation main" id="eq-soundGeneral">
+<nav aria-label="Current article"><a href="#top">6.3 Finite Expansion and Property Changes</a></nav>
+<header><h1>6.3 Finite Expansion and Property Changes</h1><p class="subtitle">Finite Turning, Downstream Mach Number, and Static Properties</p><p class="intro">앞 페이지의 Prandtl–Meyer function은 작은 팽창 회전을 적분한 결과이다. 이제 <strong>Finite expansion</strong>에 적용하면, 주어진 유입 Mach number와 전체 회전각으로 출구 Mach number를 구할 수 있다. 이후 Isentropic relation을 사용하여 압력·온도·밀도의 변화까지 계산한다.</p></header>
+<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#turning-through-a-finite-expansion-fan">Turning through a Finite Expansion Fan</a></li><li><a href="#static-property-ratios">Static-Property Ratios</a></li></ol></aside>
+<section id="turning-through-a-finite-expansion-fan" aria-labelledby="turning-through-a-finite-expansion-fan-title"><h2 id="turning-through-a-finite-expansion-fan-title">1. Turning through a Finite Expansion Fan</h2>
+<h3>Total Turning Angle</h3>
+<p>Expansion fan의 시작 상태를 1, 끝 상태를 2로 표시한다. 팽창 방향을 양의 회전으로 잡으면, 작은 회전 \(\mathrm d\theta\)를 전 구간에 걸쳐 합한 값이 \(\theta_2-\theta_1\)이다. 식 <a href="../prandtl-meyer-function/#eq-prandtlMeyerDifferential">(6.2.6)</a>을 적분하면</p>
+<div class="equation main" id="eq-finitePrandtlMeyerTurn">
 \[
-\boxed{\displaystyle a^2=\left(\frac{\partial p}{\partial\rho}\right)_s}
-\tag{1.3.1}
+\boxed{\displaystyle \theta_2-\theta_1=\nu(M_2)-\nu(M_1)}
+\tag{6.3.1}
 \]
 </div>
-<p>아래첨자 \(s\)는 Entropy를 일정하게 유지한 상태에서 미분한다는 뜻이다. \((\partial p/\partial\rho)_s\)는 밀도를 조금 바꾸는 데 필요한 압력 변화의 크기를 나타낸다. 같은 밀도 변화에 더 큰 압력 변화가 필요한 기체일수록 작은 압축을 되돌리는 작용이 강하고, 그 교란이 더 빠르게 전달된다.</p>
-<h3>Speed of Sound in a Perfect Gas</h3>
-<p>Isentropic relation <a href="../isentropic-relations/#eq-isentropicRelations">(1.2.9)</a>에 따라 \(p=C\rho^\gamma\)로 쓸 수 있다. 여기서 \(C\)는 해당 Isentropic 변화에서 일정한 값이다. 밀도로 미분하면</p>
-<div class="equation" id="eq-soundPressureDerivative">
-\[
-\left(\frac{\partial p}{\partial\rho}\right)_s=\gamma C\rho^{\gamma-1}=\gamma\frac{C\rho^\gamma}{\rho}=\gamma\frac{p}{\rho}
-\tag{1.3.2}
-\]
-</div>
-<p>이 결과와 \(p/\rho=RT\)를 식 <a href="#eq-soundGeneral">(1.3.1)</a>에 대입하면</p>
-<div class="equation main" id="eq-speedOfSound">
-\[
-\boxed{\displaystyle a=\sqrt{\gamma\frac{p}{\rho}}=\sqrt{\gamma RT}}
-\tag{1.3.3}
-\]
-</div>
-<p>동일한 기체에서 \(\gamma\)가 일정하다면 음속은 온도로 결정된다. 같은 속력의 유동이라도 기체의 온도가 다르면 압력 교란에 비해 빠른 정도가 달라진다. 또한 위 음속은 <strong>그 지점의 유체를 기준으로 한 전파속도</strong>이며, 유체 자체의 이동과 구분해야 한다.</p>
+<p>\(\nu(M_1)\)은 유입 Mach number에 대응하는 값이고, 여기에 주어진 회전각을 더하면 \(\nu(M_2)\)를 얻는다. 이 값을 식 <a href="../prandtl-meyer-function/#eq-prandtlMeyerFunction">(6.2.20)</a>에 대입하여 역으로 풀면 하류 Mach number가 정해진다.</p>
+<h3>Determination of the Downstream State</h3>
+<p>계산의 흐름은 다음과 같다. 여기서 사용하는 관계는 Steady, two-dimensional, Isentropic 팽창과 일정한 \(\gamma\)를 가정한다.</p>
+<ul class="explanation-list"><li><strong>Upstream state</strong>: 주어진 \(M_1&gt;1\)과 \(\gamma\)로 \(\nu(M_1)\)을 계산한다.</li><li><strong>Turning angle</strong>: 팽창 회전각 \(\theta_2-\theta_1\)을 더하여 \(\nu(M_2)\)를 구한다. 함수값과 회전각의 단위를 맞춘다.</li><li><strong>Downstream Mach number</strong>: Prandtl–Meyer function을 역으로 풀어 \(M_2\)를 구한다. 팽창이면 \(M_2&gt;M_1\)이다.</li></ul>
+<p>여기서 \(\nu(M_2)\) 자체를 출구 Mach number로 읽으면 안 된다. \(\nu\)는 회전에 대응하는 각도 함수이고, Mach number는 그 함수에 들어가는 변수이다.</p>
 </section>
-<section id="mach-number" aria-labelledby="mach-number-title"><h2 id="mach-number-title">2. Mach Number</h2>
-<h3>Comparison with the Local Sound Speed</h3>
-<p>Mach number는 유동의 속력 \(V\)를 그 지점의 음속 \(a\)로 나눈 무차원수이다. 속력과 전파속도를 같은 기준에서 비교하므로, 유동이 압력 교란보다 느린지 빠른지를 직접 나타낸다.</p>
-<div class="equation main" id="eq-machNumber">
+<section id="static-property-ratios" aria-labelledby="static-property-ratios-title"><h2 id="static-property-ratios-title">2. Static-Property Ratios</h2>
+<h3>Temperature Ratio</h3>
+<p>이상적인 Expansion fan은 Isentropic이므로 \(T_0\)와 \(p_0\)가 일정하다. 현재 유동의 온도·압력·밀도인 <strong>Static property</strong>는 그 기준값에 대한 Mach number 관계로 계산한다.</p>
+<p>두 상태에 같은 \(T_0\)를 사용하면</p>
+<div class="equation" id="eq-expansionTemperatureRatio">
 \[
-\boxed{\displaystyle M=\frac{V}{a}}
-\tag{1.3.4}
+\frac{T_2}{T_1}=\frac{T_2/T_0}{T_1/T_0}=\frac{1+\frac{\gamma-1}{2}M_1^2}{1+\frac{\gamma-1}{2}M_2^2}
+\tag{6.3.2}
 \]
 </div>
-<ul class="explanation-list"><li><strong>Subsonic flow</strong>, \(M&lt;1\): 유체가 흘러가는 속도보다 압력 교란의 전파속도가 빠르다. 유동을 거슬러 전달되는 교란도 상류 쪽으로 이동할 수 있으므로, 상류와 하류가 압력 변화를 주고받을 수 있다.</li><li><strong>Sonic state</strong>, \(M=1\): 유동을 거스르는 방향의 전파속도와 유동의 속력이 같아진다. 노즐의 Choking을 이해하는 기준이 되는 상태이다.</li><li><strong>Supersonic flow</strong>, \(M&gt;1\): 유체를 기준으로 상류 방향으로 퍼지는 작은 교란도, 정지한 관찰자가 보면 유동에 실려 하류로 이동한다. 이 설명은 작은 교란이 놓인 국소적인 Supersonic 영역에 대한 것이다.</li></ul>
-<p>Mach number에서 비교하는 대상은 입자가 이동하는 속도와 그 입자 주변으로 <strong>작은 압력 변화가 퍼지는 속도</strong>이다. 크기가 유한한 Shock 자체의 전파를 그대로 음속으로 놓는 것은 별개의 문제이다. 이후 노즐에서는 상류로 전달되는 정보의 제한이 Choking으로 이어지고, Supersonic 유동의 방향 변화는 Shock이나 Expansion wave를 통해 나타난다.</p>
+<p>팽창에서는 \(M_2&gt;M_1\)이므로 분모가 분자보다 커지고 \(T_2&lt;T_1\)이다. 유동이 가속되면서 운동에너지가 증가하는 만큼 Static temperature가 내려가는 관계이다.</p>
+<h3>Pressure and Density Ratios</h3>
+<p>두 상태는 같은 Isentropic 과정에 있으므로 식 <a href="../isentropic-relations/#eq-isentropicTp">(1.2.6)</a>과 식 <a href="../isentropic-relations/#eq-isentropicRelations">(1.2.9)</a>을 사용할 수 있다. 압력비와 밀도비를 온도비로 나타내면</p>
+<div class="equation main" id="eq-expansionPropertyRatios">
+\[
+\boxed{\displaystyle \frac{T_2}{T_1}=\frac{1+\frac{\gamma-1}{2}M_1^2}{1+\frac{\gamma-1}{2}M_2^2},\qquad \frac{p_2}{p_1}=\left(\frac{T_2}{T_1}\right)^{\gamma/(\gamma-1)},\qquad \frac{\rho_2}{\rho_1}=\left(\frac{T_2}{T_1}\right)^{1/(\gamma-1)}}
+\tag{6.3.3}
+\]
+</div>
+<p>\(T_2/T_1&lt;1\)이고 각 지수가 양수이므로 압력과 밀도도 감소한다. 따라서 Expansion fan을 통과하면 속력과 Mach number는 증가하고, Static pressure·temperature·density는 감소한다. Stagnation property는 그대로 유지된다.</p>
+<h3>Distinction from a Compression Corner</h3>
+<p>벽이 유동 쪽으로 꺾이는 <strong>Compression corner</strong>에서는 약한 압축파들이 서로 모여 Shock을 형성할 수 있다. 유한한 Shock을 통과하면 Entropy가 증가하고 Stagnation pressure가 감소하므로, Expansion fan의 Isentropic relation을 회전각의 부호만 바꾸어 적용할 수 없다.</p>
+<p>따라서 팽창 모서리에서는 Prandtl–Meyer relation과 Isentropic property ratio를 함께 사용하고, 압축 모서리의 Oblique shock에는 Theta–beta–Mach relation과 Normal-component method를 사용한다. 두 경우 모두 방향이 변하지만, 상태를 연결하는 과정의 조건이 다르다.</p>
 </section>
 <footer><a href="../">← Compressible Flow로 돌아가기</a></footer>
 </main>
-<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#definition-of-the-speed-of-sound" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Definition of the Speed of Sound</span></a><a href="#mach-number" class="sidebar-link"><span class="item-number">2.</span><span>Mach Number</span></a></nav></aside>
+<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#turning-through-a-finite-expansion-fan" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Turning through a Finite Expansion Fan</span></a><a href="#static-property-ratios" class="sidebar-link"><span class="item-number">2.</span><span>Static-Property Ratios</span></a></nav></aside>
 </div>
 <script>
         (() => {

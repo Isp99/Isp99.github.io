@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Compressible flow에서는 압력이나 온도가 변할 때 밀도도 함께 달라질 수 있다. 따라서 질량·운동량·에너지 보존식에 더하여, 이 물리량들이 서로 어떻게 연결되는지를 나타내는 열역학 관계가 필요하다. 여기서는 Perfect gas의 상태방정식과 비열 관계를 정리하고, 이후 Isentropic flow와 Shock을 구분하는 데 사용되는 Entropy 관계를 유도한다.">
-    <title>1.1 Perfect-Gas Thermodynamic Relations | Isp99</title>
+    <meta name="description" content="앞 페이지의 보존식에는 아직 밀도비 이 미지수로 남아 있다. Normal-shock property ratio는 이를 소거하여 Shock 전후의 밀도·압력·온도비를 상류 Mach number 과 만으로 나타낸 결과이다. 밀도비를 먼저 결정하면 나머지 비는 운동량방정식과 상태방정식에서 순서대로 얻을 수 있다.">
+    <title>4.2 Normal-Shock Property Ratios | Isp99</title>
     <script>
         window.MathJax = {
             tex: {
@@ -15,7 +15,7 @@
         };
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <!-- Page styles are self-contained. This file can replace perfect-gas-thermodynamic-relations/index.html. -->
+    <!-- Page styles are self-contained. This file can replace normal-shock-property-ratios/index.html. -->
     <style>
         :root {
             color-scheme: light;
@@ -221,117 +221,111 @@
     </style>
 </head>
 <body class="article-page"><div class="page-layout">
-<aside class="left-sidebar" aria-label="Compressible Flow navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Compressible Flow</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals of Compressible Flow</div><a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link active" aria-current="page"><span class="item-number">1.1</span> Perfect-Gas Thermodynamic Relations</a><a href="../isentropic-relations/" class="sidebar-link"><span class="item-number">1.2</span> Isentropic Relations</a><a href="../speed-of-sound-and-mach-number/" class="sidebar-link"><span class="item-number">1.3</span> Speed of Sound and Mach Number</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Stagnation State and Properties</div><a href="../stagnation-temperature/" class="sidebar-link"><span class="item-number">2.1</span> Stagnation Temperature</a><a href="../stagnation-pressure-and-density/" class="sidebar-link"><span class="item-number">2.2</span> Stagnation Pressure and Density</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Quasi-One-Dimensional Nozzle Flow</div><a href="../area-velocity-relation/" class="sidebar-link"><span class="item-number">3.1</span> Area–Velocity Relation</a><a href="../mass-flow-function-and-choking/" class="sidebar-link"><span class="item-number">3.2</span> Mass-Flow Function and Choking</a><a href="../area-mach-number-relation/" class="sidebar-link"><span class="item-number">3.3</span> Area–Mach Number Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Normal Shock Waves</div><a href="../normal-shock-conservation-laws/" class="sidebar-link"><span class="item-number">4.1</span> Derivation from Conservation Laws</a><a href="../normal-shock-property-ratios/" class="sidebar-link"><span class="item-number">4.2</span> Normal-Shock Property Ratios</a><a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link"><span class="item-number">4.3</span> Downstream Mach Number and Entropy Change</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Oblique Shock Waves</div><a href="../normal-component-method/" class="sidebar-link"><span class="item-number">5.1</span> Normal-Component Method</a><a href="../theta-beta-mach-relation/" class="sidebar-link"><span class="item-number">5.2</span> Derivation of the Theta–Beta–Mach Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Prandtl–Meyer Expansion</div><a href="../infinitesimal-isentropic-turning/" class="sidebar-link"><span class="item-number">6.1</span> Infinitesimal Isentropic Turning</a><a href="../prandtl-meyer-function/" class="sidebar-link"><span class="item-number">6.2</span> Derivation of the Prandtl–Meyer Function</a><a href="../finite-expansion-and-property-changes/" class="sidebar-link"><span class="item-number">6.3</span> Finite Expansion and Property Changes</a></div></nav></aside>
+<aside class="left-sidebar" aria-label="Compressible Flow navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Compressible Flow</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals of Compressible Flow</div><a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link"><span class="item-number">1.1</span> Perfect-Gas Thermodynamic Relations</a><a href="../isentropic-relations/" class="sidebar-link"><span class="item-number">1.2</span> Isentropic Relations</a><a href="../speed-of-sound-and-mach-number/" class="sidebar-link"><span class="item-number">1.3</span> Speed of Sound and Mach Number</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Stagnation State and Properties</div><a href="../stagnation-temperature/" class="sidebar-link"><span class="item-number">2.1</span> Stagnation Temperature</a><a href="../stagnation-pressure-and-density/" class="sidebar-link"><span class="item-number">2.2</span> Stagnation Pressure and Density</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Quasi-One-Dimensional Nozzle Flow</div><a href="../area-velocity-relation/" class="sidebar-link"><span class="item-number">3.1</span> Area–Velocity Relation</a><a href="../mass-flow-function-and-choking/" class="sidebar-link"><span class="item-number">3.2</span> Mass-Flow Function and Choking</a><a href="../area-mach-number-relation/" class="sidebar-link"><span class="item-number">3.3</span> Area–Mach Number Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Normal Shock Waves</div><a href="../normal-shock-conservation-laws/" class="sidebar-link"><span class="item-number">4.1</span> Derivation from Conservation Laws</a><a href="../normal-shock-property-ratios/" class="sidebar-link active" aria-current="page"><span class="item-number">4.2</span> Normal-Shock Property Ratios</a><a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link"><span class="item-number">4.3</span> Downstream Mach Number and Entropy Change</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Oblique Shock Waves</div><a href="../normal-component-method/" class="sidebar-link"><span class="item-number">5.1</span> Normal-Component Method</a><a href="../theta-beta-mach-relation/" class="sidebar-link"><span class="item-number">5.2</span> Derivation of the Theta–Beta–Mach Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Prandtl–Meyer Expansion</div><a href="../infinitesimal-isentropic-turning/" class="sidebar-link"><span class="item-number">6.1</span> Infinitesimal Isentropic Turning</a><a href="../prandtl-meyer-function/" class="sidebar-link"><span class="item-number">6.2</span> Derivation of the Prandtl–Meyer Function</a><a href="../finite-expansion-and-property-changes/" class="sidebar-link"><span class="item-number">6.3</span> Finite Expansion and Property Changes</a></div></nav></aside>
 <main class="main-content" id="top">
-<nav aria-label="Current article"><a href="#top">1.1 Perfect-Gas Thermodynamic Relations</a></nav>
-<header><h1>1.1 Perfect-Gas Thermodynamic Relations</h1><p class="subtitle">Equation of State, Specific Heats, and Entropy</p><p class="intro"><strong>Compressible flow</strong>에서는 압력이나 온도가 변할 때 밀도도 함께 달라질 수 있다. 따라서 질량·운동량·에너지 보존식에 더하여, 이 물리량들이 서로 어떻게 연결되는지를 나타내는 열역학 관계가 필요하다. 여기서는 Perfect gas의 상태방정식과 비열 관계를 정리하고, 이후 Isentropic flow와 Shock을 구분하는 데 사용되는 Entropy 관계를 유도한다.</p></header>
-<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#thermally-and-calorically-perfect-gas">Thermally and Calorically Perfect Gas</a></li><li><a href="#gibbs-relations">Gibbs Relations</a></li></ol></aside>
-<section id="thermally-and-calorically-perfect-gas" aria-labelledby="thermally-and-calorically-perfect-gas-title"><h2 id="thermally-and-calorically-perfect-gas-title">1. Thermally and Calorically Perfect Gas</h2>
-<h3>Equation of State</h3>
-<p><strong>Equation of state</strong>는 같은 상태에 있는 압력·밀도·온도 사이의 관계이다. 이 관계가 있으면 세 값을 서로 독립적으로 정하는 대신, 두 값으로 나머지 하나를 계산할 수 있다. Thermally perfect gas는 다음 Ideal-gas equation of state를 따르며, 내부에너지는 온도의 함수로 나타낸다.</p>
-<div class="equation" id="eq-idealGas">
+<nav aria-label="Current article"><a href="#top">4.2 Normal-Shock Property Ratios</a></nav>
+<header><h1>4.2 Normal-Shock Property Ratios</h1><p class="subtitle">Density, Pressure, and Temperature Ratios from the Conservation Laws</p><p class="intro">앞 페이지의 보존식에는 아직 밀도비 \(r=\rho_2/\rho_1\)이 미지수로 남아 있다. <strong>Normal-shock property ratio</strong>는 이를 소거하여 Shock 전후의 밀도·압력·온도비를 상류 Mach number \(M_1\)과 \(\gamma\)만으로 나타낸 결과이다. 밀도비를 먼저 결정하면 나머지 비는 운동량방정식과 상태방정식에서 순서대로 얻을 수 있다.</p></header>
+<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#density-ratio">Density Ratio</a></li><li><a href="#pressure-ratio">Pressure Ratio</a></li><li><a href="#temperature-ratio">Temperature Ratio</a></li></ol></aside>
+<section id="density-ratio" aria-labelledby="density-ratio-title"><h2 id="density-ratio-title">1. Density Ratio</h2>
+<h3>Combining the Equation of State and Energy Balance</h3>
+<p>같은 기체의 두 상태에 \(T=p/(\rho R)\)를 적용하면</p>
+<div class="equation" id="eq-shockTFromPR">
 \[
-p=\rho RT
-\tag{1.1.1}
+\frac{T_2}{T_1}=\frac{p_2/(\rho_2R)}{p_1/(\rho_1R)}=\frac{p_2/p_1}{\rho_2/\rho_1}=\frac1r\frac{p_2}{p_1}
+\tag{4.2.1}
 \]
 </div>
-<p>여기서 \(p\)는 압력, \(\rho\)는 밀도, \(T\)는 절대온도이고, \(R\)은 해당 기체의 단위질량당 기체상수이다. 이 가정만으로 비열이 일정해지는 것은 아니다. <strong>Calorically perfect gas</strong>는 여기에 정압비열 \(c_p\)와 정적비열 \(c_v\)도 일정하다는 조건을 추가한다. 이후 유도에서는 이 조건을 사용하여 온도 변화와 에너지 변화를 간단히 연결한다.</p>
-<h3>Internal Energy and Enthalpy</h3>
-<p>단위질량당 내부에너지 \(e\)는 기체 내부의 열적 상태를 나타내는 에너지이다. <strong>Enthalpy</strong> \(h\)는 여기에 \(p/\rho\)를 더한 값으로, 유체를 밀어 넣거나 내보내는 데 필요한 압력에 의한 일을 함께 다룰 때 사용한다. 따라서 유동의 에너지방정식에서는 \(e\)보다 \(h\)로 쓰면 식이 간단해지는 경우가 많다.</p>
-<div class="equation" id="eq-energyEnthalpyDefinitions">
+<p>이 식에 운동량보존으로 구한 압력비 <a href="../normal-shock-conservation-laws/#eq-shockPressureInR">(4.1.8)</a>를 대입하면 온도비를 \(r\)로 쓸 수 있다. 한편 에너지보존식 <a href="../normal-shock-conservation-laws/#eq-shockEnergyInR">(4.1.13)</a>에도 같은 온도비가 나타나므로, 두 결과를 같게 둔다.</p>
+<div class="equation" id="eq-shockDensityCombined">
 \[
-e=c_vT,\qquad h=e+\frac{p}{\rho}
-\tag{1.1.2}
+\frac1r\left[1+\gamma M_1^2\left(1-\frac1r\right)\right]=1+\frac{\gamma-1}{2}M_1^2\left(1-\frac1{r^2}\right)
+\tag{4.2.2}
 \]
 </div>
-<p>내부에너지의 기준을 위와 같이 잡고, Enthalpy의 정의에 \(e=c_vT\)와 상태방정식의 \(p/\rho=RT\)를 대입하면</p>
-<div class="equation" id="eq-enthalpyTemperature">
+<p>이 단계에서 상태방정식·운동량보존·에너지보존이 하나로 연결된다. 속력비는 이미 질량보존으로 \(1/r\)로 바꾸었으므로, 이제 미지수는 \(r\) 하나만 남는다.</p>
+<h3>Polynomial in the Density Ratio</h3>
+<p>분모를 없애기 위해 양변에 \(2r^2\)을 곱한다. 좌변은 \(r\)에 대한 1차식으로 정리된다.</p>
+<div class="equation" id="eq-shockDensityLHS">
 \[
-h=c_vT+RT=(c_v+R)T=c_pT
-\tag{1.1.3}
+2r\left[1+\gamma M_1^2\left(1-\frac1r\right)\right]=2r+2\gamma M_1^2r-2\gamma M_1^2
+\tag{4.2.3}
 \]
 </div>
-<p>같은 온도 \(T\)의 계수를 비교하면 다음 관계를 얻는다.</p>
-<div class="equation" id="eq-mayerRelation">
+<p>우변은 다음과 같이 \(r^2\)의 항과 상수항으로 나뉜다.</p>
+<div class="equation" id="eq-shockDensityRHS">
 \[
-c_p-c_v=R
-\tag{1.1.4}
+2r^2+(\gamma-1)M_1^2(r^2-1)=\left[2+(\gamma-1)M_1^2\right]r^2-(\gamma-1)M_1^2
+\tag{4.2.4}
 \]
 </div>
-<p>정압 상태에서는 온도가 올라갈 때 기체가 팽창하면서 외부에 하는 일도 고려해야 한다. 이 때문에 같은 온도 변화에 필요한 에너지를 나타내는 비열은 \(c_p\)가 \(c_v\)보다 크다. 두 비열의 비를 <strong>Specific-heat ratio</strong> \(\gamma\)로 정의한다.</p>
-<div class="equation" id="eq-gammaDefinition">
+<p>좌변을 우변으로 이항하여 같은 차수끼리 모으면</p>
+<div class="equation" id="eq-shockDensityQuadratic">
 \[
-\gamma=\frac{c_p}{c_v}
-\tag{1.1.5}
+0=\left[2+(\gamma-1)M_1^2\right]r^2-2(1+\gamma M_1^2)r+(\gamma+1)M_1^2
+\tag{4.2.5}
 \]
 </div>
-<p>\(c_v=c_p/\gamma\)를 식 <a href="#eq-mayerRelation">(1.1.4)</a>에 대입하면 \(R\)과 \(\gamma\)만으로 두 비열을 정리할 수 있다.</p>
-<div class="equation" id="eq-cpRearrangement">
+<p>\(r=1\)을 대입하면 식이 성립하므로 \((r-1)\)이 인수이다. 이 인수를 묶으면</p>
+<div class="equation" id="eq-shockDensityFactorization">
 \[
-c_p-\frac{c_p}{\gamma}=R,\qquad c_p\left(1-\frac{1}{\gamma}\right)=R
-\tag{1.1.6}
+0=(r-1)\left\{\left[2+(\gamma-1)M_1^2\right]r-(\gamma+1)M_1^2\right\}
+\tag{4.2.6}
 \]
 </div>
-<div class="equation main" id="eq-specificHeatsGamma">
+<h3>Physical Shock Solution</h3>
+<p>\(r=1\)은 밀도 변화가 없는 해이다. 이를 앞의 보존식에 대입하면 속력·압력·온도도 변하지 않으므로, Shock이 없는 경우에 해당한다. 실제 압축 Shock에 대응하는 해는 두 번째 인수가 0이 되는 값이다.</p>
+<div class="equation main" id="eq-normalShockDensity">
 \[
-\boxed{\displaystyle c_p=\frac{\gamma R}{\gamma-1},\qquad c_v=\frac{R}{\gamma-1}}
-\tag{1.1.7}
+\boxed{\displaystyle \frac{\rho_2}{\rho_1}=\frac{(\gamma+1)M_1^2}{2+(\gamma-1)M_1^2}}
+\tag{4.2.7}
 \]
 </div>
-<p>이 관계는 뒤에서 에너지방정식의 \(c_p\)를 Mach number에 포함된 \(\gamma R\)과 연결할 때 반복해서 사용된다.</p>
+<p>\(M_1&gt;1\)이면 이 비가 1보다 크므로 Shock 뒤의 밀도가 증가한다. 여기서 Shock의 실제 유동 방향을 판단하려면 Entropy가 증가한다는 조건도 만족해야 하며, 다음 페이지에서 그 부호를 확인한다.</p>
 </section>
-<section id="gibbs-relations" aria-labelledby="gibbs-relations-title"><h2 id="gibbs-relations-title">2. Gibbs Relations</h2>
-<h3>Entropy and Thermodynamic State</h3>
-<p><strong>Entropy</strong> \(s\)는 열전달과 과정의 비가역성을 구분하여 상태 변화를 다루는 데 필요한 물리량이다. 예를 들어 외부와 열을 주고받지 않아도 Shock을 통과하면 Entropy는 증가한다. 따라서 열전달이 없다는 조건과 Entropy가 일정하다는 조건은 구분해야 한다.</p>
-<p><strong>Gibbs relation</strong>은 Entropy의 변화를 온도·압력·비체적과 같은 상태량의 변화로 나타내는 열역학 관계이다. 이를 사용하면 Entropy를 직접 알지 못해도 압력과 온도의 변화로 \(\mathrm ds\)를 계산할 수 있다. 압력에 의한 팽창·압축 일을 고려하는 Simple compressible substance에 대해</p>
-<div class="equation" id="eq-gibbsH">
+<section id="pressure-ratio" aria-labelledby="pressure-ratio-title"><h2 id="pressure-ratio-title">2. Pressure Ratio</h2>
+<h3>Substitution into the Momentum Relation</h3>
+<p>밀도비를 구했으므로 식 <a href="../normal-shock-conservation-laws/#eq-shockPressureInR">(4.1.8)</a>에 그대로 대입할 수 있다.</p>
+<div class="equation" id="eq-shockPressureSubstitution">
 \[
-T\,\mathrm ds=\mathrm de+p\,\mathrm dv,\qquad T\,\mathrm ds=\mathrm dh-v\,\mathrm dp
-\tag{1.1.8}
+\frac{p_2}{p_1}=1+\gamma M_1^2\left[1-\frac{2+(\gamma-1)M_1^2}{(\gamma+1)M_1^2}\right]
+\tag{4.2.8}
 \]
 </div>
-<p>여기서 \(v=1/\rho\)는 단위질량이 차지하는 체적인 <strong>Specific volume</strong>이다. 이 페이지의 소문자 \(v\)는 속도가 아니며, 이후 유동의 속력은 대문자 \(V\)로 표시한다. Gibbs relation은 상태량 사이의 관계이므로, 실제 과정이 Isentropic일 때만 성립하는 식은 아니다.</p>
-<h3>Entropy in Terms of Temperature and Volume</h3>
-<p>첫 번째 Gibbs relation에 \(\mathrm de=c_v\,\mathrm dT\)와 \(p=RT/v\)를 대입하면</p>
-<div class="equation" id="eq-gibbsEnergySubstitution">
+<p>괄호 안을 통분하면 분자는 \(2(M_1^2-1)\)이 된다.</p>
+<div class="equation" id="eq-shockPressureReduction">
 \[
-T\,\mathrm ds=c_v\,\mathrm dT+p\,\mathrm dv=c_v\,\mathrm dT+\frac{RT}{v}\,\mathrm dv
-\tag{1.1.9}
+\frac{p_2}{p_1}=1+\gamma M_1^2\frac{2(M_1^2-1)}{(\gamma+1)M_1^2}
+\tag{4.2.9}
 \]
 </div>
-<p>양변을 \(T\)로 나누면 온도와 비체적의 변화로 Entropy 변화를 나타낼 수 있다.</p>
-<div class="equation" id="eq-entropyTv">
+<p>공통항을 소거하면</p>
+<div class="equation main" id="eq-normalShockPressure">
 \[
-\mathrm ds=c_v\frac{\mathrm dT}{T}+R\frac{\mathrm dv}{v}
-\tag{1.1.10}
+\boxed{\displaystyle \frac{p_2}{p_1}=1+\frac{2\gamma}{\gamma+1}(M_1^2-1)=\frac{2\gamma M_1^2-(\gamma-1)}{\gamma+1}}
+\tag{4.2.10}
 \]
 </div>
-<h3>Entropy in Terms of Temperature and Pressure</h3>
-<p>유동에서는 비체적보다 압력으로 상태를 표현하는 경우가 많다. 두 번째 Gibbs relation에 \(\mathrm dh=c_p\,\mathrm dT\)와 \(v=RT/p\)를 대입하면</p>
-<div class="equation" id="eq-gibbsEnthalpySubstitution">
+<p>첫 번째 형태는 \(M_1&gt;1\)일 때 압력이 증가한다는 사실을 바로 보여준다. 두 번째 형태는 이후 온도비나 하류 Mach number를 구할 때 분수끼리 계산하기 편리하다. 두 식은 같은 압력비를 나타낸다.</p>
+</section>
+<section id="temperature-ratio" aria-labelledby="temperature-ratio-title"><h2 id="temperature-ratio-title">3. Temperature Ratio</h2>
+<p>온도비는 상태방정식에서 압력비를 밀도비로 나눈 값이다. 식 <a href="#eq-shockTFromPR">(4.2.1)</a>에 앞의 두 결과를 대입하면</p>
+<div class="equation" id="eq-shockTemperatureSubstitution">
 \[
-T\,\mathrm ds=c_p\,\mathrm dT-\frac{RT}{p}\,\mathrm dp
-\tag{1.1.11}
+\frac{T_2}{T_1}=\frac{2\gamma M_1^2-(\gamma-1)}{\gamma+1}\frac{2+(\gamma-1)M_1^2}{(\gamma+1)M_1^2}
+\tag{4.2.11}
 \]
 </div>
-<div class="equation" id="eq-entropyTp">
+<div class="equation main" id="eq-normalShockTemperature">
 \[
-\mathrm ds=c_p\frac{\mathrm dT}{T}-R\frac{\mathrm dp}{p}
-\tag{1.1.12}
+\boxed{\displaystyle \frac{T_2}{T_1}=\frac{[2\gamma M_1^2-(\gamma-1)][2+(\gamma-1)M_1^2]}{(\gamma+1)^2M_1^2}}
+\tag{4.2.12}
 \]
 </div>
-<p>\(c_p\)와 \(R\)이 일정하므로 상태 1에서 상태 2까지 적분하면 각 항이 로그로 정리된다.</p>
-<div class="equation main" id="eq-entropyChangePerfectGas">
-\[
-\boxed{\displaystyle s_2-s_1=c_p\ln\left(\frac{T_2}{T_1}\right)-R\ln\left(\frac{p_2}{p_1}\right)}
-\tag{1.1.13}
-\]
-</div>
-<p>이 결과에 \(s_2=s_1\)을 적용하면 Isentropic relation을 얻는다. 반대로 Shock 전후의 온도비와 압력비를 대입하면 Entropy가 얼마나 증가하는지 확인할 수 있다. 같은 식이 두 경우에 쓰이지만, 적용하는 과정의 조건은 서로 다르다.</p>
+<p>이로써 \(M_1\)과 \(\gamma\)가 주어졌을 때 세 상태량의 비를 모두 구할 수 있다. \(M_1&gt;1\)인 Normal shock에서는 압력·밀도·온도가 증가하고, 질량보존에 따라 속력은 감소한다. 이는 같은 상태를 Isentropic 압축으로 연결한 결과가 아니라, <strong>Shock 전후의 보존법칙을 적용한 결과</strong>이다.</p>
 </section>
 <footer><a href="../">← Compressible Flow로 돌아가기</a></footer>
 </main>
-<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#thermally-and-calorically-perfect-gas" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Thermally and Calorically Perfect Gas</span></a><a href="#gibbs-relations" class="sidebar-link"><span class="item-number">2.</span><span>Gibbs Relations</span></a></nav></aside>
+<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#density-ratio" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Density Ratio</span></a><a href="#pressure-ratio" class="sidebar-link"><span class="item-number">2.</span><span>Pressure Ratio</span></a><a href="#temperature-ratio" class="sidebar-link"><span class="item-number">3.</span><span>Temperature Ratio</span></a></nav></aside>
 </div>
 <script>
         (() => {
