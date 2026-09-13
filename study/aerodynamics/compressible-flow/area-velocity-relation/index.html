@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="노즐의 단면적이 변하면 속력뿐 아니라 밀도도 함께 변한다. 따라서 Compressible flow에서는 단면적이 작아진다는 사실만으로 가속을 판단할 수 없다. Area–velocity relation은 질량보존과 운동량방정식을 연결하여, 단면적 변화가 속력에 미치는 영향이 Mach number에 따라 어떻게 달라지는지 나타낸다.">
-    <title>3.1 Area–Velocity Relation | Isp99</title>
+    <title>2.1 Area–Velocity Relation | Isp99</title>
     <script>
         window.MathJax = {
             tex: {
@@ -221,10 +221,10 @@
     </style>
 </head>
 <body class="article-page"><div class="page-layout">
-<aside class="left-sidebar" aria-label="Compressible Flow navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Compressible Flow</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals of Compressible Flow</div><a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link"><span class="item-number">1.1</span> Perfect-Gas Thermodynamic Relations</a><a href="../isentropic-relations/" class="sidebar-link"><span class="item-number">1.2</span> Isentropic Relations</a><a href="../speed-of-sound-and-mach-number/" class="sidebar-link"><span class="item-number">1.3</span> Speed of Sound and Mach Number</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Stagnation State and Properties</div><a href="../stagnation-temperature/" class="sidebar-link"><span class="item-number">2.1</span> Stagnation Temperature</a><a href="../stagnation-pressure-and-density/" class="sidebar-link"><span class="item-number">2.2</span> Stagnation Pressure and Density</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Quasi-One-Dimensional Nozzle Flow</div><a href="../area-velocity-relation/" class="sidebar-link active" aria-current="page"><span class="item-number">3.1</span> Area–Velocity Relation</a><a href="../mass-flow-function-and-choking/" class="sidebar-link"><span class="item-number">3.2</span> Mass-Flow Function and Choking</a><a href="../area-mach-number-relation/" class="sidebar-link"><span class="item-number">3.3</span> Area–Mach Number Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Normal Shock Waves</div><a href="../normal-shock-conservation-laws/" class="sidebar-link"><span class="item-number">4.1</span> Derivation from Conservation Laws</a><a href="../normal-shock-property-ratios/" class="sidebar-link"><span class="item-number">4.2</span> Normal-Shock Property Ratios</a><a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link"><span class="item-number">4.3</span> Downstream Mach Number and Entropy Change</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Oblique Shock Waves</div><a href="../normal-component-method/" class="sidebar-link"><span class="item-number">5.1</span> Normal-Component Method</a><a href="../theta-beta-mach-relation/" class="sidebar-link"><span class="item-number">5.2</span> Derivation of the Theta–Beta–Mach Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Prandtl–Meyer Expansion</div><a href="../infinitesimal-isentropic-turning/" class="sidebar-link"><span class="item-number">6.1</span> Infinitesimal Isentropic Turning</a><a href="../prandtl-meyer-function/" class="sidebar-link"><span class="item-number">6.2</span> Derivation of the Prandtl–Meyer Function</a><a href="../finite-expansion-and-property-changes/" class="sidebar-link"><span class="item-number">6.3</span> Finite Expansion and Property Changes</a></div></nav></aside>
+<aside class="left-sidebar" aria-label="Compressible Flow navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Compressible Flow</a><div class="sidebar-group"><div class="sidebar-group-title">1. Thermodynamic Foundations and Stagnation Properties</div><a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link"><span class="item-number">1.1</span> Perfect-Gas Thermodynamic Relations</a><a href="../isentropic-relations/" class="sidebar-link"><span class="item-number">1.2</span> Isentropic Relations, Speed of Sound, and Mach Number</a><a href="../stagnation-temperature/" class="sidebar-link"><span class="item-number">1.3</span> Stagnation Temperature, Pressure, and Density</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Quasi-One-Dimensional Nozzle Flow</div><a href="../area-velocity-relation/" class="sidebar-link active" aria-current="page"><span class="item-number">2.1</span> Area–Velocity Relation</a><a href="../mass-flow-function-and-choking/" class="sidebar-link"><span class="item-number">2.2</span> Mass Flow, Choking, and the Area–Mach Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Shock Waves and Expansion Fans</div><a href="../normal-shock-conservation-laws/" class="sidebar-link"><span class="item-number">3.1</span> Conservation Laws and Normal-Shock Property Ratios</a><a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link"><span class="item-number">3.2</span> Normal-Shock Mach Number and Entropy Change</a><a href="../normal-component-method/" class="sidebar-link"><span class="item-number">3.3</span> Oblique-Shock Relations</a><a href="../prandtl-meyer-function/" class="sidebar-link"><span class="item-number">3.4</span> Prandtl–Meyer Expansion</a></div></nav></aside>
 <main class="main-content" id="top">
-<nav aria-label="Current article"><a href="#top">3.1 Area–Velocity Relation</a></nav>
-<header><h1>3.1 Area–Velocity Relation</h1><p class="subtitle">Quasi-One-Dimensional Approximation and Flow Acceleration</p><p class="intro">노즐의 단면적이 변하면 속력뿐 아니라 밀도도 함께 변한다. 따라서 Compressible flow에서는 단면적이 작아진다는 사실만으로 가속을 판단할 수 없다. <strong>Area–velocity relation</strong>은 질량보존과 운동량방정식을 연결하여, 단면적 변화가 속력에 미치는 영향이 Mach number에 따라 어떻게 달라지는지 나타낸다.</p></header>
+<nav aria-label="Current article"><a href="#top">2.1 Area–Velocity Relation</a></nav>
+<header><h1>2.1 Area–Velocity Relation</h1><p class="subtitle">Quasi-One-Dimensional Approximation and Flow Acceleration</p><p class="intro">노즐의 단면적이 변하면 속력뿐 아니라 밀도도 함께 변한다. 따라서 Compressible flow에서는 단면적이 작아진다는 사실만으로 가속을 판단할 수 없다. <strong>Area–velocity relation</strong>은 질량보존과 운동량방정식을 연결하여, 단면적 변화가 속력에 미치는 영향이 Mach number에 따라 어떻게 달라지는지 나타낸다.</p></header>
 <aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#assumptions-for-a-quasi-one-dimensional-nozzle">Assumptions for a Quasi-One-Dimensional Nozzle</a></li><li><a href="#differential-form-of-continuity">Differential Form of Continuity</a></li><li><a href="#density-change-from-the-momentum-equation">Density Change from the Momentum Equation</a></li><li><a href="#derivation-of-the-area-velocity-relation">Derivation of the Area–Velocity Relation</a></li></ol></aside>
 <section id="assumptions-for-a-quasi-one-dimensional-nozzle" aria-labelledby="assumptions-for-a-quasi-one-dimensional-nozzle-title"><h2 id="assumptions-for-a-quasi-one-dimensional-nozzle-title">1. Assumptions for a Quasi-One-Dimensional Nozzle</h2>
 <p><strong>Quasi-one-dimensional approximation</strong>은 실제 노즐의 각 단면을 하나의 대표 상태로 나타내는 근사이다. 단면 안에서의 세부적인 분포는 구분하지 않고, 단면적과 물리량이 축 방향 위치 \(x\)에 따라 변한다고 본다. 이를 통해 노즐의 3차원 분포를 모두 풀지 않고도 단면적 변화의 효과를 계산할 수 있다.</p>
@@ -237,21 +237,21 @@
 <div class="equation" id="eq-nozzleMassFlow">
 \[
 \dot m=\rho VA=\text{constant}
-\tag{3.1.1}
+\tag{2.1.1}
 \]
 </div>
 <p>단면적이 조금 달라지는 두 위치 사이의 관계를 얻기 위해 \(\rho VA\)를 미분하면</p>
 <div class="equation" id="eq-nozzleContinuityProduct">
 \[
 \mathrm d(\rho VA)=VA\,\mathrm d\rho+\rho A\,\mathrm dV+\rho V\,\mathrm dA=0
-\tag{3.1.2}
+\tag{2.1.2}
 \]
 </div>
 <p>양변을 \(\rho VA\)로 나누면</p>
 <div class="equation" id="eq-nozzleDifferentialContinuity">
 \[
 \frac{\mathrm d\rho}{\rho}+\frac{\mathrm dV}{V}+\frac{\mathrm dA}{A}=0
-\tag{3.1.3}
+\tag{2.1.3}
 \]
 </div>
 <p>즉 밀도·속력·단면적의 상대적인 변화가 질량유량을 일정하게 유지하도록 연결된다. 아직은 밀도 변화가 남아 있으므로, 단면적과 속력만의 관계를 얻으려면 \(\mathrm d\rho\)를 \(\mathrm dV\)로 나타내야 한다.</p>
@@ -261,44 +261,44 @@
 <div class="equation" id="eq-nozzleEuler">
 \[
 \mathrm dp+\rho V\,\mathrm dV=0
-\tag{3.1.4}
+\tag{2.1.4}
 \]
 </div>
 <p>가속으로 \(\mathrm dV&gt;0\)이면 \(\mathrm dp&lt;0\)이다. 여기에 음속의 정의를 사용하면 압력 변화를 밀도 변화로 바꿀 수 있다. Isentropic 변화에서는</p>
 <div class="equation" id="eq-nozzleSoundRelation">
 \[
 \mathrm dp=a^2\,\mathrm d\rho
-\tag{3.1.5}
+\tag{2.1.5}
 \]
 </div>
-<p>이를 식 <a href="#eq-nozzleEuler">(3.1.4)</a>에 대입한 뒤 밀도 변화에 대해 정리하면</p>
+<p>이를 식 <a href="#eq-nozzleEuler">(2.1.4)</a>에 대입한 뒤 밀도 변화에 대해 정리하면</p>
 <div class="equation" id="eq-nozzleDensityStart">
 \[
 a^2\,\mathrm d\rho+\rho V\,\mathrm dV=0
-\tag{3.1.6}
+\tag{2.1.6}
 \]
 </div>
 <div class="equation" id="eq-nozzleDensityVelocity">
 \[
 \frac{\mathrm d\rho}{\rho}=-\frac{V\,\mathrm dV}{a^2}=-\frac{V^2}{a^2}\frac{\mathrm dV}{V}=-M^2\frac{\mathrm dV}{V}
-\tag{3.1.7}
+\tag{2.1.7}
 \]
 </div>
 <p>이 식은 가속할 때 밀도가 감소하며, 같은 상대적인 속력 변화에 대한 밀도의 반응이 \(M^2\)로 나타난다는 뜻이다. 이 밀도 변화까지 고려해야 Compressible flow의 단면적 효과를 판단할 수 있다.</p>
 </section>
 <section id="derivation-of-the-area-velocity-relation" aria-labelledby="derivation-of-the-area-velocity-relation-title"><h2 id="derivation-of-the-area-velocity-relation-title">4. Derivation of the Area–Velocity Relation</h2>
-<p>식 <a href="#eq-nozzleDensityVelocity">(3.1.7)</a>을 Differential continuity <a href="#eq-nozzleDifferentialContinuity">(3.1.3)</a>에 대입하면</p>
+<p>식 <a href="#eq-nozzleDensityVelocity">(2.1.7)</a>을 Differential continuity <a href="#eq-nozzleDifferentialContinuity">(2.1.3)</a>에 대입하면</p>
 <div class="equation" id="eq-areaVelocityIntermediate">
 \[
 -M^2\frac{\mathrm dV}{V}+\frac{\mathrm dV}{V}+\frac{\mathrm dA}{A}=0
-\tag{3.1.8}
+\tag{2.1.8}
 \]
 </div>
 <p>단면적 변화에 대해 정리하면</p>
 <div class="equation main" id="eq-areaVelocityRelation">
 \[
 \boxed{\displaystyle \frac{\mathrm dA}{A}=(M^2-1)\frac{\mathrm dV}{V}}
-\tag{3.1.9}
+\tag{2.1.9}
 \]
 </div>
 <ul class="explanation-list"><li><strong>Subsonic acceleration</strong>, \(M&lt;1\): \(M^2-1&lt;0\)이므로 속력이 증가하려면 단면적이 감소해야 한다. 즉 Converging passage에서 가속된다.</li><li><strong>Supersonic acceleration</strong>, \(M&gt;1\): \(M^2-1&gt;0\)이므로 속력이 증가하려면 단면적도 증가해야 한다. 즉 Diverging passage에서 가속된다.</li><li><strong>Sonic transition</strong>, \(M=1\): 매끄럽고 유한한 속도 기울기를 가지며 통과하려면 단면적의 기울기가 0이어야 한다. 노즐에서는 이러한 전이가 최소 단면인 Throat에서 가능하다.</li></ul>

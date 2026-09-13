@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Normal shock은 유동 방향에 수직으로 놓인 Shock으로, 매우 짧은 거리에서 압력·밀도·온도가 급격히 증가하고 유동이 감속되는 현상이다. 이 구간은 Isentropic하지 않지만 질량·운동량·에너지는 여전히 보존된다. Shock의 얇은 내부를 직접 풀지 않고 전후 상태에 보존법칙을 적용하면, 상류 상태로부터 하류 상태를 계산하는 관계를 얻을 수 있다.">
-    <title>4.1 Derivation from Conservation Laws | Isp99</title>
+    <meta name="description" content="Normal shock은 유동 방향에 수직으로 놓인 Shock으로, 매우 짧은 거리에서 압력·밀도·온도가 증가하고 유동이 감속되는 현상이다. Shock의 얇은 내부를 직접 풀지 않고 앞뒤 상태에 질량·운동량·에너지 보존을 적용하면 상태 변화를 구할 수 있다. 여기서는 세 보존식을 세운 뒤 상태방정식과 연결하여, 밀도비·압력비·온도비를 상류 Mach number와 기체의 비열비로 유도한다.">
+    <title>3.1 Conservation Laws and Normal-Shock Property Ratios | Isp99</title>
     <script>
         window.MathJax = {
             tex: {
@@ -221,11 +221,11 @@
     </style>
 </head>
 <body class="article-page"><div class="page-layout">
-<aside class="left-sidebar" aria-label="Compressible Flow navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Compressible Flow</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals of Compressible Flow</div><a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link"><span class="item-number">1.1</span> Perfect-Gas Thermodynamic Relations</a><a href="../isentropic-relations/" class="sidebar-link"><span class="item-number">1.2</span> Isentropic Relations</a><a href="../speed-of-sound-and-mach-number/" class="sidebar-link"><span class="item-number">1.3</span> Speed of Sound and Mach Number</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Stagnation State and Properties</div><a href="../stagnation-temperature/" class="sidebar-link"><span class="item-number">2.1</span> Stagnation Temperature</a><a href="../stagnation-pressure-and-density/" class="sidebar-link"><span class="item-number">2.2</span> Stagnation Pressure and Density</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Quasi-One-Dimensional Nozzle Flow</div><a href="../area-velocity-relation/" class="sidebar-link"><span class="item-number">3.1</span> Area–Velocity Relation</a><a href="../mass-flow-function-and-choking/" class="sidebar-link"><span class="item-number">3.2</span> Mass-Flow Function and Choking</a><a href="../area-mach-number-relation/" class="sidebar-link"><span class="item-number">3.3</span> Area–Mach Number Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Normal Shock Waves</div><a href="../normal-shock-conservation-laws/" class="sidebar-link active" aria-current="page"><span class="item-number">4.1</span> Derivation from Conservation Laws</a><a href="../normal-shock-property-ratios/" class="sidebar-link"><span class="item-number">4.2</span> Normal-Shock Property Ratios</a><a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link"><span class="item-number">4.3</span> Downstream Mach Number and Entropy Change</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Oblique Shock Waves</div><a href="../normal-component-method/" class="sidebar-link"><span class="item-number">5.1</span> Normal-Component Method</a><a href="../theta-beta-mach-relation/" class="sidebar-link"><span class="item-number">5.2</span> Derivation of the Theta–Beta–Mach Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Prandtl–Meyer Expansion</div><a href="../infinitesimal-isentropic-turning/" class="sidebar-link"><span class="item-number">6.1</span> Infinitesimal Isentropic Turning</a><a href="../prandtl-meyer-function/" class="sidebar-link"><span class="item-number">6.2</span> Derivation of the Prandtl–Meyer Function</a><a href="../finite-expansion-and-property-changes/" class="sidebar-link"><span class="item-number">6.3</span> Finite Expansion and Property Changes</a></div></nav></aside>
+<aside class="left-sidebar" aria-label="Compressible Flow navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Compressible Flow</a><div class="sidebar-group"><div class="sidebar-group-title">1. Thermodynamic Foundations and Stagnation Properties</div><a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link"><span class="item-number">1.1</span> Perfect-Gas Thermodynamic Relations</a><a href="../isentropic-relations/" class="sidebar-link"><span class="item-number">1.2</span> Isentropic Relations, Speed of Sound, and Mach Number</a><a href="../stagnation-temperature/" class="sidebar-link"><span class="item-number">1.3</span> Stagnation Temperature, Pressure, and Density</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Quasi-One-Dimensional Nozzle Flow</div><a href="../area-velocity-relation/" class="sidebar-link"><span class="item-number">2.1</span> Area–Velocity Relation</a><a href="../mass-flow-function-and-choking/" class="sidebar-link"><span class="item-number">2.2</span> Mass Flow, Choking, and the Area–Mach Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Shock Waves and Expansion Fans</div><a href="../normal-shock-conservation-laws/" class="sidebar-link active" aria-current="page"><span class="item-number">3.1</span> Conservation Laws and Normal-Shock Property Ratios</a><a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link"><span class="item-number">3.2</span> Normal-Shock Mach Number and Entropy Change</a><a href="../normal-component-method/" class="sidebar-link"><span class="item-number">3.3</span> Oblique-Shock Relations</a><a href="../prandtl-meyer-function/" class="sidebar-link"><span class="item-number">3.4</span> Prandtl–Meyer Expansion</a></div></nav></aside>
 <main class="main-content" id="top">
-<nav aria-label="Current article"><a href="#top">4.1 Derivation from Conservation Laws</a></nav>
-<header><h1>4.1 Derivation from Conservation Laws</h1><p class="subtitle">Control Volume, Mass Flux, and Momentum–Energy Balance</p><p class="intro"><strong>Normal shock</strong>은 유동 방향에 수직으로 놓인 Shock으로, 매우 짧은 거리에서 압력·밀도·온도가 급격히 증가하고 유동이 감속되는 현상이다. 이 구간은 Isentropic하지 않지만 질량·운동량·에너지는 여전히 보존된다. Shock의 얇은 내부를 직접 풀지 않고 전후 상태에 보존법칙을 적용하면, 상류 상태로부터 하류 상태를 계산하는 관계를 얻을 수 있다.</p></header>
-<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#assumptions-and-control-volume">Assumptions and Control Volume</a></li><li><a href="#mass-conservation">Mass Conservation</a></li><li><a href="#momentum-conservation">Momentum Conservation</a></li><li><a href="#energy-conservation">Energy Conservation</a></li></ol></aside>
+<nav aria-label="Current article"><a href="#top">3.1 Conservation Laws and Normal-Shock Property Ratios</a></nav>
+<header><h1>3.1 Conservation Laws and Normal-Shock Property Ratios</h1><p class="subtitle">Mass, Momentum, and Energy Conservation to Density, Pressure, and Temperature Ratios</p><p class="intro"><strong>Normal shock</strong>은 유동 방향에 수직으로 놓인 Shock으로, 매우 짧은 거리에서 압력·밀도·온도가 증가하고 유동이 감속되는 현상이다. Shock의 얇은 내부를 직접 풀지 않고 앞뒤 상태에 질량·운동량·에너지 보존을 적용하면 상태 변화를 구할 수 있다. 여기서는 세 보존식을 세운 뒤 상태방정식과 연결하여, 밀도비·압력비·온도비를 상류 Mach number와 기체의 비열비로 유도한다.</p></header>
+<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#assumptions-and-control-volume">Assumptions and Control Volume</a></li><li><a href="#mass-conservation">Mass Conservation</a></li><li><a href="#momentum-conservation">Momentum Conservation</a></li><li><a href="#energy-conservation">Energy Conservation</a></li><li><a href="#density-ratio">Density Ratio</a></li><li><a href="#pressure-ratio">Pressure Ratio</a></li><li><a href="#temperature-ratio">Temperature Ratio</a></li></ol></aside>
 <section id="assumptions-and-control-volume" aria-labelledby="assumptions-and-control-volume-title"><h2 id="assumptions-and-control-volume-title">1. Assumptions and Control Volume</h2>
 <h3>States on Either Side of the Shock</h3>
 <p>Shock이 정지해 있는 기준에서 Steady, one-dimensional 유동을 고려한다. Shock 앞의 상태를 1, 뒤의 상태를 2로 표시하며, 열전달·Shaft work·체적력의 영향을 무시한다. 기체는 \(\gamma\)가 일정한 Calorically perfect gas이다.</p>
@@ -238,21 +238,21 @@
 <div class="equation main" id="eq-shockMass">
 \[
 \boxed{\displaystyle \rho_1V_1=\rho_2V_2}
-\tag{4.1.1}
+\tag{3.1.1}
 \]
 </div>
 <p>이후 식을 간단히 쓰기 위해 밀도비를 \(r\)로 정의한다.</p>
 <div class="equation" id="eq-shockDensityRatioDefinition">
 \[
 r\equiv\frac{\rho_2}{\rho_1}
-\tag{4.1.2}
+\tag{3.1.2}
 \]
 </div>
-<p>식 <a href="#eq-shockMass">(4.1.1)</a>를 속력비로 정리하면</p>
+<p>식 <a href="#eq-shockMass">(3.1.1)</a>를 속력비로 정리하면</p>
 <div class="equation" id="eq-shockVelocityRatio">
 \[
 \frac{V_2}{V_1}=\frac{\rho_1}{\rho_2}=\frac1r
-\tag{4.1.3}
+\tag{3.1.3}
 \]
 </div>
 <p>따라서 Shock 뒤에서 밀도가 증가하면 속력은 그에 반비례하여 감소한다. 질량보존식은 이 두 변화가 독립적으로 일어날 수 없다는 제약을 준다.</p>
@@ -263,7 +263,7 @@ r\equiv\frac{\rho_2}{\rho_1}
 <div class="equation main" id="eq-shockMomentum">
 \[
 \boxed{\displaystyle p_1+\rho_1V_1^2=p_2+\rho_2V_2^2}
-\tag{4.1.4}
+\tag{3.1.4}
 \]
 </div>
 <p>\(\rho V^2\)는 단위면적당 운동량유속이다. 이 항은 이후 Enthalpy와 함께 등장하는 단위질량당 운동에너지 \(V^2/2\)와 구분한다.</p>
@@ -272,26 +272,26 @@ r\equiv\frac{\rho_2}{\rho_1}
 <div class="equation" id="eq-shockMomentumSubstitution">
 \[
 p_1+\rho_1V_1^2=p_2+(r\rho_1)\left(\frac{V_1}{r}\right)^2
-\tag{4.1.5}
+\tag{3.1.5}
 \]
 </div>
 <div class="equation" id="eq-shockPressureDifference">
 \[
 p_2-p_1=\rho_1V_1^2\left(1-\frac1r\right)
-\tag{4.1.6}
+\tag{3.1.6}
 \]
 </div>
 <p>양변을 \(p_1\)로 나눈 뒤, \(a_1^2=\gamma p_1/\rho_1\)과 \(V_1=M_1a_1\)을 사용하면</p>
 <div class="equation" id="eq-shockDynamicMach">
 \[
 \frac{\rho_1V_1^2}{p_1}=\frac{\rho_1M_1^2a_1^2}{p_1}=\gamma M_1^2
-\tag{4.1.7}
+\tag{3.1.7}
 \]
 </div>
 <div class="equation" id="eq-shockPressureInR">
 \[
 \frac{p_2}{p_1}=1+\gamma M_1^2\left(1-\frac1r\right)
-\tag{4.1.8}
+\tag{3.1.8}
 \]
 </div>
 <p>밀도비가 \(r&gt;1\)이면 압력비도 1보다 크다. 아직 \(r\)이 정해지지 않았으므로, 이 결과를 에너지보존식과 함께 사용해야 Shock 뒤의 상태를 결정할 수 있다.</p>
@@ -302,40 +302,137 @@ p_2-p_1=\rho_1V_1^2\left(1-\frac1r\right)
 <div class="equation main" id="eq-shockEnergy">
 \[
 \boxed{\displaystyle h_1+\frac{V_1^2}{2}=h_2+\frac{V_2^2}{2}}
-\tag{4.1.9}
+\tag{3.1.9}
 \]
 </div>
 <p>\(h=c_pT\)와 \(V_2=V_1/r\)을 대입하면</p>
 <div class="equation" id="eq-shockEnergyTemperature">
 \[
 c_pT_1+\frac{V_1^2}{2}=c_pT_2+\frac{V_1^2}{2r^2}
-\tag{4.1.10}
+\tag{3.1.10}
 \]
 </div>
 <div class="equation" id="eq-shockTemperatureDifference">
 \[
 c_p(T_2-T_1)=\frac{V_1^2}{2}\left(1-\frac1{r^2}\right)
-\tag{4.1.11}
+\tag{3.1.11}
 \]
 </div>
 <p>유동이 감속하여 운동에너지가 줄어드는 만큼 Enthalpy가 증가하고, 비열이 일정하면 온도가 올라간다. 양변을 \(c_pT_1\)로 나누기 위해 계수를 Mach number로 정리하면</p>
 <div class="equation" id="eq-shockEnergyMachCoefficient">
 \[
 \frac{V_1^2}{2c_pT_1}=\frac{M_1^2\gamma RT_1}{2T_1}\frac{\gamma-1}{\gamma R}=\frac{\gamma-1}{2}M_1^2
-\tag{4.1.12}
+\tag{3.1.12}
 \]
 </div>
 <div class="equation" id="eq-shockEnergyInR">
 \[
 \frac{T_2}{T_1}-1=\frac{\gamma-1}{2}M_1^2\left(1-\frac1{r^2}\right)
-\tag{4.1.13}
+\tag{3.1.13}
 \]
 </div>
-<p>이제 압력비와 온도비가 모두 \(r\)과 상류 Mach number로 표현되었다. 다음 페이지에서는 상태방정식으로 두 비를 연결하여 \(r\)을 먼저 구하고, 그 결과로 압력비와 온도비를 계산한다.</p>
+<p>이제 압력비와 온도비가 모두 \(r\)과 상류 Mach number로 표현되었다. 이제 상태방정식으로 두 비를 연결하여 \(r\)을 먼저 구하고, 그 결과로 압력비와 온도비를 계산한다.</p>
+</section>
+<section id="density-ratio" aria-labelledby="density-ratio-title"><h2 id="density-ratio-title">5. Density Ratio</h2>
+<h3>Combining the Equation of State and Energy Balance</h3>
+<p>같은 기체의 두 상태에 \(T=p/(\rho R)\)를 적용하면</p>
+<div class="equation" id="eq-shockTFromPR">
+\[
+\frac{T_2}{T_1}=\frac{p_2/(\rho_2R)}{p_1/(\rho_1R)}=\frac{p_2/p_1}{\rho_2/\rho_1}=\frac1r\frac{p_2}{p_1}
+\tag{3.1.14}
+\]
+</div>
+<p>이 식에 운동량보존으로 구한 압력비 <a href="#eq-shockPressureInR">(3.1.8)</a>를 대입하면 온도비를 \(r\)로 쓸 수 있다. 한편 에너지보존식 <a href="#eq-shockEnergyInR">(3.1.13)</a>에도 같은 온도비가 나타나므로, 두 결과를 같게 둔다.</p>
+<div class="equation" id="eq-shockDensityCombined">
+\[
+\frac1r\left[1+\gamma M_1^2\left(1-\frac1r\right)\right]=1+\frac{\gamma-1}{2}M_1^2\left(1-\frac1{r^2}\right)
+\tag{3.1.15}
+\]
+</div>
+<p>이 단계에서 상태방정식·운동량보존·에너지보존이 하나로 연결된다. 속력비는 이미 질량보존으로 \(1/r\)로 바꾸었으므로, 이제 미지수는 \(r\) 하나만 남는다.</p>
+<h3>Polynomial in the Density Ratio</h3>
+<p>분모를 없애기 위해 양변에 \(2r^2\)을 곱한다. 좌변은 \(r\)에 대한 1차식으로 정리된다.</p>
+<div class="equation" id="eq-shockDensityLHS">
+\[
+2r\left[1+\gamma M_1^2\left(1-\frac1r\right)\right]=2r+2\gamma M_1^2r-2\gamma M_1^2
+\tag{3.1.16}
+\]
+</div>
+<p>우변은 다음과 같이 \(r^2\)의 항과 상수항으로 나뉜다.</p>
+<div class="equation" id="eq-shockDensityRHS">
+\[
+2r^2+(\gamma-1)M_1^2(r^2-1)=\left[2+(\gamma-1)M_1^2\right]r^2-(\gamma-1)M_1^2
+\tag{3.1.17}
+\]
+</div>
+<p>좌변을 우변으로 이항하여 같은 차수끼리 모으면</p>
+<div class="equation" id="eq-shockDensityQuadratic">
+\[
+0=\left[2+(\gamma-1)M_1^2\right]r^2-2(1+\gamma M_1^2)r+(\gamma+1)M_1^2
+\tag{3.1.18}
+\]
+</div>
+<p>\(r=1\)을 대입하면 식이 성립하므로 \((r-1)\)이 인수이다. 이 인수를 묶으면</p>
+<div class="equation" id="eq-shockDensityFactorization">
+\[
+0=(r-1)\left\{\left[2+(\gamma-1)M_1^2\right]r-(\gamma+1)M_1^2\right\}
+\tag{3.1.19}
+\]
+</div>
+<h3>Physical Shock Solution</h3>
+<p>\(r=1\)은 밀도 변화가 없는 해이다. 이를 앞의 보존식에 대입하면 속력·압력·온도도 변하지 않으므로, Shock이 없는 경우에 해당한다. 실제 압축 Shock에 대응하는 해는 두 번째 인수가 0이 되는 값이다.</p>
+<div class="equation main" id="eq-normalShockDensity">
+\[
+\boxed{\displaystyle \frac{\rho_2}{\rho_1}=\frac{(\gamma+1)M_1^2}{2+(\gamma-1)M_1^2}}
+\tag{3.1.20}
+\]
+</div>
+<p>\(M_1&gt;1\)이면 이 비가 1보다 크므로 Shock 뒤의 밀도가 증가한다. 여기서 Shock의 실제 유동 방향을 판단하려면 Entropy가 증가한다는 조건도 만족해야 하며, 다음 페이지에서 그 부호를 확인한다.</p>
+</section>
+<section id="pressure-ratio" aria-labelledby="pressure-ratio-title"><h2 id="pressure-ratio-title">6. Pressure Ratio</h2>
+<h3>Substitution into the Momentum Relation</h3>
+<p>밀도비를 구했으므로 식 <a href="#eq-shockPressureInR">(3.1.8)</a>에 그대로 대입할 수 있다.</p>
+<div class="equation" id="eq-shockPressureSubstitution">
+\[
+\frac{p_2}{p_1}=1+\gamma M_1^2\left[1-\frac{2+(\gamma-1)M_1^2}{(\gamma+1)M_1^2}\right]
+\tag{3.1.21}
+\]
+</div>
+<p>괄호 안을 통분하면 분자는 \(2(M_1^2-1)\)이 된다.</p>
+<div class="equation" id="eq-shockPressureReduction">
+\[
+\frac{p_2}{p_1}=1+\gamma M_1^2\frac{2(M_1^2-1)}{(\gamma+1)M_1^2}
+\tag{3.1.22}
+\]
+</div>
+<p>공통항을 소거하면</p>
+<div class="equation main" id="eq-normalShockPressure">
+\[
+\boxed{\displaystyle \frac{p_2}{p_1}=1+\frac{2\gamma}{\gamma+1}(M_1^2-1)=\frac{2\gamma M_1^2-(\gamma-1)}{\gamma+1}}
+\tag{3.1.23}
+\]
+</div>
+<p>첫 번째 형태는 \(M_1&gt;1\)일 때 압력이 증가한다는 사실을 바로 보여준다. 두 번째 형태는 이후 온도비나 하류 Mach number를 구할 때 분수끼리 계산하기 편리하다. 두 식은 같은 압력비를 나타낸다.</p>
+</section>
+<section id="temperature-ratio" aria-labelledby="temperature-ratio-title"><h2 id="temperature-ratio-title">7. Temperature Ratio</h2>
+<p>온도비는 상태방정식에서 압력비를 밀도비로 나눈 값이다. 식 <a href="#eq-shockTFromPR">(3.1.14)</a>에 앞의 두 결과를 대입하면</p>
+<div class="equation" id="eq-shockTemperatureSubstitution">
+\[
+\frac{T_2}{T_1}=\frac{2\gamma M_1^2-(\gamma-1)}{\gamma+1}\frac{2+(\gamma-1)M_1^2}{(\gamma+1)M_1^2}
+\tag{3.1.24}
+\]
+</div>
+<div class="equation main" id="eq-normalShockTemperature">
+\[
+\boxed{\displaystyle \frac{T_2}{T_1}=\frac{[2\gamma M_1^2-(\gamma-1)][2+(\gamma-1)M_1^2]}{(\gamma+1)^2M_1^2}}
+\tag{3.1.25}
+\]
+</div>
+<p>이로써 \(M_1\)과 \(\gamma\)가 주어졌을 때 세 상태량의 비를 모두 구할 수 있다. \(M_1&gt;1\)인 Normal shock에서는 압력·밀도·온도가 증가하고, 질량보존에 따라 속력은 감소한다. 이는 같은 상태를 Isentropic 압축으로 연결한 결과가 아니라, <strong>Shock 전후의 보존법칙을 적용한 결과</strong>이다.</p>
 </section>
 <footer><a href="../">← Compressible Flow로 돌아가기</a></footer>
 </main>
-<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#assumptions-and-control-volume" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Assumptions and Control Volume</span></a><a href="#mass-conservation" class="sidebar-link"><span class="item-number">2.</span><span>Mass Conservation</span></a><a href="#momentum-conservation" class="sidebar-link"><span class="item-number">3.</span><span>Momentum Conservation</span></a><a href="#energy-conservation" class="sidebar-link"><span class="item-number">4.</span><span>Energy Conservation</span></a></nav></aside>
+<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#assumptions-and-control-volume" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Assumptions and Control Volume</span></a><a href="#mass-conservation" class="sidebar-link"><span class="item-number">2.</span><span>Mass Conservation</span></a><a href="#momentum-conservation" class="sidebar-link"><span class="item-number">3.</span><span>Momentum Conservation</span></a><a href="#energy-conservation" class="sidebar-link"><span class="item-number">4.</span><span>Energy Conservation</span></a><a href="#density-ratio" class="sidebar-link"><span class="item-number">5.</span><span>Density Ratio</span></a><a href="#pressure-ratio" class="sidebar-link"><span class="item-number">6.</span><span>Pressure Ratio</span></a><a href="#temperature-ratio" class="sidebar-link"><span class="item-number">7.</span><span>Temperature Ratio</span></a></nav></aside>
 </div>
 <script>
         (() => {

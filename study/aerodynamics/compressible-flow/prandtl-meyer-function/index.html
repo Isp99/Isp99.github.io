@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Prandtl–Meyer function 은 Isentropic 팽창에서 Mach number의 변화와 유동의 회전각을 연결하는 함수이다. 작은 회전마다 속력·온도·음속이 함께 변하므로, 이 변화를 모두 고려하여 적분해야 유한한 회전각을 얻을 수 있다. 를 구해 두면 두 상태의 함수값 차이만으로 전체 회전각을 계산할 수 있다.">
-    <title>6.2 Derivation of the Prandtl–Meyer Function | Isp99</title>
+    <meta name="description" content="Supersonic flow가 벽면의 바깥쪽으로 꺾이는 모서리를 지나면 Expansion fan을 통해 팽창하며 가속된다. 아주 작은 회전에서의 속력 변화를 구하고 적분하면, Mach number와 전체 회전각을 연결하는 Prandtl–Meyer function을 얻을 수 있다. 여기서는 Mach wave의 기하학에서 시작하여 함수 유도, 하류 Mach number 결정, 압력·온도·밀도 변화 계산까지 이어서 다룬다.">
+    <title>3.4 Prandtl–Meyer Expansion | Isp99</title>
     <script>
         window.MathJax = {
             tex: {
@@ -221,89 +221,153 @@
     </style>
 </head>
 <body class="article-page"><div class="page-layout">
-<aside class="left-sidebar" aria-label="Compressible Flow navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Compressible Flow</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals of Compressible Flow</div><a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link"><span class="item-number">1.1</span> Perfect-Gas Thermodynamic Relations</a><a href="../isentropic-relations/" class="sidebar-link"><span class="item-number">1.2</span> Isentropic Relations</a><a href="../speed-of-sound-and-mach-number/" class="sidebar-link"><span class="item-number">1.3</span> Speed of Sound and Mach Number</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Stagnation State and Properties</div><a href="../stagnation-temperature/" class="sidebar-link"><span class="item-number">2.1</span> Stagnation Temperature</a><a href="../stagnation-pressure-and-density/" class="sidebar-link"><span class="item-number">2.2</span> Stagnation Pressure and Density</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Quasi-One-Dimensional Nozzle Flow</div><a href="../area-velocity-relation/" class="sidebar-link"><span class="item-number">3.1</span> Area–Velocity Relation</a><a href="../mass-flow-function-and-choking/" class="sidebar-link"><span class="item-number">3.2</span> Mass-Flow Function and Choking</a><a href="../area-mach-number-relation/" class="sidebar-link"><span class="item-number">3.3</span> Area–Mach Number Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Normal Shock Waves</div><a href="../normal-shock-conservation-laws/" class="sidebar-link"><span class="item-number">4.1</span> Derivation from Conservation Laws</a><a href="../normal-shock-property-ratios/" class="sidebar-link"><span class="item-number">4.2</span> Normal-Shock Property Ratios</a><a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link"><span class="item-number">4.3</span> Downstream Mach Number and Entropy Change</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Oblique Shock Waves</div><a href="../normal-component-method/" class="sidebar-link"><span class="item-number">5.1</span> Normal-Component Method</a><a href="../theta-beta-mach-relation/" class="sidebar-link"><span class="item-number">5.2</span> Derivation of the Theta–Beta–Mach Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Prandtl–Meyer Expansion</div><a href="../infinitesimal-isentropic-turning/" class="sidebar-link"><span class="item-number">6.1</span> Infinitesimal Isentropic Turning</a><a href="../prandtl-meyer-function/" class="sidebar-link active" aria-current="page"><span class="item-number">6.2</span> Derivation of the Prandtl–Meyer Function</a><a href="../finite-expansion-and-property-changes/" class="sidebar-link"><span class="item-number">6.3</span> Finite Expansion and Property Changes</a></div></nav></aside>
+<aside class="left-sidebar" aria-label="Compressible Flow navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Compressible Flow</a><div class="sidebar-group"><div class="sidebar-group-title">1. Thermodynamic Foundations and Stagnation Properties</div><a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link"><span class="item-number">1.1</span> Perfect-Gas Thermodynamic Relations</a><a href="../isentropic-relations/" class="sidebar-link"><span class="item-number">1.2</span> Isentropic Relations, Speed of Sound, and Mach Number</a><a href="../stagnation-temperature/" class="sidebar-link"><span class="item-number">1.3</span> Stagnation Temperature, Pressure, and Density</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Quasi-One-Dimensional Nozzle Flow</div><a href="../area-velocity-relation/" class="sidebar-link"><span class="item-number">2.1</span> Area–Velocity Relation</a><a href="../mass-flow-function-and-choking/" class="sidebar-link"><span class="item-number">2.2</span> Mass Flow, Choking, and the Area–Mach Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Shock Waves and Expansion Fans</div><a href="../normal-shock-conservation-laws/" class="sidebar-link"><span class="item-number">3.1</span> Conservation Laws and Normal-Shock Property Ratios</a><a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link"><span class="item-number">3.2</span> Normal-Shock Mach Number and Entropy Change</a><a href="../normal-component-method/" class="sidebar-link"><span class="item-number">3.3</span> Oblique-Shock Relations</a><a href="../prandtl-meyer-function/" class="sidebar-link active" aria-current="page"><span class="item-number">3.4</span> Prandtl–Meyer Expansion</a></div></nav></aside>
 <main class="main-content" id="top">
-<nav aria-label="Current article"><a href="#top">6.2 Derivation of the Prandtl–Meyer Function</a></nav>
-<header><h1>6.2 Derivation of the Prandtl–Meyer Function</h1><p class="subtitle">Mach-Number Differential and Integration of the Turning Angle</p><p class="intro"><strong>Prandtl–Meyer function</strong> \(\nu(M)\)은 Isentropic 팽창에서 Mach number의 변화와 유동의 회전각을 연결하는 함수이다. 작은 회전마다 속력·온도·음속이 함께 변하므로, 이 변화를 모두 고려하여 적분해야 유한한 회전각을 얻을 수 있다. \(\nu\)를 구해 두면 두 상태의 함수값 차이만으로 전체 회전각을 계산할 수 있다.</p></header>
-<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#velocity-differential-written-with-mach-number">Velocity Differential Written with Mach Number</a></li><li><a href="#differential-turning-relation">Differential Turning Relation</a></li><li><a href="#integration-of-the-differential-relation">Integration of the Differential Relation</a></li></ol></aside>
-<section id="velocity-differential-written-with-mach-number" aria-labelledby="velocity-differential-written-with-mach-number-title"><h2 id="velocity-differential-written-with-mach-number-title">1. Velocity Differential Written with Mach Number</h2>
+<nav aria-label="Current article"><a href="#top">3.4 Prandtl–Meyer Expansion</a></nav>
+<header><h1>3.4 Prandtl–Meyer Expansion</h1><p class="subtitle">Mach Waves, Differential Turning, and Finite Isentropic Expansion</p><p class="intro">Supersonic flow가 벽면의 바깥쪽으로 꺾이는 모서리를 지나면 <strong>Expansion fan</strong>을 통해 팽창하며 가속된다. 아주 작은 회전에서의 속력 변화를 구하고 적분하면, Mach number와 전체 회전각을 연결하는 <strong>Prandtl–Meyer function</strong>을 얻을 수 있다. 여기서는 Mach wave의 기하학에서 시작하여 함수 유도, 하류 Mach number 결정, 압력·온도·밀도 변화 계산까지 이어서 다룬다.</p></header>
+<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#expansion-through-a-convex-corner">Expansion through a Convex Corner</a></li><li><a href="#mach-angle">Mach Angle</a></li><li><a href="#velocity-triangle-across-an-infinitesimal-mach-wave">Velocity Triangle across an Infinitesimal Mach Wave</a></li><li><a href="#velocity-differential-written-with-mach-number">Velocity Differential Written with Mach Number</a></li><li><a href="#differential-turning-relation">Differential Turning Relation</a></li><li><a href="#integration-of-the-differential-relation">Integration of the Differential Relation</a></li><li><a href="#turning-through-a-finite-expansion-fan">Turning through a Finite Expansion Fan</a></li><li><a href="#static-property-ratios">Static-Property Ratios</a></li></ol></aside>
+<section id="expansion-through-a-convex-corner" aria-labelledby="expansion-through-a-convex-corner-title"><h2 id="expansion-through-a-convex-corner-title">1. Expansion through a Convex Corner</h2>
+<p><strong>Convex corner</strong>는 유동이 따라가던 벽면이 유동으로부터 멀어지는 쪽으로 꺾이는 모서리이다. Steady, two-dimensional Supersonic flow가 이 모서리를 따라 회전하면 기체가 팽창하면서 압력은 감소하고 속력과 Mach number는 증가한다.</p>
+<p><strong>Expansion fan</strong>은 매우 약한 파동들이 서로 다른 방향으로 펼쳐져, 전체적으로 유한한 상태 변화를 만드는 영역이다. 각 파동에서의 변화가 무한히 작고 점성 및 열전달의 영향을 무시하는 이상적인 극한에서는 이 팽창을 Isentropic으로 취급할 수 있다. 따라서 Fan 안에서 Entropy가 일정하고 Stagnation property도 유지된다.</p>
+<p>이후 \(\mathrm d\theta&gt;0\)는 팽창 방향으로의 작은 회전을 나타내도록 정한다. 압축 방향의 회전에 단순히 같은 부호 규칙을 반대로 적용하여 하나의 유한한 Shock을 대신할 수는 없다.</p>
+</section>
+<section id="mach-angle" aria-labelledby="mach-angle-title"><h2 id="mach-angle-title">2. Mach Angle</h2>
+<h3>Geometry of a Small Disturbance</h3>
+<p>작은 교란은 유체를 기준으로 모든 방향으로 음속 \(a\)로 퍼진다. Supersonic flow에서는 유체가 그 전파속도보다 빠르게 이동하므로, 정지한 기준에서 교란이 전달되는 영역은 하류 쪽으로 제한된다. 그 경계를 2차원에서 나타낸 선이 <strong>Mach line</strong>이다.</p>
+<p><strong>Mach angle</strong> \(\mu\)는 Mach line과 그 지점의 속도 방향 사이의 각도이다. 같은 시간 동안 교란이 퍼지는 거리와 유체가 이동하는 거리의 비로부터</p>
+<div class="equation main" id="eq-machAngle">
+\[
+\boxed{\displaystyle \sin\mu=\frac{a}{V}=\frac1M}
+\tag{3.4.1}
+\]
+</div>
+<p>Supersonic 상태의 \(M&gt;1\)에서는 \(0&lt;\mu&lt;90^\circ\)이고, \(M=1\)은 \(\mu=90^\circ\)인 한계이다. \(M&lt;1\)에는 이러한 하류 방향의 Mach line을 정하는 실수 각도가 없다. Mach number가 커질수록 \(\mu\)는 작아져 교란이 전달되는 영역이 유동 방향 쪽으로 좁아진다.</p>
+</section>
+<section id="velocity-triangle-across-an-infinitesimal-mach-wave" aria-labelledby="velocity-triangle-across-an-infinitesimal-mach-wave-title"><h2 id="velocity-triangle-across-an-infinitesimal-mach-wave-title">3. Velocity Triangle across an Infinitesimal Mach Wave</h2>
+<h3>Tangential-Velocity Relation</h3>
+<p>하나의 아주 약한 Mach wave를 통과하는 유체를 생각한다. 파동 면에 접선 방향인 속도 성분은, 접선 방향의 힘을 무시한 운동량보존에 따라 전후에서 같다. 속력은 \(V\)에서 \(V+\mathrm dV\)로 증가하고 방향은 \(\mathrm d\theta\)만큼 팽창 쪽으로 회전한다.</p>
+<p>상류 속도와 파동 면 사이의 각도를 \(\mu\)로 잡으면 하류 속도와 같은 파동 면 사이의 각도는 \(\mu+\mathrm d\theta\)가 된다. 따라서</p>
+<div class="equation" id="eq-expansionTangentialVelocity">
+\[
+V\cos\mu=(V+\mathrm dV)\cos(\mu+\mathrm d\theta)
+\tag{3.4.2}
+\]
+</div>
+<p>\(\mathrm d\theta\)가 매우 작을 때 \(\cos(\mu+\mathrm d\theta)\)를 1차까지 전개하면</p>
+<div class="equation" id="eq-expansionSmallAngle">
+\[
+\cos(\mu+\mathrm d\theta)\approx\cos\mu-\sin\mu\,\mathrm d\theta
+\tag{3.4.3}
+\]
+</div>
+<p>이를 식 <a href="#eq-expansionTangentialVelocity">(3.4.2)</a>에 대입하고 \(\mathrm dV\,\mathrm d\theta\)처럼 작은 변화끼리 곱한 2차 항을 제외하면</p>
+<div class="equation" id="eq-expansionVelocityExpansion">
+\[
+V\cos\mu\approx V\cos\mu+\mathrm dV\cos\mu-V\sin\mu\,\mathrm d\theta
+\tag{3.4.4}
+\]
+</div>
+<h3>Differential Turning Relation</h3>
+<p>공통항 \(V\cos\mu\)를 소거하고 정리하면</p>
+<div class="equation" id="eq-expansionVelocityDifferential">
+\[
+\mathrm dV\cos\mu-V\sin\mu\,\mathrm d\theta=0,\qquad \frac{\mathrm dV}{V}=\tan\mu\,\mathrm d\theta
+\tag{3.4.5}
+\]
+</div>
+<p>Mach angle의 식 <a href="#eq-machAngle">(3.4.1)</a>을 사용하면</p>
+<div class="equation" id="eq-expansionMachTangent">
+\[
+\tan\mu=\frac{\sin\mu}{\sqrt{1-\sin^2\mu}}=\frac{1/M}{\sqrt{1-1/M^2}}=\frac1{\sqrt{M^2-1}}
+\tag{3.4.6}
+\]
+</div>
+<div class="equation main" id="eq-turningVelocityRelation">
+\[
+\boxed{\displaystyle \mathrm d\theta=\sqrt{M^2-1}\frac{\mathrm dV}{V}}
+\tag{3.4.7}
+\]
+</div>
+<p>이 관계는 팽창 방향으로의 회전과 속력 증가를 연결한다. \(M&gt;1\)에서 \(\mathrm d\theta&gt;0\)이면 \(\mathrm dV&gt;0\)이다. 각도는 이 미분식에서 라디안으로 취급한다. 이제 온도 변화까지 고려하여 \(\mathrm dV/V\)를 \(\mathrm dM\)으로 바꾼 뒤 전체 회전각을 적분한다.</p>
+</section>
+<section id="velocity-differential-written-with-mach-number" aria-labelledby="velocity-differential-written-with-mach-number-title"><h2 id="velocity-differential-written-with-mach-number-title">4. Velocity Differential Written with Mach Number</h2>
 <h3>Effect of the Temperature Change</h3>
 <p>\(V=Ma=M\sqrt{\gamma RT}\)이므로 속력은 Mach number뿐 아니라 온도에도 의존한다. \(\gamma,R\)이 일정할 때 로그를 취한 뒤 미분하면 곱으로 연결된 변화가 합으로 나뉜다.</p>
 <div class="equation" id="eq-velocityMachDifferential1">
 \[
 \frac{\mathrm dV}{V}=\frac{\mathrm dM}{M}+\frac12\frac{\mathrm dT}{T}
-\tag{6.2.1}
+\tag{3.4.8}
 \]
 </div>
-<p>팽창 중에는 \(T_0\)가 일정하다. Stagnation-temperature relation <a href="../stagnation-temperature/#eq-stagnationTemperature">(2.1.7)</a>에서 온도를 Mach number로 나타내면</p>
+<p>팽창 중에는 \(T_0\)가 일정하다. Stagnation-temperature relation <a href="../stagnation-temperature/#eq-stagnationTemperature">(1.3.7)</a>에서 온도를 Mach number로 나타내면</p>
 <div class="equation" id="eq-pmTemperatureMach">
 \[
 T=T_0\left(1+\frac{\gamma-1}{2}M^2\right)^{-1}
-\tag{6.2.2}
+\tag{3.4.9}
 \]
 </div>
 <p>이를 미분하면</p>
 <div class="equation" id="eq-pmTemperatureDifferential">
 \[
 \frac{\mathrm dT}{T}=-\frac{(\gamma-1)M\,\mathrm dM}{1+\frac{\gamma-1}{2}M^2}
-\tag{6.2.3}
+\tag{3.4.10}
 \]
 </div>
 <p>즉 Mach number가 증가하면서 Static temperature는 낮아진다. 이때 음속도 달라지므로 \(\mathrm dV/V\)와 \(\mathrm dM/M\)을 같다고 놓을 수 없다.</p>
 <h3>Elimination of the Temperature Differential</h3>
-<p>식 <a href="#eq-pmTemperatureDifferential">(6.2.3)</a>을 식 <a href="#eq-velocityMachDifferential1">(6.2.1)</a>에 대입하면</p>
+<p>식 <a href="#eq-pmTemperatureDifferential">(3.4.10)</a>을 식 <a href="#eq-velocityMachDifferential1">(3.4.8)</a>에 대입하면</p>
 <div class="equation" id="eq-pmVelocityDifferentialStart">
 \[
 \frac{\mathrm dV}{V}=\frac{\mathrm dM}{M}-\frac{\frac{\gamma-1}{2}M\,\mathrm dM}{1+\frac{\gamma-1}{2}M^2}
-\tag{6.2.4}
+\tag{3.4.11}
 \]
 </div>
 <p>\(\mathrm dM/M\)을 묶고 나머지 항을 통분하면 분자에 1만 남는다.</p>
 <div class="equation" id="eq-velocityMachDifferential">
 \[
 \frac{\mathrm dV}{V}=\frac1{1+\frac{\gamma-1}{2}M^2}\frac{\mathrm dM}{M}
-\tag{6.2.5}
+\tag{3.4.12}
 \]
 </div>
 </section>
-<section id="differential-turning-relation" aria-labelledby="differential-turning-relation-title"><h2 id="differential-turning-relation-title">2. Differential Turning Relation</h2>
-<p>앞 페이지의 식 <a href="../infinitesimal-isentropic-turning/#eq-turningVelocityRelation">(6.1.7)</a>에 식 <a href="#eq-velocityMachDifferential">(6.2.5)</a>을 대입하면, 속력 대신 Mach number의 변화와 회전각을 직접 연결할 수 있다.</p>
+<section id="differential-turning-relation" aria-labelledby="differential-turning-relation-title"><h2 id="differential-turning-relation-title">5. Differential Turning Relation</h2>
+<p>앞서 유도한 식 <a href="#eq-turningVelocityRelation">(3.4.7)</a>에 식 <a href="#eq-velocityMachDifferential">(3.4.12)</a>을 대입하면, 속력 대신 Mach number의 변화와 회전각을 직접 연결할 수 있다.</p>
 <div class="equation main" id="eq-prandtlMeyerDifferential">
 \[
 \boxed{\displaystyle \mathrm d\theta=\frac{\sqrt{M^2-1}}{1+\frac{\gamma-1}{2}M^2}\frac{\mathrm dM}{M}}
-\tag{6.2.6}
+\tag{3.4.13}
 \]
 </div>
 <p>\(M&gt;1\)에서 \(\mathrm dM\)에 곱해지는 계수는 양수이다. 따라서 팽창 방향의 회전이 진행되면서 Mach number가 증가한다. 이 계수를 적분한 함수가 \(\nu(M)\)이며, \(M=1\)에서 \(\nu=0\)이 되도록 기준을 잡는다.</p>
 </section>
-<section id="integration-of-the-differential-relation" aria-labelledby="integration-of-the-differential-relation-title"><h2 id="integration-of-the-differential-relation-title">3. Integration of the Differential Relation</h2>
+<section id="integration-of-the-differential-relation" aria-labelledby="integration-of-the-differential-relation-title"><h2 id="integration-of-the-differential-relation-title">6. Integration of the Differential Relation</h2>
 <h3>Change of Variable</h3>
 <p>적분에 포함된 \(\sqrt{M^2-1}\)을 없애기 위해 \(q=\sqrt{M^2-1}\)로 치환한다. 이는 계산을 위한 변수이며 새로운 유동 가정은 아니다.</p>
 <div class="equation" id="eq-pmVariableDefinition">
 \[
 q^2=M^2-1,\qquad M^2=1+q^2
-\tag{6.2.7}
+\tag{3.4.14}
 \]
 </div>
 <p>미분하면 \(2q\,\mathrm dq=2M\,\mathrm dM\)이므로</p>
 <div class="equation" id="eq-prandtlMeyerVariableDifferential">
 \[
 \frac{\mathrm dM}{M}=\frac{q}{M^2}\,\mathrm dq=\frac{q}{1+q^2}\,\mathrm dq
-\tag{6.2.8}
+\tag{3.4.15}
 \]
 </div>
 <p>계수를 짧게 표시하기 위해 다음 두 상수를 사용한다.</p>
 <div class="equation" id="eq-pmCoefficientDefinitions">
 \[
 \alpha=\frac{\gamma-1}{2},\qquad \eta=\frac{\gamma+1}{2},\qquad \eta-\alpha=1
-\tag{6.2.9}
+\tag{3.4.16}
 \]
 </div>
-<p>그러면 \(1+(\gamma-1)M^2/2=1+\alpha(1+q^2)=\eta+\alpha q^2\)이다. 이를 식 <a href="#eq-prandtlMeyerDifferential">(6.2.6)</a>에 대입하면</p>
+<p>그러면 \(1+(\gamma-1)M^2/2=1+\alpha(1+q^2)=\eta+\alpha q^2\)이다. 이를 식 <a href="#eq-prandtlMeyerDifferential">(3.4.13)</a>에 대입하면</p>
 <div class="equation" id="eq-prandtlMeyerRationalForm">
 \[
 \mathrm d\theta=\frac{q}{\eta+\alpha q^2}\frac{q\,\mathrm dq}{1+q^2}=\frac{q^2}{(1+q^2)(\eta+\alpha q^2)}\,\mathrm dq
-\tag{6.2.10}
+\tag{3.4.17}
 \]
 </div>
 <p>제곱근이 사라져 다항식의 비를 적분하는 형태가 되었다.</p>
@@ -312,28 +376,28 @@ q^2=M^2-1,\qquad M^2=1+q^2
 <div class="equation" id="eq-prandtlMeyerPartialFractionAssumption">
 \[
 \frac{q^2}{(1+q^2)(\eta+\alpha q^2)}=\frac{A}{1+q^2}+\frac{B}{\eta+\alpha q^2}
-\tag{6.2.11}
+\tag{3.4.18}
 \]
 </div>
 <p>공통 분모를 곱하면</p>
 <div class="equation" id="eq-pmPartialFractionExpansion">
 \[
 q^2=A(\eta+\alpha q^2)+B(1+q^2)=(A\eta+B)+(A\alpha+B)q^2
-\tag{6.2.12}
+\tag{3.4.19}
 \]
 </div>
 <p>양변에서 상수항과 \(q^2\)의 계수가 각각 같아야 하므로</p>
 <div class="equation" id="eq-pmPartialFractionCoefficients">
 \[
 A\eta+B=0,\qquad A\alpha+B=1
-\tag{6.2.13}
+\tag{3.4.20}
 \]
 </div>
 <p>첫 번째 식의 \(B=-A\eta\)를 두 번째 식에 대입하면 \(A(\alpha-\eta)=1\)이다. \(\eta-\alpha=1\)이므로 \(A=-1\), \(B=\eta\)를 얻는다.</p>
 <div class="equation" id="eq-pmPartialFractionResult">
 \[
 \frac{q^2}{(1+q^2)(\eta+\alpha q^2)}=-\frac1{1+q^2}+\frac{\eta}{\eta+\alpha q^2}
-\tag{6.2.14}
+\tag{3.4.21}
 \]
 </div>
 <h3>Integration from the Sonic Reference</h3>
@@ -341,35 +405,35 @@ A\eta+B=0,\qquad A\alpha+B=1
 <div class="equation" id="eq-prandtlMeyerIntegralSeparated">
 \[
 \nu(M)=\int_0^q\left[\frac{\eta}{\eta+\alpha\xi^2}-\frac1{1+\xi^2}\right]\mathrm d\xi
-\tag{6.2.15}
+\tag{3.4.22}
 \]
 </div>
 <p>첫 번째 항은 \(z=\xi\sqrt{\alpha/\eta}\)로 치환하면 분모를 \(1+z^2\) 형태로 바꿀 수 있다.</p>
 <div class="equation" id="eq-pmIntegralSubstitution">
 \[
 \xi=z\sqrt{\frac{\eta}{\alpha}},\qquad \mathrm d\xi=\sqrt{\frac{\eta}{\alpha}}\,\mathrm dz,\qquad \eta+\alpha\xi^2=\eta(1+z^2)
-\tag{6.2.16}
+\tag{3.4.23}
 \]
 </div>
 <p>\(1/(1+z^2)\)의 적분이 \(\tan^{-1}z\)이므로</p>
 <div class="equation" id="eq-prandtlMeyerFirstIntegral">
 \[
 \int_0^q\frac{\eta}{\eta+\alpha\xi^2}\,\mathrm d\xi=\sqrt{\frac{\eta}{\alpha}}\tan^{-1}\left(q\sqrt{\frac{\alpha}{\eta}}\right)
-\tag{6.2.17}
+\tag{3.4.24}
 \]
 </div>
 <p>두 번째 항도 같은 적분 형태이다.</p>
 <div class="equation" id="eq-prandtlMeyerSecondIntegral">
 \[
 \int_0^q\frac1{1+\xi^2}\,\mathrm d\xi=\tan^{-1}q
-\tag{6.2.18}
+\tag{3.4.25}
 \]
 </div>
-<p>두 결과를 식 <a href="#eq-prandtlMeyerIntegralSeparated">(6.2.15)</a>에 대입하면</p>
+<p>두 결과를 식 <a href="#eq-prandtlMeyerIntegralSeparated">(3.4.22)</a>에 대입하면</p>
 <div class="equation" id="eq-pmIntegratedCompact">
 \[
 \nu(M)=\sqrt{\frac{\eta}{\alpha}}\tan^{-1}\left(q\sqrt{\frac{\alpha}{\eta}}\right)-\tan^{-1}q
-\tag{6.2.19}
+\tag{3.4.26}
 \]
 </div>
 <h3>Prandtl–Meyer Function</h3>
@@ -377,15 +441,54 @@ A\eta+B=0,\qquad A\alpha+B=1
 <div class="equation main" id="eq-prandtlMeyerFunction">
 \[
 \boxed{\displaystyle \nu(M)=\sqrt{\frac{\gamma+1}{\gamma-1}}\tan^{-1}\left[\sqrt{\frac{\gamma-1}{\gamma+1}(M^2-1)}\right]-\tan^{-1}\left(\sqrt{M^2-1}\right)}
-\tag{6.2.20}
+\tag{3.4.27}
 \]
 </div>
 <p>\(\tan^{-1}\)는 역수 \(1/\tan\)이 아니라 <strong>Inverse tangent</strong>, 즉 Arctangent이다. 함수값 \(\nu\)는 각도이며 위 유도에서는 라디안을 사용한다. 실제 계산에서 도 단위로 변환해도 되지만, 회전각과 \(\nu\)의 단위를 반드시 맞춰야 한다.</p>
-<p>\(\nu(M)\)의 절대적인 기준은 Sonic state이지만, 두 Supersonic 상태를 연결할 때는 두 함수값의 차이만 사용한다. 다음 페이지에서 이를 주어진 모서리 각도와 연결한다.</p>
+<p>\(\nu(M)\)의 절대적인 기준은 Sonic state이지만, 두 Supersonic 상태를 연결할 때는 두 함수값의 차이만 사용한다. 이 관계를 주어진 모서리 각도에 적용하여 하류 상태를 구한다.</p>
+</section>
+<section id="turning-through-a-finite-expansion-fan" aria-labelledby="turning-through-a-finite-expansion-fan-title"><h2 id="turning-through-a-finite-expansion-fan-title">7. Turning through a Finite Expansion Fan</h2>
+<h3>Total Turning Angle</h3>
+<p>Expansion fan의 시작 상태를 1, 끝 상태를 2로 표시한다. 팽창 방향을 양의 회전으로 잡으면, 작은 회전 \(\mathrm d\theta\)를 전 구간에 걸쳐 합한 값이 \(\theta_2-\theta_1\)이다. 식 <a href="#eq-prandtlMeyerDifferential">(3.4.13)</a>을 적분하면</p>
+<div class="equation main" id="eq-finitePrandtlMeyerTurn">
+\[
+\boxed{\displaystyle \theta_2-\theta_1=\nu(M_2)-\nu(M_1)}
+\tag{3.4.28}
+\]
+</div>
+<p>\(\nu(M_1)\)은 유입 Mach number에 대응하는 값이고, 여기에 주어진 회전각을 더하면 \(\nu(M_2)\)를 얻는다. 이 값을 식 <a href="#eq-prandtlMeyerFunction">(3.4.27)</a>에 대입하여 역으로 풀면 하류 Mach number가 정해진다.</p>
+<h3>Determination of the Downstream State</h3>
+<p>계산의 흐름은 다음과 같다. 여기서 사용하는 관계는 Steady, two-dimensional, Isentropic 팽창과 일정한 \(\gamma\)를 가정한다.</p>
+<ul class="explanation-list"><li><strong>Upstream state</strong>: 주어진 \(M_1&gt;1\)과 \(\gamma\)로 \(\nu(M_1)\)을 계산한다.</li><li><strong>Turning angle</strong>: 팽창 회전각 \(\theta_2-\theta_1\)을 더하여 \(\nu(M_2)\)를 구한다. 함수값과 회전각의 단위를 맞춘다.</li><li><strong>Downstream Mach number</strong>: Prandtl–Meyer function을 역으로 풀어 \(M_2\)를 구한다. 팽창이면 \(M_2&gt;M_1\)이다.</li></ul>
+<p>여기서 \(\nu(M_2)\) 자체를 출구 Mach number로 읽으면 안 된다. \(\nu\)는 회전에 대응하는 각도 함수이고, Mach number는 그 함수에 들어가는 변수이다.</p>
+</section>
+<section id="static-property-ratios" aria-labelledby="static-property-ratios-title"><h2 id="static-property-ratios-title">8. Static-Property Ratios</h2>
+<h3>Temperature Ratio</h3>
+<p>이상적인 Expansion fan은 Isentropic이므로 \(T_0\)와 \(p_0\)가 일정하다. 현재 유동의 온도·압력·밀도인 <strong>Static property</strong>는 그 기준값에 대한 Mach number 관계로 계산한다.</p>
+<p>두 상태에 같은 \(T_0\)를 사용하면</p>
+<div class="equation" id="eq-expansionTemperatureRatio">
+\[
+\frac{T_2}{T_1}=\frac{T_2/T_0}{T_1/T_0}=\frac{1+\frac{\gamma-1}{2}M_1^2}{1+\frac{\gamma-1}{2}M_2^2}
+\tag{3.4.29}
+\]
+</div>
+<p>팽창에서는 \(M_2&gt;M_1\)이므로 분모가 분자보다 커지고 \(T_2&lt;T_1\)이다. 유동이 가속되면서 운동에너지가 증가하는 만큼 Static temperature가 내려가는 관계이다.</p>
+<h3>Pressure and Density Ratios</h3>
+<p>두 상태는 같은 Isentropic 과정에 있으므로 식 <a href="../isentropic-relations/#eq-isentropicTp">(1.2.6)</a>과 식 <a href="../isentropic-relations/#eq-isentropicRelations">(1.2.9)</a>을 사용할 수 있다. 압력비와 밀도비를 온도비로 나타내면</p>
+<div class="equation main" id="eq-expansionPropertyRatios">
+\[
+\boxed{\displaystyle \frac{T_2}{T_1}=\frac{1+\frac{\gamma-1}{2}M_1^2}{1+\frac{\gamma-1}{2}M_2^2},\qquad \frac{p_2}{p_1}=\left(\frac{T_2}{T_1}\right)^{\gamma/(\gamma-1)},\qquad \frac{\rho_2}{\rho_1}=\left(\frac{T_2}{T_1}\right)^{1/(\gamma-1)}}
+\tag{3.4.30}
+\]
+</div>
+<p>\(T_2/T_1&lt;1\)이고 각 지수가 양수이므로 압력과 밀도도 감소한다. 따라서 Expansion fan을 통과하면 속력과 Mach number는 증가하고, Static pressure·temperature·density는 감소한다. Stagnation property는 그대로 유지된다.</p>
+<h3>Distinction from a Compression Corner</h3>
+<p>벽이 유동 쪽으로 꺾이는 <strong>Compression corner</strong>에서는 약한 압축파들이 서로 모여 Shock을 형성할 수 있다. 유한한 Shock을 통과하면 Entropy가 증가하고 Stagnation pressure가 감소하므로, Expansion fan의 Isentropic relation을 회전각의 부호만 바꾸어 적용할 수 없다.</p>
+<p>따라서 팽창 모서리에서는 Prandtl–Meyer relation과 Isentropic property ratio를 함께 사용하고, 압축 모서리의 Oblique shock에는 Theta–beta–Mach relation과 Normal-component method를 사용한다. 두 경우 모두 방향이 변하지만, 상태를 연결하는 과정의 조건이 다르다.</p>
 </section>
 <footer><a href="../">← Compressible Flow로 돌아가기</a></footer>
 </main>
-<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#velocity-differential-written-with-mach-number" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Velocity Differential Written with Mach Number</span></a><a href="#differential-turning-relation" class="sidebar-link"><span class="item-number">2.</span><span>Differential Turning Relation</span></a><a href="#integration-of-the-differential-relation" class="sidebar-link"><span class="item-number">3.</span><span>Integration of the Differential Relation</span></a></nav></aside>
+<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#expansion-through-a-convex-corner" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Expansion through a Convex Corner</span></a><a href="#mach-angle" class="sidebar-link"><span class="item-number">2.</span><span>Mach Angle</span></a><a href="#velocity-triangle-across-an-infinitesimal-mach-wave" class="sidebar-link"><span class="item-number">3.</span><span>Velocity Triangle across an Infinitesimal Mach Wave</span></a><a href="#velocity-differential-written-with-mach-number" class="sidebar-link"><span class="item-number">4.</span><span>Velocity Differential Written with Mach Number</span></a><a href="#differential-turning-relation" class="sidebar-link"><span class="item-number">5.</span><span>Differential Turning Relation</span></a><a href="#integration-of-the-differential-relation" class="sidebar-link"><span class="item-number">6.</span><span>Integration of the Differential Relation</span></a><a href="#turning-through-a-finite-expansion-fan" class="sidebar-link"><span class="item-number">7.</span><span>Turning through a Finite Expansion Fan</span></a><a href="#static-property-ratios" class="sidebar-link"><span class="item-number">8.</span><span>Static-Property Ratios</span></a></nav></aside>
 </div>
 <script>
         (() => {

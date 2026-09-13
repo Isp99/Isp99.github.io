@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Shock 뒤에서는 속력이 줄어들 뿐 아니라 온도 상승으로 음속도 달라진다. 따라서 하류 Mach number를 구할 때는 두 변화를 함께 반영해야 한다. 또한 보존법칙이 허용하는 변화 중 실제 Shock의 방향을 판단하려면 Entropy 증가를 확인해야 한다. 이 두 결과를 Stagnation property와 연결하면, Shock을 통과할 때 보존되는 값과 감소하는 값을 구분할 수 있다.">
-    <title>4.3 Downstream Mach Number and Entropy Change | Isp99</title>
+    <title>3.2 Normal-Shock Mach Number and Entropy Change | Isp99</title>
     <script>
         window.MathJax = {
             tex: {
@@ -221,10 +221,10 @@
     </style>
 </head>
 <body class="article-page"><div class="page-layout">
-<aside class="left-sidebar" aria-label="Compressible Flow navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Compressible Flow</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals of Compressible Flow</div><a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link"><span class="item-number">1.1</span> Perfect-Gas Thermodynamic Relations</a><a href="../isentropic-relations/" class="sidebar-link"><span class="item-number">1.2</span> Isentropic Relations</a><a href="../speed-of-sound-and-mach-number/" class="sidebar-link"><span class="item-number">1.3</span> Speed of Sound and Mach Number</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Stagnation State and Properties</div><a href="../stagnation-temperature/" class="sidebar-link"><span class="item-number">2.1</span> Stagnation Temperature</a><a href="../stagnation-pressure-and-density/" class="sidebar-link"><span class="item-number">2.2</span> Stagnation Pressure and Density</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Quasi-One-Dimensional Nozzle Flow</div><a href="../area-velocity-relation/" class="sidebar-link"><span class="item-number">3.1</span> Area–Velocity Relation</a><a href="../mass-flow-function-and-choking/" class="sidebar-link"><span class="item-number">3.2</span> Mass-Flow Function and Choking</a><a href="../area-mach-number-relation/" class="sidebar-link"><span class="item-number">3.3</span> Area–Mach Number Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Normal Shock Waves</div><a href="../normal-shock-conservation-laws/" class="sidebar-link"><span class="item-number">4.1</span> Derivation from Conservation Laws</a><a href="../normal-shock-property-ratios/" class="sidebar-link"><span class="item-number">4.2</span> Normal-Shock Property Ratios</a><a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link active" aria-current="page"><span class="item-number">4.3</span> Downstream Mach Number and Entropy Change</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Oblique Shock Waves</div><a href="../normal-component-method/" class="sidebar-link"><span class="item-number">5.1</span> Normal-Component Method</a><a href="../theta-beta-mach-relation/" class="sidebar-link"><span class="item-number">5.2</span> Derivation of the Theta–Beta–Mach Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Prandtl–Meyer Expansion</div><a href="../infinitesimal-isentropic-turning/" class="sidebar-link"><span class="item-number">6.1</span> Infinitesimal Isentropic Turning</a><a href="../prandtl-meyer-function/" class="sidebar-link"><span class="item-number">6.2</span> Derivation of the Prandtl–Meyer Function</a><a href="../finite-expansion-and-property-changes/" class="sidebar-link"><span class="item-number">6.3</span> Finite Expansion and Property Changes</a></div></nav></aside>
+<aside class="left-sidebar" aria-label="Compressible Flow navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Compressible Flow</a><div class="sidebar-group"><div class="sidebar-group-title">1. Thermodynamic Foundations and Stagnation Properties</div><a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link"><span class="item-number">1.1</span> Perfect-Gas Thermodynamic Relations</a><a href="../isentropic-relations/" class="sidebar-link"><span class="item-number">1.2</span> Isentropic Relations, Speed of Sound, and Mach Number</a><a href="../stagnation-temperature/" class="sidebar-link"><span class="item-number">1.3</span> Stagnation Temperature, Pressure, and Density</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Quasi-One-Dimensional Nozzle Flow</div><a href="../area-velocity-relation/" class="sidebar-link"><span class="item-number">2.1</span> Area–Velocity Relation</a><a href="../mass-flow-function-and-choking/" class="sidebar-link"><span class="item-number">2.2</span> Mass Flow, Choking, and the Area–Mach Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Shock Waves and Expansion Fans</div><a href="../normal-shock-conservation-laws/" class="sidebar-link"><span class="item-number">3.1</span> Conservation Laws and Normal-Shock Property Ratios</a><a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link active" aria-current="page"><span class="item-number">3.2</span> Normal-Shock Mach Number and Entropy Change</a><a href="../normal-component-method/" class="sidebar-link"><span class="item-number">3.3</span> Oblique-Shock Relations</a><a href="../prandtl-meyer-function/" class="sidebar-link"><span class="item-number">3.4</span> Prandtl–Meyer Expansion</a></div></nav></aside>
 <main class="main-content" id="top">
-<nav aria-label="Current article"><a href="#top">4.3 Downstream Mach Number and Entropy Change</a></nav>
-<header><h1>4.3 Downstream Mach Number and Entropy Change</h1><p class="subtitle">Downstream Flow Regime, Entropy Production, and Stagnation-Pressure Loss</p><p class="intro">Shock 뒤에서는 속력이 줄어들 뿐 아니라 온도 상승으로 음속도 달라진다. 따라서 하류 Mach number를 구할 때는 두 변화를 함께 반영해야 한다. 또한 보존법칙이 허용하는 변화 중 실제 Shock의 방향을 판단하려면 <strong>Entropy 증가</strong>를 확인해야 한다. 이 두 결과를 Stagnation property와 연결하면, Shock을 통과할 때 보존되는 값과 감소하는 값을 구분할 수 있다.</p></header>
+<nav aria-label="Current article"><a href="#top">3.2 Normal-Shock Mach Number and Entropy Change</a></nav>
+<header><h1>3.2 Normal-Shock Mach Number and Entropy Change</h1><p class="subtitle">Downstream Flow Regime, Entropy Production, and Stagnation-Pressure Loss</p><p class="intro">Shock 뒤에서는 속력이 줄어들 뿐 아니라 온도 상승으로 음속도 달라진다. 따라서 하류 Mach number를 구할 때는 두 변화를 함께 반영해야 한다. 또한 보존법칙이 허용하는 변화 중 실제 Shock의 방향을 판단하려면 <strong>Entropy 증가</strong>를 확인해야 한다. 이 두 결과를 Stagnation property와 연결하면, Shock을 통과할 때 보존되는 값과 감소하는 값을 구분할 수 있다.</p></header>
 <aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#downstream-mach-number">Downstream Mach Number</a></li><li><a href="#entropy-increase">Entropy Increase</a></li><li><a href="#stagnation-temperature-and-pressure">Stagnation Temperature and Pressure</a></li></ol></aside>
 <section id="downstream-mach-number" aria-labelledby="downstream-mach-number-title"><h2 id="downstream-mach-number-title">1. Downstream Mach Number</h2>
 <h3>Velocity Change and Sound-Speed Change</h3>
@@ -232,36 +232,36 @@
 <div class="equation" id="eq-shockMachDefinitions">
 \[
 M_1^2=\frac{V_1^2}{\gamma RT_1},\qquad M_2^2=\frac{V_2^2}{\gamma RT_2}
-\tag{4.3.1}
+\tag{3.2.1}
 \]
 </div>
 <p>두 식을 나누고 질량보존의 \(V_2/V_1=1/r\)을 대입하면</p>
 <div class="equation" id="eq-shockMachRatio">
 \[
 \frac{M_2^2}{M_1^2}=\frac{V_2^2}{V_1^2}\frac{T_1}{T_2}=\frac1{r^2}\frac{T_1}{T_2}
-\tag{4.3.2}
+\tag{3.2.2}
 \]
 </div>
 <p>상태방정식에서 \(T_2/T_1=(p_2/p_1)/r\)이므로 \(r\) 하나가 소거된다.</p>
 <div class="equation" id="eq-normalShockMachBeforeSubstitution">
 \[
 M_2^2=\frac{M_1^2}{r(p_2/p_1)}
-\tag{4.3.3}
+\tag{3.2.3}
 \]
 </div>
 <h3>Substitution of the Property Ratios</h3>
-<p>밀도비 <a href="../normal-shock-property-ratios/#eq-normalShockDensity">(4.2.7)</a>와 압력비 <a href="../normal-shock-property-ratios/#eq-normalShockPressure">(4.2.10)</a>를 대입하면</p>
+<p>밀도비 <a href="../normal-shock-conservation-laws/#eq-normalShockDensity">(3.1.20)</a>와 압력비 <a href="../normal-shock-conservation-laws/#eq-normalShockPressure">(3.1.23)</a>를 대입하면</p>
 <div class="equation" id="eq-shockMachSubstitution">
 \[
 M_2^2=M_1^2\frac{2+(\gamma-1)M_1^2}{(\gamma+1)M_1^2}\frac{\gamma+1}{2\gamma M_1^2-(\gamma-1)}
-\tag{4.3.4}
+\tag{3.2.4}
 \]
 </div>
 <p>공통항을 소거하고 분자·분모를 2로 나누면</p>
 <div class="equation main" id="eq-normalShockMach">
 \[
 \boxed{\displaystyle M_2^2=\frac{1+\dfrac{\gamma-1}{2}M_1^2}{\gamma M_1^2-\dfrac{\gamma-1}{2}}}
-\tag{4.3.5}
+\tag{3.2.5}
 \]
 </div>
 <p>\(M_1&gt;1\)이면 \(M_2&lt;1\)이다. 따라서 <strong>Normal shock은 Supersonic flow를 Subsonic flow로 바꾼다.</strong> 뒤에서 다루는 Oblique shock에서는 Shock에 수직한 속도 성분에 이 관계를 적용하므로, 전체 Mach number까지 반드시 1보다 작아지는 것은 아니다.</p>
@@ -272,20 +272,20 @@ M_2^2=M_1^2\frac{2+(\gamma-1)M_1^2}{(\gamma+1)M_1^2}\frac{\gamma+1}{2\gamma M_1^
 <div class="equation" id="eq-shockEntropy">
 \[
 s_2-s_1=c_p\ln\left(\frac{T_2}{T_1}\right)-R\ln\left(\frac{p_2}{p_1}\right)
-\tag{4.3.6}
+\tag{3.2.6}
 \]
 </div>
 <p>\(c_p/R=\gamma/(\gamma-1)\)과 \(T_2/T_1=(p_2/p_1)/(\rho_2/\rho_1)\)를 대입한다. 로그의 나눗셈을 뺄셈으로 바꾸면 압력비 항을 합칠 수 있다.</p>
 <div class="equation" id="eq-shockEntropyLogExpanded">
 \[
 \frac{s_2-s_1}{R}=\frac{\gamma}{\gamma-1}\ln\left(\frac{p_2}{p_1}\right)-\frac{\gamma}{\gamma-1}\ln\left(\frac{\rho_2}{\rho_1}\right)-\ln\left(\frac{p_2}{p_1}\right)
-\tag{4.3.7}
+\tag{3.2.7}
 \]
 </div>
 <div class="equation main" id="eq-shockEntropyPressureDensity">
 \[
 \boxed{\displaystyle \frac{s_2-s_1}{R}=\frac1{\gamma-1}\ln\left[\frac{p_2/p_1}{(\rho_2/\rho_1)^\gamma}\right]}
-\tag{4.3.8}
+\tag{3.2.8}
 \]
 </div>
 <p>Isentropic 변화라면 로그 안이 1이 되어 Entropy 변화가 0이다. 실제 Normal-shock ratio를 대입하면 \(M_1&gt;1\)에서 로그 안이 1보다 커진다. 아래에서는 이 증가의 부호를 미분으로 확인한다.</p>
@@ -294,53 +294,53 @@ s_2-s_1=c_p\ln\left(\frac{T_2}{T_1}\right)-R\ln\left(\frac{p_2}{p_1}\right)
 <div class="equation" id="eq-shockEntropyRatioFunctions">
 \[
 P(x)=\frac{2\gamma x-(\gamma-1)}{\gamma+1},\qquad G(x)=\frac{(\gamma+1)x}{2+(\gamma-1)x}
-\tag{4.3.9}
+\tag{3.2.9}
 \]
 </div>
-<p>식 <a href="#eq-shockEntropyPressureDensity">(4.3.8)</a>을 \(x\)로 미분하면, 로그의 미분에 따라</p>
+<p>식 <a href="#eq-shockEntropyPressureDensity">(3.2.8)</a>을 \(x\)로 미분하면, 로그의 미분에 따라</p>
 <div class="equation" id="eq-shockEntropyDerivativeStart">
 \[
 \frac{\mathrm d}{\mathrm dx}\left(\frac{s_2-s_1}{R}\right)=\frac1{\gamma-1}\left(\frac{P'}P-\gamma\frac{G'}G\right)
-\tag{4.3.10}
+\tag{3.2.10}
 \]
 </div>
 <p>여기서 프라임은 \(x\)에 대한 미분이다. 두 항을 계산하면</p>
 <div class="equation" id="eq-shockEntropyLogDerivatives">
 \[
 \frac{P'}P=\frac{2\gamma}{2\gamma x-(\gamma-1)},\qquad \frac{G'}G=\frac1x-\frac{\gamma-1}{2+(\gamma-1)x}
-\tag{4.3.11}
+\tag{3.2.11}
 \]
 </div>
-<p>밀도비의 항을 통분하면 \(G'/G=2/\{x[2+(\gamma-1)x]\}\)이다. 이를 식 <a href="#eq-shockEntropyDerivativeStart">(4.3.10)</a>에 대입하면</p>
+<p>밀도비의 항을 통분하면 \(G'/G=2/\{x[2+(\gamma-1)x]\}\)이다. 이를 식 <a href="#eq-shockEntropyDerivativeStart">(3.2.10)</a>에 대입하면</p>
 <div class="equation" id="eq-shockEntropyDerivativeDifference">
 \[
 \frac{\mathrm d}{\mathrm dx}\left(\frac{s_2-s_1}{R}\right)=\frac{2\gamma}{\gamma-1}\left[\frac1{2\gamma x-(\gamma-1)}-\frac1{x[2+(\gamma-1)x]}\right]
-\tag{4.3.12}
+\tag{3.2.12}
 \]
 </div>
 <p>두 분수를 통분할 때 분자는 \(x[2+(\gamma-1)x]-[2\gamma x-(\gamma-1)]=(\gamma-1)(x-1)^2\)로 정리된다. 따라서</p>
 <div class="equation" id="eq-shockEntropyDerivativeFinal">
 \[
 \frac{\mathrm d}{\mathrm dx}\left(\frac{s_2-s_1}{R}\right)=\frac{2\gamma(x-1)^2}{[2\gamma x-(\gamma-1)]x[2+(\gamma-1)x]}
-\tag{4.3.13}
+\tag{3.2.13}
 \]
 </div>
 <p>\(x=1\)에서는 Shock 전후의 차이가 없어 \(s_2-s_1=0\)이다. \(x&gt;1\)에서는 위 미분값이 양수이므로, 그 지점부터 Entropy 차이가 증가한다. 즉 \(M_1&gt;1\)인 실제 압축 Shock에서 \(s_2&gt;s_1\)이다. <strong>Shock은 Adiabatic이지만 Irreversible</strong>이며, 열전달 없이도 Entropy를 생성한다.</p>
 </section>
 <section id="stagnation-temperature-and-pressure" aria-labelledby="stagnation-temperature-and-pressure-title"><h2 id="stagnation-temperature-and-pressure-title">3. Stagnation Temperature and Pressure</h2>
 <h3>Conservation of Stagnation Temperature</h3>
-<p>에너지보존식 <a href="../normal-shock-conservation-laws/#eq-shockEnergy">(4.1.9)</a>의 양쪽은 각각 Stagnation enthalpy이므로</p>
+<p>에너지보존식 <a href="../normal-shock-conservation-laws/#eq-shockEnergy">(3.1.9)</a>의 양쪽은 각각 Stagnation enthalpy이므로</p>
 <div class="equation" id="eq-shockStagnationEnthalpy">
 \[
 h_{0,1}=h_1+\frac{V_1^2}{2}=h_2+\frac{V_2^2}{2}=h_{0,2}
-\tag{4.3.14}
+\tag{3.2.14}
 \]
 </div>
 <p>비열이 일정하면 Stagnation temperature도 보존된다.</p>
 <div class="equation main" id="eq-shockT0">
 \[
 \boxed{\displaystyle T_{0,2}=T_{0,1}}
-\tag{4.3.15}
+\tag{3.2.15}
 \]
 </div>
 <h3>Stagnation-Pressure Loss</h3>
@@ -348,20 +348,20 @@ h_{0,1}=h_1+\frac{V_1^2}{2}=h_2+\frac{V_2^2}{2}=h_{0,2}
 <div class="equation" id="eq-shockStagnationEntropy">
 \[
 s_{0,2}-s_{0,1}=c_p\ln\left(\frac{T_{0,2}}{T_{0,1}}\right)-R\ln\left(\frac{p_{0,2}}{p_{0,1}}\right)
-\tag{4.3.16}
+\tag{3.2.16}
 \]
 </div>
 <p>온도비가 1이므로 첫 번째 로그는 0이다. 따라서</p>
 <div class="equation" id="eq-shockStagnationPressureEntropy">
 \[
 s_2-s_1=-R\ln\left(\frac{p_{0,2}}{p_{0,1}}\right)&gt;0
-\tag{4.3.17}
+\tag{3.2.17}
 \]
 </div>
 <div class="equation main" id="eq-shockP0Loss">
 \[
 \boxed{\displaystyle \frac{p_{0,2}}{p_{0,1}}&lt;1}
-\tag{4.3.18}
+\tag{3.2.18}
 \]
 </div>
 <p>Shock 뒤에서 Static pressure는 증가하지만 Stagnation pressure는 감소한다. Stagnation enthalpy가 보존되므로 에너지 자체가 사라진 것은 아니다. Entropy가 증가하여 유동을 손실 없이 정지시켜도 회복할 수 있는 압력이 낮아진 것이며, 이 점에서 Stagnation-pressure loss는 Shock의 비가역성을 나타낸다.</p>

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Isentropic relation은 Entropy가 일정한 두 상태의 압력·온도·밀도를 연결하는 관계이다. 상태방정식만으로는 압력이 변할 때 온도와 밀도가 각각 얼마나 변하는지 정할 수 없다. 여기에 Entropy가 일정하다는 조건을 더하면 한 물리량의 변화로 나머지 변화를 계산할 수 있다.">
-    <title>1.2 Isentropic Relations | Isp99</title>
+    <meta name="description" content="Isentropic relation은 Entropy가 일정한 두 상태의 압력·온도·밀도를 연결한다. 압력과 밀도의 이 관계를 작은 교란에 적용하면 Speed of sound를 구할 수 있고, 유동의 속력을 음속과 비교하면 Mach number를 정의할 수 있다. 여기서는 상태량 사이의 관계에서 출발하여, 압력 변화가 전달되는 속도와 유동의 구분까지 차례로 연결한다.">
+    <title>1.2 Isentropic Relations, Speed of Sound, and Mach Number | Isp99</title>
     <script>
         window.MathJax = {
             tex: {
@@ -221,11 +221,11 @@
     </style>
 </head>
 <body class="article-page"><div class="page-layout">
-<aside class="left-sidebar" aria-label="Compressible Flow navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Compressible Flow</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals of Compressible Flow</div><a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link"><span class="item-number">1.1</span> Perfect-Gas Thermodynamic Relations</a><a href="../isentropic-relations/" class="sidebar-link active" aria-current="page"><span class="item-number">1.2</span> Isentropic Relations</a><a href="../speed-of-sound-and-mach-number/" class="sidebar-link"><span class="item-number">1.3</span> Speed of Sound and Mach Number</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Stagnation State and Properties</div><a href="../stagnation-temperature/" class="sidebar-link"><span class="item-number">2.1</span> Stagnation Temperature</a><a href="../stagnation-pressure-and-density/" class="sidebar-link"><span class="item-number">2.2</span> Stagnation Pressure and Density</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Quasi-One-Dimensional Nozzle Flow</div><a href="../area-velocity-relation/" class="sidebar-link"><span class="item-number">3.1</span> Area–Velocity Relation</a><a href="../mass-flow-function-and-choking/" class="sidebar-link"><span class="item-number">3.2</span> Mass-Flow Function and Choking</a><a href="../area-mach-number-relation/" class="sidebar-link"><span class="item-number">3.3</span> Area–Mach Number Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Normal Shock Waves</div><a href="../normal-shock-conservation-laws/" class="sidebar-link"><span class="item-number">4.1</span> Derivation from Conservation Laws</a><a href="../normal-shock-property-ratios/" class="sidebar-link"><span class="item-number">4.2</span> Normal-Shock Property Ratios</a><a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link"><span class="item-number">4.3</span> Downstream Mach Number and Entropy Change</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Oblique Shock Waves</div><a href="../normal-component-method/" class="sidebar-link"><span class="item-number">5.1</span> Normal-Component Method</a><a href="../theta-beta-mach-relation/" class="sidebar-link"><span class="item-number">5.2</span> Derivation of the Theta–Beta–Mach Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Prandtl–Meyer Expansion</div><a href="../infinitesimal-isentropic-turning/" class="sidebar-link"><span class="item-number">6.1</span> Infinitesimal Isentropic Turning</a><a href="../prandtl-meyer-function/" class="sidebar-link"><span class="item-number">6.2</span> Derivation of the Prandtl–Meyer Function</a><a href="../finite-expansion-and-property-changes/" class="sidebar-link"><span class="item-number">6.3</span> Finite Expansion and Property Changes</a></div></nav></aside>
+<aside class="left-sidebar" aria-label="Compressible Flow navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Compressible Flow</a><div class="sidebar-group"><div class="sidebar-group-title">1. Thermodynamic Foundations and Stagnation Properties</div><a href="../perfect-gas-thermodynamic-relations/" class="sidebar-link"><span class="item-number">1.1</span> Perfect-Gas Thermodynamic Relations</a><a href="../isentropic-relations/" class="sidebar-link active" aria-current="page"><span class="item-number">1.2</span> Isentropic Relations, Speed of Sound, and Mach Number</a><a href="../stagnation-temperature/" class="sidebar-link"><span class="item-number">1.3</span> Stagnation Temperature, Pressure, and Density</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Quasi-One-Dimensional Nozzle Flow</div><a href="../area-velocity-relation/" class="sidebar-link"><span class="item-number">2.1</span> Area–Velocity Relation</a><a href="../mass-flow-function-and-choking/" class="sidebar-link"><span class="item-number">2.2</span> Mass Flow, Choking, and the Area–Mach Relation</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Shock Waves and Expansion Fans</div><a href="../normal-shock-conservation-laws/" class="sidebar-link"><span class="item-number">3.1</span> Conservation Laws and Normal-Shock Property Ratios</a><a href="../downstream-mach-number-and-entropy-change/" class="sidebar-link"><span class="item-number">3.2</span> Normal-Shock Mach Number and Entropy Change</a><a href="../normal-component-method/" class="sidebar-link"><span class="item-number">3.3</span> Oblique-Shock Relations</a><a href="../prandtl-meyer-function/" class="sidebar-link"><span class="item-number">3.4</span> Prandtl–Meyer Expansion</a></div></nav></aside>
 <main class="main-content" id="top">
-<nav aria-label="Current article"><a href="#top">1.2 Isentropic Relations</a></nav>
-<header><h1>1.2 Isentropic Relations</h1><p class="subtitle">Constant Entropy and Pressure–Temperature–Density Relations</p><p class="intro"><strong>Isentropic relation</strong>은 Entropy가 일정한 두 상태의 압력·온도·밀도를 연결하는 관계이다. 상태방정식만으로는 압력이 변할 때 온도와 밀도가 각각 얼마나 변하는지 정할 수 없다. 여기에 Entropy가 일정하다는 조건을 더하면 한 물리량의 변화로 나머지 변화를 계산할 수 있다.</p></header>
-<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#pressure-temperature-relation">Pressure–Temperature Relation</a></li><li><a href="#pressure-density-relation">Pressure–Density Relation</a></li></ol></aside>
+<nav aria-label="Current article"><a href="#top">1.2 Isentropic Relations, Speed of Sound, and Mach Number</a></nav>
+<header><h1>1.2 Isentropic Relations, Speed of Sound, and Mach Number</h1><p class="subtitle">Constant Entropy, Pressure Disturbances, and the Local Mach Number</p><p class="intro"><strong>Isentropic relation</strong>은 Entropy가 일정한 두 상태의 압력·온도·밀도를 연결한다. 압력과 밀도의 이 관계를 작은 교란에 적용하면 <strong>Speed of sound</strong>를 구할 수 있고, 유동의 속력을 음속과 비교하면 <strong>Mach number</strong>를 정의할 수 있다. 여기서는 상태량 사이의 관계에서 출발하여, 압력 변화가 전달되는 속도와 유동의 구분까지 차례로 연결한다.</p></header>
+<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#pressure-temperature-relation">Pressure–Temperature Relation</a></li><li><a href="#pressure-density-relation">Pressure–Density Relation</a></li><li><a href="#definition-of-the-speed-of-sound">Definition of the Speed of Sound</a></li><li><a href="#mach-number">Mach Number</a></li></ol></aside>
 <section id="pressure-temperature-relation" aria-labelledby="pressure-temperature-relation-title"><h2 id="pressure-temperature-relation-title">1. Pressure–Temperature Relation</h2>
 <h3>Isentropic Process</h3>
 <p><strong>Isentropic process</strong>는 Entropy가 일정하게 유지되는 과정이다. 열전달이 없는 Adiabatic 조건과 Entropy가 생성되지 않는 Reversible 조건이 함께 성립하면 이 과정으로 다룰 수 있다.</p>
@@ -297,11 +297,51 @@ c_p\frac{\mathrm dT}{T}-R\frac{\mathrm dp}{p}=0,\qquad c_p\frac{\mathrm dT}{T}=R
 \tag{1.2.9}
 \]
 </div>
-<p>이 관계는 같은 Isentropic 변화 안에서 \(p/\rho^\gamma\)가 일정하다는 뜻이다. 다음 페이지에서는 이 압력–밀도 관계를 미분하여 음속을 구한다. 또한 유동을 Isentropic하게 정지시키면 어떤 압력과 밀도에 도달하는지 계산할 때도 같은 관계를 사용한다.</p>
+<p>이 관계는 같은 Isentropic 변화 안에서 \(p/\rho^\gamma\)가 일정하다는 뜻이다. 이 압력–밀도 관계를 미분하면 작은 압력 교란이 전달되는 속도인 음속을 구할 수 있다. 또한 유동을 Isentropic하게 정지시키면 어떤 압력과 밀도에 도달하는지 계산할 때도 같은 관계를 사용한다.</p>
+</section>
+<section id="definition-of-the-speed-of-sound" aria-labelledby="definition-of-the-speed-of-sound-title"><h2 id="definition-of-the-speed-of-sound-title">3. Definition of the Speed of Sound</h2>
+<h3>Small Pressure Disturbance</h3>
+<p>어느 지점의 압력이 조금 바뀌면 인접한 유체가 압축되거나 팽창하고, 그 변화가 다시 주변으로 전달된다. 이처럼 작은 압력·밀도 변화가 퍼져 나가는 파동이 <strong>Sound wave</strong>이다. 따라서 음속과 작은 압력 교란의 전파속도는 같은 현상을 가리킨다. 여기서 말하는 소리는 사람이 들을 수 있는 주파수 범위로 한정되지 않는다.</p>
+<p>교란의 크기가 매우 작고 한 번의 압축·팽창 동안 열전달과 소산의 영향이 작으면 그 변화를 Isentropic으로 근사한다. 이때 음속은 다음 관계로 정의된다.</p>
+<div class="equation main" id="eq-soundGeneral">
+\[
+\boxed{\displaystyle a^2=\left(\frac{\partial p}{\partial\rho}\right)_s}
+\tag{1.2.10}
+\]
+</div>
+<p>아래첨자 \(s\)는 Entropy를 일정하게 유지한 상태에서 미분한다는 뜻이다. \((\partial p/\partial\rho)_s\)는 밀도를 조금 바꾸는 데 필요한 압력 변화의 크기를 나타낸다. 같은 밀도 변화에 더 큰 압력 변화가 필요한 기체일수록 작은 압축을 되돌리는 작용이 강하고, 그 교란이 더 빠르게 전달된다.</p>
+<h3>Speed of Sound in a Perfect Gas</h3>
+<p>Isentropic relation <a href="#eq-isentropicRelations">(1.2.9)</a>에 따라 \(p=C\rho^\gamma\)로 쓸 수 있다. 여기서 \(C\)는 해당 Isentropic 변화에서 일정한 값이다. 밀도로 미분하면</p>
+<div class="equation" id="eq-soundPressureDerivative">
+\[
+\left(\frac{\partial p}{\partial\rho}\right)_s=\gamma C\rho^{\gamma-1}=\gamma\frac{C\rho^\gamma}{\rho}=\gamma\frac{p}{\rho}
+\tag{1.2.11}
+\]
+</div>
+<p>이 결과와 \(p/\rho=RT\)를 식 <a href="#eq-soundGeneral">(1.2.10)</a>에 대입하면</p>
+<div class="equation main" id="eq-speedOfSound">
+\[
+\boxed{\displaystyle a=\sqrt{\gamma\frac{p}{\rho}}=\sqrt{\gamma RT}}
+\tag{1.2.12}
+\]
+</div>
+<p>동일한 기체에서 \(\gamma\)가 일정하다면 음속은 온도로 결정된다. 같은 속력의 유동이라도 기체의 온도가 다르면 압력 교란에 비해 빠른 정도가 달라진다. 또한 위 음속은 <strong>그 지점의 유체를 기준으로 한 전파속도</strong>이며, 유체 자체의 이동과 구분해야 한다.</p>
+</section>
+<section id="mach-number" aria-labelledby="mach-number-title"><h2 id="mach-number-title">4. Mach Number</h2>
+<h3>Comparison with the Local Sound Speed</h3>
+<p>Mach number는 유동의 속력 \(V\)를 그 지점의 음속 \(a\)로 나눈 무차원수이다. 속력과 전파속도를 같은 기준에서 비교하므로, 유동이 압력 교란보다 느린지 빠른지를 직접 나타낸다.</p>
+<div class="equation main" id="eq-machNumber">
+\[
+\boxed{\displaystyle M=\frac{V}{a}}
+\tag{1.2.13}
+\]
+</div>
+<ul class="explanation-list"><li><strong>Subsonic flow</strong>, \(M&lt;1\): 유체가 흘러가는 속도보다 압력 교란의 전파속도가 빠르다. 유동을 거슬러 전달되는 교란도 상류 쪽으로 이동할 수 있으므로, 상류와 하류가 압력 변화를 주고받을 수 있다.</li><li><strong>Sonic state</strong>, \(M=1\): 유동을 거스르는 방향의 전파속도와 유동의 속력이 같아진다. 노즐의 Choking을 이해하는 기준이 되는 상태이다.</li><li><strong>Supersonic flow</strong>, \(M&gt;1\): 유체를 기준으로 상류 방향으로 퍼지는 작은 교란도, 정지한 관찰자가 보면 유동에 실려 하류로 이동한다. 이 설명은 작은 교란이 놓인 국소적인 Supersonic 영역에 대한 것이다.</li></ul>
+<p>Mach number에서 비교하는 대상은 입자가 이동하는 속도와 그 입자 주변으로 <strong>작은 압력 변화가 퍼지는 속도</strong>이다. 크기가 유한한 Shock 자체의 전파를 그대로 음속으로 놓는 것은 별개의 문제이다. 이후 노즐에서는 상류로 전달되는 정보의 제한이 Choking으로 이어지고, Supersonic 유동의 방향 변화는 Shock이나 Expansion wave를 통해 나타난다.</p>
 </section>
 <footer><a href="../">← Compressible Flow로 돌아가기</a></footer>
 </main>
-<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#pressure-temperature-relation" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Pressure–Temperature Relation</span></a><a href="#pressure-density-relation" class="sidebar-link"><span class="item-number">2.</span><span>Pressure–Density Relation</span></a></nav></aside>
+<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#pressure-temperature-relation" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Pressure–Temperature Relation</span></a><a href="#pressure-density-relation" class="sidebar-link"><span class="item-number">2.</span><span>Pressure–Density Relation</span></a><a href="#definition-of-the-speed-of-sound" class="sidebar-link"><span class="item-number">3.</span><span>Definition of the Speed of Sound</span></a><a href="#mach-number" class="sidebar-link"><span class="item-number">4.</span><span>Mach Number</span></a></nav></aside>
 </div>
 <script>
         (() => {
