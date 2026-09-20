@@ -1,0 +1,35 @@
+{
+  "wagner_flutter_speed": 55.71564092810033,
+  "wagner_flutter_omega": 31.816127427264032,
+  "quasisteady_flutter_speed": 31.000378135814696,
+  "quasisteady_flutter_omega": 44.572098725428226,
+  "divergence_speed": 72.08950062914742,
+  "flutter_reduced_frequency": 0.28552240355919056,
+  "table_branch": "Mode 2, tracked from the higher-frequency mode at low speed",
+  "rows": [
+    {
+      "speed": 20.0,
+      "sigma": -1.9791892897302814,
+      "omega": 49.05992695076049,
+      "zeta": 0.04030949108700695
+    },
+    {
+      "speed": 40.0,
+      "sigma": -3.9589416419696324,
+      "omega": 43.22676713899684,
+      "zeta": 0.0912037158427609
+    },
+    {
+      "speed": 55.71564092810033,
+      "sigma": -1.3322676295501878e-14,
+      "omega": 31.816127427264032,
+      "zeta": 4.1873972016108237e-16
+    },
+    {
+      "speed": 60.0,
+      "sigma": 2.39560318275454,
+      "omega": 30.740698025973774,
+      "zeta": -0.07769380881757251
+    }
+  ]
+}
