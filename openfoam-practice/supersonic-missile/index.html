@@ -482,6 +482,209 @@
             빠져나가도록 gradient를 제한하지 않는 형태를 사용하였다.
             상·하부 경계는 외부유동 영역을 모사하기 위한 far-field boundary로 설정하였다.
         </p>
+
+
+        <h3>2.4 Numerical Schemes (<code>fvSchemes</code>)</h3>
+
+        <p>
+            OpenFOAM에서는 지배방정식을 finite volume method로 이산화한 뒤 계산한다.
+            이때 시간항, gradient, Laplacian, face interpolation 등을 어떤 수치기법으로
+            계산할지는 <code>fvSchemes</code>에서 지정하였다.
+            본 해석에서는 초음속 shock을 안정적으로 포착하기 위해
+            <code>Kurganov</code> flux scheme과 limiter 기반 reconstruction을 사용하였다.
+        </p>
+
+        <table class="case-table">
+            <tr>
+                <th>Flux scheme</th>
+                <td><code>Kurganov</code> — density-based compressible flow에서 shock을 처리하기 위한 central-upwind flux scheme</td>
+            </tr>
+            <tr>
+                <th>Time derivative</th>
+                <td><code>Euler</code> — 1차 시간 이산화</td>
+            </tr>
+            <tr>
+                <th>Gradient</th>
+                <td><code>Gauss linear</code> — Gauss theorem과 linear interpolation을 이용한 gradient 계산</td>
+            </tr>
+            <tr>
+                <th>Divergence</th>
+                <td><code>default none</code> — 일반적인 divergence scheme을 default로 두지 않고, shockFluid의 flux formulation과 reconstruction 설정을 사용</td>
+            </tr>
+            <tr>
+                <th>Laplacian</th>
+                <td><code>Gauss linear corrected</code> — linear interpolation과 non-orthogonality correction 적용</td>
+            </tr>
+            <tr>
+                <th>Interpolation</th>
+                <td><code>linear</code> — cell-center 값을 face로 선형 보간</td>
+            </tr>
+            <tr>
+                <th>Reconstruction</th>
+                <td>
+                    \(\rho\): <code>vanLeer</code><br>
+                    \(U\): <code>vanLeerV</code><br>
+                    \(T\): <code>vanLeer</code>
+                </td>
+            </tr>
+            <tr>
+                <th>Surface-normal gradient</th>
+                <td><code>corrected</code> — non-orthogonal mesh에 대한 보정 포함</td>
+            </tr>
+        </table>
+
+        <p>
+            특히 <code>reconstruct(rho)</code>, <code>reconstruct(U)</code>,
+            <code>reconstruct(T)</code>에는 van Leer 계열 limiter를 사용하였다.
+            Shock 부근에서는 상태량이 매우 급격하게 변하기 때문에 단순한 고차 보간만 사용할 경우
+            overshoot나 oscillation이 발생할 수 있다. Limiter를 사용하면 이러한 비물리적 진동을
+            억제하면서 shock 전후의 급격한 변화를 재구성할 수 있다.
+        </p>
+
+        <div class="note">
+            <strong>fvSchemes 요약</strong><br>
+            <code>fluxScheme Kurganov</code><br>
+            <code>ddtSchemes: Euler</code><br>
+            <code>gradSchemes: Gauss linear</code><br>
+            <code>laplacianSchemes: Gauss linear corrected</code><br>
+            <code>reconstruct(rho): vanLeer</code><br>
+            <code>reconstruct(U): vanLeerV</code><br>
+            <code>reconstruct(T): vanLeer</code>
+        </div>
+
+
+        <h3>2.5 Linear Solvers (<code>fvSolution</code>)</h3>
+
+        <p>
+            공간 및 시간 이산화 이후 생성되는 algebraic equation의 해법은
+            <code>fvSolution</code>에서 지정하였다.
+            보존변수와 primitive variable의 특성에 따라 서로 다른 solver 설정을 사용하였다.
+        </p>
+
+        <table class="case-table">
+            <tr>
+                <th>\(\rho,\rho U,\rho E\)</th>
+                <td>
+                    <code>diagonal</code><br>
+                    해당 보존변수에 대해 diagonal solver 사용
+                </td>
+            </tr>
+            <tr>
+                <th>\(U\)</th>
+                <td>
+                    <code>smoothSolver</code> + <code>GaussSeidel</code><br>
+                    <code>nSweeps 2</code><br>
+                    <code>tolerance 1e-9</code><br>
+                    <code>relTol 0.01</code>
+                </td>
+            </tr>
+            <tr>
+                <th>\(e\)</th>
+                <td>
+                    \(U\)의 solver 설정을 상속한 뒤<br>
+                    <code>tolerance 1e-10</code>, <code>relTol 0</code>으로 더 엄격하게 설정
+                </td>
+            </tr>
+            <tr>
+                <th>PIMPLE</th>
+                <td>추가 corrector parameter를 별도로 지정하지 않음</td>
+            </tr>
+        </table>
+
+        <p>
+            \(U\)에는 <code>smoothSolver</code>를 사용하고 smoother로
+            <code>GaussSeidel</code>을 선택하였다.
+            Gauss-Seidel iteration은 한 sweep에서 갱신된 값을 같은 sweep의 다음 계산에 바로 사용하며,
+            여기서는 residual을 확인하기 전 두 번의 sweep(<code>nSweeps 2</code>)을 수행하도록 설정하였다.
+        </p>
+
+        <p>
+            <code>tolerance</code>는 absolute residual 기준이며,
+            <code>relTol</code>은 해당 solve의 초기 residual에 대한 상대적인 수렴 기준이다.
+            \(U\)는 <code>tolerance = 10^{-9}</code>, <code>relTol = 0.01</code>을 사용했고,
+            internal energy \(e\)는 <code>tolerance = 10^{-10}</code>,
+            <code>relTol = 0</code>으로 설정하여 absolute tolerance까지 계산하도록 하였다.
+        </p>
+
+
+        <h3>2.6 Time-step and Run Control (<code>controlDict</code>)</h3>
+
+        <p>
+            본 해석은 transient calculation으로 수행하였다.
+            초기 time step은
+        </p>
+
+        \[
+        \Delta t_0 = 1.0\times10^{-8}\ \mathrm{s}
+        \]
+
+        <p>
+            즉 <strong>10 ns</strong>로 시작하였다. 다만 전체 계산에서 time step을
+            \(10^{-8}\ \mathrm{s}\)로 고정한 것은 아니다.
+            <code>adjustTimeStep yes</code>를 사용하여 Courant number에 따라
+            time step이 자동으로 조정되도록 하였다.
+        </p>
+
+        <table class="case-table">
+            <tr>
+                <th>Solver</th>
+                <td><code>shockFluid</code></td>
+            </tr>
+            <tr>
+                <th>Start time</th>
+                <td>\(0\ \mathrm{s}\)</td>
+            </tr>
+            <tr>
+                <th>End time</th>
+                <td>\(0.0075\ \mathrm{s} = 7.5\ \mathrm{ms}\)</td>
+            </tr>
+            <tr>
+                <th>Initial \(\Delta t\)</th>
+                <td>\(1.0\times10^{-8}\ \mathrm{s} = 10\ \mathrm{ns}\)</td>
+            </tr>
+            <tr>
+                <th>Adaptive time step</th>
+                <td><code>adjustTimeStep yes</code></td>
+            </tr>
+            <tr>
+                <th>Maximum Courant number</th>
+                <td><code>maxCo 0.20</code></td>
+            </tr>
+            <tr>
+                <th>Maximum \(\Delta t\)</th>
+                <td>\(5.0\times10^{-6}\ \mathrm{s} = 5\ \mu\mathrm{s}\)</td>
+            </tr>
+            <tr>
+                <th>Output interval</th>
+                <td>\(5.0\times10^{-4}\ \mathrm{s} = 0.5\ \mathrm{ms}\)</td>
+            </tr>
+        </table>
+
+        <p>
+            따라서 계산한 물리시간은 총 <strong>7.5 ms</strong>이다.
+            초기에는 매우 작은 \(10\ \mathrm{ns}\) time step으로 시작하고,
+            계산이 진행되면서 Courant number가 0.20을 넘지 않는 범위에서
+            time step을 자동으로 증가 또는 감소시키며,
+            한 step의 최대값은 \(5\ \mu\mathrm{s}\)로 제한하였다.
+        </p>
+
+        <p>
+            결과는 물리시간 기준 \(0.5\ \mathrm{ms}\) 간격으로 저장하였다.
+            실제 계산에서 사용된 time step은 adaptive하게 변하기 때문에
+            전체 iteration 수는 <code>deltaT</code>와 <code>endTime</code>만으로 정확히 결정할 수 없으며,
+            정확한 step 수와 \(\Delta t\) 변화 이력은 run log에서 확인해야 한다.
+        </p>
+
+        <div class="summary-box">
+            <strong>Numerical Setup</strong><br>
+            • Density-based <code>shockFluid</code> solver<br>
+            • Kurganov central-upwind flux + van Leer reconstruction<br>
+            • Euler time discretization<br>
+            • <code>smoothSolver</code> + Gauss-Seidel for \(U\)<br>
+            • Initial \(\Delta t = 10\ \mathrm{ns}\), adaptive time stepping<br>
+            • \(Co_{\max}=0.20\), \(\Delta t_{\max}=5\ \mu\mathrm{s}\)<br>
+            • Total simulated physical time: \(7.5\ \mathrm{ms}\)
+        </div>
     </section>
 
 
