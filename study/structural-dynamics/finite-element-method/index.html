@@ -1,33 +1,276 @@
 <!DOCTYPE html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Finite element method는 국소 보간으로 요소의 질량·강성을 구하고, 이를 조립하여 전체 구조물의 운동을 근사한다."><title>6.2 Finite Element Method | Isp99</title><link rel="stylesheet" href="../structural-dynamics.css"><script defer src="../navigation.js"></script></head><body class="article-page"><a class="skip-link" href="#main">Skip to content</a><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><div class="sidebar-inner"><a class="sidebar-title" href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a class="sidebar-link" href="../vibration-mass-stiffness-damping/index.html">1.1 Vibration, Mass, Stiffness, and Damping</a><a class="sidebar-link" href="../degrees-of-freedom-equations-of-motion/index.html">1.2 Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a class="sidebar-link" href="../undamped-free-vibration/index.html">2.1 Undamped Free Vibration</a><a class="sidebar-link" href="../damped-free-vibration/index.html">2.2 Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a class="sidebar-link" href="../harmonic-response-resonance/index.html">3.1 Harmonic Response and Resonance</a><a class="sidebar-link" href="../base-excitation-vibration-isolation/index.html">3.2 Base Excitation and Vibration Isolation</a><a class="sidebar-link" href="../transient-response/index.html">3.3 Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a class="sidebar-link" href="../coupled-equations-matrix-form/index.html">4.1 Coupled Equations and Matrix Form</a><a class="sidebar-link" href="../natural-frequencies-mode-shapes/index.html">4.2 Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-analysis/index.html">4.3 Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a class="sidebar-link" href="../continuous-systems-rod-vibration/index.html">5.1 Continuous Systems and Rod Vibration</a><a class="sidebar-link" href="../euler-bernoulli-beam-theory/index.html">5.2 Euler–Bernoulli Beam Theory</a><a class="sidebar-link" href="../beam-natural-frequencies-mode-shapes/index.html">5.3 Beam Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-response-of-beams/index.html">5.4 Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a class="sidebar-link" href="../energy-methods-equivalent-models/index.html">6.1 Energy Methods and Equivalent Models</a><a class="sidebar-link active" href="../finite-element-method/index.html" aria-current="page">6.2 Finite Element Method</a><a class="sidebar-link" href="../response-analysis-verification/index.html">6.3 Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a class="sidebar-link" href="../aeroelastic-coupling-static-stability/index.html">7.1 Aeroelastic Coupling and Static Stability</a><a class="sidebar-link" href="../typical-section-unsteady-aerodynamics/index.html">7.2 Flutter and the Typical Section Model</a><a class="sidebar-link" href="../flutter-analysis/index.html">7.3 Flutter Analysis</a></div></div></aside><main class="main-content" id="main"><nav class="breadcrumb"><a href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><span>/</span><a href="../index.html#chapter-6">Structural Analysis Methods</a></nav><header id="top"><h1>6.2 Finite Element Method</h1><p class="intro">하나의 가정한 형상으로 구조물 전체의 다양한 변형을 표현하기에는 한계가 있다. 구조물을 작은 Element로 나누고 각 구간의 변위를 절점 좌표로 보간하면, 국소적인 표현들을 조립해 전체 구조물의 질량과 강성 모델을 만들 수 있다.</p></header><details class="mobile-series"><summary>Series Navigation</summary><a class="sidebar-title" href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a class="sidebar-link" href="../vibration-mass-stiffness-damping/index.html">1.1 Vibration, Mass, Stiffness, and Damping</a><a class="sidebar-link" href="../degrees-of-freedom-equations-of-motion/index.html">1.2 Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a class="sidebar-link" href="../undamped-free-vibration/index.html">2.1 Undamped Free Vibration</a><a class="sidebar-link" href="../damped-free-vibration/index.html">2.2 Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a class="sidebar-link" href="../harmonic-response-resonance/index.html">3.1 Harmonic Response and Resonance</a><a class="sidebar-link" href="../base-excitation-vibration-isolation/index.html">3.2 Base Excitation and Vibration Isolation</a><a class="sidebar-link" href="../transient-response/index.html">3.3 Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a class="sidebar-link" href="../coupled-equations-matrix-form/index.html">4.1 Coupled Equations and Matrix Form</a><a class="sidebar-link" href="../natural-frequencies-mode-shapes/index.html">4.2 Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-analysis/index.html">4.3 Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a class="sidebar-link" href="../continuous-systems-rod-vibration/index.html">5.1 Continuous Systems and Rod Vibration</a><a class="sidebar-link" href="../euler-bernoulli-beam-theory/index.html">5.2 Euler–Bernoulli Beam Theory</a><a class="sidebar-link" href="../beam-natural-frequencies-mode-shapes/index.html">5.3 Beam Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-response-of-beams/index.html">5.4 Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a class="sidebar-link" href="../energy-methods-equivalent-models/index.html">6.1 Energy Methods and Equivalent Models</a><a class="sidebar-link active" href="../finite-element-method/index.html" aria-current="page">6.2 Finite Element Method</a><a class="sidebar-link" href="../response-analysis-verification/index.html">6.3 Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a class="sidebar-link" href="../aeroelastic-coupling-static-stability/index.html">7.1 Aeroelastic Coupling and Static Stability</a><a class="sidebar-link" href="../typical-section-unsteady-aerodynamics/index.html">7.2 Flutter and the Typical Section Model</a><a class="sidebar-link" href="../flutter-analysis/index.html">7.3 Flutter Analysis</a></div></details><nav class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#interpolation-and-element-matrices">1. Interpolation and Element Matrices</a></li><li><a href="#assembly-constraints-and-convergence">2. Assembly, Constraints, and Convergence</a></li></ol></nav><article><h2 id="interpolation-and-element-matrices">1. Interpolation and Element Matrices</h2>
-<h3 id="replacing-one-global-shape-with-local-shapes">Replacing One Global Shape with Local Shapes</h3>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="하나의 가정한 형상으로 구조물 전체의 다양한 변형을 표현하기에는 한계가 있다. 구조물을 작은 Element로 나누고 각 구간의 변위를 절점 좌표로 보간하면, 국소적인 표현들을 조립해 전체 구조물의 질량과 강성 모델을 만들 수 있다."><title>6.2 Finite Element Method | Isp99</title>
+<script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style></head><body class="article-page"><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><nav class="sidebar-inner"><a href="../index.html" class="sidebar-title">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a href="../vibration-mass-stiffness-damping/index.html" class="sidebar-link"><span class="item-number">1.1</span> Vibration, Mass, Stiffness, and Damping</a><a href="../degrees-of-freedom-equations-of-motion/index.html" class="sidebar-link"><span class="item-number">1.2</span> Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a href="../undamped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.1</span> Undamped Free Vibration</a><a href="../damped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.2</span> Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a href="../harmonic-response-resonance/index.html" class="sidebar-link"><span class="item-number">3.1</span> Harmonic Response and Resonance</a><a href="../base-excitation-vibration-isolation/index.html" class="sidebar-link"><span class="item-number">3.2</span> Base Excitation and Vibration Isolation</a><a href="../transient-response/index.html" class="sidebar-link"><span class="item-number">3.3</span> Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a href="../coupled-equations-matrix-form/index.html" class="sidebar-link"><span class="item-number">4.1</span> Coupled Equations and Matrix Form</a><a href="../natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">4.2</span> Natural Frequencies and Mode Shapes</a><a href="../modal-analysis/index.html" class="sidebar-link"><span class="item-number">4.3</span> Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a href="../continuous-systems-rod-vibration/index.html" class="sidebar-link"><span class="item-number">5.1</span> Continuous Systems and Rod Vibration</a><a href="../euler-bernoulli-beam-theory/index.html" class="sidebar-link"><span class="item-number">5.2</span> Euler–Bernoulli Beam Theory</a><a href="../beam-natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">5.3</span> Beam Natural Frequencies and Mode Shapes</a><a href="../modal-response-of-beams/index.html" class="sidebar-link"><span class="item-number">5.4</span> Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a href="../energy-methods-equivalent-models/index.html" class="sidebar-link"><span class="item-number">6.1</span> Energy Methods and Equivalent Models</a><a href="../finite-element-method/index.html" class="sidebar-link active" aria-current="page"><span class="item-number">6.2</span> Finite Element Method</a><a href="../response-analysis-verification/index.html" class="sidebar-link"><span class="item-number">6.3</span> Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a href="../aeroelastic-coupling-static-stability/index.html" class="sidebar-link"><span class="item-number">7.1</span> Aeroelastic Coupling and Static Stability</a><a href="../typical-section-unsteady-aerodynamics/index.html" class="sidebar-link"><span class="item-number">7.2</span> Flutter and the Typical Section Model</a><a href="../flutter-analysis/index.html" class="sidebar-link"><span class="item-number">7.3</span> Flutter Analysis</a></div></nav></aside><main class="main-content" id="top"><nav aria-label="Current article"><a href="#top">6.2 Finite Element Method</a></nav><header><h1>6.2 Finite Element Method</h1><p class="subtitle">Interpolation, Element Matrices, and Assembly</p><p class="intro">하나의 가정한 형상으로 구조물 전체의 다양한 변형을 표현하기에는 한계가 있다. 구조물을 작은 Element로 나누고 각 구간의 변위를 절점 좌표로 보간하면, 국소적인 표현들을 조립해 전체 구조물의 질량과 강성 모델을 만들 수 있다.</p></header><aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#discretizing-a-continuous-structure">Discretizing a Continuous Structure</a></li><li><a href="#deriving-the-element-matrices">Deriving the Element Matrices</a></li><li><a href="#the-uniform-beam-element">The Uniform Beam Element</a></li><li><a href="#connecting-elements-into-a-structure">Connecting Elements into a Structure</a></li><li><a href="#boundary-conditions-and-rigid-body-motion">Boundary Conditions and Rigid-Body Motion</a></li><li><a href="#convergence-and-physical-interpretation">Convergence and Physical Interpretation</a></li></ol></aside><section id="discretizing-a-continuous-structure" aria-labelledby="discretizing-a-continuous-structure-title"><h2 id="discretizing-a-continuous-structure-title">1. Discretizing a Continuous Structure</h2>
+<h3 id="local-coordinates-and-shape-functions">Local Coordinates and Shape Functions</h3>
 <p>하나의 Assumed shape로 복잡한 구조 전체를 표현하기는 어렵다. Finite element method는 구조물을 작은 Element로 나누고, 각 Element 내부의 변위를 몇 개의 Nodal coordinate로 표현한다. 이를 조립하면 많은 DOF를 가진 이산 모델이 된다.</p>
-<p>길이 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>ℓ</mo><annotation encoding="application/x-tex">\ell</annotation></semantics></math>인 Euler–Bernoulli beam element에서는 양 끝의 변위와 기울기 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝐝</mi><mi>e</mi></msub><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">[</mo><msub><mi>w</mi><mn>1</mn></msub><mo>,</mo><msub><mi>θ</mi><mn>1</mn></msub><mo>,</mo><msub><mi>w</mi><mn>2</mn></msub><mo>,</mo><msub><mi>θ</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">]</mo></mrow><mi>𝖳</mi></msup></mrow><annotation encoding="application/x-tex">\boldsymbol{d}_e=[w_1,\theta_1,w_2,\theta_2]^{\mathsf T}</annotation></semantics></math>를 사용한다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ξ</mi><mo>=</mo><mi>x</mi><mi>/</mi><mo>ℓ</mo></mrow><annotation encoding="application/x-tex">\xi=x/\ell</annotation></semantics></math>이라 두고 3차 Polynomial interpolation을 쓰면</p>
-<div class="equation" id="eq-6-2-1"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 6.2.1"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>w</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mi>𝐍</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>ξ</mi><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>𝐝</mi><mi>e</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>𝐍</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><msub><mi>N</mi><mn>1</mn></msub><mspace width="0.222em"></mspace><msub><mi>N</mi><mn>2</mn></msub><mspace width="0.222em"></mspace><msub><mi>N</mi><mn>3</mn></msub><mspace width="0.222em"></mspace><msub><mi>N</mi><mn>4</mn></msub><mo stretchy="true" form="postfix">]</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>N</mi><mn>1</mn></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>1</mn><mo>−</mo><mn>3</mn><msup><mi>ξ</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><msup><mi>ξ</mi><mn>3</mn></msup><mo>,</mo></mtd><mtd columnalign="right" style="text-align: right"><msub><mi>N</mi><mn>2</mn></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mo>ℓ</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>ξ</mi><mo>−</mo><mn>2</mn><msup><mi>ξ</mi><mn>2</mn></msup><mo>+</mo><msup><mi>ξ</mi><mn>3</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>N</mi><mn>3</mn></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>3</mn><msup><mi>ξ</mi><mn>2</mn></msup><mo>−</mo><mn>2</mn><msup><mi>ξ</mi><mn>3</mn></msup><mo>,</mo></mtd><mtd columnalign="right" style="text-align: right"><msub><mi>N</mi><mn>4</mn></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mo>ℓ</mo><mrow><mo stretchy="true" form="prefix">(</mo><mo>−</mo><msup><mi>ξ</mi><mn>2</mn></msup><mo>+</mo><msup><mi>ξ</mi><mn>3</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+<p>길이 <span>\(\ell\)</span>인 Euler–Bernoulli beam element에서는 양 끝의 변위와 기울기 <span>\(\boldsymbol{d}_e=[w_1,\theta_1,w_2,\theta_2]^{\mathsf T}\)</span>를 사용한다. <span>\(\xi=x/\ell\)</span>이라 두고 3차 Polynomial interpolation을 쓰면</p>
+<div class="equation" id="eq-6-2-1">\[
+\begin{aligned}
 w(x,t)&amp;=\mathbf{N}(\xi)\boldsymbol{d}_e(t)\\[1em]
 \mathbf{N}&amp;=[N_1\ N_2\ N_3\ N_4]\\[1em]
 N_1&amp;=1-3\xi^2+2\xi^3, &amp; N_2&amp;=\ell(\xi-2\xi^2+\xi^3)\\[1em]
 N_3&amp;=3\xi^2-2\xi^3, &amp; N_4&amp;=\ell(-\xi^2+\xi^3).
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(6.2.1)</span></div><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>N</mi><mi>i</mi></msub><annotation encoding="application/x-tex">N_i</annotation></semantics></math>를 Shape function이라 한다. 이 함수들은 끝단의 변위와 기울기를 각각 정확히 재현하도록 정해진 Hermite interpolation이다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>N</mi><mn>2</mn></msub><mo>,</mo><msub><mi>N</mi><mn>4</mn></msub></mrow><annotation encoding="application/x-tex">N_2,N_4</annotation></semantics></math>에 길이가 포함되는 것은 무차원 Angle <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>와 곱하여 길이 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math>를 만들어야 하기 때문이다.</p>
+\end{aligned}
+
+\tag{6.2.1}
+\]</div><p><span>\(N_i\)</span>를 Shape function이라 한다. 이 함수들은 끝단의 변위와 기울기를 각각 정확히 재현하도록 정해진 Hermite interpolation이다. <span>\(N_2,N_4\)</span>에 길이가 포함되는 것은 무차원 Angle <span>\(\theta\)</span>와 곱하여 길이 <span>\(w\)</span>를 만들어야 하기 때문이다.</p>
 <p><strong>Finite element shape function과 Vibration mode shape는 다른 개념</strong>이다. Shape function은 미리 정한 국소 보간함수이고, Mode shape는 조립된 구조물의 질량·강성·경계조건에서 계산되는 고유진동 형상이다.</p>
-<h3 id="deriving-mass-and-stiffness-from-energy">Deriving Mass and Stiffness from Energy</h3>
+<p>연속체에는 각 위치의 변위가 존재하지만, 유한요소 모델에서는 Node의 변위와 회전만 독립적으로 저장한다. Element 내부의 변위는 이 Nodal coordinate에서 보간한다. 자유도 수가 유한해지는 이유는 내부의 모든 점을 없애서가 아니라, 그 점들의 변위를 정해진 함수로 연결하기 때문이다.</p>
+<p>Euler–Bernoulli beam element는 각 Node에 횡변위와 기울기 두 좌표를 둔다. 굽힘에너지에 변위의 두 번째 미분이 들어가므로, 이웃 Element 사이에서는 변위뿐 아니라 기울기도 연속인 보간이 적합하다. 이 요구를 만족하는 대표적인 선택이 위의 Cubic Hermite interpolation이다.</p>
+<h3 id="four-conditions-for-a-cubic-polynomial">Four Conditions for a Cubic Polynomial</h3>
+<p>Element 내부에서 <span class="math inline">\(w=a_0+a_1x+a_2x^2+a_3x^3\)</span>로 두면 미지계수는 네 개이다. 양 끝의 <span class="math inline">\(w(0)=w_1\)</span>, <span class="math inline">\(w_x(0)=\theta_1\)</span>, <span class="math inline">\(w(\ell)=w_2\)</span>, <span class="math inline">\(w_x(\ell)=\theta_2\)</span>를 대입하여 이 계수를 결정할 수 있다. 그 결과를 좌표별로 묶으면 앞의 네 Shape function이 나온다.</p>
+<p>예를 들어 <span class="math inline">\(w_1=1\)</span>이고 나머지 세 좌표가 0이면 Element의 변형은 <span class="math inline">\(N_1\)</span>이다. <span class="math inline">\(N_2\)</span>는 첫 Node의 회전만 1일 때의 형상이다. 이러한 해석은 각 열이 어떤 Nodal motion을 표현하는지 보여주며, 행렬의 자유도 순서와 회전 부호를 확인하는 데에도 도움이 된다.</p>
+</section><section id="deriving-the-element-matrices" aria-labelledby="deriving-the-element-matrices-title"><h2 id="deriving-the-element-matrices-title">2. Deriving the Element Matrices</h2>
+<h3 id="energy-and-matrix-coefficients">Energy and Matrix Coefficients</h3>
 <p>보간식을 Element의 Kinetic energy와 Strain energy에 대입하면</p>
-<div class="equation" id="eq-6-2-2"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 6.2.2"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>T</mi><mi>e</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><msubsup><mover><mi>𝐝</mi><mo accent="true">̇</mo></mover><mi>e</mi><mi>𝖳</mi></msubsup><mrow><mo stretchy="true" form="prefix">(</mo><msubsup><mo>∫</mo><mn>0</mn><mo>ℓ</mo></msubsup><mi>ρ</mi><mi>A</mi><msup><mi>𝐍</mi><mi>𝖳</mi></msup><mi>𝐍</mi><mspace width="0.167em"></mspace><mi mathvariant="normal">d</mi><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><msub><mover><mi>𝐝</mi><mo accent="true">̇</mo></mover><mi>e</mi></msub></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>U</mi><mi>e</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><msubsup><mi>𝐝</mi><mi>e</mi><mi>𝖳</mi></msubsup><mrow><mo stretchy="true" form="prefix">(</mo><msubsup><mo>∫</mo><mn>0</mn><mo>ℓ</mo></msubsup><mi>E</mi><mi>I</mi><msup><mi>𝐁</mi><mi>𝖳</mi></msup><mi>𝐁</mi><mspace width="0.167em"></mspace><mi mathvariant="normal">d</mi><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>𝐝</mi><mi>e</mi></msub><mo>,</mo></mtd><mtd columnalign="right" style="text-align: right"><mi>𝐁</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mfrac><mrow><msup><mi>∂</mi><mn>2</mn></msup><mi>𝐍</mi></mrow><mrow><mi>∂</mi><msup><mi>x</mi><mn>2</mn></msup></mrow></mfrac><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+<div class="equation" id="eq-6-2-2">\[
+\begin{aligned}
 T_e&amp;=\frac12\dot{\boldsymbol{d}}_e^{\mathsf T}
 \left(\int_0^\ell\rho A\mathbf{N}^{\mathsf T}\mathbf{N}\,\mathrm{d}x\right)
 \dot{\boldsymbol{d}}_e\\[1em]
 U_e&amp;=\frac12\boldsymbol{d}_e^{\mathsf T}
 \left(\int_0^\ell EI\mathbf{B}^{\mathsf T}\mathbf{B}\,\mathrm{d}x\right)
 \boldsymbol{d}_e, &amp; \mathbf{B}&amp;=\frac{\partial ^2\mathbf{N}}{\partial x^2}.
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(6.2.2)</span></div><p>따라서 Element mass와 Stiffness는</p>
-<div class="equation main" id="eq-elementIntegrals"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 6.2.3"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝐌</mi><mi>e</mi></msub><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mo>ℓ</mo></msubsup><mi>ρ</mi><mi>A</mi><msup><mi>𝐍</mi><mi>𝖳</mi></msup><mi>𝐍</mi><mspace width="0.167em"></mspace><mi mathvariant="normal">d</mi><mi>x</mi><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>𝐊</mi><mi>e</mi></msub><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mo>ℓ</mo></msubsup><mi>E</mi><mi>I</mi><msup><mi>𝐁</mi><mi>𝖳</mi></msup><mi>𝐁</mi><mspace width="0.167em"></mspace><mi mathvariant="normal">d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\mathbf{M}_e=\int_0^\ell\rho A\mathbf{N}^{\mathsf T}\mathbf{N}\,\mathrm{d}x,
+\end{aligned}
+
+\tag{6.2.2}
+\]</div><p>따라서 Element mass와 Stiffness는</p>
+<div class="equation main" id="eq-elementIntegrals">\[
+\boxed{\displaystyle \mathbf{M}_e=\int_0^\ell\rho A\mathbf{N}^{\mathsf T}\mathbf{N}\,\mathrm{d}x,
 \qquad
 \mathbf{K}_e=\int_0^\ell EI\mathbf{B}^{\mathsf T}\mathbf{B}\,\mathrm{d}x
-</annotation></semantics></math></div><span class="equation-number">(6.2.3)</span></div><p>이다. 같은 보간함수로 질량분포를 적분하여 얻는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝐌</mi><mi>e</mi></msub><annotation encoding="application/x-tex">\mathbf{M}_e</annotation></semantics></math>를 <strong>Consistent mass matrix</strong>라 한다. 일반적으로 비대각 성분이 존재하며, 이는 보간된 속도장의 Energy에서 자연스럽게 발생한다.</p>
-<h2 id="assembly-constraints-and-convergence">2. Assembly, Constraints, and Convergence</h2>
-<h3 id="the-uniform-beam-element">The Uniform Beam Element</h3>
-<p>균일한 Element에서 식 <a href="#eq-elementIntegrals" class="equation-ref" title="Equation 6.2.3">(6.2.3)</a>을 계산하면, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>=</mo><msub><mi>w</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">\theta=w_x</annotation></semantics></math>의 부호를 사용할 때</p>
-<div class="equation" id="eq-beamElement"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 6.2.4"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>𝐊</mi><mi>e</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mfrac><mrow><mi>E</mi><mi>I</mi></mrow><msup><mo>ℓ</mo><mn>3</mn></msup></mfrac><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>12</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>6</mn><mo>ℓ</mo></mtd><mtd columnalign="center" style="text-align: center"><mo>−</mo><mn>12</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>6</mn><mo>ℓ</mo></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>6</mn><mo>ℓ</mo></mtd><mtd columnalign="center" style="text-align: center"><mn>4</mn><msup><mo>ℓ</mo><mn>2</mn></msup></mtd><mtd columnalign="center" style="text-align: center"><mo>−</mo><mn>6</mn><mo>ℓ</mo></mtd><mtd columnalign="center" style="text-align: center"><mn>2</mn><msup><mo>ℓ</mo><mn>2</mn></msup></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mo>−</mo><mn>12</mn></mtd><mtd columnalign="center" style="text-align: center"><mo>−</mo><mn>6</mn><mo>ℓ</mo></mtd><mtd columnalign="center" style="text-align: center"><mn>12</mn></mtd><mtd columnalign="center" style="text-align: center"><mo>−</mo><mn>6</mn><mo>ℓ</mo></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>6</mn><mo>ℓ</mo></mtd><mtd columnalign="center" style="text-align: center"><mn>2</mn><msup><mo>ℓ</mo><mn>2</mn></msup></mtd><mtd columnalign="center" style="text-align: center"><mo>−</mo><mn>6</mn><mo>ℓ</mo></mtd><mtd columnalign="center" style="text-align: center"><mn>4</mn><msup><mo>ℓ</mo><mn>2</mn></msup></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>𝐌</mi><mi>e</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mfrac><mrow><mi>ρ</mi><mi>A</mi><mo>ℓ</mo></mrow><mn>420</mn></mfrac><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mn>156</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>22</mn><mo>ℓ</mo></mtd><mtd columnalign="center" style="text-align: center"><mn>54</mn></mtd><mtd columnalign="center" style="text-align: center"><mo>−</mo><mn>13</mn><mo>ℓ</mo></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>22</mn><mo>ℓ</mo></mtd><mtd columnalign="center" style="text-align: center"><mn>4</mn><msup><mo>ℓ</mo><mn>2</mn></msup></mtd><mtd columnalign="center" style="text-align: center"><mn>13</mn><mo>ℓ</mo></mtd><mtd columnalign="center" style="text-align: center"><mo>−</mo><mn>3</mn><msup><mo>ℓ</mo><mn>2</mn></msup></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>54</mn></mtd><mtd columnalign="center" style="text-align: center"><mn>13</mn><mo>ℓ</mo></mtd><mtd columnalign="center" style="text-align: center"><mn>156</mn></mtd><mtd columnalign="center" style="text-align: center"><mo>−</mo><mn>22</mn><mo>ℓ</mo></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mo>−</mo><mn>13</mn><mo>ℓ</mo></mtd><mtd columnalign="center" style="text-align: center"><mo>−</mo><mn>3</mn><msup><mo>ℓ</mo><mn>2</mn></msup></mtd><mtd columnalign="center" style="text-align: center"><mo>−</mo><mn>22</mn><mo>ℓ</mo></mtd><mtd columnalign="center" style="text-align: center"><mn>4</mn><msup><mo>ℓ</mo><mn>2</mn></msup></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+}
+
+\tag{6.2.3}
+\]</div><p>이다. 같은 보간함수로 질량분포를 적분하여 얻는 <span>\(\mathbf{M}_e\)</span>를 <strong>Consistent mass matrix</strong>라 한다. 일반적으로 비대각 성분이 존재하며, 이는 보간된 속도장의 Energy에서 자연스럽게 발생한다.</p>
+<p>행렬 성분을 따로 쓰면 <span class="math inline">\(M_{ij}=\int\rho A N_iN_j\,\mathrm dx\)</span>, <span class="math inline">\(K_{ij}=\int EI N_i''N_j''\,\mathrm dx\)</span>이다. 질량 행렬은 두 Nodal coordinate가 만드는 속도장이 얼마나 겹치는지 나타낸다. 강성 행렬은 두 좌표가 만드는 곡률장이 탄성에너지에 함께 기여하는 정도를 나타낸다.</p>
+<p>따라서 비대각 성분은 임의로 추가한 보정항이 아니다. 한 Node의 좌표를 움직이면 Element 내부의 넓은 구간이 움직이고 휘어지므로, 다른 좌표의 운동과 에너지상으로 연결된다. 에너지에서 출발하면 이 연결을 포함하면서 대칭인 질량·강성 행렬이 자연스럽게 얻어진다.</p>
+<h3 id="a-stiffness-entry-by-direct-integration">A Stiffness Entry by Direct Integration</h3>
+<p>첫 번째 보간함수에 대해 <span class="math inline">\(N_1''=(-6+12\xi)/\ell^2\)</span>이다. 따라서 균일 Element의 첫 대각 강성은 다음과 같이 계산된다.</p>
+<div class="equation" id="eq-added-6-2-4">\[
+K_{11}
+=\frac{EI}{\ell^3}\int_0^1(-6+12\xi)^2\,\mathrm d\xi
+=\frac{12EI}{\ell^3}.
+
+\tag{6.2.4}
+\]</div><p>이 값은 다른 세 Nodal coordinate를 0으로 둔 상태에서 첫 번째 변위를 움직이는 데 필요한 힘의 계수이다. 외팔보 전체의 끝단강성 <span class="math inline">\(3EI/L^3\)</span>과 다른 이유는 나머지 좌표에 부과한 조건이 다르기 때문이다. 특히 끝단 회전을 허용하는 경우에는 회전좌표의 평형도 함께 풀어야 한다.</p>
+</section><section id="the-uniform-beam-element" aria-labelledby="the-uniform-beam-element-title"><h2 id="the-uniform-beam-element-title">3. The Uniform Beam Element</h2>
+<h3 id="mass-stiffness-and-coordinate-order">Mass, Stiffness, and Coordinate Order</h3>
+<p>균일한 Element에서 식 <a href="#eq-elementIntegrals" class="equation-ref" title="Equation 6.2.3">(6.2.3)</a>을 계산하면, <span>\(\theta=w_x\)</span>의 부호를 사용할 때</p>
+<div class="equation" id="eq-beamElement">\[
+\begin{aligned}
 \mathbf{K}_e&amp;=\frac{EI}{\ell^3}
 \begin{bmatrix}
 12&amp;6\ell&amp;-12&amp;6\ell\\
@@ -43,12 +286,95 @@ U_e&amp;=\frac12\boldsymbol{d}_e^{\mathsf T}
 -13\ell&amp;-3\ell^2&amp;-22\ell&amp;4\ell^2
 \end{bmatrix}.
 
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(6.2.4)</span></div><p>Element의 Nodal load도 Virtual work에서 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝐟</mi><mi>e</mi></msub><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mo>ℓ</mo></msubsup><msup><mi>𝐍</mi><mi>𝖳</mi></msup><mi>p</mi><mspace width="0.167em"></mspace><mi mathvariant="normal">d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\boldsymbol{f}_e=\int_0^\ell\mathbf{N}^{\mathsf T}p\,\mathrm{d}x</annotation></semantics></math>로 얻는다. 변위 DOF의 힘과 회전 DOF의 Moment가 한 벡터에 포함되므로, 행렬의 모든 성분이 같은 단위를 가질 필요는 없다. 각 행의 최종 평형이 Force 또는 Moment 단위로 일치해야 한다.</p>
-<h3 id="connecting-elements-and-removing-fixed-coordinates">Connecting Elements and Removing Fixed Coordinates</h3>
-<p>이웃 Element가 공유하는 Node는 같은 변위와 회전을 가져야 한다. 이를 만족하도록 같은 Global DOF에 연결하고 내부력과 Energy 기여를 더하는 과정이 <strong>Assembly</strong>이다. 전체 Global vector <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐝</mi><annotation encoding="application/x-tex">\boldsymbol{d}</annotation></semantics></math>에서 Element DOF를 선택하는 행렬을 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝐀</mi><mi>e</mi></msub><annotation encoding="application/x-tex">\mathbf{A}_e</annotation></semantics></math>라 하면 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝐝</mi><mi>e</mi></msub><mo>=</mo><msub><mi>𝐀</mi><mi>e</mi></msub><mi>𝐝</mi></mrow><annotation encoding="application/x-tex">\boldsymbol{d}_e=\mathbf{A}_e\boldsymbol{d}</annotation></semantics></math>이며</p>
-<div class="equation" id="eq-6-2-5"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 6.2.5"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>𝐌</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><munder><mo>∑</mo><mi>e</mi></munder><msubsup><mi>𝐀</mi><mi>e</mi><mi>𝖳</mi></msubsup><msub><mi>𝐌</mi><mi>e</mi></msub><msub><mi>𝐀</mi><mi>e</mi></msub></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>𝐊</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><munder><mo>∑</mo><mi>e</mi></munder><msubsup><mi>𝐀</mi><mi>e</mi><mi>𝖳</mi></msubsup><msub><mi>𝐊</mi><mi>e</mi></msub><msub><mi>𝐀</mi><mi>e</mi></msub><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\end{aligned}
+
+\tag{6.2.5}
+\]</div><p>Element의 Nodal load도 Virtual work에서 <span>\(\boldsymbol{f}_e=\int_0^\ell\mathbf{N}^{\mathsf T}p\,\mathrm{d}x\)</span>로 얻는다. 변위 DOF의 힘과 회전 DOF의 Moment가 한 벡터에 포함되므로, 행렬의 모든 성분이 같은 단위를 가질 필요는 없다. 각 행의 최종 평형이 Force 또는 Moment 단위로 일치해야 한다.</p>
+<p>행렬의 첫 번째와 세 번째 행은 힘 방정식, 두 번째와 네 번째 행은 Moment 방정식에 대응한다. 좌표 벡터에 길이와 각도가 함께 들어 있으므로 모든 행렬 성분의 단위가 같지는 않다. 각 행에서 힘 또는 Moment의 단위가 일관되는지를 확인하는 것이 정확한 단위 검토이다.</p>
+<p>질량 행렬의 회전좌표 성분이 존재한다고 해서 Euler–Bernoulli 모델에 단면의 회전관성을 별도로 넣었다는 뜻은 아니다. 여기서는 횡변위 보간으로 생기는 병진 운동에너지를 Nodal coordinate로 표현했기 때문에 해당 성분이 생긴다. 단면 회전관성을 독립적으로 고려하는 Beam 이론과 구분해야 한다.</p>
+<h3 id="equivalent-nodal-loads">Equivalent Nodal Loads</h3>
+<p>균일 분포하중 <span class="math inline">\(p_0\)</span>를 보간함수와 적분하면 Nodal force뿐 아니라 Nodal moment도 얻어진다. <span class="math inline">\(\theta=w_x\)</span>이며 <span class="math inline">\(p_0\)</span>가 <span class="math inline">\(+w\)</span> 방향일 때의 결과는 다음과 같다.</p>
+<div class="equation" id="eq-added-6-2-6">\[
+\boldsymbol f_e
+=p_0
+\begin{bmatrix}
+\ell/2&amp;\ell^2/12&amp;\ell/2&amp;-\ell^2/12
+\end{bmatrix}^{\mathsf T}.
+
+\tag{6.2.6}
+\]</div><p>두 힘의 합은 전체 하중 <span class="math inline">\(p_0\ell\)</span>과 같다. Moment 성분은 Element 내부의 분포하중이 Nodal rotation에 대해 하는 가상일까지 맞추기 위해 필요하다. 전체 힘만 반씩 나누는 방법은 전체 합력은 맞출 수 있어도 같은 보간공간에서의 일을 정확히 보존하지 못할 수 있다.</p>
+</section><section id="connecting-elements-into-a-structure" aria-labelledby="connecting-elements-into-a-structure-title"><h2 id="connecting-elements-into-a-structure-title">4. Connecting Elements into a Structure</h2>
+<h3 id="assembly-and-shared-coordinates">Assembly and Shared Coordinates</h3>
+<p>이웃 Element가 공유하는 Node는 같은 변위와 회전을 가져야 한다. 이를 만족하도록 같은 Global DOF에 연결하고 내부력과 Energy 기여를 더하는 과정이 <strong>Assembly</strong>이다. 전체 Global vector <span>\(\boldsymbol{d}\)</span>에서 Element DOF를 선택하는 행렬을 <span>\(\mathbf{A}_e\)</span>라 하면 <span>\(\boldsymbol{d}_e=\mathbf{A}_e\boldsymbol{d}\)</span>이며</p>
+<div class="equation" id="eq-6-2-5">\[
+\begin{aligned}
 \mathbf{M}&amp;=\sum_e\mathbf{A}_e^{\mathsf T}\mathbf{M}_e\mathbf{A}_e\\[1em]
 \mathbf{K}&amp;=\sum_e\mathbf{A}_e^{\mathsf T}\mathbf{K}_e\mathbf{A}_e.
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(6.2.5)</span></div><p>고정단의 변위·회전처럼 값이 0인 DOF를 제거하면 나머지 자유좌표에 대해 다시 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐌</mi><mover><mi>𝐝</mi><mo accent="true">̈</mo></mover><mo>+</mo><mi>𝐂</mi><mover><mi>𝐝</mi><mo accent="true">̇</mo></mover><mo>+</mo><mi>𝐊</mi><mi>𝐝</mi><mo>=</mo><mi>𝐅</mi></mrow><annotation encoding="application/x-tex">\mathbf{M}\ddot{\boldsymbol{d}}+\mathbf{C}\dot{\boldsymbol{d}}+\mathbf{K}\boldsymbol{d}=\boldsymbol{F}</annotation></semantics></math>를 얻는다. Modal analysis는 이 행렬로 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐊</mi><mi>𝛟</mi><mo>=</mo><msup><mi>ω</mi><mn>2</mn></msup><mi>𝐌</mi><mi>𝛟</mi></mrow><annotation encoding="application/x-tex">\mathbf{K}\boldsymbol{\phi}=\omega^2\mathbf{M}\boldsymbol{\phi}</annotation></semantics></math>를 푸는 과정이다.</p>
+\end{aligned}
+
+\tag{6.2.7}
+\]</div><p>고정단의 변위·회전처럼 값이 0인 DOF를 제거하면 나머지 자유좌표에 대해 다시 <span>\(\mathbf{M}\ddot{\boldsymbol{d}}+\mathbf{C}\dot{\boldsymbol{d}}+\mathbf{K}\boldsymbol{d}=\boldsymbol{F}\)</span>를 얻는다. Modal analysis는 이 행렬로 <span>\(\mathbf{K}\boldsymbol{\phi}=\omega^2\mathbf{M}\boldsymbol{\phi}\)</span>를 푸는 과정이다.</p>
 <p>Mesh를 세분화하면 표현할 수 있는 변형공간이 넓어지므로 관심 Mode의 주파수와 형상이 변하다가 수렴한다. <strong>Mesh convergence는 특정 Element 수가 아니라 관심 결과의 변화량으로 확인</strong>한다. 1차 Mode가 수렴했어도 더 짧은 공간파장을 갖는 고차 Mode나 국부응력은 아직 수렴하지 않을 수 있다.</p>
-</article><div class="one-line-summary"><strong>Summary</strong><p>Finite element method는 국소 보간으로 요소의 질량·강성을 구하고, 이를 조립하여 전체 구조물의 운동을 근사한다.</p></div><nav class="pagination" aria-label="Previous and next article"><a rel="prev" href="../energy-methods-equivalent-models/index.html"><small>Previous</small>6.1 Energy Methods and Equivalent Models</a><a rel="next" href="../response-analysis-verification/index.html"><small>Next</small>6.3 Response Analysis and Verification</a></nav><footer><a href="../index.html">Contents</a> · <a href="#top">Back to top</a></footer></main><aside class="right-sidebar" aria-label="On this page"><div class="sidebar-inner"><div class="sidebar-title">On this page</div><a class="sidebar-link" href="#interpolation-and-element-matrices">1. Interpolation and Element Matrices</a><a class="sidebar-link" href="#assembly-constraints-and-convergence">2. Assembly, Constraints, and Convergence</a></div></aside></div></body></html>
+<p>두 개의 Beam element를 일렬로 연결하면 중간 Node의 변위와 회전은 양쪽 Element에서 동일하다. 전역 좌표를 <span class="math inline">\([w_1,\theta_1,w_2,\theta_2,w_3,\theta_3]^{\mathsf T}\)</span>로 두면 첫 Element는 앞의 네 좌표를, 둘째는 뒤의 네 좌표를 사용한다. 중간 두 좌표에 해당하는 힘과 Moment 기여는 더해진다.</p>
+<p>이 과정에서 같은 Node의 질량을 중복하여 세는 것은 아니다. 각각의 Element가 자신에게 속한 구간의 에너지를 계산하고, 그 구간들이 공유하는 좌표에 대한 계수를 합치는 것이다. 구조 전체의 운동에너지는 Element 운동에너지의 합과 같아야 한다.</p>
+<h3 id="coordinate-compatibility-and-equilibrium">Coordinate Compatibility and Equilibrium</h3>
+<p>공유 Node에 동일한 좌표를 쓰는 것은 <strong>변위의 적합조건</strong>을 만족시킨다. 그 좌표에 대한 Element의 힘을 더하여 전역 방정식을 만드는 것은 <strong>힘의 평형</strong>을 만족시킨다. Assembly는 이 두 조건을 동시에 구현하는 과정이다.</p>
+<p>여기서는 모든 Element의 축 방향이 같은 직선 Beam을 생각했다. 방향이 다른 부재를 연결하는 Frame에서는 국소 좌표의 변위와 힘을 전역 좌표로 변환해야 한다. 좌표변환을 생략하면 각 Element에서 옳은 행렬을 구했더라도 조립된 구조의 힘 방향이 잘못될 수 있다.</p>
+</section><section id="boundary-conditions-and-rigid-body-motion" aria-labelledby="boundary-conditions-and-rigid-body-motion-title"><h2 id="boundary-conditions-and-rigid-body-motion-title">5. Boundary Conditions and Rigid-Body Motion</h2>
+<h3 id="free-and-prescribed-coordinates">Free and Prescribed Coordinates</h3>
+<p>자유좌표 <span class="math inline">\(d_f\)</span>와 지정좌표 <span class="math inline">\(d_c\)</span>로 행렬을 나누면, 정적 평형의 자유좌표 부분은 다음과 같다.</p>
+<div class="equation" id="eq-added-6-2-8">\[
+\mathbf K_{ff}\boldsymbol d_f
+=\boldsymbol F_f-\mathbf K_{fc}\boldsymbol d_c.
+
+\tag{6.2.8}
+\]</div><p>고정 지지에서 <span class="math inline">\(\boldsymbol d_c=0\)</span>이면 자유좌표에 해당하는 부분행렬만 남길 수 있다. 그러나 지지가 움직이거나 0이 아닌 변위를 부여하면 오른쪽의 항이 사라지지 않는다. 동적 문제에서는 지정좌표의 속도와 가속도에 따른 감쇠·관성 항도 같은 방식으로 자유좌표 방정식에 들어간다.</p>
+<p>제약좌표를 제거한 뒤에도 반력이 없어지는 것은 아니다. 구한 자유변위를 원래 전체 방정식의 제약좌표 행에 대입하면 지지부가 제공하는 반력을 계산할 수 있다. 변위가 0이라는 조건과 반력이 0이라는 조건은 서로 다른 경계조건이다.</p>
+<h3 id="zero-energy-motions">Zero-Energy Motions</h3>
+<p>구속하지 않은 Beam element는 전체가 같은 양만큼 병진하거나 작은 각도로 강체 회전할 수 있다. 이 운동에서는 곡률이 0이므로 굽힘에너지도 0이다. 예를 들어 병진 벡터 <span class="math inline">\([1,0,1,0]^{\mathsf T}\)</span>에 강성 행렬을 곱하면 0이 된다.</p>
+<p>따라서 구속 전의 강성 행렬이 특이하다는 사실만으로 모델이 잘못되었다고 볼 수 없다. 자유로운 구조물에는 강체 Mode가 존재한다. 반면 충분히 구속했다고 생각한 모델에서 의도하지 않은 0 또는 매우 작은 고유값이 나오면 누락된 연결이나 지지조건을 확인해야 한다.</p>
+</section><section id="convergence-and-physical-interpretation" aria-labelledby="convergence-and-physical-interpretation-title"><h2 id="convergence-and-physical-interpretation-title">6. Convergence and Physical Interpretation</h2>
+<h3 id="refining-the-approximation">Refining the Approximation</h3>
+<p>Element 길이를 줄이면 짧은 공간파장을 표현하기 쉬워진다. 낮은 Mode의 전체적인 굽힘은 적은 Element로도 근사할 수 있지만, 고차 Mode의 여러 굴곡이나 단면 변화 부근의 곡률은 더 세밀한 공간 표현을 요구한다. 이 때문에 고유주파수의 수렴 여부는 관심 Mode별로 확인해야 한다.</p>
+<p>같은 모델에서 Mesh를 순차적으로 세분화하고 관심 주파수, 특정 위치의 응답, 내부하중의 변화량을 비교한다. 수치가 거의 변하지 않는 것은 선택한 연속체 모델의 해에 가까워졌다는 뜻이다. 재료값이나 지지부 강성을 잘못 가정한 문제까지 Mesh refinement가 해결해 주지는 않는다.</p>
+<h3 id="mass-modeling-and-analysis-outputs">Mass Modeling and Analysis Outputs</h3>
+<p>Consistent mass 대신 질량을 대각 성분으로 집중시키는 Lumped mass 근사도 사용된다. 계산과 해석이 단순해질 수 있지만 분포관성을 표현하는 방식이 달라지므로 주파수와 고차 응답도 변할 수 있다. 특히 회전좌표가 포함된 Beam element에서는 단순한 행 합산을 물리적 검토 없이 적용하지 않는다.</p>
+<p>최종적으로 조립된 행렬은 앞에서 다룬 다자유도 운동방정식과 같은 형태이다. 자유진동에서는 고유값 문제를, 조화하중에서는 주파수별 복소 선형방정식을, 임의 시간하중에서는 시간적분 문제를 푼다. 유한요소법은 새로운 진동 법칙을 도입하는 방법이 아니라 <strong>복잡한 구조의 질량·강성·하중을 유한한 좌표로 표현하는 방법</strong>이다.</p>
+</section><footer><a href="../index.html">← Structural Dynamics &amp; Aeroelasticity로 돌아가기</a></footer></main><aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#discretizing-a-continuous-structure" class="sidebar-link"><span class="item-number">1.</span><span>Discretizing a Continuous Structure</span></a><a href="#deriving-the-element-matrices" class="sidebar-link"><span class="item-number">2.</span><span>Deriving the Element Matrices</span></a><a href="#the-uniform-beam-element" class="sidebar-link"><span class="item-number">3.</span><span>The Uniform Beam Element</span></a><a href="#connecting-elements-into-a-structure" class="sidebar-link"><span class="item-number">4.</span><span>Connecting Elements into a Structure</span></a><a href="#boundary-conditions-and-rigid-body-motion" class="sidebar-link"><span class="item-number">5.</span><span>Boundary Conditions and Rigid-Body Motion</span></a><a href="#convergence-and-physical-interpretation" class="sidebar-link"><span class="item-number">6.</span><span>Convergence and Physical Interpretation</span></a></nav></aside></div><script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script></body></html>

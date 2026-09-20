@@ -1,44 +1,379 @@
 <!DOCTYPE html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Harmonic response의 진폭과 위상은 입력 주파수, 고유주파수, 감쇠의 관계로 정해진다."><title>3.1 Harmonic Response and Resonance | Isp99</title><link rel="stylesheet" href="../structural-dynamics.css"><script defer src="../navigation.js"></script></head><body class="article-page"><a class="skip-link" href="#main">Skip to content</a><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><div class="sidebar-inner"><a class="sidebar-title" href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a class="sidebar-link" href="../vibration-mass-stiffness-damping/index.html">1.1 Vibration, Mass, Stiffness, and Damping</a><a class="sidebar-link" href="../degrees-of-freedom-equations-of-motion/index.html">1.2 Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a class="sidebar-link" href="../undamped-free-vibration/index.html">2.1 Undamped Free Vibration</a><a class="sidebar-link" href="../damped-free-vibration/index.html">2.2 Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a class="sidebar-link active" href="../harmonic-response-resonance/index.html" aria-current="page">3.1 Harmonic Response and Resonance</a><a class="sidebar-link" href="../base-excitation-vibration-isolation/index.html">3.2 Base Excitation and Vibration Isolation</a><a class="sidebar-link" href="../transient-response/index.html">3.3 Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a class="sidebar-link" href="../coupled-equations-matrix-form/index.html">4.1 Coupled Equations and Matrix Form</a><a class="sidebar-link" href="../natural-frequencies-mode-shapes/index.html">4.2 Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-analysis/index.html">4.3 Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a class="sidebar-link" href="../continuous-systems-rod-vibration/index.html">5.1 Continuous Systems and Rod Vibration</a><a class="sidebar-link" href="../euler-bernoulli-beam-theory/index.html">5.2 Euler–Bernoulli Beam Theory</a><a class="sidebar-link" href="../beam-natural-frequencies-mode-shapes/index.html">5.3 Beam Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-response-of-beams/index.html">5.4 Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a class="sidebar-link" href="../energy-methods-equivalent-models/index.html">6.1 Energy Methods and Equivalent Models</a><a class="sidebar-link" href="../finite-element-method/index.html">6.2 Finite Element Method</a><a class="sidebar-link" href="../response-analysis-verification/index.html">6.3 Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a class="sidebar-link" href="../aeroelastic-coupling-static-stability/index.html">7.1 Aeroelastic Coupling and Static Stability</a><a class="sidebar-link" href="../typical-section-unsteady-aerodynamics/index.html">7.2 Flutter and the Typical Section Model</a><a class="sidebar-link" href="../flutter-analysis/index.html">7.3 Flutter Analysis</a></div></div></aside><main class="main-content" id="main"><nav class="breadcrumb"><a href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><span>/</span><a href="../index.html#chapter-3">Forced Vibration</a></nav><header id="top"><h1>3.1 Harmonic Response and Resonance</h1><p class="intro">반복되는 힘을 받는 구조물은 같은 힘의 크기에서도 입력 주파수에 따라 서로 다른 진폭으로 움직인다. 외력의 주파수와 고유주파수를 비교하고 진폭과 위상을 함께 구하면, 공진 부근에서 응답이 커지는 과정을 설명할 수 있다.</p></header><details class="mobile-series"><summary>Series Navigation</summary><a class="sidebar-title" href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a class="sidebar-link" href="../vibration-mass-stiffness-damping/index.html">1.1 Vibration, Mass, Stiffness, and Damping</a><a class="sidebar-link" href="../degrees-of-freedom-equations-of-motion/index.html">1.2 Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a class="sidebar-link" href="../undamped-free-vibration/index.html">2.1 Undamped Free Vibration</a><a class="sidebar-link" href="../damped-free-vibration/index.html">2.2 Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a class="sidebar-link active" href="../harmonic-response-resonance/index.html" aria-current="page">3.1 Harmonic Response and Resonance</a><a class="sidebar-link" href="../base-excitation-vibration-isolation/index.html">3.2 Base Excitation and Vibration Isolation</a><a class="sidebar-link" href="../transient-response/index.html">3.3 Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a class="sidebar-link" href="../coupled-equations-matrix-form/index.html">4.1 Coupled Equations and Matrix Form</a><a class="sidebar-link" href="../natural-frequencies-mode-shapes/index.html">4.2 Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-analysis/index.html">4.3 Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a class="sidebar-link" href="../continuous-systems-rod-vibration/index.html">5.1 Continuous Systems and Rod Vibration</a><a class="sidebar-link" href="../euler-bernoulli-beam-theory/index.html">5.2 Euler–Bernoulli Beam Theory</a><a class="sidebar-link" href="../beam-natural-frequencies-mode-shapes/index.html">5.3 Beam Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-response-of-beams/index.html">5.4 Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a class="sidebar-link" href="../energy-methods-equivalent-models/index.html">6.1 Energy Methods and Equivalent Models</a><a class="sidebar-link" href="../finite-element-method/index.html">6.2 Finite Element Method</a><a class="sidebar-link" href="../response-analysis-verification/index.html">6.3 Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a class="sidebar-link" href="../aeroelastic-coupling-static-stability/index.html">7.1 Aeroelastic Coupling and Static Stability</a><a class="sidebar-link" href="../typical-section-unsteady-aerodynamics/index.html">7.2 Flutter and the Typical Section Model</a><a class="sidebar-link" href="../flutter-analysis/index.html">7.3 Flutter Analysis</a></div></details><nav class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#steady-state-amplitude-and-phase">1. Steady-State Amplitude and Phase</a></li><li><a href="#frequency-ratio-and-resonance">2. Frequency Ratio and Resonance</a></li></ol></nav><article><h2 id="steady-state-amplitude-and-phase">1. Steady-State Amplitude and Phase</h2>
-<h3 id="transient-and-steady-state-components">Transient and Steady-State Components</h3>
-<p>회전기계나 주기적인 작동하중은 시간에 따라 반복되는 힘을 발생시킨다. 가장 기본적인 입력은 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>F</mi><mn>0</mn></msub><mo>cos</mo><mi>Ω</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">F(t)=F_0\cos\Omega t</annotation></semantics></math>이며, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>F</mi><mn>0</mn></msub><annotation encoding="application/x-tex">F_0</annotation></semantics></math>는 Force amplitude, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>는 Excitation angular frequency이다. <strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>는 입력이 정하는 주파수이고 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ω</mi><mi>n</mi></msub><annotation encoding="application/x-tex">\omega_n</annotation></semantics></math>은 시스템이 갖는 고유주파수</strong>이다.</p>
-<p>선형방정식의 전체 해는 외력이 0인 Homogeneous solution <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mi>h</mi></msub><annotation encoding="application/x-tex">x_h</annotation></semantics></math>와 외력에 대응하는 Particular solution <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mi>p</mi></msub><annotation encoding="application/x-tex">x_p</annotation></semantics></math>의 합이다.</p>
-<div class="equation" id="eq-3-1-1"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 3.1.1"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>m</mi><mover><mi>x</mi><mo accent="true">̈</mo></mover><mo>+</mo><mi>c</mi><mover><mi>x</mi><mo accent="true">̇</mo></mover><mo>+</mo><mi>k</mi><mi>x</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mi>F</mi><mn>0</mn></msub><mo>cos</mo><mi>Ω</mi><mi>t</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>x</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mi>x</mi><mi>h</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>x</mi><mi>p</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="반복되는 힘을 받는 구조물은 같은 힘의 크기에서도 입력 주파수에 따라 서로 다른 진폭으로 움직인다. 외력의 주파수와 고유주파수를 비교하고 진폭과 위상을 함께 구하면, 공진 부근에서 응답이 커지는 과정을 설명할 수 있다."><title>3.1 Harmonic Response and Resonance | Isp99</title>
+<script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style></head><body class="article-page"><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><nav class="sidebar-inner"><a href="../index.html" class="sidebar-title">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a href="../vibration-mass-stiffness-damping/index.html" class="sidebar-link"><span class="item-number">1.1</span> Vibration, Mass, Stiffness, and Damping</a><a href="../degrees-of-freedom-equations-of-motion/index.html" class="sidebar-link"><span class="item-number">1.2</span> Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a href="../undamped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.1</span> Undamped Free Vibration</a><a href="../damped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.2</span> Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a href="../harmonic-response-resonance/index.html" class="sidebar-link active" aria-current="page"><span class="item-number">3.1</span> Harmonic Response and Resonance</a><a href="../base-excitation-vibration-isolation/index.html" class="sidebar-link"><span class="item-number">3.2</span> Base Excitation and Vibration Isolation</a><a href="../transient-response/index.html" class="sidebar-link"><span class="item-number">3.3</span> Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a href="../coupled-equations-matrix-form/index.html" class="sidebar-link"><span class="item-number">4.1</span> Coupled Equations and Matrix Form</a><a href="../natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">4.2</span> Natural Frequencies and Mode Shapes</a><a href="../modal-analysis/index.html" class="sidebar-link"><span class="item-number">4.3</span> Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a href="../continuous-systems-rod-vibration/index.html" class="sidebar-link"><span class="item-number">5.1</span> Continuous Systems and Rod Vibration</a><a href="../euler-bernoulli-beam-theory/index.html" class="sidebar-link"><span class="item-number">5.2</span> Euler–Bernoulli Beam Theory</a><a href="../beam-natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">5.3</span> Beam Natural Frequencies and Mode Shapes</a><a href="../modal-response-of-beams/index.html" class="sidebar-link"><span class="item-number">5.4</span> Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a href="../energy-methods-equivalent-models/index.html" class="sidebar-link"><span class="item-number">6.1</span> Energy Methods and Equivalent Models</a><a href="../finite-element-method/index.html" class="sidebar-link"><span class="item-number">6.2</span> Finite Element Method</a><a href="../response-analysis-verification/index.html" class="sidebar-link"><span class="item-number">6.3</span> Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a href="../aeroelastic-coupling-static-stability/index.html" class="sidebar-link"><span class="item-number">7.1</span> Aeroelastic Coupling and Static Stability</a><a href="../typical-section-unsteady-aerodynamics/index.html" class="sidebar-link"><span class="item-number">7.2</span> Flutter and the Typical Section Model</a><a href="../flutter-analysis/index.html" class="sidebar-link"><span class="item-number">7.3</span> Flutter Analysis</a></div></nav></aside><main class="main-content" id="top"><nav aria-label="Current article"><a href="#top">3.1 Harmonic Response and Resonance</a></nav><header><h1>3.1 Harmonic Response and Resonance</h1><p class="subtitle">Harmonic Excitation, Complex Amplitude, and Resonant Response</p><p class="intro">반복되는 힘을 받는 구조물은 같은 힘의 크기에서도 입력 주파수에 따라 서로 다른 진폭으로 움직인다. 외력의 주파수와 고유주파수를 비교하고 진폭과 위상을 함께 구하면, 공진 부근에서 응답이 커지는 과정을 설명할 수 있다.</p></header><aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#transient-and-steady-state-response">Transient and Steady-State Response</a></li><li><a href="#amplitude-and-phase">Amplitude and Phase</a></li><li><a href="#frequency-ratio-and-dynamic-amplification">Frequency Ratio and Dynamic Amplification</a></li><li><a href="#resonance-and-damping">Resonance and Damping</a></li><li><a href="#energy-over-a-cycle">Energy over a Cycle</a></li><li><a href="#reading-a-frequency-response">Reading a Frequency Response</a></li></ol></aside><section id="transient-and-steady-state-response" aria-labelledby="transient-and-steady-state-response-title"><h2 id="transient-and-steady-state-response-title">1. Transient and Steady-State Response</h2>
+<h3 id="a-periodic-input-to-a-vibrating-system">A Periodic Input to a Vibrating System</h3>
+<p>회전기계나 주기적인 작동하중은 시간에 따라 반복되는 힘을 발생시킨다. 가장 기본적인 입력은 <span>\(F(t)=F_0\cos\Omega t\)</span>이며, <span>\(F_0\)</span>는 Force amplitude, <span>\(\Omega\)</span>는 Excitation angular frequency이다. <strong><span>\(\Omega\)</span>는 입력이 정하는 주파수이고 <span>\(\omega_n\)</span>은 시스템이 갖는 고유주파수</strong>이다.</p>
+<p>선형방정식의 전체 해는 외력이 0인 Homogeneous solution <span>\(x_h\)</span>와 외력에 대응하는 Particular solution <span>\(x_p\)</span>의 합이다.</p>
+<div class="equation" id="eq-3-1-1">\[
+\begin{aligned}
 m\ddot{x}+c\dot{x}+kx&amp;=F_0\cos\Omega t\\[1em]
 x(t)&amp;=x_h(t)+x_p(t).
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(3.1.1)</span></div><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mi>h</mi></msub><annotation encoding="application/x-tex">x_h</annotation></semantics></math>는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mi>p</mi></msub><annotation encoding="application/x-tex">x_p</annotation></semantics></math>와 합쳐서 초기조건을 만족하도록 결정된다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">c&gt;0</annotation></semantics></math>인 안정한 시스템에서는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mi>h</mi></msub><annotation encoding="application/x-tex">x_h</annotation></semantics></math>가 시간이 지나며 감소하고 입력과 같은 주파수로 반복되는 응답이 남는다. 이 남는 응답을 Steady-state response라 한다. 무감쇠에서는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mi>h</mi></msub><annotation encoding="application/x-tex">x_h</annotation></semantics></math>가 사라지지 않으므로 장시간 뒤의 전체 응답을 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mi>p</mi></msub><annotation encoding="application/x-tex">x_p</annotation></semantics></math>만으로 표현할 수 없다.</p>
-<h3 id="matching-the-sine-and-cosine-terms">Matching the Sine and Cosine Terms</h3>
-<p>변위는 입력과 같은 주파수로 반복되더라도 최대값에 도달하는 시점이 다를 수 있으므로, Cosine과 Sine을 함께 포함하여 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>p</mi></msub><mo>=</mo><mi>A</mi><mo>cos</mo><mi>Ω</mi><mi>t</mi><mo>+</mo><mi>B</mi><mo>sin</mo><mi>Ω</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">x_p=A\cos\Omega t+B\sin\Omega t</annotation></semantics></math>로 둔다. 운동방정식에 대입하고 같은 함수의 계수를 비교하면</p>
-<div class="equation" id="eq-3-1-2"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 3.1.2"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo>−</mo><mi>m</mi><msup><mi>Ω</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mi>A</mi><mo>+</mo><mi>c</mi><mi>Ω</mi><mi>B</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mi>F</mi><mn>0</mn></msub></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo>−</mo><mi>m</mi><msup><mi>Ω</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mi>B</mi><mo>−</mo><mi>c</mi><mi>Ω</mi><mi>A</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>0</mn><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\end{aligned}
+
+\tag{3.1.1}
+\]</div><p><span>\(x_h\)</span>는 <span>\(x_p\)</span>와 합쳐서 초기조건을 만족하도록 결정된다. <span>\(c&gt;0\)</span>인 안정한 시스템에서는 <span>\(x_h\)</span>가 시간이 지나며 감소하고 입력과 같은 주파수로 반복되는 응답이 남는다. 이 남는 응답을 Steady-state response라 한다. 무감쇠에서는 <span>\(x_h\)</span>가 사라지지 않으므로 장시간 뒤의 전체 응답을 <span>\(x_p\)</span>만으로 표현할 수 없다.</p>
+<p>주기적인 힘을 켠 직후에는 시스템이 이미 가지고 있던 초기상태의 영향과 새로 가해진 힘의 영향이 함께 나타난다. 따라서 초기부터 외력과 같은 하나의 사인함수로만 움직일 필요는 없다. 양의 감쇠가 있는 안정한 선형 시스템에서는 자유응답 성분이 감소하면서, 충분한 시간이 지난 뒤 외력과 같은 주파수의 정상응답이 남는다.</p>
+<h3 id="what-steady-state-describes">What Steady State Describes</h3>
+<p>정상응답은 반복되는 한 주기마다 같은 변위와 속도가 다시 나타나는 상태이다. 시간에 따라 변위가 변하지 않는 정적 상태와는 다르다. 초기조건은 전체 응답을 결정하지만 감쇠가 있는 안정한 계의 장시간 정상응답에는 더 이상 나타나지 않는다. 반대로 감쇠가 없으면 자유진동 성분이 지속되므로, 정상 특수해만 구한 결과를 언제나 전체 운동으로 볼 수는 없다.</p>
+<p>전체 해를 동차해와 특수해로 나누는 것은 두 물리 현상을 독립적인 부품처럼 더한다는 뜻이 아니다. 같은 선형 운동방정식의 해를 초기상태에 의한 부분과 입력에 의한 부분으로 구성하는 방법이다. 실제로 힘을 켠 시점에서 위치와 속도가 어떤 값인지 맞추려면 특수해가 이미 가진 초기값까지 고려하여 동차해의 계수를 정해야 한다.</p>
+</section><section id="amplitude-and-phase" aria-labelledby="amplitude-and-phase-title"><h2 id="amplitude-and-phase-title">2. Amplitude and Phase</h2>
+<h3 id="matching-harmonic-terms">Matching Harmonic Terms</h3>
+<p>변위는 입력과 같은 주파수로 반복되더라도 최대값에 도달하는 시점이 다를 수 있으므로, Cosine과 Sine을 함께 포함하여 <span>\(x_p=A\cos\Omega t+B\sin\Omega t\)</span>로 둔다. 운동방정식에 대입하고 같은 함수의 계수를 비교하면</p>
+<div class="equation" id="eq-3-1-2">\[
+\begin{aligned}
 (k-m\Omega^2)A+c\Omega B&amp;=F_0\\[1em]
 (k-m\Omega^2)B-c\Omega A&amp;=0.
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(3.1.2)</span></div><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo>−</mo><mi>m</mi><msup><mi>Ω</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>+</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>c</mi><mi>Ω</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">D=(k-m\Omega^2)^2+(c\Omega)^2</annotation></semantics></math>라 두고 두 식을 풀면</p>
-<div class="equation" id="eq-3-1-3"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 3.1.3"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>A</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mfrac><mrow><msub><mi>F</mi><mn>0</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo>−</mo><mi>m</mi><msup><mi>Ω</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mi>D</mi></mfrac><mo>,</mo></mtd><mtd columnalign="right" style="text-align: right"><mi>B</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mfrac><mrow><msub><mi>F</mi><mn>0</mn></msub><mi>c</mi><mi>Ω</mi></mrow><mi>D</mi></mfrac><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\end{aligned}
+
+\tag{3.1.2}
+\]</div><p><span>\(D=(k-m\Omega^2)^2+(c\Omega)^2\)</span>라 두고 두 식을 풀면</p>
+<div class="equation" id="eq-3-1-3">\[
+\begin{aligned}
 A&amp;=\frac{F_0(k-m\Omega^2)}{D}, &amp;
 B&amp;=\frac{F_0c\Omega}{D}.
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(3.1.3)</span></div><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>p</mi></msub><mo>=</mo><mi>X</mi><mo>cos</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>Ω</mi><mi>t</mi><mo>−</mo><mi>ϕ</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">x_p=X\cos(\Omega t-\phi)</annotation></semantics></math>와 비교하면 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mi>X</mi><mo>cos</mo><mi>ϕ</mi></mrow><annotation encoding="application/x-tex">A=X\cos\phi</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mi>X</mi><mo>sin</mo><mi>ϕ</mi></mrow><annotation encoding="application/x-tex">B=X\sin\phi</annotation></semantics></math>이므로</p>
-<div class="equation main" id="eq-harmonic"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 3.1.4"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>X</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mfrac><msub><mi>F</mi><mn>0</mn></msub><msqrt><mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo>−</mo><mi>m</mi><msup><mi>Ω</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>+</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>c</mi><mi>Ω</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></msqrt></mfrac></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>ϕ</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mo>atan2</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>c</mi><mi>Ω</mi><mo>,</mo><mspace width="0.167em"></mspace><mi>k</mi><mo>−</mo><mi>m</mi><msup><mi>Ω</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\end{aligned}
+
+\tag{3.1.3}
+\]</div><p><span>\(x_p=X\cos(\Omega t-\phi)\)</span>와 비교하면 <span>\(A=X\cos\phi\)</span>, <span>\(B=X\sin\phi\)</span>이므로</p>
+<div class="equation main" id="eq-harmonic">\[
+\boxed{\displaystyle \begin{aligned}
 X&amp;=\frac{F_0}{\sqrt{(k-m\Omega^2)^2+(c\Omega)^2}}\\[1em]
 \phi&amp;=\operatorname{atan2}(c\Omega,\,k-m\Omega^2)
 
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(3.1.4)</span></div><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>는 변위가 외력에 대해 늦어지는 Phase lag이다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>atan2</mo><annotation encoding="application/x-tex">\operatorname{atan2}</annotation></semantics></math>는 두 입력의 부호를 함께 사용하여 사분면을 구분하므로, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>−</mo><mi>m</mi><msup><mi>Ω</mi><mn>2</mn></msup><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">k-m\Omega^2&lt;0</annotation></semantics></math>인 경우에도 위상을 올바르게 정할 수 있다.</p>
-<h2 id="frequency-ratio-and-resonance">2. Frequency Ratio and Resonance</h2>
-<h3 id="comparing-dynamic-and-static-displacement">Comparing Dynamic and Static Displacement</h3>
-<p>Force amplitude가 같더라도 구조물마다 강성이 달라 변위가 다르므로, 동적 변위를 같은 힘의 Static displacement와 비교한다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">t</mi></mrow></msub><mo>=</mo><msub><mi>F</mi><mn>0</mn></msub><mi>/</mi><mi>k</mi></mrow><annotation encoding="application/x-tex">x_{\mathrm{st}}=F_0/k</annotation></semantics></math>와 Frequency ratio <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mi>Ω</mi><mi>/</mi><msub><mi>ω</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">r=\Omega/\omega_n</annotation></semantics></math>을 정의하고 식 <a href="#eq-harmonic" class="equation-ref" title="Equation 3.1.4">(3.1.4)</a>에 대입하면</p>
-<div class="equation main" id="eq-magnification"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 3.1.5"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>X</mi><msub><mi>x</mi><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">t</mi></mrow></msub></mfrac><mo>=</mo><mfrac><mn>1</mn><msqrt><mrow><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>r</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>+</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mi>ζ</mi><mi>r</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></msqrt></mfrac></mrow><annotation encoding="application/x-tex">\frac{X}{x_{\mathrm{st}}}
+\end{aligned}}
+
+\tag{3.1.4}
+\]</div><p><span>\(\phi\)</span>는 변위가 외력에 대해 늦어지는 Phase lag이다. <span>\(\operatorname{atan2}\)</span>는 두 입력의 부호를 함께 사용하여 사분면을 구분하므로, <span>\(k-m\Omega^2&lt;0\)</span>인 경우에도 위상을 올바르게 정할 수 있다.</p>
+<p>힘과 변위가 같은 주파수로 진동하더라도 최대가 되는 시점은 다를 수 있다. 이 시간적인 차이를 나타내기 위해 진폭과 함께 Phase를 사용한다. 속도는 변위보다 위상이 <span class="math inline">\(\pi/2\)</span> 앞서고 가속도는 변위와 위상이 <span class="math inline">\(\pi\)</span>만큼 다르므로, 세 항을 더할 때 각각의 최대값을 같은 시점의 값처럼 더할 수 없다.</p>
+<h3 id="complex-amplitude-representation">Complex Amplitude Representation</h3>
+<p>위상 관계를 편리하게 기록하려면 <span class="math inline">\(F(t)=\operatorname{Re}[\widehat F e^{i\Omega t}]\)</span>, <span class="math inline">\(x(t)=\operatorname{Re}[\widehat x e^{i\Omega t}]\)</span>로 쓸 수 있다. 한 번의 시간미분은 <span class="math inline">\(i\Omega\)</span>, 두 번의 시간미분은 <span class="math inline">\(-\Omega^2\)</span>를 곱하는 것과 같다.</p>
+<div class="equation" id="eq-added-3-1-5">\[
+(k-m\Omega^2+i c\Omega)\widehat x=\widehat F,\qquad
+H(\Omega)=\frac{\widehat x}{\widehat F}
+=\frac1{k-m\Omega^2+i c\Omega}.
+
+\tag{3.1.5}
+\]</div><p><span class="math inline">\(H\)</span>는 단위 힘당 변위의 복소수 비이며, 크기는 진폭비를, 편각은 위상차를 나타낸다. 실제 변위가 복소수라는 뜻이 아니라 두 개의 삼각함수 계수를 하나의 표현에 기록한 것이다.</p>
+<p>저주파에서는 강성항이 상대적으로 커서 변위가 힘을 거의 따라간다. 고주파에서는 관성항의 음의 실수부가 지배적이므로 변위가 힘과 거의 반대 위상이다. 공진 부근에서는 감쇠항의 기여가 상대적으로 중요하다. 진폭과 위상을 함께 읽으면 어느 항이 응답을 지배하는지도 파악할 수 있다.</p>
+</section><section id="frequency-ratio-and-dynamic-amplification" aria-labelledby="frequency-ratio-and-dynamic-amplification-title"><h2 id="frequency-ratio-and-dynamic-amplification-title">3. Frequency Ratio and Dynamic Amplification</h2>
+<h3 id="comparison-with-static-deflection">Comparison with Static Deflection</h3>
+<p>Force amplitude가 같더라도 구조물마다 강성이 달라 변위가 다르므로, 동적 변위를 같은 힘의 Static displacement와 비교한다. <span>\(x_{\mathrm{st}}=F_0/k\)</span>와 Frequency ratio <span>\(r=\Omega/\omega_n\)</span>을 정의하고 식 <a href="#eq-harmonic" class="equation-ref" title="Equation 3.1.4">(3.1.4)</a>에 대입하면</p>
+<div class="equation main" id="eq-magnification">\[
+\boxed{\displaystyle \frac{X}{x_{\mathrm{st}}}
 =\frac{1}{\sqrt{(1-r^2)^2+(2\zeta r)^2}}
-</annotation></semantics></math></div><span class="equation-number">(3.1.5)</span></div><p>이 비를 Dynamic magnification factor라 한다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>≪</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r\ll1</annotation></semantics></math>이면 관성항이 작아 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>≈</mo><msub><mi>F</mi><mn>0</mn></msub><mi>/</mi><mi>k</mi></mrow><annotation encoding="application/x-tex">X\approx F_0/k</annotation></semantics></math>이고 위상차가 작다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>≫</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r\gg1</annotation></semantics></math>이면 관성항이 지배하여 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>≈</mo><msub><mi>F</mi><mn>0</mn></msub><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>m</mi><msup><mi>Ω</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">X\approx F_0/(m\Omega^2)</annotation></semantics></math>이고 변위는 힘과 거의 반대 위상이다.</p>
-<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r=1</annotation></semantics></math>에서는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>−</mo><mi>m</mi><msup><mi>Ω</mi><mn>2</mn></msup><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">k-m\Omega^2=0</annotation></semantics></math>이므로 Harmonic response의 Spring term과 Inertia term이 상쇄된다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ζ</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\zeta&gt;0</annotation></semantics></math>이면 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mi>/</mi><msub><mi>x</mi><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">t</mi></mrow></msub><mo>=</mo><mn>1</mn><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>2</mn><mi>ζ</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">X/x_{\mathrm{st}}=1/(2\zeta)</annotation></semantics></math>이고 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi><mo>=</mo><mi>π</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\phi=\pi/2</annotation></semantics></math>이다. 이때 Velocity는 Force와 같은 위상이 되어 Energy가 효율적으로 공급된다.</p>
-<h3 id="resonance-peak-and-the-undamped-limit">Resonance Peak and the Undamped Limit</h3>
-<p>작은 감쇠에서 입력 주파수가 고유주파수 부근에 오면 응답이 크게 증가한다. 이를 Resonance라고 한다. 변위 진폭의 최대 위치는 식 <a href="#eq-magnification" class="equation-ref" title="Equation 3.1.5">(3.1.5)</a>의 분모를 최소화하여 구한다.</p>
-<div class="equation" id="eq-3-1-6"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 3.1.6"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mfrac><mi mathvariant="normal">d</mi><mrow><mi mathvariant="normal">d</mi><mi>r</mi></mrow></mfrac><mrow><mo stretchy="true" form="prefix">[</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msup><mi>r</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>+</mo><mn>4</mn><msup><mi>ζ</mi><mn>2</mn></msup><msup><mi>r</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">]</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>4</mn><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>r</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><msup><mi>ζ</mi><mn>2</mn></msup><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>0</mn><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+}
+
+\tag{3.1.6}
+\]</div><p>이 비를 Dynamic magnification factor라 한다. <span>\(r\ll1\)</span>이면 관성항이 작아 <span>\(X\approx F_0/k\)</span>이고 위상차가 작다. <span>\(r\gg1\)</span>이면 관성항이 지배하여 <span>\(X\approx F_0/(m\Omega^2)\)</span>이고 변위는 힘과 거의 반대 위상이다.</p>
+<p><span>\(r=1\)</span>에서는 <span>\(k-m\Omega^2=0\)</span>이므로 Harmonic response의 Spring term과 Inertia term이 상쇄된다. <span>\(\zeta&gt;0\)</span>이면 <span>\(X/x_{\mathrm{st}}=1/(2\zeta)\)</span>이고 <span>\(\phi=\pi/2\)</span>이다. 이때 Velocity는 Force와 같은 위상이 되어 Energy가 효율적으로 공급된다.</p>
+<p>정적 변위 <span class="math inline">\(F_0/k\)</span>로 정상응답 진폭을 나누는 이유는 하중 크기와 강성의 절대적인 크기를 분리하기 위해서이다. 힘을 두 배로 늘리면 선형 응답 진폭도 두 배가 되지만 이 무차원 진폭비는 변하지 않는다. 반면 가진주파수와 고유주파수의 비 또는 감쇠비가 달라지면 진폭비가 변한다. 따라서 서로 다른 구조의 주파수 응답을 같은 축에서 비교할 수 있다.</p>
+<h3 id="low--and-high-frequency-limits">Low- and High-Frequency Limits</h3>
+<p>주파수비 <span class="math inline">\(r=\Omega/\omega_n\)</span>가 0에 가까우면 관성과 감쇠의 동적 효과가 작아서 <span class="math inline">\(X\simeq F_0/k\)</span>가 된다. 입력이 충분히 느릴 때 매 순간의 정적 평형을 따라간다는 뜻이다. 반대로 <span class="math inline">\(r\gg1\)</span>이면 <span class="math inline">\(m\Omega^2\)</span>가 <span class="math inline">\(k\)</span>보다 커지고</p>
+<div class="equation" id="eq-added-3-1-7">\[
+X\simeq\frac{F_0}{m\Omega^2}
+
+\tag{3.1.7}
+\]</div><p>로 감소한다. 같은 힘 진폭을 유지할 때의 결과이며, 힘 자체가 회전속도에 따라 커지는 불평형 가진 등에서는 입력의 주파수 의존성도 함께 고려해야 한다.</p>
+<p>변위 진폭이 작아진다고 속도와 가속도까지 같은 비율로 줄어드는 것은 아니다. 정상응답에서 속도 진폭은 <span class="math inline">\(\Omega X\)</span>, 가속도 진폭은 <span class="math inline">\(\Omega^2X\)</span>이다. 같은 고주파 근사에서 가속도 진폭은 <span class="math inline">\(F_0/m\)</span>에 접근한다. 관측량이 변위인지 가속도인지에 따라 같은 시스템의 주파수응답 그래프가 다른 모양을 갖는 이유이다.</p>
+</section><section id="resonance-and-damping" aria-labelledby="resonance-and-damping-title"><h2 id="resonance-and-damping-title">4. Resonance and Damping</h2>
+<h3 id="peak-amplitude-and-the-undamped-limit">Peak Amplitude and the Undamped Limit</h3>
+<p>작은 감쇠에서 입력 주파수가 고유주파수 부근에 오면 응답이 크게 증가한다. 이를 Resonance라고 한다. 변위 진폭의 최대 위치는 식 <a href="#eq-magnification" class="equation-ref" title="Equation 3.1.5">(3.1.6)</a>의 분모를 최소화하여 구한다.</p>
+<div class="equation" id="eq-3-1-6">\[
+\begin{aligned}
 \frac{\mathrm{d}}{\mathrm{d}r}\left[(1-r^2)^2+4\zeta^2r^2\right]
 &amp;=4r(r^2+2\zeta^2-1)=0.
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(3.1.6)</span></div><p>따라서 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>ζ</mi><mo>&lt;</mo><mn>1</mn><mi>/</mi><msqrt><mn>2</mn></msqrt></mrow><annotation encoding="application/x-tex">0&lt;\zeta&lt;1/\sqrt2</annotation></semantics></math>이면</p>
-<div class="equation main" id="eq-respeak"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 3.1.7"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Ω</mi><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">k</mi></mrow></msub><mo>=</mo><msub><mi>ω</mi><mi>n</mi></msub><msqrt><mrow><mn>1</mn><mo>−</mo><mn>2</mn><msup><mi>ζ</mi><mn>2</mn></msup></mrow></msqrt><mo>,</mo><mspace width="2.0em"></mspace><msub><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mi>X</mi><msub><mi>x</mi><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">t</mi></mrow></msub></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>max</mo></msub><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>ζ</mi><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>ζ</mi><mn>2</mn></msup></mrow></msqrt></mrow></mfrac></mrow><annotation encoding="application/x-tex">\Omega_{\mathrm{peak}}=\omega_n\sqrt{1-2\zeta^2},\qquad
+\end{aligned}
+
+\tag{3.1.8}
+\]</div><p>따라서 <span>\(0&lt;\zeta&lt;1/\sqrt2\)</span>이면</p>
+<div class="equation main" id="eq-respeak">\[
+\boxed{\displaystyle \Omega_{\mathrm{peak}}=\omega_n\sqrt{1-2\zeta^2},\qquad
 \left(\frac{X}{x_{\mathrm{st}}}\right)_{\max}
 =\frac{1}{2\zeta\sqrt{1-\zeta^2}}
-</annotation></semantics></math></div><span class="equation-number">(3.1.7)</span></div><p>이는 <strong>일정한 Force amplitude에 대한 Displacement peak</strong>의 식이다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ω</mi><mi>n</mi></msub><annotation encoding="application/x-tex">\omega_n</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ω</mi><mi>d</mi></msub><annotation encoding="application/x-tex">\omega_d</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Ω</mi><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">k</mi></mrow></msub><annotation encoding="application/x-tex">\Omega_{\mathrm{peak}}</annotation></semantics></math>는 서로 다른 양이며, Velocity나 Acceleration의 최대 응답 위치도 같은 식으로 정해지지 않는다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ζ</mi><mo>≥</mo><mn>1</mn><mi>/</mi><msqrt><mn>2</mn></msqrt></mrow><annotation encoding="application/x-tex">\zeta\geq1/\sqrt2</annotation></semantics></math>에서는 양의 주파수에서 변위 진폭의 공진 Peak가 생기지 않는다.</p>
-<p>무감쇠에서 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Ω</mi><mo>=</mo><msub><mi>ω</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\Omega=\omega_n</annotation></semantics></math>, 초기변위와 속도가 0이면 유한한 주기 정상해 대신</p>
-<div class="equation" id="eq-3-1-8"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 3.1.8"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><msub><mi>F</mi><mn>0</mn></msub><mrow><mn>2</mn><mi>m</mi><msub><mi>ω</mi><mi>n</mi></msub></mrow></mfrac><mspace width="0.167em"></mspace><mi>t</mi><mo>sin</mo><msub><mi>ω</mi><mi>n</mi></msub><mi>t</mi></mrow><annotation encoding="application/x-tex">x(t)=\frac{F_0}{2m\omega_n}\,t\sin\omega_nt</annotation></semantics></math></div><span class="equation-number">(3.1.8)</span></div><p>가 된다. 진폭은 즉시 무한대가 되는 것이 아니라 시간에 비례하여 증가한다. 실제 구조물에서는 감쇠와 비선형성 등이 이러한 이상적인 증가를 바꾼다.</p>
-</article><div class="one-line-summary"><strong>Summary</strong><p>Harmonic response의 진폭과 위상은 입력 주파수, 고유주파수, 감쇠의 관계로 정해진다.</p></div><nav class="pagination" aria-label="Previous and next article"><a rel="prev" href="../damped-free-vibration/index.html"><small>Previous</small>2.2 Damped Free Vibration</a><a rel="next" href="../base-excitation-vibration-isolation/index.html"><small>Next</small>3.2 Base Excitation and Vibration Isolation</a></nav><footer><a href="../index.html">Contents</a> · <a href="#top">Back to top</a></footer></main><aside class="right-sidebar" aria-label="On this page"><div class="sidebar-inner"><div class="sidebar-title">On this page</div><a class="sidebar-link" href="#steady-state-amplitude-and-phase">1. Steady-State Amplitude and Phase</a><a class="sidebar-link" href="#frequency-ratio-and-resonance">2. Frequency Ratio and Resonance</a></div></aside></div></body></html>
+}
+
+\tag{3.1.9}
+\]</div><p>이는 <strong>일정한 Force amplitude에 대한 Displacement peak</strong>의 식이다. <span>\(\omega_n\)</span>, <span>\(\omega_d\)</span>, <span>\(\Omega_{\mathrm{peak}}\)</span>는 서로 다른 양이며, Velocity나 Acceleration의 최대 응답 위치도 같은 식으로 정해지지 않는다. <span>\(\zeta\geq1/\sqrt2\)</span>에서는 양의 주파수에서 변위 진폭의 공진 Peak가 생기지 않는다.</p>
+<p>무감쇠에서 <span>\(\Omega=\omega_n\)</span>, 초기변위와 속도가 0이면 유한한 주기 정상해 대신</p>
+<div class="equation" id="eq-3-1-8">\[
+x(t)=\frac{F_0}{2m\omega_n}\,t\sin\omega_nt
+
+\tag{3.1.10}
+\]</div><p>가 된다. 진폭은 즉시 무한대가 되는 것이 아니라 시간에 비례하여 증가한다. 실제 구조물에서는 감쇠와 비선형성 등이 이러한 이상적인 증가를 바꾼다.</p>
+<p>힘에 대한 변위 진폭의 최대점은 감쇠가 있을 때 무감쇠 고유주파수와 정확히 같지 않을 수 있다. <span class="math inline">\(X/(F_0/k)\)</span>의 분모를 <span class="math inline">\(r\)</span>에 대해 미분하면, <span class="math inline">\(\zeta&lt;1/\sqrt2\)</span>에서 최대점은 <span class="math inline">\(r_p=\sqrt{1-2\zeta^2}\)</span>이다. 감쇠가 작을 때에는 차이가 작아 공진주파수와 고유주파수를 거의 같은 값으로 다룰 수 있지만, 감쇠가 커지면 이 구분이 필요하다.</p>
+<h3 id="resonance-without-an-infinite-steady-amplitude">Resonance without an Infinite Steady Amplitude</h3>
+<p>무감쇠계에 고유주파수와 같은 힘 <span class="math inline">\(F_0\cos\omega_nt\)</span>를 영 초기조건에서 가하면, 일반적인 정상 진폭식의 분모가 0이 된다. 이는 물리적인 응답이 즉시 무한대라는 뜻이 아니라 유한한 일정 진폭의 정상해를 가정할 수 없다는 뜻이다.</p>
+<div class="equation" id="eq-added-3-1-11">\[
+x(t)=\frac{F_0}{2m\omega_n}\,t\sin\omega_nt.
+
+\tag{3.1.11}
+\]</div><p>진폭 포락선은 시간에 비례하여 증가한다. 외력이 매 주기 에너지를 계속 공급하고 이를 소산할 감쇠가 없기 때문이다. 실제 구조에서는 감쇠, 비선형성, 응력 제한 등의 영향이 나타나므로 이러한 선형 무감쇠 해를 큰 진폭까지 그대로 적용하지 않는다.</p>
+<p>감쇠가 있는 경우 공진 부근의 유한한 진폭은 에너지 공급과 소산의 균형으로 정해진다. 강성을 키워 공진 위치를 이동시키는 방법과 감쇠를 늘려 공진 진폭을 낮추는 방법은 서로 다른 작용이다. 어떤 변화를 선택할지는 실제 입력 주파수 범위와 허용 응답을 함께 보고 판단한다.</p>
+</section><section id="energy-over-a-cycle" aria-labelledby="energy-over-a-cycle-title"><h2 id="energy-over-a-cycle-title">5. Energy over a Cycle</h2>
+<h3 id="average-power-dissipated">Average Power Dissipated</h3>
+<p>정상응답을 <span class="math inline">\(x=X\cos(\Omega t-\phi)\)</span>로 두면 속도는 <span class="math inline">\(-\Omega X\sin(\Omega t-\phi)\)</span>이다. 점성 감쇠기의 소산률을 한 주기에 걸쳐 평균하면</p>
+<div class="equation" id="eq-added-3-1-12">\[
+\overline P_{\mathrm{diss}}=\frac12c\Omega^2X^2,\qquad
+\Delta E_{\mathrm{diss}}=\pi c\Omega X^2.
+
+\tag{3.1.12}
+\]</div><p>사인 제곱의 한 주기 평균이 <span class="math inline">\(1/2\)</span>이므로 이 결과를 얻는다. 정상상태에서는 한 주기 후 구조 에너지가 원래 값으로 돌아와야 하므로, 외력이 공급한 평균 일률도 이 소산률과 같아야 한다.</p>
+<h3 id="phase-and-work-input">Phase and Work Input</h3>
+<p>힘이 크더라도 속도와 직교 위상에 있으면 한 주기 동안의 순일은 0일 수 있다. 정상응답에서 입력과 변위의 위상차를 <span class="math inline">\(\phi\)</span>로 정의하면 평균 입력 일률은 <span class="math inline">\(\tfrac12F_0\Omega X\sin\phi\)</span>이다. 위상차가 에너지 공급량에 직접 들어가므로 위상은 진폭에 부수적으로 붙는 정보가 아니다. 특히 공진 부근의 응답을 이해할 때에는 힘이 운동을 얼마나 효율적으로 지속시키는지도 함께 살펴야 한다.</p>
+<p>한 주기 중에는 스프링과 질량이 번갈아 에너지를 저장한다. 그러나 한 주기의 시작과 끝을 비교하면 두 요소의 저장 에너지 변화는 0이고, 외부에서 들어온 순에너지는 감쇠기로 소산된다. 이 균형이 자유진동의 에너지 감소와 정상 강제진동의 일정한 진폭을 구분한다.</p>
+</section><section id="reading-a-frequency-response" aria-labelledby="reading-a-frequency-response-title"><h2 id="reading-a-frequency-response-title">6. Reading a Frequency Response</h2>
+<h3 id="frequency-sweep-and-measurement">Frequency Sweep and Measurement</h3>
+<p>주파수를 천천히 바꾸며 정상응답을 측정하면 진폭과 위상의 주파수 의존성을 얻는다. 각 주파수에서 자유응답이 충분히 줄어들기 전에 측정하면 이전 상태와 현재 입력이 섞인 과도응답이 남을 수 있다. 감쇠가 작은 계는 이 과도성분이 오래 지속될 수 있으므로 정상상태라는 해석 조건과 측정 시간을 맞추어야 한다.</p>
+<h3 id="model-parameters-and-interpretation">Model Parameters and Interpretation</h3>
+<p>예를 들어 <span class="math inline">\(\zeta=0.05\)</span>인 계에서 <span class="math inline">\(r=1\)</span>이면 진폭비는 <span class="math inline">\(1/(2\zeta)=10\)</span>이다. 같은 하중의 정적 변위가 <span class="math inline">\(0.2\,\mathrm{mm}\)</span>라면 이 주파수의 정상 진폭은 <span class="math inline">\(2\,\mathrm{mm}\)</span>이다. 다만 변위 진폭의 정확한 최대점은 <span class="math inline">\(r_p\simeq0.9975\)</span>이며, 이 예처럼 작은 감쇠에서는 차이가 매우 작다.</p>
+<p>응답의 Peak가 보이면 입력 주파수와 고유주파수의 관계, 감쇠, 하중 크기를 함께 확인한다. 출력의 Peak만으로 입력 자체가 그 주파수에서 강한지까지 알 수는 없다. 힘과 응답의 비를 사용한 주파수응답함수는 이 입력 효과를 분리하는 데 유용하며, 다자유도 시스템에서는 여러 Mode의 기여가 같은 입출력 관계에 합쳐진다.</p>
+</section><footer><a href="../index.html">← Structural Dynamics &amp; Aeroelasticity로 돌아가기</a></footer></main><aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#transient-and-steady-state-response" class="sidebar-link"><span class="item-number">1.</span><span>Transient and Steady-State Response</span></a><a href="#amplitude-and-phase" class="sidebar-link"><span class="item-number">2.</span><span>Amplitude and Phase</span></a><a href="#frequency-ratio-and-dynamic-amplification" class="sidebar-link"><span class="item-number">3.</span><span>Frequency Ratio and Dynamic Amplification</span></a><a href="#resonance-and-damping" class="sidebar-link"><span class="item-number">4.</span><span>Resonance and Damping</span></a><a href="#energy-over-a-cycle" class="sidebar-link"><span class="item-number">5.</span><span>Energy over a Cycle</span></a><a href="#reading-a-frequency-response" class="sidebar-link"><span class="item-number">6.</span><span>Reading a Frequency Response</span></a></nav></aside></div><script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script></body></html>

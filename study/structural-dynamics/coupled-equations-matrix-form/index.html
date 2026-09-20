@@ -1,43 +1,365 @@
 <!DOCTYPE html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="다자유도 시스템의 행렬식은 각 좌표의 관성, 복원력, 감쇠 및 좌표 사이의 결합을 정리한 운동방정식이다."><title>4.1 Coupled Equations and Matrix Form | Isp99</title><link rel="stylesheet" href="../structural-dynamics.css"><script defer src="../navigation.js"></script></head><body class="article-page"><a class="skip-link" href="#main">Skip to content</a><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><div class="sidebar-inner"><a class="sidebar-title" href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a class="sidebar-link" href="../vibration-mass-stiffness-damping/index.html">1.1 Vibration, Mass, Stiffness, and Damping</a><a class="sidebar-link" href="../degrees-of-freedom-equations-of-motion/index.html">1.2 Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a class="sidebar-link" href="../undamped-free-vibration/index.html">2.1 Undamped Free Vibration</a><a class="sidebar-link" href="../damped-free-vibration/index.html">2.2 Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a class="sidebar-link" href="../harmonic-response-resonance/index.html">3.1 Harmonic Response and Resonance</a><a class="sidebar-link" href="../base-excitation-vibration-isolation/index.html">3.2 Base Excitation and Vibration Isolation</a><a class="sidebar-link" href="../transient-response/index.html">3.3 Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a class="sidebar-link active" href="../coupled-equations-matrix-form/index.html" aria-current="page">4.1 Coupled Equations and Matrix Form</a><a class="sidebar-link" href="../natural-frequencies-mode-shapes/index.html">4.2 Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-analysis/index.html">4.3 Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a class="sidebar-link" href="../continuous-systems-rod-vibration/index.html">5.1 Continuous Systems and Rod Vibration</a><a class="sidebar-link" href="../euler-bernoulli-beam-theory/index.html">5.2 Euler–Bernoulli Beam Theory</a><a class="sidebar-link" href="../beam-natural-frequencies-mode-shapes/index.html">5.3 Beam Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-response-of-beams/index.html">5.4 Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a class="sidebar-link" href="../energy-methods-equivalent-models/index.html">6.1 Energy Methods and Equivalent Models</a><a class="sidebar-link" href="../finite-element-method/index.html">6.2 Finite Element Method</a><a class="sidebar-link" href="../response-analysis-verification/index.html">6.3 Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a class="sidebar-link" href="../aeroelastic-coupling-static-stability/index.html">7.1 Aeroelastic Coupling and Static Stability</a><a class="sidebar-link" href="../typical-section-unsteady-aerodynamics/index.html">7.2 Flutter and the Typical Section Model</a><a class="sidebar-link" href="../flutter-analysis/index.html">7.3 Flutter Analysis</a></div></div></aside><main class="main-content" id="main"><nav class="breadcrumb"><a href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><span>/</span><a href="../index.html#chapter-4">Multi-Degree-of-Freedom Systems</a></nav><header id="top"><h1>4.1 Coupled Equations and Matrix Form</h1><p class="intro">여러 부분이 서로 다른 양만큼 움직이는 구조물은 하나의 변위로 표현할 수 없다. 각 부분의 운동이 연결되는 관계를 연립방정식으로 세우고 행렬로 정리하면, 다자유도 시스템을 일관된 형태로 다룰 수 있다.</p></header><details class="mobile-series"><summary>Series Navigation</summary><a class="sidebar-title" href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a class="sidebar-link" href="../vibration-mass-stiffness-damping/index.html">1.1 Vibration, Mass, Stiffness, and Damping</a><a class="sidebar-link" href="../degrees-of-freedom-equations-of-motion/index.html">1.2 Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a class="sidebar-link" href="../undamped-free-vibration/index.html">2.1 Undamped Free Vibration</a><a class="sidebar-link" href="../damped-free-vibration/index.html">2.2 Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a class="sidebar-link" href="../harmonic-response-resonance/index.html">3.1 Harmonic Response and Resonance</a><a class="sidebar-link" href="../base-excitation-vibration-isolation/index.html">3.2 Base Excitation and Vibration Isolation</a><a class="sidebar-link" href="../transient-response/index.html">3.3 Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a class="sidebar-link active" href="../coupled-equations-matrix-form/index.html" aria-current="page">4.1 Coupled Equations and Matrix Form</a><a class="sidebar-link" href="../natural-frequencies-mode-shapes/index.html">4.2 Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-analysis/index.html">4.3 Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a class="sidebar-link" href="../continuous-systems-rod-vibration/index.html">5.1 Continuous Systems and Rod Vibration</a><a class="sidebar-link" href="../euler-bernoulli-beam-theory/index.html">5.2 Euler–Bernoulli Beam Theory</a><a class="sidebar-link" href="../beam-natural-frequencies-mode-shapes/index.html">5.3 Beam Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-response-of-beams/index.html">5.4 Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a class="sidebar-link" href="../energy-methods-equivalent-models/index.html">6.1 Energy Methods and Equivalent Models</a><a class="sidebar-link" href="../finite-element-method/index.html">6.2 Finite Element Method</a><a class="sidebar-link" href="../response-analysis-verification/index.html">6.3 Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a class="sidebar-link" href="../aeroelastic-coupling-static-stability/index.html">7.1 Aeroelastic Coupling and Static Stability</a><a class="sidebar-link" href="../typical-section-unsteady-aerodynamics/index.html">7.2 Flutter and the Typical Section Model</a><a class="sidebar-link" href="../flutter-analysis/index.html">7.3 Flutter Analysis</a></div></details><nav class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#from-individual-forces-to-matrix-form">1. From Individual Forces to Matrix Form</a></li><li><a href="#energy-and-lagrange-equations">2. Energy and Lagrange Equations</a></li></ol></nav><article><h2 id="from-individual-forces-to-matrix-form">1. From Individual Forces to Matrix Form</h2>
-<h3 id="interaction-between-coordinates">Interaction Between Coordinates</h3>
-<p>한 점의 변위만으로 구조물의 형상을 정할 수 없다면 여러 좌표의 운동을 동시에 구해야 한다. 예를 들어 두 질량 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mn>1</mn></msub><mo>,</mo><msub><mi>m</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">m_1,m_2</annotation></semantics></math>가 가운데 Spring <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>k</mi><mn>2</mn></msub><annotation encoding="application/x-tex">k_2</annotation></semantics></math>로 연결되고, 각 질량이 바깥쪽 고정벽과 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mn>1</mn></msub><mo>,</mo><msub><mi>k</mi><mn>3</mn></msub></mrow><annotation encoding="application/x-tex">k_1,k_3</annotation></semantics></math>로 연결되어 있다고 가정한다. 두 변위 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>,</mo><msub><mi>x</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">x_1,x_2</annotation></semantics></math>의 양의 방향은 모두 오른쪽이다.</p>
-<figure><svg viewbox="0 0 720 200" role="img" aria-label="Two masses coupled by three springs"><defs><marker id="arrow" markerwidth="8" markerheight="8" refx="7" refy="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#333"></path></marker></defs><g fill="none" stroke="#333" stroke-width="2"><path d="M30 65 V170 M690 65 V170"></path><polyline points="30.0,120.0 40.0,120.0 47.9,127.0 55.9,113.0 63.8,127.0 71.8,113.0 79.7,127.0 87.6,113.0 95.6,127.0 103.5,113.0 111.5,127.0 119.4,113.0 127.4,127.0 135.3,113.0 143.2,127.0 151.2,113.0 159.1,127.0 167.1,113.0 175.0,120.0 185.0,120.0"></polyline><polyline points="305.0,120.0 315.0,120.0 320.6,127.0 326.2,113.0 331.8,127.0 337.4,113.0 342.9,127.0 348.5,113.0 354.1,127.0 359.7,113.0 365.3,127.0 370.9,113.0 376.5,127.0 382.1,113.0 387.6,127.0 393.2,113.0 398.8,127.0 404.4,113.0 410.0,120.0 420.0,120.0"></polyline><polyline points="540.0,120.0 550.0,120.0 557.6,127.0 565.3,113.0 572.9,127.0 580.6,113.0 588.2,127.0 595.9,113.0 603.5,127.0 611.2,113.0 618.8,127.0 626.5,113.0 634.1,127.0 641.8,113.0 649.4,127.0 657.1,113.0 664.7,127.0 672.4,113.0 680.0,120.0 690.0,120.0"></polyline><rect x="185" y="80" width="120" height="80" fill="#f4f4f4"></rect><path d="M185 44 H305" marker-end="url(#arrow)"></path><rect x="420" y="80" width="120" height="80" fill="#f4f4f4"></rect><path d="M420 44 H540" marker-end="url(#arrow)"></path></g><g font-family="Georgia,serif" font-size="22" text-anchor="middle"><text x="245" y="127">m₁</text><text x="480" y="127">m₂</text><text x="104" y="94">k₁</text><text x="363" y="94">k₂</text><text x="615" y="94">k₃</text><text x="245" y="30">x₁</text><text x="480" y="30">x₂</text></g></svg><figcaption>Two masses coupled by three springs</figcaption></figure>
-<p>가운데 Spring의 늘어남은 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">x_2-x_1</annotation></semantics></math>이다. 이 Spring은 두 질량에 크기가 같고 방향이 반대인 힘을 가하므로, 무감쇠 운동방정식은</p>
-<div class="equation" id="eq-4-1-1"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 4.1.1"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>m</mi><mn>1</mn></msub><msub><mover><mi>x</mi><mo accent="true">̈</mo></mover><mn>1</mn></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mi>F</mi><mn>1</mn></msub><mo>−</mo><msub><mi>k</mi><mn>1</mn></msub><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>k</mi><mn>2</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>m</mi><mn>2</mn></msub><msub><mover><mi>x</mi><mo accent="true">̈</mo></mover><mn>2</mn></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mi>F</mi><mn>2</mn></msub><mo>−</mo><msub><mi>k</mi><mn>3</mn></msub><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>k</mi><mn>2</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="여러 부분이 서로 다른 양만큼 움직이는 구조물은 하나의 변위로 표현할 수 없다. 각 부분의 운동이 연결되는 관계를 연립방정식으로 세우고 행렬로 정리하면, 다자유도 시스템을 일관된 형태로 다룰 수 있다."><title>4.1 Coupled Equations and Matrix Form | Isp99</title>
+<script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style></head><body class="article-page"><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><nav class="sidebar-inner"><a href="../index.html" class="sidebar-title">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a href="../vibration-mass-stiffness-damping/index.html" class="sidebar-link"><span class="item-number">1.1</span> Vibration, Mass, Stiffness, and Damping</a><a href="../degrees-of-freedom-equations-of-motion/index.html" class="sidebar-link"><span class="item-number">1.2</span> Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a href="../undamped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.1</span> Undamped Free Vibration</a><a href="../damped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.2</span> Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a href="../harmonic-response-resonance/index.html" class="sidebar-link"><span class="item-number">3.1</span> Harmonic Response and Resonance</a><a href="../base-excitation-vibration-isolation/index.html" class="sidebar-link"><span class="item-number">3.2</span> Base Excitation and Vibration Isolation</a><a href="../transient-response/index.html" class="sidebar-link"><span class="item-number">3.3</span> Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a href="../coupled-equations-matrix-form/index.html" class="sidebar-link active" aria-current="page"><span class="item-number">4.1</span> Coupled Equations and Matrix Form</a><a href="../natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">4.2</span> Natural Frequencies and Mode Shapes</a><a href="../modal-analysis/index.html" class="sidebar-link"><span class="item-number">4.3</span> Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a href="../continuous-systems-rod-vibration/index.html" class="sidebar-link"><span class="item-number">5.1</span> Continuous Systems and Rod Vibration</a><a href="../euler-bernoulli-beam-theory/index.html" class="sidebar-link"><span class="item-number">5.2</span> Euler–Bernoulli Beam Theory</a><a href="../beam-natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">5.3</span> Beam Natural Frequencies and Mode Shapes</a><a href="../modal-response-of-beams/index.html" class="sidebar-link"><span class="item-number">5.4</span> Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a href="../energy-methods-equivalent-models/index.html" class="sidebar-link"><span class="item-number">6.1</span> Energy Methods and Equivalent Models</a><a href="../finite-element-method/index.html" class="sidebar-link"><span class="item-number">6.2</span> Finite Element Method</a><a href="../response-analysis-verification/index.html" class="sidebar-link"><span class="item-number">6.3</span> Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a href="../aeroelastic-coupling-static-stability/index.html" class="sidebar-link"><span class="item-number">7.1</span> Aeroelastic Coupling and Static Stability</a><a href="../typical-section-unsteady-aerodynamics/index.html" class="sidebar-link"><span class="item-number">7.2</span> Flutter and the Typical Section Model</a><a href="../flutter-analysis/index.html" class="sidebar-link"><span class="item-number">7.3</span> Flutter Analysis</a></div></nav></aside><main class="main-content" id="top"><nav aria-label="Current article"><a href="#top">4.1 Coupled Equations and Matrix Form</a></nav><header><h1>4.1 Coupled Equations and Matrix Form</h1><p class="subtitle">Coupled Motion, Energy, and Equations in Generalized Coordinates</p><p class="intro">여러 부분이 서로 다른 양만큼 움직이는 구조물은 하나의 변위로 표현할 수 없다. 각 부분의 운동이 연결되는 관계를 연립방정식으로 세우고 행렬로 정리하면, 다자유도 시스템을 일관된 형태로 다룰 수 있다.</p></header><aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#coupling-between-moving-parts">Coupling between Moving Parts</a></li><li><a href="#mass-and-stiffness-matrices">Mass and Stiffness Matrices</a></li><li><a href="#energy-in-generalized-coordinates">Energy in Generalized Coordinates</a></li><li><a href="#derivation-for-a-two-mass-system">Derivation for a Two-Mass System</a></li><li><a href="#constraints-and-coordinate-transformation">Constraints and Coordinate Transformation</a></li><li><a href="#physical-checks-of-the-matrix-model">Physical Checks of the Matrix Model</a></li></ol></aside><section id="coupling-between-moving-parts" aria-labelledby="coupling-between-moving-parts-title"><h2 id="coupling-between-moving-parts-title">1. Coupling between Moving Parts</h2>
+<h3 id="interaction-through-a-connecting-spring">Interaction through a Connecting Spring</h3>
+<p>한 점의 변위만으로 구조물의 형상을 정할 수 없다면 여러 좌표의 운동을 동시에 구해야 한다. 예를 들어 두 질량 <span>\(m_1,m_2\)</span>가 가운데 Spring <span>\(k_2\)</span>로 연결되고, 각 질량이 바깥쪽 고정벽과 <span>\(k_1,k_3\)</span>로 연결되어 있다고 가정한다. 두 변위 <span>\(x_1,x_2\)</span>의 양의 방향은 모두 오른쪽이다.</p>
+<p>가운데 Spring의 늘어남은 <span>\(x_2-x_1\)</span>이다. 이 Spring은 두 질량에 크기가 같고 방향이 반대인 힘을 가하므로, 무감쇠 운동방정식은</p>
+<div class="equation" id="eq-4-1-1">\[
+\begin{aligned}
 m_1\ddot{x}_1&amp;=F_1-k_1x_1+k_2(x_2-x_1)\\[1em]
 m_2\ddot{x}_2&amp;=F_2-k_3x_2-k_2(x_2-x_1).
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(4.1.1)</span></div><p>따라서 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>1</mn></msub><annotation encoding="application/x-tex">x_1</annotation></semantics></math>의 방정식에 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>2</mn></msub><annotation encoding="application/x-tex">x_2</annotation></semantics></math>가, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>2</mn></msub><annotation encoding="application/x-tex">x_2</annotation></semantics></math>의 방정식에 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>1</mn></msub><annotation encoding="application/x-tex">x_1</annotation></semantics></math>이 나타난다. 이처럼 서로 다른 좌표의 운동이 연결되는 것을 <strong>Coupling</strong>이라고 한다.</p>
-<h3 id="mass-and-stiffness-matrices">Mass and Stiffness Matrices</h3>
+\end{aligned}
+
+\tag{4.1.1}
+\]</div><p>따라서 <span>\(x_1\)</span>의 방정식에 <span>\(x_2\)</span>가, <span>\(x_2\)</span>의 방정식에 <span>\(x_1\)</span>이 나타난다. 이처럼 서로 다른 좌표의 운동이 연결되는 것을 <strong>Coupling</strong>이라고 한다.</p>
+<p>두 질량 사이의 스프링은 어느 한 질량의 위치가 아니라 두 끝의 거리 변화에 반응한다. 첫 번째 질량이 오른쪽으로 움직이면 가운데 스프링의 변형은 두 번째 질량이 같은 방향으로 얼마나 움직였는지에 따라 달라진다. 따라서 첫 번째 질량의 힘을 구할 때 두 번째 좌표가 함께 들어간다. 이것이 각 좌표의 운동방정식이 서로 결합되는 가장 직접적인 예이다.</p>
+<h3 id="relative-deformation-and-internal-force">Relative Deformation and Internal Force</h3>
+<p>가운데 스프링의 변형을 <span class="math inline">\(x_2-x_1\)</span>로 정하면, 그 스프링이 두 질량에 주는 힘은 크기가 같고 방향이 반대이다. 전체 시스템을 하나로 보아 힘을 합하면 이 내부력은 상쇄되지만, 각 질량의 운동을 구할 때에는 두 힘을 모두 포함해야 한다. 전체 힘의 합만으로는 두 질량 사이의 상대운동까지 결정할 수 없기 때문이다.</p>
+<p>각 질량에 같은 변위를 주면 가운데 스프링이 변형되지 않는다는 상황을 생각할 수 있다. 반대로 두 질량이 서로 반대 방향으로 움직이면 상대변형이 커진다. 이 두 움직임은 동일한 질량을 가진 구조에서도 서로 다른 복원력을 경험하므로, 이후 서로 다른 Mode와 고유주파수로 연결된다.</p>
+</section><section id="mass-and-stiffness-matrices" aria-labelledby="mass-and-stiffness-matrices-title"><h2 id="mass-and-stiffness-matrices-title">2. Mass and Stiffness Matrices</h2>
+<h3 id="collecting-the-coordinate-equations">Collecting the Coordinate Equations</h3>
 <p>두 방정식의 계수를 모으면</p>
-<div class="equation" id="eq-4-1-2"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 4.1.2"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>m</mi><mn>1</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mn>0</mn></mtd><mtd columnalign="center" style="text-align: center"><msub><mi>m</mi><mn>2</mn></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mover><mi>x</mi><mo accent="true">̈</mo></mover><mn>1</mn></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mover><mi>x</mi><mo accent="true">̈</mo></mover><mn>2</mn></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mo>+</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>k</mi><mn>1</mn></msub><mo>+</mo><msub><mi>k</mi><mn>2</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><mo>−</mo><msub><mi>k</mi><mn>2</mn></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mo>−</mo><msub><mi>k</mi><mn>2</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><msub><mi>k</mi><mn>2</mn></msub><mo>+</mo><msub><mi>k</mi><mn>3</mn></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>x</mi><mn>1</mn></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>x</mi><mn>2</mn></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>F</mi><mn>1</mn></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>F</mi><mn>2</mn></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{bmatrix}m_1&amp;0\\0&amp;m_2\end{bmatrix}
+<div class="equation" id="eq-4-1-2">\[
+\begin{bmatrix}m_1&amp;0\\0&amp;m_2\end{bmatrix}
 \begin{bmatrix}\ddot{x}_1\\\ddot{x}_2\end{bmatrix}
 +\begin{bmatrix}k_1+k_2&amp;-k_2\\-k_2&amp;k_2+k_3\end{bmatrix}
 \begin{bmatrix}x_1\\x_2\end{bmatrix}
-=\begin{bmatrix}F_1\\F_2\end{bmatrix}.</annotation></semantics></math></div><span class="equation-number">(4.1.2)</span></div><p>대각 성분은 해당 좌표의 변위가 만드는 힘을, 비대각 성분은 다른 좌표의 변위가 만드는 힘을 나타낸다. Matrix는 별도의 물리법칙이 아니라 <strong>연립 운동방정식의 계수를 정리하는 표현</strong>이다.</p>
-<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>개의 좌표와 선형 감쇠를 포함한 일반형은</p>
-<div class="equation main" id="eq-mdof"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 4.1.3"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐌</mi><mover><mi>𝐱</mi><mo accent="true">̈</mo></mover><mo>+</mo><mi>𝐂</mi><mover><mi>𝐱</mi><mo accent="true">̇</mo></mover><mo>+</mo><mi>𝐊</mi><mi>𝐱</mi><mo>=</mo><mi>𝐅</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{M}\ddot{\boldsymbol{x}}+\mathbf{C}\dot{\boldsymbol{x}}+\mathbf{K}\boldsymbol{x}=\boldsymbol{F}(t)
-</annotation></semantics></math></div><span class="equation-number">(4.1.3)</span></div><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐱</mi><annotation encoding="application/x-tex">\boldsymbol{x}</annotation></semantics></math>는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N\times1</annotation></semantics></math> Displacement vector이고, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐌</mi><mo>,</mo><mi>𝐂</mi><mo>,</mo><mi>𝐊</mi></mrow><annotation encoding="application/x-tex">\mathbf{M},\mathbf{C},\mathbf{K}</annotation></semantics></math>는 각각 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>×</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">N\times N</annotation></semantics></math> Mass, Damping, Stiffness matrix이다. 일반 구조물에서 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐌</mi><annotation encoding="application/x-tex">\mathbf{M}</annotation></semantics></math>도 비대각 성분을 가질 수 있다.</p>
-<h2 id="energy-and-lagrange-equations">2. Energy and Lagrange Equations</h2>
-<h3 id="equations-in-generalized-coordinates">Equations in Generalized Coordinates</h3>
+=\begin{bmatrix}F_1\\F_2\end{bmatrix}.
+
+\tag{4.1.2}
+\]</div><p>대각 성분은 해당 좌표의 변위가 만드는 힘을, 비대각 성분은 다른 좌표의 변위가 만드는 힘을 나타낸다. Matrix는 별도의 물리법칙이 아니라 <strong>연립 운동방정식의 계수를 정리하는 표현</strong>이다.</p>
+<p><span>\(N\)</span>개의 좌표와 선형 감쇠를 포함한 일반형은</p>
+<div class="equation main" id="eq-mdof">\[
+\boxed{\displaystyle \mathbf{M}\ddot{\boldsymbol{x}}+\mathbf{C}\dot{\boldsymbol{x}}+\mathbf{K}\boldsymbol{x}=\boldsymbol{F}(t)
+}
+
+\tag{4.1.3}
+\]</div><p><span>\(\boldsymbol{x}\)</span>는 <span>\(N\times1\)</span> Displacement vector이고, <span>\(\mathbf{M},\mathbf{C},\mathbf{K}\)</span>는 각각 <span>\(N\times N\)</span> Mass, Damping, Stiffness matrix이다. 일반 구조물에서 <span>\(\mathbf{M}\)</span>도 비대각 성분을 가질 수 있다.</p>
+<p>행렬 표현은 여러 방정식을 짧게 적는 역할과 함께 어떤 좌표가 어느 평형식에 영향을 주는지 보여 준다. <span class="math inline">\(K_{ij}\)</span>는 <span class="math inline">\(j\)</span>번째 좌표가 변할 때 <span class="math inline">\(i\)</span>번째 일반화 복원력에 얼마나 기여하는지 나타낸다. 행은 힘 평형의 종류이고 열은 변형을 만드는 좌표이다. 서로 다른 좌표가 한 스프링을 공유하면 비대각 강성 성분이 자연스럽게 나타난다.</p>
+<h3 id="diagonal-and-off-diagonal-terms">Diagonal and Off-Diagonal Terms</h3>
+<p>고정된 관성좌표로 움직이는 집중질량만 사용하면 질량행렬이 대각 형태일 수 있다. 그러나 회전과 병진이 함께 있거나 좌표를 변환하면 하나의 좌표 속도가 여러 부분의 운동에너지에 기여하므로 비대각 질량항이 나타날 수 있다. 따라서 질량행렬의 비대각 성분은 수치적인 오류가 아니라 선택한 좌표에서의 관성 결합을 뜻할 수 있다.</p>
+<p>강성행렬의 대각 성분만 남기면 각 좌표에 작용하는 총복원력 중 다른 좌표에 의해 발생하는 기여를 잃는다. 특히 두 질량이 같은 방향으로 움직여 연결 스프링이 변형되지 않는 경우를 재현하지 못할 수 있다. 행렬의 크기를 줄이거나 단순화하려면 어떤 물리적 결합을 무시하는지 먼저 설명되어야 한다.</p>
+</section><section id="energy-in-generalized-coordinates" aria-labelledby="energy-in-generalized-coordinates-title"><h2 id="energy-in-generalized-coordinates-title">3. Energy in Generalized Coordinates</h2>
+<h3 id="lagrange-equations">Lagrange Equations</h3>
 <p>좌표가 회전각이거나 여러 부재가 연결된 시스템에서는 각 물체의 힘과 구속반력을 일일이 구하기 복잡해진다. 반면 Kinetic energy와 Strain energy는 각 부분의 기여를 더하여 계산할 수 있다. 이 Energy를 독립 좌표로 미분하여 운동방정식을 얻는 방법이 <strong>Lagrange equation</strong>이다.</p>
-<p>구속조건을 만족하는 독립적인 미소변화 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><msub><mi>q</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\delta q_i</annotation></semantics></math>를 Virtual displacement라 한다. 외력의 Virtual work를 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mi>W</mi><mo>=</mo><msub><mo>∑</mo><mi>i</mi></msub><msub><mi>Q</mi><mi>i</mi></msub><mi>δ</mi><msub><mi>q</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\delta W=\sum_iQ_i\delta q_i</annotation></semantics></math>로 쓰면, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mi>i</mi></msub><annotation encoding="application/x-tex">Q_i</annotation></semantics></math>는 좌표 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>q</mi><mi>i</mi></msub><annotation encoding="application/x-tex">q_i</annotation></semantics></math>에 대응하는 Generalized force이다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>q</mi><mi>i</mi></msub><annotation encoding="application/x-tex">q_i</annotation></semantics></math>가 길이면 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mi>i</mi></msub><annotation encoding="application/x-tex">Q_i</annotation></semantics></math>는 Force, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>q</mi><mi>i</mi></msub><annotation encoding="application/x-tex">q_i</annotation></semantics></math>가 회전각이면 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mi>i</mi></msub><annotation encoding="application/x-tex">Q_i</annotation></semantics></math>는 Moment가 된다.</p>
-<p>Newton’s law를 가능한 Virtual displacement 방향으로 투영한 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>a</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐅</mi><mi>a</mi></msub><mo>−</mo><msub><mi>m</mi><mi>a</mi></msub><msub><mi>𝐚</mi><mi>a</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>⋅</mo><mi>δ</mi><msub><mi>𝐫</mi><mi>a</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sum_a(\boldsymbol{F}_a-m_a\boldsymbol{a}_a)\cdot\delta\boldsymbol{r}_a=0</annotation></semantics></math>에서 출발한다. 시간에 고정된 구속조건과 이상적인 구속반력 아래, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><msub><mi>𝐫</mi><mi>a</mi></msub><mo>=</mo><msub><mo>∑</mo><mi>i</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>∂</mi><msub><mi>𝐫</mi><mi>a</mi></msub><mi>/</mi><mi>∂</mi><msub><mi>q</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>δ</mi><msub><mi>q</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\delta\boldsymbol{r}_a=\sum_i(\partial\boldsymbol{r}_a/\partial q_i)\delta q_i</annotation></semantics></math>와 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><msub><mo>∑</mo><mi>a</mi></msub><msub><mi>m</mi><mi>a</mi></msub><msubsup><mover><mi>𝐫</mi><mo accent="true">̇</mo></mover><mi>a</mi><mn>2</mn></msubsup><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">T=\sum_a m_a\dot{\boldsymbol{r}}_a^2/2</annotation></semantics></math>를 사용하면</p>
-<div class="equation" id="eq-4-1-4"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 4.1.4"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mi>a</mi></munder><msub><mi>m</mi><mi>a</mi></msub><msub><mi>𝐚</mi><mi>a</mi></msub><mo>⋅</mo><mfrac><mrow><mi>∂</mi><msub><mi>𝐫</mi><mi>a</mi></msub></mrow><mrow><mi>∂</mi><msub><mi>q</mi><mi>i</mi></msub></mrow></mfrac><mo>=</mo><mfrac><mi mathvariant="normal">d</mi><mrow><mi mathvariant="normal">d</mi><mi>t</mi></mrow></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>∂</mi><mi>T</mi></mrow><mrow><mi>∂</mi><msub><mover><mi>q</mi><mo accent="true">̇</mo></mover><mi>i</mi></msub></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mfrac><mrow><mi>∂</mi><mi>T</mi></mrow><mrow><mi>∂</mi><msub><mi>q</mi><mi>i</mi></msub></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\sum_a m_a\boldsymbol{a}_a\cdot\frac{\partial \boldsymbol{r}_a}{\partial q_i}
-=\frac{\mathrm{d}}{\mathrm{d}t}\left(\frac{\partial T}{\partial \dot q_i}\right)-\frac{\partial T}{\partial q_i}.</annotation></semantics></math></div><span class="equation-number">(4.1.4)</span></div><p>탄성력의 기여는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mi>∂</mi><mi>U</mi><mi>/</mi><mi>∂</mi><msub><mi>q</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">-\partial U/\partial q_i</annotation></semantics></math>이며, 선형 점성감쇠는 Dissipation function <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℛ</mi><mo>=</mo><mfrac displaystyle="false"><mn>1</mn><mn>2</mn></mfrac><msup><mover><mi>𝐪</mi><mo accent="true">̇</mo></mover><mi>𝖳</mi></msup><mi>𝐂</mi><mover><mi>𝐪</mi><mo accent="true">̇</mo></mover></mrow><annotation encoding="application/x-tex">\mathcal{R}=\tfrac12\dot{\boldsymbol{q}}^{\mathsf T}\mathbf{C}\dot{\boldsymbol{q}}</annotation></semantics></math>로 표현할 수 있다. 대칭인 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐂</mi><annotation encoding="application/x-tex">\mathbf{C}</annotation></semantics></math>에 대해 감쇠력은 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mi>∂</mi><mi>ℛ</mi><mi>/</mi><mi>∂</mi><msub><mover><mi>q</mi><mo accent="true">̇</mo></mover><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">-\partial\mathcal{R}/\partial\dot q_i</annotation></semantics></math>이므로</p>
-<div class="equation main" id="eq-lagrange"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 4.1.5"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi mathvariant="normal">d</mi><mrow><mi mathvariant="normal">d</mi><mi>t</mi></mrow></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>∂</mi><mi>T</mi></mrow><mrow><mi>∂</mi><msub><mover><mi>q</mi><mo accent="true">̇</mo></mover><mi>i</mi></msub></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mfrac><mrow><mi>∂</mi><mi>T</mi></mrow><mrow><mi>∂</mi><msub><mi>q</mi><mi>i</mi></msub></mrow></mfrac><mo>+</mo><mfrac><mrow><mi>∂</mi><mi>U</mi></mrow><mrow><mi>∂</mi><msub><mi>q</mi><mi>i</mi></msub></mrow></mfrac><mo>+</mo><mfrac><mrow><mi>∂</mi><mi>ℛ</mi></mrow><mrow><mi>∂</mi><msub><mover><mi>q</mi><mo accent="true">̇</mo></mover><mi>i</mi></msub></mrow></mfrac><mo>=</mo><msub><mi>Q</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\frac{\mathrm{d}}{\mathrm{d}t}\left(\frac{\partial T}{\partial \dot q_i}\right)
+<p>구속조건을 만족하는 독립적인 미소변화 <span>\(\delta q_i\)</span>를 Virtual displacement라 한다. 외력의 Virtual work를 <span>\(\delta W=\sum_iQ_i\delta q_i\)</span>로 쓰면, <span>\(Q_i\)</span>는 좌표 <span>\(q_i\)</span>에 대응하는 Generalized force이다. <span>\(q_i\)</span>가 길이면 <span>\(Q_i\)</span>는 Force, <span>\(q_i\)</span>가 회전각이면 <span>\(Q_i\)</span>는 Moment가 된다.</p>
+<p>Newton’s law를 가능한 Virtual displacement 방향으로 투영한 <span>\(\sum_a(\boldsymbol{F}_a-m_a\boldsymbol{a}_a)\cdot\delta\boldsymbol{r}_a=0\)</span>에서 출발한다. 시간에 고정된 구속조건과 이상적인 구속반력 아래, <span>\(\delta\boldsymbol{r}_a=\sum_i(\partial\boldsymbol{r}_a/\partial q_i)\delta q_i\)</span>와 <span>\(T=\sum_a m_a\dot{\boldsymbol{r}}_a^2/2\)</span>를 사용하면</p>
+<div class="equation" id="eq-4-1-4">\[
+\sum_a m_a\boldsymbol{a}_a\cdot\frac{\partial \boldsymbol{r}_a}{\partial q_i}
+=\frac{\mathrm{d}}{\mathrm{d}t}\left(\frac{\partial T}{\partial \dot q_i}\right)-\frac{\partial T}{\partial q_i}.
+
+\tag{4.1.4}
+\]</div><p>탄성력의 기여는 <span>\(-\partial U/\partial q_i\)</span>이며, 선형 점성감쇠는 Dissipation function <span>\(\mathcal{R}=\tfrac12\dot{\boldsymbol{q}}^{\mathsf T}\mathbf{C}\dot{\boldsymbol{q}}\)</span>로 표현할 수 있다. 대칭인 <span>\(\mathbf{C}\)</span>에 대해 감쇠력은 <span>\(-\partial\mathcal{R}/\partial\dot q_i\)</span>이므로</p>
+<div class="equation main" id="eq-lagrange">\[
+\boxed{\displaystyle \frac{\mathrm{d}}{\mathrm{d}t}\left(\frac{\partial T}{\partial \dot q_i}\right)
 -\frac{\partial T}{\partial q_i}+\frac{\partial U}{\partial q_i}
 +\frac{\partial \mathcal{R}}{\partial \dot q_i}=Q_i
-</annotation></semantics></math></div><span class="equation-number">(4.1.5)</span></div><p>여기서 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mi>i</mi></msub><annotation encoding="application/x-tex">Q_i</annotation></semantics></math>에는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>와 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℛ</mi><annotation encoding="application/x-tex">\mathcal{R}</annotation></semantics></math>에 이미 포함한 힘을 중복해서 넣지 않는다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℛ</mi><annotation encoding="application/x-tex">\mathcal{R}</annotation></semantics></math>은 저장 Energy가 아니라 Power 단위의 함수이며, 실제 소산 Power는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>ℛ</mi></mrow><annotation encoding="application/x-tex">2\mathcal{R}</annotation></semantics></math>이다.</p>
-<h3 id="recovering-the-two-mass-equations">Recovering the Two-Mass Equations</h3>
+}
+
+\tag{4.1.5}
+\]</div><p>여기서 <span>\(Q_i\)</span>에는 <span>\(U\)</span>와 <span>\(\mathcal{R}\)</span>에 이미 포함한 힘을 중복해서 넣지 않는다. <span>\(\mathcal{R}\)</span>은 저장 Energy가 아니라 Power 단위의 함수이며, 실제 소산 Power는 <span>\(2\mathcal{R}\)</span>이다.</p>
+<p>복잡한 연결구조에서는 모든 방향의 힘을 개별적으로 그리는 것보다, 좌표가 정해졌을 때 각 부분의 속도와 변형을 구하는 편이 쉬울 수 있다. 운동에너지는 속도를, 탄성에너지는 변형을 사용하므로 기하학적 관계를 에너지에 대입하면 좌표 사이의 결합이 자동으로 포함된다. Lagrange equation은 이 에너지 정보를 일반화 좌표의 운동방정식으로 바꾼다.</p>
+<h3 id="virtual-work-and-generalized-force">Virtual Work and Generalized Force</h3>
+<p>일반화 힘은 선택한 좌표에 대한 가상변위가 만드는 일로 정의한다. 실제 힘 <span class="math inline">\(\mathbf f\)</span>가 작용하는 위치의 변위가 <span class="math inline">\(\mathbf u(\mathbf q)\)</span>이면</p>
+<div class="equation" id="eq-added-4-1-6">\[
+\delta W=\mathbf f^T\delta\mathbf u
+=\mathbf f^T\frac{\partial\mathbf u}{\partial\mathbf q}\delta\mathbf q
+=\mathbf Q^T\delta\mathbf q.
+
+\tag{4.1.6}
+\]</div><p>따라서 일반화 힘은 힘 벡터를 단순히 같은 개수로 나열하는 것이 아니라, 그 좌표가 힘의 작용점을 어떻게 움직이는지까지 포함한다. 회전각이 좌표이면 일반화 힘이 Moment의 단위를 가질 수 있는 이유도 가상일이 에너지 단위로 같아야 하기 때문이다.</p>
+<p>이 정의를 사용하면 물리 좌표와 모드 좌표가 서로 달라도 같은 일을 표현하도록 하중을 변환할 수 있다. 구조와 공기력의 좌표를 연결할 때에도 힘의 값뿐 아니라 운동에 전달되는 일이 일치해야 하며, 이 관계가 일반화 공기력을 만드는 기초가 된다.</p>
+</section><section id="derivation-for-a-two-mass-system" aria-labelledby="derivation-for-a-two-mass-system-title"><h2 id="derivation-for-a-two-mass-system-title">4. Derivation for a Two-Mass System</h2>
+<h3 id="recovering-the-coordinate-equations">Recovering the Coordinate Equations</h3>
 <p>앞의 두 질량 시스템에 대해</p>
-<div class="equation" id="eq-4-1-6"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 4.1.6"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>T</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><msub><mi>m</mi><mn>1</mn></msub><msubsup><mover><mi>x</mi><mo accent="true">̇</mo></mover><mn>1</mn><mn>2</mn></msubsup><mo>+</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><msub><mi>m</mi><mn>2</mn></msub><msubsup><mover><mi>x</mi><mo accent="true">̇</mo></mover><mn>2</mn><mn>2</mn></msubsup></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>U</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><msub><mi>k</mi><mn>1</mn></msub><msubsup><mi>x</mi><mn>1</mn><mn>2</mn></msubsup><mo>+</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><msub><mi>k</mi><mn>2</mn></msub><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>+</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><msub><mi>k</mi><mn>3</mn></msub><msubsup><mi>x</mi><mn>2</mn><mn>2</mn></msubsup><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+<div class="equation" id="eq-4-1-6">\[
+\begin{aligned}
 T&amp;=\frac12m_1\dot{x}_1^2+\frac12m_2\dot{x}_2^2\\[1em]
 U&amp;=\frac12k_1x_1^2+\frac12k_2(x_2-x_1)^2+\frac12k_3x_2^2.
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(4.1.6)</span></div><p>식 <a href="#eq-lagrange" class="equation-ref" title="Equation 4.1.5">(4.1.5)</a>에서 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mn>1</mn></msub><mo>=</mo><msub><mi>x</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">q_1=x_1</annotation></semantics></math>을 대입하면</p>
-<div class="equation" id="eq-4-1-7"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 4.1.7"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mfrac><mi mathvariant="normal">d</mi><mrow><mi mathvariant="normal">d</mi><mi>t</mi></mrow></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>∂</mi><mi>T</mi></mrow><mrow><mi>∂</mi><msub><mover><mi>x</mi><mo accent="true">̇</mo></mover><mn>1</mn></msub></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mi>m</mi><mn>1</mn></msub><msub><mover><mi>x</mi><mo accent="true">̈</mo></mover><mn>1</mn></msub><mo>,</mo></mtd><mtd columnalign="right" style="text-align: right"><mfrac><mrow><mi>∂</mi><mi>U</mi></mrow><mrow><mi>∂</mi><msub><mi>x</mi><mn>1</mn></msub></mrow></mfrac></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>k</mi><mn>1</mn></msub><mo>+</mo><msub><mi>k</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>x</mi><mn>1</mn></msub><mo>−</mo><msub><mi>k</mi><mn>2</mn></msub><msub><mi>x</mi><mn>2</mn></msub></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>m</mi><mn>1</mn></msub><msub><mover><mi>x</mi><mo accent="true">̈</mo></mover><mn>1</mn></msub><mo>+</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>k</mi><mn>1</mn></msub><mo>+</mo><msub><mi>k</mi><mn>2</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>x</mi><mn>1</mn></msub><mo>−</mo><msub><mi>k</mi><mn>2</mn></msub><msub><mi>x</mi><mn>2</mn></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mi>F</mi><mn>1</mn></msub><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\end{aligned}
+
+\tag{4.1.7}
+\]</div><p>식 <a href="#eq-lagrange" class="equation-ref" title="Equation 4.1.5">(4.1.5)</a>에서 <span>\(q_1=x_1\)</span>을 대입하면</p>
+<div class="equation" id="eq-4-1-7">\[
+\begin{aligned}
 \frac{\mathrm{d}}{\mathrm{d}t}\left(\frac{\partial T}{\partial \dot{x}_1}\right)&amp;=m_1\ddot{x}_1,
 &amp;\frac{\partial U}{\partial x_1}&amp;=(k_1+k_2)x_1-k_2x_2\\[1em]
 m_1\ddot{x}_1+(k_1+k_2)x_1-k_2x_2&amp;=F_1.
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(4.1.7)</span></div><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>2</mn></msub><annotation encoding="application/x-tex">x_2</annotation></semantics></math>도 같은 방법으로 계산하면 앞의 Newton equation과 일치한다. 일반적인 선형 탄성계에서는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mfrac displaystyle="false"><mn>1</mn><mn>2</mn></mfrac><msup><mover><mi>𝐱</mi><mo accent="true">̇</mo></mover><mi>𝖳</mi></msup><mi>𝐌</mi><mover><mi>𝐱</mi><mo accent="true">̇</mo></mover></mrow><annotation encoding="application/x-tex">T=\tfrac12\dot{\boldsymbol{x}}^{\mathsf T}\mathbf{M}\dot{\boldsymbol{x}}</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>=</mo><mfrac displaystyle="false"><mn>1</mn><mn>2</mn></mfrac><msup><mi>𝐱</mi><mi>𝖳</mi></msup><mi>𝐊</mi><mi>𝐱</mi></mrow><annotation encoding="application/x-tex">U=\tfrac12\boldsymbol{x}^{\mathsf T}\mathbf{K}\boldsymbol{x}</annotation></semantics></math>이며, 이 Energy 표현에서 대칭인 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐌</mi><annotation encoding="application/x-tex">\mathbf{M}</annotation></semantics></math>과 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐊</mi><annotation encoding="application/x-tex">\mathbf{K}</annotation></semantics></math>가 나타난다.</p>
-</article><div class="one-line-summary"><strong>Summary</strong><p>다자유도 시스템의 행렬식은 각 좌표의 관성, 복원력, 감쇠 및 좌표 사이의 결합을 정리한 운동방정식이다.</p></div><nav class="pagination" aria-label="Previous and next article"><a rel="prev" href="../transient-response/index.html"><small>Previous</small>3.3 Transient Response</a><a rel="next" href="../natural-frequencies-mode-shapes/index.html"><small>Next</small>4.2 Natural Frequencies and Mode Shapes</a></nav><footer><a href="../index.html">Contents</a> · <a href="#top">Back to top</a></footer></main><aside class="right-sidebar" aria-label="On this page"><div class="sidebar-inner"><div class="sidebar-title">On this page</div><a class="sidebar-link" href="#from-individual-forces-to-matrix-form">1. From Individual Forces to Matrix Form</a><a class="sidebar-link" href="#energy-and-lagrange-equations">2. Energy and Lagrange Equations</a></div></aside></div></body></html>
+\end{aligned}
+
+\tag{4.1.8}
+\]</div><p><span>\(x_2\)</span>도 같은 방법으로 계산하면 앞의 Newton equation과 일치한다. 일반적인 선형 탄성계에서는 <span>\(T=\tfrac12\dot{\boldsymbol{x}}^{\mathsf T}\mathbf{M}\dot{\boldsymbol{x}}\)</span>, <span>\(U=\tfrac12\boldsymbol{x}^{\mathsf T}\mathbf{K}\boldsymbol{x}\)</span>이며, 이 Energy 표현에서 대칭인 <span>\(\mathbf{M}\)</span>과 <span>\(\mathbf{K}\)</span>가 나타난다.</p>
+<p>에너지 식의 각 항은 실제로 어느 스프링이 변형되는지를 나타낸다. 두 외측 스프링의 에너지는 각각 한 질량의 변위 제곱에 비례하지만, 가운데 스프링은 상대변위의 제곱에 비례한다. 그 제곱을 전개할 때 <span class="math inline">\(x_1x_2\)</span>의 교차항이 생기며, 에너지를 좌표에 대해 미분하면 두 방정식의 결합 강성으로 나타난다.</p>
+<h3 id="symmetry-from-a-common-energy">Symmetry from a Common Energy</h3>
+<p>선형 탄성에너지를 <span class="math inline">\(V=\tfrac12\mathbf x^T\mathbf K\mathbf x\)</span>로 나타낼 수 있으면 복원력은 <span class="math inline">\(\partial V/\partial\mathbf x=\mathbf K\mathbf x\)</span>이다. 이때 강성행렬은 에너지의 좌표에 대한 2차 미분으로 얻어지므로, 충분히 매끄러운 보존계에서 <span class="math inline">\(K_{ij}=K_{ji}\)</span>가 된다. 두 좌표 사이의 결합이 하나의 공통 탄성에너지에서 나왔다는 사실이 대칭성에 반영된다.</p>
+<p>운동에너지 <span class="math inline">\(T=\tfrac12\dot{\mathbf x}^T\mathbf M\dot{\mathbf x}\)</span>에서도 같은 방식으로 대칭 질량행렬을 얻는다. 다만 회전하는 시스템의 자이로스코픽 항이나 비보존 공기력까지 모든 계수행렬이 대칭이라는 뜻은 아니다. 어떤 항이 운동에너지 또는 탄성에너지에서 유도되었는지에 따라 성질을 판단한다.</p>
+</section><section id="constraints-and-coordinate-transformation" aria-labelledby="constraints-and-coordinate-transformation-title"><h2 id="constraints-and-coordinate-transformation-title">5. Constraints and Coordinate Transformation</h2>
+<h3 id="applying-a-fixed-boundary">Applying a Fixed Boundary</h3>
+<p>어떤 좌표가 고정되어 항상 0이면 그 좌표의 운동을 별도의 미지수로 풀 필요가 없다. 예를 들어 <span class="math inline">\(\mathbf x=[\mathbf x_f^T,\mathbf x_c^T]^T\)</span>에서 구속좌표 <span class="math inline">\(\mathbf x_c=\mathbf0\)</span>이면 자유좌표에 대한 운동식은 해당 자유행과 자유열의 행렬로 정리된다. 제거된 행은 필요할 때 구속반력을 구하는 데 사용할 수 있다.</p>
+<p>0이 아닌 지지변위를 지정한 경우에는 관련 항이 입력으로 남는다. 고정조건을 부과한다는 이유로 연결된 질량·강성의 영향을 모두 삭제해서는 안 된다. 구속된 좌표의 값과 가속도가 알려져 있으면 그 값이 자유좌표 방정식에 주는 힘을 오른쪽으로 옮겨 반영해야 한다.</p>
+<h3 id="a-consistent-change-of-coordinates">A Consistent Change of Coordinates</h3>
+<p>선형 좌표변환 <span class="math inline">\(\mathbf x=\mathbf T\mathbf q\)</span>를 사용하면 변위뿐 아니라 속도와 가속도도 같은 행렬로 변환된다. 운동방정식에 대입하고 가상일 관계에 맞추어 <span class="math inline">\(\mathbf T^T\)</span>를 곱하면</p>
+<div class="equation" id="eq-added-4-1-9">\[
+\mathbf M_q=\mathbf T^T\mathbf M\mathbf T,\quad
+\mathbf C_q=\mathbf T^T\mathbf C\mathbf T,\quad
+\mathbf K_q=\mathbf T^T\mathbf K\mathbf T,\quad
+\mathbf Q=\mathbf T^T\mathbf f.
+
+\tag{4.1.9}
+\]</div><p>운동에너지와 탄성에너지에 직접 대입해도 같은 결과를 얻는다. 질량·강성만 변환하고 하중을 원래 좌표에 그대로 두면 같은 물리적 문제를 표현하지 못한다. 이후 Modal analysis는 특정한 <span class="math inline">\(\mathbf T\)</span>를 선택해 결합을 단순하게 만드는 좌표변환으로 이해할 수 있다.</p>
+</section><section id="physical-checks-of-the-matrix-model" aria-labelledby="physical-checks-of-the-matrix-model-title"><h2 id="physical-checks-of-the-matrix-model-title">6. Physical Checks of the Matrix Model</h2>
+<h3 id="positive-energy-and-rigid-body-motion">Positive Energy and Rigid-Body Motion</h3>
+<p>물리적으로 가능한 독립 좌표를 사용한 질량행렬에서는 0이 아닌 속도가 양의 운동에너지를 가져야 한다. 이를 양의 정부호라고 한다. 탄성강성은 변형에 에너지가 저장되는 방향에서 양수이지만, 전체가 강체처럼 움직여 스프링이 변형되지 않는 방향에서는 0일 수 있다. 따라서 자유롭게 떠 있는 구조의 강성행렬이 특이하다는 사실만으로 모델이 틀렸다고 볼 수는 없다.</p>
+<h3 id="distinguishing-missing-supports-from-valid-motion">Distinguishing Missing Supports from Valid Motion</h3>
+<p>의도한 지지조건을 부과한 뒤에도 예상치 못한 강체운동이 남으면 연결이나 구속이 빠졌을 수 있다. 반대로 자유구조물의 모든 강체 Mode를 인위적으로 제거하면 실제보다 강한 지지조건을 만든다. 행렬을 평가할 때에는 대칭성, 에너지, 고정조건, 가능한 강체운동을 함께 살펴야 한다.</p>
+<p>힘 평형, 에너지 유도, 단위 확인은 서로 같은 모델을 다른 관점에서 확인하는 방법이다. 특히 연결부의 부호를 검토할 때 두 좌표를 같은 방향과 반대 방향으로 움직여 보는 간단한 가상변형이 유용하다. 그 변형에서 실제 스프링의 에너지와 행렬이 계산한 에너지가 일치하면 결합항의 의미를 물리적으로 확인할 수 있다.</p>
+</section><footer><a href="../index.html">← Structural Dynamics &amp; Aeroelasticity로 돌아가기</a></footer></main><aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#coupling-between-moving-parts" class="sidebar-link"><span class="item-number">1.</span><span>Coupling between Moving Parts</span></a><a href="#mass-and-stiffness-matrices" class="sidebar-link"><span class="item-number">2.</span><span>Mass and Stiffness Matrices</span></a><a href="#energy-in-generalized-coordinates" class="sidebar-link"><span class="item-number">3.</span><span>Energy in Generalized Coordinates</span></a><a href="#derivation-for-a-two-mass-system" class="sidebar-link"><span class="item-number">4.</span><span>Derivation for a Two-Mass System</span></a><a href="#constraints-and-coordinate-transformation" class="sidebar-link"><span class="item-number">5.</span><span>Constraints and Coordinate Transformation</span></a><a href="#physical-checks-of-the-matrix-model" class="sidebar-link"><span class="item-number">6.</span><span>Physical Checks of the Matrix Model</span></a></nav></aside></div><script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script></body></html>

@@ -1,26 +1,354 @@
 <!DOCTYPE html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Aeroelasticity는 변형에 따라 달라지는 공기력을 함께 다루며, 정적 복원력의 상실과 진동의 성장을 구분하여 안정성을 판단한다."><title>7.1 Aeroelastic Coupling and Static Stability | Isp99</title><link rel="stylesheet" href="../structural-dynamics.css"><script defer src="../navigation.js"></script></head><body class="article-page"><a class="skip-link" href="#main">Skip to content</a><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><div class="sidebar-inner"><a class="sidebar-title" href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a class="sidebar-link" href="../vibration-mass-stiffness-damping/index.html">1.1 Vibration, Mass, Stiffness, and Damping</a><a class="sidebar-link" href="../degrees-of-freedom-equations-of-motion/index.html">1.2 Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a class="sidebar-link" href="../undamped-free-vibration/index.html">2.1 Undamped Free Vibration</a><a class="sidebar-link" href="../damped-free-vibration/index.html">2.2 Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a class="sidebar-link" href="../harmonic-response-resonance/index.html">3.1 Harmonic Response and Resonance</a><a class="sidebar-link" href="../base-excitation-vibration-isolation/index.html">3.2 Base Excitation and Vibration Isolation</a><a class="sidebar-link" href="../transient-response/index.html">3.3 Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a class="sidebar-link" href="../coupled-equations-matrix-form/index.html">4.1 Coupled Equations and Matrix Form</a><a class="sidebar-link" href="../natural-frequencies-mode-shapes/index.html">4.2 Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-analysis/index.html">4.3 Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a class="sidebar-link" href="../continuous-systems-rod-vibration/index.html">5.1 Continuous Systems and Rod Vibration</a><a class="sidebar-link" href="../euler-bernoulli-beam-theory/index.html">5.2 Euler–Bernoulli Beam Theory</a><a class="sidebar-link" href="../beam-natural-frequencies-mode-shapes/index.html">5.3 Beam Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-response-of-beams/index.html">5.4 Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a class="sidebar-link" href="../energy-methods-equivalent-models/index.html">6.1 Energy Methods and Equivalent Models</a><a class="sidebar-link" href="../finite-element-method/index.html">6.2 Finite Element Method</a><a class="sidebar-link" href="../response-analysis-verification/index.html">6.3 Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a class="sidebar-link active" href="../aeroelastic-coupling-static-stability/index.html" aria-current="page">7.1 Aeroelastic Coupling and Static Stability</a><a class="sidebar-link" href="../typical-section-unsteady-aerodynamics/index.html">7.2 Flutter and the Typical Section Model</a><a class="sidebar-link" href="../flutter-analysis/index.html">7.3 Flutter Analysis</a></div></div></aside><main class="main-content" id="main"><nav class="breadcrumb"><a href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><span>/</span><a href="../index.html#chapter-7">Aeroelasticity and Flutter</a></nav><header id="top"><h1>7.1 Aeroelastic Coupling and Static Stability</h1><p class="intro">날개에 작용하는 공기력은 날개를 변형시키고, 변형된 날개는 다시 공기력을 바꾼다. 하중과 응답을 함께 결정해야 하는 상황에서 출발하여 공탄성의 의미와 정적 안정성, 진동 중의 에너지 전달을 연결한다.</p></header><details class="mobile-series"><summary>Series Navigation</summary><a class="sidebar-title" href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a class="sidebar-link" href="../vibration-mass-stiffness-damping/index.html">1.1 Vibration, Mass, Stiffness, and Damping</a><a class="sidebar-link" href="../degrees-of-freedom-equations-of-motion/index.html">1.2 Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a class="sidebar-link" href="../undamped-free-vibration/index.html">2.1 Undamped Free Vibration</a><a class="sidebar-link" href="../damped-free-vibration/index.html">2.2 Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a class="sidebar-link" href="../harmonic-response-resonance/index.html">3.1 Harmonic Response and Resonance</a><a class="sidebar-link" href="../base-excitation-vibration-isolation/index.html">3.2 Base Excitation and Vibration Isolation</a><a class="sidebar-link" href="../transient-response/index.html">3.3 Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a class="sidebar-link" href="../coupled-equations-matrix-form/index.html">4.1 Coupled Equations and Matrix Form</a><a class="sidebar-link" href="../natural-frequencies-mode-shapes/index.html">4.2 Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-analysis/index.html">4.3 Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a class="sidebar-link" href="../continuous-systems-rod-vibration/index.html">5.1 Continuous Systems and Rod Vibration</a><a class="sidebar-link" href="../euler-bernoulli-beam-theory/index.html">5.2 Euler–Bernoulli Beam Theory</a><a class="sidebar-link" href="../beam-natural-frequencies-mode-shapes/index.html">5.3 Beam Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-response-of-beams/index.html">5.4 Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a class="sidebar-link" href="../energy-methods-equivalent-models/index.html">6.1 Energy Methods and Equivalent Models</a><a class="sidebar-link" href="../finite-element-method/index.html">6.2 Finite Element Method</a><a class="sidebar-link" href="../response-analysis-verification/index.html">6.3 Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a class="sidebar-link active" href="../aeroelastic-coupling-static-stability/index.html" aria-current="page">7.1 Aeroelastic Coupling and Static Stability</a><a class="sidebar-link" href="../typical-section-unsteady-aerodynamics/index.html">7.2 Flutter and the Typical Section Model</a><a class="sidebar-link" href="../flutter-analysis/index.html">7.3 Flutter Analysis</a></div></details><nav class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#aerodynamic-loads-and-structural-deformation">1. Aerodynamic Loads and Structural Deformation</a></li><li><a href="#static-aeroelasticity-and-divergence">2. Static Aeroelasticity and Divergence</a></li><li><a href="#static-and-dynamic-instability">3. Static and Dynamic Instability</a></li></ol></nav><article><h2 id="aerodynamic-loads-and-structural-deformation">1. Aerodynamic Loads and Structural Deformation</h2>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="날개에 작용하는 공기력은 날개를 변형시키고, 변형된 날개는 다시 공기력을 바꾼다. 하중과 응답을 함께 결정해야 하는 상황에서 출발하여 공탄성의 의미와 정적 안정성, 진동 중의 에너지 전달을 연결한다."><title>7.1 Aeroelastic Coupling and Static Stability | Isp99</title>
+<script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style></head><body class="article-page"><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><nav class="sidebar-inner"><a href="../index.html" class="sidebar-title">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a href="../vibration-mass-stiffness-damping/index.html" class="sidebar-link"><span class="item-number">1.1</span> Vibration, Mass, Stiffness, and Damping</a><a href="../degrees-of-freedom-equations-of-motion/index.html" class="sidebar-link"><span class="item-number">1.2</span> Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a href="../undamped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.1</span> Undamped Free Vibration</a><a href="../damped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.2</span> Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a href="../harmonic-response-resonance/index.html" class="sidebar-link"><span class="item-number">3.1</span> Harmonic Response and Resonance</a><a href="../base-excitation-vibration-isolation/index.html" class="sidebar-link"><span class="item-number">3.2</span> Base Excitation and Vibration Isolation</a><a href="../transient-response/index.html" class="sidebar-link"><span class="item-number">3.3</span> Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a href="../coupled-equations-matrix-form/index.html" class="sidebar-link"><span class="item-number">4.1</span> Coupled Equations and Matrix Form</a><a href="../natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">4.2</span> Natural Frequencies and Mode Shapes</a><a href="../modal-analysis/index.html" class="sidebar-link"><span class="item-number">4.3</span> Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a href="../continuous-systems-rod-vibration/index.html" class="sidebar-link"><span class="item-number">5.1</span> Continuous Systems and Rod Vibration</a><a href="../euler-bernoulli-beam-theory/index.html" class="sidebar-link"><span class="item-number">5.2</span> Euler–Bernoulli Beam Theory</a><a href="../beam-natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">5.3</span> Beam Natural Frequencies and Mode Shapes</a><a href="../modal-response-of-beams/index.html" class="sidebar-link"><span class="item-number">5.4</span> Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a href="../energy-methods-equivalent-models/index.html" class="sidebar-link"><span class="item-number">6.1</span> Energy Methods and Equivalent Models</a><a href="../finite-element-method/index.html" class="sidebar-link"><span class="item-number">6.2</span> Finite Element Method</a><a href="../response-analysis-verification/index.html" class="sidebar-link"><span class="item-number">6.3</span> Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a href="../aeroelastic-coupling-static-stability/index.html" class="sidebar-link active" aria-current="page"><span class="item-number">7.1</span> Aeroelastic Coupling and Static Stability</a><a href="../typical-section-unsteady-aerodynamics/index.html" class="sidebar-link"><span class="item-number">7.2</span> Flutter and the Typical Section Model</a><a href="../flutter-analysis/index.html" class="sidebar-link"><span class="item-number">7.3</span> Flutter Analysis</a></div></nav></aside><main class="main-content" id="top"><nav aria-label="Current article"><a href="#top">7.1 Aeroelastic Coupling and Static Stability</a></nav><header><h1>7.1 Aeroelastic Coupling and Static Stability</h1><p class="subtitle">Aerodynamic Feedback, Static Equilibrium, and Divergence</p><p class="intro">날개에 작용하는 공기력은 날개를 변형시키고, 변형된 날개는 다시 공기력을 바꾼다. 하중과 응답을 함께 결정해야 하는 상황에서 출발하여 공탄성의 의미와 정적 안정성, 진동 중의 에너지 전달을 연결한다.</p></header><aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#loads-that-change-with-structural-deformation">Loads that Change with Structural Deformation</a></li><li><a href="#a-torsional-model-of-static-aeroelasticity">A Torsional Model of Static Aeroelasticity</a></li><li><a href="#interpreting-the-feedback-strength">Interpreting the Feedback Strength</a></li><li><a href="#equilibrium-and-static-stability">Equilibrium and Static Stability</a></li><li><a href="#geometric-and-structural-effects">Geometric and Structural Effects</a></li><li><a href="#static-divergence-and-flutter">Static Divergence and Flutter</a></li></ol></aside><section id="loads-that-change-with-structural-deformation" aria-labelledby="loads-that-change-with-structural-deformation-title"><h2 id="loads-that-change-with-structural-deformation-title">1. Loads that Change with Structural Deformation</h2>
+<h3 id="coupled-aerodynamic-and-structural-response">Coupled Aerodynamic and Structural Response</h3>
 <p>앞의 진동 문제에서는 하중을 먼저 정하고 구조물의 응답을 계산했다. 그러나 날개에서는 구조물이 변형되면 하중 자체도 달라진다. 예를 들어 날개가 비틀려 받음각이 증가하면 Lift가 변하고, 달라진 Lift와 Moment는 다시 날개를 변형시킨다. 이러한 상호작용을 설명하려면 공기력과 구조변형을 함께 구해야 한다.</p>
 <p><strong>Aeroelasticity</strong>는 공기력과 탄성변형의 상호작용을 다루는 분야이다. 시간에 따른 운동까지 고려할 때에는 구조물의 관성도 포함한다. 구조 운동방정식으로 나타내면</p>
-<div class="equation main" id="eq-ae-coupling"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 7.1.1"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝐌</mi><mi>s</mi></msub><mover><mi>𝐪</mi><mo accent="true">̈</mo></mover><mo>+</mo><msub><mi>𝐂</mi><mi>s</mi></msub><mover><mi>𝐪</mi><mo accent="true">̇</mo></mover><mo>+</mo><msub><mi>𝐊</mi><mi>s</mi></msub><mi>𝐪</mi><mo>=</mo><msub><mi>𝐐</mi><mi>a</mi></msub><mo>+</mo><msub><mi>𝐟</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">t</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathbf{M}_s\ddot{\mathbf{q}}+\mathbf{C}_s\dot{\mathbf{q}}+\mathbf{K}_s\mathbf{q}
+<div class="equation main" id="eq-ae-coupling">\[
+\boxed{\displaystyle \mathbf{M}_s\ddot{\mathbf{q}}+\mathbf{C}_s\dot{\mathbf{q}}+\mathbf{K}_s\mathbf{q}
 =\mathbf{Q}_a+\mathbf{f}_{\mathrm{ext}}(t).
-</annotation></semantics></math></div><span class="equation-number">(7.1.1)</span></div><p>여기서 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐪</mi><annotation encoding="application/x-tex">\mathbf{q}</annotation></semantics></math>는 변위를 나타내는 일반화 좌표이고, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝐌</mi><mi>s</mi></msub><annotation encoding="application/x-tex">\mathbf{M}_s</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝐂</mi><mi>s</mi></msub><annotation encoding="application/x-tex">\mathbf{C}_s</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝐊</mi><mi>s</mi></msub><annotation encoding="application/x-tex">\mathbf{K}_s</annotation></semantics></math>는 구조의 질량·감쇠·강성 행렬이다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝐐</mi><mi>a</mi></msub><annotation encoding="application/x-tex">\mathbf{Q}_a</annotation></semantics></math>는 각 좌표에 대응하는 공기력이며, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝐟</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">x</mi><mi mathvariant="normal">t</mi></mrow></msub><annotation encoding="application/x-tex">\mathbf{f}_{\mathrm{ext}}</annotation></semantics></math>는 별도로 주어진 외부 가진이다. 공기력은 유동 속도뿐 아니라 구조물의 변위와 운동에도 영향을 받는다.</p>
+}
+
+\tag{7.1.1}
+\]</div><p>여기서 <span>\(\mathbf{q}\)</span>는 변위를 나타내는 일반화 좌표이고, <span>\(\mathbf{M}_s\)</span>, <span>\(\mathbf{C}_s\)</span>, <span>\(\mathbf{K}_s\)</span>는 구조의 질량·감쇠·강성 행렬이다. <span>\(\mathbf{Q}_a\)</span>는 각 좌표에 대응하는 공기력이며, <span>\(\mathbf{f}_{\mathrm{ext}}\)</span>는 별도로 주어진 외부 가진이다. 공기력은 유동 속도뿐 아니라 구조물의 변위와 운동에도 영향을 받는다.</p>
 <p>날개가 고정된 형상이라고 가정하여 공기력을 한 번 계산한 뒤 구조해석에 적용하는 방법은 변형에 따른 하중 변화가 작을 때 유용하다. 변형이 공기력을 크게 바꾸는 경우에는 변형된 형상에서 하중을 다시 계산하여 평형과 응답을 확인해야 한다. 공탄성은 이처럼 <strong>하중과 변형이 서로 영향을 주는 관계</strong>에서 출발한다.</p>
-<h2 id="static-aeroelasticity-and-divergence">2. Static Aeroelasticity and Divergence</h2>
-<p>먼저 시간이 지나도 변하지 않는 평형을 생각한다. 날개가 비틀림각 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>만큼 회전하고, 비틀림 강성 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>k</mi><mi>α</mi></msub><annotation encoding="application/x-tex">k_\alpha</annotation></semantics></math>에 의해 원래 위치로 돌아가려는 Moment가 발생한다고 하자. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>는 Nose-up 방향을 양으로 정한다. 작은 받음각 범위에서 Lift를 선형화하면</p>
-<div class="equation" id="eq-ae-static-lift"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 7.1.2"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><msub><mi>q</mi><mi>∞</mi></msub><mi>S</mi><msub><mi>a</mi><mi>L</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>α</mi><mn>0</mn></msub><mo>+</mo><mi>α</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>q</mi><mi>∞</mi></msub><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>ρ</mi><msup><mi>U</mi><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">L=q_\infty S a_L(\alpha_0+\alpha),\qquad q_\infty=\frac12\rho U^2.
-</annotation></semantics></math></div><span class="equation-number">(7.1.2)</span></div><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>는 날개 면적, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>L</mi></msub><annotation encoding="application/x-tex">a_L</annotation></semantics></math>은 Lift curve slope, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\alpha_0</annotation></semantics></math>는 변형 전 받음각, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math>는 유체 밀도, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>는 유동 속도이다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>q</mi><mi>∞</mi></msub><annotation encoding="application/x-tex">q_\infty</annotation></semantics></math>는 Dynamic pressure이며 좌표 벡터 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐪</mi><annotation encoding="application/x-tex">\mathbf{q}</annotation></semantics></math>와 구분한다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>L</mi></msub><annotation encoding="application/x-tex">a_L</annotation></semantics></math>은 받음각이 단위 각도만큼 증가할 때 Lift coefficient가 얼마나 변하는지를 나타낸다.</p>
-<p>공력중심이 탄성축보다 앞에 있고 그 거리를 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>ℓ</mo><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\ell&gt;0</annotation></semantics></math>이라고 하자. 위쪽 Lift는 이 축에 대해 Nose-up moment <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>ℓ</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\ell L</annotation></semantics></math>을 만든다. 단면의 일정한 공력모멘트는 생략하면, 정적 평형은 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>k</mi><mi>α</mi></msub><mi>α</mi><mo>=</mo><mo>ℓ</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">k_\alpha\alpha=\ell L</annotation></semantics></math>이다. Lift 식을 대입하고 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>에 비례하는 항을 모으면</p>
-<div class="equation main" id="eq-ae-divergence-equilibrium"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 7.1.3"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>k</mi><mi>α</mi></msub><mo>−</mo><msub><mi>q</mi><mi>∞</mi></msub><mi>S</mi><msub><mi>a</mi><mi>L</mi></msub><mo>ℓ</mo><mo stretchy="true" form="postfix">)</mo></mrow><mi>α</mi><mo>=</mo><msub><mi>q</mi><mi>∞</mi></msub><mi>S</mi><msub><mi>a</mi><mi>L</mi></msub><mo>ℓ</mo><msub><mi>α</mi><mn>0</mn></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\left(k_\alpha-q_\infty S a_L\ell\right)\alpha
+<p>처음 형상에 작용하는 하중으로 변위를 계산한 결과를 <span class="math inline">\(\alpha^{(1)}\)</span>이라고 하자. 이 변위 때문에 받음각이 바뀌면 두 번째 공력계산의 하중은 처음과 달라진다. 그 하중이 만드는 새로운 변위가 다시 공기력과 일치해야 최종 평형이 된다. <strong>공탄성 평형</strong>은 구조 평형뿐 아니라 변형된 형상에 대한 공기력 관계까지 동시에 만족하는 상태이다.</p>
+<p>이 상호작용이 항상 변형을 키우는 것은 아니다. 비틀림이 받음각을 낮추는 방향이면 처음의 공기력을 줄일 수도 있다. 상호작용의 방향은 공력중심과 탄성축의 위치, 구조의 변형 방향, 하중의 작용선으로 결정된다.</p>
+<h3 id="steady-flow-and-time-dependent-motion">Steady Flow and Time-Dependent Motion</h3>
+<p>여기서 자유류 속도 <span class="math inline">\(U\)</span>가 일정하다는 조건은 구조물까지 정지해 있다는 뜻이 아니다. 일정한 유동 안에서도 날개가 움직이면 단면이 보는 상대유동과 받음각은 시간에 따라 달라진다. 따라서 정상 자유류를 가정하더라도 동적 공탄성 문제가 존재할 수 있다.</p>
+<p>정적 공탄성에서는 충분히 시간이 지난 평형 형상을 찾고, 관성과 속도에 의한 항을 제외한다. 동적 공탄성에서는 그 평형 주변의 작은 교란이 감소하는지 성장하는지를 본다. 두 해석은 같은 구조와 유동을 다루지만 서로 다른 질문에 답한다.</p>
+</section><section id="a-torsional-model-of-static-aeroelasticity" aria-labelledby="a-torsional-model-of-static-aeroelasticity-title"><h2 id="a-torsional-model-of-static-aeroelasticity-title">2. A Torsional Model of Static Aeroelasticity</h2>
+<h3 id="elastic-axis-and-aerodynamic-center">Elastic Axis and Aerodynamic Center</h3>
+<p>먼저 날개 전체를 하나의 작은 비틀림각으로 표현한다. 탄성축은 이 모델에서 비틀림 복원 Moment를 정의하는 기준축이다. 공력중심은 선형 공력 범위에서 받음각 변화에 따른 Pitching moment의 변화가 작은 기준점으로 사용한다. 두 위치가 같지 않으면 Lift가 탄성축에 대한 추가 Moment를 만든다.</p>
+<p>단순화한 모델에서는 구조의 굽힘과 Span 방향 분포를 생략하고, 전체 Lift와 대표 비틀림각의 관계를 이용한다. <span class="math inline">\(k_\alpha\)</span>는 단위 각도당 복원 Moment를 나타내며, 선형 비틀림에서는 변형을 되돌리는 크기가 <span class="math inline">\(k_\alpha\alpha\)</span>이다. 실제 구조의 Torsional rigidity를 대표 좌표의 강성으로 치환한 값으로 이해할 수 있다.</p>
+<h3 id="linear-lift-and-the-equilibrium-equation">Linear Lift and the Equilibrium Equation</h3>
+<p>먼저 시간이 지나도 변하지 않는 평형을 생각한다. 날개가 비틀림각 <span>\(\alpha\)</span>만큼 회전하고, 비틀림 강성 <span>\(k_\alpha\)</span>에 의해 원래 위치로 돌아가려는 Moment가 발생한다고 하자. <span>\(\alpha\)</span>는 Nose-up 방향을 양으로 정한다. 작은 받음각 범위에서 Lift를 선형화하면</p>
+<div class="equation" id="eq-ae-static-lift">\[
+L=q_\infty S a_L(\alpha_0+\alpha),\qquad q_\infty=\frac12\rho U^2.
+
+
+\tag{7.1.2}
+\]</div><p><span>\(S\)</span>는 날개 면적, <span>\(a_L\)</span>은 Lift curve slope, <span>\(\alpha_0\)</span>는 변형 전 받음각, <span>\(\rho\)</span>는 유체 밀도, <span>\(U\)</span>는 유동 속도이다. <span>\(q_\infty\)</span>는 Dynamic pressure이며 좌표 벡터 <span>\(\mathbf{q}\)</span>와 구분한다. <span>\(a_L\)</span>은 받음각이 단위 각도만큼 증가할 때 Lift coefficient가 얼마나 변하는지를 나타낸다.</p>
+<p>공력중심이 탄성축보다 앞에 있고 그 거리를 <span>\(\ell&gt;0\)</span>이라고 하자. 위쪽 Lift는 이 축에 대해 Nose-up moment <span>\(\ell L\)</span>을 만든다. 단면의 일정한 공력모멘트는 생략하면, 정적 평형은 <span>\(k_\alpha\alpha=\ell L\)</span>이다. Lift 식을 대입하고 <span>\(\alpha\)</span>에 비례하는 항을 모으면</p>
+<div class="equation main" id="eq-ae-divergence-equilibrium">\[
+\boxed{\displaystyle \left(k_\alpha-q_\infty S a_L\ell\right)\alpha
 =q_\infty S a_L\ell\alpha_0.
-</annotation></semantics></math></div><span class="equation-number">(7.1.3)</span></div><p>왼쪽 괄호는 변형을 복원하는 <strong>Effective stiffness</strong>이다. 이 모델에서는 비틀림이 Lift를 증가시키고, 증가한 Lift가 다시 같은 방향의 비틀림을 만든다. 따라서 유동 속도가 커질수록 구조 강성의 일부가 공기력의 영향으로 상쇄된다.</p>
+}
+
+\tag{7.1.3}
+\]</div><p>왼쪽 괄호는 변형을 복원하는 <strong>Effective stiffness</strong>이다. 이 모델에서는 비틀림이 Lift를 증가시키고, 증가한 Lift가 다시 같은 방향의 비틀림을 만든다. 따라서 유동 속도가 커질수록 구조 강성의 일부가 공기력의 영향으로 상쇄된다.</p>
 <p>유효 강성이 0이 되는 Dynamic pressure와 속도는</p>
-<div class="equation" id="eq-ae-divergence-speed"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 7.1.4"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mi>D</mi></msub><mo>=</mo><mfrac><msub><mi>k</mi><mi>α</mi></msub><mrow><mi>S</mi><msub><mi>a</mi><mi>L</mi></msub><mo>ℓ</mo></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>U</mi><mi>D</mi></msub><mo>=</mo><msqrt><mfrac><mrow><mn>2</mn><msub><mi>k</mi><mi>α</mi></msub></mrow><mrow><mi>ρ</mi><mi>S</mi><msub><mi>a</mi><mi>L</mi></msub><mo>ℓ</mo></mrow></mfrac></msqrt><mi>.</mi></mrow><annotation encoding="application/x-tex">q_D=\frac{k_\alpha}{S a_L\ell},\qquad
+<div class="equation" id="eq-ae-divergence-speed">\[
+q_D=\frac{k_\alpha}{S a_L\ell},\qquad
 U_D=\sqrt{\frac{2k_\alpha}{\rho S a_L\ell}}.
-</annotation></semantics></math></div><span class="equation-number">(7.1.4)</span></div><p>이다. 이 경계를 <strong>Divergence</strong>라고 한다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>0</mn></msub><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\alpha_0\neq0</annotation></semantics></math>이면 선형 해에서 경계에 가까워질수록 비틀림각이 크게 증가한다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mn>0</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\alpha_0=0</annotation></semantics></math>인 경우에도 경계에서 원점 평형의 복원 강성을 잃는다. 실제 구조물이 무한히 변형한다는 뜻은 아니며, 큰 변형과 비선형 효과를 무시한 선형 해석의 한계를 나타낸다.</p>
-<p>이 결과에는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>ℓ</mo><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\ell&gt;0</annotation></semantics></math>이라는 조건이 포함된다. 공력중심이 축 뒤에 있어 Lift가 복원 Moment를 만들면, 같은 단일 비틀림 모델에서 공기력은 유효 강성을 증가시킨다. 따라서 공력중심과 탄성축의 위치 및 Moment의 부호를 먼저 정해야 한다.</p>
-<h2 id="static-and-dynamic-instability">3. Static and Dynamic Instability</h2>
+
+
+\tag{7.1.4}
+\]</div><p>이다. 이 경계를 <strong>Divergence</strong>라고 한다. <span>\(\alpha_0\neq0\)</span>이면 선형 해에서 경계에 가까워질수록 비틀림각이 크게 증가한다. <span>\(\alpha_0=0\)</span>인 경우에도 경계에서 원점 평형의 복원 강성을 잃는다. 실제 구조물이 무한히 변형한다는 뜻은 아니며, 큰 변형과 비선형 효과를 무시한 선형 해석의 한계를 나타낸다.</p>
+<p>이 결과에는 <span>\(\ell&gt;0\)</span>이라는 조건이 포함된다. 공력중심이 축 뒤에 있어 Lift가 복원 Moment를 만들면, 같은 단일 비틀림 모델에서 공기력은 유효 강성을 증가시킨다. 따라서 공력중심과 탄성축의 위치 및 Moment의 부호를 먼저 정해야 한다.</p>
+<p>이 모델은 Lift가 작은 받음각에 비례하고, 비틀림각이 대표 받음각에 그대로 더해진다고 가정한다. 또한 공력중심 자체의 일정한 Pitching moment는 생략했다. 그러한 일정 Moment가 있다면 평형식의 오른쪽 하중항에는 추가되지만, 이 선형화에서 각도에 무관한 항만으로는 접선강성이 바뀌지 않는다.</p>
+<p><span class="math inline">\(\rho\)</span>는 여기서 공기의 밀도이다. 앞 장의 Beam에서 사용한 구조 재료의 밀도와 같은 기호를 쓰더라도 물리적 대상은 다르다. <span class="math inline">\(S\)</span> 역시 날개의 기준 면적이며 Beam 단면적 <span class="math inline">\(A\)</span>와 구분한다. 구조와 공력의 식을 연결할 때에는 같은 기호의 의미와 기준량을 명확히 맞추어야 한다.</p>
+</section><section id="interpreting-the-feedback-strength" aria-labelledby="interpreting-the-feedback-strength-title"><h2 id="interpreting-the-feedback-strength-title">3. Interpreting the Feedback Strength</h2>
+<h3 id="a-dimensionless-load-parameter">A Dimensionless Load Parameter</h3>
+<p>동압을 Divergence dynamic pressure로 나눈 <span class="math inline">\(\eta=q_\infty/q_D\)</span>를 도입하면, 복잡한 계수 대신 상호작용의 상대적인 크기로 평형을 쓸 수 있다. 앞의 <span class="math inline">\(\ell&gt;0\)</span>인 모델에서 다음 관계를 얻는다.</p>
+<div class="equation" id="eq-added-7-1-5">\[
+(1-\eta)\alpha=\eta\alpha_0,\qquad
+\alpha=\frac{\eta}{1-\eta}\alpha_0,\qquad
+\alpha_0+\alpha=\frac{\alpha_0}{1-\eta}.
+
+\tag{7.1.5}
+\]</div><p>따라서 <span class="math inline">\(\eta\)</span>가 작을 때에는 유연성에 의한 받음각 변화가 작다. 반면 <span class="math inline">\(\eta\)</span>가 1에 가까워질수록 작은 초기 받음각도 큰 변형으로 이어진다. 분모의 <span class="math inline">\(1-\eta\)</span>는 구조 복원력에 비해 공기력의 양의 되먹임이 얼마나 강해졌는지 나타낸다.</p>
+<h3 id="rigid-and-flexible-lift">Rigid and Flexible Lift</h3>
+<p>같은 초기 받음각을 갖는 강체 날개의 Lift를 <span class="math inline">\(L_{\mathrm{rigid}}=q_\infty S a_L\alpha_0\)</span>라 하면, 이 단순 모델의 유연한 날개에서는 다음과 같다.</p>
+<div class="equation" id="eq-added-7-1-6">\[
+\frac{L_{\mathrm{flexible}}}{L_{\mathrm{rigid}}}
+=\frac{1}{1-\eta}\qquad(\alpha_0\ne0).
+
+\tag{7.1.6}
+\]</div><p>예를 들어 <span class="math inline">\(\eta=0.2\)</span>이면 총 Lift는 강체값의 1.25배이다. 이는 강체 공력을 한 번 적용하는 해석에서 유연성에 의한 하중 증가를 놓칠 수 있음을 보여준다. 다만 <span class="math inline">\(\eta\)</span>가 커져 각도가 더 이상 작지 않으면 선형 Lift 및 작은 변형 가정을 함께 재검토해야 한다.</p>
+<p>이 비율이 무한대로 향한다는 수학적 결과를 실제 날개의 무한한 Lift로 해석하지 않는다. 선형 모델이 유한하고 안정한 작은 변형의 평형을 더 이상 유지하지 못한다는 신호이다. 실제 응답에는 비선형 공력과 구조의 영향이 먼저 중요해질 수 있다.</p>
+</section><section id="equilibrium-and-static-stability" aria-labelledby="equilibrium-and-static-stability-title"><h2 id="equilibrium-and-static-stability-title">4. Equilibrium and Static Stability</h2>
+<h3 id="perturbing-the-equilibrium">Perturbing the Equilibrium</h3>
+<p>평형각 <span class="math inline">\(\alpha_e\)</span> 주변에 작은 추가 회전 <span class="math inline">\(\delta\alpha\)</span>를 주면, 원래 평형에서 서로 상쇄되던 일정 항들은 사라진다. 남는 복원 Moment의 변화는 <span class="math inline">\(k_{\mathrm{eff}}\delta\alpha\)</span>이며 <span class="math inline">\(k_{\mathrm{eff}}=k_\alpha-q_\infty S a_L\ell\)</span>이다.</p>
+<p>이를 동적 교란식의 가장 단순한 형태로 쓰면 다음과 같다. 여기서는 정적강성의 역할만 보기 위해 공력의 속도·가속도 의존성을 생략한다.</p>
+<div class="equation" id="eq-added-7-1-7">\[
+I_\alpha\,\delta\ddot\alpha+c_\alpha\,\delta\dot\alpha
++k_{\mathrm{eff}}\,\delta\alpha=0.
+
+\tag{7.1.7}
+\]</div><p><span class="math inline">\(k_{\mathrm{eff}}&gt;0\)</span>이면 작은 회전에 대한 탄성·정적 공력의 합이 되돌리는 방향이다. <span class="math inline">\(k_{\mathrm{eff}}&lt;0\)</span>이면 변형을 키우는 방향이 되어, 양의 관성과 비음의 구조 감쇠를 가진 이 모델에는 성장하는 해가 생긴다. 따라서 <strong>평형식의 해가 존재하는지</strong>와 <strong>그 평형이 안정한지</strong>는 구분해야 한다.</p>
+<h3 id="the-critical-and-zero-load-cases">The Critical and Zero-Load Cases</h3>
+<p><span class="math inline">\(\alpha_0=0\)</span>이면 <span class="math inline">\(\alpha=0\)</span>은 임계 동압 전후에도 형식상 평형식의 해이다. 그러나 임계점을 넘으면 작은 교란이 돌아오지 않으므로 이 해를 안정한 비행 상태로 해석할 수 없다. 외부에 초기 받음각이 없다고 Divergence가 사라지는 것은 아니다.</p>
+<p>반대로 <span class="math inline">\(\alpha_0\ne0\)</span>이면 임계 동압에 접근하면서 선형 평형각이 커지고, 임계점에서는 0인 강성과 0이 아닌 하중이 양립할 수 없다. 이 두 경우는 같은 유효강성의 손실을 서로 다른 평형 응답으로 드러낸다.</p>
+</section><section id="geometric-and-structural-effects" aria-labelledby="geometric-and-structural-effects-title"><h2 id="geometric-and-structural-effects-title">5. Geometric and Structural Effects</h2>
+<h3 id="the-sign-of-the-aerodynamic-moment-arm">The Sign of the Aerodynamic Moment Arm</h3>
+<p>앞의 Divergence 식은 Lift 증가가 양의 비틀림을 더 만드는 배치에서 얻었다. 공력중심의 위치가 반대여서 양의 비틀림에 따른 공력 Moment가 되돌리는 방향으로 작용하면 유효강성은 증가할 수 있다. 거리를 양수로만 넣고 방향에 따른 부호를 무시하면 안정화 효과를 불안정화로 잘못 해석하게 된다.</p>
+<p><span class="math inline">\(\ell=0\)</span>이면 이 모델의 Lift는 탄성축에 대한 Moment를 만들지 않는다. 따라서 여기서 다룬 Lift–torsion 경로의 정적 되먹임도 사라진다. 이것은 모든 종류의 공탄성 불안정이 사라진다는 뜻은 아니다. 다른 구조 연성이나 동적 공력 효과는 더 많은 좌표를 포함한 모델에서 남을 수 있다.</p>
+<h3 id="stiffness-density-and-multiple-coordinates">Stiffness, Density, and Multiple Coordinates</h3>
+<p>단순식에서 <span class="math inline">\(U_D\)</span>는 <span class="math inline">\(k_\alpha^{1/2}\)</span>에 비례하고 <span class="math inline">\(\rho^{-1/2}\)</span>에 비례한다. 같은 공력 계수와 강성 조건에서는 동압이 직접적인 하중 척도이므로 공기 밀도가 달라지면 같은 Divergence dynamic pressure에 도달하는 속도도 달라진다. 속도만 비교할 때에는 사용한 밀도와 공력 조건을 함께 알아야 한다.</p>
+<p>여러 굽힘·비틀림 좌표를 포함하면 정적 평형은 <span class="math inline">\([\mathbf K_s-\mathbf K_a(U)]\mathbf q=\mathbf f_0(U)\)</span>가 된다. 이때 정적 임계조건은 유효강성 행렬이 특이해지는 것으로 표현할 수 있다.</p>
+<div class="equation" id="eq-added-7-1-8">\[
+\det[\mathbf K_s-\mathbf K_a(U_D)]=0.
+
+\tag{7.1.8}
+\]</div><p>단일 비틀림 모델의 분모가 0이 되는 조건이 행렬의 특이성으로 확장된 것이다. 해당 영공간의 벡터는 복원력을 잃는 변형의 조합을 나타낸다. 일반적인 공력 행렬이 반드시 대칭이거나 보존적인 것은 아니므로, 양의 에너지만으로 모든 공탄성 안정성을 판정하는 방식에는 한계가 있다.</p>
+</section><section id="static-divergence-and-flutter" aria-labelledby="static-divergence-and-flutter-title"><h2 id="static-divergence-and-flutter-title">6. Static Divergence and Flutter</h2>
+<h3 id="two-different-stability-boundaries">Two Different Stability Boundaries</h3>
 <p>정적 평형이 존재한다고 해서 그 주변의 작은 진동까지 안정하다는 보장은 없다. 운동하는 날개에서는 공기력의 크기와 방향이 시간에 따라 달라지고, 그 힘이 진동에 에너지를 공급할 수 있다. 이 공급이 감쇠에 의한 소산을 이기면 작은 교란에서 시작한 진폭이 성장한다. 이러한 진동 불안정 현상이 <strong>Flutter</strong>이다.</p>
 <p>Divergence는 정적 복원력을 잃는 현상이며, Flutter는 0이 아닌 주파수의 진동이 성장하기 시작하는 현상이다. 따라서 정적 공탄성에서는 주로 강성의 변화를 살피고, 동적 공탄성에서는 질량·강성·감쇠와 공기력의 관계를 함께 살핀다. 실제로 어느 불안정이 먼저 나타나는지는 구조와 유동 조건에 따라 달라진다.</p>
 <p>앞에서 배운 Resonance는 주어진 반복 외력에 대한 응답이 입력 주파수에 따라 커지는 현상이다. Flutter에서는 구조물의 운동이 공기력을 바꾸고, 그 공기력이 다시 운동에 작용한다. 일정한 자유류에서도 이러한 상호작용이 지속되므로, 별도의 주기 외력이 없어도 진동이 성장할 수 있다.</p>
-</article><div class="one-line-summary"><strong>Summary</strong><p>Aeroelasticity는 변형에 따라 달라지는 공기력을 함께 다루며, 정적 복원력의 상실과 진동의 성장을 구분하여 안정성을 판단한다.</p></div><nav class="pagination" aria-label="Previous and next article"><a rel="prev" href="../response-analysis-verification/index.html"><small>Previous</small>6.3 Response Analysis and Verification</a><a rel="next" href="../typical-section-unsteady-aerodynamics/index.html"><small>Next</small>7.2 Flutter and the Typical Section Model</a></nav><footer><a href="../index.html">Contents</a> · <a href="#top">Back to top</a></footer></main><aside class="right-sidebar" aria-label="On this page"><div class="sidebar-inner"><div class="sidebar-title">On this page</div><a class="sidebar-link" href="#aerodynamic-loads-and-structural-deformation">1. Aerodynamic Loads and Structural Deformation</a><a class="sidebar-link" href="#static-aeroelasticity-and-divergence">2. Static Aeroelasticity and Divergence</a><a class="sidebar-link" href="#static-and-dynamic-instability">3. Static and Dynamic Instability</a></div></aside></div></body></html>
+<p>Divergence의 가장 단순한 징후는 정적 복원력이 사라지며 0 주파수의 교란이 성장하는 것이다. Flutter에서는 0이 아닌 진동 주파수의 운동이 성장한다. 따라서 정적강성만 확인하면 동적 에너지 전달로 생기는 불안정을 놓칠 수 있다.</p>
+<p>속도 증가에 따라 어떤 Mode의 주파수가 낮아지는 것과 그 Mode의 감쇠가 음수가 되는 것도 같은 조건이 아니다. 주파수는 진동 시간척도를 나타내고, 감쇠 또는 성장률은 진폭의 시간변화를 나타낸다. 다음 글에서는 두 좌표의 결합과 공기력이 하는 일을 이용해 이 차이를 구체적으로 살펴본다.</p>
+<h3 id="the-scope-of-the-linear-model">The Scope of the Linear Model</h3>
+<p>이 글의 선형화는 평형 주변의 작은 교란에 대한 시작 조건을 다룬다. 임계점 이후 진폭이 어디까지 커지는지, 새로운 비선형 평형이나 제한된 진동에 도달하는지는 여기의 식만으로 결정되지 않는다. Flutter speed나 Divergence speed는 선택한 모델에서 안정성을 잃는 경계로 읽어야 한다.</p>
+<p>그 경계를 이해하는 데 필요한 구조동역학의 기본 요소는 앞에서 배운 것과 같다. 질량은 가속도에, 감쇠는 속도에, 강성은 변위에 대응한다. 공탄성에서는 공기력도 같은 운동량에 의존하면서 이 관계를 바꾸고 여러 좌표를 연결한다.</p>
+</section><footer><a href="../index.html">← Structural Dynamics &amp; Aeroelasticity로 돌아가기</a></footer></main><aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#loads-that-change-with-structural-deformation" class="sidebar-link"><span class="item-number">1.</span><span>Loads that Change with Structural Deformation</span></a><a href="#a-torsional-model-of-static-aeroelasticity" class="sidebar-link"><span class="item-number">2.</span><span>A Torsional Model of Static Aeroelasticity</span></a><a href="#interpreting-the-feedback-strength" class="sidebar-link"><span class="item-number">3.</span><span>Interpreting the Feedback Strength</span></a><a href="#equilibrium-and-static-stability" class="sidebar-link"><span class="item-number">4.</span><span>Equilibrium and Static Stability</span></a><a href="#geometric-and-structural-effects" class="sidebar-link"><span class="item-number">5.</span><span>Geometric and Structural Effects</span></a><a href="#static-divergence-and-flutter" class="sidebar-link"><span class="item-number">6.</span><span>Static Divergence and Flutter</span></a></nav></aside></div><script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script></body></html>

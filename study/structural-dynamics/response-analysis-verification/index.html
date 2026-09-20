@@ -1,62 +1,312 @@
 <!DOCTYPE html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="해석 목적에 맞는 응답을 계산하고, 모델 조건·수치 수렴·측정 결과를 함께 확인하여 결과의 타당성을 판단한다."><title>6.3 Response Analysis and Verification | Isp99</title><link rel="stylesheet" href="../structural-dynamics.css"><script defer src="../navigation.js"></script></head><body class="article-page"><a class="skip-link" href="#main">Skip to content</a><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><div class="sidebar-inner"><a class="sidebar-title" href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a class="sidebar-link" href="../vibration-mass-stiffness-damping/index.html">1.1 Vibration, Mass, Stiffness, and Damping</a><a class="sidebar-link" href="../degrees-of-freedom-equations-of-motion/index.html">1.2 Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a class="sidebar-link" href="../undamped-free-vibration/index.html">2.1 Undamped Free Vibration</a><a class="sidebar-link" href="../damped-free-vibration/index.html">2.2 Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a class="sidebar-link" href="../harmonic-response-resonance/index.html">3.1 Harmonic Response and Resonance</a><a class="sidebar-link" href="../base-excitation-vibration-isolation/index.html">3.2 Base Excitation and Vibration Isolation</a><a class="sidebar-link" href="../transient-response/index.html">3.3 Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a class="sidebar-link" href="../coupled-equations-matrix-form/index.html">4.1 Coupled Equations and Matrix Form</a><a class="sidebar-link" href="../natural-frequencies-mode-shapes/index.html">4.2 Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-analysis/index.html">4.3 Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a class="sidebar-link" href="../continuous-systems-rod-vibration/index.html">5.1 Continuous Systems and Rod Vibration</a><a class="sidebar-link" href="../euler-bernoulli-beam-theory/index.html">5.2 Euler–Bernoulli Beam Theory</a><a class="sidebar-link" href="../beam-natural-frequencies-mode-shapes/index.html">5.3 Beam Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-response-of-beams/index.html">5.4 Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a class="sidebar-link" href="../energy-methods-equivalent-models/index.html">6.1 Energy Methods and Equivalent Models</a><a class="sidebar-link" href="../finite-element-method/index.html">6.2 Finite Element Method</a><a class="sidebar-link active" href="../response-analysis-verification/index.html" aria-current="page">6.3 Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a class="sidebar-link" href="../aeroelastic-coupling-static-stability/index.html">7.1 Aeroelastic Coupling and Static Stability</a><a class="sidebar-link" href="../typical-section-unsteady-aerodynamics/index.html">7.2 Flutter and the Typical Section Model</a><a class="sidebar-link" href="../flutter-analysis/index.html">7.3 Flutter Analysis</a></div></div></aside><main class="main-content" id="main"><nav class="breadcrumb"><a href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><span>/</span><a href="../index.html#chapter-6">Structural Analysis Methods</a></nav><header id="top"><h1>6.3 Response Analysis and Verification</h1><p class="intro">질량과 강성 모델을 만든 다음에는 무엇을 구하려는지에 맞춰 해석 방법을 선택해야 한다. 고유주파수, 주기 하중의 진폭, 시간에 따른 응답은 서로 다른 질문이며, 계산 결과는 관심 출력의 수렴과 시험 조건을 함께 확인해야 해석할 수 있다.</p></header><details class="mobile-series"><summary>Series Navigation</summary><a class="sidebar-title" href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a class="sidebar-link" href="../vibration-mass-stiffness-damping/index.html">1.1 Vibration, Mass, Stiffness, and Damping</a><a class="sidebar-link" href="../degrees-of-freedom-equations-of-motion/index.html">1.2 Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a class="sidebar-link" href="../undamped-free-vibration/index.html">2.1 Undamped Free Vibration</a><a class="sidebar-link" href="../damped-free-vibration/index.html">2.2 Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a class="sidebar-link" href="../harmonic-response-resonance/index.html">3.1 Harmonic Response and Resonance</a><a class="sidebar-link" href="../base-excitation-vibration-isolation/index.html">3.2 Base Excitation and Vibration Isolation</a><a class="sidebar-link" href="../transient-response/index.html">3.3 Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a class="sidebar-link" href="../coupled-equations-matrix-form/index.html">4.1 Coupled Equations and Matrix Form</a><a class="sidebar-link" href="../natural-frequencies-mode-shapes/index.html">4.2 Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-analysis/index.html">4.3 Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a class="sidebar-link" href="../continuous-systems-rod-vibration/index.html">5.1 Continuous Systems and Rod Vibration</a><a class="sidebar-link" href="../euler-bernoulli-beam-theory/index.html">5.2 Euler–Bernoulli Beam Theory</a><a class="sidebar-link" href="../beam-natural-frequencies-mode-shapes/index.html">5.3 Beam Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-response-of-beams/index.html">5.4 Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a class="sidebar-link" href="../energy-methods-equivalent-models/index.html">6.1 Energy Methods and Equivalent Models</a><a class="sidebar-link" href="../finite-element-method/index.html">6.2 Finite Element Method</a><a class="sidebar-link active" href="../response-analysis-verification/index.html" aria-current="page">6.3 Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a class="sidebar-link" href="../aeroelastic-coupling-static-stability/index.html">7.1 Aeroelastic Coupling and Static Stability</a><a class="sidebar-link" href="../typical-section-unsteady-aerodynamics/index.html">7.2 Flutter and the Typical Section Model</a><a class="sidebar-link" href="../flutter-analysis/index.html">7.3 Flutter Analysis</a></div></details><nav class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#modal-harmonic-and-transient-analysis">1. Modal, Harmonic, and Transient Analysis</a></li><li><a href="#modal-superposition-and-time-integration">2. Modal Superposition and Time Integration</a></li><li><a href="#interpreting-analysis-and-measurement-results">3. Interpreting Analysis and Measurement Results</a></li></ol></nav><article><h2 id="modal-harmonic-and-transient-analysis">1. Modal, Harmonic, and Transient Analysis</h2>
-<h3 id="different-questions-applied-to-the-same-model">Different Questions Applied to the Same Model</h3>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="질량과 강성 모델을 만든 다음에는 무엇을 구하려는지에 맞춰 해석 방법을 선택해야 한다. 고유주파수, 주기 하중의 진폭, 시간에 따른 응답은 서로 다른 질문이며, 계산 결과는 관심 출력의 수렴과 시험 조건을 함께 확인해야 해석할 수 있다."><title>6.3 Response Analysis and Verification | Isp99</title>
+<script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style></head><body class="article-page"><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><nav class="sidebar-inner"><a href="../index.html" class="sidebar-title">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a href="../vibration-mass-stiffness-damping/index.html" class="sidebar-link"><span class="item-number">1.1</span> Vibration, Mass, Stiffness, and Damping</a><a href="../degrees-of-freedom-equations-of-motion/index.html" class="sidebar-link"><span class="item-number">1.2</span> Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a href="../undamped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.1</span> Undamped Free Vibration</a><a href="../damped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.2</span> Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a href="../harmonic-response-resonance/index.html" class="sidebar-link"><span class="item-number">3.1</span> Harmonic Response and Resonance</a><a href="../base-excitation-vibration-isolation/index.html" class="sidebar-link"><span class="item-number">3.2</span> Base Excitation and Vibration Isolation</a><a href="../transient-response/index.html" class="sidebar-link"><span class="item-number">3.3</span> Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a href="../coupled-equations-matrix-form/index.html" class="sidebar-link"><span class="item-number">4.1</span> Coupled Equations and Matrix Form</a><a href="../natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">4.2</span> Natural Frequencies and Mode Shapes</a><a href="../modal-analysis/index.html" class="sidebar-link"><span class="item-number">4.3</span> Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a href="../continuous-systems-rod-vibration/index.html" class="sidebar-link"><span class="item-number">5.1</span> Continuous Systems and Rod Vibration</a><a href="../euler-bernoulli-beam-theory/index.html" class="sidebar-link"><span class="item-number">5.2</span> Euler–Bernoulli Beam Theory</a><a href="../beam-natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">5.3</span> Beam Natural Frequencies and Mode Shapes</a><a href="../modal-response-of-beams/index.html" class="sidebar-link"><span class="item-number">5.4</span> Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a href="../energy-methods-equivalent-models/index.html" class="sidebar-link"><span class="item-number">6.1</span> Energy Methods and Equivalent Models</a><a href="../finite-element-method/index.html" class="sidebar-link"><span class="item-number">6.2</span> Finite Element Method</a><a href="../response-analysis-verification/index.html" class="sidebar-link active" aria-current="page"><span class="item-number">6.3</span> Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a href="../aeroelastic-coupling-static-stability/index.html" class="sidebar-link"><span class="item-number">7.1</span> Aeroelastic Coupling and Static Stability</a><a href="../typical-section-unsteady-aerodynamics/index.html" class="sidebar-link"><span class="item-number">7.2</span> Flutter and the Typical Section Model</a><a href="../flutter-analysis/index.html" class="sidebar-link"><span class="item-number">7.3</span> Flutter Analysis</a></div></nav></aside><main class="main-content" id="top"><nav aria-label="Current article"><a href="#top">6.3 Response Analysis and Verification</a></nav><header><h1>6.3 Response Analysis and Verification</h1><p class="subtitle">Frequency Response, Time Integration, and Model Verification</p><p class="intro">질량과 강성 모델을 만든 다음에는 무엇을 구하려는지에 맞춰 해석 방법을 선택해야 한다. 고유주파수, 주기 하중의 진폭, 시간에 따른 응답은 서로 다른 질문이며, 계산 결과는 관심 출력의 수렴과 시험 조건을 함께 확인해야 해석할 수 있다.</p></header><aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#selecting-the-response-problem">Selecting the Response Problem</a></li><li><a href="#frequency-response-functions">Frequency Response Functions</a></li><li><a href="#modal-superposition-and-truncation">Modal Superposition and Truncation</a></li><li><a href="#direct-time-integration">Direct Time Integration</a></li><li><a href="#interpreting-structural-and-measured-responses">Interpreting Structural and Measured Responses</a></li><li><a href="#verification-and-model-comparison">Verification and Model Comparison</a></li></ol></aside><section id="selecting-the-response-problem" aria-labelledby="selecting-the-response-problem-title"><h2 id="selecting-the-response-problem-title">1. Selecting the Response Problem</h2>
+<h3 id="inputs-and-outputs">Inputs and Outputs</h3>
 <p>질량과 강성 모델을 만들었다고 해서 모든 해석이 같은 결과를 주는 것은 아니다. 입력과 구하려는 양에 따라 적용하는 방정식이 달라진다.</p>
-<div class="table-wrap" tabindex="0"><table>
+<div class="comparison-wrap" tabindex="0"><table class="comparison">
 <thead>
 <tr class="header">
-<th style="text-align: left;">Analysis</th>
-<th style="text-align: left;">Main input</th>
-<th style="text-align: left;">Main result</th>
+<th>Analysis</th>
+<th>Main input</th>
+<th>Main result</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Static</td>
-<td style="text-align: left;">일정하거나 충분히 느린 하중</td>
-<td style="text-align: left;">평형변위, 응력, 반력</td>
+<td>Static</td>
+<td>일정하거나 충분히 느린 하중</td>
+<td>평형변위, 응력, 반력</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Modal</td>
-<td style="text-align: left;">질량, 강성, 지지조건</td>
-<td style="text-align: left;">Natural frequency, Mode shape</td>
+<td>Modal</td>
+<td>질량, 강성, 지지조건</td>
+<td>Natural frequency, Mode shape</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Harmonic</td>
-<td style="text-align: left;">주파수별 Sinusoidal load와 감쇠</td>
-<td style="text-align: left;">정상응답의 진폭과 위상</td>
+<td>Harmonic</td>
+<td>주파수별 Sinusoidal load와 감쇠</td>
+<td>정상응답의 진폭과 위상</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Transient</td>
-<td style="text-align: left;">하중의 시간기록, 초기조건, 감쇠</td>
-<td style="text-align: left;">시간에 따른 변위, 속도, 응력</td>
+<td>Transient</td>
+<td>하중의 시간기록, 초기조건, 감쇠</td>
+<td>시간에 따른 변위, 속도, 응력</td>
 </tr>
 </tbody>
 </table>
 </div><p>Modal analysis 자체는 실제 작동 중의 진폭이나 응력을 정하지 않는다. 실제 Response를 얻으려면 하중과 감쇠, 초기조건 또는 정상상태 조건을 추가해야 한다.</p>
-<h3 id="frequency-response-function">Frequency Response Function</h3>
+<p>같은 Beam이라도 고유주파수를 알고 싶은지, 특정 회전수에서 끝단변위를 알고 싶은지, 짧은 충격 뒤의 최대응력을 알고 싶은지에 따라 필요한 입력이 달라진다. 해석을 시작할 때에는 하중의 공간분포와 시간특성, 그리고 관심 출력의 위치와 종류를 먼저 정한다.</p>
+<p>정적해석에서 변형이 작다고 동적응답도 작다고 판단할 수는 없다. 반복 입력이 고유주파수 부근에 있으면 관성과 감쇠가 결과를 지배한다. 반대로 입력이 구조물의 주요 주기에 비해 충분히 느리게 변하고 급격한 시작·종료가 없다면 정적 평형의 연속으로 근사할 수 있다.</p>
+<h3 id="equilibrium-and-initial-conditions">Equilibrium and Initial Conditions</h3>
+<p>동적해석은 기준 평형점과 초기상태를 필요로 한다. 중력 아래 처진 구조물에 추가 하중을 가하는 문제라면 정적 처짐을 먼저 계산하고 그 주변의 운동을 표현할 수 있다. 초기변위 0이라는 조건은 선택한 기준점에서 0이라는 뜻이지, 구조물이 원래의 무하중 형상이라는 뜻으로 항상 해석되지는 않는다.</p>
+<p>초기 가속도는 임의로 독립 지정하기보다 운동방정식에서 결정한다. 예를 들어 <span class="math inline">\(\boldsymbol x_0\)</span>, <span class="math inline">\(\boldsymbol v_0\)</span>가 주어지면 <span class="math inline">\(\mathbf M\boldsymbol a_0=\boldsymbol F(0)-\mathbf C\boldsymbol v_0-\mathbf K\boldsymbol x_0\)</span>이다. 이 관계를 맞추어야 첫 시점부터 힘의 평형이 일관된다.</p>
+</section><section id="frequency-response-functions" aria-labelledby="frequency-response-functions-title"><h2 id="frequency-response-functions-title">2. Frequency Response Functions</h2>
+<h3 id="complex-amplitude-and-dynamic-stiffness">Complex Amplitude and Dynamic Stiffness</h3>
 <p>입력이 여러 주파수로 변할 때마다 응답을 다시 정리하기 위해, 주파수별 입력과 출력의 관계를 <strong>Frequency response function</strong>, 즉 FRF로 정의한다. 위상과 진폭을 함께 표현하려면 Complex amplitude가 편리하다.</p>
-<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="normal">i</mi><mn>2</mn></msup><mo>=</mo><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\mathrm{i}^2=-1</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="normal">e</mi><mrow><mi mathvariant="normal">i</mi><mi>Ω</mi><mi>t</mi></mrow></msup><mo>=</mo><mo>cos</mo><mi>Ω</mi><mi>t</mi><mo>+</mo><mi mathvariant="normal">i</mi><mo>sin</mo><mi>Ω</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">\mathrm{e}^{\mathrm{i}\Omega t}=\cos\Omega t+\mathrm{i}\sin\Omega t</annotation></semantics></math>를 이용하여 실제 변위를 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>Re</mo><mo stretchy="false" form="prefix">{</mo><mover><mi>x</mi><mo accent="true">̂</mo></mover><msup><mi mathvariant="normal">e</mi><mrow><mi mathvariant="normal">i</mi><mi>Ω</mi><mi>t</mi></mrow></msup><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">x(t)=\operatorname{Re}\{\hat x\mathrm{e}^{\mathrm{i}\Omega t}\}</annotation></semantics></math>로 쓴다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>Re</mo><annotation encoding="application/x-tex">\operatorname{Re}</annotation></semantics></math>는 실수부이며, 실제 변위가 허수라는 뜻은 아니다. 시간미분은 Complex amplitude에서 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">i</mi><mi>Ω</mi></mrow><annotation encoding="application/x-tex">\mathrm{i}\Omega</annotation></semantics></math>를 곱하는 연산이 되므로</p>
-<div class="equation" id="eq-6-3-1"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 6.3.1"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo>−</mo><mi>m</mi><msup><mi>Ω</mi><mn>2</mn></msup><mo>+</mo><mi mathvariant="normal">i</mi><mi>c</mi><mi>Ω</mi><mo stretchy="true" form="postfix">)</mo></mrow><mover><mi>x</mi><mo accent="true">̂</mo></mover></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mover><mi>F</mi><mo accent="true">̂</mo></mover></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>H</mi><mrow><mi>x</mi><mi>F</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>Ω</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≡</mo><mfrac><mover><mi>x</mi><mo accent="true">̂</mo></mover><mover><mi>F</mi><mo accent="true">̂</mo></mover></mfrac></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mfrac><mn>1</mn><mrow><mi>k</mi><mo>−</mo><mi>m</mi><msup><mi>Ω</mi><mn>2</mn></msup><mo>+</mo><mi mathvariant="normal">i</mi><mi>c</mi><mi>Ω</mi></mrow></mfrac><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+<p><span>\(\mathrm{i}^2=-1\)</span>, <span>\(\mathrm{e}^{\mathrm{i}\Omega t}=\cos\Omega t+\mathrm{i}\sin\Omega t\)</span>를 이용하여 실제 변위를 <span>\(x(t)=\operatorname{Re}\{\hat x\mathrm{e}^{\mathrm{i}\Omega t}\}\)</span>로 쓴다. <span>\(\operatorname{Re}\)</span>는 실수부이며, 실제 변위가 허수라는 뜻은 아니다. 시간미분은 Complex amplitude에서 <span>\(\mathrm{i}\Omega\)</span>를 곱하는 연산이 되므로</p>
+<div class="equation" id="eq-6-3-1">\[
+\begin{aligned}
 (k-m\Omega^2+\mathrm{i}c\Omega)\hat x&amp;=\hat F\\[1em]
 H_{xF}(\Omega)\equiv\frac{\hat x}{\hat F}
 &amp;=\frac{1}{k-m\Omega^2+\mathrm{i}c\Omega}.
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(6.3.1)</span></div><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">|</mo><msub><mi>H</mi><mrow><mi>x</mi><mi>F</mi></mrow></msub><mo stretchy="true" form="postfix">|</mo></mrow><annotation encoding="application/x-tex">|H_{xF}|</annotation></semantics></math>는 Force amplitude당 Displacement amplitude이며, 단위는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">/</mi><mi mathvariant="normal">N</mi></mrow><annotation encoding="application/x-tex">\mathrm{m/N}</annotation></semantics></math>이다. 행렬 시스템에서는</p>
-<div class="equation main" id="eq-dynamicStiffness"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 6.3.2"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐊</mi><mo>−</mo><msup><mi>Ω</mi><mn>2</mn></msup><mi>𝐌</mi><mo>+</mo><mi mathvariant="normal">i</mi><mi>Ω</mi><mi>𝐂</mi><mo stretchy="true" form="postfix">)</mo></mrow><mover><mi>𝐱</mi><mo accent="true">̂</mo></mover><mo>=</mo><mover><mi>𝐅</mi><mo accent="true">̂</mo></mover></mrow><annotation encoding="application/x-tex">(\mathbf{K}-\Omega^2\mathbf{M}+\mathrm{i}\Omega\mathbf{C})\hat{\boldsymbol{x}}
+\end{aligned}
+
+\tag{6.3.1}
+\]</div><p><span>\(|H_{xF}|\)</span>는 Force amplitude당 Displacement amplitude이며, 단위는 <span>\(\mathrm{m/N}\)</span>이다. 행렬 시스템에서는</p>
+<div class="equation main" id="eq-dynamicStiffness">\[
+\boxed{\displaystyle (\mathbf{K}-\Omega^2\mathbf{M}+\mathrm{i}\Omega\mathbf{C})\hat{\boldsymbol{x}}
 =\hat{\boldsymbol{F}}
-</annotation></semantics></math></div><span class="equation-number">(6.3.2)</span></div><p>를 풀어 Harmonic response를 구한다. 괄호 안을 Dynamic stiffness matrix라고 하며, 관성과 감쇠의 효과까지 포함한 주파수별 힘–변위 관계를 나타낸다.</p>
-<h2 id="modal-superposition-and-time-integration">2. Modal Superposition and Time Integration</h2>
-<h3 id="a-finite-number-of-modes">A Finite Number of Modes</h3>
-<p>관심 응답이 몇 개의 저차 Mode로 충분히 표현된다면 모든 DOF를 시간마다 풀 필요 없이 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>개의 Mode만 사용하여 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐱</mi><mo>≈</mo><msubsup><mo>∑</mo><mrow><mi>r</mi><mo>=</mo><mn>1</mn></mrow><mi>R</mi></msubsup><msub><mi>𝛟</mi><mi>r</mi></msub><msub><mi>q</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">\boldsymbol{x}\approx\sum_{r=1}^R\boldsymbol{\phi}_rq_r</annotation></semantics></math>로 근사할 수 있다. 이 과정을 Modal truncation이라 한다.</p>
-<p>Classical damping 아래, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>번째 위치에 힘을 가하고 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>번째 위치의 변위를 관측하는 FRF는</p>
-<div class="equation" id="eq-6-3-3"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 6.3.3"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mrow><mi>j</mi><mi>k</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>Ω</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><munderover><mo>∑</mo><mrow><mi>r</mi><mo>=</mo><mn>1</mn></mrow><mi>R</mi></munderover><mfrac><mrow><msub><mi>ϕ</mi><mrow><mi>j</mi><mi>r</mi></mrow></msub><msub><mi>ϕ</mi><mrow><mi>k</mi><mi>r</mi></mrow></msub></mrow><mrow><msub><mi>m</mi><mi>r</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msubsup><mi>ω</mi><mi>r</mi><mn>2</mn></msubsup><mo>−</mo><msup><mi>Ω</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi mathvariant="normal">i</mi><msub><mi>ζ</mi><mi>r</mi></msub><msub><mi>ω</mi><mi>r</mi></msub><mi>Ω</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">H_{jk}(\Omega)\approx\sum_{r=1}^R
+}
+
+\tag{6.3.2}
+\]</div><p>를 풀어 Harmonic response를 구한다. 괄호 안을 Dynamic stiffness matrix라고 하며, 관성과 감쇠의 효과까지 포함한 주파수별 힘–변위 관계를 나타낸다.</p>
+<p>복소수 표현은 하중과 응답이 같은 주파수로 진동하되 위상이 다를 수 있음을 간단히 기록한다. 실제 변위는 복소해의 실수부이다. 따라서 허수부 자체를 별도의 물리적 변위로 보지 않고, 실수부와 함께 진폭과 시간상의 지연을 정하는 정보로 해석한다.</p>
+<p>단자유도계의 Dynamic stiffness에서 <span class="math inline">\(k\)</span>는 저주파의 복원력을, <span class="math inline">\(-m\Omega^2\)</span>는 변위와 반대 부호로 나타나는 관성 효과를, <span class="math inline">\(\mathrm ic\Omega\)</span>는 속도에 따른 위상차를 표현한다. <span class="math inline">\(\Omega\to0\)</span>이면 FRF는 정적 유연도 <span class="math inline">\(1/k\)</span>로 접근한다.</p>
+<h3 id="specifying-the-input-and-output-coordinates">Specifying the Input and Output Coordinates</h3>
+<p>다자유도계에서는 한 개의 FRF보다 입력·출력 위치가 지정된 <span class="math inline">\(H_{jk}\)</span>가 필요하다. <span class="math inline">\(k\)</span>번째 좌표에 힘을 가하고 <span class="math inline">\(j\)</span>번째 변위를 측정한다면, 단위벡터를 이용하여 다음처럼 쓸 수 있다.</p>
+<div class="equation" id="eq-added-6-3-3">\[
+H_{jk}(\Omega)
+=\boldsymbol e_j^{\mathsf T}
+\left(\mathbf K-\Omega^2\mathbf M+\mathrm i\Omega\mathbf C\right)^{-1}
+\boldsymbol e_k.
+
+\tag{6.3.3}
+\]</div><p>이 식은 입출력 관계를 나타내는 수학적 표현이다. 실제 계산에서는 행렬의 역행렬 전체를 만들기보다 관심 하중벡터에 대한 선형방정식을 푼다. 속도 FRF는 변위 FRF에 <span class="math inline">\(\mathrm i\Omega\)</span>, 가속도 FRF는 <span class="math inline">\(-\Omega^2\)</span>를 곱하여 얻으므로 출력 종류에 따라 곡선과 단위가 달라진다.</p>
+</section><section id="modal-superposition-and-truncation" aria-labelledby="modal-superposition-and-truncation-title"><h2 id="modal-superposition-and-truncation-title">3. Modal Superposition and Truncation</h2>
+<h3 id="modal-contributions-to-a-transfer-function">Modal Contributions to a Transfer Function</h3>
+<p>관심 응답이 몇 개의 저차 Mode로 충분히 표현된다면 모든 DOF를 시간마다 풀 필요 없이 <span>\(R\)</span>개의 Mode만 사용하여 <span>\(\boldsymbol{x}\approx\sum_{r=1}^R\boldsymbol{\phi}_rq_r\)</span>로 근사할 수 있다. 이 과정을 Modal truncation이라 한다.</p>
+<p>Classical damping 아래, <span>\(k\)</span>번째 위치에 힘을 가하고 <span>\(j\)</span>번째 위치의 변위를 관측하는 FRF는</p>
+<div class="equation" id="eq-6-3-3">\[
+H_{jk}(\Omega)\approx\sum_{r=1}^R
 \frac{\phi_{jr}\phi_{kr}}
-{m_r(\omega_r^2-\Omega^2+2\mathrm{i}\zeta_r\omega_r\Omega)}.</annotation></semantics></math></div><span class="equation-number">(6.3.3)</span></div><p>분자의 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ϕ</mi><mrow><mi>k</mi><mi>r</mi></mrow></msub><annotation encoding="application/x-tex">\phi_{kr}</annotation></semantics></math>는 입력 위치가 Mode를 얼마나 가진하는지, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ϕ</mi><mrow><mi>j</mi><mi>r</mi></mrow></msub><annotation encoding="application/x-tex">\phi_{jr}</annotation></semantics></math>는 출력 위치에서 그 Mode가 얼마나 보이는지를 나타낸다. 두 효과 때문에 특정 고유주파수가 해당 입출력 FRF에서는 잘 보이지 않을 수 있다.</p>
-<p>Mode 수의 적합성은 관심 출력이 수렴하는지로 확인한다. 특히 Beam stress는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mrow><mi>x</mi><mi>x</mi></mrow></msub><mo>=</mo><mo>−</mo><mi>E</mi><mi>z</mi><msub><mo>∑</mo><mi>r</mi></msub><msub><mi>Φ</mi><mi>r</mi></msub><mi>″</mi><msub><mi>q</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">\sigma_{xx}=-Ez\sum_r\Phi_r''q_r</annotation></semantics></math>처럼 Mode shape의 공간 2차 미분을 포함하므로, 변위보다 고차 Mode의 영향이 크게 나타날 수 있다. 변위가 수렴했다는 사실만으로 응력도 수렴했다고 판단하지 않는다.</p>
-<h3 id="direct-time-integration">Direct Time Integration</h3>
-<p>임의 하중이나 비대각 Modal damping을 다루려면 Coupled equation을 시간에 따라 직접 적분할 수 있다. 연속시간의 변위·속도·가속도를 간격 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">\Delta t</annotation></semantics></math>의 시점에서 계산하고, 매 시점의 동적 평형을 만족시키는 방식이다.</p>
-<p>예를 들어 Newmark method는 다음 시간의 변위와 속도를 두 시점의 가속도로 연결한다. 아래에서 시간인덱스는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>이며, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐯</mi><mo>=</mo><mover><mi>𝐱</mi><mo accent="true">̇</mo></mover></mrow><annotation encoding="application/x-tex">\boldsymbol{v}=\dot{\boldsymbol{x}}</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐚</mi><mo>=</mo><mover><mi>𝐱</mi><mo accent="true">̈</mo></mover></mrow><annotation encoding="application/x-tex">\boldsymbol{a}=\ddot{\boldsymbol{x}}</annotation></semantics></math>이다.</p>
-<div class="equation" id="eq-6-3-4"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 6.3.4"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>𝐱</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mi>𝐱</mi><mi>j</mi></msub><mo>+</mo><mi>Δ</mi><mi>t</mi><msub><mi>𝐯</mi><mi>j</mi></msub><mo>+</mo><mi>Δ</mi><msup><mi>t</mi><mn>2</mn></msup><mrow><mo stretchy="true" form="prefix">[</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>−</mo><msub><mi>β</mi><mi>N</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>𝐚</mi><mi>j</mi></msub><mo>+</mo><msub><mi>β</mi><mi>N</mi></msub><msub><mi>𝐚</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="true" form="postfix">]</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>𝐯</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mi>𝐯</mi><mi>j</mi></msub><mo>+</mo><mi>Δ</mi><mi>t</mi><mrow><mo stretchy="true" form="prefix">[</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>γ</mi><mi>N</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>𝐚</mi><mi>j</mi></msub><mo>+</mo><msub><mi>γ</mi><mi>N</mi></msub><msub><mi>𝐚</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="true" form="postfix">]</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>𝐌</mi><msub><mi>𝐚</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>+</mo><mi>𝐂</mi><msub><mi>𝐯</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>+</mo><mi>𝐊</mi><msub><mi>𝐱</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mi>𝐅</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+{m_r(\omega_r^2-\Omega^2+2\mathrm{i}\zeta_r\omega_r\Omega)}.
+
+\tag{6.3.4}
+\]</div><p>분자의 <span>\(\phi_{kr}\)</span>는 입력 위치가 Mode를 얼마나 가진하는지, <span>\(\phi_{jr}\)</span>는 출력 위치에서 그 Mode가 얼마나 보이는지를 나타낸다. 두 효과 때문에 특정 고유주파수가 해당 입출력 FRF에서는 잘 보이지 않을 수 있다.</p>
+<p>Mode 수의 적합성은 관심 출력이 수렴하는지로 확인한다. 특히 Beam stress는 <span>\(\sigma_{xx}=-Ez\sum_r\Phi_r''q_r\)</span>처럼 Mode shape의 공간 2차 미분을 포함하므로, 변위보다 고차 Mode의 영향이 크게 나타날 수 있다. 변위가 수렴했다는 사실만으로 응력도 수렴했다고 판단하지 않는다.</p>
+<p>각 항의 분모는 해당 Mode의 단자유도 Dynamic stiffness이고, 분자는 그 Mode가 입력과 출력 위치에 참여하는 정도이다. 입력 위치가 Mode의 Node이면 해당 Mode를 거의 가진하지 못한다. 출력 위치가 Node이면 다른 위치에서 크게 진동하더라도 그 센서에는 작게 나타날 수 있다.</p>
+<p>여러 Mode의 기여는 복소수로 더해진다. 한 주파수에서 서로 반대인 기여가 상쇄되면 응답이 매우 작아지는 Antiresonance가 생길 수 있다. 따라서 Mode별 진폭의 절댓값을 합하는 방식으로 전체 FRF를 구성하면 위상에 따른 상쇄를 잃게 된다.</p>
+<h3 id="choosing-the-retained-modes">Choosing the Retained Modes</h3>
+<p>관심 가진주파수보다 높은 Mode도 저주파 유연도나 국부응력에 기여할 수 있다. 그러므로 단순히 가진주파수 이하의 Mode만 남기면 항상 충분하다는 규칙은 성립하지 않는다. 입력 위치와 공간분포, 관측량의 미분 차수까지 함께 고려해야 한다.</p>
+<p>절단 Mode 수를 늘렸을 때 관심 위치의 복소응답, 최대응력 또는 전체 시간기록이 얼마나 바뀌는지 확인한다. 변위는 수렴했는데 응력은 변할 수 있다. 이는 응력이 곡률처럼 공간미분에 의존하여 짧은 파장을 가진 고차 형상에 더 민감하기 때문이다.</p>
+</section><section id="direct-time-integration" aria-labelledby="direct-time-integration-title"><h2 id="direct-time-integration-title">4. Direct Time Integration</h2>
+<h3 id="the-newmark-relations">The Newmark Relations</h3>
+<p>임의 하중이나 비대각 Modal damping을 다루려면 Coupled equation을 시간에 따라 직접 적분할 수 있다. 연속시간의 변위·속도·가속도를 간격 <span>\(\Delta t\)</span>의 시점에서 계산하고, 매 시점의 동적 평형을 만족시키는 방식이다.</p>
+<p>예를 들어 Newmark method는 다음 시간의 변위와 속도를 두 시점의 가속도로 연결한다. 아래에서 시간인덱스는 <span>\(j\)</span>이며, <span>\(\boldsymbol{v}=\dot{\boldsymbol{x}}\)</span>, <span>\(\boldsymbol{a}=\ddot{\boldsymbol{x}}\)</span>이다.</p>
+<div class="equation" id="eq-6-3-4">\[
+\begin{aligned}
 \boldsymbol{x}_{j+1}&amp;=\boldsymbol{x}_j+\Delta t\boldsymbol{v}_j
 +\Delta t^2\left[\left(\frac12-\beta_N\right)\boldsymbol{a}_j
 +\beta_N\boldsymbol{a}_{j+1}\right]\\[1em]
@@ -64,22 +314,88 @@ H_{xF}(\Omega)\equiv\frac{\hat x}{\hat F}
 \left[(1-\gamma_N)\boldsymbol{a}_j+\gamma_N\boldsymbol{a}_{j+1}\right]\\[1em]
 \mathbf{M}\boldsymbol{a}_{j+1}+\mathbf{C}\boldsymbol{v}_{j+1}+\mathbf{K}\boldsymbol{x}_{j+1}
 &amp;=\boldsymbol{F}_{j+1}.
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(6.3.4)</span></div><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>β</mi><mi>N</mi></msub><mo>,</mo><msub><mi>γ</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">\beta_N,\gamma_N</annotation></semantics></math>은 수치적분 파라미터이며 Rayleigh damping의 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>와 다른 양이다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>β</mi><mi>N</mi></msub><mo>=</mo><mn>1</mn><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">\beta_N=1/4</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>γ</mi><mi>N</mi></msub><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\gamma_N=1/2</annotation></semantics></math>인 Average-acceleration method는 각 시간구간의 가속도를 양 끝값의 평균으로 적분하는 형태이다.</p>
-<p>기본 선형 구조계에서 이 방법은 무조건 안정하지만, 이는 <strong>큰 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">\Delta t</annotation></semantics></math>에서도 정확하다는 의미가 아니다</strong>. 관심 고주파 운동과 짧은 입력변화를 해상할 수 있도록 시간간격을 정하고, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Δ</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">\Delta t</annotation></semantics></math>를 줄여 출력의 위상과 진폭 변화를 확인해야 한다.</p>
-<h2 id="interpreting-analysis-and-measurement-results">3. Interpreting Analysis and Measurement Results</h2>
-<h3 id="from-displacement-to-structural-response">From Displacement to Structural Response</h3>
+\end{aligned}
+
+\tag{6.3.5}
+\]</div><p><span>\(\beta_N,\gamma_N\)</span>은 수치적분 파라미터이며 Rayleigh damping의 <span>\(\beta\)</span>와 다른 양이다. <span>\(\beta_N=1/4\)</span>, <span>\(\gamma_N=1/2\)</span>인 Average-acceleration method는 각 시간구간의 가속도를 양 끝값의 평균으로 적분하는 형태이다.</p>
+<p>기본 선형 구조계에서 이 방법은 무조건 안정하지만, 이는 <strong>큰 <span>\(\Delta t\)</span>에서도 정확하다는 의미가 아니다</strong>. 관심 고주파 운동과 짧은 입력변화를 해상할 수 있도록 시간간격을 정하고, <span>\(\Delta t\)</span>를 줄여 출력의 위상과 진폭 변화를 확인해야 한다.</p>
+<p>평균가속도 선택에서는 한 시간구간의 가속도를 양 끝값의 평균으로 대표하여 속도를 갱신한다. 가속도를 선형 보간한 정확한 적분과는 다른 가정이므로, 방법의 명칭을 그대로 가속도의 시간함수로 해석하지 않는다. 다음 시점의 평형을 함께 풀면서 변위·속도·가속도를 일관되게 결정하는 것이 핵심이다.</p>
+<p>여기서는 선형이고 시간에 따라 변하지 않는 행렬을 가정한다. 접촉이나 큰 변형처럼 강성이 상태에 따라 바뀌면 다음 시점에서 내부력과 변위가 서로 의존하므로 반복해법이 추가로 필요하다. 같은 시간적분 관계를 사용해도 각 단계에서 푸는 문제의 성격은 달라진다.</p>
+<h3 id="effective-stiffness-and-time-step-accuracy">Effective Stiffness and Time-Step Accuracy</h3>
+<p><span class="math inline">\(\beta_N&gt;0\)</span>인 경우 Newmark의 첫 관계를 <span class="math inline">\(\boldsymbol a_{j+1}\)</span>에 대해 정리하고 두 번째 관계에 대입할 수 있다. 이를 다음 시점의 운동방정식에 넣으면 미지수 <span class="math inline">\(\boldsymbol x_{j+1}\)</span>의 계수는 다음과 같다.</p>
+<div class="equation" id="eq-added-6-3-6">\[
+\mathbf K_{\mathrm{eff}}
+=\mathbf K+\frac{\gamma_N}{\beta_N\Delta t}\mathbf C
++\frac{1}{\beta_N\Delta t^2}\mathbf M.
+
+\tag{6.3.6}
+\]</div><p>오른쪽에는 다음 시점의 외력과 이미 알려진 변위·속도·가속도 항들이 모인다. 따라서 매 시점에서 탄성 강성뿐 아니라 관성과 감쇠가 포함된 선형방정식을 푼다. 일정한 행렬과 시간간격을 쓰면 이 계수행렬은 매 단계 동일하다.</p>
+<p>안정성과 정확성은 다른 성질이다. 계산이 발산하지 않더라도 시간간격이 크면 진동의 위상과 주기가 왜곡되거나 짧은 하중변화를 놓칠 수 있다. 시간간격을 줄여 최대값과 위상이 수렴하는지 확인하고, 가장 높은 고유주파수보다 실제로 보존해야 할 입력·응답의 시간척도를 기준으로 해상도를 판단한다.</p>
+</section><section id="interpreting-structural-and-measured-responses" aria-labelledby="interpreting-structural-and-measured-responses-title"><h2 id="interpreting-structural-and-measured-responses-title">5. Interpreting Structural and Measured Responses</h2>
+<h3 id="from-motion-to-internal-loads">From Motion to Internal Loads</h3>
 <p>구조동역학의 출력은 진동수와 변위에 그치지 않는다. Beam에서는 변위장에서 Curvature, Stress, Moment, Shear force를 순서대로 구할 수 있다.</p>
-<div class="equation" id="eq-6-3-5"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 6.3.5"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>ε</mi><mrow><mi>x</mi><mi>x</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>z</mi><mo>,</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mo>−</mo><mi>z</mi><msub><mi>w</mi><mrow><mi>x</mi><mi>x</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>σ</mi><mrow><mi>x</mi><mi>x</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>z</mi><mo>,</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mo>−</mo><mi>E</mi><mi>z</mi><msub><mi>w</mi><mrow><mi>x</mi><mi>x</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>M</mi><mi>b</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mo>−</mo><mi>E</mi><mi>I</mi><msub><mi>w</mi><mrow><mi>x</mi><mi>x</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>V</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mo>−</mo><mfrac><mi>∂</mi><mrow><mi>∂</mi><mi>x</mi></mrow></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mi>E</mi><mi>I</mi><msub><mi>w</mi><mrow><mi>x</mi><mi>x</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+<div class="equation" id="eq-6-3-5">\[
+\begin{aligned}
 \varepsilon_{xx}(x,z,t)&amp;=-z w_{xx}(x,t)\\[1em]
 \sigma_{xx}(x,z,t)&amp;=-Ez w_{xx}(x,t)\\[1em]
 M_b(x,t)&amp;=-EI w_{xx}(x,t)\\[1em]
 V(x,t)&amp;=-\frac{\partial }{\partial x}\left(EIw_{xx}\right).
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(6.3.5)</span></div><p>동적 응력은 외력 크기뿐 아니라 Mode shape, 주파수, 감쇠, 하중 위치의 영향을 받는다. 같은 최대변위라도 Curvature가 집중되는 위치가 다르면 최대응력도 달라진다. 해석 목적이 내부하중이나 응력이라면 해당 출력까지 확인해야 한다.</p>
-<h3 id="a-spectrum-peak-and-a-natural-frequency">A Spectrum Peak and a Natural Frequency</h3>
+\end{aligned}
+
+\tag{6.3.7}
+\]</div><p>동적 응력은 외력 크기뿐 아니라 Mode shape, 주파수, 감쇠, 하중 위치의 영향을 받는다. 같은 최대변위라도 Curvature가 집중되는 위치가 다르면 최대응력도 달라진다. 해석 목적이 내부하중이나 응력이라면 해당 출력까지 확인해야 한다.</p>
+<p>내부하중을 계산할 때에는 변위해와 동일한 Beam 가정 및 부호를 사용한다. Element 경계의 단면력이나 집중하중 부근에서는 곡률·전단력 표현이 매끄럽지 않을 수 있으므로, 한 점의 수치만으로 수렴을 판단하기보다 하중 전달과 구간별 평형도 확인한다.</p>
+<p>반력 역시 동적 평형의 일부이다. 질량이 가속되는 동안 지지 반력의 합은 외력의 합과 단순히 같지 않으며, 전체 관성력까지 포함해야 평형이 맞는다. 정적 반력 공식에 순간 외력만 대입하면 구조물의 운동에 따른 지지부 하중을 놓칠 수 있다.</p>
+<h3 id="peaks-modes-and-measurement-conditions">Peaks, Modes, and Measurement Conditions</h3>
 <p>측정 신호에는 여러 시간척도의 운동이 섞여 있다. Fourier transform은 이를 주파수 성분으로 나누는 연산이며, FFT는 샘플링된 데이터의 Discrete Fourier transform을 빠르게 계산하는 알고리즘이다. PSD는 주파수 단위폭당 신호의 평균제곱 기여를 나타내는 Spectral density이다.</p>
 <p>출력 신호의 Spectrum peak는 그 주파수의 성분이 크다는 뜻이다. 그러나 이는 <strong>입력 자체의 강한 주파수 성분, 구조물의 Resonance, 여러 Mode의 조합</strong> 중 어느 것에서 비롯되었는지까지 단독으로 알려주지 않는다. 따라서 출력 FFT의 Peak를 곧바로 Natural frequency라고 단정할 수 없다.</p>
 <p>Modal test에서는 알려진 Impact나 Shaker force와 응답을 함께 측정하여 입출력 FRF를 추정하고, 여러 측정점의 진폭·위상 관계와 함께 Mode를 확인한다. 한 지점이 Mode의 Node 부근에 있으면 해당 Mode를 놓칠 수 있다. Free decay에서는 앞서 유도한 Damping identification을 적용할 수 있지만, Mode 분리 여부를 먼저 확인해야 한다.</p>
-<h3 id="consistency-across-model-solution-and-test">Consistency Across Model, Solution, and Test</h3>
+<p>샘플링 주파수는 식별하려는 주파수를 구분할 수 있을 만큼 높아야 하며, 기록 길이는 가까운 주파수 성분을 분리하는 능력에 영향을 준다. 창함수와 유한 기록에 따른 Spectral leakage도 Peak의 모양을 바꿀 수 있다. FFT 결과는 구조물뿐 아니라 측정과 처리 조건의 영향을 함께 받는다.</p>
+<p>실험 FRF에서 공진 부근의 위상 변화, 여러 센서에서의 상대적인 형상, 반복 측정의 일관성을 함께 보면 Mode를 해석하기 쉬워진다. 하나의 높은 Peak만 맞추는 것보다 입력과 출력의 관계가 해석 모델에서 같은 방식으로 나타나는지 확인하는 편이 더 많은 정보를 준다.</p>
+</section><section id="verification-and-model-comparison" aria-labelledby="verification-and-model-comparison-title"><h2 id="verification-and-model-comparison-title">6. Verification and Model Comparison</h2>
+<h3 id="numerical-and-physical-consistency">Numerical and Physical Consistency</h3>
 <p>계산된 고유주파수는 재료값만의 결과가 아니라 질량분포, 접합부 강성, 지지조건 및 부착물까지 포함한 모델의 결과이다. 실험과 비교할 때에는 동일한 구속과 질량구성을 표현했는지 먼저 확인한다. 수치적으로는 관심 Mode의 Mesh convergence와 관심 응답의 Mode 수 또는 Time-step convergence를 확인한다.</p>
 <p>이 연재에서 사용한 관계는 다음과 같이 연결된다. <strong>질량과 탄성은 자유진동의 시간척도를 정하고, 경계조건은 가능한 공간형상을 정하며, 입력과 감쇠는 그 형상이 실제로 얼마나 움직이는지 정한다</strong>. 구조동역학은 이 운동을 변형률·응력·내부하중까지 연결하는 과정이다.</p>
-</article><div class="one-line-summary"><strong>Summary</strong><p>해석 목적에 맞는 응답을 계산하고, 모델 조건·수치 수렴·측정 결과를 함께 확인하여 결과의 타당성을 판단한다.</p></div><nav class="pagination" aria-label="Previous and next article"><a rel="prev" href="../finite-element-method/index.html"><small>Previous</small>6.2 Finite Element Method</a><a rel="next" href="../aeroelastic-coupling-static-stability/index.html"><small>Next</small>7.1 Aeroelastic Coupling and Static Stability</a></nav><footer><a href="../index.html">Contents</a> · <a href="#top">Back to top</a></footer></main><aside class="right-sidebar" aria-label="On this page"><div class="sidebar-inner"><div class="sidebar-title">On this page</div><a class="sidebar-link" href="#modal-harmonic-and-transient-analysis">1. Modal, Harmonic, and Transient Analysis</a><a class="sidebar-link" href="#modal-superposition-and-time-integration">2. Modal Superposition and Time Integration</a><a class="sidebar-link" href="#interpreting-analysis-and-measurement-results">3. Interpreting Analysis and Measurement Results</a></div></aside></div></body></html>
+<p>수치해의 검증은 방정식을 잘 풀었는지를 묻는다. 예를 들어 무감쇠·무하중의 자유진동에서 에너지가 어떻게 보존되는지, 조화하중의 장시간 응답이 주파수영역 해와 일치하는지 확인할 수 있다. 서로 다른 표현에서 같은 문제를 비교하면 부호나 하중 투영의 오류를 찾기 쉽다.</p>
+<p>모델과 실험의 비교는 실제 구조물을 충분히 표현했는지를 묻는다. 주파수 차이가 크면 재료의 탄성계수뿐 아니라 지지부 유연성, 접합부, 부착질량, 센서의 질량을 함께 검토한다. 수치적으로 수렴한 결과도 잘못된 물리적 가정에 대해서는 정확한 답일 수 있다.</p>
+<h3 id="extending-the-model-to-motion-dependent-loads">Extending the Model to Motion-Dependent Loads</h3>
+<p>지금까지의 기본 응답해석에서는 외력을 시간이나 주파수의 주어진 함수로 다루었다. 회전기계의 가진력이나 정해진 충격처럼 구조운동과 독립적으로 지정할 수 있는 입력에서는 이 접근이 자연스럽다.</p>
+<p>공기 중의 유연한 날개에서는 구조변형과 속도가 공기력을 바꾸므로 입력을 미리 완전히 정할 수 없다. 그 힘을 운동방정식에 되돌려 넣으면 구조와 유동이 연결된 안정성 문제가 된다. 다음 장에서는 같은 질량·강성·감쇠의 틀을 유지하면서 이 상호작용이 정적 발산과 Flutter로 이어지는 과정을 설명한다.</p>
+</section><footer><a href="../index.html">← Structural Dynamics &amp; Aeroelasticity로 돌아가기</a></footer></main><aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#selecting-the-response-problem" class="sidebar-link"><span class="item-number">1.</span><span>Selecting the Response Problem</span></a><a href="#frequency-response-functions" class="sidebar-link"><span class="item-number">2.</span><span>Frequency Response Functions</span></a><a href="#modal-superposition-and-truncation" class="sidebar-link"><span class="item-number">3.</span><span>Modal Superposition and Truncation</span></a><a href="#direct-time-integration" class="sidebar-link"><span class="item-number">4.</span><span>Direct Time Integration</span></a><a href="#interpreting-structural-and-measured-responses" class="sidebar-link"><span class="item-number">5.</span><span>Interpreting Structural and Measured Responses</span></a><a href="#verification-and-model-comparison" class="sidebar-link"><span class="item-number">6.</span><span>Verification and Model Comparison</span></a></nav></aside></div><script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script></body></html>

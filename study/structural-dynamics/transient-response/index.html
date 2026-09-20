@@ -1,32 +1,364 @@
 <!DOCTYPE html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Transient response는 초기조건과 과거 입력의 기여를 함께 더해 구하며, 하중이 가해지는 시간척도에 따라 달라진다."><title>3.3 Transient Response | Isp99</title><link rel="stylesheet" href="../structural-dynamics.css"><script defer src="../navigation.js"></script></head><body class="article-page"><a class="skip-link" href="#main">Skip to content</a><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><div class="sidebar-inner"><a class="sidebar-title" href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a class="sidebar-link" href="../vibration-mass-stiffness-damping/index.html">1.1 Vibration, Mass, Stiffness, and Damping</a><a class="sidebar-link" href="../degrees-of-freedom-equations-of-motion/index.html">1.2 Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a class="sidebar-link" href="../undamped-free-vibration/index.html">2.1 Undamped Free Vibration</a><a class="sidebar-link" href="../damped-free-vibration/index.html">2.2 Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a class="sidebar-link" href="../harmonic-response-resonance/index.html">3.1 Harmonic Response and Resonance</a><a class="sidebar-link" href="../base-excitation-vibration-isolation/index.html">3.2 Base Excitation and Vibration Isolation</a><a class="sidebar-link active" href="../transient-response/index.html" aria-current="page">3.3 Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a class="sidebar-link" href="../coupled-equations-matrix-form/index.html">4.1 Coupled Equations and Matrix Form</a><a class="sidebar-link" href="../natural-frequencies-mode-shapes/index.html">4.2 Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-analysis/index.html">4.3 Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a class="sidebar-link" href="../continuous-systems-rod-vibration/index.html">5.1 Continuous Systems and Rod Vibration</a><a class="sidebar-link" href="../euler-bernoulli-beam-theory/index.html">5.2 Euler–Bernoulli Beam Theory</a><a class="sidebar-link" href="../beam-natural-frequencies-mode-shapes/index.html">5.3 Beam Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-response-of-beams/index.html">5.4 Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a class="sidebar-link" href="../energy-methods-equivalent-models/index.html">6.1 Energy Methods and Equivalent Models</a><a class="sidebar-link" href="../finite-element-method/index.html">6.2 Finite Element Method</a><a class="sidebar-link" href="../response-analysis-verification/index.html">6.3 Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a class="sidebar-link" href="../aeroelastic-coupling-static-stability/index.html">7.1 Aeroelastic Coupling and Static Stability</a><a class="sidebar-link" href="../typical-section-unsteady-aerodynamics/index.html">7.2 Flutter and the Typical Section Model</a><a class="sidebar-link" href="../flutter-analysis/index.html">7.3 Flutter Analysis</a></div></div></aside><main class="main-content" id="main"><nav class="breadcrumb"><a href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><span>/</span><a href="../index.html#chapter-3">Forced Vibration</a></nav><header id="top"><h1>3.3 Transient Response</h1><p class="intro">충격이나 갑자기 가해지는 하중에서는 한 주파수의 정상응답만으로 실제 움직임을 설명하기 어렵다. 짧은 충격에 대한 응답을 구하고 그 기여를 시간에 따라 더하면, 임의 하중 이력과 급격한 하중 변화에 대한 운동을 구성할 수 있다.</p></header><details class="mobile-series"><summary>Series Navigation</summary><a class="sidebar-title" href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a class="sidebar-link" href="../vibration-mass-stiffness-damping/index.html">1.1 Vibration, Mass, Stiffness, and Damping</a><a class="sidebar-link" href="../degrees-of-freedom-equations-of-motion/index.html">1.2 Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a class="sidebar-link" href="../undamped-free-vibration/index.html">2.1 Undamped Free Vibration</a><a class="sidebar-link" href="../damped-free-vibration/index.html">2.2 Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a class="sidebar-link" href="../harmonic-response-resonance/index.html">3.1 Harmonic Response and Resonance</a><a class="sidebar-link" href="../base-excitation-vibration-isolation/index.html">3.2 Base Excitation and Vibration Isolation</a><a class="sidebar-link active" href="../transient-response/index.html" aria-current="page">3.3 Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a class="sidebar-link" href="../coupled-equations-matrix-form/index.html">4.1 Coupled Equations and Matrix Form</a><a class="sidebar-link" href="../natural-frequencies-mode-shapes/index.html">4.2 Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-analysis/index.html">4.3 Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a class="sidebar-link" href="../continuous-systems-rod-vibration/index.html">5.1 Continuous Systems and Rod Vibration</a><a class="sidebar-link" href="../euler-bernoulli-beam-theory/index.html">5.2 Euler–Bernoulli Beam Theory</a><a class="sidebar-link" href="../beam-natural-frequencies-mode-shapes/index.html">5.3 Beam Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-response-of-beams/index.html">5.4 Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a class="sidebar-link" href="../energy-methods-equivalent-models/index.html">6.1 Energy Methods and Equivalent Models</a><a class="sidebar-link" href="../finite-element-method/index.html">6.2 Finite Element Method</a><a class="sidebar-link" href="../response-analysis-verification/index.html">6.3 Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a class="sidebar-link" href="../aeroelastic-coupling-static-stability/index.html">7.1 Aeroelastic Coupling and Static Stability</a><a class="sidebar-link" href="../typical-section-unsteady-aerodynamics/index.html">7.2 Flutter and the Typical Section Model</a><a class="sidebar-link" href="../flutter-analysis/index.html">7.3 Flutter Analysis</a></div></details><nav class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#impulse-response-and-duhamel-integral">1. Impulse Response and Duhamel Integral</a></li><li><a href="#step-loading-and-dynamic-amplification">2. Step Loading and Dynamic Amplification</a></li></ol></nav><article><h2 id="impulse-response-and-duhamel-integral">1. Impulse Response and Duhamel Integral</h2>
-<h3 id="a-short-force-pulse">A Short Force Pulse</h3>
-<p>충격처럼 지속시간이 짧은 입력은 단일 Sine wave로 표현하기 어렵다. 짧은 시간 동안의 힘을 적분한 <strong>Impulse</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>를 사용하면, 힘의 세부 파형 대신 운동량 변화로 초기운동을 구할 수 있다.</p>
-<div class="equation" id="eq-3-3-1"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 3.3.1"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>J</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msubsup><mo>∫</mo><msup><mn>0</mn><mo>−</mo></msup><msup><mn>0</mn><mo>+</mo></msup></msubsup><mi>F</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="0.167em"></mspace><mi mathvariant="normal">d</mi><mi>t</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>m</mi><mrow><mo stretchy="true" form="prefix">[</mo><mover><mi>x</mi><mo accent="true">̇</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msup><mn>0</mn><mo>+</mo></msup><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mover><mi>x</mi><mo accent="true">̇</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msup><mn>0</mn><mo>−</mo></msup><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mi>J</mi><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="충격이나 갑자기 가해지는 하중에서는 한 주파수의 정상응답만으로 실제 움직임을 설명하기 어렵다. 짧은 충격에 대한 응답을 구하고 그 기여를 시간에 따라 더하면, 임의 하중 이력과 급격한 하중 변화에 대한 운동을 구성할 수 있다."><title>3.3 Transient Response | Isp99</title>
+<script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style></head><body class="article-page"><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><nav class="sidebar-inner"><a href="../index.html" class="sidebar-title">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a href="../vibration-mass-stiffness-damping/index.html" class="sidebar-link"><span class="item-number">1.1</span> Vibration, Mass, Stiffness, and Damping</a><a href="../degrees-of-freedom-equations-of-motion/index.html" class="sidebar-link"><span class="item-number">1.2</span> Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a href="../undamped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.1</span> Undamped Free Vibration</a><a href="../damped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.2</span> Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a href="../harmonic-response-resonance/index.html" class="sidebar-link"><span class="item-number">3.1</span> Harmonic Response and Resonance</a><a href="../base-excitation-vibration-isolation/index.html" class="sidebar-link"><span class="item-number">3.2</span> Base Excitation and Vibration Isolation</a><a href="../transient-response/index.html" class="sidebar-link active" aria-current="page"><span class="item-number">3.3</span> Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a href="../coupled-equations-matrix-form/index.html" class="sidebar-link"><span class="item-number">4.1</span> Coupled Equations and Matrix Form</a><a href="../natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">4.2</span> Natural Frequencies and Mode Shapes</a><a href="../modal-analysis/index.html" class="sidebar-link"><span class="item-number">4.3</span> Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a href="../continuous-systems-rod-vibration/index.html" class="sidebar-link"><span class="item-number">5.1</span> Continuous Systems and Rod Vibration</a><a href="../euler-bernoulli-beam-theory/index.html" class="sidebar-link"><span class="item-number">5.2</span> Euler–Bernoulli Beam Theory</a><a href="../beam-natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">5.3</span> Beam Natural Frequencies and Mode Shapes</a><a href="../modal-response-of-beams/index.html" class="sidebar-link"><span class="item-number">5.4</span> Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a href="../energy-methods-equivalent-models/index.html" class="sidebar-link"><span class="item-number">6.1</span> Energy Methods and Equivalent Models</a><a href="../finite-element-method/index.html" class="sidebar-link"><span class="item-number">6.2</span> Finite Element Method</a><a href="../response-analysis-verification/index.html" class="sidebar-link"><span class="item-number">6.3</span> Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a href="../aeroelastic-coupling-static-stability/index.html" class="sidebar-link"><span class="item-number">7.1</span> Aeroelastic Coupling and Static Stability</a><a href="../typical-section-unsteady-aerodynamics/index.html" class="sidebar-link"><span class="item-number">7.2</span> Flutter and the Typical Section Model</a><a href="../flutter-analysis/index.html" class="sidebar-link"><span class="item-number">7.3</span> Flutter Analysis</a></div></nav></aside><main class="main-content" id="top"><nav aria-label="Current article"><a href="#top">3.3 Transient Response</a></nav><header><h1>3.3 Transient Response</h1><p class="subtitle">Impulse Response, Duhamel Integral, and Sudden Loading</p><p class="intro">충격이나 갑자기 가해지는 하중에서는 한 주파수의 정상응답만으로 실제 움직임을 설명하기 어렵다. 짧은 충격에 대한 응답을 구하고 그 기여를 시간에 따라 더하면, 임의 하중 이력과 급격한 하중 변화에 대한 운동을 구성할 수 있다.</p></header><aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#a-short-force-pulse">A Short Force Pulse</a></li><li><a href="#impulse-response-as-a-building-block">Impulse Response as a Building Block</a></li><li><a href="#duhamel-integral">Duhamel Integral</a></li><li><a href="#step-loading-and-dynamic-amplification">Step Loading and Dynamic Amplification</a></li><li><a href="#loading-duration-and-residual-vibration">Loading Duration and Residual Vibration</a></li><li><a href="#from-a-load-record-to-a-response">From a Load Record to a Response</a></li></ol></aside><section id="a-short-force-pulse" aria-labelledby="a-short-force-pulse-title"><h2 id="a-short-force-pulse-title">1. A Short Force Pulse</h2>
+<h3 id="impulse-and-the-change-in-momentum">Impulse and the Change in Momentum</h3>
+<p>충격처럼 지속시간이 짧은 입력은 단일 Sine wave로 표현하기 어렵다. 짧은 시간 동안의 힘을 적분한 <strong>Impulse</strong> <span>\(J\)</span>를 사용하면, 힘의 세부 파형 대신 운동량 변화로 초기운동을 구할 수 있다.</p>
+<div class="equation" id="eq-3-3-1">\[
+\begin{aligned}
 J&amp;=\int_{0^-}^{0^+}F(t)\,\mathrm{d}t\\[1em]
 m\left[\dot{x}(0^+)-\dot{x}(0^-)\right]&amp;=J.
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(3.3.1)</span></div><p>두 번째 식은 이상적인 순간 충격에서 유한한 Spring force와 Damping force의 Impulse가 0으로 가는 극한이다. 변위는 연속이지만 속도는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mi>/</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">J/m</annotation></semantics></math>만큼 변한다. 처음 정지한 시스템의 경우 충격 직후 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mrow><mo stretchy="true" form="prefix">(</mo><msup><mn>0</mn><mo>+</mo></msup><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x(0^+)=0</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>x</mi><mo accent="true">̇</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msup><mn>0</mn><mo>+</mo></msup><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>J</mi><mi>/</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">\dot{x}(0^+)=J/m</annotation></semantics></math>이다.</p>
-<p>이를 식 <a href="../damped-free-vibration/index.html#eq-dampedIC" class="equation-ref" title="Equation 2.2.5">(2.2.5)</a>에 대입하면, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>ζ</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0\leq\zeta&lt;1</annotation></semantics></math>에서 Impulse에 대한 단위 응답 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>x</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mi>J</mi></mrow><annotation encoding="application/x-tex">h(t)=x(t)/J</annotation></semantics></math>는</p>
-<div class="equation main" id="eq-impulse"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 3.3.2"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>1</mn><mrow><mi>m</mi><msub><mi>ω</mi><mi>d</mi></msub></mrow></mfrac><msup><mi mathvariant="normal">e</mi><mrow><mo>−</mo><mi>ζ</mi><msub><mi>ω</mi><mi>n</mi></msub><mi>t</mi></mrow></msup><mo>sin</mo><msub><mi>ω</mi><mi>d</mi></msub><mi>t</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>t</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h(t)=\frac{1}{m\omega_d}\mathrm{e}^{-\zeta\omega_nt}\sin\omega_dt,
+\end{aligned}
+
+\tag{3.3.1}
+\]</div><p>두 번째 식은 이상적인 순간 충격에서 유한한 Spring force와 Damping force의 Impulse가 0으로 가는 극한이다. 변위는 연속이지만 속도는 <span>\(J/m\)</span>만큼 변한다. 처음 정지한 시스템의 경우 충격 직후 <span>\(x(0^+)=0\)</span>, <span>\(\dot{x}(0^+)=J/m\)</span>이다.</p>
+<p>이를 식 <a href="../damped-free-vibration/index.html#eq-dampedIC" class="equation-ref" title="Equation 2.2.5">(2.2.7)</a>에 대입하면, <span>\(0\leq\zeta&lt;1\)</span>에서 Impulse에 대한 단위 응답 <span>\(h(t)=x(t)/J\)</span>는</p>
+<div class="equation main" id="eq-impulse">\[
+\boxed{\displaystyle h(t)=\frac{1}{m\omega_d}\mathrm{e}^{-\zeta\omega_nt}\sin\omega_dt,
 \qquad t\geq0
-</annotation></semantics></math></div><span class="equation-number">(3.3.2)</span></div><p>이고 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t&lt;0</annotation></semantics></math>에서는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h(t)=0</annotation></semantics></math>이다. 이는 입력이 가해지기 전에 응답하지 않는 Causality를 나타낸다.</p>
-<h3 id="building-an-arbitrary-response-by-superposition">Building an Arbitrary Response by Superposition</h3>
-<p>임의의 Force history를 짧은 시간구간으로 나누면, 시각 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math>에서의 작은 Impulse는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>τ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi mathvariant="normal">d</mi><mi>τ</mi></mrow><annotation encoding="application/x-tex">F(\tau)\mathrm{d}\tau</annotation></semantics></math>이다. 이 Impulse가 시각 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>의 변위에 기여하는 양은 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo>−</mo><mi>τ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>F</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>τ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi mathvariant="normal">d</mi><mi>τ</mi></mrow><annotation encoding="application/x-tex">h(t-\tau)F(\tau)\mathrm{d}\tau</annotation></semantics></math>이다. 모든 과거 입력의 기여를 더하면</p>
-<div class="equation main" id="eq-duhamel"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 3.3.3"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>x</mi><mrow><mi mathvariant="normal">f</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">e</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msubsup><mo>∫</mo><mn>0</mn><mi>t</mi></msubsup><mi>h</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo>−</mo><mi>τ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>F</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>τ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="0.167em"></mspace><mi mathvariant="normal">d</mi><mi>τ</mi></mrow><annotation encoding="application/x-tex">x(t)=x_{\mathrm{free}}(t)
+}
+
+\tag{3.3.2}
+\]</div><p>이고 <span>\(t&lt;0\)</span>에서는 <span>\(h(t)=0\)</span>이다. 이는 입력이 가해지기 전에 응답하지 않는 Causality를 나타낸다.</p>
+<p>힘이 작용하는 시간이 진동 주기에 비해 매우 짧으면, 그 짧은 시간 동안 변위는 거의 바뀌지 않아도 속도는 유한하게 변할 수 있다. 충격량 <span class="math inline">\(J=\int F\,dt\)</span>가 운동량의 변화를 정하기 때문이다. 힘의 최대값이 크다는 사실만으로 충격 후 운동이 정해지는 것은 아니며, 얼마 동안 작용했는지까지 포함한 힘–시간 면적이 필요하다.</p>
+<h3 id="approximating-the-pulse">Approximating the Pulse</h3>
+<p>폭이 <span class="math inline">\(\varepsilon\)</span>인 짧은 구간에서 운동방정식을 적분하면</p>
+<div class="equation" id="eq-added-3-3-3">\[
+m[\dot x(0^+)-\dot x(0^-)]+
+\int_{0^-}^{0^+}(c\dot x+kx)\,dt=J.
+
+\tag{3.3.3}
+\]</div><p><span class="math inline">\(\varepsilon\to0\)</span>에서 변위와 속도가 유한하고 탄성력·감쇠력의 적분이 사라지는 이상화를 사용하면 속도 변화는 <span class="math inline">\(J/m\)</span>이다. 변위가 불연속적으로 뛰는 것으로 설정하지 않고, 같은 위치에서 속도가 바뀐 상태를 이후 자유응답의 초기조건으로 사용한다.</p>
+<p>실제 충격은 유한한 시간이 걸리므로 이 근사는 입력 시간과 관심 Mode의 주기를 비교하여 적용한다. 낮은 Mode에는 매우 짧은 충격이어도 높은 Mode에는 충분히 긴 입력일 수 있다. 따라서 충격량이 같은 서로 다른 하중 이력이 모든 주파수 범위에서 같은 응답을 만든다고 볼 수는 없다.</p>
+</section><section id="impulse-response-as-a-building-block" aria-labelledby="impulse-response-as-a-building-block-title"><h2 id="impulse-response-as-a-building-block-title">2. Impulse Response as a Building Block</h2>
+<h3 id="causal-response-to-a-unit-impulse">Causal Response to a Unit Impulse</h3>
+<p>영 초기조건의 안정한 감쇠계에 단위 충격량을 가하면, 이후 응답은 초기속도 <span class="math inline">\(1/m\)</span>인 자유응답과 같다. <span class="math inline">\(0&lt;\zeta&lt;1\)</span>에서 그 응답을 <span class="math inline">\(h(t)\)</span>라고 하면</p>
+<div class="equation" id="eq-added-3-3-4">\[
+h(t)=\frac{e^{-\zeta\omega_nt}\sin\omega_dt}{m\omega_d},
+\qquad t\ge0;\qquad h(t)=0,\ t&lt;0.
+
+\tag{3.3.4}
+\]</div><p>이는 단위 충격량당 변위이므로 <span class="math inline">\(h\)</span>의 단위는 <span class="math inline">\(\mathrm{m/(N\,s)}\)</span>이다. 입력이 가해지기 전에는 응답이 생기지 않는다는 조건을 <strong>Causality</strong>라고 하며, 음의 시간에서의 값이 0이라는 정의에 반영된다.</p>
+<h3 id="a-shifted-impulse">A Shifted Impulse</h3>
+<p>동일한 충격이 <span class="math inline">\(t=\tau\)</span>에 작용하면 응답은 경과시간 <span class="math inline">\(t-\tau\)</span>에 따라 <span class="math inline">\(J h(t-\tau)\)</span>가 된다. 시스템의 질량·강성·감쇠가 시간에 따라 바뀌지 않는다는 가정이 있으므로, 입력 시점이 달라져도 같은 형태를 시간축으로 이동하여 사용할 수 있다. 이 성질이 여러 시점의 충격 응답을 합하는 기초이다.</p>
+<p>충격 후 진폭은 입력한 충격량과 함께 질량 및 고유주파수에 영향을 받는다. 충격량이 같더라도 초기속도 변화는 <span class="math inline">\(J/m\)</span>이고, 무감쇠 변위 진폭은 <span class="math inline">\(J/(m\omega_n)\)</span>이다. 주어진 충격이 같은 힘 진폭의 조화하중과 어떻게 다른지 이해하려면 입력의 단위와 초기상태에 미치는 영향을 먼저 구분한다.</p>
+</section><section id="duhamel-integral" aria-labelledby="duhamel-integral-title"><h2 id="duhamel-integral-title">3. Duhamel Integral</h2>
+<h3 id="superposition-of-small-load-contributions">Superposition of Small Load Contributions</h3>
+<p>임의의 Force history를 짧은 시간구간으로 나누면, 시각 <span>\(\tau\)</span>에서의 작은 Impulse는 <span>\(F(\tau)\mathrm{d}\tau\)</span>이다. 이 Impulse가 시각 <span>\(t\)</span>의 변위에 기여하는 양은 <span>\(h(t-\tau)F(\tau)\mathrm{d}\tau\)</span>이다. 모든 과거 입력의 기여를 더하면</p>
+<div class="equation main" id="eq-duhamel">\[
+\boxed{\displaystyle x(t)=x_{\mathrm{free}}(t)
 +\int_0^t h(t-\tau)F(\tau)\,\mathrm{d}\tau
-</annotation></semantics></math></div><span class="equation-number">(3.3.3)</span></div><p>이를 Duhamel integral 또는 Convolution integral이라고 한다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mrow><mi mathvariant="normal">f</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">e</mi></mrow></msub><annotation encoding="application/x-tex">x_{\mathrm{free}}</annotation></semantics></math>는 실제 초기변위와 속도에 대한 자유응답이며, 적분항은 0인 초기조건에서 외력이 만든 응답이다.</p>
+}
+
+\tag{3.3.5}
+\]</div><p>이를 Duhamel integral 또는 Convolution integral이라고 한다. <span>\(x_{\mathrm{free}}\)</span>는 실제 초기변위와 속도에 대한 자유응답이며, 적분항은 0인 초기조건에서 외력이 만든 응답이다.</p>
 <p>임의의 입력을 매번 새로운 방법으로 풀 필요 없이, <strong>Impulse response 하나와 Superposition으로 전체 응답을 구성</strong>할 수 있다. 이 표현은 선형이며 시간에 따라 계수가 바뀌지 않는 시스템을 전제로 한다.</p>
-<h2 id="step-loading-and-dynamic-amplification">2. Step Loading and Dynamic Amplification</h2>
-<h3 id="a-suddenly-applied-constant-force">A Suddenly Applied Constant Force</h3>
-<p>처음 정지한 무감쇠 시스템에 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t=0</annotation></semantics></math>부터 일정한 힘 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>F</mi><mn>0</mn></msub><annotation encoding="application/x-tex">F_0</annotation></semantics></math>가 작용한다고 가정한다. 식 <a href="#eq-impulse" class="equation-ref" title="Equation 3.3.2">(3.3.2)</a>에서 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ζ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\zeta=0</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ω</mi><mi>d</mi></msub><mo>=</mo><msub><mi>ω</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\omega_d=\omega_n</annotation></semantics></math>을 대입하고 Duhamel integral을 계산하면</p>
-<div class="equation" id="eq-3-3-4"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 3.3.4"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>x</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mfrac><msub><mi>F</mi><mn>0</mn></msub><mrow><mi>m</mi><msub><mi>ω</mi><mi>n</mi></msub></mrow></mfrac><msubsup><mo>∫</mo><mn>0</mn><mi>t</mi></msubsup><mo>sin</mo><msub><mi>ω</mi><mi>n</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo>−</mo><mi>τ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="0.167em"></mspace><mi mathvariant="normal">d</mi><mi>τ</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mfrac><msub><mi>F</mi><mn>0</mn></msub><mrow><mi>m</mi><msubsup><mi>ω</mi><mi>n</mi><mn>2</mn></msubsup></mrow></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mo>cos</mo><msub><mi>ω</mi><mi>n</mi></msub><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+<p>하중 이력을 작은 시간구간으로 나누면 <span class="math inline">\(\tau\)</span> 부근의 폭 <span class="math inline">\(d\tau\)</span>에 작용한 충격량은 <span class="math inline">\(F(\tau)d\tau\)</span>이다. 이 조각이 현재 시각 <span class="math inline">\(t\)</span>의 변위에 주는 기여는 <span class="math inline">\(h(t-\tau)F(\tau)d\tau\)</span>이다. 과거의 모든 조각을 더하고 시간구간의 폭을 0으로 보내면 적분이 된다.</p>
+<h3 id="input-time-and-elapsed-time">Input Time and Elapsed Time</h3>
+<p>적분에서 <span class="math inline">\(F(\tau)\)</span>는 하중이 가해진 시점의 값을, <span class="math inline">\(h(t-\tau)\)</span>는 그때 시작된 응답이 현재까지 얼마나 진행되었는지를 나타낸다. 두 함수가 같은 변수에 똑같이 의존하는 것이 아니다. 오래전에 가한 하중의 응답은 더 오래 감쇠했고, 최근 하중의 응답은 아직 초기 단계일 수 있다. 이 시간 차이를 기록하는 것이 적분의 핵심이다.</p>
+<div class="equation" id="eq-added-3-3-6">\[
+x_F(t)=\int_0^t h(t-\tau)F(\tau)\,d\tau,\qquad
+x(t)=x_{\mathrm{free}}(t)+x_F(t).
+
+\tag{3.3.6}
+\]</div><p>첫 번째 식은 영 초기조건에서 입력에 의한 응답이고, 실제 초기변위와 초기속도가 있으면 그에 대응하는 자유응답을 더한다. 단위도 <span class="math inline">\(hF\,d\tau\)</span>가 길이가 되는지 확인할 수 있다. 이 관계는 선형·시간불변 모델을 전제로 하므로, 접촉 상태나 강성이 크게 변하는 문제에 같은 적분을 그대로 적용하지 않는다.</p>
+</section><section id="step-loading-and-dynamic-amplification" aria-labelledby="step-loading-and-dynamic-amplification-title"><h2 id="step-loading-and-dynamic-amplification-title">4. Step Loading and Dynamic Amplification</h2>
+<h3 id="a-constant-force-applied-suddenly">A Constant Force Applied Suddenly</h3>
+<p>처음 정지한 무감쇠 시스템에 <span>\(t=0\)</span>부터 일정한 힘 <span>\(F_0\)</span>가 작용한다고 가정한다. 식 <a href="#eq-impulse" class="equation-ref" title="Equation 3.3.2">(3.3.2)</a>에서 <span>\(\zeta=0\)</span>, <span>\(\omega_d=\omega_n\)</span>을 대입하고 Duhamel integral을 계산하면</p>
+<div class="equation" id="eq-3-3-4">\[
+\begin{aligned}
 x(t)&amp;=\frac{F_0}{m\omega_n}\int_0^t\sin\omega_n(t-\tau)\,\mathrm{d}\tau\\[1em]
 &amp;=\frac{F_0}{m\omega_n^2}(1-\cos\omega_nt).
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(3.3.4)</span></div><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><msubsup><mi>ω</mi><mi>n</mi><mn>2</mn></msubsup><mo>=</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">m\omega_n^2=k</annotation></semantics></math>이므로</p>
-<div class="equation main" id="eq-step"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 3.3.5"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><msub><mi>F</mi><mn>0</mn></msub><mi>k</mi></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mo>cos</mo><msub><mi>ω</mi><mi>n</mi></msub><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>x</mi><mo>max</mo></msub><mo>=</mo><mn>2</mn><mfrac><msub><mi>F</mi><mn>0</mn></msub><mi>k</mi></mfrac></mrow><annotation encoding="application/x-tex">x(t)=\frac{F_0}{k}(1-\cos\omega_nt),\qquad
+\end{aligned}
+
+\tag{3.3.7}
+\]</div><p><span>\(m\omega_n^2=k\)</span>이므로</p>
+<div class="equation main" id="eq-step">\[
+\boxed{\displaystyle x(t)=\frac{F_0}{k}(1-\cos\omega_nt),\qquad
 x_{\max}=2\frac{F_0}{k}
-</annotation></semantics></math></div><span class="equation-number">(3.3.5)</span></div><p>최대변위는 같은 힘을 천천히 가했을 때의 Static displacement의 2배이다. 하중이 시간에 따라 계속 변하지 않더라도 <strong>하중이 가해지는 과정</strong> 때문에 동적 증폭이 발생할 수 있음을 보여준다. 이 2배 관계는 무감쇠, 선형, 순간 Step, 초기정지 조건의 결과이며 일반적인 모든 충격하중의 배율은 아니다.</p>
-<h3 id="loading-time-and-the-quasi-static-limit">Loading Time and the Quasi-Static Limit</h3>
-<p>하중이 증가하는 시간 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mi>r</mi></msub><annotation encoding="application/x-tex">t_r</annotation></semantics></math>가 Natural period <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mi>n</mi></msub><annotation encoding="application/x-tex">T_n</annotation></semantics></math>에 비해 충분히 길고 증가 과정이 매끄러우면, 관성의 영향이 작아져 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><mi>F</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mi>k</mi></mrow><annotation encoding="application/x-tex">x(t)\approx F(t)/k</annotation></semantics></math>로 근사할 수 있다. 이를 Quasi-static response라고 한다.</p>
-<p>반대로 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mi>r</mi></msub><annotation encoding="application/x-tex">t_r</annotation></semantics></math>가 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mi>n</mi></msub><annotation encoding="application/x-tex">T_n</annotation></semantics></math>에 비해 짧으면 하중이 변하는 동안 구조물이 충분히 따라가지 못하고, 그 뒤 자유진동 성분이 크게 남을 수 있다. 따라서 Static analysis의 적합성은 하중 크기뿐 아니라 <strong>하중 변화의 시간척도와 구조물의 고유주기 비교</strong>로 판단해야 한다.</p>
-</article><div class="one-line-summary"><strong>Summary</strong><p>Transient response는 초기조건과 과거 입력의 기여를 함께 더해 구하며, 하중이 가해지는 시간척도에 따라 달라진다.</p></div><nav class="pagination" aria-label="Previous and next article"><a rel="prev" href="../base-excitation-vibration-isolation/index.html"><small>Previous</small>3.2 Base Excitation and Vibration Isolation</a><a rel="next" href="../coupled-equations-matrix-form/index.html"><small>Next</small>4.1 Coupled Equations and Matrix Form</a></nav><footer><a href="../index.html">Contents</a> · <a href="#top">Back to top</a></footer></main><aside class="right-sidebar" aria-label="On this page"><div class="sidebar-inner"><div class="sidebar-title">On this page</div><a class="sidebar-link" href="#impulse-response-and-duhamel-integral">1. Impulse Response and Duhamel Integral</a><a class="sidebar-link" href="#step-loading-and-dynamic-amplification">2. Step Loading and Dynamic Amplification</a></div></aside></div></body></html>
+}
+
+\tag{3.3.8}
+\]</div><p>최대변위는 같은 힘을 천천히 가했을 때의 Static displacement의 2배이다. 하중이 시간에 따라 계속 변하지 않더라도 <strong>하중이 가해지는 과정</strong> 때문에 동적 증폭이 발생할 수 있음을 보여준다. 이 2배 관계는 무감쇠, 선형, 순간 Step, 초기정지 조건의 결과이며 일반적인 모든 충격하중의 배율은 아니다.</p>
+<p>Step load는 <span class="math inline">\(t=0\)</span> 이후 힘이 일정하게 유지되는 입력이다. 힘의 크기가 변하지 않는다는 이유만으로 처음부터 정적 평형에 놓이는 것은 아니다. 질량은 입력을 가한 순간의 위치와 속도를 유지하며 운동을 시작하고, 가속도를 통해 새로운 평형 위치에 접근한다. 무감쇠계에서는 이 과정에서 저장된 에너지가 소산되지 않아 평형 주위의 진동이 계속된다.</p>
+<h3 id="the-first-maximum-displacement">The First Maximum Displacement</h3>
+<p>영 초기조건의 무감쇠 응답 <span class="math inline">\(x=(F_0/k)(1-\cos\omega_nt)\)</span>에서 첫 최대점은 <span class="math inline">\(\omega_nt=\pi\)</span>이다. 따라서 최대변위는 <span class="math inline">\(2F_0/k\)</span>가 되며, 정적 변위의 두 배이다. 이 계수는 선형 1자유도계에 일정한 힘을 순간적으로 가하고 유지한 조건에서 나온다. 임의의 충격, 모든 다자유도 응답, 모든 하중 이력에 적용하는 보편적인 동적 계수는 아니다.</p>
+<p>에너지 관점에서도 같은 결과를 얻는다. 최대변위에서 속도가 0이면, 외력이 한 일 <span class="math inline">\(F_0x_{\max}\)</span>가 스프링 에너지 <span class="math inline">\(\tfrac12kx_{\max}^2\)</span>와 같아야 한다. 0이 아닌 해를 선택하면 <span class="math inline">\(x_{\max}=2F_0/k\)</span>이다. 정적 평형에서는 힘의 균형을 맞추지만, 갑자기 가한 하중의 최대응답에서는 하중이 이동 중에 한 일까지 반영한다.</p>
+</section><section id="loading-duration-and-residual-vibration" aria-labelledby="loading-duration-and-residual-vibration-title"><h2 id="loading-duration-and-residual-vibration-title">5. Loading Duration and Residual Vibration</h2>
+<h3 id="slow-loading-and-the-quasi-static-limit">Slow Loading and the Quasi-Static Limit</h3>
+<p>하중이 증가하는 시간 <span>\(t_r\)</span>가 Natural period <span>\(T_n\)</span>에 비해 충분히 길고 증가 과정이 매끄러우면, 관성의 영향이 작아져 <span>\(x(t)\approx F(t)/k\)</span>로 근사할 수 있다. 이를 Quasi-static response라고 한다.</p>
+<p>반대로 <span>\(t_r\)</span>가 <span>\(T_n\)</span>에 비해 짧으면 하중이 변하는 동안 구조물이 충분히 따라가지 못하고, 그 뒤 자유진동 성분이 크게 남을 수 있다. 따라서 Static analysis의 적합성은 하중 크기뿐 아니라 <strong>하중 변화의 시간척도와 구조물의 고유주기 비교</strong>로 판단해야 한다.</p>
+<p>입력을 유한한 시간에 걸쳐 증가시키면 구조물이 힘의 변화에 반응할 시간이 생긴다. 하중 증가 시간이 고유주기에 비해 길고 급격한 변화가 작으면 관성효과가 줄어들어 변위가 정적 평형을 더 잘 따라간다. 그러나 전체 시간이 길어도 중간에 날카로운 변화가 있으면 그 변화가 진동을 가진할 수 있으므로 시간 길이 하나만으로 판단하지 않는다.</p>
+<h3 id="a-rectangular-pulse-as-two-steps">A Rectangular Pulse as Two Steps</h3>
+<p><span class="math inline">\(0&lt;t&lt;t_p\)</span>에서만 <span class="math inline">\(F_0\)</span>가 작용하는 직사각형 하중은, <span class="math inline">\(t=0\)</span>에서 켜는 Step과 <span class="math inline">\(t=t_p\)</span>에서 반대 방향으로 가하는 Step의 합이다. 선형 무감쇠계의 영 초기조건에서 힘이 제거된 뒤에는</p>
+<div class="equation" id="eq-added-3-3-9">\[
+x(t)=\frac{F_0}{k}\{\cos[\omega_n(t-t_p)]-\cos\omega_nt\},
+\qquad t\ge t_p.
+
+\tag{3.3.9}
+\]</div><p>두 코사인의 차이를 정리하면 잔류 자유진동의 진폭은</p>
+<div class="equation" id="eq-added-3-3-10">\[
+X_{\mathrm{res}}=2\frac{F_0}{k}\left|\sin\frac{\omega_nt_p}{2}\right|.
+
+\tag{3.3.10}
+\]</div><p>힘의 크기가 같아도 작용 시간이 달라지면 제거 시점의 변위와 속도가 달라져 잔류진동이 바뀐다. 이것은 힘을 끈 순간에 응답도 함께 0으로 사라지는 것이 아님을 보여 준다.</p>
+<p>이상적인 무감쇠 모델에서 <span class="math inline">\(t_p\)</span>가 고유주기의 정수배이면 두 Step의 잔류응답이 상쇄된다. 실제 감쇠와 하중 변화가 존재하면 같은 정확한 상쇄를 기대할 수 없지만, 입력을 제거하는 시점이 이후 운동에 영향을 준다는 원리는 그대로 남는다.</p>
+<p>매우 짧은 직사각형 하중에서는 <span class="math inline">\(\sin(\omega_nt_p/2)\simeq\omega_nt_p/2\)</span>이다. 따라서 잔류진폭은 <span class="math inline">\(X_{\mathrm{res}}\simeq F_0t_p/(m\omega_n)=J/(m\omega_n)\)</span>가 되어 앞의 충격량 근사와 연결된다. 서로 다른 두 공식이 짧은 지속시간의 극한에서 같은 결과를 내는 것이다.</p>
+<p>하중 지속시간이 고유주기의 절반이면 <span class="math inline">\(|\sin(\omega_nt_p/2)|=1\)</span>이므로 이 무감쇠 모델의 잔류진폭은 <span class="math inline">\(2F_0/k\)</span>이다. 한 주기 지속되면 제거 순간에 변위와 속도가 모두 0으로 돌아와 잔류진동이 사라진다. 다만 하중이 작용하는 동안의 최대변위까지 0이었다는 뜻은 아니다. 잔류응답과 전체 시간의 최대응답은 다른 출력이다.</p>
+</section><section id="from-a-load-record-to-a-response" aria-labelledby="from-a-load-record-to-a-response-title"><h2 id="from-a-load-record-to-a-response-title">6. From a Load Record to a Response</h2>
+<h3 id="numerical-evaluation-of-the-integral">Numerical Evaluation of the Integral</h3>
+<p>측정한 하중 이력처럼 식으로 쓰기 어려운 입력도 충분히 작은 시간간격으로 나누어 적분의 합으로 계산할 수 있다. 각 입력 샘플은 특정 시점의 힘이므로 시간간격을 곱하여 충격량 기여로 바꾸어야 한다. 힘 값만 더하면 단위와 응답 크기가 모두 잘못된다. 사용한 적분 규칙과 시간간격은 입력의 빠른 변화 및 구조의 관심 주기를 표현할 수 있어야 한다.</p>
+<p>예를 들어 시간 <span class="math inline">\(t_j\)</span>의 응답을 직사각형 적분으로 근사하면 <span class="math inline">\(x_F(t_j)\simeq\sum_{k&lt;j}h(t_j-t_k)F(t_k)\Delta t\)</span>로 쓸 수 있다. 각 항은 서로 다른 시점에 가한 작은 충격의 현재 기여이다. 감쇠계에서는 오래된 입력의 영향이 줄어들지만, 최근 입력만 남기려면 생략한 과거 응답이 충분히 작다는 확인이 필요하다.</p>
+<p>외력이 <span class="math inline">\(t_p\)</span> 이후 0이면 적분의 상한은 <span class="math inline">\(\min(t,t_p)\)</span>로 제한할 수 있다. 그러나 함수 <span class="math inline">\(h(t-\tau)\)</span>는 이후에도 계속 변하므로 계산된 응답은 <span class="math inline">\(t_p\)</span>에서 멈추지 않는다. 같은 결과를 <span class="math inline">\(t_p\)</span>까지 적분한 뒤 그 시점의 변위·속도로 자유응답을 시작하여 얻을 수도 있다.</p>
+<h3 id="interpreting-a-transient-maximum">Interpreting a Transient Maximum</h3>
+<p>과도응답의 최대값은 입력의 최대값이 나타난 시점과 같지 않을 수 있다. 입력이 줄어드는 중에도 질량이 가진 속도 때문에 변위가 더 커질 수 있고, 입력이 제거된 뒤에 최대응답이 생길 수도 있다. 따라서 하중 기록의 Peak와 응답 기록의 Peak를 일대일로 같은 시점에 대응시키지 않는다.</p>
+<p>Transient analysis를 읽을 때에는 입력의 크기, 지속시간, 초기조건, 감쇠를 함께 확인한다. 충격량은 매우 짧은 하중의 속도 변화를, Step response는 급격한 하중 변화와 새로운 평형 사이의 운동을, Duhamel integral은 일반적인 하중 이력의 중첩을 설명한다. 세 표현은 같은 운동방정식이 시간에 따라 입력을 받아들이는 방식을 서로 다른 형태로 보여 준다.</p>
+</section><footer><a href="../index.html">← Structural Dynamics &amp; Aeroelasticity로 돌아가기</a></footer></main><aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#a-short-force-pulse" class="sidebar-link"><span class="item-number">1.</span><span>A Short Force Pulse</span></a><a href="#impulse-response-as-a-building-block" class="sidebar-link"><span class="item-number">2.</span><span>Impulse Response as a Building Block</span></a><a href="#duhamel-integral" class="sidebar-link"><span class="item-number">3.</span><span>Duhamel Integral</span></a><a href="#step-loading-and-dynamic-amplification" class="sidebar-link"><span class="item-number">4.</span><span>Step Loading and Dynamic Amplification</span></a><a href="#loading-duration-and-residual-vibration" class="sidebar-link"><span class="item-number">5.</span><span>Loading Duration and Residual Vibration</span></a><a href="#from-a-load-record-to-a-response" class="sidebar-link"><span class="item-number">6.</span><span>From a Load Record to a Response</span></a></nav></aside></div><script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script></body></html>

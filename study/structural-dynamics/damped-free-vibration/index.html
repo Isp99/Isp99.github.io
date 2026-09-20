@@ -1,71 +1,411 @@
 <!DOCTYPE html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Damping ratio는 감쇠의 상대적 크기를 나타내며, 자유진동의 형태와 진폭 감소율을 결정한다."><title>2.2 Damped Free Vibration | Isp99</title><link rel="stylesheet" href="../structural-dynamics.css"><script defer src="../navigation.js"></script></head><body class="article-page"><a class="skip-link" href="#main">Skip to content</a><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><div class="sidebar-inner"><a class="sidebar-title" href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a class="sidebar-link" href="../vibration-mass-stiffness-damping/index.html">1.1 Vibration, Mass, Stiffness, and Damping</a><a class="sidebar-link" href="../degrees-of-freedom-equations-of-motion/index.html">1.2 Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a class="sidebar-link" href="../undamped-free-vibration/index.html">2.1 Undamped Free Vibration</a><a class="sidebar-link active" href="../damped-free-vibration/index.html" aria-current="page">2.2 Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a class="sidebar-link" href="../harmonic-response-resonance/index.html">3.1 Harmonic Response and Resonance</a><a class="sidebar-link" href="../base-excitation-vibration-isolation/index.html">3.2 Base Excitation and Vibration Isolation</a><a class="sidebar-link" href="../transient-response/index.html">3.3 Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a class="sidebar-link" href="../coupled-equations-matrix-form/index.html">4.1 Coupled Equations and Matrix Form</a><a class="sidebar-link" href="../natural-frequencies-mode-shapes/index.html">4.2 Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-analysis/index.html">4.3 Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a class="sidebar-link" href="../continuous-systems-rod-vibration/index.html">5.1 Continuous Systems and Rod Vibration</a><a class="sidebar-link" href="../euler-bernoulli-beam-theory/index.html">5.2 Euler–Bernoulli Beam Theory</a><a class="sidebar-link" href="../beam-natural-frequencies-mode-shapes/index.html">5.3 Beam Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-response-of-beams/index.html">5.4 Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a class="sidebar-link" href="../energy-methods-equivalent-models/index.html">6.1 Energy Methods and Equivalent Models</a><a class="sidebar-link" href="../finite-element-method/index.html">6.2 Finite Element Method</a><a class="sidebar-link" href="../response-analysis-verification/index.html">6.3 Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a class="sidebar-link" href="../aeroelastic-coupling-static-stability/index.html">7.1 Aeroelastic Coupling and Static Stability</a><a class="sidebar-link" href="../typical-section-unsteady-aerodynamics/index.html">7.2 Flutter and the Typical Section Model</a><a class="sidebar-link" href="../flutter-analysis/index.html">7.3 Flutter Analysis</a></div></div></aside><main class="main-content" id="main"><nav class="breadcrumb"><a href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><span>/</span><a href="../index.html#chapter-2">Free Vibration</a></nav><header id="top"><h1>2.2 Damped Free Vibration</h1><p class="intro">실제 자유진동에서는 시간이 지나면서 진폭이 줄어든다. 이러한 감소를 서로 다른 구조물에서 비교하고 측정 결과로부터 감쇠를 추정하려면, 감쇠계수와 함께 질량·강성에 대한 상대적인 감쇠 수준을 표현해야 한다.</p></header><details class="mobile-series"><summary>Series Navigation</summary><a class="sidebar-title" href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a class="sidebar-link" href="../vibration-mass-stiffness-damping/index.html">1.1 Vibration, Mass, Stiffness, and Damping</a><a class="sidebar-link" href="../degrees-of-freedom-equations-of-motion/index.html">1.2 Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a class="sidebar-link" href="../undamped-free-vibration/index.html">2.1 Undamped Free Vibration</a><a class="sidebar-link active" href="../damped-free-vibration/index.html" aria-current="page">2.2 Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a class="sidebar-link" href="../harmonic-response-resonance/index.html">3.1 Harmonic Response and Resonance</a><a class="sidebar-link" href="../base-excitation-vibration-isolation/index.html">3.2 Base Excitation and Vibration Isolation</a><a class="sidebar-link" href="../transient-response/index.html">3.3 Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a class="sidebar-link" href="../coupled-equations-matrix-form/index.html">4.1 Coupled Equations and Matrix Form</a><a class="sidebar-link" href="../natural-frequencies-mode-shapes/index.html">4.2 Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-analysis/index.html">4.3 Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a class="sidebar-link" href="../continuous-systems-rod-vibration/index.html">5.1 Continuous Systems and Rod Vibration</a><a class="sidebar-link" href="../euler-bernoulli-beam-theory/index.html">5.2 Euler–Bernoulli Beam Theory</a><a class="sidebar-link" href="../beam-natural-frequencies-mode-shapes/index.html">5.3 Beam Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-response-of-beams/index.html">5.4 Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a class="sidebar-link" href="../energy-methods-equivalent-models/index.html">6.1 Energy Methods and Equivalent Models</a><a class="sidebar-link" href="../finite-element-method/index.html">6.2 Finite Element Method</a><a class="sidebar-link" href="../response-analysis-verification/index.html">6.3 Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a class="sidebar-link" href="../aeroelastic-coupling-static-stability/index.html">7.1 Aeroelastic Coupling and Static Stability</a><a class="sidebar-link" href="../typical-section-unsteady-aerodynamics/index.html">7.2 Flutter and the Typical Section Model</a><a class="sidebar-link" href="../flutter-analysis/index.html">7.3 Flutter Analysis</a></div></details><nav class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#damping-ratio-and-the-characteristic-roots">1. Damping Ratio and the Characteristic Roots</a></li><li><a href="#decay-envelope-and-damping-identification">2. Decay Envelope and Damping Identification</a></li></ol></nav><article><h2 id="damping-ratio-and-the-characteristic-roots">1. Damping Ratio and the Characteristic Roots</h2>
-<h3 id="a-dimensionless-measure-of-damping">A Dimensionless Measure of Damping</h3>
-<p>같은 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>를 가진 두 장치라도 질량과 강성이 다르면 감쇠의 상대적인 영향이 달라진다. 따라서 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>를 해당 시스템의 관성·탄성 시간척도와 비교하는 무차원량이 필요하다. 자유진동식에 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><msup><mi mathvariant="normal">e</mi><mrow><mi>s</mi><mi>t</mi></mrow></msup></mrow><annotation encoding="application/x-tex">x=\mathrm{e}^{st}</annotation></semantics></math>를 대입하면</p>
-<div class="equation" id="eq-2-2-1"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 2.2.1"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>m</mi><msup><mi>s</mi><mn>2</mn></msup><mo>+</mo><mi>c</mi><mi>s</mi><mo>+</mo><mi>k</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>0</mn></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>s</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mfrac><mrow><mo>−</mo><mi>c</mi><mo>±</mo><msqrt><mrow><msup><mi>c</mi><mn>2</mn></msup><mo>−</mo><mn>4</mn><mi>m</mi><mi>k</mi></mrow></msqrt></mrow><mrow><mn>2</mn><mi>m</mi></mrow></mfrac><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="실제 자유진동에서는 시간이 지나면서 진폭이 줄어든다. 이러한 감소를 서로 다른 구조물에서 비교하고 측정 결과로부터 감쇠를 추정하려면, 감쇠계수와 함께 질량·강성에 대한 상대적인 감쇠 수준을 표현해야 한다."><title>2.2 Damped Free Vibration | Isp99</title>
+<script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style></head><body class="article-page"><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><nav class="sidebar-inner"><a href="../index.html" class="sidebar-title">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a href="../vibration-mass-stiffness-damping/index.html" class="sidebar-link"><span class="item-number">1.1</span> Vibration, Mass, Stiffness, and Damping</a><a href="../degrees-of-freedom-equations-of-motion/index.html" class="sidebar-link"><span class="item-number">1.2</span> Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a href="../undamped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.1</span> Undamped Free Vibration</a><a href="../damped-free-vibration/index.html" class="sidebar-link active" aria-current="page"><span class="item-number">2.2</span> Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a href="../harmonic-response-resonance/index.html" class="sidebar-link"><span class="item-number">3.1</span> Harmonic Response and Resonance</a><a href="../base-excitation-vibration-isolation/index.html" class="sidebar-link"><span class="item-number">3.2</span> Base Excitation and Vibration Isolation</a><a href="../transient-response/index.html" class="sidebar-link"><span class="item-number">3.3</span> Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a href="../coupled-equations-matrix-form/index.html" class="sidebar-link"><span class="item-number">4.1</span> Coupled Equations and Matrix Form</a><a href="../natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">4.2</span> Natural Frequencies and Mode Shapes</a><a href="../modal-analysis/index.html" class="sidebar-link"><span class="item-number">4.3</span> Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a href="../continuous-systems-rod-vibration/index.html" class="sidebar-link"><span class="item-number">5.1</span> Continuous Systems and Rod Vibration</a><a href="../euler-bernoulli-beam-theory/index.html" class="sidebar-link"><span class="item-number">5.2</span> Euler–Bernoulli Beam Theory</a><a href="../beam-natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">5.3</span> Beam Natural Frequencies and Mode Shapes</a><a href="../modal-response-of-beams/index.html" class="sidebar-link"><span class="item-number">5.4</span> Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a href="../energy-methods-equivalent-models/index.html" class="sidebar-link"><span class="item-number">6.1</span> Energy Methods and Equivalent Models</a><a href="../finite-element-method/index.html" class="sidebar-link"><span class="item-number">6.2</span> Finite Element Method</a><a href="../response-analysis-verification/index.html" class="sidebar-link"><span class="item-number">6.3</span> Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a href="../aeroelastic-coupling-static-stability/index.html" class="sidebar-link"><span class="item-number">7.1</span> Aeroelastic Coupling and Static Stability</a><a href="../typical-section-unsteady-aerodynamics/index.html" class="sidebar-link"><span class="item-number">7.2</span> Flutter and the Typical Section Model</a><a href="../flutter-analysis/index.html" class="sidebar-link"><span class="item-number">7.3</span> Flutter Analysis</a></div></nav></aside><main class="main-content" id="top"><nav aria-label="Current article"><a href="#top">2.2 Damped Free Vibration</a></nav><header><h1>2.2 Damped Free Vibration</h1><p class="subtitle">Characteristic Roots, Decay Envelopes, and Damping Identification</p><p class="intro">실제 자유진동에서는 시간이 지나면서 진폭이 줄어든다. 이러한 감소를 서로 다른 구조물에서 비교하고 측정 결과로부터 감쇠를 추정하려면, 감쇠계수와 함께 질량·강성에 대한 상대적인 감쇠 수준을 표현해야 한다.</p></header><aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#damping-ratio-and-the-equation-of-motion">Damping Ratio and the Equation of Motion</a></li><li><a href="#characteristic-roots-and-response-types">Characteristic Roots and Response Types</a></li><li><a href="#underdamped-free-response">Underdamped Free Response</a></li><li><a href="#logarithmic-decrement">Logarithmic Decrement</a></li><li><a href="#mechanical-energy-and-damping">Mechanical Energy and Damping</a></li><li><a href="#identification-and-physical-limits">Identification and Physical Limits</a></li></ol></aside><section id="damping-ratio-and-the-equation-of-motion" aria-labelledby="damping-ratio-and-the-equation-of-motion-title"><h2 id="damping-ratio-and-the-equation-of-motion-title">1. Damping Ratio and the Equation of Motion</h2>
+<h3 id="comparing-damping-between-systems">Comparing Damping between Systems</h3>
+<p>같은 <span>\(c\)</span>를 가진 두 장치라도 질량과 강성이 다르면 감쇠의 상대적인 영향이 달라진다. 따라서 <span>\(c\)</span>를 해당 시스템의 관성·탄성 시간척도와 비교하는 무차원량이 필요하다. 자유진동식에 <span>\(x=\mathrm{e}^{st}\)</span>를 대입하면</p>
+<div class="equation" id="eq-2-2-1">\[
+\begin{aligned}
 ms^2+cs+k&amp;=0\\[1em]
 s&amp;=\frac{-c\pm\sqrt{c^2-4mk}}{2m}.
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(2.2.1)</span></div><p>판별식이 0이 되는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>를 Critical damping coefficient <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">r</mi></mrow></msub><annotation encoding="application/x-tex">c_{\mathrm{cr}}</annotation></semantics></math>로 정의하고, 그 값에 대한 비를 Damping ratio <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ζ</mi><annotation encoding="application/x-tex">\zeta</annotation></semantics></math>로 정의한다.</p>
-<div class="equation main" id="eq-zeta"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 2.2.2"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">r</mi></mrow></msub><mo>=</mo><mn>2</mn><msqrt><mrow><mi>k</mi><mi>m</mi></mrow></msqrt><mo>=</mo><mn>2</mn><mi>m</mi><msub><mi>ω</mi><mi>n</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><mi>ζ</mi><mo>=</mo><mfrac><mi>c</mi><mrow><mn>2</mn><mi>m</mi><msub><mi>ω</mi><mi>n</mi></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">c_{\mathrm{cr}}=2\sqrt{km}=2m\omega_n,\qquad
+\end{aligned}
+
+\tag{2.2.1}
+\]</div><p>판별식이 0이 되는 <span>\(c\)</span>를 Critical damping coefficient <span>\(c_{\mathrm{cr}}\)</span>로 정의하고, 그 값에 대한 비를 Damping ratio <span>\(\zeta\)</span>로 정의한다.</p>
+<div class="equation main" id="eq-zeta">\[
+\boxed{\displaystyle c_{\mathrm{cr}}=2\sqrt{km}=2m\omega_n,\qquad
 \zeta=\frac{c}{2m\omega_n}
-</annotation></semantics></math></div><span class="equation-number">(2.2.2)</span></div><p>이 정의를 대입하면 운동방정식과 Characteristic roots는</p>
-<div class="equation" id="eq-2-2-3"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 2.2.3"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mover><mi>x</mi><mo accent="true">̈</mo></mover><mo>+</mo><mn>2</mn><mi>ζ</mi><msub><mi>ω</mi><mi>n</mi></msub><mover><mi>x</mi><mo accent="true">̇</mo></mover><mo>+</mo><msubsup><mi>ω</mi><mi>n</mi><mn>2</mn></msubsup><mi>x</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>0</mn></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>s</mi><mrow><mn>1</mn><mo>,</mo><mn>2</mn></mrow></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mo>−</mo><mi>ζ</mi><msub><mi>ω</mi><mi>n</mi></msub><mo>±</mo><msub><mi>ω</mi><mi>n</mi></msub><msqrt><mrow><msup><mi>ζ</mi><mn>2</mn></msup><mo>−</mo><mn>1</mn></mrow></msqrt><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+}
+
+\tag{2.2.2}
+\]</div><p>이 정의를 대입하면 운동방정식과 Characteristic roots는</p>
+<div class="equation" id="eq-2-2-3">\[
+\begin{aligned}
 \ddot{x}+2\zeta\omega_n\dot{x}+\omega_n^2x&amp;=0\\[1em]
 s_{1,2}&amp;=-\zeta\omega_n\pm\omega_n\sqrt{\zeta^2-1}.
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(2.2.3)</span></div><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>의 실수부는 지수적으로 감소하거나 증가하는 속도를, 허수부는 진동하는 속도를 나타낸다. 이 구분으로 Damping이 단순히 진폭만 바꾸는지, 진동 자체를 없애는지 판단할 수 있다.</p>
-<h3 id="underdamped-critical-and-overdamped-cases">Underdamped, Critical, and Overdamped Cases</h3>
-<div class="table-wrap" tabindex="0"><table>
+\end{aligned}
+
+\tag{2.2.3}
+\]</div><p><span>\(s\)</span>의 실수부는 지수적으로 감소하거나 증가하는 속도를, 허수부는 진동하는 속도를 나타낸다. 이 구분으로 Damping이 단순히 진폭만 바꾸는지, 진동 자체를 없애는지 판단할 수 있다.</p>
+<p>감쇠계수 <span class="math inline">\(c\)</span>의 값만으로 두 구조물 중 어느 쪽의 진동이 더 빨리 줄어드는지 바로 비교하기는 어렵다. 같은 감쇠계수를 사용해도 질량이 크거나 강성이 달라지면 한 주기의 시간과 운동에너지의 크기가 달라지기 때문이다. Damping ratio는 질량과 강성이 정한 기준 감쇠에 대한 상대적인 크기로 감쇠를 표현한다.</p>
+<h3 id="a-dimensionless-time-coordinate">A Dimensionless Time Coordinate</h3>
+<p>시간을 고유주파수로 정규화하여 <span class="math inline">\(\tau=\omega_nt\)</span>로 두면, <span class="math inline">\(d/dt=\omega_n d/d\tau\)</span>이다. 운동방정식을 <span class="math inline">\(m\omega_n^2=k\)</span>로 나누면</p>
+<div class="equation" id="eq-added-2-2-4">\[
+\frac{d^2x}{d\tau^2}+2\zeta\frac{dx}{d\tau}+x=0.
+
+\tag{2.2.4}
+\]</div><p>질량과 강성이 서로 다른 시스템도 같은 <span class="math inline">\(\zeta\)</span>를 가지면 이 정규화된 방정식은 같다. 실제 시간의 빠르기는 <span class="math inline">\(\omega_n\)</span>이, 그 시간척도에 대한 상대적인 감쇠의 형태는 <span class="math inline">\(\zeta\)</span>가 정한다. 감쇠비가 무차원량이라는 사실은 단순히 단위를 없앤 것 이상의 비교 기준을 제공한다.</p>
+</section><section id="characteristic-roots-and-response-types" aria-labelledby="characteristic-roots-and-response-types-title"><h2 id="characteristic-roots-and-response-types-title">2. Characteristic Roots and Response Types</h2>
+<h3 id="exponential-solutions">Exponential Solutions</h3>
+<div class="comparison-wrap" tabindex="0"><table class="comparison">
 <thead>
 <tr class="header">
-<th style="text-align: left;">Condition</th>
-<th style="text-align: left;">Roots</th>
-<th style="text-align: left;">Free-response behavior</th>
+<th>Condition</th>
+<th>Roots</th>
+<th>Free-response behavior</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ζ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\zeta=0</annotation></semantics></math></td>
-<td style="text-align: left;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>±</mo><mi mathvariant="normal">i</mi><msub><mi>ω</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\pm\mathrm{i}\omega_n</annotation></semantics></math></td>
-<td style="text-align: left;">진폭이 일정한 진동</td>
+<td><span>\(\zeta=0\)</span></td>
+<td><span>\(\pm\mathrm{i}\omega_n\)</span></td>
+<td>진폭이 일정한 진동</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>ζ</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0&lt;\zeta&lt;1</annotation></semantics></math></td>
-<td style="text-align: left;">Complex conjugates</td>
-<td style="text-align: left;">진폭이 지수적으로 감소하는 진동</td>
+<td><span>\(0&lt;\zeta&lt;1\)</span></td>
+<td>Complex conjugates</td>
+<td>진폭이 지수적으로 감소하는 진동</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ζ</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\zeta=1</annotation></semantics></math></td>
-<td style="text-align: left;">Repeated real root</td>
-<td style="text-align: left;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>A</mi><mo>+</mo><mi>B</mi><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><msup><mi mathvariant="normal">e</mi><mrow><mo>−</mo><msub><mi>ω</mi><mi>n</mi></msub><mi>t</mi></mrow></msup></mrow><annotation encoding="application/x-tex">(A+Bt)\mathrm{e}^{-\omega_nt}</annotation></semantics></math> 형태의 비진동 응답</td>
+<td><span>\(\zeta=1\)</span></td>
+<td>Repeated real root</td>
+<td><span>\((A+Bt)\mathrm{e}^{-\omega_nt}\)</span> 형태의 비진동 응답</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ζ</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\zeta&gt;1</annotation></semantics></math></td>
-<td style="text-align: left;">Two negative real roots</td>
-<td style="text-align: left;">서로 다른 두 지수함수의 합인 비진동 응답</td>
+<td><span>\(\zeta&gt;1\)</span></td>
+<td>Two negative real roots</td>
+<td>서로 다른 두 지수함수의 합인 비진동 응답</td>
 </tr>
 </tbody>
 </table>
-</div><p>Critical damping은 진동성 해와 비진동성 해의 경계이다. Overdamped일 때 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>를 계속 키우면 느린 지수모드가 더 느려질 수 있으므로, <strong>감쇠가 클수록 항상 더 빨리 평형에 도달하는 것은 아니다</strong>. 비진동 응답도 초기속도에 따라 평형점을 한 번 통과할 수 있으므로, 비진동과 단조감소를 동일하게 해석하지 않는다.</p>
-<h2 id="decay-envelope-and-damping-identification">2. Decay Envelope and Damping Identification</h2>
-<h3 id="underdamped-free-response">Underdamped Free Response</h3>
-<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>ζ</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0\leq\zeta&lt;1</annotation></semantics></math>이면 Characteristic roots의 허수부를 Damped natural angular frequency <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ω</mi><mi>d</mi></msub><annotation encoding="application/x-tex">\omega_d</annotation></semantics></math>로 정의할 수 있다. 이때</p>
-<div class="equation" id="eq-2-2-4"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 2.2.4"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>ω</mi><mi>d</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mi>ω</mi><mi>n</mi></msub><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>ζ</mi><mn>2</mn></msup></mrow></msqrt></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>x</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msup><mi mathvariant="normal">e</mi><mrow><mo>−</mo><mi>ζ</mi><msub><mi>ω</mi><mi>n</mi></msub><mi>t</mi></mrow></msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>A</mi><mo>cos</mo><msub><mi>ω</mi><mi>d</mi></msub><mi>t</mi><mo>+</mo><mi>B</mi><mo>sin</mo><msub><mi>ω</mi><mi>d</mi></msub><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+</div><p>Critical damping은 진동성 해와 비진동성 해의 경계이다. Overdamped일 때 <span>\(c\)</span>를 계속 키우면 느린 지수모드가 더 느려질 수 있으므로, <strong>감쇠가 클수록 항상 더 빨리 평형에 도달하는 것은 아니다</strong>. 비진동 응답도 초기속도에 따라 평형점을 한 번 통과할 수 있으므로, 비진동과 단조감소를 동일하게 해석하지 않는다.</p>
+<p>지수함수 <span class="math inline">\(x=e^{st}\)</span>는 미분해도 같은 함수에 <span class="math inline">\(s\)</span>가 곱해지는 형태이므로 상수계수 미분방정식을 풀기에 편리하다. 이를 <span class="math inline">\(m\ddot x+c\dot x+kx=0\)</span>에 대입하고 0이 아닌 지수함수로 나누면 <span class="math inline">\(ms^2+cs+k=0\)</span>을 얻는다. 이 대수방정식의 근이 시간응답의 성격을 정한다.</p>
+<div class="equation" id="eq-added-2-2-5">\[
+s_{1,2}=-\zeta\omega_n\pm\omega_n\sqrt{\zeta^2-1}.
+
+\tag{2.2.5}
+\]</div><h3 id="real-and-imaginary-parts-of-a-root">Real and Imaginary Parts of a Root</h3>
+<p><span class="math inline">\(\zeta&lt;1\)</span>에서는 제곱근이 허수가 되므로 두 근은 켤레복소수이다. 실수부는 시간에 따른 진폭 감소율을, 허수부는 반복되는 진동의 각주파수를 나타낸다. <span class="math inline">\(\zeta&gt;1\)</span>에서는 서로 다른 두 음의 실근이 나타나므로 주기적으로 부호를 바꾸는 사인·코사인 항이 없다. 응답은 두 지수감소 성분의 합으로 나타난다.</p>
+<p>임계감쇠 <span class="math inline">\(\zeta=1\)</span>에서는 두 근이 겹친다. 서로 독립적인 두 해가 필요하므로 <span class="math inline">\(e^{-\omega_nt}\)</span>와 <span class="math inline">\(te^{-\omega_nt}\)</span>를 사용한다. 감쇠가 크다는 이유만으로 언제나 평형으로 더 빨리 복귀하는 것은 아니다. 과감쇠계에서는 느린 실근에 해당하는 응답이 오래 남을 수 있다. 또한 어떤 초기속도에서도 평형을 절대로 지나지 않는다는 의미로 임계감쇠를 해석하지 않는다.</p>
+<p>임계감쇠에서 초기조건까지 적용하면 <span class="math inline">\(x(t)=[x_0+(v_0+\omega_nx_0)t]e^{-\omega_nt}\)</span>이다. 이 식에는 일정한 주기가 없지만, 초기속도에 따라 변위의 부호가 한 번 바뀔 수 있다. 따라서 진동하지 않는다는 말은 사인파처럼 반복되는 왕복운동이 없다는 의미로 사용한다.</p>
+<p>과감쇠가 매우 큰 경우 두 근 중 느린 근을 근사하면 <span class="math inline">\(s_{\mathrm{slow}}\simeq-\omega_n/(2\zeta)=-k/c\)</span>이다. 이 성분이 초기조건에 의해 가진되면 특성시간은 약 <span class="math inline">\(c/k\)</span>가 된다. 감쇠기를 매우 크게 만들면 힘에 대한 운동 자체가 억제되어 복귀 과정이 오히려 느려지는 이유를 이 근으로 확인할 수 있다.</p>
+</section><section id="underdamped-free-response" aria-labelledby="underdamped-free-response-title"><h2 id="underdamped-free-response-title">3. Underdamped Free Response</h2>
+<h3 id="applying-the-initial-conditions">Applying the Initial Conditions</h3>
+<p><span>\(0\leq\zeta&lt;1\)</span>이면 Characteristic roots의 허수부를 Damped natural angular frequency <span>\(\omega_d\)</span>로 정의할 수 있다. 이때</p>
+<div class="equation" id="eq-2-2-4">\[
+\begin{aligned}
 \omega_d&amp;=\omega_n\sqrt{1-\zeta^2}\\[1em]
 x(t)&amp;=\mathrm{e}^{-\zeta\omega_nt}
 \left(A\cos\omega_dt+B\sin\omega_dt\right).
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(2.2.4)</span></div><p>초기조건을 대입하면 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><msub><mi>x</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">A=x_0</annotation></semantics></math>이고 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>v</mi><mn>0</mn></msub><mo>=</mo><mo>−</mo><mi>ζ</mi><msub><mi>ω</mi><mi>n</mi></msub><mi>A</mi><mo>+</mo><msub><mi>ω</mi><mi>d</mi></msub><mi>B</mi></mrow><annotation encoding="application/x-tex">v_0=-\zeta\omega_nA+\omega_dB</annotation></semantics></math>이므로</p>
-<div class="equation main" id="eq-dampedIC"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 2.2.5"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msup><mi mathvariant="normal">e</mi><mrow><mo>−</mo><mi>ζ</mi><msub><mi>ω</mi><mi>n</mi></msub><mi>t</mi></mrow></msup><mrow><mo stretchy="true" form="prefix">[</mo><msub><mi>x</mi><mn>0</mn></msub><mo>cos</mo><msub><mi>ω</mi><mi>d</mi></msub><mi>t</mi><mo>+</mo><mfrac><mrow><msub><mi>v</mi><mn>0</mn></msub><mo>+</mo><mi>ζ</mi><msub><mi>ω</mi><mi>n</mi></msub><msub><mi>x</mi><mn>0</mn></msub></mrow><msub><mi>ω</mi><mi>d</mi></msub></mfrac><mo>sin</mo><msub><mi>ω</mi><mi>d</mi></msub><mi>t</mi><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">x(t)=\mathrm{e}^{-\zeta\omega_nt}
+\end{aligned}
+
+\tag{2.2.6}
+\]</div><p>초기조건을 대입하면 <span>\(A=x_0\)</span>이고 <span>\(v_0=-\zeta\omega_nA+\omega_dB\)</span>이므로</p>
+<div class="equation main" id="eq-dampedIC">\[
+\boxed{\displaystyle x(t)=\mathrm{e}^{-\zeta\omega_nt}
 \left[x_0\cos\omega_dt+
 \frac{v_0+\zeta\omega_nx_0}{\omega_d}\sin\omega_dt\right]
-</annotation></semantics></math></div><span class="equation-number">(2.2.5)</span></div><p>지수항은 진폭의 Envelope를, Sinusoidal term은 그 안의 진동을 나타낸다. 진폭 Envelope가 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi mathvariant="normal">e</mi></mrow><annotation encoding="application/x-tex">1/\mathrm{e}</annotation></semantics></math>로 감소하는 시간은 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>τ</mi><mi>d</mi></msub><mo>=</mo><mn>1</mn><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>ζ</mi><msub><mi>ω</mi><mi>n</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\tau_d=1/(\zeta\omega_n)</annotation></semantics></math>이다. 감쇠가 작으면 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ω</mi><mi>d</mi></msub><mo>≈</mo><msub><mi>ω</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\omega_d\approx\omega_n</annotation></semantics></math>이지만 두 값의 정의는 다르다.</p>
-<h3 id="logarithmic-decrement">Logarithmic Decrement</h3>
-<p>실험에서는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>를 직접 구하기 어려워도 자유진동 Peak의 감소율은 측정할 수 있다. 평형값을 뺀 신호에서 같은 부호를 갖는 인접 Peak의 크기를 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>j</mi></msub><annotation encoding="application/x-tex">a_j</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">a_{j+1}</annotation></semantics></math>라 하면, 두 Peak 사이의 시간은 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>d</mi></msub><mo>=</mo><mn>2</mn><mi>π</mi><mi>/</mi><msub><mi>ω</mi><mi>d</mi></msub></mrow><annotation encoding="application/x-tex">T_d=2\pi/\omega_d</annotation></semantics></math>이다.</p>
-<div class="equation" id="eq-2-2-6"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 2.2.6"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mfrac><msub><mi>a</mi><mi>j</mi></msub><msub><mi>a</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub></mfrac></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msup><mi mathvariant="normal">e</mi><mrow><mi>ζ</mi><msub><mi>ω</mi><mi>n</mi></msub><msub><mi>T</mi><mi>d</mi></msub></mrow></msup></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>δ</mi><mo>log</mo></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>≡</mo><mo>ln</mo><mfrac><msub><mi>a</mi><mi>j</mi></msub><msub><mi>a</mi><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow></msub></mfrac><mo>=</mo><mfrac><mrow><mn>2</mn><mi>π</mi><mi>ζ</mi></mrow><msqrt><mrow><mn>1</mn><mo>−</mo><msup><mi>ζ</mi><mn>2</mn></msup></mrow></msqrt></mfrac><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+}
+
+\tag{2.2.7}
+\]</div><p>지수항은 진폭의 Envelope를, Sinusoidal term은 그 안의 진동을 나타낸다. 진폭 Envelope가 <span>\(1/\mathrm{e}\)</span>로 감소하는 시간은 <span>\(\tau_d=1/(\zeta\omega_n)\)</span>이다. 감쇠가 작으면 <span>\(\omega_d\approx\omega_n\)</span>이지만 두 값의 정의는 다르다.</p>
+<p>감쇠가 있는 경우에도 초기변위와 초기속도 두 조건이 필요하다. 다만 속도를 미분할 때에는 삼각함수뿐 아니라 지수 포락선의 미분도 포함해야 한다. <span class="math inline">\(x=e^{-\zeta\omega_nt}(A\cos\omega_dt+B\sin\omega_dt)\)</span>를 미분하고 <span class="math inline">\(t=0\)</span>을 대입하면</p>
+<div class="equation" id="eq-added-2-2-8">\[
+x_0=A,\qquad v_0=-\zeta\omega_nA+\omega_dB.
+
+\tag{2.2.8}
+\]</div><p>따라서 <span class="math inline">\(B=(v_0+\zeta\omega_nx_0)/\omega_d\)</span>가 된다. 무감쇠계의 <span class="math inline">\(v_0/\omega_n\)</span>을 그대로 가져오면 감쇠에 의한 포락선 변화가 초기속도에 반영되지 않는다.</p>
+<h3 id="decay-rate-and-oscillation-frequency">Decay Rate and Oscillation Frequency</h3>
+<p>감쇠진동수 <span class="math inline">\(\omega_d=\omega_n\sqrt{1-\zeta^2}\)</span>는 무감쇠 고유진동수보다 작다. 감쇠비가 충분히 작으면 두 값의 차이가 작지만, 임계감쇠에 접근하면 진동하는 시간척도와 포락선의 감소 시간척도가 크게 달라진다. 계산이나 시험에서 주기를 읽었을 때 바로 <span class="math inline">\(\omega_n\)</span>이라고 부를 수 있는지는 감쇠 크기에 따라 판단한다.</p>
+<p>포락선은 <span class="math inline">\(e^{-\zeta\omega_nt}\)</span>에 비례한다. 따라서 진폭 포락선이 처음의 <span class="math inline">\(1/e\)</span>로 줄어드는 시간은 <span class="math inline">\(t_e=1/(\zeta\omega_n)\)</span>이다. 같은 감쇠비라도 고유주파수가 높으면 실제 초 단위의 감소는 더 빠를 수 있다. 감쇠비가 상대적인 손실 수준을, <span class="math inline">\(\zeta\omega_n\)</span>이 실제 시간에 대한 감소율을 나타낸다는 구분이 필요하다.</p>
+</section><section id="logarithmic-decrement" aria-labelledby="logarithmic-decrement-title"><h2 id="logarithmic-decrement-title">4. Logarithmic Decrement</h2>
+<h3 id="measuring-decay-over-equal-phases">Measuring Decay over Equal Phases</h3>
+<p>실험에서는 <span>\(c\)</span>를 직접 구하기 어려워도 자유진동 Peak의 감소율은 측정할 수 있다. 평형값을 뺀 신호에서 같은 부호를 갖는 인접 Peak의 크기를 <span>\(a_j\)</span>, <span>\(a_{j+1}\)</span>라 하면, 두 Peak 사이의 시간은 <span>\(T_d=2\pi/\omega_d\)</span>이다.</p>
+<div class="equation" id="eq-2-2-6">\[
+\begin{aligned}
 \frac{a_j}{a_{j+1}}&amp;=\mathrm{e}^{\zeta\omega_nT_d}\\[1em]
 \delta_{\log}&amp;\equiv\ln\frac{a_j}{a_{j+1}}
 =\frac{2\pi\zeta}{\sqrt{1-\zeta^2}}.
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(2.2.6)</span></div><p>이를 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ζ</mi><annotation encoding="application/x-tex">\zeta</annotation></semantics></math>에 대해 정리하면</p>
-<div class="equation main" id="eq-logdec"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 2.2.7"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ζ</mi><mo>=</mo><mfrac><msub><mi>δ</mi><mo>log</mo></msub><msqrt><mrow><mn>4</mn><msup><mi>π</mi><mn>2</mn></msup><mo>+</mo><msubsup><mi>δ</mi><mo>log</mo><mn>2</mn></msubsup></mrow></msqrt></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>δ</mi><mo>log</mo></msub><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><mo>ln</mo><mfrac><msub><mi>a</mi><mi>j</mi></msub><msub><mi>a</mi><mrow><mi>j</mi><mo>+</mo><mi>n</mi></mrow></msub></mfrac></mrow><annotation encoding="application/x-tex">\zeta=\frac{\delta_{\log}}{\sqrt{4\pi^2+\delta_{\log}^2}},\qquad
+\end{aligned}
+
+\tag{2.2.9}
+\]</div><p>이를 <span>\(\zeta\)</span>에 대해 정리하면</p>
+<div class="equation main" id="eq-logdec">\[
+\boxed{\displaystyle \zeta=\frac{\delta_{\log}}{\sqrt{4\pi^2+\delta_{\log}^2}},\qquad
 \delta_{\log}=\frac1n\ln\frac{a_j}{a_{j+n}}
-</annotation></semantics></math></div><span class="equation-number">(2.2.7)</span></div><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>주기 떨어진 Peak를 사용하면 여러 주기의 평균 감소율을 사용할 수 있다. 이 관계는 <strong>하나의 선형 Viscous-damped mode가 지배하는 Free decay</strong>를 전제로 한다. 여러 Mode가 섞인 Beating이나 마찰감쇠 신호의 Peak에 그대로 적용하면 올바른 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ζ</mi><annotation encoding="application/x-tex">\zeta</annotation></semantics></math>를 얻지 못할 수 있다.</p>
-</article><div class="one-line-summary"><strong>Summary</strong><p>Damping ratio는 감쇠의 상대적 크기를 나타내며, 자유진동의 형태와 진폭 감소율을 결정한다.</p></div><nav class="pagination" aria-label="Previous and next article"><a rel="prev" href="../undamped-free-vibration/index.html"><small>Previous</small>2.1 Undamped Free Vibration</a><a rel="next" href="../harmonic-response-resonance/index.html"><small>Next</small>3.1 Harmonic Response and Resonance</a></nav><footer><a href="../index.html">Contents</a> · <a href="#top">Back to top</a></footer></main><aside class="right-sidebar" aria-label="On this page"><div class="sidebar-inner"><div class="sidebar-title">On this page</div><a class="sidebar-link" href="#damping-ratio-and-the-characteristic-roots">1. Damping Ratio and the Characteristic Roots</a><a class="sidebar-link" href="#decay-envelope-and-damping-identification">2. Decay Envelope and Damping Identification</a></div></aside></div></body></html>
+}
+
+\tag{2.2.10}
+\]</div><p><span>\(n\)</span>주기 떨어진 Peak를 사용하면 여러 주기의 평균 감소율을 사용할 수 있다. 이 관계는 <strong>하나의 선형 Viscous-damped mode가 지배하는 Free decay</strong>를 전제로 한다. 여러 Mode가 섞인 Beating이나 마찰감쇠 신호의 Peak에 그대로 적용하면 올바른 <span>\(\zeta\)</span>를 얻지 못할 수 있다.</p>
+<p>연속된 두 Peak를 비교하는 이유는 같은 진동 위상에서 삼각함수의 기여가 같아지기 때문이다. 양의 최대값끼리 또는 음의 최소값의 절댓값끼리 비교하면 두 시점 사이에는 감쇠주기 <span class="math inline">\(T_d\)</span>가 놓인다. 반면 양의 Peak와 바로 다음 음의 Peak의 절댓값을 비교하면 보통 반주기 간격이므로, 한 주기용 식에 그대로 넣으면 감쇠를 잘못 추정한다.</p>
+<h3 id="using-several-cycles">Using Several Cycles</h3>
+<p>측정 잡음이 있을 때에는 한 주기 차이만 사용하는 대신 여러 주기의 Peak를 비교할 수 있다. <span class="math inline">\(N\)</span>주기 떨어진 진폭을 <span class="math inline">\(x_j\)</span>, <span class="math inline">\(x_{j+N}\)</span>이라 하면</p>
+<div class="equation" id="eq-added-2-2-11">\[
+\delta=\frac1N\ln\frac{|x_j|}{|x_{j+N}|},
+\qquad
+\zeta=\frac{\delta}{\sqrt{4\pi^2+\delta^2}}.
+
+\tag{2.2.11}
+\]</div><p>여러 주기에 걸친 감소를 평균하면 각 Peak를 읽는 오차의 영향을 줄일 수 있다. 그러나 너무 늦은 신호를 사용하면 진폭이 잡음 수준에 가까워지고, 일정한 비율로 감소한다는 가정이 측정 오차에 가려질 수 있다. 비교 구간은 단일 Mode의 자유감쇠가 분명히 보이는 범위에서 선택한다.</p>
+<p>Peak 사이의 주기로 <span class="math inline">\(T_d\)</span>를 구하면 <span class="math inline">\(\omega_d=2\pi/T_d\)</span>를 얻는다. 이어서 <span class="math inline">\(\omega_n=\omega_d/\sqrt{1-\zeta^2}\)</span>로 무감쇠 고유진동수를 추정할 수 있다. 감쇠비와 주파수를 함께 구하는 과정이므로, 단순히 Peak의 높이만 비교하는 것과 주기의 정보까지 사용하는 것을 구분한다.</p>
+<p>로그를 취한 Peak는 시간에 대해 직선에 가까워야 한다. 단일 지수 포락선에서 <span class="math inline">\(\ln|x_j|=\text{constant}-\zeta\omega_nt_j\)</span>이므로, 여러 Peak의 로그를 시간에 대해 그린 기울기는 감소율 <span class="math inline">\(-\zeta\omega_n\)</span>을 나타낸다. Peak 두 개의 비뿐 아니라 전체 구간이 같은 감소 법칙을 따르는지 살펴볼 수 있다.</p>
+<p>이때 비교할 Peak는 진동의 기준 평형에서 잰 진폭이다. 센서 신호에 일정한 Offset이 있거나 기준 평형이 천천히 이동하면, 원시 측정값의 비에는 그 이동이 함께 섞인다. 자유감쇠 성분과 기준값을 구분한 뒤 진폭의 로그를 계산해야 지수감쇠라는 가정과 측정량이 일치한다.</p>
+</section><section id="mechanical-energy-and-damping" aria-labelledby="mechanical-energy-and-damping-title"><h2 id="mechanical-energy-and-damping-title">5. Mechanical Energy and Damping</h2>
+<h3 id="energy-lost-through-a-damper">Energy Lost through a Damper</h3>
+<p>점성 감쇠력은 <span class="math inline">\(c\dot x\)</span>에 비례하지만, 소산되는 일률은 속도를 한 번 더 곱한 <span class="math inline">\(c\dot x^2\)</span>이다. 따라서 속도가 양수인지 음수인지와 관계없이 기계적 에너지는 감소한다.</p>
+<div class="equation" id="eq-added-2-2-12">\[
+E=\frac12m\dot x^2+\frac12kx^2,\qquad
+\dot E=-c\dot x^2\le0.
+
+\tag{2.2.12}
+\]</div><p>진동 중에는 운동에너지와 탄성에너지가 계속 교환되는 동시에 일부가 소산된다. 그 결과 두 에너지의 합이 감소하며 변위의 최대값도 줄어든다. 감쇠가 복원력처럼 작용하여 변위를 원점으로 직접 끌어당긴다고 해석하는 것보다 이 에너지 관계가 역할을 분명하게 보여 준다.</p>
+<h3 id="energy-from-one-peak-to-the-next">Energy from One Peak to the Next</h3>
+<p>같은 방향의 변위 Peak에서는 속도가 0이므로 에너지는 <span class="math inline">\(\tfrac12kx_j^2\)</span>이다. 진폭비가 <span class="math inline">\(x_{j+1}/x_j=e^{-\delta}\)</span>이면 에너지비는 <span class="math inline">\(E_{j+1}/E_j=e^{-2\delta}\)</span>이다. 에너지가 진폭의 제곱에 비례하므로, 진폭의 감소율과 에너지의 감소율을 같은 값으로 사용해서는 안 된다.</p>
+<p>감쇠가 작을 때 <span class="math inline">\(\delta\simeq2\pi\zeta\)</span>이므로 한 주기 후 남은 에너지비는 약 <span class="math inline">\(e^{-4\pi\zeta}\)</span>이다. 이 식은 작은 감쇠에서의 근사적 해석에 유용하지만, 큰 감쇠에서 삼각함수의 주기 운동 자체가 사라지면 같은 방식의 Peak 비교는 적용되지 않는다. 감쇠를 추정하는 방법에도 응답 형태에 대한 전제가 있다.</p>
+</section><section id="identification-and-physical-limits" aria-labelledby="identification-and-physical-limits-title"><h2 id="identification-and-physical-limits-title">6. Identification and Physical Limits</h2>
+<h3 id="a-numerical-reading-of-a-decay">A Numerical Reading of a Decay</h3>
+<p>한 주기 간격의 같은 방향 Peak가 <span class="math inline">\(5.0\,\mathrm{mm}\)</span>에서 <span class="math inline">\(4.0\,\mathrm{mm}\)</span>로 줄었다면 <span class="math inline">\(\delta=\ln(5/4)\simeq0.223\)</span>, <span class="math inline">\(\zeta\simeq0.0355\)</span>이다. 감쇠주기가 <span class="math inline">\(0.20\,\mathrm s\)</span>이면 <span class="math inline">\(\omega_d\simeq31.4\,\mathrm{rad/s}\)</span>이며, 감쇠가 작아 무감쇠 고유주파수와의 차이도 작다. 이 계산은 Peak가 단일 Mode의 자유감쇠에서 나온 경우에 해당한다.</p>
+<p>위 예에서 다섯 주기 후 같은 방향 진폭은 <span class="math inline">\(5.0(4.0/5.0)^5\simeq1.64\,\mathrm{mm}\)</span>로 예상된다. 여기서 매 주기 감소하는 것은 일정한 길이가 아니라 일정한 비율이다. 반면 건마찰이 주된 소산인 이상적 모델은 다른 감소 형태를 보이므로, 여러 주기의 Peak를 비교하면 점성 감쇠 근사가 적절한지도 살펴볼 수 있다.</p>
+<p>이 계산에서 주기와 진폭비는 서로 다른 정보를 제공한다. 주기만 알아서는 질량과 강성의 비를 추정할 수 있고, 진폭 감소를 더 측정하면 감쇠비도 추정할 수 있다. 그러나 질량·강성·감쇠계수 각각을 모두 독립적으로 정하려면 질량 같은 추가 정보가 필요하다.</p>
+<h3 id="distinguishing-a-model-from-a-measurement">Distinguishing a Model from a Measurement</h3>
+<p>측정 신호에 여러 Mode가 섞이면 각 Mode의 진폭이 줄어들고 있어도 두 성분의 간섭 때문에 전체 Peak가 커졌다 작아질 수 있다. 이러한 Beat 현상을 하나의 지수 포락선으로 맞추면 잘못된 감쇠비가 나올 수 있다. 따라서 감쇠를 구하기 전에 어떤 Mode를 관찰하는지와 외부 가진이 실제로 제거되었는지를 확인한다.</p>
+<p>마찰이나 접촉이 강한 구조에서는 Peak가 일정한 비율로 감소하지 않을 수 있다. 이때 점성 감쇠로 추정한 값은 사용한 구간에서의 등가적인 감쇠이다. 감쇠값을 다른 진폭이나 주파수에 사용할 때에는 그 범위에서도 같은 모델이 적절한지 살핀다. 자유진동의 감소 형태를 설명하는 일과 실제 소산 메커니즘을 특정하는 일은 같은 의미가 아니다.</p>
+</section><footer><a href="../index.html">← Structural Dynamics &amp; Aeroelasticity로 돌아가기</a></footer></main><aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#damping-ratio-and-the-equation-of-motion" class="sidebar-link"><span class="item-number">1.</span><span>Damping Ratio and the Equation of Motion</span></a><a href="#characteristic-roots-and-response-types" class="sidebar-link"><span class="item-number">2.</span><span>Characteristic Roots and Response Types</span></a><a href="#underdamped-free-response" class="sidebar-link"><span class="item-number">3.</span><span>Underdamped Free Response</span></a><a href="#logarithmic-decrement" class="sidebar-link"><span class="item-number">4.</span><span>Logarithmic Decrement</span></a><a href="#mechanical-energy-and-damping" class="sidebar-link"><span class="item-number">5.</span><span>Mechanical Energy and Damping</span></a><a href="#identification-and-physical-limits" class="sidebar-link"><span class="item-number">6.</span><span>Identification and Physical Limits</span></a></nav></aside></div><script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script></body></html>

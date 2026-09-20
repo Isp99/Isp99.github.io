@@ -1,13 +1,252 @@
 <!DOCTYPE html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="기초 진동부터 구조해석, 공탄성과 플러터 해석까지 연결한 학습 노트."><title>Structural Dynamics &amp; Aeroelasticity | Isp99</title><link rel="stylesheet" href="structural-dynamics.css"><script defer src="navigation.js"></script></head><body class="index-page"><a class="skip-link" href="#main">Skip to content</a><main class="index-content" id="main"><nav class="site-nav"><a href="https://isp99.github.io/">Isp99</a><a href="#top" aria-current="page">Structural Dynamics &amp; Aeroelasticity</a></nav><header id="top"><h1>Structural Dynamics &amp; Aeroelasticity</h1><p class="subtitle">From Vibration Fundamentals to Aeroelasticity and Flutter Analysis</p><p class="intro">구조물의 진동을 Mass, Stiffness, Damping에서 출발하여 다자유도 시스템, 연속체와 Beam vibration, 구조해석 방법으로 확장한다. 이어서 구조 변형과 공기력의 상호작용을 연결하고, 플러터의 발생 원리와 안정성 해석을 정리한다.</p></header><nav class="index-toc" aria-label="Series contents"><section class="index-chapter" id="chapter-1"><h2>1. Fundamentals</h2><a class="article-row" href="vibration-mass-stiffness-damping/index.html"><span class="article-number">1.1</span><span>Vibration, Mass, Stiffness, and Damping</span></a><a class="article-row" href="degrees-of-freedom-equations-of-motion/index.html"><span class="article-number">1.2</span><span>Degrees of Freedom and Equations of Motion</span></a></section><section class="index-chapter" id="chapter-2"><h2>2. Free Vibration</h2><a class="article-row" href="undamped-free-vibration/index.html"><span class="article-number">2.1</span><span>Undamped Free Vibration</span></a><a class="article-row" href="damped-free-vibration/index.html"><span class="article-number">2.2</span><span>Damped Free Vibration</span></a></section><section class="index-chapter" id="chapter-3"><h2>3. Forced Vibration</h2><a class="article-row" href="harmonic-response-resonance/index.html"><span class="article-number">3.1</span><span>Harmonic Response and Resonance</span></a><a class="article-row" href="base-excitation-vibration-isolation/index.html"><span class="article-number">3.2</span><span>Base Excitation and Vibration Isolation</span></a><a class="article-row" href="transient-response/index.html"><span class="article-number">3.3</span><span>Transient Response</span></a></section><section class="index-chapter" id="chapter-4"><h2>4. Multi-Degree-of-Freedom Systems</h2><a class="article-row" href="coupled-equations-matrix-form/index.html"><span class="article-number">4.1</span><span>Coupled Equations and Matrix Form</span></a><a class="article-row" href="natural-frequencies-mode-shapes/index.html"><span class="article-number">4.2</span><span>Natural Frequencies and Mode Shapes</span></a><a class="article-row" href="modal-analysis/index.html"><span class="article-number">4.3</span><span>Modal Analysis</span></a></section><section class="index-chapter" id="chapter-5"><h2>5. Continuous Systems and Beam Vibration</h2><a class="article-row" href="continuous-systems-rod-vibration/index.html"><span class="article-number">5.1</span><span>Continuous Systems and Rod Vibration</span></a><a class="article-row" href="euler-bernoulli-beam-theory/index.html"><span class="article-number">5.2</span><span>Euler–Bernoulli Beam Theory</span></a><a class="article-row" href="beam-natural-frequencies-mode-shapes/index.html"><span class="article-number">5.3</span><span>Beam Natural Frequencies and Mode Shapes</span></a><a class="article-row" href="modal-response-of-beams/index.html"><span class="article-number">5.4</span><span>Modal Response of Beams</span></a></section><section class="index-chapter" id="chapter-6"><h2>6. Structural Analysis Methods</h2><a class="article-row" href="energy-methods-equivalent-models/index.html"><span class="article-number">6.1</span><span>Energy Methods and Equivalent Models</span></a><a class="article-row" href="finite-element-method/index.html"><span class="article-number">6.2</span><span>Finite Element Method</span></a><a class="article-row" href="response-analysis-verification/index.html"><span class="article-number">6.3</span><span>Response Analysis and Verification</span></a></section><section class="index-chapter" id="chapter-7"><h2>7. Aeroelasticity and Flutter</h2><a class="article-row" href="aeroelastic-coupling-static-stability/index.html"><span class="article-number">7.1</span><span>Aeroelastic Coupling and Static Stability</span></a><a class="article-row" href="typical-section-unsteady-aerodynamics/index.html"><span class="article-number">7.2</span><span>Flutter and the Typical Section Model</span></a><a class="article-row" href="flutter-analysis/index.html"><span class="article-number">7.3</span><span>Flutter Analysis</span></a></section></nav><details class="references"><summary>Notation and Reference Material</summary><p><strong>Notation</strong></p>
-<p>시간미분은 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>x</mi><mo accent="true">̇</mo></mover><mo>,</mo><mover><mi>x</mi><mo accent="true">̈</mo></mover></mrow><annotation encoding="application/x-tex">\dot x,\ddot x</annotation></semantics></math>, 공간미분은 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Φ</mi><mi>′</mi><mo>,</mo><mi>Φ</mi><mi>″</mi></mrow><annotation encoding="application/x-tex">\Phi&#39;,\Phi&#39;&#39;</annotation></semantics></math> 또는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>x</mi></msub><mo>,</mo><msub><mi>w</mi><mrow><mi>x</mi><mi>x</mi></mrow></msub></mrow><annotation encoding="application/x-tex">w_x,w_{xx}</annotation></semantics></math>로 표기한다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ω</mi><mi>n</mi></msub><annotation encoding="application/x-tex">\omega_n</annotation></semantics></math>은 무감쇠 Natural angular frequency, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ω</mi><mi>d</mi></msub><annotation encoding="application/x-tex">\omega_d</annotation></semantics></math>는 감쇠 자유진동의 Angular frequency, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Ω</mi><annotation encoding="application/x-tex">\Omega</annotation></semantics></math>는 외력의 Angular frequency이다. Chapter 4 이후 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>,</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">n,r</annotation></semantics></math>은 Mode index로도 사용한다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐌</mi><annotation encoding="application/x-tex">\mathbf{M}</annotation></semantics></math>은 Mass matrix이고 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>b</mi></msub><annotation encoding="application/x-tex">M_b</annotation></semantics></math>는 Signed bending moment이다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mi>ρ</mi><mi>A</mi></mrow><annotation encoding="application/x-tex">\mu=\rho A</annotation></semantics></math>는 Mass per unit length이다.</p>
-<p>식의 적용범위는 유도 직전의 가정을 따른다. 특히 자유단 조건은 별도의 끝단 Force, Moment, 부착질량이 없는 경우이며, 독립적인 감쇠 Modal equation은 Classical damping을 전제로 한다.</p>
-<p><strong>Reference Material</strong></p>
-<p>본 문서는 기본 운동방정식과 Energy 관계에서 전개한 학습 노트이다. 관련 개념과 학습범위를 대조할 수 있는 공개 대학 자료는 다음과 같다.</p>
-<ol>
-<li><p>MIT OpenCourseWare, <em>Engineering Dynamics, 2.003SC</em>, Fall 2011. <a href="https://ocw.mit.edu/courses/2-003sc-engineering-dynamics-fall-2011/pages/vibration-of-multi-degree-of-freedom-systems/">Vibration of Multi-Degree-of-Freedom Systems</a>. Mode superposition과 다자유도 자유진동의 연결.</p></li>
-<li><p>MIT OpenCourseWare, <em>Engineering Dynamics</em>, Lecture 24. <a href="https://ocw.mit.edu/courses/2-003sc-engineering-dynamics-fall-2011/resources/lecture-24-modal-analysis-orthogonality-mass-stiffness-damping-matrix/">Modal Analysis: Orthogonality, Mass, Stiffness, and Damping</a>. Orthogonality, Modal initial conditions, Rayleigh damping.</p></li>
-<li><p>University of Nebraska–Lincoln, Scott Whitney, <em>Vibrations of Cantilever Beams</em>, 1999. <a href="https://emweb.unl.edu/Mechanics-Pages/Scott-Whitney/325hweb/Beams.htm">Deflection, Frequency, and Research Uses</a>. 외팔보의 정적 변형과 자유진동, 끝단조건 및 Mode shape.</p></li>
-<li><p>MIT OpenCourseWare, <em>Advanced Structural Dynamics and Acoustics, 2.067</em>, Spring 2004. <a href="https://ocw.mit.edu/courses/2-067-advanced-structural-dynamics-and-acoustics-13-811-spring-2004/pages/lecture-notes/">Lecture Notes</a>. Continuous systems 이후의 심화 학습범위.</p></li>
-</ol>
-<p>Chapter 7 uses a separate local notation: <em>h</em> is positive downward, <em>α</em> is positive nose-up, and <em>b</em> is the semichord. Each article defines its parameters before use.</p><p>공탄성 모델의 참고자료: <a href="https://flow.byu.edu/Aeroelasticity.jl/dev/examples/section-stability/">BYU FLOW Lab — Typical Section Aeroelastic Analysis</a>.</p></details><footer><a href="#top">Back to top</a></footer></main></body></html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="구조물의 진동을 질량·강성·감쇠에서 출발하여 다자유도 시스템과 보의 진동으로 확장한다. 에너지 방법과 유한요소법을 구조해석에 연결하고, 공기력과 구조 운동의 상호작용을 바탕으로 공탄성과 플러터의 기본 원리를 정리한다."><title>Structural Dynamics &amp; Aeroelasticity | Isp99</title>
+<script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style></head><body class="article-page"><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><nav class="sidebar-inner"></nav></aside><main class="main-content" id="top"><nav><a href="https://isp99.github.io/">Study Notes</a></nav><header><h1>Structural Dynamics &amp; Aeroelasticity</h1><p class="subtitle">Vibration, Structural Models, and Aeroelastic Stability</p><p class="intro">구조물의 진동을 질량·강성·감쇠에서 출발하여 다자유도 시스템과 보의 진동으로 확장한다. 에너지 방법과 유한요소법을 구조해석에 연결하고, 공기력과 구조 운동의 상호작용을 바탕으로 공탄성과 플러터의 기본 원리를 정리한다.</p></header><section id="chapter-1"><h2>1. Fundamentals</h2><p><a href="vibration-mass-stiffness-damping/index.html">1.1 Vibration, Mass, Stiffness, and Damping</a></p><p><a href="degrees-of-freedom-equations-of-motion/index.html">1.2 Degrees of Freedom and Equations of Motion</a></p></section><section id="chapter-2"><h2>2. Free Vibration</h2><p><a href="undamped-free-vibration/index.html">2.1 Undamped Free Vibration</a></p><p><a href="damped-free-vibration/index.html">2.2 Damped Free Vibration</a></p></section><section id="chapter-3"><h2>3. Forced Vibration</h2><p><a href="harmonic-response-resonance/index.html">3.1 Harmonic Response and Resonance</a></p><p><a href="base-excitation-vibration-isolation/index.html">3.2 Base Excitation and Vibration Isolation</a></p><p><a href="transient-response/index.html">3.3 Transient Response</a></p></section><section id="chapter-4"><h2>4. Multi-Degree-of-Freedom Systems</h2><p><a href="coupled-equations-matrix-form/index.html">4.1 Coupled Equations and Matrix Form</a></p><p><a href="natural-frequencies-mode-shapes/index.html">4.2 Natural Frequencies and Mode Shapes</a></p><p><a href="modal-analysis/index.html">4.3 Modal Analysis</a></p></section><section id="chapter-5"><h2>5. Continuous Systems and Beam Vibration</h2><p><a href="continuous-systems-rod-vibration/index.html">5.1 Continuous Systems and Rod Vibration</a></p><p><a href="euler-bernoulli-beam-theory/index.html">5.2 Euler–Bernoulli Beam Theory</a></p><p><a href="beam-natural-frequencies-mode-shapes/index.html">5.3 Beam Natural Frequencies and Mode Shapes</a></p><p><a href="modal-response-of-beams/index.html">5.4 Modal Response of Beams</a></p></section><section id="chapter-6"><h2>6. Structural Analysis Methods</h2><p><a href="energy-methods-equivalent-models/index.html">6.1 Energy Methods and Equivalent Models</a></p><p><a href="finite-element-method/index.html">6.2 Finite Element Method</a></p><p><a href="response-analysis-verification/index.html">6.3 Response Analysis and Verification</a></p></section><section id="chapter-7"><h2>7. Aeroelasticity and Flutter</h2><p><a href="aeroelastic-coupling-static-stability/index.html">7.1 Aeroelastic Coupling and Static Stability</a></p><p><a href="typical-section-unsteady-aerodynamics/index.html">7.2 Flutter and the Typical Section Model</a></p><p><a href="flutter-analysis/index.html">7.3 Flutter Analysis</a></p></section><footer><a href="https://isp99.github.io/">← Study Notes로 돌아가기</a></footer></main><aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">Chapters</div><a href="#chapter-1" class="sidebar-link"><span class="item-number">1.</span><span>Fundamentals</span></a><a href="#chapter-2" class="sidebar-link"><span class="item-number">2.</span><span>Free Vibration</span></a><a href="#chapter-3" class="sidebar-link"><span class="item-number">3.</span><span>Forced Vibration</span></a><a href="#chapter-4" class="sidebar-link"><span class="item-number">4.</span><span>Multi-Degree-of-Freedom Systems</span></a><a href="#chapter-5" class="sidebar-link"><span class="item-number">5.</span><span>Continuous Systems and Beam Vibration</span></a><a href="#chapter-6" class="sidebar-link"><span class="item-number">6.</span><span>Structural Analysis Methods</span></a><a href="#chapter-7" class="sidebar-link"><span class="item-number">7.</span><span>Aeroelasticity and Flutter</span></a></nav></aside></div><script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script></body></html>

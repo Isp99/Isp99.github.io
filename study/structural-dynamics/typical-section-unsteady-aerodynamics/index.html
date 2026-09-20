@@ -1,31 +1,360 @@
 <!DOCTYPE html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Flutter는 구조 운동과 공기력의 상호작용으로 진동이 성장하는 현상이며, 굽힘·비틀림의 결합과 한 주기 동안의 에너지 전달로 이해할 수 있다."><title>7.2 Flutter and the Typical Section Model | Isp99</title><link rel="stylesheet" href="../structural-dynamics.css"><script defer src="../navigation.js"></script></head><body class="article-page"><a class="skip-link" href="#main">Skip to content</a><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><div class="sidebar-inner"><a class="sidebar-title" href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a class="sidebar-link" href="../vibration-mass-stiffness-damping/index.html">1.1 Vibration, Mass, Stiffness, and Damping</a><a class="sidebar-link" href="../degrees-of-freedom-equations-of-motion/index.html">1.2 Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a class="sidebar-link" href="../undamped-free-vibration/index.html">2.1 Undamped Free Vibration</a><a class="sidebar-link" href="../damped-free-vibration/index.html">2.2 Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a class="sidebar-link" href="../harmonic-response-resonance/index.html">3.1 Harmonic Response and Resonance</a><a class="sidebar-link" href="../base-excitation-vibration-isolation/index.html">3.2 Base Excitation and Vibration Isolation</a><a class="sidebar-link" href="../transient-response/index.html">3.3 Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a class="sidebar-link" href="../coupled-equations-matrix-form/index.html">4.1 Coupled Equations and Matrix Form</a><a class="sidebar-link" href="../natural-frequencies-mode-shapes/index.html">4.2 Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-analysis/index.html">4.3 Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a class="sidebar-link" href="../continuous-systems-rod-vibration/index.html">5.1 Continuous Systems and Rod Vibration</a><a class="sidebar-link" href="../euler-bernoulli-beam-theory/index.html">5.2 Euler–Bernoulli Beam Theory</a><a class="sidebar-link" href="../beam-natural-frequencies-mode-shapes/index.html">5.3 Beam Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-response-of-beams/index.html">5.4 Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a class="sidebar-link" href="../energy-methods-equivalent-models/index.html">6.1 Energy Methods and Equivalent Models</a><a class="sidebar-link" href="../finite-element-method/index.html">6.2 Finite Element Method</a><a class="sidebar-link" href="../response-analysis-verification/index.html">6.3 Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a class="sidebar-link" href="../aeroelastic-coupling-static-stability/index.html">7.1 Aeroelastic Coupling and Static Stability</a><a class="sidebar-link active" href="../typical-section-unsteady-aerodynamics/index.html" aria-current="page">7.2 Flutter and the Typical Section Model</a><a class="sidebar-link" href="../flutter-analysis/index.html">7.3 Flutter Analysis</a></div></div></aside><main class="main-content" id="main"><nav class="breadcrumb"><a href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><span>/</span><a href="../index.html#chapter-7">Aeroelasticity and Flutter</a></nav><header id="top"><h1>7.2 Flutter and the Typical Section Model</h1><p class="intro">날개의 굽힘과 비틀림은 각각의 운동에 머무르지 않고 관성과 공기력을 통해 서로 연결된다. 이 관계를 두 개의 좌표로 표현하고, 공기력이 진동에 에너지를 공급하는 과정을 통해 플러터의 발생 원리를 살펴본다.</p></header><details class="mobile-series"><summary>Series Navigation</summary><a class="sidebar-title" href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a class="sidebar-link" href="../vibration-mass-stiffness-damping/index.html">1.1 Vibration, Mass, Stiffness, and Damping</a><a class="sidebar-link" href="../degrees-of-freedom-equations-of-motion/index.html">1.2 Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a class="sidebar-link" href="../undamped-free-vibration/index.html">2.1 Undamped Free Vibration</a><a class="sidebar-link" href="../damped-free-vibration/index.html">2.2 Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a class="sidebar-link" href="../harmonic-response-resonance/index.html">3.1 Harmonic Response and Resonance</a><a class="sidebar-link" href="../base-excitation-vibration-isolation/index.html">3.2 Base Excitation and Vibration Isolation</a><a class="sidebar-link" href="../transient-response/index.html">3.3 Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a class="sidebar-link" href="../coupled-equations-matrix-form/index.html">4.1 Coupled Equations and Matrix Form</a><a class="sidebar-link" href="../natural-frequencies-mode-shapes/index.html">4.2 Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-analysis/index.html">4.3 Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a class="sidebar-link" href="../continuous-systems-rod-vibration/index.html">5.1 Continuous Systems and Rod Vibration</a><a class="sidebar-link" href="../euler-bernoulli-beam-theory/index.html">5.2 Euler–Bernoulli Beam Theory</a><a class="sidebar-link" href="../beam-natural-frequencies-mode-shapes/index.html">5.3 Beam Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-response-of-beams/index.html">5.4 Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a class="sidebar-link" href="../energy-methods-equivalent-models/index.html">6.1 Energy Methods and Equivalent Models</a><a class="sidebar-link" href="../finite-element-method/index.html">6.2 Finite Element Method</a><a class="sidebar-link" href="../response-analysis-verification/index.html">6.3 Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a class="sidebar-link" href="../aeroelastic-coupling-static-stability/index.html">7.1 Aeroelastic Coupling and Static Stability</a><a class="sidebar-link active" href="../typical-section-unsteady-aerodynamics/index.html" aria-current="page">7.2 Flutter and the Typical Section Model</a><a class="sidebar-link" href="../flutter-analysis/index.html">7.3 Flutter Analysis</a></div></details><nav class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#bending-and-torsional-motion">1. Bending and Torsional Motion</a></li><li><a href="#equations-of-motion-for-a-typical-section">2. Equations of Motion for a Typical Section</a></li><li><a href="#aerodynamic-work-and-flutter">3. Aerodynamic Work and Flutter</a></li></ol></nav><article><h2 id="bending-and-torsional-motion">1. Bending and Torsional Motion</h2>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="날개의 굽힘과 비틀림은 각각의 운동에 머무르지 않고 관성과 공기력을 통해 서로 연결된다. 이 관계를 두 개의 좌표로 표현하고, 공기력이 진동에 에너지를 공급하는 과정을 통해 플러터의 발생 원리를 살펴본다."><title>7.2 Flutter and the Typical Section Model | Isp99</title>
+<script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style></head><body class="article-page"><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><nav class="sidebar-inner"><a href="../index.html" class="sidebar-title">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a href="../vibration-mass-stiffness-damping/index.html" class="sidebar-link"><span class="item-number">1.1</span> Vibration, Mass, Stiffness, and Damping</a><a href="../degrees-of-freedom-equations-of-motion/index.html" class="sidebar-link"><span class="item-number">1.2</span> Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a href="../undamped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.1</span> Undamped Free Vibration</a><a href="../damped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.2</span> Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a href="../harmonic-response-resonance/index.html" class="sidebar-link"><span class="item-number">3.1</span> Harmonic Response and Resonance</a><a href="../base-excitation-vibration-isolation/index.html" class="sidebar-link"><span class="item-number">3.2</span> Base Excitation and Vibration Isolation</a><a href="../transient-response/index.html" class="sidebar-link"><span class="item-number">3.3</span> Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a href="../coupled-equations-matrix-form/index.html" class="sidebar-link"><span class="item-number">4.1</span> Coupled Equations and Matrix Form</a><a href="../natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">4.2</span> Natural Frequencies and Mode Shapes</a><a href="../modal-analysis/index.html" class="sidebar-link"><span class="item-number">4.3</span> Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a href="../continuous-systems-rod-vibration/index.html" class="sidebar-link"><span class="item-number">5.1</span> Continuous Systems and Rod Vibration</a><a href="../euler-bernoulli-beam-theory/index.html" class="sidebar-link"><span class="item-number">5.2</span> Euler–Bernoulli Beam Theory</a><a href="../beam-natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">5.3</span> Beam Natural Frequencies and Mode Shapes</a><a href="../modal-response-of-beams/index.html" class="sidebar-link"><span class="item-number">5.4</span> Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a href="../energy-methods-equivalent-models/index.html" class="sidebar-link"><span class="item-number">6.1</span> Energy Methods and Equivalent Models</a><a href="../finite-element-method/index.html" class="sidebar-link"><span class="item-number">6.2</span> Finite Element Method</a><a href="../response-analysis-verification/index.html" class="sidebar-link"><span class="item-number">6.3</span> Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a href="../aeroelastic-coupling-static-stability/index.html" class="sidebar-link"><span class="item-number">7.1</span> Aeroelastic Coupling and Static Stability</a><a href="../typical-section-unsteady-aerodynamics/index.html" class="sidebar-link active" aria-current="page"><span class="item-number">7.2</span> Flutter and the Typical Section Model</a><a href="../flutter-analysis/index.html" class="sidebar-link"><span class="item-number">7.3</span> Flutter Analysis</a></div></nav></aside><main class="main-content" id="top"><nav aria-label="Current article"><a href="#top">7.2 Flutter and the Typical Section Model</a></nav><header><h1>7.2 Flutter and the Typical Section Model</h1><p class="subtitle">Bending–Torsion Coupling, Aerodynamic Work, and Unsteady Effects</p><p class="intro">날개의 굽힘과 비틀림은 각각의 운동에 머무르지 않고 관성과 공기력을 통해 서로 연결된다. 이 관계를 두 개의 좌표로 표현하고, 공기력이 진동에 에너지를 공급하는 과정을 통해 플러터의 발생 원리를 살펴본다.</p></header><aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#a-representative-wing-section">A Representative Wing Section</a></li><li><a href="#structural-equations-of-motion">Structural Equations of Motion</a></li><li><a href="#how-the-coordinates-become-coupled">How the Coordinates Become Coupled</a></li><li><a href="#aerodynamic-work-and-phase">Aerodynamic Work and Phase</a></li><li><a href="#quasi-steady-and-unsteady-aerodynamics">Quasi-Steady and Unsteady Aerodynamics</a></li><li><a href="#from-energy-balance-to-flutter-onset">From Energy Balance to Flutter Onset</a></li></ol></aside><section id="a-representative-wing-section" aria-labelledby="a-representative-wing-section-title"><h2 id="a-representative-wing-section-title">1. A Representative Wing Section</h2>
+<h3 id="bending-and-torsional-coordinates">Bending and Torsional Coordinates</h3>
 <p>날개의 굽힘과 비틀림은 공기력을 통해 연결된다. 굽힘 운동의 수직 속도는 단면이 보는 상대유동의 방향을 바꾸고, 비틀림은 받음각을 바꾼다. 그 결과 Lift와 Moment가 달라지면서 두 운동이 서로 영향을 준다. 이 관계를 이해하려면 하나의 변위만 사용하는 모델에서 두 개의 좌표를 사용하는 모델로 확장해야 한다.</p>
-<p><strong>Typical section model</strong>은 대표 단면의 수직이동 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>와 비틀림각 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>로 날개의 굽힘·비틀림 운동을 단순화한다. 여기서는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>는 아래쪽, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>는 Nose-up 방향을 양으로 정한다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>은 위쪽 Lift이고, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>a</mi></msub><annotation encoding="application/x-tex">M_a</annotation></semantics></math>는 탄성축에 대한 Nose-up moment이다.</p>
-<p>수직 Spring의 강성 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>k</mi><mi>h</mi></msub><annotation encoding="application/x-tex">k_h</annotation></semantics></math>는 굽힘에 대한 복원력을, Torsional spring의 강성 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>k</mi><mi>α</mi></msub><annotation encoding="application/x-tex">k_\alpha</annotation></semantics></math>는 비틀림에 대한 복원 Moment를 나타낸다. 이 두 Spring은 대표 단면이 나머지 날개 구조로부터 받는 구속을 단순화한 것이다. 실제 날개 전체의 변형을 그대로 재현하는 모델은 아니지만, 두 운동이 결합하여 불안정해지는 기본 원리를 살펴볼 수 있다.</p>
-<h2 id="equations-of-motion-for-a-typical-section">2. Equations of Motion for a Typical Section</h2>
-<p>단면을 대표하는 질량을 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>, 탄성축에 대한 질량관성모멘트를 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mi>α</mi></msub><annotation encoding="application/x-tex">I_\alpha</annotation></semantics></math>라고 하자. 질량중심이 탄성축 뒤쪽 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mi>G</mi></msub><annotation encoding="application/x-tex">x_G</annotation></semantics></math>에 있으면 작은 회전에서 질량중심의 수직 변위는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>+</mo><msub><mi>x</mi><mi>G</mi></msub><mi>α</mi></mrow><annotation encoding="application/x-tex">h+x_G\alpha</annotation></semantics></math>이다. 따라서 수직이동과 회전은 운동에너지에서도 연결된다.</p>
-<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>α</mi></msub><mo>=</mo><mi>m</mi><msub><mi>x</mi><mi>G</mi></msub></mrow><annotation encoding="application/x-tex">S_\alpha=mx_G</annotation></semantics></math>로 두면 운동에너지와 탄성에너지는</p>
-<div class="equation" id="eq-ae-section-energy"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 7.2.1"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>m</mi><msup><mover><mi>h</mi><mo accent="true">̇</mo></mover><mn>2</mn></msup><mo>+</mo><msub><mi>S</mi><mi>α</mi></msub><mover><mi>h</mi><mo accent="true">̇</mo></mover><mover><mi>α</mi><mo accent="true">̇</mo></mover><mo>+</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><msub><mi>I</mi><mi>α</mi></msub><msup><mover><mi>α</mi><mo accent="true">̇</mo></mover><mn>2</mn></msup><mo>,</mo><mspace width="2.0em"></mspace><mi>V</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><msub><mi>k</mi><mi>h</mi></msub><msup><mi>h</mi><mn>2</mn></msup><mo>+</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><msub><mi>k</mi><mi>α</mi></msub><msup><mi>α</mi><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">T=\frac12m\dot h^2+S_\alpha\dot h\dot\alpha+\frac12I_\alpha\dot\alpha^2,
+<p><strong>Typical section model</strong>은 대표 단면의 수직이동 <span>\(h\)</span>와 비틀림각 <span>\(\alpha\)</span>로 날개의 굽힘·비틀림 운동을 단순화한다. 여기서는 <span>\(h\)</span>는 아래쪽, <span>\(\alpha\)</span>는 Nose-up 방향을 양으로 정한다. <span>\(L\)</span>은 위쪽 Lift이고, <span>\(M_a\)</span>는 탄성축에 대한 Nose-up moment이다.</p>
+<p>수직 Spring의 강성 <span>\(k_h\)</span>는 굽힘에 대한 복원력을, Torsional spring의 강성 <span>\(k_\alpha\)</span>는 비틀림에 대한 복원 Moment를 나타낸다. 이 두 Spring은 대표 단면이 나머지 날개 구조로부터 받는 구속을 단순화한 것이다. 실제 날개 전체의 변형을 그대로 재현하는 모델은 아니지만, 두 운동이 결합하여 불안정해지는 기본 원리를 살펴볼 수 있다.</p>
+<p>대표 단면의 <span class="math inline">\(h(t)\)</span>는 전체 날개의 굽힘 변형을 하나의 수직이동으로, <span class="math inline">\(\alpha(t)\)</span>는 비틀림 변형을 하나의 회전으로 나타낸다. 두 좌표는 전체 날개의 정확한 변위장을 정의하기보다, 공기력과 구조 운동이 어떻게 연결되는지를 보여주는 최소한의 모델이다.</p>
+<p>두 좌표가 모두 길이 단위를 갖는 것은 아니다. <span class="math inline">\(h\)</span>의 일반화 힘은 힘이고, <span class="math inline">\(\alpha\)</span>의 일반화 힘은 Moment이다. 이 차이를 유지하면서 가상일 <span class="math inline">\(-L\,\delta h+M_a\,\delta\alpha\)</span>를 쓰면 운동방정식에서 각 공력항이 들어갈 위치와 부호를 명확히 정할 수 있다.</p>
+<h3 id="three-reference-locations">Three Reference Locations</h3>
+<p>단면에는 탄성축, 질량중심, 공력중심이라는 서로 다른 기준점이 있다. 탄성축은 복원 Moment와 회전좌표의 기준이고, 질량중심은 관성 결합을 정하며, 공력중심은 Lift와 공력 Moment의 작용을 정리하는 기준이다. 이 세 점의 상대적인 위치가 구조·공력의 결합에 영향을 준다.</p>
+<p>이 글에서는 질량중심이 탄성축 뒤에 있을 때 <span class="math inline">\(x_G&gt;0\)</span>으로 둔다. Nose-up 회전에서 탄성축 뒤의 점은 아래로 움직이므로 질량중심 변위에 <span class="math inline">\(+x_G\alpha\)</span>가 들어간다. 좌표를 그림으로 다시 잡거나 다른 문헌의 식과 비교할 때에는 이 기하학적 관계부터 맞추어야 한다.</p>
+</section><section id="structural-equations-of-motion" aria-labelledby="structural-equations-of-motion-title"><h2 id="structural-equations-of-motion-title">2. Structural Equations of Motion</h2>
+<h3 id="kinetic-and-elastic-energy">Kinetic and Elastic Energy</h3>
+<p>단면을 대표하는 질량을 <span>\(m\)</span>, 탄성축에 대한 질량관성모멘트를 <span>\(I_\alpha\)</span>라고 하자. 질량중심이 탄성축 뒤쪽 <span>\(x_G\)</span>에 있으면 작은 회전에서 질량중심의 수직 변위는 <span>\(h+x_G\alpha\)</span>이다. 따라서 수직이동과 회전은 운동에너지에서도 연결된다.</p>
+<p><span>\(S_\alpha=mx_G\)</span>로 두면 운동에너지와 탄성에너지는</p>
+<div class="equation" id="eq-ae-section-energy">\[
+T=\frac12m\dot h^2+S_\alpha\dot h\dot\alpha+\frac12I_\alpha\dot\alpha^2,
 \qquad
 V=\frac12k_hh^2+\frac12k_\alpha\alpha^2.
-</annotation></semantics></math></div><span class="equation-number">(7.2.1)</span></div><p>로 쓸 수 있다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mi>α</mi></msub><annotation encoding="application/x-tex">I_\alpha</annotation></semantics></math>는 질량중심이 아니라 탄성축 기준 값이며, 두 기준 사이에는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mi>α</mi></msub><mo>=</mo><msub><mi>I</mi><mi>G</mi></msub><mo>+</mo><mi>m</mi><msubsup><mi>x</mi><mi>G</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">I_\alpha=I_G+mx_G^2</annotation></semantics></math>의 관계가 있다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>S</mi><mi>α</mi></msub><annotation encoding="application/x-tex">S_\alpha</annotation></semantics></math>가 포함된 항은 수직이동과 회전의 <strong>Inertial coupling</strong>을 나타낸다.</p>
-<p>앞에서 사용한 Lagrange equation에 이 에너지를 대입하고, 각 좌표의 점성 감쇠 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mi>h</mi></msub><annotation encoding="application/x-tex">c_h</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mi>α</mi></msub><annotation encoding="application/x-tex">c_\alpha</annotation></semantics></math>를 더하면</p>
-<div class="equation main" id="eq-ae-typical-section"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 7.2.2"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>m</mi><mover><mi>h</mi><mo accent="true">̈</mo></mover><mo>+</mo><msub><mi>S</mi><mi>α</mi></msub><mover><mi>α</mi><mo accent="true">̈</mo></mover><mo>+</mo><msub><mi>c</mi><mi>h</mi></msub><mover><mi>h</mi><mo accent="true">̇</mo></mover><mo>+</mo><msub><mi>k</mi><mi>h</mi></msub><mi>h</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mo>−</mo><mi>L</mi><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>S</mi><mi>α</mi></msub><mover><mi>h</mi><mo accent="true">̈</mo></mover><mo>+</mo><msub><mi>I</mi><mi>α</mi></msub><mover><mi>α</mi><mo accent="true">̈</mo></mover><mo>+</mo><msub><mi>c</mi><mi>α</mi></msub><mover><mi>α</mi><mo accent="true">̇</mo></mover><mo>+</mo><msub><mi>k</mi><mi>α</mi></msub><mi>α</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mi>M</mi><mi>a</mi></msub><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+
+
+\tag{7.2.1}
+\]</div><p>로 쓸 수 있다. <span>\(I_\alpha\)</span>는 질량중심이 아니라 탄성축 기준 값이며, 두 기준 사이에는 <span>\(I_\alpha=I_G+mx_G^2\)</span>의 관계가 있다. <span>\(S_\alpha\)</span>가 포함된 항은 수직이동과 회전의 <strong>Inertial coupling</strong>을 나타낸다.</p>
+<p>앞에서 사용한 Lagrange equation에 이 에너지를 대입하고, 각 좌표의 점성 감쇠 <span>\(c_h\)</span>, <span>\(c_\alpha\)</span>를 더하면</p>
+<div class="equation main" id="eq-ae-typical-section">\[
+\boxed{\displaystyle \begin{aligned}
 m\ddot h+S_\alpha\ddot\alpha+c_h\dot h+k_hh&amp;=-L,\\
 S_\alpha\ddot h+I_\alpha\ddot\alpha+c_\alpha\dot\alpha+k_\alpha\alpha&amp;=M_a.
 \end{aligned}
-</annotation></semantics></math></div><span class="equation-number">(7.2.2)</span></div><p>를 얻는다. 첫 번째 식은 수직 방향 힘 평형이고, 두 번째 식은 탄성축에 대한 Moment 평형이다. Lift는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>의 양의 방향과 반대이므로 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">-L</annotation></semantics></math>로 들어간다. 여기서는 탄성 복원력의 교차항을 생략하고, 관성과 공기력을 통한 결합을 살핀다.</p>
-<p>공기력이 없고 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>α</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">S_\alpha=0</annotation></semantics></math>이면 두 식은 각각의 1자유도 진동식으로 분리된다. 이때의 Uncoupled natural frequency는</p>
-<div class="equation" id="eq-ae-uncoupled-frequency"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 7.2.3"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ω</mi><mi>h</mi></msub><mo>=</mo><msqrt><mfrac><msub><mi>k</mi><mi>h</mi></msub><mi>m</mi></mfrac></msqrt><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>ω</mi><mi>α</mi></msub><mo>=</mo><msqrt><mfrac><msub><mi>k</mi><mi>α</mi></msub><msub><mi>I</mi><mi>α</mi></msub></mfrac></msqrt><mi>.</mi></mrow><annotation encoding="application/x-tex">\omega_h=\sqrt{\frac{k_h}{m}},\qquad
+}
+
+\tag{7.2.2}
+\]</div><p>를 얻는다. 첫 번째 식은 수직 방향 힘 평형이고, 두 번째 식은 탄성축에 대한 Moment 평형이다. Lift는 <span>\(h\)</span>의 양의 방향과 반대이므로 <span>\(-L\)</span>로 들어간다. 여기서는 탄성 복원력의 교차항을 생략하고, 관성과 공기력을 통한 결합을 살핀다.</p>
+<p>공기력이 없고 <span>\(S_\alpha=0\)</span>이면 두 식은 각각의 1자유도 진동식으로 분리된다. 이때의 Uncoupled natural frequency는</p>
+<div class="equation" id="eq-ae-uncoupled-frequency">\[
+\omega_h=\sqrt{\frac{k_h}{m}},\qquad
 \omega_\alpha=\sqrt{\frac{k_\alpha}{I_\alpha}}.
-</annotation></semantics></math></div><span class="equation-number">(7.2.3)</span></div><p>이다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>α</mi></msub><mo>≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">S_\alpha\neq0</annotation></semantics></math>이면 이 두 값은 결합된 시스템의 실제 고유주파수와 같지 않을 수 있다. 실제 주파수는 질량·강성 행렬의 고유치 문제로 구한다. 또한 질량중심과 탄성축이 일치하여 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>α</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">S_\alpha=0</annotation></semantics></math>이 되더라도, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>과 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>a</mi></msub><annotation encoding="application/x-tex">M_a</annotation></semantics></math>가 두 좌표에 동시에 의존하면 공기력에 의한 결합은 남는다.</p>
-<h2 id="aerodynamic-work-and-flutter">3. Aerodynamic Work and Flutter</h2>
+
+
+\tag{7.2.3}
+\]</div><p>이다. <span>\(S_\alpha\neq0\)</span>이면 이 두 값은 결합된 시스템의 실제 고유주파수와 같지 않을 수 있다. 실제 주파수는 질량·강성 행렬의 고유치 문제로 구한다. 또한 질량중심과 탄성축이 일치하여 <span>\(S_\alpha=0\)</span>이 되더라도, <span>\(L\)</span>과 <span>\(M_a\)</span>가 두 좌표에 동시에 의존하면 공기력에 의한 결합은 남는다.</p>
+<p>관성 결합항을 직접 확인하려면 질량중심의 병진에너지와 질량중심 주위의 회전에너지를 먼저 더하면 된다. 작은 각도에서 다음처럼 전개된다.</p>
+<div class="equation" id="eq-added-7-2-4">\[
+\begin{aligned}
+T&amp;=\frac12m(\dot h+x_G\dot\alpha)^2+\frac12I_G\dot\alpha^2\\
+&amp;=\frac12m\dot h^2+mx_G\dot h\dot\alpha
++\frac12(I_G+mx_G^2)\dot\alpha^2.
+\end{aligned}
+
+\tag{7.2.4}
+\]</div><p>따라서 <span class="math inline">\(S_\alpha\)</span>는 힘이나 강성이 아니라 질량의 1차 Moment이며 단위는 <span class="math inline">\(\mathrm{kg\,m}\)</span>이다. 질량중심이 탄성축 앞에 있으면 <span class="math inline">\(S_\alpha\)</span>의 부호가 바뀐다. 다만 전체 운동에너지는 여전히 양수여야 하므로 교차항의 부호만으로 관성의 안정성을 판단하지 않는다.</p>
+<h3 id="the-mass-matrix-and-positive-energy">The Mass Matrix and Positive Energy</h3>
+<p>행렬 형태로 쓰면 <span class="math inline">\(\mathbf M_s=\begin{bmatrix}m&amp;S_\alpha\\S_\alpha&amp;I_\alpha\end{bmatrix}\)</span>이다. 질량중심 기준 관성 <span class="math inline">\(I_G&gt;0\)</span>인 실제 단면에서는 다음 관계가 성립한다.</p>
+<div class="equation" id="eq-added-7-2-5">\[
+mI_\alpha-S_\alpha^2=mI_G&gt;0.
+
+\tag{7.2.5}
+\]</div><p>따라서 질량 행렬은 양의 정부호이며, 0이 아닌 속도 조합은 양의 운동에너지를 갖는다. 질량중심 기준 관성을 탄성축 기준 관성인 것처럼 대입하면 이 관계가 깨지거나 잘못된 고유주파수를 얻을 수 있다. 관성값을 사용할 때에는 크기뿐 아니라 기준축도 함께 확인해야 한다.</p>
+</section><section id="how-the-coordinates-become-coupled" aria-labelledby="how-the-coordinates-become-coupled-title"><h2 id="how-the-coordinates-become-coupled-title">3. How the Coordinates Become Coupled</h2>
+<h3 id="structural-coupling-at-zero-flow">Structural Coupling at Zero Flow</h3>
+<p>공기력과 감쇠를 제외한 고유값 문제는 다음의 행렬식으로 쓸 수 있다.</p>
+<div class="equation" id="eq-added-7-2-6">\[
+(k_h-m\omega^2)(k_\alpha-I_\alpha\omega^2)
+-S_\alpha^2\omega^4=0.
+
+\tag{7.2.6}
+\]</div><p><span class="math inline">\(S_\alpha=0\)</span>이면 두 괄호가 각각 0이 되는 독립적인 굽힘·비틀림 주파수를 얻는다. <span class="math inline">\(S_\alpha\ne0\)</span>이면 하나의 Mode 안에서 수직이동과 회전이 함께 나타나고 두 주파수도 변한다. 따라서 모델의 입력값으로 정의한 Uncoupled frequency와 실제 결합 Mode의 주파수를 구분해야 한다.</p>
+<p>첫 행의 <span class="math inline">\((k_h-m\omega^2)\widehat h-S_\alpha\omega^2\widehat\alpha=0\)</span>은 특정 고유주파수에서 두 운동의 상대 크기를 정한다. Mode shape는 고유값과 함께 이 관계를 만족하는 벡터이며, 단순히 “낮은 주파수는 굽힘, 높은 주파수는 비틀림”으로 항상 분리되지 않는다.</p>
+<h3 id="coupling-through-the-aerodynamic-loads">Coupling through the Aerodynamic Loads</h3>
+<p>구조 질량 행렬이 대각이어도 <span class="math inline">\(L\)</span>이 <span class="math inline">\(\alpha\)</span>에 의존하면 비틀림이 수직 운동에 영향을 준다. 또한 수직 속도 때문에 Lift가 변하고 그 Lift가 탄성축에 Moment를 만들면 굽힘이 비틀림에 영향을 준다. 이처럼 공력항이 두 방정식을 서로 연결한다.</p>
+<p>일반적으로 공력 결합의 두 교차계수가 같을 필요는 없다. 구조의 보존적 탄성에너지에서 얻은 대칭 강성 행렬과 달리, 유동은 외부에서 에너지를 전달할 수 있기 때문이다. 공기력을 단순히 구조 Spring 하나를 더한 것으로만 보면 이러한 비보존적 작용을 설명하기 어렵다.</p>
+</section><section id="aerodynamic-work-and-phase" aria-labelledby="aerodynamic-work-and-phase-title"><h2 id="aerodynamic-work-and-phase-title">4. Aerodynamic Work and Phase</h2>
+<h3 id="the-structural-energy-balance">The Structural Energy Balance</h3>
 <p>진동의 성장 여부를 이해하려면 공기력이 하는 일을 살펴야 한다. 같은 힘의 크기라도 운동을 돕는 방향으로 작용하면 에너지를 공급하고, 운동을 방해하는 방향으로 작용하면 에너지를 빼앗는다. 따라서 Flutter에서는 <strong>공기력과 운동 사이의 위상 관계</strong>가 중요하다.</p>
-<p>구조 에너지를 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>=</mo><mi>T</mi><mo>+</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">E=T+V</annotation></semantics></math>로 두고, 두 운동방정식에 각각 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>h</mi><mo accent="true">̇</mo></mover><annotation encoding="application/x-tex">\dot h</annotation></semantics></math>와 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>α</mi><mo accent="true">̇</mo></mover><annotation encoding="application/x-tex">\dot\alpha</annotation></semantics></math>를 곱하여 더하면</p>
-<div class="equation" id="eq-ae-energy-rate"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 7.2.4"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>d</mi><mi>E</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mo>−</mo><mi>L</mi><mover><mi>h</mi><mo accent="true">̇</mo></mover><mo>+</mo><msub><mi>M</mi><mi>a</mi></msub><mover><mi>α</mi><mo accent="true">̇</mo></mover><mo>−</mo><msub><mi>c</mi><mi>h</mi></msub><msup><mover><mi>h</mi><mo accent="true">̇</mo></mover><mn>2</mn></msup><mo>−</mo><msub><mi>c</mi><mi>α</mi></msub><msup><mover><mi>α</mi><mo accent="true">̇</mo></mover><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{dE}{dt}=-L\dot h+M_a\dot\alpha-c_h\dot h^2-c_\alpha\dot\alpha^2.
-</annotation></semantics></math></div><span class="equation-number">(7.2.4)</span></div><p>를 얻는다. 앞의 두 항은 공기력이 구조물에 전달하는 일률이고, 뒤의 두 항은 구조 감쇠가 소산하는 일률이다. 예를 들어 단면이 위로 움직일 때에는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>h</mi><mo accent="true">̇</mo></mover><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\dot h&lt;0</annotation></semantics></math>이므로 위쪽 Lift가 하는 일률 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mi>L</mi><mover><mi>h</mi><mo accent="true">̇</mo></mover></mrow><annotation encoding="application/x-tex">-L\dot h</annotation></semantics></math>는 양수이다. 아래로 움직일 때의 기여까지 한 주기에 걸쳐 더해야 순에너지 전달을 알 수 있다.</p>
+<p>구조 에너지를 <span>\(E=T+V\)</span>로 두고, 두 운동방정식에 각각 <span>\(\dot h\)</span>와 <span>\(\dot\alpha\)</span>를 곱하여 더하면</p>
+<div class="equation" id="eq-ae-energy-rate">\[
+\frac{dE}{dt}=-L\dot h+M_a\dot\alpha-c_h\dot h^2-c_\alpha\dot\alpha^2.
+
+
+\tag{7.2.7}
+\]</div><p>를 얻는다. 앞의 두 항은 공기력이 구조물에 전달하는 일률이고, 뒤의 두 항은 구조 감쇠가 소산하는 일률이다. 예를 들어 단면이 위로 움직일 때에는 <span>\(\dot h&lt;0\)</span>이므로 위쪽 Lift가 하는 일률 <span>\(-L\dot h\)</span>는 양수이다. 아래로 움직일 때의 기여까지 한 주기에 걸쳐 더해야 순에너지 전달을 알 수 있다.</p>
 <p>임계 Mode의 중립적인 주기 운동에서는 한 주기 동안 공기력이 공급하는 에너지와 감쇠가 소산하는 에너지가 같다. 그 경계를 넘어 공급량이 소산량보다 커지면 진폭이 성장한다. 이 관점에서 Flutter는 단순히 힘이 크다는 문제보다, 반복 운동 중에 에너지가 어떻게 전달되는지에 관한 문제이다.</p>
 <p>운동 중의 공기력은 현재 받음각만으로 정해지지 않을 수 있다. 단면이 움직이면 주변 유체도 가속되고, 뒤로 흘러간 Wake에는 과거 운동의 영향이 남는다. 이를 포함하는 것이 <strong>Unsteady aerodynamics</strong>이다. 준정상 근사에서는 공기력이 현재 운동에 즉시 적응한다고 보지만, 비정상 모델에서는 공기력의 지연과 위상 변화도 고려한다.</p>
-<p>비정상 효과의 시간척도를 비교할 때에는 Reduced frequency <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>ω</mi><mi>b</mi><mi>/</mi><mi>U</mi></mrow><annotation encoding="application/x-tex">k=\omega b/U</annotation></semantics></math>를 사용한다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>는 반시위 길이, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ω</mi><annotation encoding="application/x-tex">\omega</annotation></semantics></math>는 진동 각주파수이다. 이는 유동이 반시위를 지나가는 시간 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mi>/</mi><mi>U</mi></mrow><annotation encoding="application/x-tex">b/U</annotation></semantics></math>와 진동 시간척도 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>ω</mi></mrow><annotation encoding="application/x-tex">1/\omega</annotation></semantics></math>의 비를 나타낸다. Flutter는 공기력의 위상에 민감하므로, 구조 모델과 함께 관심 속도·주파수에 적합한 공기력 모델을 선택해야 한다.</p>
-</article><div class="one-line-summary"><strong>Summary</strong><p>Flutter는 구조 운동과 공기력의 상호작용으로 진동이 성장하는 현상이며, 굽힘·비틀림의 결합과 한 주기 동안의 에너지 전달로 이해할 수 있다.</p></div><nav class="pagination" aria-label="Previous and next article"><a rel="prev" href="../aeroelastic-coupling-static-stability/index.html"><small>Previous</small>7.1 Aeroelastic Coupling and Static Stability</a><a rel="next" href="../flutter-analysis/index.html"><small>Next</small>7.3 Flutter Analysis</a></nav><footer><a href="../index.html">Contents</a> · <a href="#top">Back to top</a></footer></main><aside class="right-sidebar" aria-label="On this page"><div class="sidebar-inner"><div class="sidebar-title">On this page</div><a class="sidebar-link" href="#bending-and-torsional-motion">1. Bending and Torsional Motion</a><a class="sidebar-link" href="#equations-of-motion-for-a-typical-section">2. Equations of Motion for a Typical Section</a><a class="sidebar-link" href="#aerodynamic-work-and-flutter">3. Aerodynamic Work and Flutter</a></div></aside></div></body></html>
+<p>비정상 효과의 시간척도를 비교할 때에는 Reduced frequency <span>\(k=\omega b/U\)</span>를 사용한다. <span>\(b\)</span>는 반시위 길이, <span>\(\omega\)</span>는 진동 각주파수이다. 이는 유동이 반시위를 지나가는 시간 <span>\(b/U\)</span>와 진동 시간척도 <span>\(1/\omega\)</span>의 비를 나타낸다. Flutter는 공기력의 위상에 민감하므로, 구조 모델과 함께 관심 속도·주파수에 적합한 공기력 모델을 선택해야 한다.</p>
+<p>에너지 식은 한 순간의 큰 Lift만으로 진동의 성장 여부를 결정할 수 없다는 점을 보여준다. 중요한 것은 힘이 작용하는 동안 구조가 어느 방향으로 얼마나 움직였는가이다. 왕복 운동의 한쪽 구간에서 받은 에너지가 반대 구간에서 모두 유동으로 돌아가면 순공급은 0일 수 있다.</p>
+<p>이때 공기력이 한 일과 구조 감쇠의 소산은 서로 다른 항이다. 구조 감쇠는 이 모델에서 항상 <span class="math inline">\(\dot h^2\)</span>, <span class="math inline">\(\dot\alpha^2\)</span>에 비례하여 에너지를 줄인다. 공기력이 하는 일은 운동과의 위상 관계에 따라 양수 또는 음수가 될 수 있다.</p>
+<h3 id="work-over-one-harmonic-cycle">Work over One Harmonic Cycle</h3>
+<p>위상의 역할을 보기 위해 하나의 일반화 좌표 <span class="math inline">\(q=A\cos\omega t\)</span>에 일반화 힘 <span class="math inline">\(Q=Q_0\cos(\omega t+\varphi)\)</span>가 작용한다고 하자. 한 주기 <span class="math inline">\(T_p=2\pi/\omega\)</span>의 일은 다음과 같다.</p>
+<div class="equation" id="eq-added-7-2-8">\[
+W=\int_0^{T_p}Q\dot q\,\mathrm dt
+=\pi A Q_0\sin\varphi.
+
+\tag{7.2.8}
+\]</div><p>이 부호는 방금 정의한 힘의 위상 <span class="math inline">\(\varphi\)</span>를 기준으로 한다. 힘이 변위와 동상이거나 반대 위상이면 순일은 0이다. 힘이 속도와 같은 위상인 <span class="math inline">\(\varphi=\pi/2\)</span>에서는 양의 에너지를 공급한다. 반대로 속도와 반대 방향이면 진동에서 에너지를 빼앗는다.</p>
+<p>Typical section에서는 수직 방향의 <span class="math inline">\(Q_h=-L\)</span>와 회전 방향의 <span class="math inline">\(Q_\alpha=M_a\)</span>가 하는 일을 더해야 한다. 수직 성분 하나만 에너지를 공급하더라도 회전 성분이 더 많이 회수하면 전체 공급은 음수일 수 있다. 두 운동의 위상차와 공력의 위상차를 함께 보아야 하는 이유이다.</p>
+</section><section id="quasi-steady-and-unsteady-aerodynamics" aria-labelledby="quasi-steady-and-unsteady-aerodynamics-title"><h2 id="quasi-steady-and-unsteady-aerodynamics-title">5. Quasi-Steady and Unsteady Aerodynamics</h2>
+<h3 id="instantaneous-relative-flow">Instantaneous Relative Flow</h3>
+<p>수직으로 움직이는 단면은 자유류와 다른 상대유동 방향을 경험한다. 회전속도 효과와 Wake 지연을 생략하고 작은 각도만 고려하면, 여기의 <span class="math inline">\(h\)</span> 부호에서는 운동에 따른 받음각을 대략 <span class="math inline">\(\alpha_{\mathrm{eff}}\simeq\alpha+\dot h/U\)</span>로 쓸 수 있다. 아래로 움직이는 단면에는 상대적으로 위쪽 유동 성분이 생긴다.</p>
+<p>이에 따른 준정상 Lift의 단순한 예는 <span class="math inline">\(L\simeq q_\infty S a_L(\alpha+\dot h/U)\)</span>이다. 이 식의 수직 속도 항만 보면 운동방정식에 <span class="math inline">\(+(q_\infty S a_L/U)\dot h\)</span>가 왼쪽에 생겨, 순수 수직 운동을 감쇠시키는 방향으로 작용한다. 그러나 Moment와 회전 운동까지 포함한 전체 시스템의 안정성은 이 한 항만으로 결정되지 않는다.</p>
+<h3 id="fluid-acceleration-and-wake-history">Fluid Acceleration and Wake History</h3>
+<p>실제 비정상 공기력에는 단면의 가속도 때문에 주변 유체를 함께 가속하는 효과와, 이전 운동으로 형성된 Wake의 영향이 포함된다. 전자는 질량과 비슷한 항으로 나타날 수 있고, 후자는 현재 변위·속도만으로 즉시 결정되지 않는 시간 의존성을 만든다.</p>
+<p>조화운동에서는 이러한 영향이 공기력의 진폭과 위상 변화로 나타난다. Reduced frequency가 커지면 한 진동 동안 유동이 충분히 적응한다는 근사가 나빠질 수 있다. 다만 모든 형상과 유동 조건에 적용되는 하나의 절대적인 경계값으로 준정상 모델의 정확성을 보장할 수는 없다.</p>
+</section><section id="from-energy-balance-to-flutter-onset" aria-labelledby="from-energy-balance-to-flutter-onset-title"><h2 id="from-energy-balance-to-flutter-onset-title">6. From Energy Balance to Flutter Onset</h2>
+<h3 id="neutral-and-growing-oscillations">Neutral and Growing Oscillations</h3>
+<p>작은 진동이 반복될 때 공기력의 순공급이 감쇠 소산보다 작으면 진폭이 줄어든다. 임계 상태에서는 두 양이 같고, 이를 넘으면 진폭이 성장한다. 이 비교는 외부에 주기 하중을 따로 가하지 않아도 성립한다. 일정한 유동이 구조 운동과 공기력의 결합을 통해 에너지원이 된다.</p>
+<p>한 주기 동안 형상과 진폭이 거의 일정하다는 근사에서 소산량은 진폭의 제곱에 비례한다. 선형 공력의 일도 같은 차수로 변한다. 따라서 선형 Flutter 경계는 특정한 큰 진폭을 대입해서 구하는 조건이 아니라 작은 교란의 증감이 바뀌는 조건이다.</p>
+<h3 id="a-coupled-modal-instability">A Coupled Modal Instability</h3>
+<p>에너지 관점은 Flutter의 물리적 의미를 설명하지만 임계 속도를 계산하려면 각 속도에서 실제로 가능한 결합 운동을 구해야 한다. 수직이동과 회전의 상대 크기 및 위상은 임의로 정하는 입력이 아니라 운동방정식의 해에 의해 정해진다.</p>
+<p>다음 글에서는 이 해를 복소 고유값으로 나타낸다. 고유값의 실수부는 에너지가 공급되거나 소산되면서 생기는 진폭의 성장·감쇠를, 허수부는 그 운동의 진동 주파수를 보여준다. 에너지 균형과 고유값 해석은 같은 안정성 문제를 서로 다른 관점에서 설명한다.</p>
+</section><footer><a href="../index.html">← Structural Dynamics &amp; Aeroelasticity로 돌아가기</a></footer></main><aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#a-representative-wing-section" class="sidebar-link"><span class="item-number">1.</span><span>A Representative Wing Section</span></a><a href="#structural-equations-of-motion" class="sidebar-link"><span class="item-number">2.</span><span>Structural Equations of Motion</span></a><a href="#how-the-coordinates-become-coupled" class="sidebar-link"><span class="item-number">3.</span><span>How the Coordinates Become Coupled</span></a><a href="#aerodynamic-work-and-phase" class="sidebar-link"><span class="item-number">4.</span><span>Aerodynamic Work and Phase</span></a><a href="#quasi-steady-and-unsteady-aerodynamics" class="sidebar-link"><span class="item-number">5.</span><span>Quasi-Steady and Unsteady Aerodynamics</span></a><a href="#from-energy-balance-to-flutter-onset" class="sidebar-link"><span class="item-number">6.</span><span>From Energy Balance to Flutter Onset</span></a></nav></aside></div><script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script></body></html>

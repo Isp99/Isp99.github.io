@@ -1,66 +1,403 @@
 <!DOCTYPE html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Beam의 경계조건은 허용되는 공간형상을 정하고, 재료·단면·길이는 고유주파수의 척도를 정한다."><title>5.3 Beam Natural Frequencies and Mode Shapes | Isp99</title><link rel="stylesheet" href="../structural-dynamics.css"><script defer src="../navigation.js"></script></head><body class="article-page"><a class="skip-link" href="#main">Skip to content</a><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><div class="sidebar-inner"><a class="sidebar-title" href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a class="sidebar-link" href="../vibration-mass-stiffness-damping/index.html">1.1 Vibration, Mass, Stiffness, and Damping</a><a class="sidebar-link" href="../degrees-of-freedom-equations-of-motion/index.html">1.2 Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a class="sidebar-link" href="../undamped-free-vibration/index.html">2.1 Undamped Free Vibration</a><a class="sidebar-link" href="../damped-free-vibration/index.html">2.2 Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a class="sidebar-link" href="../harmonic-response-resonance/index.html">3.1 Harmonic Response and Resonance</a><a class="sidebar-link" href="../base-excitation-vibration-isolation/index.html">3.2 Base Excitation and Vibration Isolation</a><a class="sidebar-link" href="../transient-response/index.html">3.3 Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a class="sidebar-link" href="../coupled-equations-matrix-form/index.html">4.1 Coupled Equations and Matrix Form</a><a class="sidebar-link" href="../natural-frequencies-mode-shapes/index.html">4.2 Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-analysis/index.html">4.3 Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a class="sidebar-link" href="../continuous-systems-rod-vibration/index.html">5.1 Continuous Systems and Rod Vibration</a><a class="sidebar-link" href="../euler-bernoulli-beam-theory/index.html">5.2 Euler–Bernoulli Beam Theory</a><a class="sidebar-link active" href="../beam-natural-frequencies-mode-shapes/index.html" aria-current="page">5.3 Beam Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-response-of-beams/index.html">5.4 Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a class="sidebar-link" href="../energy-methods-equivalent-models/index.html">6.1 Energy Methods and Equivalent Models</a><a class="sidebar-link" href="../finite-element-method/index.html">6.2 Finite Element Method</a><a class="sidebar-link" href="../response-analysis-verification/index.html">6.3 Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a class="sidebar-link" href="../aeroelastic-coupling-static-stability/index.html">7.1 Aeroelastic Coupling and Static Stability</a><a class="sidebar-link" href="../typical-section-unsteady-aerodynamics/index.html">7.2 Flutter and the Typical Section Model</a><a class="sidebar-link" href="../flutter-analysis/index.html">7.3 Flutter Analysis</a></div></div></aside><main class="main-content" id="main"><nav class="breadcrumb"><a href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><span>/</span><a href="../index.html#chapter-5">Continuous Systems and Beam Vibration</a></nav><header id="top"><h1>5.3 Beam Natural Frequencies and Mode Shapes</h1><p class="intro">Beam의 재료와 단면이 같아도 지지하는 방식이 달라지면 진동하는 형상과 주파수가 달라진다. Beam equation에서 공간형상과 시간변화를 분리하고 끝단 조건을 적용하면, 각 지지조건이 허용하는 고유주파수와 Mode shape를 구할 수 있다.</p></header><details class="mobile-series"><summary>Series Navigation</summary><a class="sidebar-title" href="../index.html">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a class="sidebar-link" href="../vibration-mass-stiffness-damping/index.html">1.1 Vibration, Mass, Stiffness, and Damping</a><a class="sidebar-link" href="../degrees-of-freedom-equations-of-motion/index.html">1.2 Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a class="sidebar-link" href="../undamped-free-vibration/index.html">2.1 Undamped Free Vibration</a><a class="sidebar-link" href="../damped-free-vibration/index.html">2.2 Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a class="sidebar-link" href="../harmonic-response-resonance/index.html">3.1 Harmonic Response and Resonance</a><a class="sidebar-link" href="../base-excitation-vibration-isolation/index.html">3.2 Base Excitation and Vibration Isolation</a><a class="sidebar-link" href="../transient-response/index.html">3.3 Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a class="sidebar-link" href="../coupled-equations-matrix-form/index.html">4.1 Coupled Equations and Matrix Form</a><a class="sidebar-link" href="../natural-frequencies-mode-shapes/index.html">4.2 Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-analysis/index.html">4.3 Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a class="sidebar-link" href="../continuous-systems-rod-vibration/index.html">5.1 Continuous Systems and Rod Vibration</a><a class="sidebar-link" href="../euler-bernoulli-beam-theory/index.html">5.2 Euler–Bernoulli Beam Theory</a><a class="sidebar-link active" href="../beam-natural-frequencies-mode-shapes/index.html" aria-current="page">5.3 Beam Natural Frequencies and Mode Shapes</a><a class="sidebar-link" href="../modal-response-of-beams/index.html">5.4 Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a class="sidebar-link" href="../energy-methods-equivalent-models/index.html">6.1 Energy Methods and Equivalent Models</a><a class="sidebar-link" href="../finite-element-method/index.html">6.2 Finite Element Method</a><a class="sidebar-link" href="../response-analysis-verification/index.html">6.3 Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a class="sidebar-link" href="../aeroelastic-coupling-static-stability/index.html">7.1 Aeroelastic Coupling and Static Stability</a><a class="sidebar-link" href="../typical-section-unsteady-aerodynamics/index.html">7.2 Flutter and the Typical Section Model</a><a class="sidebar-link" href="../flutter-analysis/index.html">7.3 Flutter Analysis</a></div></details><nav class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#the-spatial-eigenvalue-equation">1. The Spatial Eigenvalue Equation</a></li><li><a href="#simply-supported-beam">2. Simply Supported Beam</a></li><li><a href="#cantilever-beam">3. Cantilever Beam</a></li></ol></nav><article><h2 id="the-spatial-eigenvalue-equation">1. The Spatial Eigenvalue Equation</h2>
-<h3 id="separating-shape-and-time">Separating Shape and Time</h3>
-<p>균일한 Beam의 무감쇠 자유진동에서 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>q</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">w(x,t)=\Phi(x)q(t)</annotation></semantics></math>로 둔다. 식 <a href="../euler-bernoulli-beam-theory/index.html#eq-beam" class="equation-ref" title="Equation 5.2.6">(5.2.6)</a>에 대입하면</p>
-<div class="equation" id="eq-5-3-1"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 5.3.1"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>E</mi><mi>I</mi><mi>Φ</mi><mi>⁗</mi><mi>q</mi><mo>+</mo><mi>ρ</mi><mi>A</mi><mi>Φ</mi><mover><mi>q</mi><mo accent="true">̈</mo></mover></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>0</mn></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mfrac><mrow><mi>E</mi><mi>I</mi></mrow><mrow><mi>ρ</mi><mi>A</mi></mrow></mfrac><mfrac><mrow><mi>Φ</mi><mi>⁗</mi></mrow><mi>Φ</mi></mfrac></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mo>−</mo><mfrac><mover><mi>q</mi><mo accent="true">̈</mo></mover><mi>q</mi></mfrac><mo>=</mo><msup><mi>ω</mi><mn>2</mn></msup><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Beam의 재료와 단면이 같아도 지지하는 방식이 달라지면 진동하는 형상과 주파수가 달라진다. Beam equation에서 공간형상과 시간변화를 분리하고 끝단 조건을 적용하면, 각 지지조건이 허용하는 고유주파수와 Mode shape를 구할 수 있다."><title>5.3 Beam Natural Frequencies and Mode Shapes | Isp99</title>
+<script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style></head><body class="article-page"><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><nav class="sidebar-inner"><a href="../index.html" class="sidebar-title">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a href="../vibration-mass-stiffness-damping/index.html" class="sidebar-link"><span class="item-number">1.1</span> Vibration, Mass, Stiffness, and Damping</a><a href="../degrees-of-freedom-equations-of-motion/index.html" class="sidebar-link"><span class="item-number">1.2</span> Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a href="../undamped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.1</span> Undamped Free Vibration</a><a href="../damped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.2</span> Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a href="../harmonic-response-resonance/index.html" class="sidebar-link"><span class="item-number">3.1</span> Harmonic Response and Resonance</a><a href="../base-excitation-vibration-isolation/index.html" class="sidebar-link"><span class="item-number">3.2</span> Base Excitation and Vibration Isolation</a><a href="../transient-response/index.html" class="sidebar-link"><span class="item-number">3.3</span> Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a href="../coupled-equations-matrix-form/index.html" class="sidebar-link"><span class="item-number">4.1</span> Coupled Equations and Matrix Form</a><a href="../natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">4.2</span> Natural Frequencies and Mode Shapes</a><a href="../modal-analysis/index.html" class="sidebar-link"><span class="item-number">4.3</span> Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a href="../continuous-systems-rod-vibration/index.html" class="sidebar-link"><span class="item-number">5.1</span> Continuous Systems and Rod Vibration</a><a href="../euler-bernoulli-beam-theory/index.html" class="sidebar-link"><span class="item-number">5.2</span> Euler–Bernoulli Beam Theory</a><a href="../beam-natural-frequencies-mode-shapes/index.html" class="sidebar-link active" aria-current="page"><span class="item-number">5.3</span> Beam Natural Frequencies and Mode Shapes</a><a href="../modal-response-of-beams/index.html" class="sidebar-link"><span class="item-number">5.4</span> Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a href="../energy-methods-equivalent-models/index.html" class="sidebar-link"><span class="item-number">6.1</span> Energy Methods and Equivalent Models</a><a href="../finite-element-method/index.html" class="sidebar-link"><span class="item-number">6.2</span> Finite Element Method</a><a href="../response-analysis-verification/index.html" class="sidebar-link"><span class="item-number">6.3</span> Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a href="../aeroelastic-coupling-static-stability/index.html" class="sidebar-link"><span class="item-number">7.1</span> Aeroelastic Coupling and Static Stability</a><a href="../typical-section-unsteady-aerodynamics/index.html" class="sidebar-link"><span class="item-number">7.2</span> Flutter and the Typical Section Model</a><a href="../flutter-analysis/index.html" class="sidebar-link"><span class="item-number">7.3</span> Flutter Analysis</a></div></nav></aside><main class="main-content" id="top"><nav aria-label="Current article"><a href="#top">5.3 Beam Natural Frequencies and Mode Shapes</a></nav><header><h1>5.3 Beam Natural Frequencies and Mode Shapes</h1><p class="subtitle">Spatial Eigenfunctions, End Conditions, and Beam Frequencies</p><p class="intro">Beam의 재료와 단면이 같아도 지지하는 방식이 달라지면 진동하는 형상과 주파수가 달라진다. Beam equation에서 공간형상과 시간변화를 분리하고 끝단 조건을 적용하면, 각 지지조건이 허용하는 고유주파수와 Mode shape를 구할 수 있다.</p></header><aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#separation-of-shape-and-time">Separation of Shape and Time</a></li><li><a href="#general-spatial-solution">General Spatial Solution</a></li><li><a href="#simply-supported-beam">Simply Supported Beam</a></li><li><a href="#nodes-and-relative-motion">Nodes and Relative Motion</a></li><li><a href="#cantilever-boundary-conditions">Cantilever Boundary Conditions</a></li><li><a href="#natural-frequencies-and-model-interpretation">Natural Frequencies and Model Interpretation</a></li></ol></aside><section id="separation-of-shape-and-time" aria-labelledby="separation-of-shape-and-time-title"><h2 id="separation-of-shape-and-time-title">1. Separation of Shape and Time</h2>
+<h3 id="a-beam-moving-in-one-mode">A Beam Moving in One Mode</h3>
+<p>균일한 Beam의 무감쇠 자유진동에서 <span>\(w(x,t)=\Phi(x)q(t)\)</span>로 둔다. 식 <a href="../euler-bernoulli-beam-theory/index.html#eq-beam" class="equation-ref" title="Equation 5.2.6">(5.2.6)</a>에 대입하면</p>
+<div class="equation" id="eq-5-3-1">\[
+\begin{aligned}
 EI\Phi''''q+\rho A\Phi\ddot q&amp;=0\\[1em]
 \frac{EI}{\rho A}\frac{\Phi''''}{\Phi}
 &amp;=-\frac{\ddot q}{q}=\omega^2.
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(5.3.1)</span></div><p>따라서</p>
-<div class="equation main" id="eq-beamEigen"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 5.3.2"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mover><mi>q</mi><mo accent="true">̈</mo></mover><mo>+</mo><msup><mi>ω</mi><mn>2</mn></msup><mi>q</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>0</mn></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mi>Φ</mi><mi>⁗</mi><mo>−</mo><msup><mi>λ</mi><mn>4</mn></msup><mi>Φ</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>0</mn><mo>,</mo><mspace width="2.0em"></mspace><msup><mi>λ</mi><mn>4</mn></msup><mo>=</mo><mfrac><mrow><mi>ρ</mi><mi>A</mi><msup><mi>ω</mi><mn>2</mn></msup></mrow><mrow><mi>E</mi><mi>I</mi></mrow></mfrac></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\end{aligned}
+
+\tag{5.3.1}
+\]</div><p>따라서</p>
+<div class="equation main" id="eq-beamEigen">\[
+\boxed{\displaystyle \begin{aligned}
 \ddot q+\omega^2q&amp;=0\\[1em]
 \Phi''''-\lambda^4\Phi&amp;=0,\qquad
 \lambda^4=\frac{\rho A\omega^2}{EI}
 
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(5.3.2)</span></div><p>시간방정식은 다시 1 DOF 진동식이 된다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math>는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="normal">m</mi><mrow><mo mathvariant="normal">−</mo><mn mathvariant="normal">1</mn></mrow></msup><annotation encoding="application/x-tex">\mathrm{m^{-1}}</annotation></semantics></math> 단위의 공간 파라미터이다. 공간방정식에 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Φ</mi><mo>=</mo><msup><mi mathvariant="normal">e</mi><mrow><mi>s</mi><mi>x</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\Phi=\mathrm{e}^{sx}</annotation></semantics></math>를 대입하면 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>s</mi><mn>4</mn></msup><mo>=</mo><msup><mi>λ</mi><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">s^4=\lambda^4</annotation></semantics></math>이므로 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>=</mo><mi>λ</mi><mo>,</mo><mo>−</mo><mi>λ</mi><mo>,</mo><mi mathvariant="normal">i</mi><mi>λ</mi><mo>,</mo><mo>−</mo><mi mathvariant="normal">i</mi><mi>λ</mi></mrow><annotation encoding="application/x-tex">s=\lambda,-\lambda,\mathrm{i}\lambda,-\mathrm{i}\lambda</annotation></semantics></math>이다.</p>
+\end{aligned}}
+
+\tag{5.3.2}
+\]</div><p>시간방정식은 다시 1 DOF 진동식이 된다. <span>\(\lambda\)</span>는 <span>\(\mathrm{m^{-1}}\)</span> 단위의 공간 파라미터이다. 공간방정식에 <span>\(\Phi=\mathrm{e}^{sx}\)</span>를 대입하면 <span>\(s^4=\lambda^4\)</span>이므로 <span>\(s=\lambda,-\lambda,\mathrm{i}\lambda,-\mathrm{i}\lambda\)</span>이다.</p>
+<p>보의 모든 점은 일반적으로 서로 다른 시간 이력을 가질 수 있다. 그러나 하나의 Mode에서는 각 위치가 일정한 비율로 같은 시간함수를 따라 움직인다. 변수를 분리하여 <span class="math inline">\(w(x,t)=\Phi(x)q(t)\)</span>로 두는 것은 바로 이러한 기본 운동을 찾는 과정이다. 임의의 초기변형이 항상 하나의 Mode라고 가정하는 것은 아니다.</p>
+<h3 id="one-frequency-in-two-equations">One Frequency in Two Equations</h3>
+<p>균일한 보의 자유진동식 <span class="math inline">\(\rho A w_{tt}+EIw_{xxxx}=0\)</span>에 분리한 해를 대입하면, 공간과 시간에 각각 하나의 상수가 나타난다. 시간식 <span class="math inline">\(\ddot q+\omega^2q=0\)</span>와 공간식 <span class="math inline">\(EI\Phi''''=\rho A\omega^2\Phi\)</span>는 같은 <span class="math inline">\(\omega\)</span>를 공유한다. 공간형상을 정하는 경계조건이 시간에 따른 진동수까지 정하는 이유이다.</p>
+<p>보의 파라미터 <span class="math inline">\(\beta\)</span>는 <span class="math inline">\(\beta^4=\rho A\omega^2/(EI)\)</span>로 정의되므로 <span class="math inline">\(\omega=\beta^2\sqrt{EI/(\rho A)}\)</span>이다. Rod의 축진동에서 <span class="math inline">\(\omega\)</span>가 공간파수에 비례했던 관계와 다르다. 보에서는 굽힘 복원력이 네 번의 공간미분으로 결정되기 때문에, 짧은 공간파장을 가진 Mode의 주파수가 더 빠르게 증가한다.</p>
+</section><section id="general-spatial-solution" aria-labelledby="general-spatial-solution-title"><h2 id="general-spatial-solution-title">2. General Spatial Solution</h2>
 <h3 id="trigonometric-and-hyperbolic-functions">Trigonometric and Hyperbolic Functions</h3>
-<p>실수 지수함수 두 개를 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>cosh</mo><mi>z</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi mathvariant="normal">e</mi><mi>z</mi></msup><mo>+</mo><msup><mi mathvariant="normal">e</mi><mrow><mo>−</mo><mi>z</mi></mrow></msup><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\cosh z=(\mathrm{e}^z+\mathrm{e}^{-z})/2</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>sinh</mo><mi>z</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi mathvariant="normal">e</mi><mi>z</mi></msup><mo>−</mo><msup><mi mathvariant="normal">e</mi><mrow><mo>−</mo><mi>z</mi></mrow></msup><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\sinh z=(\mathrm{e}^z-\mathrm{e}^{-z})/2</annotation></semantics></math>로 묶고, 허수 지수함수는 Sine과 Cosine으로 묶으면 공간 일반해는</p>
-<div class="equation" id="eq-5-3-3"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 5.3.3"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>A</mi><mn>1</mn></msub><mo>cosh</mo><mi>λ</mi><mi>x</mi><mo>+</mo><msub><mi>A</mi><mn>2</mn></msub><mo>sinh</mo><mi>λ</mi><mi>x</mi><mo>+</mo><msub><mi>A</mi><mn>3</mn></msub><mo>cos</mo><mi>λ</mi><mi>x</mi><mo>+</mo><msub><mi>A</mi><mn>4</mn></msub><mo>sin</mo><mi>λ</mi><mi>x</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\Phi(x)=A_1\cosh\lambda x+A_2\sinh\lambda x
-+A_3\cos\lambda x+A_4\sin\lambda x.</annotation></semantics></math></div><span class="equation-number">(5.3.3)</span></div><p>Hyperbolic function은 새로운 물리법칙을 추가하는 것이 아니라, 4차 미분방정식이 허용하는 지수형 공간해를 간결하게 표현한 것이다. 경계조건이 네 계수 사이의 관계와 허용되는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math>를 결정한다.</p>
-<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>λ</mi><mi>n</mi></msub><annotation encoding="application/x-tex">\lambda_n</annotation></semantics></math>을 구하면 Natural frequency는</p>
-<div class="equation main" id="eq-beamFrequency"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 5.3.4"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ω</mi><mi>n</mi></msub><mo>=</mo><msubsup><mi>λ</mi><mi>n</mi><mn>2</mn></msubsup><msqrt><mfrac><mrow><mi>E</mi><mi>I</mi></mrow><mrow><mi>ρ</mi><mi>A</mi></mrow></mfrac></msqrt><mo>=</mo><mfrac><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>λ</mi><mi>n</mi></msub><mi>L</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><msup><mi>L</mi><mn>2</mn></msup></mfrac><msqrt><mfrac><mrow><mi>E</mi><mi>I</mi></mrow><mrow><mi>ρ</mi><mi>A</mi></mrow></mfrac></msqrt></mrow><annotation encoding="application/x-tex">\omega_n=\lambda_n^2\sqrt{\frac{EI}{\rho A}}
+<p>실수 지수함수 두 개를 <span>\(\cosh z=(\mathrm{e}^z+\mathrm{e}^{-z})/2\)</span>, <span>\(\sinh z=(\mathrm{e}^z-\mathrm{e}^{-z})/2\)</span>로 묶고, 허수 지수함수는 Sine과 Cosine으로 묶으면 공간 일반해는</p>
+<div class="equation" id="eq-5-3-3">\[
+\Phi(x)=A_1\cosh\lambda x+A_2\sinh\lambda x
++A_3\cos\lambda x+A_4\sin\lambda x.
+
+\tag{5.3.3}
+\]</div><p>Hyperbolic function은 새로운 물리법칙을 추가하는 것이 아니라, 4차 미분방정식이 허용하는 지수형 공간해를 간결하게 표현한 것이다. 경계조건이 네 계수 사이의 관계와 허용되는 <span>\(\lambda\)</span>를 결정한다.</p>
+<p><span>\(\lambda_n\)</span>을 구하면 Natural frequency는</p>
+<div class="equation main" id="eq-beamFrequency">\[
+\boxed{\displaystyle \omega_n=\lambda_n^2\sqrt{\frac{EI}{\rho A}}
 =\frac{(\lambda_nL)^2}{L^2}\sqrt{\frac{EI}{\rho A}}
-</annotation></semantics></math></div><span class="equation-number">(5.3.4)</span></div><p>로 계산된다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>λ</mi><mi>n</mi></msub><mi>L</mi></mrow><annotation encoding="application/x-tex">\lambda_nL</annotation></semantics></math>은 지지조건이 정하는 무차원 값이고, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mi>I</mi><mo>,</mo><mi>ρ</mi><mi>A</mi><mo>,</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">EI,\rho A,L</annotation></semantics></math>은 재료·형상이 정하는 척도이다.</p>
-<h2 id="simply-supported-beam">2. Simply Supported Beam</h2>
-<h3 id="deriving-the-sine-modes">Deriving the Sine Modes</h3>
-<p>양 끝이 Simply supported이고 외부 끝단 Moment가 없으면 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>Φ</mi><mi>″</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\Phi(0)=\Phi''(0)=0</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>L</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>Φ</mi><mi>″</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>L</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\Phi(L)=\Phi''(L)=0</annotation></semantics></math>이다. 첫 두 조건을 일반해에 적용하면 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>1</mn></msub><mo>=</mo><msub><mi>A</mi><mn>3</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">A_1=A_3=0</annotation></semantics></math>이므로</p>
-<div class="equation" id="eq-5-3-5"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 5.3.5"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mi>Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msub><mi>A</mi><mn>2</mn></msub><mo>sinh</mo><mi>λ</mi><mi>x</mi><mo>+</mo><msub><mi>A</mi><mn>4</mn></msub><mo>sin</mo><mi>λ</mi><mi>x</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>A</mi><mn>2</mn></msub><mo>sinh</mo><mi>λ</mi><mi>L</mi><mo>+</mo><msub><mi>A</mi><mn>4</mn></msub><mo>sin</mo><mi>λ</mi><mi>L</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>0</mn></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>A</mi><mn>2</mn></msub><mo>sinh</mo><mi>λ</mi><mi>L</mi><mo>−</mo><msub><mi>A</mi><mn>4</mn></msub><mo>sin</mo><mi>λ</mi><mi>L</mi></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>0</mn><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+}
+
+\tag{5.3.4}
+\]</div><p>로 계산된다. <span>\(\lambda_nL\)</span>은 지지조건이 정하는 무차원 값이고, <span>\(EI,\rho A,L\)</span>은 재료·형상이 정하는 척도이다.</p>
+<p>공간방정식 <span class="math inline">\(\Phi''''-\beta^4\Phi=0\)</span>에 <span class="math inline">\(\Phi=e^{rx}\)</span>를 대입하면 <span class="math inline">\(r^4=\beta^4\)</span>이다. 네 근은 <span class="math inline">\(\beta,-\beta,i\beta,-i\beta\)</span>이며, 실수 해의 기저로 <span class="math inline">\(\cosh\beta x,\sinh\beta x,\cos\beta x,\sin\beta x\)</span>를 선택할 수 있다. 네 개의 독립적인 상수가 있으므로 네 개의 경계조건이 필요하다.</p>
+<h3 id="role-of-hyperbolic-terms">Role of Hyperbolic Terms</h3>
+<p>쌍곡함수가 등장한다고 시간에 따라 진폭이 지수적으로 성장한다는 뜻은 아니다. 여기의 지수형 함수는 공간에 대한 형상의 일부이며, 시간함수는 안정한 조화진동을 나타낸다. 공간 의존성과 시간 의존성을 분리하여 해석해야 한다. 특히 고정단·자유단처럼 서로 다른 조건을 만족시키기 위해 삼각함수와 쌍곡함수의 조합이 필요하다.</p>
+<p>각 상수는 경계조건을 적용하면 서로 연결된다. 모든 상수가 0인 해는 움직임이 없는 해이므로, 비영인 형상이 존재하려면 경계조건을 모은 계수행렬의 행렬식이 0이 되어야 한다. 이 조건으로 가능한 <span class="math inline">\(\beta L\)</span> 값이 선택되고, 그 값에서 고유주파수와 상대형상을 구한다. 다자유도 고유치 문제의 비영해 조건과 같은 구조이다.</p>
+</section><section id="simply-supported-beam" aria-labelledby="simply-supported-beam-title"><h2 id="simply-supported-beam-title">3. Simply Supported Beam</h2>
+<h3 id="conditions-on-displacement-and-moment">Conditions on Displacement and Moment</h3>
+<p>양 끝이 Simply supported이고 외부 끝단 Moment가 없으면 <span>\(\Phi(0)=\Phi''(0)=0\)</span>, <span>\(\Phi(L)=\Phi''(L)=0\)</span>이다. 첫 두 조건을 일반해에 적용하면 <span>\(A_1=A_3=0\)</span>이므로</p>
+<div class="equation" id="eq-5-3-5">\[
+\begin{aligned}
 \Phi(x)&amp;=A_2\sinh\lambda x+A_4\sin\lambda x\\[1em]
 A_2\sinh\lambda L+A_4\sin\lambda L&amp;=0\\[1em]
 A_2\sinh\lambda L-A_4\sin\lambda L&amp;=0.
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(5.3.5)</span></div><p>마지막 두 식을 더하면 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>2</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">A_2=0</annotation></semantics></math>이고, 0이 아닌 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mn>4</mn></msub><annotation encoding="application/x-tex">A_4</annotation></semantics></math>를 위해 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>sin</mo><mi>λ</mi><mi>L</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sin\lambda L=0</annotation></semantics></math>이어야 한다. 따라서</p>
-<div class="equation main" id="eq-ssBeam"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 5.3.6"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Φ</mi><mi>n</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>sin</mo><mfrac><mrow><mi>n</mi><mi>π</mi><mi>x</mi></mrow><mi>L</mi></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>ω</mi><mi>n</mi></msub><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>n</mi><mi>π</mi></mrow><mi>L</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><msqrt><mfrac><mrow><mi>E</mi><mi>I</mi></mrow><mrow><mi>ρ</mi><mi>A</mi></mrow></mfrac></msqrt></mrow><annotation encoding="application/x-tex">\Phi_n(x)=\sin\frac{n\pi x}{L},\qquad
+\end{aligned}
+
+\tag{5.3.5}
+\]</div><p>마지막 두 식을 더하면 <span>\(A_2=0\)</span>이고, 0이 아닌 <span>\(A_4\)</span>를 위해 <span>\(\sin\lambda L=0\)</span>이어야 한다. 따라서</p>
+<div class="equation main" id="eq-ssBeam">\[
+\boxed{\displaystyle \Phi_n(x)=\sin\frac{n\pi x}{L},\qquad
 \omega_n=\left(\frac{n\pi}{L}\right)^2\sqrt{\frac{EI}{\rho A}}
-</annotation></semantics></math></div><span class="equation-number">(5.3.6)</span></div><p>이 Beam의 Natural frequency는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>n</mi><mn>2</mn></msup><annotation encoding="application/x-tex">n^2</annotation></semantics></math>에 비례한다. 앞의 Axial rod에서는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>에 비례했으며, 이는 공간 복원항이 각각 4차와 2차 미분이라는 차이에서 나온다.</p>
-<h3 id="nodes-and-the-meaning-of-a-mode-shape">Nodes and the Meaning of a Mode Shape</h3>
-<figure><svg viewbox="0 0 780 330" role="img" aria-label="First three simply supported beam modes"><defs><marker id="arrow" markerwidth="8" markerheight="8" refx="7" refy="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#333"></path></marker></defs><path d="M110 55 H590" fill="none" stroke="#aaa" stroke-dasharray="5 5"></path><polyline points="110.00,55.00 114.00,54.27 118.00,53.53 122.00,52.80 126.00,52.07 130.00,51.35 134.00,50.62 138.00,49.90 142.00,49.18 146.00,48.46 150.00,47.75 154.00,47.05 158.00,46.35 162.00,45.65 166.00,44.97 170.00,44.28 174.00,43.61 178.00,42.95 182.00,42.29 186.00,41.64 190.00,41.00 194.00,40.37 198.00,39.75 202.00,39.14 206.00,38.54 210.00,37.95 214.00,37.38 218.00,36.82 222.00,36.26 226.00,35.73 230.00,35.20 234.00,34.69 238.00,34.19 242.00,33.71 246.00,33.24 250.00,32.79 254.00,32.35 258.00,31.92 262.00,31.52 266.00,31.13 270.00,30.75 274.00,30.39 278.00,30.05 282.00,29.73 286.00,29.42 290.00,29.13 294.00,28.86 298.00,28.61 302.00,28.37 306.00,28.15 310.00,27.95 314.00,27.77 318.00,27.61 322.00,27.47 326.00,27.34 330.00,27.24 334.00,27.15 338.00,27.09 342.00,27.04 346.00,27.01 350.00,27.00 354.00,27.01 358.00,27.04 362.00,27.09 366.00,27.15 370.00,27.24 374.00,27.34 378.00,27.47 382.00,27.61 386.00,27.77 390.00,27.95 394.00,28.15 398.00,28.37 402.00,28.61 406.00,28.86 410.00,29.13 414.00,29.42 418.00,29.73 422.00,30.05 426.00,30.39 430.00,30.75 434.00,31.13 438.00,31.52 442.00,31.92 446.00,32.35 450.00,32.79 454.00,33.24 458.00,33.71 462.00,34.19 466.00,34.69 470.00,35.20 474.00,35.73 478.00,36.26 482.00,36.82 486.00,37.38 490.00,37.95 494.00,38.54 498.00,39.14 502.00,39.75 506.00,40.37 510.00,41.00 514.00,41.64 518.00,42.29 522.00,42.95 526.00,43.61 530.00,44.28 534.00,44.97 538.00,45.65 542.00,46.35 546.00,47.05 550.00,47.75 554.00,48.46 558.00,49.18 562.00,49.90 566.00,50.62 570.00,51.35 574.00,52.07 578.00,52.80 582.00,53.53 586.00,54.27 590.00,55.00" fill="none" stroke="#333" stroke-width="2"></polyline><circle cx="110" cy="55" r="3"></circle><circle cx="590" cy="55" r="3"></circle><g font-family="Arial,sans-serif" font-size="18"><text x="12" y="61">Mode 1</text><text x="620" y="61">ω₁ = ω₁</text></g><path d="M110 150 H590" fill="none" stroke="#aaa" stroke-dasharray="5 5"></path><polyline points="110.00,150.00 114.00,148.53 118.00,147.07 122.00,145.62 126.00,144.18 130.00,142.75 134.00,141.35 138.00,139.97 142.00,138.61 146.00,137.29 150.00,136.00 154.00,134.75 158.00,133.54 162.00,132.38 166.00,131.26 170.00,130.20 174.00,129.19 178.00,128.24 182.00,127.35 186.00,126.52 190.00,125.75 194.00,125.05 198.00,124.42 202.00,123.86 206.00,123.37 210.00,122.95 214.00,122.61 218.00,122.34 222.00,122.15 226.00,122.04 230.00,122.00 234.00,122.04 238.00,122.15 242.00,122.34 246.00,122.61 250.00,122.95 254.00,123.37 258.00,123.86 262.00,124.42 266.00,125.05 270.00,125.75 274.00,126.52 278.00,127.35 282.00,128.24 286.00,129.19 290.00,130.20 294.00,131.26 298.00,132.38 302.00,133.54 306.00,134.75 310.00,136.00 314.00,137.29 318.00,138.61 322.00,139.97 326.00,141.35 330.00,142.75 334.00,144.18 338.00,145.62 342.00,147.07 346.00,148.53 350.00,150.00 354.00,151.47 358.00,152.93 362.00,154.38 366.00,155.82 370.00,157.25 374.00,158.65 378.00,160.03 382.00,161.39 386.00,162.71 390.00,164.00 394.00,165.25 398.00,166.46 402.00,167.62 406.00,168.74 410.00,169.80 414.00,170.81 418.00,171.76 422.00,172.65 426.00,173.48 430.00,174.25 434.00,174.95 438.00,175.58 442.00,176.14 446.00,176.63 450.00,177.05 454.00,177.39 458.00,177.66 462.00,177.85 466.00,177.96 470.00,178.00 474.00,177.96 478.00,177.85 482.00,177.66 486.00,177.39 490.00,177.05 494.00,176.63 498.00,176.14 502.00,175.58 506.00,174.95 510.00,174.25 514.00,173.48 518.00,172.65 522.00,171.76 526.00,170.81 530.00,169.80 534.00,168.74 538.00,167.62 542.00,166.46 546.00,165.25 550.00,164.00 554.00,162.71 558.00,161.39 562.00,160.03 566.00,158.65 570.00,157.25 574.00,155.82 578.00,154.38 582.00,152.93 586.00,151.47 590.00,150.00" fill="none" stroke="#333" stroke-width="2"></polyline><circle cx="110" cy="150" r="3"></circle><circle cx="590" cy="150" r="3"></circle><g font-family="Arial,sans-serif" font-size="18"><text x="12" y="156">Mode 2</text><text x="620" y="156">ω₂ = 4ω₁</text></g><path d="M110 245 H590" fill="none" stroke="#aaa" stroke-dasharray="5 5"></path><polyline points="110.00,245.00 114.00,242.80 118.00,240.62 122.00,238.46 126.00,236.35 130.00,234.28 134.00,232.29 138.00,230.37 142.00,228.54 146.00,226.82 150.00,225.20 154.00,223.71 158.00,222.35 162.00,221.13 166.00,220.05 170.00,219.13 174.00,218.37 178.00,217.77 182.00,217.34 186.00,217.09 190.00,217.00 194.00,217.09 198.00,217.34 202.00,217.77 206.00,218.37 210.00,219.13 214.00,220.05 218.00,221.13 222.00,222.35 226.00,223.71 230.00,225.20 234.00,226.82 238.00,228.54 242.00,230.37 246.00,232.29 250.00,234.28 254.00,236.35 258.00,238.46 262.00,240.62 266.00,242.80 270.00,245.00 274.00,247.20 278.00,249.38 282.00,251.54 286.00,253.65 290.00,255.72 294.00,257.71 298.00,259.63 302.00,261.46 306.00,263.18 310.00,264.80 314.00,266.29 318.00,267.65 322.00,268.87 326.00,269.95 330.00,270.87 334.00,271.63 338.00,272.23 342.00,272.66 346.00,272.91 350.00,273.00 354.00,272.91 358.00,272.66 362.00,272.23 366.00,271.63 370.00,270.87 374.00,269.95 378.00,268.87 382.00,267.65 386.00,266.29 390.00,264.80 394.00,263.18 398.00,261.46 402.00,259.63 406.00,257.71 410.00,255.72 414.00,253.65 418.00,251.54 422.00,249.38 426.00,247.20 430.00,245.00 434.00,242.80 438.00,240.62 442.00,238.46 446.00,236.35 450.00,234.28 454.00,232.29 458.00,230.37 462.00,228.54 466.00,226.82 470.00,225.20 474.00,223.71 478.00,222.35 482.00,221.13 486.00,220.05 490.00,219.13 494.00,218.37 498.00,217.77 502.00,217.34 506.00,217.09 510.00,217.00 514.00,217.09 518.00,217.34 522.00,217.77 526.00,218.37 530.00,219.13 534.00,220.05 538.00,221.13 542.00,222.35 546.00,223.71 550.00,225.20 554.00,226.82 558.00,228.54 562.00,230.37 566.00,232.29 570.00,234.28 574.00,236.35 578.00,238.46 582.00,240.62 586.00,242.80 590.00,245.00" fill="none" stroke="#333" stroke-width="2"></polyline><circle cx="110" cy="245" r="3"></circle><circle cx="590" cy="245" r="3"></circle><g font-family="Arial,sans-serif" font-size="18"><text x="12" y="251">Mode 3</text><text x="620" y="251">ω₃ = 9ω₁</text></g><path d="M110 293 H625" stroke="#333" marker-end="url(#arrow)"></path><g font-family="Arial,sans-serif" font-size="16"><text x="105" y="320">0</text><text x="585" y="320">1</text><text x="645" y="299">x/L</text></g></svg><figcaption>First three simply supported beam modes</figcaption></figure>
-<p>그림의 진폭 배율은 형상을 보여주기 위한 임의의 값이다. 한 Mode만 진동할 때 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Φ</mi><mi>n</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\Phi_n(x)=0</annotation></semantics></math>인 위치는 항상 정지하며 이를 <strong>Node</strong>라고 한다. 위와 아래로 휘어진 부분은 서로 반대 위상으로 움직인다.</p>
+}
+
+\tag{5.3.6}
+\]</div><p>이 Beam의 Natural frequency는 <span>\(n^2\)</span>에 비례한다. 앞의 Axial rod에서는 <span>\(n\)</span>에 비례했으며, 이는 공간 복원항이 각각 4차와 2차 미분이라는 차이에서 나온다.</p>
+<p>단순지지 끝에서는 횡변위가 제한되지만 단면 회전은 허용된다. 끝단 모멘트를 전달하지 않는 이상적인 지지이므로 변위와 모멘트 조건을 함께 사용한다. 균일한 보에서 <span class="math inline">\(w=0\)</span>, <span class="math inline">\(w_{xx}=0\)</span>이 되는 이유가 여기에 있다. 기울기까지 0으로 놓으면 단순지지를 고정단처럼 만든다.</p>
+<h3 id="frequency-scaling-of-the-sine-modes">Frequency Scaling of the Sine Modes</h3>
+<p>양끝 조건을 만족하는 형상은 <span class="math inline">\(\Phi_n=\sin(n\pi x/L)\)</span>이고, 고유주파수는</p>
+<div class="equation" id="eq-added-5-3-7">\[
+\omega_n=\left(\frac{n\pi}{L}\right)^2\sqrt{\frac{EI}{\rho A}}.
+
+\tag{5.3.7}
+\]</div><p>따라서 <span class="math inline">\(\omega_n/\omega_1=n^2\)</span>이다. 첫 세 주파수의 비는 <span class="math inline">\(1:4:9\)</span>이며, 이는 이 경계조건과 균일한 Euler–Bernoulli 모델의 결과이다. 다른 지지조건이나 전단변형을 포함한 모델까지 같은 비를 사용하지 않는다.</p>
+<p>질량과 강성이 일정해도 길이가 두 배가 되면 주파수는 <span class="math inline">\(1/4\)</span>로 낮아진다. 굽힘 변형이 길이에 민감하기 때문이다. 주파수 식에서 <span class="math inline">\(\beta L\)</span>처럼 경계조건이 정하는 무차원 수와, <span class="math inline">\(L^{-2}\sqrt{EI/(\rho A)}\)</span>처럼 재료·단면·길이가 정하는 척도를 분리하면 조건별 결과를 비교하기 쉽다.</p>
+</section><section id="nodes-and-relative-motion" aria-labelledby="nodes-and-relative-motion-title"><h2 id="nodes-and-relative-motion-title">4. Nodes and Relative Motion</h2>
+<h3 id="physical-meaning-of-the-mode-shape">Physical Meaning of the Mode Shape</h3>
+<p>그림의 진폭 배율은 형상을 보여주기 위한 임의의 값이다. 한 Mode만 진동할 때 <span>\(\Phi_n(x)=0\)</span>인 위치는 항상 정지하며 이를 <strong>Node</strong>라고 한다. 위와 아래로 휘어진 부분은 서로 반대 위상으로 움직인다.</p>
 <p>Mode shape는 전체 진동의 한 가지 가능한 공간 패턴이다. 여러 Mode가 동시에 존재하면 특정 Mode의 Node라도 전체 변위는 0이 아닐 수 있다. 따라서 측정점에서 진동이 작다는 사실만으로 구조물 전체의 진동이 작다고 판단할 수 없다.</p>
-<h2 id="cantilever-beam">3. Cantilever Beam</h2>
-<h3 id="fixed-and-free-boundary-conditions">Fixed and Free Boundary Conditions</h3>
-<p>Cantilever는 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x=0</annotation></semantics></math>이 Clamped이고 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">x=L</annotation></semantics></math>이 Free인 Beam이다. 먼저 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>Φ</mi><mi>′</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\Phi(0)=\Phi'(0)=0</annotation></semantics></math>을 적용하면 일반해를 다음처럼 쓸 수 있다.</p>
-<div class="equation" id="eq-5-3-7"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 5.3.7"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>A</mi><mrow><mo stretchy="true" form="prefix">(</mo><mo>cosh</mo><mi>λ</mi><mi>x</mi><mo>−</mo><mo>cos</mo><mi>λ</mi><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mi>B</mi><mrow><mo stretchy="true" form="prefix">(</mo><mo>sinh</mo><mi>λ</mi><mi>x</mi><mo>−</mo><mo>sin</mo><mi>λ</mi><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\Phi(x)=A(\cosh\lambda x-\cos\lambda x)
-+B(\sinh\lambda x-\sin\lambda x).</annotation></semantics></math></div><span class="equation-number">(5.3.7)</span></div><p>자유 끝에 질량이나 외력이 없으면 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Φ</mi><mi>″</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>L</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>Φ</mi><mi>‴</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>L</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\Phi''(L)=\Phi'''(L)=0</annotation></semantics></math>이다. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>η</mi><mo>=</mo><mi>λ</mi><mi>L</mi></mrow><annotation encoding="application/x-tex">\eta=\lambda L</annotation></semantics></math>라 두면</p>
-<div class="equation" id="eq-5-3-8"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 5.3.8"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mo>cosh</mo><mi>η</mi><mo>+</mo><mo>cos</mo><mi>η</mi></mtd><mtd columnalign="center" style="text-align: center"><mo>sinh</mo><mi>η</mi><mo>+</mo><mo>sin</mo><mi>η</mi></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mo>sinh</mo><mi>η</mi><mo>−</mo><mo>sin</mo><mi>η</mi></mtd><mtd columnalign="center" style="text-align: center"><mo>cosh</mo><mi>η</mi><mo>+</mo><mo>cos</mo><mi>η</mi></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mi>A</mi></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>B</mi></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><mn>𝟎</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{bmatrix}
+<p>Mode shape에서 변위가 0인 위치를 Node라고 한다. 두 Node 사이에서는 부재가 한 방향으로 움직이고, Node를 사이에 두고 부호가 바뀌면 인접한 구간은 서로 반대 방향으로 움직인다. 이 부호는 실제 시간운동의 상대 위상을 나타내므로 형상의 절댓값만 그리면 중요한 운동 정보가 사라진다.</p>
+<h3 id="measurement-and-excitation-at-a-node">Measurement and Excitation at a Node</h3>
+<p>특정 Mode의 Node에 변위 센서를 놓으면 그 Mode가 구조 전체에서 크게 진동하더라도 해당 센서에는 약하게 보일 수 있다. 반대로 그 위치에 이상적인 횡방향 점하중을 가하면 그 Mode의 일반화 하중도 0일 수 있다. 관측 위치와 가진 위치는 서로 다른 역할을 하지만 둘 다 해당 위치의 Mode shape 값과 연결된다.</p>
+<p>Mode의 마디가 항상 전체 실제 운동의 정지점인 것은 아니다. 여러 Mode가 겹친 응답에서는 각 Mode의 Node가 다르므로 한 Mode가 0인 위치에서도 다른 Mode가 움직임을 만들 수 있다. 특정 주파수에서의 모드형상과 모든 입력을 포함한 시간응답을 구분하여 해석한다.</p>
+</section><section id="cantilever-boundary-conditions" aria-labelledby="cantilever-boundary-conditions-title"><h2 id="cantilever-boundary-conditions-title">5. Cantilever Boundary Conditions</h2>
+<h3 id="fixed-root-and-free-tip">Fixed Root and Free Tip</h3>
+<p>Cantilever는 <span>\(x=0\)</span>이 Clamped이고 <span>\(x=L\)</span>이 Free인 Beam이다. 먼저 <span>\(\Phi(0)=\Phi'(0)=0\)</span>을 적용하면 일반해를 다음처럼 쓸 수 있다.</p>
+<div class="equation" id="eq-5-3-7">\[
+\Phi(x)=A(\cosh\lambda x-\cos\lambda x)
++B(\sinh\lambda x-\sin\lambda x).
+
+\tag{5.3.8}
+\]</div><p>자유 끝에 질량이나 외력이 없으면 <span>\(\Phi''(L)=\Phi'''(L)=0\)</span>이다. <span>\(\eta=\lambda L\)</span>라 두면</p>
+<div class="equation" id="eq-5-3-8">\[
+\begin{bmatrix}
 \cosh\eta+\cos\eta&amp;\sinh\eta+\sin\eta\\
 \sinh\eta-\sin\eta&amp;\cosh\eta+\cos\eta
 \end{bmatrix}
-\begin{bmatrix}A\\B\end{bmatrix}=\boldsymbol{0}.</annotation></semantics></math></div><span class="equation-number">(5.3.8)</span></div><p>0이 아닌 해의 조건으로 Determinant를 계산하면</p>
-<div class="equation" id="eq-5-3-9"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 5.3.9"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mo>cosh</mo><mi>η</mi><mo>+</mo><mo>cos</mo><mi>η</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>−</mo><mrow><mo stretchy="true" form="prefix">(</mo><mo>sinh</mo><mi>η</mi><mo>+</mo><mo>sin</mo><mi>η</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mo>sinh</mo><mi>η</mi><mo>−</mo><mo>sin</mo><mi>η</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>2</mn><mo>+</mo><mn>2</mn><mo>cosh</mo><mi>η</mi><mo>cos</mo><mi>η</mi><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\begin{bmatrix}A\\B\end{bmatrix}=\boldsymbol{0}.
+
+\tag{5.3.9}
+\]</div><p>0이 아닌 해의 조건으로 Determinant를 계산하면</p>
+<div class="equation" id="eq-5-3-9">\[
+\begin{aligned}
 0&amp;=(\cosh\eta+\cos\eta)^2
 -(\sinh\eta+\sin\eta)(\sinh\eta-\sin\eta)\\[1em]
 &amp;=2+2\cosh\eta\cos\eta.
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(5.3.9)</span></div><p>따라서 Cantilever의 Frequency equation은</p>
-<div class="equation main" id="eq-cantileverRoot"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 5.3.10"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>cosh</mo><msub><mi>η</mi><mi>n</mi></msub><mo>cos</mo><msub><mi>η</mi><mi>n</mi></msub><mo>=</mo><mo>−</mo><mn>1</mn><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>η</mi><mi>n</mi></msub><mo>=</mo><msub><mi>λ</mi><mi>n</mi></msub><mi>L</mi></mrow><annotation encoding="application/x-tex">\cosh\eta_n\cos\eta_n=-1,\qquad \eta_n=\lambda_nL
-</annotation></semantics></math></div><span class="equation-number">(5.3.10)</span></div><p>이다. 이 식의 양의 근은 단순한 정수배가 아니므로 수치적으로 구하며, 처음 세 값은 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>η</mi><mn>1</mn></msub><mo>≈</mo><mn>1.875104</mn></mrow><annotation encoding="application/x-tex">\eta_1\approx1.875104</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>η</mi><mn>2</mn></msub><mo>≈</mo><mn>4.694091</mn></mrow><annotation encoding="application/x-tex">\eta_2\approx4.694091</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>η</mi><mn>3</mn></msub><mo>≈</mo><mn>7.854757</mn></mrow><annotation encoding="application/x-tex">\eta_3\approx7.854757</annotation></semantics></math>이다.</p>
-<h3 id="natural-frequencies-and-deformation-shapes">Natural Frequencies and Deformation Shapes</h3>
-<p>첫 번째 Free-end condition에서 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mi>/</mi><mi>A</mi><mo>=</mo><mo>−</mo><mrow><mo stretchy="true" form="prefix">(</mo><mo>cosh</mo><msub><mi>η</mi><mi>n</mi></msub><mo>+</mo><mo>cos</mo><msub><mi>η</mi><mi>n</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mo>sinh</mo><msub><mi>η</mi><mi>n</mi></msub><mo>+</mo><mo>sin</mo><msub><mi>η</mi><mi>n</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">B/A=-(\cosh\eta_n+\cos\eta_n)/(\sinh\eta_n+\sin\eta_n)</annotation></semantics></math>을 얻는다. 따라서 전체 배율을 제외한 Mode shape는</p>
-<div class="equation" id="eq-5-3-11"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 5.3.11"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>Φ</mi><mi>n</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mo>cosh</mo><msub><mi>λ</mi><mi>n</mi></msub><mi>x</mi><mo>−</mo><mo>cos</mo><msub><mi>λ</mi><mi>n</mi></msub><mi>x</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"></mtd><mtd columnalign="left" style="text-align: left"><mspace width="1.0em"></mspace><mo>−</mo><msub><mi>a</mi><mi>n</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mo>sinh</mo><msub><mi>λ</mi><mi>n</mi></msub><mi>x</mi><mo>−</mo><mo>sin</mo><msub><mi>λ</mi><mi>n</mi></msub><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><msub><mi>a</mi><mi>n</mi></msub></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mfrac><mrow><mo>cosh</mo><msub><mi>η</mi><mi>n</mi></msub><mo>+</mo><mo>cos</mo><msub><mi>η</mi><mi>n</mi></msub></mrow><mrow><mo>sinh</mo><msub><mi>η</mi><mi>n</mi></msub><mo>+</mo><mo>sin</mo><msub><mi>η</mi><mi>n</mi></msub></mrow></mfrac><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+\end{aligned}
+
+\tag{5.3.10}
+\]</div><p>따라서 Cantilever의 Frequency equation은</p>
+<div class="equation main" id="eq-cantileverRoot">\[
+\boxed{\displaystyle \cosh\eta_n\cos\eta_n=-1,\qquad \eta_n=\lambda_nL
+}
+
+\tag{5.3.11}
+\]</div><p>이다. 이 식의 양의 근은 단순한 정수배가 아니므로 수치적으로 구하며, 처음 세 값은 <span>\(\eta_1\approx1.875104\)</span>, <span>\(\eta_2\approx4.694091\)</span>, <span>\(\eta_3\approx7.854757\)</span>이다.</p>
+<p>외팔보의 고정단에서는 변위와 기울기가 0이고, 부착물이나 끝단하중이 없는 자유단에서는 모멘트와 전단력이 0이다. 같은 보의 양끝에 서로 다른 종류의 조건을 적용하므로 단순한 사인함수 하나만으로는 모든 조건을 만족시키지 못한다. 쌍곡함수와 삼각함수를 함께 사용해야 한다.</p>
+<h3 id="the-characteristic-equation">The Characteristic Equation</h3>
+<p>고정단 조건을 먼저 적용하여 두 상수를 제거하고 자유단 조건을 적용하면 비영한 두 계수가 존재할 조건이 남는다. 이를 정리한 특성방정식이</p>
+<div class="equation" id="eq-added-5-3-12">\[
+\cosh(\beta L)\cos(\beta L)+1=0
+
+\tag{5.3.12}
+\]</div><p>이다. 이 식은 모든 <span class="math inline">\(\beta\)</span>에서 성립하는 항등식이 아니라 가능한 고유형상을 선택하는 조건이다. 각 양의 근을 구하여 <span class="math inline">\(\omega_n=\beta_n^2\sqrt{EI/(\rho A)}\)</span>에 대입한다.</p>
+<p>첫 근들이 약 <span class="math inline">\(1.875,\ 4.694,\ 7.855\)</span>라는 것은 경계조건이 선택한 무차원 공간값이다. 이 값을 그대로 Hz로 읽을 수 없으며 재료와 단면, 길이의 척도를 곱해야 실제 주파수가 된다. 같은 외팔보 조건의 다양한 구조물에 공통된 무차원 값을 사용할 수 있는 이유도 이 분리에 있다.</p>
+<p>외팔보의 특성방정식에서 얻는 양수 <span class="math inline">\(\beta_nL\)</span>은 무차원 수이다. 이를 주파수로 바꿀 때에는 그 제곱에 <span class="math inline">\(\sqrt{EI/(\rho AL^4)}\)</span>를 곱한다. 첫 근 1.875104를 고유주파수의 계수로 바로 쓰지 않고, 제곱한 약 3.516015를 사용하는 이유이다.</p>
+<p>고정단 조건을 만족하는 형상은 자유단의 두 조건까지 동시에 만족해야 한다. 자유단 변위를 1로 정하는 것은 해를 구한 뒤 크기를 정규화하는 선택이며, 자유단에 변위를 강제로 부과하는 지지조건과는 다르다.</p>
+</section><section id="natural-frequencies-and-model-interpretation" aria-labelledby="natural-frequencies-and-model-interpretation-title"><h2 id="natural-frequencies-and-model-interpretation-title">6. Natural Frequencies and Model Interpretation</h2>
+<h3 id="relative-frequency-and-deformation">Relative Frequency and Deformation</h3>
+<p>첫 번째 Free-end condition에서 <span>\(B/A=-(\cosh\eta_n+\cos\eta_n)/(\sinh\eta_n+\sin\eta_n)\)</span>을 얻는다. 따라서 전체 배율을 제외한 Mode shape는</p>
+<div class="equation" id="eq-5-3-11">\[
+\begin{aligned}
 \Phi_n(x)&amp;=\cosh\lambda_nx-\cos\lambda_nx\\
 &amp;\quad-a_n(\sinh\lambda_nx-\sin\lambda_nx)\\[1em]
 a_n&amp;=\frac{\cosh\eta_n+\cos\eta_n}{\sinh\eta_n+\sin\eta_n}.
-\end{aligned}</annotation></semantics></math></div><span class="equation-number">(5.3.11)</span></div><p>끝단에서 1인 Mode shape가 필요하면 위 함수를 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Φ</mi><mi>n</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>L</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\Phi_n(L)</annotation></semantics></math>로 나누어 사용한다. 고유주파수는</p>
-<div class="equation main" id="eq-cantileverFreq"><div class="math-scroll" tabindex="0" role="group" aria-label="Equation 5.3.12"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>n</mi></msub><mo>=</mo><mfrac><msubsup><mi>η</mi><mi>n</mi><mn>2</mn></msubsup><mrow><mn>2</mn><mi>π</mi><msup><mi>L</mi><mn>2</mn></msup></mrow></mfrac><msqrt><mfrac><mrow><mi>E</mi><mi>I</mi></mrow><mrow><mi>ρ</mi><mi>A</mi></mrow></mfrac></msqrt><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>ω</mi><mn>1</mn></msub><mo>≈</mo><mfrac><mn>3.516015</mn><msup><mi>L</mi><mn>2</mn></msup></mfrac><msqrt><mfrac><mrow><mi>E</mi><mi>I</mi></mrow><mrow><mi>ρ</mi><mi>A</mi></mrow></mfrac></msqrt></mrow><annotation encoding="application/x-tex">f_n=\frac{\eta_n^2}{2\pi L^2}\sqrt{\frac{EI}{\rho A}},\qquad
+\end{aligned}
+
+\tag{5.3.13}
+\]</div><p>끝단에서 1인 Mode shape가 필요하면 위 함수를 <span>\(\Phi_n(L)\)</span>로 나누어 사용한다. 고유주파수는</p>
+<div class="equation main" id="eq-cantileverFreq">\[
+\boxed{\displaystyle f_n=\frac{\eta_n^2}{2\pi L^2}\sqrt{\frac{EI}{\rho A}},\qquad
 \omega_1\approx\frac{3.516015}{L^2}\sqrt{\frac{EI}{\rho A}}
-</annotation></semantics></math></div><span class="equation-number">(5.3.12)</span></div><p>가 된다. Beam 전체의 질량은 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mi>A</mi><mi>L</mi></mrow><annotation encoding="application/x-tex">\rho AL</annotation></semantics></math>이지만, 모든 위치가 끝단과 같은 속도로 움직이지 않으므로 이 질량을 임의의 끝단 Spring stiffness와 바로 조합해서는 정확한 고유주파수를 얻을 수 없다. 다음 장에서 <strong>변형형상에 맞는 Equivalent mass</strong>를 유도한다.</p>
-</article><div class="one-line-summary"><strong>Summary</strong><p>Beam의 경계조건은 허용되는 공간형상을 정하고, 재료·단면·길이는 고유주파수의 척도를 정한다.</p></div><nav class="pagination" aria-label="Previous and next article"><a rel="prev" href="../euler-bernoulli-beam-theory/index.html"><small>Previous</small>5.2 Euler–Bernoulli Beam Theory</a><a rel="next" href="../modal-response-of-beams/index.html"><small>Next</small>5.4 Modal Response of Beams</a></nav><footer><a href="../index.html">Contents</a> · <a href="#top">Back to top</a></footer></main><aside class="right-sidebar" aria-label="On this page"><div class="sidebar-inner"><div class="sidebar-title">On this page</div><a class="sidebar-link" href="#the-spatial-eigenvalue-equation">1. The Spatial Eigenvalue Equation</a><a class="sidebar-link" href="#simply-supported-beam">2. Simply Supported Beam</a><a class="sidebar-link" href="#cantilever-beam">3. Cantilever Beam</a></div></aside></div></body></html>
+}
+
+\tag{5.3.14}
+\]</div><p>가 된다. Beam 전체의 질량은 <span>\(\rho AL\)</span>이지만, 모든 위치가 끝단과 같은 속도로 움직이지 않으므로 이 질량을 임의의 끝단 Spring stiffness와 바로 조합해서는 정확한 고유주파수를 얻을 수 없다. 다음 장에서 <strong>변형형상에 맞는 Equivalent mass</strong>를 유도한다.</p>
+<p>외팔보의 첫 Mode는 자유단 방향으로 변위가 커지는 전역 굽힘형상을 보인다. 높은 Mode에서는 보 내부에도 Node와 곡률의 부호 변화가 생기며, 더 짧은 공간길이에서 변형이 달라진다. 단순히 보의 끝점 변위만으로 높은 Mode의 내부 변형이나 응력을 충분히 표현하기는 어렵다.</p>
+<h3 id="comparing-boundary-conditions">Comparing Boundary Conditions</h3>
+<p>동일한 재료·단면·길이에서 단순지지와 외팔보의 주파수가 다른 것은 지지조건이 가능한 변형형상과 그 형상의 탄성에너지를 다르게 만들기 때문이다. 지지를 더 제한하면 보통 변형에 필요한 에너지가 커지지만, 비교할 Mode의 대응과 질량구성이 같아야 의미 있는 주파수 비교가 된다. 지지조건을 재료상수처럼 부수적인 정보로 다루지 않는다.</p>
+<p>주파수와 형상은 함께 확인해야 한다. 하나의 주파수가 시험과 맞아도 잘못된 질량과 강성이 우연히 같은 비를 만들었을 수 있다. 여러 Mode의 주파수, 형상, 구속조건을 함께 비교하면 모델의 어떤 부분이 실제 구조와 다른지 더 잘 구분할 수 있다.</p>
+<p>실제 끝단의 센서나 부착질량은 질량분포뿐 아니라 경계의 동적 평형을 바꿀 수 있다. 특히 가벼운 보에서는 작은 부착물도 관심 Mode에 영향을 줄 수 있으므로, 이론식과 실험을 비교할 때에는 같은 부착물과 지지 강성을 모델에 포함했는지 확인한다. 해석식의 정밀한 근을 구하는 것과 현실의 조건을 정확하게 표현하는 것은 서로 필요한 작업이다.</p>
+</section><footer><a href="../index.html">← Structural Dynamics &amp; Aeroelasticity로 돌아가기</a></footer></main><aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#separation-of-shape-and-time" class="sidebar-link"><span class="item-number">1.</span><span>Separation of Shape and Time</span></a><a href="#general-spatial-solution" class="sidebar-link"><span class="item-number">2.</span><span>General Spatial Solution</span></a><a href="#simply-supported-beam" class="sidebar-link"><span class="item-number">3.</span><span>Simply Supported Beam</span></a><a href="#nodes-and-relative-motion" class="sidebar-link"><span class="item-number">4.</span><span>Nodes and Relative Motion</span></a><a href="#cantilever-boundary-conditions" class="sidebar-link"><span class="item-number">5.</span><span>Cantilever Boundary Conditions</span></a><a href="#natural-frequencies-and-model-interpretation" class="sidebar-link"><span class="item-number">6.</span><span>Natural Frequencies and Model Interpretation</span></a></nav></aside></div><script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script></body></html>
