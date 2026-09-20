@@ -1,253 +1,60 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="description" content="Reynolds averaging, Reynolds stress, turbulent kinetic energy, and two-equation turbulence models.">
     <title>Turbulence | Isp99</title>
-
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 18px 46px 70px;
-            color: #171717;
-            background: #ffffff;
-            font-size: 15px;
-            line-height: 1.7;
-        }
-
-        h1 {
-            margin: 0 0 24px;
-            font-size: 31px;
-            line-height: 1.25;
-            font-weight: 700;
-        }
-
-        .subtitle {
-            margin: 0 0 38px;
-            color: #555555;
-            font-size: 14px;
-        }
-
-        .intro {
-            max-width: 820px;
-            margin: 0 0 64px;
-            color: #222222;
-            font-size: 14px;
-            line-height: 1.8;
-        }
-
-        .intro p {
-            margin: 0 0 18px;
-        }
-
-        .section {
-            margin-bottom: 58px;
-        }
-
-        .section-title {
-            margin: 0 0 14px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #bdbdbd;
-            font-size: 21px;
-            font-weight: 700;
-            line-height: 1.4;
-        }
-
-        .chapter-list {
-            margin: 0;
-            padding: 0;
-        }
-
-        .chapter-item {
-            display: grid;
-            grid-template-columns: 44px 1fr;
-            align-items: baseline;
-            padding: 8px 20px;
-            color: #171717;
-            text-decoration: none;
-            font-size: 13px;
-            line-height: 1.55;
-        }
-
-        .chapter-item:hover {
-            text-decoration: underline;
-        }
-
-        .chapter-number {
-            color: #444444;
-            font-size: 12px;
-        }
-
-        .chapter-title {
-            color: #171717;
-        }
-
-        footer {
-            margin-top: 74px;
-            padding-top: 20px;
-            border-top: 1px solid #bdbdbd;
-            font-size: 13px;
-        }
-
-        footer a {
-            color: #171717;
-        }
-
-        @media (max-width: 650px) {
-            body {
-                padding: 18px 24px 60px;
-                font-size: 14px;
-            }
-
-            h1 {
-                font-size: 28px;
-            }
-
-            .subtitle {
-                font-size: 13px;
-            }
-
-            .intro {
-                font-size: 13px;
-                margin-bottom: 50px;
-            }
-
-            .section {
-                margin-bottom: 48px;
-            }
-
-            .section-title {
-                font-size: 19px;
-            }
-
-            .chapter-item {
-                grid-template-columns: 42px 1fr;
-                padding: 8px 12px;
-                font-size: 12px;
-            }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { max-width: 900px; margin: 0 auto; padding: 30px 28px 70px; color: #222222; background: #ffffff; font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif; font-size: 16px; line-height: 1.85; }
+        h1, h2 { color: #171717; line-height: 1.35; }
+        h1 { margin: 0 0 24px; font-size: 40px; letter-spacing: -0.025em; }
+        .subtitle { margin: 0 0 44px; color: #5f5f5f; font-size: 18px; }
+        .intro { margin-bottom: 58px; }
+        .intro p { margin: 0 0 18px; }
+        .chapter { margin: 0 0 66px; }
+        .chapter h2 { margin: 0 0 12px; padding-bottom: 14px; border-bottom: 1px solid #d8d8d8; font-size: 28px; letter-spacing: -0.015em; }
+        .chapter-list { margin: 0; padding: 0; list-style: none; }
+        .chapter-list li { margin: 0; }
+        .chapter-list a { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 0; align-items: baseline; padding: 8px 28px; color: #171717; text-decoration: none; }
+        .chapter-list a:hover { text-decoration: underline; }
+        .number { color: #5f5f5f; font-weight: 700; }
+        .title { min-width: 0; }
+        footer { margin-top: 82px; padding-top: 24px; border-top: 1px solid #d8d8d8; }
+        footer a { color: #222222; text-decoration: underline; text-underline-offset: 2px; }
+        @media (max-width: 640px) {
+            body { padding: 24px 20px 55px; font-size: 15.5px; }
+            h1 { font-size: 33px; }
+            .subtitle { margin-bottom: 38px; font-size: 17px; }
+            .chapter { margin-bottom: 54px; }
+            .chapter h2 { font-size: 24px; }
+            .chapter-list a { grid-template-columns: 46px minmax(0, 1fr); padding: 8px 10px; }
         }
     </style>
 </head>
-
 <body>
+    <main>
+        <header>
+            <h1>Turbulence</h1>
+            <p class="subtitle">Reynolds Averaging and Turbulence Modeling</p>
+            <div class="intro">
+                <p>순간적으로 변하는 유동을 평균하여 질량보존식과 운동량방정식을 얻고, 평균 과정에서 남는 Reynolds stress의 의미와 Closure problem을 정리한다.</p>
+                <p>Turbulent kinetic energy의 생성·수송·소산에서 출발하여, k–ε, k–ω, SST model이 평균 유동의 운동량 수송을 어떻게 계산하는지 차례로 연결한다.</p>
+            </div>
+        </header>
+        <section class="chapter" aria-labelledby="chapter-1"><h2 id="chapter-1">1. Reynolds-Averaged Turbulence Equations</h2><ol class="chapter-list">
+<li><a href="reynolds-decomposition-and-rans-equations/"><span class="number">1.1</span><span class="title">Reynolds Decomposition and RANS Equations</span></a></li>
+<li><a href="reynolds-stress-and-closure-problem/"><span class="number">1.2</span><span class="title">Reynolds Stress and the Closure Problem</span></a></li>
+<li><a href="turbulent-kinetic-energy-equation/"><span class="number">1.3</span><span class="title">Turbulent Kinetic-Energy Equation</span></a></li>
+</ol></section>
+<section class="chapter" aria-labelledby="chapter-2"><h2 id="chapter-2">2. Two-Equation Turbulence Models</h2><ol class="chapter-list">
+<li><a href="standard-k-epsilon-model/"><span class="number">2.1</span><span class="title">Standard k–ε Model</span></a></li>
+<li><a href="k-omega-and-sst-models/"><span class="number">2.2</span><span class="title">k–ω and Shear-Stress-Transport Models</span></a></li>
+</ol></section>
 
-    <h1>Turbulence</h1>
-
-    <p class="subtitle">
-        Reynolds Averaging and Turbulence Modeling
-    </p>
-
-    <div class="intro">
-        <p>
-            Study notes covering Reynolds and Favre averaging, Reynolds stresses and closure,
-            turbulent kinetic energy, and two-equation turbulence models.
-        </p>
-    </div>
-
-
-    <!-- 1 -->
-    <section class="section">
-
-        <h2 class="section-title">
-            1. Reynolds-Averaged Turbulence Equations
-        </h2>
-
-        <div class="chapter-list">
-
-            <a class="chapter-item"
-               href="reynolds-decomposition-and-rans/">
-                <span class="chapter-number">1.1</span>
-                <span class="chapter-title">
-                    Reynolds Decomposition and RANS Equations
-                </span>
-            </a>
-
-            <a class="chapter-item"
-               href="favre-decomposition-and-rans/">
-                <span class="chapter-number">1.2</span>
-                <span class="chapter-title">
-                    Favre Decomposition and RANS
-                </span>
-            </a>
-
-            <a class="chapter-item"
-               href="reynolds-stress-and-closure/">
-                <span class="chapter-number">1.3</span>
-                <span class="chapter-title">
-                    Reynolds Stress and the Closure Problem
-                </span>
-            </a>
-
-        </div>
-
-    </section>
-
-
-    <!-- 2 -->
-    <section class="section">
-
-        <h2 class="section-title">
-            2. Turbulent Kinetic Energy
-        </h2>
-
-        <div class="chapter-list">
-
-            <a class="chapter-item"
-               href="turbulent-kinetic-energy/">
-                <span class="chapter-number">2.1</span>
-                <span class="chapter-title">
-                    Turbulent Kinetic-Energy Equation
-                </span>
-            </a>
-
-        </div>
-
-    </section>
-
-
-    <!-- 3 -->
-    <section class="section">
-
-        <h2 class="section-title">
-            3. Two-Equation Turbulence Models
-        </h2>
-
-        <div class="chapter-list">
-
-            <a class="chapter-item"
-               href="standard-k-epsilon/">
-                <span class="chapter-number">3.1</span>
-                <span class="chapter-title">
-                    Standard k–ε Model
-                </span>
-            </a>
-
-            <a class="chapter-item"
-               href="k-omega-and-sst/">
-                <span class="chapter-number">3.2</span>
-                <span class="chapter-title">
-                    k–ω and Shear-Stress-Transport Models
-                </span>
-            </a>
-
-        </div>
-
-    </section>
-
-
-    <footer>
-        <a href="/study/aerodynamics/">
-            ← Back to Aerodynamics
-        </a>
-    </footer>
-
+    </main>
+    <footer><a href="../">← Back to Aerodynamics</a></footer>
 </body>
 </html>
