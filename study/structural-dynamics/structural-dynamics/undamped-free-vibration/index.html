@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="평형에서 밀어낸 구조물을 놓으면 외력이 계속 작용하지 않아도 운동이 이어진다. 에너지 손실이 없는 경우부터 살펴보면, 질량과 강성이 진동의 빠르기를 정하고 초기조건이 진폭과 시작 상태를 정하는 과정을 분리하여 이해할 수 있다."><title>2.1 Undamped Free Vibration | Isp99</title>
+<script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style></head><body class="article-page"><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><nav class="sidebar-inner"><a href="../index.html" class="sidebar-title">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a href="../vibration-mass-stiffness-damping/index.html" class="sidebar-link"><span class="item-number">1.1</span> Vibration, Mass, Stiffness, and Damping</a><a href="../degrees-of-freedom-equations-of-motion/index.html" class="sidebar-link"><span class="item-number">1.2</span> Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a href="../undamped-free-vibration/index.html" class="sidebar-link active" aria-current="page"><span class="item-number">2.1</span> Undamped Free Vibration</a><a href="../damped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.2</span> Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a href="../harmonic-response-resonance/index.html" class="sidebar-link"><span class="item-number">3.1</span> Harmonic Response and Resonance</a><a href="../base-excitation-vibration-isolation/index.html" class="sidebar-link"><span class="item-number">3.2</span> Base Excitation and Vibration Isolation</a><a href="../transient-response/index.html" class="sidebar-link"><span class="item-number">3.3</span> Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a href="../coupled-equations-matrix-form/index.html" class="sidebar-link"><span class="item-number">4.1</span> Coupled Equations and Matrix Form</a><a href="../natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">4.2</span> Natural Frequencies and Mode Shapes</a><a href="../modal-analysis/index.html" class="sidebar-link"><span class="item-number">4.3</span> Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a href="../continuous-systems-rod-vibration/index.html" class="sidebar-link"><span class="item-number">5.1</span> Continuous Systems and Rod Vibration</a><a href="../euler-bernoulli-beam-theory/index.html" class="sidebar-link"><span class="item-number">5.2</span> Euler–Bernoulli Beam Theory</a><a href="../beam-natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">5.3</span> Beam Natural Frequencies and Mode Shapes</a><a href="../modal-response-of-beams/index.html" class="sidebar-link"><span class="item-number">5.4</span> Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a href="../energy-methods-equivalent-models/index.html" class="sidebar-link"><span class="item-number">6.1</span> Energy Methods and Equivalent Models</a><a href="../finite-element-method/index.html" class="sidebar-link"><span class="item-number">6.2</span> Finite Element Method</a><a href="../response-analysis-verification/index.html" class="sidebar-link"><span class="item-number">6.3</span> Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a href="../aeroelastic-coupling-static-stability/index.html" class="sidebar-link"><span class="item-number">7.1</span> Aeroelastic Coupling and Static Stability</a><a href="../typical-section-unsteady-aerodynamics/index.html" class="sidebar-link"><span class="item-number">7.2</span> Flutter and the Typical Section Model</a><a href="../flutter-analysis/index.html" class="sidebar-link"><span class="item-number">7.3</span> Flutter Analysis</a></div></nav></aside><main class="main-content" id="top"><nav aria-label="Current article"><a href="#top">2.1 Undamped Free Vibration</a></nav><header><h1>2.1 Undamped Free Vibration</h1><p class="subtitle">Natural Frequency, Initial Conditions, and Mechanical Energy</p><p class="intro">평형에서 밀어낸 구조물을 놓으면 외력이 계속 작용하지 않아도 운동이 이어진다. 에너지 손실이 없는 경우부터 살펴보면, 질량과 강성이 진동의 빠르기를 정하고 초기조건이 진폭과 시작 상태를 정하는 과정을 분리하여 이해할 수 있다.</p></header><aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#free-motion-and-natural-frequency">Free Motion and Natural Frequency</a></li><li><a href="#general-solution-and-initial-conditions">General Solution and Initial Conditions</a></li><li><a href="#amplitude-phase-and-period">Amplitude, Phase, and Period</a></li><li><a href="#exchange-of-kinetic-and-strain-energy">Exchange of Kinetic and Strain Energy</a></li><li><a href="#free-and-forced-energy-balance">Free and Forced Energy Balance</a></li><li><a href="#scaling-and-a-simple-example">Scaling and a Simple Example</a></li></ol></aside><section id="free-motion-and-natural-frequency" aria-labelledby="free-motion-and-natural-frequency-title"><h2 id="free-motion-and-natural-frequency-title">1. Free Motion and Natural Frequency</h2>
+<h3 id="motion-after-the-external-force-is-removed">Motion after the External Force Is Removed</h3>
+<p>외력과 감쇠가 없으면 처음에 주어진 변위와 속도만으로 운동이 계속된다. 운동의 빠르기를 결정하는 양을 찾기 위해 식 <a href="../degrees-of-freedom-equations-of-motion/index.html#eq-sdof" class="equation-ref" title="Equation 1.2.4">(1.2.5)</a>에서 <span>\(F=0\)</span>, <span>\(c=0\)</span>을 대입하면</p>
+<div class="equation" id="eq-2-1-1">\[
+\begin{aligned}
+m\ddot{x}+kx&amp;=0\\[1em]
+\ddot{x}+\frac{k}{m}x&amp;=0.
+\end{aligned}
+
+\tag{2.1.1}
+\]</div><p>Sinusoidal function은 두 번 미분하면 원래 함수의 음의 상수배가 되므로, 이 방정식을 만족하는 형태가 된다. <span>\(x=A\cos\omega t+B\sin\omega t\)</span>를 대입하면 <span>\(k-m\omega^2=0\)</span>이어야 한다.</p>
+<div class="equation main" id="eq-natural">\[
+\boxed{\displaystyle \omega_n=\sqrt{\frac{k}{m}},\qquad
+f_n=\frac{\omega_n}{2\pi},\qquad
+T_n=\frac{2\pi}{\omega_n}
+}
+
+\tag{2.1.2}
+\]</div><p><span>\(\omega_n\)</span>은 Undamped natural angular frequency이며 단위는 <span>\(\mathrm{rad/s}\)</span>이다. <span>\(f_n\)</span>은 초당 반복 횟수를 나타내는 Natural frequency이며 단위는 <span>\(\mathrm{Hz}\)</span>, <span>\(T_n\)</span>은 한 번 반복하는 데 걸리는 Period이다. 각도는 한 주기에 <span>\(2\pi\)</span> rad만큼 증가하므로 <span>\(\omega_n=2\pi f_n\)</span>이다.</p>
+<p>Stiffness가 크면 같은 변위에서 더 큰 복원력이 생겨 빠르게 돌아오며, Mass가 크면 같은 힘에서 가속도가 작아져 느리게 움직인다. 선형 모델의 Natural frequency는 초기 진폭과 독립적이다.</p>
+<p>자유진동의 자유라는 말은 물체에 아무 힘도 작용하지 않는다는 뜻이 아니다. 운동을 시작시킨 외부 가진이 제거된 뒤에도 스프링의 복원력은 계속 작용한다. 무감쇠 질량–스프링계에서는 이 복원력이 질량의 속도를 바꾸며, 힘의 방향이 변위와 반대이기 때문에 평형 위치를 향한 가속도가 생긴다. 감쇠까지 없다는 가정을 추가하면 기계적 에너지가 보존된다.</p>
+<h3 id="the-sign-of-the-restoring-acceleration">The Sign of the Restoring Acceleration</h3>
+<p>운동방정식을 <span class="math inline">\(\ddot x=-\omega_n^2x\)</span>로 쓰면 가속도와 위치의 관계가 직접 드러난다. 양의 최대변위에서는 가속도가 음의 방향으로 가장 크고, 평형 위치에서는 가속도가 0이다. 그러나 평형을 통과할 때 속도는 보통 0이 아니다. 힘이 0이라는 조건은 그 순간 가속도가 0임을 뜻하며, 현재의 속도까지 즉시 사라진다는 뜻은 아니다.</p>
+<p>최대변위에서 정지한 질량은 복원력에 의해 평형으로 가속된다. 평형에 도달한 뒤에는 이미 가진 속도 때문에 반대쪽으로 계속 이동하고, 스프링 힘은 그 운동을 줄이는 방향으로 작용한다. 속도가 0이 될 때까지 이동한 후 운동 방향이 다시 바뀐다. 주기 운동은 복원력과 관성이 이러한 과정을 반복하면서 나타난다.</p>
+</section><section id="general-solution-and-initial-conditions" aria-labelledby="general-solution-and-initial-conditions-title"><h2 id="general-solution-and-initial-conditions-title">2. General Solution and Initial Conditions</h2>
+<h3 id="selecting-a-particular-motion">Selecting a Particular Motion</h3>
+<p>Natural frequency만으로는 실제 진폭과 시작 상태를 정할 수 없다. 일반해에 <span>\(x(0)=x_0\)</span>, <span>\(\dot{x}(0)=v_0\)</span>를 대입하면</p>
+<div class="equation" id="eq-2-1-3">\[
+\begin{aligned}
+x(t)&amp;=A\cos\omega_nt+B\sin\omega_nt\\[1em]
+x(0)&amp;=A=x_0, &amp; \dot{x}(0)&amp;=\omega_nB=v_0.
+\end{aligned}
+
+\tag{2.1.3}
+\]</div><p>따라서</p>
+<div class="equation main" id="eq-undampedIC">\[
+\boxed{\displaystyle x(t)=x_0\cos\omega_nt+\frac{v_0}{\omega_n}\sin\omega_nt
+}
+
+\tag{2.1.4}
+\]</div><p>이를 <span>\(x(t)=X\cos(\omega_nt-\phi_0)\)</span>로 쓰면 <span>\(X=\sqrt{x_0^2+(v_0/\omega_n)^2}\)</span>이다. Phase <span>\(\phi_0\)</span>는 같은 주기운동을 어느 시점에서 시작하는지를 나타내며, 초기조건으로 결정된다.</p>
+<p>미분방정식을 만족하는 해가 여러 개인 이유는 질량과 강성이 같아도 서로 다른 방식으로 운동을 시작할 수 있기 때문이다. 스프링을 늘린 뒤 놓는 경우와 평형 위치에서 순간적인 속도를 주는 경우는 같은 고유주파수를 가지지만, 초기 위치와 위상이 다르다. 미분방정식은 가능한 운동의 형태를 정하고, 초기조건은 그중 실제로 일어나는 운동을 선택한다.</p>
+<h3 id="applying-both-initial-conditions">Applying Both Initial Conditions</h3>
+<p>일반해를 <span class="math inline">\(x=C_1\cos\omega_nt+C_2\sin\omega_nt\)</span>로 두면, <span class="math inline">\(t=0\)</span>에서 <span class="math inline">\(x_0=C_1\)</span>이다. 이를 미분하여 <span class="math inline">\(\dot x=-\omega_nC_1\sin\omega_nt+\omega_nC_2\cos\omega_nt\)</span>를 얻고, 초기속도를 대입하면 <span class="math inline">\(C_2=v_0/\omega_n\)</span>이다. 따라서 초기속도를 나타내는 계수에도 길이 단위가 남는다. <span class="math inline">\(v_0\)</span>를 그대로 사인항의 계수로 넣으면 단위부터 일치하지 않는다.</p>
+<p>초기조건을 적용한 뒤에는 식을 다시 미분하여 <span class="math inline">\(t=0\)</span>에서 위치와 속도가 모두 주어진 값이 되는지 확인할 수 있다. 이것은 해가 운동방정식뿐 아니라 실제 시작 상태까지 만족하는지 확인하는 과정이다. 초기변위만 맞고 초기속도가 다르면 같은 주파수로 진동하더라도 실제 응답과 다른 시간 이력을 얻게 된다.</p>
+</section><section id="amplitude-phase-and-period" aria-labelledby="amplitude-phase-and-period-title"><h2 id="amplitude-phase-and-period-title">3. Amplitude, Phase, and Period</h2>
+<h3 id="equivalent-trigonometric-forms">Equivalent Trigonometric Forms</h3>
+<p>사인과 코사인의 합은 하나의 진폭과 위상으로도 나타낼 수 있다. 시간 이력에서 운동의 크기와 시작 상태를 구분하기 위해</p>
+<div class="equation" id="eq-added-2-1-5">\[
+x(t)=X\cos(\omega_nt-\phi),\qquad
+X=\sqrt{x_0^2+\left(\frac{v_0}{\omega_n}\right)^2}
+
+\tag{2.1.5}
+\]</div><p>로 쓴다. 코사인의 합차공식을 전개하면 <span class="math inline">\(X\cos\phi=x_0\)</span>, <span class="math inline">\(X\sin\phi=v_0/\omega_n\)</span>이므로 앞의 초기조건 표현과 정확히 같다. 초기변위와 초기속도는 진폭에 함께 기여한다.</p>
+<p>위상 <span class="math inline">\(\phi\)</span>는 <span class="math inline">\(x_0\)</span>와 <span class="math inline">\(v_0\)</span>의 부호까지 반영하여 정해야 한다. 탄젠트 값만으로는 서로 반대쪽 사분면을 구분할 수 없기 때문이다. 진폭을 양수로 정한 뒤 위상이 초기상태를 나타내도록 하면, 같은 운동을 여러 부호 조합으로 중복 표현하는 일을 줄일 수 있다.</p>
+<h3 id="angular-frequency-and-frequency">Angular Frequency and Frequency</h3>
+<p>각주파수 <span class="math inline">\(\omega_n\)</span>은 시간에 따라 위상각이 얼마나 빨리 증가하는지 나타내며 단위는 <span class="math inline">\(\mathrm{rad/s}\)</span>이다. 위상이 <span class="math inline">\(2\pi\)</span>만큼 증가하면 한 주기가 완성되므로</p>
+<div class="equation" id="eq-added-2-1-6">\[
+T_n=\frac{2\pi}{\omega_n},\qquad f_n=\frac1{T_n}=\frac{\omega_n}{2\pi}.
+
+\tag{2.1.6}
+\]</div><p><span class="math inline">\(f_n\)</span>의 단위 <span class="math inline">\(\mathrm{Hz}\)</span>는 1초 동안 반복되는 주기의 수이다. 계산에서 <span class="math inline">\(\sqrt{k/m}\)</span>를 얻었다면 이것은 각주파수이므로, 주파수 그래프의 Hz 값과 비교하기 전에 <span class="math inline">\(2\pi\)</span>로 나누어야 한다. 두 단위를 혼동하면 모델이 실제보다 약 여섯 배 빠르거나 느리게 보일 수 있다.</p>
+<p>무감쇠 선형 모델에서 고유주파수는 진폭에 의존하지 않는다. 질량과 강성을 그대로 두고 초기변위를 두 배로 늘리면 진폭은 두 배가 되지만 주기는 같다. 실제 측정에서 진폭에 따라 주기가 달라진다면 비선형 복원력이나 다른 모델 효과를 검토할 근거가 된다.</p>
+</section><section id="exchange-of-kinetic-and-strain-energy" aria-labelledby="exchange-of-kinetic-and-strain-energy-title"><h2 id="exchange-of-kinetic-and-strain-energy-title">4. Exchange of Kinetic and Strain Energy</h2>
+<h3 id="energy-at-the-turning-points">Energy at the Turning Points</h3>
+<p>힘의 평형은 운동을 직접 설명하고, Energy는 운동이 반복되는 동안 저장되는 양을 설명한다. 움직이는 질량의 Kinetic energy를 <span>\(T\)</span>, 변형된 Spring의 Strain energy를 <span>\(U\)</span>라 하면</p>
+<div class="equation" id="eq-2-1-5">\[
+\begin{aligned}
+T&amp;=\frac12m\dot{x}^2, &amp;
+U&amp;=\int_0^x k\xi\,\mathrm{d}\xi=\frac12kx^2.
+\end{aligned}
+
+\tag{2.1.7}
+\]</div><p><span>\(\xi\)</span>는 적분에 사용하는 임시 변위좌표이다. 무감쇠 자유진동식에 <span>\(\dot{x}\)</span>를 곱하면</p>
+<div class="equation" id="eq-2-1-6">\[
+\begin{aligned}
+(m\ddot{x}+kx)\dot{x}&amp;=0\\[1em]
+\frac{\mathrm{d}}{\mathrm{d}t}\left(\frac12m\dot{x}^2+\frac12kx^2\right)&amp;=0.
+\end{aligned}
+
+\tag{2.1.8}
+\]</div><p>따라서 <span>\(T+U\)</span>는 일정하다. 최대 변위에서는 Velocity가 0이므로 Energy가 Spring에 저장되고, 평형 위치에서는 Spring energy가 최소가 되며 Velocity가 최대가 된다. <strong>Inertia와 Elasticity 사이의 Energy 교환</strong>이 Free vibration의 물리적 구조이다.</p>
+<p>변위가 최대인 Turning point에서는 속도가 0이므로 에너지가 모두 스프링에 저장된다. 평형 위치에서는 스프링 변형이 0이므로 같은 에너지가 모두 운동에너지로 나타난다. 에너지 보존을 이용하면 시간함수 전체를 먼저 구하지 않고도 최대속도를 계산할 수 있다.</p>
+<div class="equation" id="eq-added-2-1-9">\[
+\frac12kX^2=\frac12m v_{\max}^2
+\quad\Longrightarrow\quad
+v_{\max}=\omega_nX,\qquad |\ddot x|_{\max}=\omega_n^2X.
+
+\tag{2.1.9}
+\]</div><p>따라서 같은 변위 진폭이라도 고유주파수가 높으면 속도와 가속도의 최대값은 더 커질 수 있다. 변위가 작다는 사실만으로 관성력이 작다고 판단하지 않는 이유이다.</p>
+<h3 id="position-and-velocity-in-the-same-state">Position and Velocity in the Same State</h3>
+<p>에너지 식을 일정한 값으로 놓으면</p>
+<div class="equation" id="eq-added-2-1-10">\[
+\frac{x^2}{X^2}+\frac{\dot x^2}{\omega_n^2X^2}=1
+
+\tag{2.1.10}
+\]</div><p>이 된다. 이는 위치와 속도를 축으로 놓았을 때 가능한 상태가 타원 위에 있다는 뜻이다. 두 값은 독립적으로 아무 크기나 가질 수 있는 것이 아니라 같은 총에너지에 의해 연결된다. 이 표현은 시간이 어떤 값인지 몰라도 현재 위치에서 가능한 속도의 크기를 알려 준다.</p>
+<p>양의 변위가 같더라도 속도의 부호에 따라 평형으로 돌아오는 상태와 더 멀어지는 상태를 구분한다. 에너지는 속도의 제곱을 사용하므로 두 상태에서 같을 수 있다. 따라서 에너지 보존만으로 운동 방향까지 결정할 수는 없으며, 실제 시간 이력에는 초기조건과 운동방정식이 함께 필요하다.</p>
+<p>위치와 속도를 동시에 보면 운동의 상태가 한 개의 변위값보다 분명해진다. 같은 위치를 지나더라도 속도의 부호가 다르면 다음 순간의 운동 방향이 다르다. 그래서 변위만을 초기조건으로 주면 이후 궤적을 하나로 정할 수 없다.</p>
+<p>무감쇠 자유진동에서 에너지가 <span class="math inline">\(E_0\)</span>로 일정하면 <span class="math inline">\(kx^2+m\dot x^2=2E_0\)</span>이다. 위치–속도 평면에서는 타원 위를 따라 움직이고, 그 타원의 크기는 초기 에너지가 정한다. 질량과 강성은 운동의 주기를 정하지만 어느 크기의 타원에서 시작하는지는 초기조건이 정한다. 고유주파수와 진폭이 서로 다른 정보라는 점을 에너지 표현에서도 확인할 수 있다.</p>
+</section><section id="free-and-forced-energy-balance" aria-labelledby="free-and-forced-energy-balance-title"><h2 id="free-and-forced-energy-balance-title">5. Free and Forced Energy Balance</h2>
+<h3 id="effects-of-damping-and-external-work">Effects of Damping and External Work</h3>
+<p>같은 조작을 식 <a href="../degrees-of-freedom-equations-of-motion/index.html#eq-sdof" class="equation-ref" title="Equation 1.2.4">(1.2.5)</a>에 적용하면</p>
+<div class="equation main" id="eq-energy">\[
+\boxed{\displaystyle \frac{\mathrm{d}(T+U)}{\mathrm{d}t}=F(t)\dot{x}-c\dot{x}^2
+}
+
+\tag{2.1.11}
+\]</div><p><span>\(F\dot{x}\)</span>는 외력이 공급하는 Power이고 <span>\(c\dot{x}^2\)</span>는 Damper가 소산하는 Power이다. 자유진동에서는 공급항이 없으므로 <span>\(c&gt;0\)</span>일 때 Energy가 감소한다. 강제진동의 정상상태에서는 한 주기에 공급되는 Energy와 소산되는 Energy가 같아진다.</p>
+<p>이 Energy 표현은 Spring 대신 실제 Beam을 다룰 때도 유지된다. 달라지는 것은 <span>\(T\)</span>와 <span>\(U\)</span>를 질량분포와 변형분포에 대한 적분으로 계산한다는 점이다.</p>
+<p>무감쇠 자유진동에서는 <span class="math inline">\(\dot E=0\)</span>이므로 처음에 주어진 에너지가 보존된다. 감쇠가 있고 외력이 없다면 <span class="math inline">\(\dot E=-c\dot x^2\le0\)</span>이므로 에너지가 줄어든다. 반면 외력이 작용할 때에는 힘과 속도의 위상에 따라 에너지가 공급되거나 빠져나간다. 이 차이는 이후 감쇠 자유진동과 강제진동의 진폭이 달라지는 기본적인 이유가 된다.</p>
+<h3 id="energy-and-the-restoring-mechanism">Energy and the Restoring Mechanism</h3>
+<p>복원력이 사라져 <span class="math inline">\(k=0\)</span>이 되면 같은 무감쇠 방정식은 <span class="math inline">\(\ddot x=0\)</span>으로 바뀐다. 이때 초기속도는 일정하게 유지되고 <span class="math inline">\(x=x_0+v_0t\)</span>가 되며, 스프링과의 에너지 교환에 의한 주기 운동은 나타나지 않는다. 질량만 존재한다고 해서 진동이 생기는 것은 아니며, 변형을 되돌리는 메커니즘과 관성이 함께 있어야 한다.</p>
+<p>반대로 안정한 평형에서 유효 강성이 음수가 되면 변위에 대한 가속도가 같은 방향으로 작용한다. 작은 교란이 더 큰 변위를 만드는 방향으로 진행하므로 사인·코사인 형태의 안정한 자유진동과 다른 운동이 나타난다. 고유주파수 식의 제곱근을 계산하기 전에, 사용한 평형과 강성이 복원력을 나타내는지 확인해야 한다.</p>
+</section><section id="scaling-and-a-simple-example" aria-labelledby="scaling-and-a-simple-example-title"><h2 id="scaling-and-a-simple-example-title">6. Scaling and a Simple Example</h2>
+<h3 id="influence-of-mass-and-stiffness">Influence of Mass and Stiffness</h3>
+<p><span class="math inline">\(\omega_n=\sqrt{k/m}\)</span>에서 질량을 네 배로 늘리고 강성을 유지하면 고유주파수는 절반이 된다. 강성을 네 배로 늘리고 질량을 유지하면 고유주파수는 두 배가 된다. 두 파라미터를 같은 비율로 바꾸면 주파수는 유지되지만 같은 힘에 대한 정적 변위는 달라진다. 주파수는 질량과 강성의 비를 보여 주므로 구조의 모든 응답 크기를 단독으로 결정하지 않는다.</p>
+<h3 id="reading-the-motion-quantitatively">Reading the Motion Quantitatively</h3>
+<p>예를 들어 <span class="math inline">\(m=2\,\mathrm{kg}\)</span>, <span class="math inline">\(k=800\,\mathrm{N/m}\)</span>이면 <span class="math inline">\(\omega_n=20\,\mathrm{rad/s}\)</span>, <span class="math inline">\(f_n\simeq3.18\,\mathrm{Hz}\)</span>이다. <span class="math inline">\(x_0=5\,\mathrm{mm}\)</span>, <span class="math inline">\(v_0=0\)</span>에서 놓으면 <span class="math inline">\(x(t)=0.005\cos20t\)</span>이며 최대속도는 <span class="math inline">\(0.1\,\mathrm{m/s}\)</span>이다. 초기 탄성에너지는 <span class="math inline">\(0.01\,\mathrm J\)</span>이고, 평형을 통과할 때 이 값은 최대 운동에너지와 일치한다.</p>
+<p>이 예에서 질량은 처음에 정지해 있지만 가속도는 <span class="math inline">\(-\omega_n^2x_0=-2\,\mathrm{m/s^2}\)</span>이다. 정지해 있다는 조건과 힘의 평형은 서로 다르다. 변형된 스프링을 놓은 순간에는 속도가 0이어도 복원력이 남아 있으므로 운동이 시작된다. 초기값, 주기, 에너지, 가속도를 함께 확인하면 같은 해를 서로 다른 물리 관계에서 점검할 수 있다.</p>
+</section><footer><a href="../index.html">← Structural Dynamics &amp; Aeroelasticity로 돌아가기</a></footer></main><aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#free-motion-and-natural-frequency" class="sidebar-link"><span class="item-number">1.</span><span>Free Motion and Natural Frequency</span></a><a href="#general-solution-and-initial-conditions" class="sidebar-link"><span class="item-number">2.</span><span>General Solution and Initial Conditions</span></a><a href="#amplitude-phase-and-period" class="sidebar-link"><span class="item-number">3.</span><span>Amplitude, Phase, and Period</span></a><a href="#exchange-of-kinetic-and-strain-energy" class="sidebar-link"><span class="item-number">4.</span><span>Exchange of Kinetic and Strain Energy</span></a><a href="#free-and-forced-energy-balance" class="sidebar-link"><span class="item-number">5.</span><span>Free and Forced Energy Balance</span></a><a href="#scaling-and-a-simple-example" class="sidebar-link"><span class="item-number">6.</span><span>Scaling and a Simple Example</span></a></nav></aside></div><script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script></body></html>

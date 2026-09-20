@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="구조물에 같은 크기의 힘을 가해도 천천히 가할 때와 갑자기 가할 때의 변위는 다를 수 있다. 시간에 따른 움직임을 설명하려면 힘과 변형의 관계에 더해, 질량의 관성과 운동 중 소산되는 에너지를 함께 다루어야 한다."><title>1.1 Vibration, Mass, Stiffness, and Damping | Isp99</title>
+<script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style></head><body class="article-page"><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><nav class="sidebar-inner"><a href="../index.html" class="sidebar-title">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a href="../vibration-mass-stiffness-damping/index.html" class="sidebar-link active" aria-current="page"><span class="item-number">1.1</span> Vibration, Mass, Stiffness, and Damping</a><a href="../degrees-of-freedom-equations-of-motion/index.html" class="sidebar-link"><span class="item-number">1.2</span> Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a href="../undamped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.1</span> Undamped Free Vibration</a><a href="../damped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.2</span> Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a href="../harmonic-response-resonance/index.html" class="sidebar-link"><span class="item-number">3.1</span> Harmonic Response and Resonance</a><a href="../base-excitation-vibration-isolation/index.html" class="sidebar-link"><span class="item-number">3.2</span> Base Excitation and Vibration Isolation</a><a href="../transient-response/index.html" class="sidebar-link"><span class="item-number">3.3</span> Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a href="../coupled-equations-matrix-form/index.html" class="sidebar-link"><span class="item-number">4.1</span> Coupled Equations and Matrix Form</a><a href="../natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">4.2</span> Natural Frequencies and Mode Shapes</a><a href="../modal-analysis/index.html" class="sidebar-link"><span class="item-number">4.3</span> Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a href="../continuous-systems-rod-vibration/index.html" class="sidebar-link"><span class="item-number">5.1</span> Continuous Systems and Rod Vibration</a><a href="../euler-bernoulli-beam-theory/index.html" class="sidebar-link"><span class="item-number">5.2</span> Euler–Bernoulli Beam Theory</a><a href="../beam-natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">5.3</span> Beam Natural Frequencies and Mode Shapes</a><a href="../modal-response-of-beams/index.html" class="sidebar-link"><span class="item-number">5.4</span> Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a href="../energy-methods-equivalent-models/index.html" class="sidebar-link"><span class="item-number">6.1</span> Energy Methods and Equivalent Models</a><a href="../finite-element-method/index.html" class="sidebar-link"><span class="item-number">6.2</span> Finite Element Method</a><a href="../response-analysis-verification/index.html" class="sidebar-link"><span class="item-number">6.3</span> Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a href="../aeroelastic-coupling-static-stability/index.html" class="sidebar-link"><span class="item-number">7.1</span> Aeroelastic Coupling and Static Stability</a><a href="../typical-section-unsteady-aerodynamics/index.html" class="sidebar-link"><span class="item-number">7.2</span> Flutter and the Typical Section Model</a><a href="../flutter-analysis/index.html" class="sidebar-link"><span class="item-number">7.3</span> Flutter Analysis</a></div></nav></aside><main class="main-content" id="top"><nav aria-label="Current article"><a href="#top">1.1 Vibration, Mass, Stiffness, and Damping</a></nav><header><h1>1.1 Vibration, Mass, Stiffness, and Damping</h1><p class="subtitle">Motion, Restoring Force, Inertia, and Energy Dissipation</p><p class="intro">구조물에 같은 크기의 힘을 가해도 천천히 가할 때와 갑자기 가할 때의 변위는 다를 수 있다. 시간에 따른 움직임을 설명하려면 힘과 변형의 관계에 더해, 질량의 관성과 운동 중 소산되는 에너지를 함께 다루어야 한다.</p></header><aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#static-deformation-and-dynamic-motion">Static Deformation and Dynamic Motion</a></li><li><a href="#idealization-of-a-structure">Idealization of a Structure</a></li><li><a href="#stiffness-and-restoring-force">Stiffness and Restoring Force</a></li><li><a href="#mass-and-damping">Mass and Damping</a></li><li><a href="#energy-stored-and-dissipated">Energy Stored and Dissipated</a></li><li><a href="#parameters-and-physical-interpretation">Parameters and Physical Interpretation</a></li></ol></aside><section id="static-deformation-and-dynamic-motion" aria-labelledby="static-deformation-and-dynamic-motion-title"><h2 id="static-deformation-and-dynamic-motion-title">1. Static Deformation and Dynamic Motion</h2>
+<h3 id="from-applied-force-to-a-displacement-history">From Applied Force to a Displacement History</h3>
+<p>구조물에 힘을 천천히 가하면 각 순간의 하중과 변형을 Static equilibrium으로 연결할 수 있다. 그러나 하중을 갑자기 가하거나 주기적으로 변화시키면 구조물의 질량이 가속되므로, 같은 하중이라도 변위가 시간에 따라 달라진다. 이때는 <strong>Elastic restoring force뿐 아니라 Inertia와 Damping을 함께 고려</strong>해야 한다.</p>
+<p>평형 위치에서 밀어낸 물체를 놓으면 Elastic restoring force가 물체를 평형 위치로 되돌린다. 평형 위치에 도달해도 Velocity가 남아 있으므로 반대쪽으로 지나가며, 이러한 운동의 반복이 <strong>Vibration</strong>이다. 실제 감쇠진동은 진폭이 감소하므로 매 주기의 파형이 완전히 같을 필요는 없다.</p>
+<p><strong>Dynamics</strong>는 물체의 운동과 그 원인을 다루는 넓은 분야이다. 그 안에서 Vibration은 평형 부근의 진동을 중심으로 다루며, <strong>Structural dynamics</strong>는 Beam, Plate, Frame 등 변형 가능한 구조물의 시간에 따른 변위, 변형률, 응력 및 내부하중을 다룬다. 따라서 두 분야는 크게 겹치며, Structural dynamics에는 반복진동 외에 충격과 과도응답도 포함된다.</p>
+<p>정적 해석에서 구하는 변위는 하중과 복원력이 평형을 이루는 값이다. 그 값은 하중을 가한 직후의 위치나 평형에 도달하기까지의 경로를 알려 주지 않는다. 같은 최종 하중을 사용하더라도 천천히 올리는 경우와 순간적으로 가하는 경우의 응답이 달라지는 이유가 여기에 있다. 동적 해석에서는 변위를 시간의 함수로 두고, 현재의 힘뿐 아니라 물체가 이미 가지고 있던 운동 상태도 함께 고려한다.</p>
+<h3 id="the-time-scale-of-loading">The Time Scale of Loading</h3>
+<p>하중이 빠르게 변하는지를 판단할 때에는 변화 시간이 구조물의 고유한 운동 시간에 비해 긴지 짧은지 비교해야 한다. 손으로 천천히 움직이는 것으로 보이는 하중도 매우 유연하고 느리게 진동하는 구조물에는 빠른 입력일 수 있다. 반대로 고유주기가 짧은 구조물에는 같은 입력이 거의 정적으로 작용할 수 있다. 따라서 <strong>정적 또는 동적이라는 구분은 하중의 절대적인 속도만으로 정해지지 않는다.</strong></p>
+<p>시간에 따라 변하는 변위를 알면 속도와 가속도를 순서대로 구할 수 있다. 변위는 구조물의 위치와 변형을, 속도는 현재의 운동 방향과 빠르기를, 가속도는 힘에 의해 속도가 바뀌는 정도를 나타낸다. 이 세 양을 구분해야 스프링, 감쇠기, 질량이 각각 어떤 운동에 반응하는지 설명할 수 있다.</p>
+</section><section id="idealization-of-a-structure" aria-labelledby="idealization-of-a-structure-title"><h2 id="idealization-of-a-structure-title">2. Idealization of a Structure</h2>
+<h3 id="discrete-and-continuous-descriptions">Discrete and Continuous Descriptions</h3>
+<p>학부 Vibration에서 다루는 Mass–spring–damper model은 구조동역학의 기본 단위이다. 실제 구조물에서는 위치마다 질량과 강성이 분포하고 여러 부분이 동시에 변형되므로, 한 개의 변위 <span>\(x(t)\)</span>로 전체 운동을 표현하기 어려워진다.</p>
+<p>이를 여러 좌표로 확장하면 Multi-degree-of-freedom system이 되고, 위치마다 변위를 정의하면 Continuous system이 된다. 이후 전체 변형을 여러 <strong>Mode shape</strong>의 합으로 표현하면, 복잡한 구조물의 운동을 다시 여러 개의 1자유도 진동식으로 해석할 수 있다.</p>
+<p>이 연재에서는 <strong>선형 탄성, 작은 변형, 시간에 따라 변하지 않는 질량·강성</strong>을 기본으로 사용한다. 각 결과식에는 추가 가정을 함께 명시하며, 식에 포함된 물리량의 정의와 유도 과정을 먼저 설명한다.</p>
+<p>구조물을 몇 개의 질량과 스프링으로 나타내는 것은 실제 부품을 반드시 그 모양으로 바꾸겠다는 뜻이 아니다. 관심 있는 운동에서 질량의 관성효과와 구조의 변형에너지가 비슷하게 나타나도록 단순화하는 과정이다. 예를 들어 유연한 지지대 위에 무거운 장치가 놓인 경우, 장치의 내부 변형이 작다면 장치는 집중질량으로, 지지대는 등가 스프링으로 표현할 수 있다.</p>
+<h3 id="selecting-the-motion-to-represent">Selecting the Motion to Represent</h3>
+<p>이 단순화가 적절한지는 관찰하려는 운동에 따라 달라진다. 장치 전체가 좌우로 흔들리는 운동만 관심 있다면 하나의 수평좌표로 충분할 수 있지만, 장치가 기울어지거나 지지대 자체가 휘어지는 형상이 중요해지면 좌표를 추가해야 한다. <strong>모델의 자유도는 부품 개수가 아니라 표현하려는 독립적인 운동의 수와 연결된다.</strong></p>
+<p>단순한 모델은 각 파라미터가 응답에 주는 영향을 파악하기 쉽다는 장점이 있다. 다만 생략한 운동의 주파수에 가까운 입력이 들어오면 그 모델은 충분하지 않을 수 있다. 따라서 모델을 정할 때에는 관심 주파수 범위와 출력 위치를 함께 정하고, 필요한 운동이 실제로 표현되는지 확인한다. 이후 다자유도와 연속체 모델은 이 표현 범위를 넓히는 방향으로 등장한다.</p>
+</section><section id="stiffness-and-restoring-force" aria-labelledby="stiffness-and-restoring-force-title"><h2 id="stiffness-and-restoring-force-title">3. Stiffness and Restoring Force</h2>
+<h3 id="force-required-for-deformation">Force Required for Deformation</h3>
+<p>변형이 같은 두 부재라도 복원시키는 힘이 다를 수 있으므로, 변형과 복원력 사이의 관계를 나타내는 양이 필요하다. 선형 Spring의 <strong>Stiffness</strong> <span>\(k\)</span>는 단위변위에 필요한 힘이며, <span>\(x\)</span>를 평형 위치에서의 변위라 하면 물체에 작용하는 Spring force는</p>
+<div class="equation" id="eq-1-1-1">\[
+\begin{aligned}
+F_s&amp;=-kx, &amp; [k]&amp;=\mathrm{N/m}.
+\end{aligned}
+
+\tag{1.1.1}
+\]</div><p>음의 부호는 Spring force가 변위의 반대 방향으로 작용함을 나타낸다. Stiffness는 <strong>얼마나 쉽게 변형되는지</strong>를 나타내며, Strength는 <strong>항복이나 파손 전에 견딜 수 있는 응력 수준</strong>을 나타낸다. 높은 Strength가 곧 높은 Stiffness를 의미하지는 않는다.</p>
+<p>재료의 Young’s modulus <span>\(E\)</span>는 선형 탄성구간에서 Normal stress <span>\(\sigma\)</span>와 Normal strain <span>\(\varepsilon\)</span>를 연결한다. 길이 <span>\(L\)</span>, 단면적 <span>\(A\)</span>인 균일한 Axial bar에 대해</p>
+<div class="equation" id="eq-1-1-2">\[
+\begin{aligned}
+\sigma&amp;=E\varepsilon, &amp; \sigma&amp;=\frac{F}{A}, &amp; \varepsilon&amp;=\frac{\Delta L}{L}\\[1em]
+F&amp;=\frac{EA}{L}\Delta L.
+\end{aligned}
+
+\tag{1.1.2}
+\]</div><p>따라서 이 변형방식에 대한 부재의 Stiffness는 <span>\(k=EA/L\)</span>이다. <strong><span>\(E\)</span>는 재료특성이고 <span>\(k\)</span>는 재료, 형상, 지지조건에 의해 결정되는 구조특성</strong>이다. Bending에서는 다른 식이 필요하며, 이후 Beam model에서 이를 유도한다.</p>
+<p>강성을 측정할 때에는 어떤 위치에 어떤 방향으로 힘을 가하고, 어느 변위를 측정했는지 함께 지정해야 한다. 같은 구조물에서도 축방향으로 늘어나는 강성과 횡방향으로 휘어지는 강성은 다르다. 길이가 긴 부재는 재료의 탄성계수가 같아도 휨에 대해 유연할 수 있으므로, 재료값 하나만으로 구조 강성을 판단할 수 없다.</p>
+<h3 id="tangent-stiffness-near-an-equilibrium">Tangent Stiffness near an Equilibrium</h3>
+<p>실제 복원력 <span class="math inline">\(R(x)\)</span>가 변위에 정확히 비례하지 않더라도, 평형점 <span class="math inline">\(x_e\)</span> 주변의 작은 운동에서는 곡선의 기울기를 이용할 수 있다. <span class="math inline">\(\xi=x-x_e\)</span>로 두고 복원력을 전개하면</p>
+<div class="equation" id="eq-added-1-1-3">\[
+R(x_e+\xi)\simeq R(x_e)+\left.\frac{dR}{dx}\right|_{x_e}\xi,
+\qquad k_t=\left.\frac{dR}{dx}\right|_{x_e}.
+
+\tag{1.1.3}
+\]</div><p>여기서 <span class="math inline">\(k_t\)</span>는 <strong>Tangent stiffness</strong>이다. 상수항은 평형하중과 상쇄되고, 평형에서 조금 벗어났을 때 추가되는 복원력은 <span class="math inline">\(k_t\xi\)</span>로 표현된다. 진폭이 커지면 곡선의 기울기가 달라질 수 있으므로, 같은 선형 강성을 계속 사용하는 근사가 성립하지 않을 수 있다. 작은 진동에서 선형 스프링을 사용하는 근거는 이러한 국소적인 선형화에 있다.</p>
+<p>강성과 Compliance는 같은 힘–변위 관계를 서로 반대로 나타낸다. 하나의 선형 좌표에서 Compliance는 <span class="math inline">\(1/k\)</span>이며, 같은 힘에 대해 얼마나 쉽게 변형되는지를 보여준다. 강성이 큰 구조는 같은 힘에서 변위가 작고, 유연도가 큰 구조는 변위가 크다.</p>
+<p>여기서 중요한 것은 하중과 변형의 방향이 서로 대응한다는 점이다. 회전각을 좌표로 선택하면 대응 하중은 Moment이며 강성의 단위도 <span class="math inline">\(\mathrm{N\,m/rad}\)</span>가 된다. 병진 강성과 회전 강성을 숫자만으로 직접 비교할 수 없는 이유이다.</p>
+</section><section id="mass-and-damping" aria-labelledby="mass-and-damping-title"><h2 id="mass-and-damping-title">4. Mass and Damping</h2>
+<h3 id="inertia-and-energy-dissipation">Inertia and Energy Dissipation</h3>
+<p>Mass <span>\(m\)</span>은 주어진 힘에 대해 얼마나 가속되는지를 결정한다. Inertia를 고려하면 위치가 평형점에 도달했다는 이유만으로 운동이 즉시 정지하지 않는다. 구조물의 운동을 시간에 따라 예측하려면 <span>\(m\ddot{x}\)</span>를 포함해야 한다.</p>
+<p>실제 운동은 마찰, 재료 내부손실, 접합부의 미끄러짐 등으로 Mechanical energy를 잃는다. 이 효과를 표현하는 것이 <strong>Damping</strong>이다. 가장 간단한 Viscous damping model에서는 힘이 상대속도에 비례한다. 지지점이 고정되어 있으면</p>
+<div class="equation" id="eq-1-1-3">\[
+\begin{aligned}
+F_d&amp;=-c\dot{x}, &amp; [c]&amp;=\mathrm{N\,s/m}.
+\end{aligned}
+
+\tag{1.1.4}
+\]</div><p><span>\(c\)</span>는 Damping coefficient이다. 이 식은 모든 손실기구의 정확한 미시적 법칙이 아니라, 운동방정식에서 에너지 손실을 나타내는 선형 Model이다. <span>\(c\geq0\)</span>일 때 Damper가 물체에 하는 일률은 <span>\(F_d\dot{x}=-c\dot{x}^2\leq0\)</span>이므로 에너지를 제거한다.</p>
+<p>질량은 현재 속도를 유지하려는 관성의 크기를 정한다. 같은 힘이 같은 방향으로 작용할 때 질량이 크면 가속도는 작지만, 이것만으로 최종 진폭이 반드시 작다고 판단할 수는 없다. 질량이 바뀌면 고유주파수도 바뀌므로 주어진 반복하중에 대한 공진의 위치가 함께 달라지기 때문이다. 관성효과는 운동방정식 전체의 관계 안에서 해석해야 한다.</p>
+<h3 id="relative-velocity-and-damping-force">Relative Velocity and Damping Force</h3>
+<p>점성 감쇠기에서 힘을 정하는 속도는 감쇠기 양 끝의 <strong>상대속도</strong>이다. 한쪽 끝이 고정된 경우에는 질량의 속도와 같지만, 지지대도 움직이면 두 속도의 차이를 사용해야 한다. 이 점을 놓치면 지지대 가진의 운동방정식에서 감쇠항의 부호나 입력항이 잘못된다. 스프링 역시 두 끝의 상대변형에 반응한다는 같은 구조를 가진다.</p>
+<p>실제 에너지 소산은 접합부 마찰, 재료 내부 손실, 유체와의 상호작용 등에서 발생한다. 점성 감쇠는 그중 속도에 비례하는 효과를 나타내는 간단한 모델이다. 모든 마찰력을 정확히 표현하는 식은 아니지만, 작은 진동에서 자유응답의 감소와 공진 진폭을 설명하는 데 자주 사용한다. 감쇠계수는 가정한 모델과 사용한 진폭·주파수 범위에 맞추어 해석한다.</p>
+</section><section id="energy-stored-and-dissipated" aria-labelledby="energy-stored-and-dissipated-title"><h2 id="energy-stored-and-dissipated-title">5. Energy Stored and Dissipated</h2>
+<h3 id="recoverable-mechanical-energy">Recoverable Mechanical Energy</h3>
+<p>힘이 하는 일은 힘과 같은 방향의 미소변위에 대한 적분이다. 선형 스프링을 변형시키는 데 필요한 힘이 <span class="math inline">\(kx\)</span>이면, 원래 길이에서 <span class="math inline">\(x\)</span>까지 변형시킬 때 저장되는 에너지는</p>
+<div class="equation" id="eq-added-1-1-5">\[
+V=\int_0^x k\xi\,d\xi=\frac12kx^2,\qquad T=\frac12m\dot x^2.
+
+\tag{1.1.5}
+\]</div><p><span class="math inline">\(V\)</span>는 탄성에너지, <span class="math inline">\(T\)</span>는 운동에너지이다. 스프링의 에너지는 변형을 되돌리면서 다시 운동에너지로 전달될 수 있다. 질량의 운동에너지도 질량이 느려지는 동안 스프링의 변형을 키우는 데 쓰일 수 있다. 이처럼 두 에너지가 교환되는 과정이 자유진동의 기본적인 모습이다.</p>
+<h3 id="power-balance">Power Balance</h3>
+<p>외력 <span class="math inline">\(F(t)\)</span>가 질량에 작용하고 점성 감쇠가 존재하면, 운동방정식에 속도를 곱하여 에너지의 변화율을 얻는다.</p>
+<div class="equation" id="eq-added-1-1-6">\[
+m\ddot x+c\dot x+kx=F(t)
+\quad\Longrightarrow\quad
+\frac{d}{dt}\left(\frac12m\dot x^2+\frac12kx^2\right)
+=F(t)\dot x-c\dot x^2.
+
+\tag{1.1.6}
+\]</div><p><span class="math inline">\(F\dot x\)</span>는 외력이 공급하는 일률이며, 힘과 속도의 상대적인 방향에 따라 양수 또는 음수가 될 수 있다. 반면 <span class="math inline">\(c\ge0\)</span>이면 <span class="math inline">\(c\dot x^2\)</span>는 항상 음이 아닌 소산률이다. 스프링은 에너지를 저장하고 돌려주지만, 이상적인 점성 감쇠기는 기계적 에너지를 소산한다. 두 요소가 모두 운동을 줄이는 방향의 힘을 만들 수 있어도 에너지 역할은 서로 다르다.</p>
+</section><section id="parameters-and-physical-interpretation" aria-labelledby="parameters-and-physical-interpretation-title"><h2 id="parameters-and-physical-interpretation-title">6. Parameters and Physical Interpretation</h2>
+<h3 id="units-of-the-model">Units of the Model</h3>
+<p>수평 변위를 좌표로 사용할 때 질량의 단위는 <span class="math inline">\(\mathrm{kg}\)</span>, 강성은 <span class="math inline">\(\mathrm{N/m}\)</span>, 감쇠계수는 <span class="math inline">\(\mathrm{N\,s/m}\)</span>이다. 따라서 <span class="math inline">\(m\ddot x\)</span>, <span class="math inline">\(c\dot x\)</span>, <span class="math inline">\(kx\)</span>는 모두 힘의 단위가 된다. 회전각을 좌표로 사용하면 질량 대신 질량관성모멘트가, 병진 강성 대신 비틀림 강성이 들어가며 각 항의 단위는 Moment가 된다. 좌표를 정하는 일과 파라미터를 정하는 일이 분리될 수 없는 이유이다.</p>
+<h3 id="connecting-the-model-to-a-measurement">Connecting the Model to a Measurement</h3>
+<p>정적 하중과 변위의 관계에서는 강성을, 자유진동의 주기에서는 질량과 강성의 비를, 진폭의 감소에서는 감쇠의 영향을 확인할 수 있다. 서로 다른 관측값이 서로 다른 모델 특성을 드러내므로 하나의 측정만으로 모든 파라미터가 정해지는 것은 아니다. 예를 들어 주파수가 같아도 질량과 강성이 함께 커진 구조물은 같은 하중에 다른 정적 변위를 보일 수 있다.</p>
+<p>진동 모델을 사용할 때에는 어떤 좌표로 운동을 나타냈는지, 그 좌표에 대응하는 질량과 강성을 어떻게 정했는지, 감쇠를 어떤 형태로 가정했는지를 함께 기록한다. 이러한 정의가 정리되면 정적 변형, 자유진동, 강제진동은 별개의 공식 모음이 아니라 동일한 운동방정식에 서로 다른 하중과 초기조건을 적용한 문제로 연결된다.</p>
+</section><footer><a href="../index.html">← Structural Dynamics &amp; Aeroelasticity로 돌아가기</a></footer></main><aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#static-deformation-and-dynamic-motion" class="sidebar-link"><span class="item-number">1.</span><span>Static Deformation and Dynamic Motion</span></a><a href="#idealization-of-a-structure" class="sidebar-link"><span class="item-number">2.</span><span>Idealization of a Structure</span></a><a href="#stiffness-and-restoring-force" class="sidebar-link"><span class="item-number">3.</span><span>Stiffness and Restoring Force</span></a><a href="#mass-and-damping" class="sidebar-link"><span class="item-number">4.</span><span>Mass and Damping</span></a><a href="#energy-stored-and-dissipated" class="sidebar-link"><span class="item-number">5.</span><span>Energy Stored and Dissipated</span></a><a href="#parameters-and-physical-interpretation" class="sidebar-link"><span class="item-number">6.</span><span>Parameters and Physical Interpretation</span></a></nav></aside></div><script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script></body></html>

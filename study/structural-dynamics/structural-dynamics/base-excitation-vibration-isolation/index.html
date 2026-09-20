@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="진동은 질량에 직접 가하는 힘뿐 아니라 지지대의 움직임을 통해서도 전달된다. Spring과 Damper가 양 끝의 상대운동에 반응한다는 점에서 출발하면, 지지대가 움직일 때 질량이 얼마나 따라 움직이는지와 진동을 줄일 수 있는 조건을 구할 수 있다."><title>3.2 Base Excitation and Vibration Isolation | Isp99</title>
+<script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style></head><body class="article-page"><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><nav class="sidebar-inner"><a href="../index.html" class="sidebar-title">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a href="../vibration-mass-stiffness-damping/index.html" class="sidebar-link"><span class="item-number">1.1</span> Vibration, Mass, Stiffness, and Damping</a><a href="../degrees-of-freedom-equations-of-motion/index.html" class="sidebar-link"><span class="item-number">1.2</span> Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a href="../undamped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.1</span> Undamped Free Vibration</a><a href="../damped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.2</span> Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a href="../harmonic-response-resonance/index.html" class="sidebar-link"><span class="item-number">3.1</span> Harmonic Response and Resonance</a><a href="../base-excitation-vibration-isolation/index.html" class="sidebar-link active" aria-current="page"><span class="item-number">3.2</span> Base Excitation and Vibration Isolation</a><a href="../transient-response/index.html" class="sidebar-link"><span class="item-number">3.3</span> Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a href="../coupled-equations-matrix-form/index.html" class="sidebar-link"><span class="item-number">4.1</span> Coupled Equations and Matrix Form</a><a href="../natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">4.2</span> Natural Frequencies and Mode Shapes</a><a href="../modal-analysis/index.html" class="sidebar-link"><span class="item-number">4.3</span> Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a href="../continuous-systems-rod-vibration/index.html" class="sidebar-link"><span class="item-number">5.1</span> Continuous Systems and Rod Vibration</a><a href="../euler-bernoulli-beam-theory/index.html" class="sidebar-link"><span class="item-number">5.2</span> Euler–Bernoulli Beam Theory</a><a href="../beam-natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">5.3</span> Beam Natural Frequencies and Mode Shapes</a><a href="../modal-response-of-beams/index.html" class="sidebar-link"><span class="item-number">5.4</span> Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a href="../energy-methods-equivalent-models/index.html" class="sidebar-link"><span class="item-number">6.1</span> Energy Methods and Equivalent Models</a><a href="../finite-element-method/index.html" class="sidebar-link"><span class="item-number">6.2</span> Finite Element Method</a><a href="../response-analysis-verification/index.html" class="sidebar-link"><span class="item-number">6.3</span> Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a href="../aeroelastic-coupling-static-stability/index.html" class="sidebar-link"><span class="item-number">7.1</span> Aeroelastic Coupling and Static Stability</a><a href="../typical-section-unsteady-aerodynamics/index.html" class="sidebar-link"><span class="item-number">7.2</span> Flutter and the Typical Section Model</a><a href="../flutter-analysis/index.html" class="sidebar-link"><span class="item-number">7.3</span> Flutter Analysis</a></div></nav></aside><main class="main-content" id="top"><nav aria-label="Current article"><a href="#top">3.2 Base Excitation and Vibration Isolation</a></nav><header><h1>3.2 Base Excitation and Vibration Isolation</h1><p class="subtitle">Base Motion, Relative Displacement, and Vibration Transmissibility</p><p class="intro">진동은 질량에 직접 가하는 힘뿐 아니라 지지대의 움직임을 통해서도 전달된다. Spring과 Damper가 양 끝의 상대운동에 반응한다는 점에서 출발하면, 지지대가 움직일 때 질량이 얼마나 따라 움직이는지와 진동을 줄일 수 있는 조건을 구할 수 있다.</p></header><aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#motion-of-the-support">Motion of the Support</a></li><li><a href="#relative-coordinate-equation">Relative-Coordinate Equation</a></li><li><a href="#displacement-transmissibility">Displacement Transmissibility</a></li><li><a href="#relative-motion-and-required-travel">Relative Motion and Required Travel</a></li><li><a href="#damping-and-frequency-range">Damping and Frequency Range</a></li><li><a href="#force-transmission-and-interpretation">Force Transmission and Interpretation</a></li></ol></aside><section id="motion-of-the-support" aria-labelledby="motion-of-the-support-title"><h2 id="motion-of-the-support-title">1. Motion of the Support</h2>
+<h3 id="two-displacements-in-one-system">Two Displacements in One System</h3>
+<p>진동은 질량에 직접 가하는 힘뿐 아니라 지지대의 움직임으로도 전달된다. 이 경우 Spring과 Damper는 질량의 절대변위가 아니라 <strong>양 끝의 상대운동</strong>에 반응하므로, 고정 지지대 식에 외력만 임의로 넣어서는 안 된다.</p>
+<p>질량의 Absolute displacement를 <span>\(x(t)\)</span>, 지지대의 변위를 <span>\(y(t)\)</span>라 하면 Spring deformation은 <span>\(x-y\)</span>, Damper의 상대속도는 <span>\(\dot{x}-\dot{y}\)</span>이다. 질량에 별도의 외력이 없으면</p>
+<div class="equation" id="eq-3-2-1">\[
+m\ddot{x}+c(\dot{x}-\dot{y})+k(x-y)=0.
+
+\tag{3.2.1}
+\]</div><p>Relative displacement <span>\(z=x-y\)</span>를 정의하고 <span>\(x=z+y\)</span>를 대입하면</p>
+<div class="equation main" id="eq-base">\[
+\boxed{\displaystyle m\ddot{z}+c\dot{z}+kz=-m\ddot{y}
+}
+
+\tag{3.2.2}
+\]</div><p>지지대의 Acceleration이 상대좌표에서 Equivalent force로 나타난다. 일정한 속도로 함께 움직이는 지지대는 이 모델에서 지속적인 관성 가진을 만들지 않지만, 가속되는 지지대는 상대운동을 유발한다.</p>
+<p>지지대가 움직이는 문제에서 먼저 구분해야 할 것은 질량이 관성기준계에 대해 움직인 거리와 스프링이 실제로 늘어난 거리이다. 질량과 지지대가 같은 양만큼 함께 이동하면 절대변위는 존재하지만 스프링의 추가 변형은 없을 수 있다. 따라서 스프링 힘을 질량의 절대변위에 바로 비례시켜서는 안 된다.</p>
+<h3 id="relative-deformation-and-velocity">Relative Deformation and Velocity</h3>
+<p>질량의 절대변위를 <span class="math inline">\(x\)</span>, 지지대의 변위를 <span class="math inline">\(y\)</span>라 두면 스프링 변형은 <span class="math inline">\(z=x-y\)</span>이다. 감쇠기도 같은 두 점 사이에 연결되었으면 상대속도는 <span class="math inline">\(\dot x-\dot y=\dot z\)</span>이다. 반면 질량의 관성항은 관성기준계에서의 가속도 <span class="math inline">\(m\ddot x\)</span>를 사용한다. 탄성·감쇠에는 상대운동, 관성에는 절대가속도가 들어간다는 구분에서 운동방정식이 출발한다.</p>
+<p>지지대의 운동이 외부에서 주어졌다면 <span class="math inline">\(y(t)\)</span>는 미지 자유도가 아니라 입력이다. 질량의 좌표 하나만 풀어도 두 점 사이의 상대변형을 계산할 수 있다. 다만 지지대 자체도 연결된 다른 질량의 반응으로 움직이는 경우에는 지지대 운동을 별도의 미지좌표로 포함하는 다자유도 모델이 필요하다.</p>
+<p>관성기준계에서 질량에 작용하는 힘을 직접 더하면 <span class="math inline">\(m\ddot x=-k(x-y)-c(\dot x-\dot y)\)</span>이다. 지지대가 <span class="math inline">\(+y\)</span> 방향으로 움직여 스프링의 상대변형을 줄이면, 질량에 작용하는 힘도 그만큼 바뀐다. 이 식은 지지대 입력을 힘으로 바꾸는 임의의 규칙이 아니라 스프링 양 끝의 실제 운동에서 얻어진다.</p>
+<p><span class="math inline">\(x=z+y\)</span>를 대입하면 질량의 가속도는 <span class="math inline">\(\ddot z+\ddot y\)</span>가 된다. 이 중 이미 주어진 <span class="math inline">\(\ddot y\)</span>를 오른쪽으로 옮겨 상대좌표의 입력으로 묶는다. 가속하는 지지대에서 본 좌표를 사용해도 원래 관성기준계에서 세운 운동방정식과 동일한 물리적 운동을 계산해야 한다.</p>
+</section><section id="relative-coordinate-equation" aria-labelledby="relative-coordinate-equation-title"><h2 id="relative-coordinate-equation-title">2. Relative-Coordinate Equation</h2>
+<h3 id="base-acceleration-as-an-effective-input">Base Acceleration as an Effective Input</h3>
+<p><span>\(y=Y\cos\Omega t\)</span>이면 식 <a href="#eq-base" class="equation-ref" title="Equation 3.2.2">(3.2.2)</a>의 입력 진폭은 <span>\(m\Omega^2Y\)</span>이다. 식 <a href="../harmonic-response-resonance/index.html#eq-magnification" class="equation-ref" title="Equation 3.1.5">(3.1.6)</a>을 적용하면 Relative amplitude <span>\(Z\)</span>는</p>
+<div class="equation" id="eq-3-2-3">\[
+\frac{Z}{Y}=\frac{r^2}{\sqrt{(1-r^2)^2+(2\zeta r)^2}}.
+
+\tag{3.2.3}
+\]</div><p>질량의 Absolute amplitude <span>\(X\)</span>는 위상까지 포함하여 <span>\(x=z+y\)</span>로 구해야 한다. 진폭만 더한 <span>\(X=Z+Y\)</span>는 일반적으로 성립하지 않는다. Absolute equation을 정리하면 <span>\(m\ddot{x}+c\dot{x}+kx=c\dot{y}+ky\)</span>이므로</p>
+<div class="equation main" id="eq-transmissibility">\[
+\boxed{\displaystyle T_x\equiv\frac{X}{Y}
+=\frac{\sqrt{1+(2\zeta r)^2}}
+{\sqrt{(1-r^2)^2+(2\zeta r)^2}}
+}
+
+\tag{3.2.4}
+\]</div><p><span>\(T_x\)</span>를 Displacement transmissibility라 한다. <span>\(T_x&lt;1\)</span>이면 지지대보다 질량의 진동 진폭이 작다. 분자와 분모를 비교하면 이 조건은 <span>\(r&gt;\sqrt2\)</span>이다. 낮은 <span>\(r\)</span>에서는 질량이 지지대의 움직임을 거의 따라간다.</p>
+<p>상대좌표를 사용하면 지지대 입력이 <span class="math inline">\(-m\ddot y\)</span>로 나타난다. 이것은 지지대의 가속도를 미리 구한 다음, 그 가속도에 비례하는 등가 입력을 상대운동 방정식에 적용할 수 있다는 뜻이다. 지지대가 일정한 속도로만 움직여 <span class="math inline">\(\ddot y=0\)</span>이면 상대좌표에 지속적으로 작용하는 이 입력은 없다. 그러나 초기 상대변위나 상대속도가 있으면 자유응답은 남을 수 있다.</p>
+<h3 id="consistency-of-initial-conditions">Consistency of Initial Conditions</h3>
+<p>입력 변위의 기준을 바꾸면 초기조건도 함께 변환해야 한다. <span class="math inline">\(z_0=x_0-y_0\)</span>, <span class="math inline">\(\dot z_0=\dot x_0-\dot y_0\)</span>이다. 상대좌표로 식을 바꾼 뒤 절대변위의 초기값을 그대로 넣으면 스프링의 초기 변형과 감쇠기의 초기 상대속도가 다른 문제를 풀게 된다. 좌표 변환은 운동방정식과 초기조건에 동시에 적용한다.</p>
+<p>질량과 지지대의 운동을 비교할 때에는 진폭뿐 아니라 위상도 중요하다. 두 변위의 진폭이 같더라도 서로 반대 위상이면 스프링의 상대변형은 클 수 있다. 따라서 일반적으로 상대변위 진폭을 <span class="math inline">\(X-Y\)</span>라는 두 양수의 차이로 구할 수 없다. 복소 진폭의 차이 <span class="math inline">\(\widehat z=\widehat x-\widehat y\)</span>를 구한 뒤 그 크기를 취해야 한다.</p>
+</section><section id="displacement-transmissibility" aria-labelledby="displacement-transmissibility-title"><h2 id="displacement-transmissibility-title">3. Displacement Transmissibility</h2>
+<h3 id="absolute-motion-transfer-function">Absolute-Motion Transfer Function</h3>
+<p>지지대가 <span class="math inline">\(y=Y\cos\Omega t\)</span>로 움직일 때 절대좌표 운동방정식에 복소 진폭을 대입하면</p>
+<div class="equation" id="eq-added-3-2-5">\[
+(k-m\Omega^2+i c\Omega)\widehat x=(k+i c\Omega)\widehat y.
+
+\tag{3.2.5}
+\]</div><p>따라서 지지대 변위에 대한 질량 변위의 전달함수는</p>
+<div class="equation" id="eq-added-3-2-6">\[
+\frac{\widehat x}{\widehat y}
+=\frac{k+i c\Omega}{k-m\Omega^2+i c\Omega},
+\qquad
+T_x=\frac X Y
+=\sqrt{\frac{1+(2\zeta r)^2}{(1-r^2)^2+(2\zeta r)^2}},
+\quad r=\frac{\Omega}{\omega_n}.
+
+\tag{3.2.6}
+\]</div><p>분자는 스프링과 감쇠기를 통해 입력이 전달되는 관계이고, 분모는 질량·감쇠·강성이 함께 만드는 동적 강성이다. 직접 힘을 가하는 조화응답의 진폭비와 분자가 다르므로, 두 문제의 공진식이나 고주파 거동을 서로 그대로 바꾸어 사용할 수 없다.</p>
+<h3 id="isolation-condition">Isolation Condition</h3>
+<p>절대변위의 진폭을 줄이는 조건은 <span class="math inline">\(T_x&lt;1\)</span>이다. 양변을 제곱한 뒤 분자와 분모를 비교하면 공통 감쇠항이 상쇄되고 <span class="math inline">\(r^2(r^2-2)&gt;0\)</span>이 남는다. 따라서 이 선형 모델에서 변위 절연 영역은 <span class="math inline">\(r&gt;\sqrt2\)</span>이다.</p>
+<p>이 조건은 정상 조화운동에서 절대변위의 진폭비를 기준으로 한 결과이다. 지지대가 임의의 충격을 받거나, 여러 주파수 성분을 포함하거나, 관심 출력이 상대변형인 경우에는 해당 입력과 출력을 직접 확인해야 한다. 절연이라는 표현을 사용할 때 무엇에 대한 무엇의 비를 낮추는지 먼저 지정한다.</p>
+<p><span class="math inline">\(r=\sqrt2\)</span>에서 전달률은 감쇠비와 관계없이 정확히 1이다. 낮은 주파수의 <span class="math inline">\(r\to0\)</span>에서도 1에 접근하지만, 두 경우의 운동상태는 다르다. 저주파에서는 질량과 지지대가 거의 같은 위상으로 움직이는 반면, 절연 경계에서는 관성에 따른 위상차가 이미 존재한다. 진폭비 하나만으로 상대변형을 알 수 없는 이유가 여기에도 나타난다.</p>
+<p>정상 단일 주파수 운동에서는 가속도 진폭이 각각 <span class="math inline">\(\Omega^2X\)</span>, <span class="math inline">\(\Omega^2Y\)</span>이므로 절대가속도 전달률도 <span class="math inline">\(X/Y\)</span>와 같다. 그러나 여러 주파수가 섞인 입력의 최대가속도 비를 하나의 주파수 전달률과 바로 같다고 두지는 않는다. 각 성분의 진폭과 위상을 반영한 전체 응답이 필요하다.</p>
+</section><section id="relative-motion-and-required-travel" aria-labelledby="relative-motion-and-required-travel-title"><h2 id="relative-motion-and-required-travel-title">4. Relative Motion and Required Travel</h2>
+<h3 id="deformation-of-the-isolator">Deformation of the Isolator</h3>
+<p>상대좌표 방정식에서는 지지대의 가속도 진폭이 <span class="math inline">\(\Omega^2Y\)</span>로 들어간다. 따라서 정상 상대변위 진폭은</p>
+<div class="equation" id="eq-added-3-2-7">\[
+\frac ZY=\frac{r^2}{\sqrt{(1-r^2)^2+(2\zeta r)^2}}.
+
+\tag{3.2.7}
+\]</div><p>낮은 주파수에서는 질량이 지지대를 거의 따라가므로 상대변형이 작다. 반대로 충분히 높은 주파수에서 질량의 절대운동이 작아지면 지지대의 움직임 대부분이 스프링 양 끝의 상대운동으로 나타난다. 절대진동을 잘 줄이는 상태라도 절연장치에 필요한 이동량은 작지 않을 수 있다.</p>
+<h3 id="static-deflection-and-natural-frequency">Static Deflection and Natural Frequency</h3>
+<p>수직 방향의 선형 스프링이 질량을 지지하면 자중에 의한 정적 처짐은 <span class="math inline">\(\delta_s=mg/k\)</span>이다. 이를 고유주파수 식에 대입하면</p>
+<div class="equation" id="eq-added-3-2-8">\[
+\omega_n=\sqrt{\frac g{\delta_s}}.
+
+\tag{3.2.8}
+\]</div><p>낮은 고유주파수를 만들려면 정적 처짐이 커져야 한다는 관계가 드러난다. 이 식은 자중을 같은 선형 스프링으로 지지하는 모델의 결과이며, 모든 절연 메커니즘에 동일하게 적용되는 설계식은 아니다. 실제로는 허용 이동량과 정적 지지 요구가 동적 절연 성능과 함께 고려되어야 한다.</p>
+<p>저주파에서 상대변위의 부호까지 보면 <span class="math inline">\(z\simeq-(m/k)\ddot y\)</span>이다. 지지대가 가속할 때 질량의 관성을 지탱하기 위해 스프링이 약간 변형되는 것이다. 상대변위가 작다는 사실은 힘이 전혀 전달되지 않는다는 뜻이 아니라, 높은 동적 강성에 비해 필요한 변형이 작다는 뜻이다.</p>
+<p>반대로 아주 높은 주파수에서는 <span class="math inline">\(\widehat z/\widehat y\to-1\)</span>이 된다. 질량의 절대변위가 작고 지지대만 움직이므로 상대변위는 지지대 변위와 거의 반대 위상이다. 따라서 이동량의 크기를 정할 때에는 절연장치가 입력 진폭에 가까운 상대운동을 허용하는지도 보아야 한다.</p>
+</section><section id="damping-and-frequency-range" aria-labelledby="damping-and-frequency-range-title"><h2 id="damping-and-frequency-range-title">5. Damping and Frequency Range</h2>
+<h3 id="suppressing-resonance">Suppressing Resonance</h3>
+<p>Damping은 공진 부근의 큰 진폭을 억제하지만, 동시에 지지대의 운동을 질량에 전달하는 경로이기도 한다. 식 <a href="#eq-transmissibility" class="equation-ref" title="Equation 3.2.4">(3.2.4)</a>에서 <span>\(r\gg1\)</span>이면</p>
+<div class="equation" id="eq-3-2-5">\[
+\begin{aligned}
+T_x&amp;\sim\frac{1}{r^2} &amp;&amp;(\zeta=0)\\[1em]
+T_x&amp;\sim\frac{2\zeta}{r} &amp;&amp;(\zeta&gt;0,\;2\zeta r\gg1).
+\end{aligned}
+
+\tag{3.2.9}
+\]</div><p>따라서 고주파 영역에서는 Damping을 늘릴 때 전달률이 커질 수 있다. Isolation 설계에서는 <strong>공진 통과 시의 진폭과 작동 주파수에서의 전달률을 함께 고려</strong>해야 한다.</p>
+<p>고정 지지대 위의 질량에 <span>\(F_0\cos\Omega t\)</span>를 직접 가하는 다른 문제에서도 같은 형태의 비가 나타난다. 지지대로 전달되는 Force는 <span>\(F_T=kx+c\dot{x}\)</span>이며, 두 성분은 Harmonic motion에서 90도 위상차를 가진다. 따라서</p>
+<div class="equation" id="eq-3-2-6">\[
+\frac{F_{T,0}}{F_0}
+=\frac{\sqrt{1+(2\zeta r)^2}}
+{\sqrt{(1-r^2)^2+(2\zeta r)^2}}.
+
+\tag{3.2.10}
+\]</div><p>수학적 형태는 같지만, 이 경우에는 <strong>입력 Force에 대한 전달 Force의 비</strong>이다. 전달률을 사용할 때에는 입력과 출력이 각각 무엇인지 함께 지정해야 한다.</p>
+<p>공진 부근에서는 지지대의 작은 움직임이 큰 질량 운동과 상대변형을 만들 수 있다. 감쇠를 늘리면 이 구간의 진폭이 줄어들지만, 높은 주파수에서는 감쇠기가 입력을 전달하는 통로이기도 하다. 하나의 파라미터가 주파수 영역에 따라 다른 영향을 주므로 감쇠는 많을수록 모든 출력이 좋아지는 양이 아니다.</p>
+<h3 id="high-frequency-transmission">High-Frequency Transmission</h3>
+<p>고주파에서 감쇠가 없는 모델은 <span class="math inline">\(T_x\simeq1/r^2\)</span>로 감소한다. <span class="math inline">\(\zeta&gt;0\)</span>가 일정하고 <span class="math inline">\(r\)</span>이 충분히 크면 분자의 감쇠항이 지배하여 <span class="math inline">\(T_x\simeq2\zeta/r\)</span>가 된다. 두 경우 모두 전달률은 줄어들지만 감소하는 빠르기가 다르다. 지지대와 질량 사이의 상대속도가 커질 때 감쇠기를 통해 힘이 전달되기 때문이다.</p>
+<p>운전 주파수가 항상 공진보다 높더라도 시동과 정지 중에는 공진 영역을 통과할 수 있다. 정상운전의 전달률과 주파수가 변하는 동안의 최대응답을 함께 살펴야 한다. 주파수를 통과하는 속도와 감쇠에 따라 정상 조화응답만으로 예상한 값과 실제 과도응답이 다를 수 있다.</p>
+</section><section id="force-transmission-and-interpretation" aria-labelledby="force-transmission-and-interpretation-title"><h2 id="force-transmission-and-interpretation-title">6. Force Transmission and Interpretation</h2>
+<h3 id="a-different-input-and-output">A Different Input and Output</h3>
+<p>기계에 직접 조화력이 가해지고 지지대가 고정된 경우에는 질량의 운동이 지지부에 힘을 전달한다. 스프링과 감쇠기를 통해 전달되는 힘의 복소 진폭은 <span class="math inline">\(\widehat F_T=(k+i c\Omega)\widehat x\)</span>이다. 질량의 운동을 먼저 구하여 나누면</p>
+<div class="equation" id="eq-added-3-2-11">\[
+\frac{F_T}{F_0}
+=\frac{\sqrt{k^2+(c\Omega)^2}}{\sqrt{(k-m\Omega^2)^2+(c\Omega)^2}}.
+
+\tag{3.2.11}
+\]</div><p>이 단순한 모델에서는 지지대 변위에 대한 절대변위 전달률과 같은 형태가 나온다. 그러나 입력은 기계에 가한 힘이고 출력은 지지부로 전달된 힘이다. 같은 수학적 식이 나와도 무엇을 가진하고 무엇을 보호하는 문제인지가 다르다.</p>
+<h3 id="reading-an-isolation-requirement">Reading an Isolation Requirement</h3>
+<p>예를 들어 <span class="math inline">\(r=3\)</span>, <span class="math inline">\(\zeta=0.1\)</span>이면 <span class="math inline">\(T_x=\sqrt{1.36/64.36}\simeq0.145\)</span>이다. 지지대 변위 진폭이 <span class="math inline">\(1\,\mathrm{mm}\)</span>일 때 질량의 정상 절대변위 진폭은 약 <span class="math inline">\(0.145\,\mathrm{mm}\)</span>이다. 같은 조건의 상대변위비는 <span class="math inline">\(Z/Y=9/\sqrt{64.36}\simeq1.12\)</span>이므로, 스프링이 실제로 움직여야 하는 양은 절대변위보다 훨씬 크다.</p>
+<p>이 차이는 진동 절연을 평가할 때 전달률 하나만으로 장치의 모든 요구를 판단할 수 없음을 보여 준다. 절대변위나 가속도 감소, 상대 이동량, 정적 처짐, 지지부 전달력은 서로 다른 출력이다. 각 출력의 정의와 가진 조건을 유지한 상태에서 결과를 비교해야 한다.</p>
+</section><footer><a href="../index.html">← Structural Dynamics &amp; Aeroelasticity로 돌아가기</a></footer></main><aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#motion-of-the-support" class="sidebar-link"><span class="item-number">1.</span><span>Motion of the Support</span></a><a href="#relative-coordinate-equation" class="sidebar-link"><span class="item-number">2.</span><span>Relative-Coordinate Equation</span></a><a href="#displacement-transmissibility" class="sidebar-link"><span class="item-number">3.</span><span>Displacement Transmissibility</span></a><a href="#relative-motion-and-required-travel" class="sidebar-link"><span class="item-number">4.</span><span>Relative Motion and Required Travel</span></a><a href="#damping-and-frequency-range" class="sidebar-link"><span class="item-number">5.</span><span>Damping and Frequency Range</span></a><a href="#force-transmission-and-interpretation" class="sidebar-link"><span class="item-number">6.</span><span>Force Transmission and Interpretation</span></a></nav></aside></div><script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script></body></html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="진동을 계산하려면 먼저 구조물의 상태를 어떤 좌표로 나타낼지 정해야 한다. 필요한 독립 좌표를 선택하고 평형 위치를 기준으로 힘을 정리하면, 시간에 따른 변위를 구하는 운동방정식으로 이어진다."><title>1.2 Degrees of Freedom and Equations of Motion | Isp99</title>
+<script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style></head><body class="article-page"><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><nav class="sidebar-inner"><a href="../index.html" class="sidebar-title">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a href="../vibration-mass-stiffness-damping/index.html" class="sidebar-link"><span class="item-number">1.1</span> Vibration, Mass, Stiffness, and Damping</a><a href="../degrees-of-freedom-equations-of-motion/index.html" class="sidebar-link active" aria-current="page"><span class="item-number">1.2</span> Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a href="../undamped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.1</span> Undamped Free Vibration</a><a href="../damped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.2</span> Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a href="../harmonic-response-resonance/index.html" class="sidebar-link"><span class="item-number">3.1</span> Harmonic Response and Resonance</a><a href="../base-excitation-vibration-isolation/index.html" class="sidebar-link"><span class="item-number">3.2</span> Base Excitation and Vibration Isolation</a><a href="../transient-response/index.html" class="sidebar-link"><span class="item-number">3.3</span> Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a href="../coupled-equations-matrix-form/index.html" class="sidebar-link"><span class="item-number">4.1</span> Coupled Equations and Matrix Form</a><a href="../natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">4.2</span> Natural Frequencies and Mode Shapes</a><a href="../modal-analysis/index.html" class="sidebar-link"><span class="item-number">4.3</span> Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a href="../continuous-systems-rod-vibration/index.html" class="sidebar-link"><span class="item-number">5.1</span> Continuous Systems and Rod Vibration</a><a href="../euler-bernoulli-beam-theory/index.html" class="sidebar-link"><span class="item-number">5.2</span> Euler–Bernoulli Beam Theory</a><a href="../beam-natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">5.3</span> Beam Natural Frequencies and Mode Shapes</a><a href="../modal-response-of-beams/index.html" class="sidebar-link"><span class="item-number">5.4</span> Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a href="../energy-methods-equivalent-models/index.html" class="sidebar-link"><span class="item-number">6.1</span> Energy Methods and Equivalent Models</a><a href="../finite-element-method/index.html" class="sidebar-link"><span class="item-number">6.2</span> Finite Element Method</a><a href="../response-analysis-verification/index.html" class="sidebar-link"><span class="item-number">6.3</span> Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a href="../aeroelastic-coupling-static-stability/index.html" class="sidebar-link"><span class="item-number">7.1</span> Aeroelastic Coupling and Static Stability</a><a href="../typical-section-unsteady-aerodynamics/index.html" class="sidebar-link"><span class="item-number">7.2</span> Flutter and the Typical Section Model</a><a href="../flutter-analysis/index.html" class="sidebar-link"><span class="item-number">7.3</span> Flutter Analysis</a></div></nav></aside><main class="main-content" id="top"><nav aria-label="Current article"><a href="#top">1.2 Degrees of Freedom and Equations of Motion</a></nav><header><h1>1.2 Degrees of Freedom and Equations of Motion</h1><p class="subtitle">Independent Coordinates, Static Equilibrium, and Dynamic Force Balance</p><p class="intro">진동을 계산하려면 먼저 구조물의 상태를 어떤 좌표로 나타낼지 정해야 한다. 필요한 독립 좌표를 선택하고 평형 위치를 기준으로 힘을 정리하면, 시간에 따른 변위를 구하는 운동방정식으로 이어진다.</p></header><aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#coordinates-and-constraints">Coordinates and Constraints</a></li><li><a href="#reference-position-and-static-equilibrium">Reference Position and Static Equilibrium</a></li><li><a href="#force-balance-and-sign-convention">Force Balance and Sign Convention</a></li><li><a href="#linearization-and-superposition">Linearization and Superposition</a></li><li><a href="#initial-conditions-and-a-unique-motion">Initial Conditions and a Unique Motion</a></li><li><a href="#model-definition-and-checks">Model Definition and Checks</a></li></ol></aside><section id="coordinates-and-constraints" aria-labelledby="coordinates-and-constraints-title"><h2 id="coordinates-and-constraints-title">1. Coordinates and Constraints</h2>
+<h3 id="independent-motion-of-a-system">Independent Motion of a System</h3>
+<p>구조물의 운동을 계산하려면, 그 형상을 나타내기에 충분하면서 구속조건 때문에 중복되지 않는 좌표를 먼저 정해야 한다. 구조물의 현재 형상을 지정하는 데 필요한 <strong>독립적인 좌표의 수</strong>를 Degree of freedom, 즉 DOF라고 한다. 한 방향으로만 움직이는 강체 질량은 <span>\(x(t)\)</span> 하나로 표현할 수 있으므로 1 DOF이다. 질량이 두 개 있어도 강체 연결이나 구속조건으로 두 변위가 항상 같다면 독립 DOF는 하나이다.</p>
+<p>좌표는 반드시 직선변위일 필요는 없다. 회전만 가능한 강체는 Angle <span>\(\theta(t)\)</span>로 표현할 수 있다. Generalized coordinate는 이처럼 구속조건을 만족하면서 운동을 지정하는 좌표의 일반적인 이름이며, 서로 독립적인 좌표를 <span>\(q_1,\ldots,q_N\)</span>으로 나타낸다.</p>
+<p>Beam의 모든 위치가 같은 양만큼 움직이지는 않으므로, 변위가 <span>\(w(x,t)\)</span>처럼 공간좌표 <span>\(x\)</span>와 시간 <span>\(t\)</span>에 모두 의존한다. <span>\(x(t)\)</span>의 <span>\(x\)</span>는 움직이는 질량의 변위이고, <span>\(w(x,t)\)</span>의 <span>\(x\)</span>는 Beam 위의 위치이다. 이후 Continuous system에서는 이 구분을 사용한다.</p>
+<p>좌표를 여러 개 적었다고 해서 그 수가 곧 자유도인 것은 아니다. 길이가 일정한 연결봉처럼 좌표 사이에 기하학적 관계가 있으면 한 좌표가 정해졌을 때 다른 좌표가 따라 정해질 수 있다. 운동을 계산하기 전에 이러한 구속조건을 적용해야, 같은 움직임을 여러 번 독립적인 것으로 세는 일을 피할 수 있다. 반대로 서로 다른 부분이 독립적으로 움직일 수 있는데 좌표를 하나로 묶으면 필요한 운동을 생략하게 된다.</p>
+<h3 id="generalized-coordinates">Generalized Coordinates</h3>
+<p>운동을 나타내는 독립 좌표를 <strong>Generalized coordinate</strong>라고 한다. 좌표는 직선 변위일 수도 있고 회전각이나 특정 변형형상의 진폭일 수도 있다. 중요한 것은 각 좌표의 값이 정해졌을 때 모델의 형상을 정할 수 있어야 한다는 점이다. 좌표의 단위와 위치를 명확히 정하면, 그 좌표와 짝을 이루는 힘이나 Moment도 정할 수 있다.</p>
+<p>예를 들어 길이가 고정된 단진자의 끝점에는 수평·수직 위치 두 값이 필요해 보이지만 두 값은 원의 방정식으로 연결된다. 회전각 하나를 사용하면 이 구속을 자동으로 만족시킨다. 다만 좌표가 회전각으로 바뀌면 관성항은 질량만이 아니라 회전반경까지 포함한다. 좌표를 줄이는 일은 물리적인 관성효과를 없애는 일이 아니다.</p>
+</section><section id="reference-position-and-static-equilibrium" aria-labelledby="reference-position-and-static-equilibrium-title"><h2 id="reference-position-and-static-equilibrium-title">2. Reference Position and Static Equilibrium</h2>
+<h3 id="measuring-motion-from-equilibrium">Measuring Motion from Equilibrium</h3>
+<p>수직 Spring에서 자연길이로부터 아래 방향으로 측정한 늘어남을 <span>\(z(t)\)</span>라 하면, 중력 <span>\(mg\)</span>가 항상 작용한다. 정적 평형 늘어남을 <span>\(z_0\)</span>라 두면</p>
+<div class="equation" id="eq-1-2-1">\[
+\begin{aligned}
+m\ddot{z}+c\dot{z}+kz&amp;=mg+F(t), &amp; kz_0&amp;=mg\\[1em]
+z(t)&amp;=z_0+x(t).
+\end{aligned}
+
+\tag{1.2.1}
+\]</div><p><span>\(z_0\)</span>는 시간에 따라 변하지 않으므로 이를 대입하면</p>
+<div class="equation" id="eq-1-2-2">\[
+\begin{aligned}
+m\ddot{x}+c\dot{x}+k(z_0+x)&amp;=mg+F(t)\\[1em]
+m\ddot{x}+c\dot{x}+kx&amp;=F(t).
+\end{aligned}
+
+\tag{1.2.2}
+\]</div><p>중력이 사라진 것은 무시했기 때문이 아니라, <strong>정적 평형에 포함한 뒤 그 위치를 기준으로 추가 운동을 표현했기 때문</strong>이다. 단, Preload가 구조물의 유효강성을 바꾸는 문제에서는 평형 주위의 강성 자체가 달라질 수 있다.</p>
+<p>평형점을 기준으로 좌표를 잡는 목적은 이미 균형을 이루는 힘과, 평형에서 벗어났을 때 추가로 생기는 힘을 분리하는 데 있다. 스프링의 자연길이에서 측정한 좌표에는 자중에 의한 처짐이 포함되지만, 평형 위치에서 측정한 진동 좌표에는 그 일정한 처짐이 포함되지 않는다. 두 좌표는 같은 실제 위치를 다른 기준에서 표현한다.</p>
+<h3 id="removing-the-constant-load">Removing the Constant Load</h3>
+<p>아래쪽을 양의 방향으로 두고 자연길이 기준 변위를 <span class="math inline">\(y\)</span>라 하면, 중력과 스프링 힘을 포함한 식은 <span class="math inline">\(m\ddot y+c\dot y+ky=mg+f(t)\)</span>이다. 정적 처짐 <span class="math inline">\(y_e=mg/k\)</span>와 진동 변위 <span class="math inline">\(x=y-y_e\)</span>를 대입하면 상수인 <span class="math inline">\(y_e\)</span>의 시간미분은 0이므로</p>
+<div class="equation" id="eq-added-1-2-3">\[
+m\ddot x+c\dot x+kx+ky_e=mg+f(t),\qquad ky_e=mg.
+
+\tag{1.2.3}
+\]</div><p>두 상수항이 상쇄되면서 <span class="math inline">\(m\ddot x+c\dot x+kx=f(t)\)</span>가 남는다. 중력이 존재하지 않게 된 것이 아니라, 중력과 평형을 이루는 정적 변형을 기준 위치에 포함한 것이다. 전체 변위를 다시 구할 때에는 <span class="math inline">\(y=y_e+x\)</span>로 정적 처짐을 더한다.</p>
+<p>이 상쇄는 일정한 중력과 선형 스프링의 작은 병진 운동을 전제로 한다. 중력이 회전각에 따라 달라지는 Moment를 만드는 진자나, 초기하중이 구조의 유효 강성을 바꾸는 문제에서는 중력이 진동 특성에 남을 수 있다. 따라서 평형 좌표를 사용하면 언제나 중력의 모든 영향이 사라진다고 일반화하지 않는다.</p>
+</section><section id="force-balance-and-sign-convention" aria-labelledby="force-balance-and-sign-convention-title"><h2 id="force-balance-and-sign-convention-title">3. Force Balance and Sign Convention</h2>
+<h3 id="forces-on-the-moving-mass">Forces on the Moving Mass</h3>
+<p>고정 지지점과 질량 사이에 Spring과 Damper가 병렬로 연결되어 있다고 가정한다. 두 요소는 같은 변위를 경험하며, <span>\(x\)</span>와 외력 <span>\(F\)</span>의 양의 방향을 오른쪽으로 정한다.</p>
+<p>Newton’s second law에 Spring force와 Damping force를 대입하면</p>
+<div class="equation" id="eq-1-2-3">\[
+\begin{aligned}
+m\ddot{x}&amp;=F(t)-c\dot{x}-kx\\[1em]
+m\ddot{x}+c\dot{x}+kx&amp;=F(t).
+\end{aligned}
+
+\tag{1.2.4}
+\]</div><div class="equation main" id="eq-sdof">\[
+\boxed{\displaystyle m\ddot{x}+c\dot{x}+kx=F(t)
+}
+
+\tag{1.2.5}
+\]</div><p>각 항은 모두 Force 단위를 가진다. 시간에 대한 2차 미분방정식이므로, 특정 운동을 정하려면 <span>\(x(0)=x_0\)</span>와 <span>\(\dot{x}(0)=v_0\)</span>의 두 Initial condition이 필요하다. 외력이 0이면 Free vibration, 외력이 주어지면 Forced vibration으로 구분한다.</p>
+<p>운동방정식의 부호는 먼저 양의 변위 방향을 정한 뒤 각 힘의 실제 방향에서 결정한다. 질량이 양의 방향으로 이동하여 스프링을 늘리면 복원력은 반대 방향이고, 양의 속도로 움직이면 고정단에 연결된 점성 감쇠기의 힘 역시 반대 방향이다. Newton의 법칙을 외력 합이 질량과 가속도의 곱이라는 형태로 쓰면 <span class="math inline">\(-kx-c\dot x+F=m\ddot x\)</span>가 된다.</p>
+<h3 id="inertia-as-a-response-to-net-force">Inertia as a Response to Net Force</h3>
+<p>관성항 <span class="math inline">\(m\ddot x\)</span>를 왼쪽에 놓은 식은 계산에 편리하지만, 이 항을 항상 별도의 실제 외력으로 해석할 필요는 없다. 원래 관계는 물체에 작용하는 실제 힘의 합이 가속도를 정한다는 것이다. 관성력을 도입하여 동적 평형처럼 쓰는 방식도 가능하나, 그 경우에는 정의한 관성력의 부호를 일관되게 유지해야 한다.</p>
+<p>각 항의 단위를 확인하면 부호 외의 모델 오류도 찾을 수 있다. 병진 운동식의 모든 항은 <span class="math inline">\(\mathrm N\)</span>이어야 하고, 회전 운동식의 모든 항은 <span class="math inline">\(\mathrm{N\,m}\)</span>이어야 한다. 변위와 회전각이 함께 있는 시스템에서는 서로 다른 행이 서로 다른 단위를 가질 수 있다. 하나의 행 안에서 힘 또는 Moment가 일치하는지가 기준이다.</p>
+</section><section id="linearization-and-superposition" aria-labelledby="linearization-and-superposition-title"><h2 id="linearization-and-superposition-title">4. Linearization and Superposition</h2>
+<h3 id="small-motion-near-a-working-state">Small Motion near a Working State</h3>
+<p>실제 복원력 <span>\(R(z)\)</span>가 비선형이어도 평형 <span>\(z_0\)</span> 부근의 작은 운동에서는 Taylor expansion으로 근사할 수 있다. 복원력의 크기를 운동방정식의 좌변에 두면</p>
+<div class="equation" id="eq-1-2-5">\[
+\begin{aligned}
+R(z_0+x)&amp;=R(z_0)+R'(z_0)x+O(x^2)\\[1em]
+k_{\mathrm{tan}}&amp;=R'(z_0).
+\end{aligned}
+
+\tag{1.2.6}
+\]</div><p>평형항을 제거하고 <span>\(O(x^2)\)</span> 이상의 항을 무시하면 식 <a href="#eq-sdof" class="equation-ref" title="Equation 1.2.4">(1.2.5)</a>의 <span>\(k\)</span>를 Tangent stiffness <span>\(k_{\mathrm{tan}}\)</span>으로 해석할 수 있다. 안정한 1 DOF 평형의 기본 경우는 <span>\(m&gt;0\)</span>, <span>\(k&gt;0\)</span>, <span>\(c\geq0\)</span>이다.</p>
+<p>선형식에서는 두 해의 합이 두 입력의 합에 대한 해가 된다. 이를 <strong>Superposition</strong>이라고 하며, 이후 외력을 작은 Impulse로 나누거나 구조물 변형을 Mode의 합으로 나눌 수 있는 근거가 된다. 큰 변형, 접촉, 소성변형 등에서는 이 성질을 그대로 사용할 수 없다.</p>
+<p>비선형 복원력을 가진 시스템에서도 관심 평형점 근처에서 충분히 작은 운동만 살피면 미분계수로 힘의 변화를 근사할 수 있다. 기준 위치를 바꾸면 그 위치에서의 기울기와 유효 강성이 달라질 수 있으므로, 선형 모델은 사용한 평형 상태에 연결되어 있다. 큰 회전, 접촉의 발생과 해제, 느슨한 연결부 등에서는 작은 변위라는 가정 자체를 다시 확인해야 한다.</p>
+<h3 id="meaning-of-a-linear-combination">Meaning of a Linear Combination</h3>
+<p>선형 시스템에서는 같은 방정식이 서로 다른 입력에 대해 갖는 해를 더할 수 있다. 이때 하중뿐 아니라 초기조건도 함께 더해진다는 점이 중요하다. 초기변위가 이미 있는 응답과 초기변위가 0인 응답을 혼합하면서 하중만 바꾸면 원래 구하려던 문제와 다른 해가 된다. 해의 중첩은 입력과 초기상태를 일관되게 구성하는 규칙이다.</p>
+<p>예를 들어 <span class="math inline">\(x_1\)</span>과 <span class="math inline">\(x_2\)</span>가 각각 <span class="math inline">\(F_1\)</span>, <span class="math inline">\(F_2\)</span>에 대한 영 초기조건 응답이면 <span class="math inline">\(a x_1+b x_2\)</span>는 <span class="math inline">\(aF_1+bF_2\)</span>에 대한 영 초기조건 응답이다. 반면 강성이 <span class="math inline">\(x\)</span>에 따라 바뀌는 항 <span class="math inline">\(k_3x^3\)</span>을 포함하면 일반적으로 <span class="math inline">\((x_1+x_2)^3\neq x_1^3+x_2^3\)</span>이므로 이 관계가 성립하지 않는다. 중첩은 단순한 덧셈 편의가 아니라 방정식의 선형성에 의한 성질이다.</p>
+<p>선형성은 하중에 대한 응답의 비례와 합성을 뜻하지만, 응답이 언제나 외력과 같은 방향이거나 같은 위상이라는 뜻은 아니다. 관성이 중요한 반복 운동에서는 외력이 양의 방향으로 작용하는 동안에도 변위가 음의 방향에 있을 수 있다. 선형 운동방정식은 이러한 시간차를 포함한다.</p>
+<p>또한 일정한 중력항을 평형점 이동으로 제거하는 것과 비선형 항을 무시하는 것은 서로 다른 과정이다. 선형 Spring에서는 좌표를 평형점으로 옮겨도 강성이 그대로이다. 비선형 복원력에서는 같은 좌표 이동 뒤에도 접선강성이 평형 위치에 따라 달라질 수 있다. 정적 하중이 동적 특성에 영향을 주는지를 판단할 때에는 이 차이를 확인한다.</p>
+</section><section id="initial-conditions-and-a-unique-motion" aria-labelledby="initial-conditions-and-a-unique-motion-title"><h2 id="initial-conditions-and-a-unique-motion-title">5. Initial Conditions and a Unique Motion</h2>
+<h3 id="two-conditions-for-a-second-order-equation">Two Conditions for a Second-Order Equation</h3>
+<p>운동방정식은 현재의 변위와 속도가 주어졌을 때 가속도가 얼마인지 알려 준다. 따라서 한 시점의 위치만으로 이후 운동은 정해지지 않는다. 같은 위치에 있는 질량도 멈춰 있거나, 평형으로 돌아오거나, 평형에서 더 멀어지는 중일 수 있기 때문이다. 2계 미분방정식에는 보통 초기변위와 초기속도 두 조건을 지정한다.</p>
+<div class="equation" id="eq-added-1-2-7">\[
+x(0)=x_0,\qquad \dot x(0)=v_0,\qquad
+\ddot x(0)=\frac{F(0)-cv_0-kx_0}{m}.
+
+\tag{1.2.7}
+\]</div><p>초기 가속도는 별도로 임의 선택하는 세 번째 조건이 아니라 운동방정식에서 결정된다. 초기상태와 입력이 주어진 뒤 가속도를 구하고, 그 가속도가 속도와 위치를 바꾸는 관계를 시간에 따라 따라가는 것이 응답 계산이다. 이후의 자유진동과 강제진동에서도 이 구조는 동일하게 유지된다.</p>
+<h3 id="state-variables">State Variables</h3>
+<p>변위와 속도를 하나의 상태벡터 <span class="math inline">\(\mathbf z=[x,\dot x]^T\)</span>로 묶으면 2계 방정식을 두 개의 1계 방정식으로 표현할 수 있다.</p>
+<div class="equation" id="eq-added-1-2-8">\[
+\frac{d}{dt}\begin{bmatrix}x\\v\end{bmatrix}
+=\begin{bmatrix}0&amp;1\\-k/m&amp;-c/m\end{bmatrix}
+\begin{bmatrix}x\\v\end{bmatrix}
++\begin{bmatrix}0\\1/m\end{bmatrix}F(t).
+
+\tag{1.2.8}
+\]</div><p>첫 번째 행은 속도의 정의이고, 두 번째 행은 힘 평형이다. 새로운 물리 가정을 추가한 것이 아니라 같은 관계를 다른 형태로 정리한 것이다. 이 형태는 여러 좌표의 운동을 함께 적분하거나 복소 고유치로 안정성을 해석할 때 사용된다.</p>
+</section><section id="model-definition-and-checks" aria-labelledby="model-definition-and-checks-title"><h2 id="model-definition-and-checks-title">6. Model Definition and Checks</h2>
+<h3 id="prescribed-motion-and-applied-force">Prescribed Motion and Applied Force</h3>
+<p>어떤 경계의 변위를 외부에서 강제로 정했다면 그 변위는 미지 응답이 아니라 입력이다. 반대로 경계에 힘을 가했다면 변위는 방정식에서 구해야 할 수 있다. 같은 위치에 변위와 힘을 서로 독립적인 조건으로 동시에 지정하면 실제보다 많은 조건을 부과할 수 있다. 모델을 세울 때에는 알려진 운동, 알려진 힘, 구하려는 좌표를 구분한다.</p>
+<h3 id="equilibrium-and-limiting-cases">Equilibrium and Limiting Cases</h3>
+<p>유도한 식은 간단한 상황으로 돌아가 확인할 수 있다. 속도와 가속도를 0으로 놓았을 때 정적 평형식이 되는지, 외력이 없는 평형 위치에서 불필요한 가속도가 생기지 않는지, 감쇠력을 넣었을 때 에너지가 소산되는지를 확인한다. 이는 복잡한 해를 계산하기 전에 좌표와 힘의 정의가 맞는지 살피는 방법이다.</p>
+<p>이러한 점검을 거친 운동방정식은 하중 형태에 따라 여러 문제로 나뉜다. 외력을 제거하고 초기조건만 주면 자유진동, 주기적인 힘을 주면 조화응답, 임의의 하중 이력을 주면 과도응답을 구한다. 모델의 기본 구성은 유지되며, 각각의 해석은 같은 방정식에서 어떤 정보를 입력하고 어떤 응답을 읽는지의 차이로 이해할 수 있다.</p>
+</section><footer><a href="../index.html">← Structural Dynamics &amp; Aeroelasticity로 돌아가기</a></footer></main><aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#coordinates-and-constraints" class="sidebar-link"><span class="item-number">1.</span><span>Coordinates and Constraints</span></a><a href="#reference-position-and-static-equilibrium" class="sidebar-link"><span class="item-number">2.</span><span>Reference Position and Static Equilibrium</span></a><a href="#force-balance-and-sign-convention" class="sidebar-link"><span class="item-number">3.</span><span>Force Balance and Sign Convention</span></a><a href="#linearization-and-superposition" class="sidebar-link"><span class="item-number">4.</span><span>Linearization and Superposition</span></a><a href="#initial-conditions-and-a-unique-motion" class="sidebar-link"><span class="item-number">5.</span><span>Initial Conditions and a Unique Motion</span></a><a href="#model-definition-and-checks" class="sidebar-link"><span class="item-number">6.</span><span>Model Definition and Checks</span></a></nav></aside></div><script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script></body></html>

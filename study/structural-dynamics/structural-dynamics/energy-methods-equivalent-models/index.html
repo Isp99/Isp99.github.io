@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="복잡한 구조물의 정확한 Mode shape를 해석적으로 구하기 어려워도 주요 변형형상을 예상할 수는 있다. 그 형상이 갖는 운동에너지와 탄성에너지를 1자유도 모델에 맞추면, 일관된 등가질량·등가강성과 고유주파수 근사를 얻을 수 있다."><title>6.1 Energy Methods and Equivalent Models | Isp99</title>
+<script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style></head><body class="article-page"><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><nav class="sidebar-inner"><a href="../index.html" class="sidebar-title">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a href="../vibration-mass-stiffness-damping/index.html" class="sidebar-link"><span class="item-number">1.1</span> Vibration, Mass, Stiffness, and Damping</a><a href="../degrees-of-freedom-equations-of-motion/index.html" class="sidebar-link"><span class="item-number">1.2</span> Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a href="../undamped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.1</span> Undamped Free Vibration</a><a href="../damped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.2</span> Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a href="../harmonic-response-resonance/index.html" class="sidebar-link"><span class="item-number">3.1</span> Harmonic Response and Resonance</a><a href="../base-excitation-vibration-isolation/index.html" class="sidebar-link"><span class="item-number">3.2</span> Base Excitation and Vibration Isolation</a><a href="../transient-response/index.html" class="sidebar-link"><span class="item-number">3.3</span> Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a href="../coupled-equations-matrix-form/index.html" class="sidebar-link"><span class="item-number">4.1</span> Coupled Equations and Matrix Form</a><a href="../natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">4.2</span> Natural Frequencies and Mode Shapes</a><a href="../modal-analysis/index.html" class="sidebar-link"><span class="item-number">4.3</span> Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a href="../continuous-systems-rod-vibration/index.html" class="sidebar-link"><span class="item-number">5.1</span> Continuous Systems and Rod Vibration</a><a href="../euler-bernoulli-beam-theory/index.html" class="sidebar-link"><span class="item-number">5.2</span> Euler–Bernoulli Beam Theory</a><a href="../beam-natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">5.3</span> Beam Natural Frequencies and Mode Shapes</a><a href="../modal-response-of-beams/index.html" class="sidebar-link"><span class="item-number">5.4</span> Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a href="../energy-methods-equivalent-models/index.html" class="sidebar-link active" aria-current="page"><span class="item-number">6.1</span> Energy Methods and Equivalent Models</a><a href="../finite-element-method/index.html" class="sidebar-link"><span class="item-number">6.2</span> Finite Element Method</a><a href="../response-analysis-verification/index.html" class="sidebar-link"><span class="item-number">6.3</span> Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a href="../aeroelastic-coupling-static-stability/index.html" class="sidebar-link"><span class="item-number">7.1</span> Aeroelastic Coupling and Static Stability</a><a href="../typical-section-unsteady-aerodynamics/index.html" class="sidebar-link"><span class="item-number">7.2</span> Flutter and the Typical Section Model</a><a href="../flutter-analysis/index.html" class="sidebar-link"><span class="item-number">7.3</span> Flutter Analysis</a></div></nav></aside><main class="main-content" id="top"><nav aria-label="Current article"><a href="#top">6.1 Energy Methods and Equivalent Models</a></nav><header><h1>6.1 Energy Methods and Equivalent Models</h1><p class="subtitle">Rayleigh Quotient, Assumed Shapes, and Equivalent Parameters</p><p class="intro">복잡한 구조물의 정확한 Mode shape를 해석적으로 구하기 어려워도 주요 변형형상을 예상할 수는 있다. 그 형상이 갖는 운동에너지와 탄성에너지를 1자유도 모델에 맞추면, 일관된 등가질량·등가강성과 고유주파수 근사를 얻을 수 있다.</p></header><aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#from-a-deformation-field-to-an-approximate-coordinate">From a Deformation Field to an Approximate Coordinate</a></li><li><a href="#the-meaning-of-equivalent-mass-and-stiffness">The Meaning of Equivalent Mass and Stiffness</a></li><li><a href="#admissible-shapes-and-the-rayleigh-bound">Admissible Shapes and the Rayleigh Bound</a></li><li><a href="#a-cantilever-with-a-static-deflection-shape">A Cantilever with a Static Deflection Shape</a></li><li><a href="#attached-mass-and-approximation-error">Attached Mass and Approximation Error</a></li><li><a href="#from-one-shape-to-several-shapes">From One Shape to Several Shapes</a></li></ol></aside><section id="from-a-deformation-field-to-an-approximate-coordinate" aria-labelledby="from-a-deformation-field-to-an-approximate-coordinate-title"><h2 id="from-a-deformation-field-to-an-approximate-coordinate-title">1. From a Deformation Field to an Approximate Coordinate</h2>
+<h3 id="representing-the-dominant-motion">Representing the Dominant Motion</h3>
+<p>단면이 변하거나 부착물이 있는 구조물은 정확한 Mode shape를 해석적으로 구하기 어렵다. 그러나 움직일 형상을 대략 예상할 수 있다면 그 형상을 이용해 질량과 강성의 효과를 근사할 수 있다. <span>\(w(x,t)\approx\psi(x)q(t)\)</span>로 두며, <span>\(\psi(x)\)</span>는 Assumed shape이다.</p>
+<p>이 식을 Beam의 Energy 표현에 대입하면</p>
+<div class="equation" id="eq-6-1-1">\[
+\begin{aligned}
+T&amp;=\frac12\left(\int_0^L\rho A\psi^2\,\mathrm{d}x\right)\dot q^2
+=\frac12m_{\mathrm{eq}}\dot q^2\\[1em]
+U&amp;=\frac12\left(\int_0^LEI(\psi'')^2\,\mathrm{d}x\right)q^2
+=\frac12k_{\mathrm{eq}}q^2.
+\end{aligned}
+
+\tag{6.1.1}
+\]</div><p>Lagrange equation을 적용하면 <span>\(m_{\mathrm{eq}}\ddot q+k_{\mathrm{eq}}q=0\)</span>이므로</p>
+<div class="equation main" id="eq-rayleigh">\[
+\boxed{\displaystyle \omega_R^2=
+\frac{k_{\mathrm{eq}}}{m_{\mathrm{eq}}}
+=\frac{\displaystyle\int_0^LEI(\psi'')^2\,\mathrm{d}x}
+{\displaystyle\int_0^L\rho A\psi^2\,\mathrm{d}x}
+}
+
+\tag{6.1.2}
+\]</div><p>를 얻는다. 이 Energy ratio를 Rayleigh quotient라 한다. <span>\(\psi\)</span>가 정확한 Mode shape이면 해당 고유주파수를 정확히 얻으며, 그렇지 않으면 선택한 변형공간 안에서의 근사값을 얻는다.</p>
+<p>이 근사에서는 공간에 따른 변형 비율을 <span class="math inline">\(\psi(x)\)</span>에 맡기고, 시간에 따른 크기를 <span class="math inline">\(q(t)\)</span>로 나타낸다. 실제 변위장은 위치마다 독립적으로 변할 수 있지만, 근사 모델에서는 모든 위치가 하나의 정해진 비율로 움직인다. 따라서 하나의 좌표로 줄였다는 것은 질량을 한 점에 모았다는 뜻보다 <strong>가능한 변형형상을 하나로 제한했다</strong>는 뜻에 가깝다.</p>
+<p>관심이 첫 번째 굽힘진동이고 예상 형상이 실제 첫 번째 Mode와 비슷하다면, 이 제한으로도 주된 운동을 설명할 수 있다. 반면 서로 다른 위치가 반대 방향으로 움직이는 고차 진동이나, 국부적으로 변형이 집중되는 운동에는 하나의 부드러운 형상이 충분하지 않을 수 있다. 어떤 형상을 가정했는지가 근사의 범위를 결정한다.</p>
+<h3 id="recovering-the-equation-from-energy">Recovering the Equation from Energy</h3>
+<p>공간 적분을 수행한 뒤의 <span class="math inline">\(T\)</span>와 <span class="math inline">\(U\)</span>는 단자유도계의 에너지와 같은 형태이다. 일반화 외력 <span class="math inline">\(Q(t)\)</span>까지 포함하면 Lagrange equation의 각 항은 다음과 같이 계산된다.</p>
+<div class="equation" id="eq-added-6-1-3">\[
+\frac{\mathrm d}{\mathrm dt}\frac{\partial T}{\partial\dot q}
+=m_{\mathrm{eq}}\ddot q,\qquad
+\frac{\partial T}{\partial q}=0,\qquad
+\frac{\partial U}{\partial q}=k_{\mathrm{eq}}q.
+
+\tag{6.1.3}
+\]</div><p>따라서 원래의 Beam이 연속체여도 선택한 좌표에 대한 식은 <span class="math inline">\(m_{\mathrm{eq}}\ddot q+k_{\mathrm{eq}}q=Q(t)\)</span>가 된다. 분포하중 <span class="math inline">\(p(x,t)\)</span>가 하는 가상일을 계산하면 <span class="math inline">\(Q(t)=\int_0^L p(x,t)\psi(x)\,\mathrm dx\)</span>이다. 질량·강성뿐 아니라 하중도 같은 형상으로 투영해야 하나의 일관된 근사 모델이 된다.</p>
+</section><section id="the-meaning-of-equivalent-mass-and-stiffness" aria-labelledby="the-meaning-of-equivalent-mass-and-stiffness-title"><h2 id="the-meaning-of-equivalent-mass-and-stiffness-title">2. The Meaning of Equivalent Mass and Stiffness</h2>
+<h3 id="a-coordinate-dependent-pair">A Coordinate-Dependent Pair</h3>
+<p>형상함수의 크기를 <span class="math inline">\(a\)</span>배 하여 <span class="math inline">\(\widetilde\psi=a\psi\)</span>로 쓰더라도, 좌표를 <span class="math inline">\(\widetilde q=q/a\)</span>로 정하면 실제 변위는 달라지지 않는다. 이때 두 등가계수는 다음과 같이 함께 변한다.</p>
+<div class="equation" id="eq-added-6-1-4">\[
+\widetilde m_{\mathrm{eq}}=a^2m_{\mathrm{eq}},\qquad
+\widetilde k_{\mathrm{eq}}=a^2k_{\mathrm{eq}},\qquad
+\frac{\widetilde k_{\mathrm{eq}}}{\widetilde m_{\mathrm{eq}}}
+=\frac{k_{\mathrm{eq}}}{m_{\mathrm{eq}}}.
+
+\tag{6.1.4}
+\]</div><p>따라서 Equivalent mass 자체는 구조물의 전체 질량처럼 좌표 선택과 무관한 값이 아니다. 질량을 비교할 때에는 끝단변위인지, 특정 점의 변위인지, 질량 정규화된 Modal coordinate인지를 함께 확인해야 한다. 좌표 정의가 달라도 예측되는 실제 운동과 고유주파수는 일치해야 한다.</p>
+<h3 id="velocity-and-curvature-weighting">Velocity and Curvature Weighting</h3>
+<p>질량 적분에 <span class="math inline">\(\psi^2\)</span>가 들어가는 이유는 운동에너지가 속도의 제곱에 비례하기 때문이다. 선택한 좌표가 같은 속도로 변할 때 거의 움직이지 않는 구간은 등가질량에 적게 기여한다. 물리적 질량이 존재해도 그 운동에 참여하는 정도가 작으면 해당 좌표에서 보이는 관성은 작다.</p>
+<p>강성 적분에는 변위 <span class="math inline">\(\psi\)</span> 자체가 아니라 곡률에 해당하는 <span class="math inline">\(\psi''\)</span>의 제곱이 들어간다. Beam은 단순히 많이 이동해서 에너지를 저장하는 것이 아니라 휘어져서 에너지를 저장한다. 그러므로 끝단변위가 비슷한 두 형상도 곡률 분포가 다르면 서로 다른 등가강성과 주파수를 예측한다.</p>
+</section><section id="admissible-shapes-and-the-rayleigh-bound" aria-labelledby="admissible-shapes-and-the-rayleigh-bound-title"><h2 id="admissible-shapes-and-the-rayleigh-bound-title">3. Admissible Shapes and the Rayleigh Bound</h2>
+<h3 id="essential-boundary-conditions">Essential Boundary Conditions</h3>
+<p>Assumed shape는 실제로 가능한 변형이어야 하므로 고정단의 <span>\(w=0\)</span>, <span>\(w_x=0\)</span>과 같은 <strong>Kinematic boundary condition을 만족</strong>해야 한다. 또한 Energy integral을 계산할 수 있을 정도로 매끄러워야 한다. 이와 같은 함수를 Admissible function이라고 한다. Energy 방법에서는 무하중 Free end의 Moment·Shear 조건까지 미리 만족할 필요는 없다.</p>
+<p>Admissible function을 정확한 Mode의 합 <span>\(\psi=\sum_na_n\Phi_n\)</span>으로 생각하고 Orthogonality를 적용하면</p>
+<div class="equation" id="eq-6-1-3">\[
+\omega_R^2=\frac{\sum_na_n^2m_n\omega_n^2}{\sum_na_n^2m_n}.
+
+\tag{6.1.5}
+\]</div><p>이는 <span>\(\omega_n^2\)</span>의 양의 가중평균이므로 <span>\(\omega_R^2\geq\omega_1^2\)</span>이다. 따라서 적절히 구속된 보존계에서 Rayleigh quotient는 Fundamental eigenvalue의 Upper bound를 준다. 좋은 1차 Mode 근사형상을 선택할수록 첫 고유주파수에 가까워진다.</p>
+<p>고차 Mode를 구하려면 여러 형상함수를 사용하고 저차 Mode와의 관계도 고려해야 한다. 하나의 임의 함수만 넣고 원하는 고차 고유주파수가 나온다고 해석할 수는 없다.</p>
+<p>예를 들어 외팔보의 <span class="math inline">\(\psi=x/L\)</span>은 고정단 변위는 0이지만 기울기가 0이 아니므로 적합하지 않다. 반면 <span class="math inline">\(\psi=(x/L)^2\)</span>는 고정단의 변위와 기울기를 모두 만족한다. 자유단의 Moment 조건을 정확히 만족하지 않더라도 유한한 굽힘에너지를 가지므로 Rayleigh 근사에 사용할 수 있다.</p>
+<p>이 구분은 임의의 곡선을 무조건 사용할 수 있다는 뜻이 아니다. 변위·회전처럼 미리 지정된 기하학적 조건을 어기면 실제 구조에서는 허용되지 않는 운동을 모델에 넣게 된다. 그 결과는 실제 구조물의 고유주파수에 대한 적절한 근사나 상계로 해석할 수 없다.</p>
+<h3 id="interpreting-the-weighted-average">Interpreting the Weighted Average</h3>
+<p>Mode 전개식의 분모에 있는 각 <span class="math inline">\(a_n^2m_n\)</span>은 음수가 될 수 없다. 따라서 Rayleigh quotient는 고유주파수 제곱들의 양의 가중평균이 된다. 가장 작은 값 <span class="math inline">\(\omega_1^2\)</span>보다 작아질 수 없고, 첫 번째 Mode만 포함할 때 정확히 그 값과 같아진다.</p>
+<p>이 상계 성질은 양의 질량과 안정한 탄성에너지를 갖는 보존적 선형계, 적합한 형상함수와 정확한 에너지 적분을 전제로 한다. 강체운동이 허용되면 먼저 0인 고유주파수의 존재를 구분해야 한다. 또한 감쇠나 운동에 의존하는 공기력이 포함된 일반적인 복소 고유값 문제에 이 성질을 그대로 적용할 수는 없다.</p>
+</section><section id="a-cantilever-with-a-static-deflection-shape" aria-labelledby="a-cantilever-with-a-static-deflection-shape-title"><h2 id="a-cantilever-with-a-static-deflection-shape-title">4. A Cantilever with a Static Deflection Shape</h2>
+<h3 id="choosing-the-tip-displacement">Choosing the Tip Displacement</h3>
+<p>외팔보 끝에 힘 <span>\(P\)</span>가 작용할 때의 정적 변형은 1차 Bending mode와 비슷하므로 Assumed shape로 사용할 수 있다. 위에서 정한 부호로 끝단 힘의 방향을 <span>\(+w\)</span>라 하면 Static curvature의 크기는 <span>\(w''=P(L-x)/(EI)\)</span>이다. 두 번 적분하고 <span>\(w(0)=w'(0)=0\)</span>을 적용하면</p>
+<div class="equation" id="eq-6-1-4">\[
+\begin{aligned}
+w(x)&amp;=\frac{P}{6EI}x^2(3L-x)\\[1em]
+w(L)&amp;=\frac{PL^3}{3EI}.
+\end{aligned}
+
+\tag{6.1.6}
+\]</div><p>끝단변위가 Generalized coordinate가 되도록 <span>\(\xi=x/L\)</span>와 <span>\(\psi(\xi)=\xi^2(3-\xi)/2\)</span>를 사용한다. <span>\(\psi(1)=1\)</span>이므로 <span>\(q(t)\)</span>는 끝단변위이다.</p>
+<div class="equation" id="eq-6-1-5">\[
+\begin{aligned}
+m_{\mathrm{eq}}
+&amp;=\rho AL\int_0^1\left[\frac{\xi^2(3-\xi)}2\right]^2\mathrm{d}\xi
+=\frac{33}{140}\rho AL\\[1em]
+k_{\mathrm{eq}}
+&amp;=\frac{EI}{L^3}\int_0^1[3(1-\xi)]^2\mathrm{d}\xi
+=\frac{3EI}{L^3}.
+\end{aligned}
+
+\tag{6.1.7}
+\]</div><p>따라서</p>
+<div class="equation main" id="eq-cantileverRayleigh">\[
+\boxed{\displaystyle \omega_R=\sqrt{\frac{140}{11}}\,
+\sqrt{\frac{EI}{\rho AL^4}}
+\approx3.567530\sqrt{\frac{EI}{\rho AL^4}}
+}
+
+\tag{6.1.8}
+\]</div><p>정확한 계수 <span>\(3.516015\)</span>보다 약 <span>\(1.47\%\)</span> 높다. 끝단 정적 강성은 <span>\(3EI/L^3\)</span>이지만, 이 좌표에서 Energy가 일치하는 질량은 전체질량의 <span>\(33/140\)</span>이다. <strong>모든 구간이 끝단과 같은 속도로 움직이지 않기 때문</strong>이다.</p>
+<p>정적 끝단하중 형상을 사용하는 이유는 외팔보의 첫 번째 굽힘 Mode와 마찬가지로 고정단에서 변위와 회전이 0이고, 자유단 쪽으로 변위가 커지기 때문이다. 정확한 진동형상은 아니지만 첫 번째 운동의 공간적 특징을 비교적 잘 담는다. 정적해를 알고 있으면 복잡한 고유함수 없이도 첫 주파수를 추정할 수 있다.</p>
+<p>여기서 <span class="math inline">\(P\)</span>는 형상을 얻기 위해 도입한 보조적인 정적하중이다. 변위를 끝단변위로 나누어 <span class="math inline">\(\psi\)</span>를 만들면 <span class="math inline">\(P\)</span>가 사라진다. 작은 변형의 선형 범위에서는 가한 힘의 크기보다 정적 변위의 상대적인 분포를 이용하는 것이다.</p>
+<h3 id="checking-the-integrals">Checking the Integrals</h3>
+<p>등가질량의 계수는 다항식을 제곱하여 직접 확인할 수 있다. 이때 적분 변수는 무차원 좌표 <span class="math inline">\(\xi\)</span>이며, <span class="math inline">\(\mathrm dx=L\,\mathrm d\xi\)</span>에서 전체 길이 <span class="math inline">\(L\)</span>이 나온다.</p>
+<div class="equation" id="eq-added-6-1-9">\[
+\int_0^1\left[\frac{\xi^2(3-\xi)}2\right]^2\mathrm d\xi
+=\frac14\left(\frac95-1+\frac17\right)=\frac{33}{140}.
+
+\tag{6.1.9}
+\]</div><p>강성에서는 <span class="math inline">\(x\)</span>에 대한 미분을 두 번 하므로 <span class="math inline">\(\psi_{xx}=3(1-\xi)/L^2\)</span>이다. 이를 제곱하고 길이 방향으로 적분하면 <span class="math inline">\(L^{-3}\)</span>이 남는다. 따라서 <span class="math inline">\(k_{\mathrm{eq}}\)</span>의 단위는 <span class="math inline">\(\mathrm{N/m}\)</span>, <span class="math inline">\(m_{\mathrm{eq}}\)</span>의 단위는 <span class="math inline">\(\mathrm{kg}\)</span>이고, 두 값의 비의 제곱근은 <span class="math inline">\(\mathrm{s^{-1}}\)</span>이다.</p>
+</section><section id="attached-mass-and-approximation-error" aria-labelledby="attached-mass-and-approximation-error-title"><h2 id="attached-mass-and-approximation-error-title">5. Attached Mass and Approximation Error</h2>
+<h3 id="including-a-tip-mass">Including a Tip Mass</h3>
+<p>끝단에 회전관성을 무시할 수 있는 Point mass <span>\(M_t\)</span>가 붙으면 그 Kinetic energy는 <span>\(M_t\dot q^2/2\)</span>이다. 같은 Assumed shape를 유지하는 근사에서는</p>
+<div class="equation" id="eq-6-1-7">\[
+\omega_R\approx\sqrt{\frac{3EI/L^3}{M_t+(33/140)\rho AL}}.
+
+\tag{6.1.10}
+\]</div><p>다만 부착질량은 실제 Mode shape도 바꾸므로, 이 식은 부착질량이 있는 Beam의 정확한 해가 아니다. Equivalent mass와 Equivalent stiffness는 <strong>어떤 좌표와 어떤 변형형상을 선택했는지에 따라 정해지는 쌍</strong>이다. 다른 Normalization이나 다른 Shape에서 얻은 값을 임의로 섞지 않는다.</p>
+<p>같은 생각으로 임의 위치 <span class="math inline">\(x_a\)</span>에 붙인 점질량 <span class="math inline">\(M_a\)</span>의 기여는 <span class="math inline">\(M_a\psi(x_a)^2\)</span>이다. 부착물이 거의 움직이지 않는 위치에 있으면 이 형상에 대한 관성 기여가 작다. 회전관성 <span class="math inline">\(J_a\)</span>도 고려한다면 국소 각속도 <span class="math inline">\(\psi'(x_a)\dot q\)</span>를 이용하여 <span class="math inline">\(J_a[\psi'(x_a)]^2\)</span>를 더한다.</p>
+<div class="equation" id="eq-added-6-1-11">\[
+m_{\mathrm{eq}}
+=\int_0^L\rho A\psi^2\,\mathrm dx
++M_a\psi(x_a)^2+J_a[\psi'(x_a)]^2.
+
+\tag{6.1.11}
+\]</div><p>이 식은 부착물이 Beam과 같은 변위·회전을 따르는 단순한 모델에 해당한다. 부착부 자체가 유연하여 상대운동이 생긴다면 추가 좌표가 필요하다. 모든 부착물을 같은 끝단질량으로 치환하면 부착 위치와 연결부의 영향을 잃을 수 있다.</p>
+<h3 id="reading-the-frequency-estimate">Reading the Frequency Estimate</h3>
+<p>끝단질량이 Beam 질량보다 매우 크면 대부분의 운동에너지가 끝단에 집중된다. 이때 주파수는 대략 <span class="math inline">\(\sqrt{(3EI/L^3)/M_t}\)</span>가 되어, 정적 끝단강성과 부착질량으로 이루어진 단자유도계의 형태에 가까워진다. 반대로 끝단질량이 작을 때에는 Beam 자체의 분포관성을 빠뜨리지 않아야 한다.</p>
+<p>근사 주파수가 실험이나 정밀해석과 다르면 등가질량 계수만 조정하기 전에 형상·지지조건·질량분포를 살펴본다. 주파수는 맞아도 형상이 틀리면 하중의 투영과 국부응력은 맞지 않을 수 있다. Rayleigh 방법은 첫 주파수의 빠른 추정에 유용하지만 응답 전체의 정확성을 자동으로 보장하지는 않는다.</p>
+</section><section id="from-one-shape-to-several-shapes" aria-labelledby="from-one-shape-to-several-shapes-title"><h2 id="from-one-shape-to-several-shapes-title">6. From One Shape to Several Shapes</h2>
+<h3 id="rayleighritz-approximation">Rayleigh–Ritz Approximation</h3>
+<p>하나의 형상으로 충분하지 않으면 서로 독립인 적합함수들을 사용한다. 각 함수가 시간에 따른 별도의 계수를 가지도록 하면 구조물은 여러 공간형상을 조합하여 움직일 수 있다.</p>
+<div class="equation" id="eq-added-6-1-12">\[
+w(x,t)\approx\sum_{j=1}^{R}\psi_j(x)q_j(t),\qquad
+M_{ij}=\int_0^L\rho A\psi_i\psi_j\,\mathrm dx,\qquad
+K_{ij}=\int_0^LEI\psi_i''\psi_j''\,\mathrm dx.
+
+\tag{6.1.12}
+\]</div><p>이것이 <strong>Rayleigh–Ritz approximation</strong>이다. 임의의 적합함수들은 일반적으로 질량이나 강성에 대해 직교하지 않으므로 행렬의 비대각 성분이 생긴다. 이 연성된 행렬에서 고유값 문제를 풀면, 선택한 함수공간 안에서 고유주파수와 Mode shape의 근사를 얻는다.</p>
+<h3 id="accuracy-of-the-approximation-space">Accuracy of the Approximation Space</h3>
+<p>같은 보존적 문제에서 기존 함수를 유지하며 적합한 함수를 추가하면 표현 가능한 공간이 넓어진다. 정확한 적분을 사용하는 이상적인 Ritz 근사에서는 저차 고유값의 상계가 내려가며 정확한 값에 접근할 수 있다. 그러나 거의 같은 함수만 추가하면 수치적으로 독립성이 약해져 계산이 나빠질 수 있다.</p>
+<p>이제 핵심은 구조 전체에 사용할 좋은 함수를 어떻게 만들 것인가이다. 복잡한 형상에서는 하나의 전역 함수를 찾기보다 작은 구간마다 간단한 함수를 두는 편이 편리하다. 다음 글의 Finite element method는 이러한 국소 보간함수를 연결하여 질량·강성 행렬을 구성하는 방법으로 이해할 수 있다.</p>
+</section><footer><a href="../index.html">← Structural Dynamics &amp; Aeroelasticity로 돌아가기</a></footer></main><aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#from-a-deformation-field-to-an-approximate-coordinate" class="sidebar-link"><span class="item-number">1.</span><span>From a Deformation Field to an Approximate Coordinate</span></a><a href="#the-meaning-of-equivalent-mass-and-stiffness" class="sidebar-link"><span class="item-number">2.</span><span>The Meaning of Equivalent Mass and Stiffness</span></a><a href="#admissible-shapes-and-the-rayleigh-bound" class="sidebar-link"><span class="item-number">3.</span><span>Admissible Shapes and the Rayleigh Bound</span></a><a href="#a-cantilever-with-a-static-deflection-shape" class="sidebar-link"><span class="item-number">4.</span><span>A Cantilever with a Static Deflection Shape</span></a><a href="#attached-mass-and-approximation-error" class="sidebar-link"><span class="item-number">5.</span><span>Attached Mass and Approximation Error</span></a><a href="#from-one-shape-to-several-shapes" class="sidebar-link"><span class="item-number">6.</span><span>From One Shape to Several Shapes</span></a></nav></aside></div><script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script></body></html>

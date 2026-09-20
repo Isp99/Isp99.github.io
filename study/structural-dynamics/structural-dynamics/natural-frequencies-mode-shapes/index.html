@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="다자유도 시스템의 모든 좌표를 한꺼번에 살펴보면 운동이 복잡해 보일 수 있다. 각 좌표가 일정한 비율을 유지하며 진동하는 기본 형상을 먼저 찾으면, 그 형상들의 합으로 일반적인 운동을 설명할 수 있다."><title>4.2 Natural Frequencies and Mode Shapes | Isp99</title>
+<script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style></head><body class="article-page"><div class="page-layout"><aside class="left-sidebar" aria-label="Series navigation"><nav class="sidebar-inner"><a href="../index.html" class="sidebar-title">Structural Dynamics &amp; Aeroelasticity</a><div class="sidebar-group"><div class="sidebar-group-title">1. Fundamentals</div><a href="../vibration-mass-stiffness-damping/index.html" class="sidebar-link"><span class="item-number">1.1</span> Vibration, Mass, Stiffness, and Damping</a><a href="../degrees-of-freedom-equations-of-motion/index.html" class="sidebar-link"><span class="item-number">1.2</span> Degrees of Freedom and Equations of Motion</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Free Vibration</div><a href="../undamped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.1</span> Undamped Free Vibration</a><a href="../damped-free-vibration/index.html" class="sidebar-link"><span class="item-number">2.2</span> Damped Free Vibration</a></div><div class="sidebar-group"><div class="sidebar-group-title">3. Forced Vibration</div><a href="../harmonic-response-resonance/index.html" class="sidebar-link"><span class="item-number">3.1</span> Harmonic Response and Resonance</a><a href="../base-excitation-vibration-isolation/index.html" class="sidebar-link"><span class="item-number">3.2</span> Base Excitation and Vibration Isolation</a><a href="../transient-response/index.html" class="sidebar-link"><span class="item-number">3.3</span> Transient Response</a></div><div class="sidebar-group"><div class="sidebar-group-title">4. Multi-Degree-of-Freedom Systems</div><a href="../coupled-equations-matrix-form/index.html" class="sidebar-link"><span class="item-number">4.1</span> Coupled Equations and Matrix Form</a><a href="../natural-frequencies-mode-shapes/index.html" class="sidebar-link active" aria-current="page"><span class="item-number">4.2</span> Natural Frequencies and Mode Shapes</a><a href="../modal-analysis/index.html" class="sidebar-link"><span class="item-number">4.3</span> Modal Analysis</a></div><div class="sidebar-group"><div class="sidebar-group-title">5. Continuous Systems and Beam Vibration</div><a href="../continuous-systems-rod-vibration/index.html" class="sidebar-link"><span class="item-number">5.1</span> Continuous Systems and Rod Vibration</a><a href="../euler-bernoulli-beam-theory/index.html" class="sidebar-link"><span class="item-number">5.2</span> Euler–Bernoulli Beam Theory</a><a href="../beam-natural-frequencies-mode-shapes/index.html" class="sidebar-link"><span class="item-number">5.3</span> Beam Natural Frequencies and Mode Shapes</a><a href="../modal-response-of-beams/index.html" class="sidebar-link"><span class="item-number">5.4</span> Modal Response of Beams</a></div><div class="sidebar-group"><div class="sidebar-group-title">6. Structural Analysis Methods</div><a href="../energy-methods-equivalent-models/index.html" class="sidebar-link"><span class="item-number">6.1</span> Energy Methods and Equivalent Models</a><a href="../finite-element-method/index.html" class="sidebar-link"><span class="item-number">6.2</span> Finite Element Method</a><a href="../response-analysis-verification/index.html" class="sidebar-link"><span class="item-number">6.3</span> Response Analysis and Verification</a></div><div class="sidebar-group"><div class="sidebar-group-title">7. Aeroelasticity and Flutter</div><a href="../aeroelastic-coupling-static-stability/index.html" class="sidebar-link"><span class="item-number">7.1</span> Aeroelastic Coupling and Static Stability</a><a href="../typical-section-unsteady-aerodynamics/index.html" class="sidebar-link"><span class="item-number">7.2</span> Flutter and the Typical Section Model</a><a href="../flutter-analysis/index.html" class="sidebar-link"><span class="item-number">7.3</span> Flutter Analysis</a></div></nav></aside><main class="main-content" id="top"><nav aria-label="Current article"><a href="#top">4.2 Natural Frequencies and Mode Shapes</a></nav><header><h1>4.2 Natural Frequencies and Mode Shapes</h1><p class="subtitle">Generalized Eigenvalues, Relative Motion, and Modal Superposition</p><p class="intro">다자유도 시스템의 모든 좌표를 한꺼번에 살펴보면 운동이 복잡해 보일 수 있다. 각 좌표가 일정한 비율을 유지하며 진동하는 기본 형상을 먼저 찾으면, 그 형상들의 합으로 일반적인 운동을 설명할 수 있다.</p></header><aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#a-motion-with-a-fixed-shape">A Motion with a Fixed Shape</a></li><li><a href="#shape-scale-and-normalization">Shape, Scale, and Normalization</a></li><li><a href="#in-phase-and-out-of-phase-modes">In-Phase and Out-of-Phase Modes</a></li><li><a href="#matching-an-initial-deformation">Matching an Initial Deformation</a></li><li><a href="#rigid-body-and-repeated-modes">Rigid-Body and Repeated Modes</a></li><li><a href="#interpretation-and-verification">Interpretation and Verification</a></li></ol></aside><section id="a-motion-with-a-fixed-shape" aria-labelledby="a-motion-with-a-fixed-shape-title"><h2 id="a-motion-with-a-fixed-shape-title">1. A Motion with a Fixed Shape</h2>
+<h3 id="separating-amplitude-from-a-deformation-pattern">Separating Amplitude from a Deformation Pattern</h3>
+<p>다자유도 시스템의 일반적인 운동에서는 각 좌표가 서로 다른 시간변화를 보인다. 그중 모든 좌표가 <strong>일정한 비율을 유지하며 하나의 주파수로 진동하는 특별한 운동</strong>을 먼저 찾으면 전체 운동을 구성하기 쉬워진다. 이 비율을 모은 Vector가 <strong>Mode shape</strong>이다.</p>
+<p>무감쇠 자유진동식에서 <span>\(\boldsymbol{x}(t)=\boldsymbol{\phi}\cos(\omega t+\alpha)\)</span>로 둔다. <span>\(\boldsymbol{\phi}\)</span>가 각 좌표의 상대진폭을 지정하고, 공통 시간함수가 각 위치의 동시 운동을 결정한다. 이를 대입하면</p>
+<div class="equation" id="eq-4-2-1">\[
+\begin{aligned}
+\mathbf{M}\ddot{\boldsymbol{x}}+\mathbf{K}\boldsymbol{x}&amp;=\boldsymbol{0}\\[1em]
+(\mathbf{K}-\omega^2\mathbf{M})\boldsymbol{\phi}&amp;=\boldsymbol{0}.
+\end{aligned}
+
+\tag{4.2.1}
+\]</div><p><span>\(\boldsymbol{\phi}=\boldsymbol{0}\)</span>은 전혀 움직이지 않는 해이므로 제외한다. 0이 아닌 해가 있으려면 계수행렬에 역행렬이 없어야 하며, 이에 대응하는 조건은 Determinant가 0인 것이다.</p>
+<div class="equation main" id="eq-eigen">\[
+\boxed{\displaystyle \begin{aligned}
+\det(\mathbf{K}-\omega^2\mathbf{M})&amp;=0\\[1em]
+\mathbf{K}\boldsymbol{\phi}_r&amp;=\omega_r^2\mathbf{M}\boldsymbol{\phi}_r
+
+\end{aligned}}
+
+\tag{4.2.2}
+\]</div><p>이 문제를 Generalized eigenvalue problem이라 한다. Eigenvalue는 <span>\(\omega_r^2\)</span>, Eigenvector는 <span>\(\boldsymbol{\phi}_r\)</span>이다. <span>\(\mathbf{M}\)</span>이 양의 정부호이고 <span>\(\mathbf{K}\)</span>가 양의 정부호인 <span>\(N\)</span> DOF 보존계에서는 중복도를 포함하여 <span>\(N\)</span>개의 양의 고유치가 존재한다. 양의 정부호라는 말은 0이 아닌 어떤 운동·변형에서도 해당 이차형식의 Energy가 양수임을 뜻한다.</p>
+<p>일반적인 다자유도 운동에서는 각 좌표의 진폭과 위상이 서로 다르므로 전체 움직임이 복잡하다. 그러나 모든 좌표가 같은 시간함수를 일정한 비율로 따라가는 특별한 운동을 먼저 찾을 수 있다. 이때 좌표 사이의 비율을 모은 벡터가 Mode shape이고, 전체 운동의 크기는 하나의 시간함수가 정한다.</p>
+<h3 id="from-free-motion-to-an-eigenvalue-problem">From Free Motion to an Eigenvalue Problem</h3>
+<p>자유진동식 <span class="math inline">\(\mathbf M\ddot{\mathbf x}+\mathbf K\mathbf x=\mathbf0\)</span>에 <span class="math inline">\(\mathbf x=\boldsymbol\phi q(t)\)</span>를 대입하면 <span class="math inline">\(\mathbf M\boldsymbol\phi\ddot q+\mathbf K\boldsymbol\phi q=\mathbf0\)</span>이다. <span class="math inline">\(q(t)\)</span>가 각주파수 <span class="math inline">\(\omega\)</span>로 진동하면 <span class="math inline">\(\ddot q=-\omega^2q\)</span>이므로 두 공간벡터 사이에</p>
+<div class="equation" id="eq-added-4-2-3">\[
+\mathbf K\boldsymbol\phi=\omega^2\mathbf M\boldsymbol\phi
+
+\tag{4.2.3}
+\]</div><p>의 관계가 필요하다. 강성이 그 형상에 만드는 복원력과 질량이 그 형상에 만드는 관성력이 같은 형상 비율로 균형을 이룰 수 있을 때 독립적인 주기 운동이 가능해진다.</p>
+<p>이 식의 고유치는 <span class="math inline">\(\omega^2\)</span>이고, 고유벡터는 상대변위의 형상이다. 수치 고유치 계산에서 나온 값을 바로 <span class="math inline">\(\mathrm{Hz}\)</span>로 읽으면 안 된다. 제곱근을 취해 각주파수를 구하고, <span class="math inline">\(2\pi\)</span>로 나누어 주파수로 바꾸어야 한다. 음의 고유치가 나오면 안정한 진동수로 처리하기 전에 강성과 평형 상태를 검토한다.</p>
+</section><section id="shape-scale-and-normalization" aria-labelledby="shape-scale-and-normalization-title"><h2 id="shape-scale-and-normalization-title">2. Shape, Scale, and Normalization</h2>
+<h3 id="meaning-of-a-relative-displacement-pattern">Meaning of a Relative Displacement Pattern</h3>
+<p>Eigenvalue equation은 <span>\(a\boldsymbol{\phi}_r\)</span>에도 성립하므로, Mode shape의 전체 크기는 임의이다. 예를 들어 <span>\([1,2]^{\mathsf T}\)</span>와 <span>\([2,4]^{\mathsf T}\)</span>는 같은 Mode이며, 두 번째 좌표가 첫 번째의 두 배로 움직인다는 정보가 같다. 부호를 모두 반대로 바꿔도 같은 Mode이다.</p>
+<p>따라서 해석 프로그램의 Mode shape 그림에서 크게 보이는 변형량은 실제 응답 크기가 아니다. 실제 크기는 입력과 초기조건으로 정해야 한다.</p>
+<p>구속되지 않은 강체운동은 변형 Energy를 만들지 않아 <span>\(\mathbf{K}\boldsymbol{\phi}=\boldsymbol{0}\)</span>, <span>\(\omega=0\)</span>이 될 수 있다. 이러한 <strong>Rigid-body mode</strong>는 지지되지 않은 구조물에서는 물리적으로 가능하며, Elastic vibration mode와 구분해야 한다.</p>
+<p>고유벡터를 두 배로 곱해도 고유치 방정식은 그대로 성립한다. 따라서 Mode shape의 절대 크기는 고유치 문제만으로 정해지지 않는다. 그림에서 어떤 지점이 크게 보인다는 것은 그 Mode 안에서 다른 지점에 비해 상대적으로 크게 움직인다는 뜻이지, 실제 하중 아래에서 반드시 그만큼 변위가 생긴다는 뜻은 아니다.</p>
+<h3 id="choosing-a-normalization">Choosing a Normalization</h3>
+<p>여러 Mode를 비교하거나 계산에 사용하려면 크기를 정하는 규칙을 택한다. 한 성분을 1로 놓거나 최대성분의 절댓값을 1로 놓을 수 있으며, 질량에 대한 크기를 1로 놓는 Mass normalization도 사용할 수 있다.</p>
+<div class="equation" id="eq-added-4-2-4">\[
+\widetilde{\boldsymbol\phi}_r=
+\frac{\boldsymbol\phi_r}{\sqrt{\boldsymbol\phi_r^T\mathbf M\boldsymbol\phi_r}},
+\qquad
+\widetilde{\boldsymbol\phi}_r^T\mathbf M\widetilde{\boldsymbol\phi}_r=1.
+
+\tag{4.2.4}
+\]</div><p>정규화는 형상의 비율과 고유주파수를 바꾸지 않는다. 대신 실제 변위를 나타내는 모드좌표의 크기가 반대로 바뀐다. <span class="math inline">\(\mathbf x=\boldsymbol\phi_r q_r\)</span>라는 곱이 같도록 두 값을 함께 해석해야 한다.</p>
+<p>고유벡터의 전체 부호도 임의이다. 모든 성분의 부호를 바꾸면 운동 시작 위상이 <span class="math inline">\(\pi\)</span>만큼 달라진 표현이 될 뿐 같은 Mode이다. 반면 벡터 내부에서 어떤 성분끼리 부호가 같거나 다른지는 실제 상대운동을 나타내므로 중요한 형상 정보이다.</p>
+</section><section id="in-phase-and-out-of-phase-modes" aria-labelledby="in-phase-and-out-of-phase-modes-title"><h2 id="in-phase-and-out-of-phase-modes-title">3. In-Phase and Out-of-Phase Modes</h2>
+<h3 id="two-identical-masses">Two Identical Masses</h3>
+<p>앞의 모델에서 <span>\(m_1=m_2=m\)</span>, <span>\(k_1=k_2=k_3=k\)</span>라 두면</p>
+<div class="equation" id="eq-4-2-3">\[
+\begin{aligned}
+\mathbf{M}&amp;=m\begin{bmatrix}1&amp;0\\0&amp;1\end{bmatrix}, &amp;
+\mathbf{K}&amp;=k\begin{bmatrix}2&amp;-1\\-1&amp;2\end{bmatrix}\\[1em]
+\det(\mathbf{K}-\omega^2\mathbf{M})
+&amp;=(2k-m\omega^2)^2-k^2=0.
+\end{aligned}
+
+\tag{4.2.5}
+\]</div><p>따라서 <span>\(2k-m\omega^2=\pm k\)</span>이고, 각각을 원래 행렬식에 대입하면</p>
+<div class="equation main" id="eq-twoModes">\[
+\boxed{\displaystyle \begin{aligned}
+\omega_1&amp;=\sqrt{\frac{k}{m}}, &amp; \boldsymbol{\phi}_1&amp;=\begin{bmatrix}1\\1\end{bmatrix}\\[1em]
+\omega_2&amp;=\sqrt{\frac{3k}{m}}, &amp; \boldsymbol{\phi}_2&amp;=\begin{bmatrix}1\\-1\end{bmatrix}
+
+\end{aligned}}
+
+\tag{4.2.6}
+\]</div><p>1차 Mode에서는 두 질량이 같은 방향으로 같은 양만큼 움직여 가운데 Spring이 늘어나지 않는다. 2차 Mode에서는 두 질량이 반대 방향으로 움직여 가운데 Spring도 변형되므로 복원효과가 커지고 Natural frequency가 높아진다.</p>
+<p>두 질량이 같은 방향으로 같은 양만큼 움직이는 Mode에서는 가운데 스프링의 변형이 작거나 0이다. 서로 반대 방향으로 움직이는 Mode에서는 가운데 스프링까지 강하게 변형되므로 더 큰 탄성에너지가 저장될 수 있다. 같은 질량이 움직여도 두 형상의 유효 강성이 달라져 서로 다른 고유주파수를 갖는다.</p>
+<h3 id="checking-the-eigenvectors-directly">Checking the Eigenvectors Directly</h3>
+<p>두 질량과 세 스프링이 각각 <span class="math inline">\(m\)</span>, <span class="math inline">\(k\)</span>로 같은 경우 <span class="math inline">\(\mathbf M=m\mathbf I\)</span>, <span class="math inline">\(\mathbf K=k\begin{bmatrix}2&amp;-1\\-1&amp;2\end{bmatrix}\)</span>이다. <span class="math inline">\([1,1]^T\)</span>를 대입하면 <span class="math inline">\(\mathbf K\boldsymbol\phi_1=k\boldsymbol\phi_1\)</span>, <span class="math inline">\([1,-1]^T\)</span>를 대입하면 <span class="math inline">\(\mathbf K\boldsymbol\phi_2=3k\boldsymbol\phi_2\)</span>이다. 따라서 주파수 제곱은 각각 <span class="math inline">\(k/m\)</span>, <span class="math inline">\(3k/m\)</span>이다.</p>
+<p>이처럼 간단한 대칭계에서는 예상한 운동형상을 행렬에 직접 대입하여 결과를 확인할 수 있다. 비대칭 질량이나 다른 스프링 강성을 사용하면 성분의 비가 1과 -1로 유지되지 않을 수 있지만, 형상에 대한 복원력과 관성력의 관계라는 해석은 동일하다. 시스템의 대칭성이 계산을 단순하게 해 주는 조건임을 구분한다.</p>
+</section><section id="matching-an-initial-deformation" aria-labelledby="matching-an-initial-deformation-title"><h2 id="matching-an-initial-deformation-title">4. Matching an Initial Deformation</h2>
+<h3 id="a-sum-of-modes">A Sum of Modes</h3>
+<p>처음에 첫 번째 질량만 <span>\(a\)</span>만큼 이동시키고 두 질량을 정지상태에서 놓으면 <span>\(\boldsymbol{x}(0)=[a,0]^{\mathsf T}\)</span>이다. 이 형상은 어느 한 Mode와 같지 않지만 두 Mode의 합으로 표현할 수 있다.</p>
+<div class="equation" id="eq-4-2-5">\[
+\begin{aligned}
+\begin{bmatrix}a\\0\end{bmatrix}
+&amp;=\frac{a}{2}\begin{bmatrix}1\\1\end{bmatrix}
++\frac{a}{2}\begin{bmatrix}1\\-1\end{bmatrix}\\[1em]
+\boldsymbol{x}(t)&amp;=\frac{a}{2}\boldsymbol{\phi}_1\cos\omega_1t
++\frac{a}{2}\boldsymbol{\phi}_2\cos\omega_2t.
+\end{aligned}
+
+\tag{4.2.7}
+\]</div><p>각 좌표로 풀어 쓰면 <span>\(x_1=\tfrac a2(\cos\omega_1t+\cos\omega_2t)\)</span>, <span>\(x_2=\tfrac a2(\cos\omega_1t-\cos\omega_2t)\)</span>이다. 실제 운동이 복잡해 보여도 각 Mode는 자기 고유주파수로 단순하게 진동한다.</p>
+<p>두 주파수가 가까운 다른 시스템에서는 그 합의 진폭이 천천히 커졌다 작아지는 <strong>Beating</strong>이 나타날 수 있다. 이는 여러 주파수의 간섭이므로 Energy 소산에 의한 감쇠와 구분해야 한다.</p>
+<p>한 질량만 변위시킨 초기형상은 보통 하나의 고유모드와 같지 않다. 그러나 완전한 모드 집합이 있으면 여러 모드의 합으로 표현할 수 있다. 초기상태를 어떻게 준비했는지가 각 Mode의 진폭을 결정하므로, 같은 구조물에서도 관찰되는 운동이 달라질 수 있다.</p>
+<h3 id="motion-after-releasing-one-mass">Motion after Releasing One Mass</h3>
+<p>앞의 동일한 두 질량에서 <span class="math inline">\(\mathbf x(0)=[x_0,0]^T\)</span>, <span class="math inline">\(\dot{\mathbf x}(0)=\mathbf0\)</span>이면</p>
+<div class="equation" id="eq-added-4-2-8">\[
+\begin{bmatrix}x_0\\0\end{bmatrix}
+=\frac{x_0}{2}\begin{bmatrix}1\\1\end{bmatrix}
++\frac{x_0}{2}\begin{bmatrix}1\\-1\end{bmatrix}.
+
+\tag{4.2.8}
+\]</div><p>두 Mode가 각각의 고유주파수로 진동하므로</p>
+<div class="equation" id="eq-added-4-2-9">\[
+x_1(t)=\frac{x_0}{2}(\cos\omega_1t+\cos\omega_2t),\quad
+x_2(t)=\frac{x_0}{2}(\cos\omega_1t-\cos\omega_2t).
+
+\tag{4.2.9}
+\]</div><p>처음에 두 번째 질량이 움직이지 않았더라도 이후에는 스프링을 통해 에너지가 전달되어 운동한다. 각 Mode에서는 두 좌표의 비가 일정하지만, 여러 Mode의 합에서는 그 비가 시간에 따라 바뀐다. 복잡한 실제 운동과 단순한 Mode shape가 양립하는 이유이다.</p>
+</section><section id="rigid-body-and-repeated-modes" aria-labelledby="rigid-body-and-repeated-modes-title"><h2 id="rigid-body-and-repeated-modes-title">5. Rigid-Body and Repeated Modes</h2>
+<h3 id="zero-stiffness-along-a-motion">Zero Stiffness along a Motion</h3>
+<p>구조 전체가 변형 없이 이동할 수 있으면 그 운동에서는 탄성에너지가 증가하지 않는다. 해당 벡터 <span class="math inline">\(\boldsymbol\phi_0\)</span>에 대해 <span class="math inline">\(\mathbf K\boldsymbol\phi_0=\mathbf0\)</span>이고 고유주파수는 0이다. 이는 복원력이 없는 강체운동을 뜻하며 주기적으로 진동하는 탄성 Mode와 구분한다. 지지하지 않은 구조에는 물리적으로 필요한 강체 Mode가 존재할 수 있다.</p>
+<p>구속을 추가하면 원래 가능했던 강체운동이 제한되어 0이던 주파수가 사라지거나 양의 값으로 바뀔 수 있다. 그러므로 고유주파수는 재료와 형상뿐 아니라 경계조건까지 포함한 결과이다. 모델 간 주파수를 비교할 때에는 같은 지지조건을 사용했는지 확인해야 한다.</p>
+<h3 id="several-shapes-at-one-frequency">Several Shapes at One Frequency</h3>
+<p>대칭성이 있는 구조에서는 서로 독립적인 두 형상이 같은 고유주파수를 가질 수 있다. 이때 같은 고유치에 속한 벡터들의 선형결합도 같은 주파수의 고유벡터이다. 계산 프로그램이 두 형상의 서로 다른 조합을 출력하더라도 동일한 고유공간을 나타낼 수 있다. 단일 벡터의 모양이 같지 않다는 이유만으로 서로 다른 물리 결과라고 판단하지 않는다.</p>
+<p>중복된 고유주파수에서도 질량에 대해 직교하는 기저를 선택할 수 있다. 어떤 기저를 사용하든 해당 공간이 표현하는 실제 운동은 같아야 한다. 모드 비교에서 형상뿐 아니라 고유주파수와 여러 벡터가 이루는 공간을 함께 보는 이유이다.</p>
+<p>중복 고유값에서는 같은 주파수에 대응하는 여러 독립 벡터의 선형결합도 고유벡터가 된다. 따라서 두 해석 프로그램이 다른 모양의 벡터를 출력해도, 그 벡터들이 만드는 전체 부분공간이 같으면 동일한 Mode 집합을 표현할 수 있다. 개별 벡터의 그림 하나만 비교하면 실제보다 큰 차이가 있는 것으로 보일 수 있다.</p>
+<p>서로 다른 고유값의 벡터는 대칭 질량·강성 모델에서 질량에 대해 직교하지만, 중복 고유값의 벡터는 계산된 상태 그대로 반드시 직교하지 않을 수 있다. 같은 고유공간 안에서 질량을 기준으로 직교화하면 모드해석에 편리한 기저를 선택할 수 있다. 직교화는 그 주파수나 물리적 고유공간을 바꾸지 않는다.</p>
+</section><section id="interpretation-and-verification" aria-labelledby="interpretation-and-verification-title"><h2 id="interpretation-and-verification-title">6. Interpretation and Verification</h2>
+<h3 id="modal-frequency-versus-response-amplitude">Modal Frequency versus Response Amplitude</h3>
+<p>고유치 해석은 구조가 스스로 진동할 수 있는 기본 시간척도와 형상을 알려 준다. 특정 위치에 실제로 얼마나 큰 변위나 응력이 생길지는 하중의 위치·방향·주파수와 감쇠가 있어야 계산할 수 있다. 높은 Mode 번호가 자동으로 작은 응답을 뜻하지도 않으며, 하중이 그 형상에 잘 결합하면 고차 Mode의 기여가 중요할 수 있다.</p>
+<h3 id="residual-and-physical-checks">Residual and Physical Checks</h3>
+<p>계산된 고유쌍은 <span class="math inline">\(\mathbf K\boldsymbol\phi_r-\omega_r^2\mathbf M\boldsymbol\phi_r\)</span>가 충분히 작은지 확인할 수 있다. 이것은 행렬 방정식을 얼마나 잘 만족하는지의 수치적인 검사이다. 별도로 구속조건, 질량과 강성의 단위, 기대되는 대칭형상, 강체 Mode의 존재 여부를 확인해야 물리적인 모델도 점검할 수 있다.</p>
+<p>메시를 세분화하거나 모델의 자유도를 늘렸을 때 관심 고유주파수와 형상이 안정되는지 보는 것도 필요하다. 낮은 Mode가 충분히 수렴해도 높은 Mode는 더 짧은 공간적인 변화가 필요하므로 아직 정확하지 않을 수 있다. 이후 Modal analysis에서는 이렇게 확인한 Mode를 실제 입력과 초기조건에 연결하여 응답의 크기를 구한다.</p>
+</section><footer><a href="../index.html">← Structural Dynamics &amp; Aeroelasticity로 돌아가기</a></footer></main><aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#a-motion-with-a-fixed-shape" class="sidebar-link"><span class="item-number">1.</span><span>A Motion with a Fixed Shape</span></a><a href="#shape-scale-and-normalization" class="sidebar-link"><span class="item-number">2.</span><span>Shape, Scale, and Normalization</span></a><a href="#in-phase-and-out-of-phase-modes" class="sidebar-link"><span class="item-number">3.</span><span>In-Phase and Out-of-Phase Modes</span></a><a href="#matching-an-initial-deformation" class="sidebar-link"><span class="item-number">4.</span><span>Matching an Initial Deformation</span></a><a href="#rigid-body-and-repeated-modes" class="sidebar-link"><span class="item-number">5.</span><span>Rigid-Body and Repeated Modes</span></a><a href="#interpretation-and-verification" class="sidebar-link"><span class="item-number">6.</span><span>Interpretation and Verification</span></a></nav></aside></div><script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script></body></html>
