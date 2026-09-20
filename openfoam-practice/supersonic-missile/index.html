@@ -220,6 +220,45 @@
             font-weight: 700;
         }
 
+        .wide-figure {
+            max-width: 760px;
+            margin: 28px auto 40px;
+        }
+
+        .wide-figure img {
+            width: 100%;
+            height: auto;
+        }
+
+        .validation-table {
+            width: 100%;
+            margin: 20px 0 30px;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .validation-table th,
+        .validation-table td {
+            padding: 10px 9px;
+            border-top: 1px solid #dddddd;
+            border-bottom: 1px solid #dddddd;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .validation-table th {
+            background: #fafafa;
+            font-weight: 700;
+        }
+
+        .personal-note {
+            margin: 22px 0;
+            padding: 16px 18px;
+            border-left: 4px solid #777777;
+            background: #fafafa;
+            color: #333333;
+        }
+
         .note {
             margin: 20px 0;
             padding: 15px 18px;
@@ -271,6 +310,8 @@
         <a href="#setup">Case Setup</a>
         <a href="#results">Results</a>
         <a href="#mesh">Mesh Comparison</a>
+        <a href="#profiles">Profiles</a>
+        <a href="#validation">Validation</a>
     </nav>
 
     <header>
@@ -305,9 +346,21 @@
             <span class="num">4.</span>
             <span class="label">Pressure Contour: 50k / 100k / 200k</span>
         </a>
-        <a href="#discussion">
+        <a href="#profiles">
             <span class="num">5.</span>
-            <span class="label">Discussion</span>
+            <span class="label">Flow Profiles at y = 0.25 m</span>
+        </a>
+        <a href="#validation">
+            <span class="num">6.</span>
+            <span class="label">Shock Angle Validation</span>
+        </a>
+        <a href="#properties">
+            <span class="num">7.</span>
+            <span class="label">Shock Property Validation</span>
+        </a>
+        <a href="#discussion">
+            <span class="num">8.</span>
+            <span class="label">Validation Summary</span>
         </a>
     </div>
 
@@ -494,11 +547,10 @@
         <h2>4. Pressure Contour: Mesh Refinement</h2>
 
         <p>
-            Mesh dependency를 확인하기 위해 동일한 해석 조건에서
+            Mesh dependency를 먼저 정성적으로 확인하기 위해 동일한 조건에서
             약 50k, 100k, 200k cell의 pressure contour를 비교하였다.
-            비교 시에는 단순히 전체 유동장 형태뿐만 아니라
-            <strong>nose shock의 위치, 기울기, 두께 및 압력 구배가 격자 증가에 따라
-            어떻게 변하는지</strong>를 확인하는 것이 중요하다.
+            비교 시에는 nose shock의 위치와 기울기, shock 주변의 압력 구배가
+            격자 증가에 따라 어떻게 달라지는지를 확인하였다.
         </p>
 
         <div class="pressure-grid">
@@ -524,47 +576,426 @@
         </div>
 
         <p>
-            세 격자 모두 동일한 위치에서 nose shock의 전체적인 형상을 포착할 수 있지만,
-            격자가 세밀해질수록 shock 주변의 급격한 pressure gradient가 더 선명하게
-            표현된다. 50k mesh에서도 주요 유동 구조는 확인 가능하지만,
-            shock과 같이 매우 짧은 거리에서 상태량이 급변하는 영역에서는
-            mesh resolution이 결과의 공간적 해상도에 직접적인 영향을 준다.
+            세 격자 모두 nose에서 발생하는 oblique shock과 전체 압력장 구조를
+            거의 같은 위치에서 포착하였다. Mesh가 세밀해질수록 shock 주변의
+            pressure gradient가 조금 더 선명해지지만, 전체 contour만 놓고 보면
+            50k와 200k의 차이가 예상보다 크지 않았다.
         </p>
 
+        <div class="personal-note">
+            처음에는 50k mesh라면 contour 자체에서도 해상도가 상당히 떨어질 것으로 예상했다.
+            그런데 실제 결과를 나란히 비교해 보니 50k에서도 shock의 위치와 전체적인 유동 구조가
+            생각보다 잘 나타났고, 육안으로는 세 mesh의 차이를 크게 구분하기 어려웠다.
+            따라서 contour 비교만으로 mesh convergence를 판단하기보다는 정량적인 비교가 필요하다고 판단했다.
+        </div>
+    </section>
+
+
+    <section id="profiles">
+        <h2>5. Flow Profiles at y = 0.25 m</h2>
+
         <p>
-            따라서 200k mesh는 contour 수준에서 shock 구조를 가장 명확하게 나타내는
-            reference case로 사용하고, 50k 및 100k 결과와 비교하여
-            격자 증가에 따른 해의 변화를 확인하였다.
+            Contour에서 잘 드러나지 않는 mesh 차이를 확인하기 위해
+            \(y=0.25\ \mathrm{m}\)의 수평선을 따라 \(x\) 방향으로 데이터를 추출하였다.
+            동일한 위치에서 pressure, density, temperature, velocity magnitude를
+            50k / 100k / 200k mesh에 대해 비교하였다.
+        </p>
+
+        <div class="figure-grid">
+
+            <figure>
+                <img src="images/y0.25_p.png"
+                     alt="Pressure profile comparison at y equals 0.25 m">
+                <figcaption>
+                    Pressure profile, \(p\) [Pa]
+                </figcaption>
+            </figure>
+
+            <figure>
+                <img src="images/y0.25_rho.png"
+                     alt="Density profile comparison at y equals 0.25 m">
+                <figcaption>
+                    Density profile, \(\rho\) [kg/m³]
+                </figcaption>
+            </figure>
+
+            <figure>
+                <img src="images/y0.25_T.png"
+                     alt="Temperature profile comparison at y equals 0.25 m">
+                <figcaption>
+                    Temperature profile, \(T\) [K]
+                </figcaption>
+            </figure>
+
+            <figure>
+                <img src="images/y0.25_U.png"
+                     alt="Velocity magnitude profile comparison at y equals 0.25 m">
+                <figcaption>
+                    Velocity magnitude profile, \(|U|\) [m/s]
+                </figcaption>
+            </figure>
+
+        </div>
+
+        <p>
+            각 mesh의 profile은 대부분의 영역에서 거의 겹치며,
+            차이는 주로 shock과 같이 상태량이 급격히 변하는 구간에서 나타난다.
+            즉 coarse mesh에서도 전체적인 유동 상태는 잘 계산되지만,
+            불연속에 가까운 급격한 변화의 공간적 해상도는 mesh refinement의 영향을 받는다.
         </p>
     </section>
 
 
-    <section id="discussion">
-        <h2>5. Discussion</h2>
+    <section id="validation">
+        <h2>6. Shock Angle Validation</h2>
+
+        <h3>6.1 Shock Extraction Using an Iso-pressure Contour</h3>
 
         <p>
-            본 계산을 통해 OpenFOAM에서 Mach 2 missile external flow를 구성하고,
-            oblique shock이 포함된 압축성 유동장을 안정적으로 계산하였다.
-            특히 pressure contour만 제시하는 데 그치지 않고,
-            density, temperature, velocity magnitude를 함께 비교함으로써
-            shock 통과 전후의 상태량 변화가 서로 일관된 형태로 나타나는지 확인하였다.
+            CFD에서 계산된 shock angle을 이론값과 직접 비교하기 위해
+            ParaView에서 pressure iso-surface를 생성하였다.
+            본 2차원 해석에서는 실제로는 일정 압력값을 갖는 iso-contour line에 해당하며,
+            \(p=137100\ \mathrm{Pa}\)의 contour를 추출하여 각 mesh에서
+            <code>50k_Isosurf.csv</code>, <code>100k_Isosurf.csv</code>,
+            <code>200k_Isosurf.csv</code>로 저장하였다.
         </p>
 
         <p>
-            또한 50k / 100k / 200k mesh를 동일 조건에서 비교하여
-            mesh refinement가 shock resolution에 미치는 영향을 확인하였다.
-            이후 정량적 validation에서는 CFD에서 얻은 shock angle과
-            shock 전·후 상태량을 \(\theta-\beta-M\) 관계식 및
-            oblique-shock relation과 비교할 수 있다.
+            전체 iso-contour에는 여러 영역이 포함될 수 있으므로,
+            nose에서 발생하는 upper shock만 사용하기 위해
+            \(0.05 \le x \le 0.40\), \(y&gt;0\)의 점들을 선택하였다.
+            선택된 shock point에 대해 다음과 같이 1차 직선 fitting을 수행하였다.
+        </p>
+
+        \[
+        y=ax+b
+        \]
+
+        <p>
+            Shock line의 기울기가 \(a\)이므로 CFD shock angle은
+        </p>
+
+        \[
+        \beta_{\mathrm{CFD}}
+        =
+        \tan^{-1}\left(|a|\right)
+        \]
+
+        <p>
+            로 계산하였다. 이때 \(b\)는 실제 iso-contour의 위치에 의해 결정되는 절편이며,
+            shock angle 계산에는 기울기 \(a\)만 사용하였다.
+            그래프에서는 각도 차이만 명확하게 보기 위해 CFD와 theory line을
+            동일한 nose point에서 시작하도록 다시 그렸다.
+        </p>
+
+        <h3>6.2 Theoretical Shock Angle</h3>
+
+        <p>
+            이론 shock angle은 \(M_1=2.0\), \(\theta=10^\circ\),
+            \(\gamma=1.4\)를 이용하여 \(\theta-\beta-M\) 관계식의 weak-shock solution을 계산하였다.
+        </p>
+
+        \[
+        \tan\theta
+        =
+        2\cot\beta
+        \frac{M_1^2\sin^2\beta-1}
+        {M_1^2(\gamma+\cos2\beta)+2}
+        \]
+
+        <p>
+            계산된 이론값은
+            \(\beta_{\mathrm{theory}}=39.313932^\circ\)이다.
+        </p>
+
+        <figure class="wide-figure">
+            <img src="images/beta_relation.png"
+                 alt="Comparison of CFD shock angle and theoretical shock angle">
+            <figcaption>
+                CFD shock angle obtained from the iso-pressure contour and
+                the \(\theta-\beta-M\) theoretical solution.
+            </figcaption>
+        </figure>
+
+        <table class="validation-table">
+            <tr>
+                <th>Mesh</th>
+                <th>\(\beta_{\mathrm{CFD}}\) [deg]</th>
+                <th>Error [%]</th>
+                <th>\(R^2\)</th>
+            </tr>
+            <tr>
+                <td>50k</td>
+                <td>39.332997</td>
+                <td>0.048494</td>
+                <td>0.99999670</td>
+            </tr>
+            <tr>
+                <td>100k</td>
+                <td>39.317345</td>
+                <td>0.008683</td>
+                <td>0.99999935</td>
+            </tr>
+            <tr>
+                <td>200k</td>
+                <td>39.314676</td>
+                <td>0.001894</td>
+                <td>0.99999974</td>
+            </tr>
+        </table>
+
+        <p>
+            상대오차는 다음 식으로 계산하였다.
+        </p>
+
+        \[
+        \mathrm{Error}
+        =
+        \frac{
+        \left|\beta_{\mathrm{CFD}}-\beta_{\mathrm{theory}}\right|
+        }{
+        \beta_{\mathrm{theory}}
+        }
+        \times100
+        \]
+
+        <figure class="wide-figure">
+            <img src="images/Error_beta.png"
+                 alt="Shock angle error with mesh refinement">
+            <figcaption>
+                Shock-angle error with mesh refinement.
+            </figcaption>
+        </figure>
+
+        <div class="personal-note">
+            이 결과에서 가장 의외였던 점은 오차의 크기였다.
+            Mesh refinement에 따라 오차가 감소하는 것은 예상했지만,
+            50k mesh에서도 shock-angle error가 약 0.0485%에 불과했다.
+            처음 예상했던 것보다 훨씬 작은 값이었고,
+            200k에서는 약 0.0019%까지 감소하였다.
+            즉 shock이 수치적으로 어느 정도 퍼져 보이더라도 전체 shock angle 자체는
+            coarse mesh에서도 상당히 정확하게 계산되고 있었다.
+        </div>
+    </section>
+
+
+    <section id="properties">
+        <h2>7. Shock Property Validation</h2>
+
+        <h3>7.1 Oblique-Shock Relations</h3>
+
+        <p>
+            Shock angle뿐 아니라 shock 전후의 상태량도 이론과 비교하였다.
+            여기서는 \(x=0.25\ \mathrm{m}\)의 수직 sampling line을 사용하였다.
+            Pressure gradient \(|dp/dy|\)가 최대가 되는 위치를 shock position으로 정의하고,
+            shock 전후의 안정된 구간에서 평균값을 계산하여 State 1과 State 2를 정의하였다.
+        </p>
+
+        <p>
+            먼저 oblique shock의 upstream normal Mach number는
+        </p>
+
+        \[
+        M_{n1}=M_1\sin\beta
+        \]
+
+        <p>
+            이다. 이후 normal-shock relation을 normal component에 적용하면 pressure ratio는
+        </p>
+
+        \[
+        \frac{p_2}{p_1}
+        =
+        1+
+        \frac{2\gamma}{\gamma+1}
+        \left(M_{n1}^2-1\right)
+        \]
+
+        <p>
+            density ratio는
+        </p>
+
+        \[
+        \frac{\rho_2}{\rho_1}
+        =
+        \frac{
+        (\gamma+1)M_{n1}^2
+        }{
+        (\gamma-1)M_{n1}^2+2
+        }
+        \]
+
+        <p>
+            이며, ideal-gas relation으로부터 temperature ratio는
+        </p>
+
+        \[
+        \frac{T_2}{T_1}
+        =
+        \frac{p_2/p_1}{\rho_2/\rho_1}
+        \]
+
+        <p>
+            으로 계산된다. Shock 이후 normal Mach number는
+        </p>
+
+        \[
+        M_{n2}
+        =
+        \sqrt{
+        \frac{
+        1+\frac{\gamma-1}{2}M_{n1}^2
+        }{
+        \gamma M_{n1}^2-\frac{\gamma-1}{2}
+        }}
+        \]
+
+        <p>
+            이고, 전체 downstream Mach number는
+        </p>
+
+        \[
+        M_2
+        =
+        \frac{M_{n2}}
+        {\sin(\beta-\theta)}
+        \]
+
+        <p>
+            로 구할 수 있다. CFD에서는 동일하게 State 1과 State 2의 평균 상태량을 사용하였으며,
+            Mach number는
+        </p>
+
+        \[
+        M=\frac{|U|}{a},
+        \qquad
+        a=\sqrt{\gamma RT}
+        \]
+
+        <p>
+            로 계산하였다. 각 물리량의 상대오차는 shock angle과 동일하게
+        </p>
+
+        \[
+        \mathrm{Error}
+        =
+        \frac{
+        \left|Q_{\mathrm{CFD}}-Q_{\mathrm{theory}}\right|
+        }{
+        Q_{\mathrm{theory}}
+        }
+        \times100
+        \]
+
+        <p>
+            으로 정의하였다.
+        </p>
+
+        <table class="validation-table">
+            <tr>
+                <th>Mesh</th>
+                <th>\(p_2/p_1\)<br>Error [%]</th>
+                <th>\(\rho_2/\rho_1\)<br>Error [%]</th>
+                <th>\(T_2/T_1\)<br>Error [%]</th>
+                <th>\(M_2\)<br>Error [%]</th>
+            </tr>
+            <tr>
+                <td>50k</td>
+                <td>0.031548</td>
+                <td>0.027801</td>
+                <td>0.056836</td>
+                <td>0.051506</td>
+            </tr>
+            <tr>
+                <td>100k</td>
+                <td>0.023037</td>
+                <td>0.006364</td>
+                <td>0.027382</td>
+                <td>0.028633</td>
+            </tr>
+            <tr>
+                <td>200k</td>
+                <td>0.008524</td>
+                <td>0.002956</td>
+                <td>0.010075</td>
+                <td>0.006235</td>
+            </tr>
+        </table>
+
+        <figure class="wide-figure">
+            <img src="images/Error_properties.png"
+                 alt="Oblique shock property validation errors with mesh refinement">
+            <figcaption>
+                Relative errors of \(p_2/p_1\), \(\rho_2/\rho_1\),
+                \(T_2/T_1\), and \(M_2\).
+            </figcaption>
+        </figure>
+
+        <p>
+            모든 물리량에서 mesh를 세밀하게 할수록 이론값과의 오차가 감소하였다.
+            특히 \(M_2\)는 100k에서 200k로 증가할 때 상대오차가 비교적 크게 감소하였다.
+            \(M_2\)는 독립적으로 직접 주어지는 값이 아니라
+            \(M_2=|U_2|/\sqrt{\gamma R T_2}\)와 같이 post-shock velocity와 temperature로부터
+            계산되는 값이다. 따라서 mesh refinement에 따라 \(U_2\)와 \(T_2\)가 함께 수렴하고,
+            두 변수의 오차가 최종 Mach number 계산에서 일부 상쇄될 경우
+            \(M_2\)의 상대오차가 개별 상태량보다 빠르게 감소할 수 있다.
+        </p>
+
+        <p>
+            다만 이를 단순히 error cancellation만의 결과로 단정할 수는 없다.
+            본 결과에서는 post-shock 상태 자체가 mesh refinement에 따라 이론값에 수렴하는 경향과,
+            \(U_2\)와 \(T_2\)를 함께 사용하는 Mach number 계산 특성이 동시에 반영된 것으로 해석하였다.
+        </p>
+
+        <div class="personal-note">
+            상태량 비교에서도 오차는 예상보다 매우 작았다.
+            특히 가장 coarse한 50k mesh에서도 네 물리량의 상대오차가 모두 약 0.06% 이하였다는 점이 인상적이었다.
+            Contour만 보았을 때 세 mesh가 비슷해 보였던 이유가 단순한 시각적 착시가 아니라,
+            실제 정량값도 이미 상당히 가까웠다는 것을 확인할 수 있었다.
+        </div>
+    </section>
+
+
+    <section id="discussion">
+        <h2>8. Validation Summary</h2>
+
+        <p>
+            본 계산에서는 먼저 pressure, density, temperature, velocity magnitude contour를 통해
+            Mach 2 외부유동에서 형성되는 oblique shock을 확인하였다.
+            이후 50k / 100k / 200k mesh를 비교하고, 단순한 contour 비교를 넘어
+            line profile, shock angle, shock 전후 상태량을 단계적으로 검증하였다.
+        </p>
+
+        <p>
+            Shock angle은 pressure iso-contour를 이용해 추출한 뒤 linear fitting으로 계산하였고,
+            \(\theta-\beta-M\) relation의 weak-shock solution과 비교하였다.
+            또한 \(p_2/p_1\), \(\rho_2/\rho_1\), \(T_2/T_1\), \(M_2\)를
+            oblique-shock theory와 직접 비교하여 mesh refinement에 따라 오차가 일관되게 감소하는 것을 확인하였다.
+        </p>
+
+        <p>
+            개인적으로는 50k mesh에서도 결과가 예상보다 정확하다는 점이 가장 인상적이었다.
+            처음에는 cell 수 차이가 contour와 정량값 모두에서 훨씬 크게 나타날 것으로 예상했지만,
+            실제로는 coarse mesh에서도 주요 shock 구조를 잘 포착했고
+            shock-angle 및 상태량 오차 역시 매우 작았다.
+            Mesh를 증가시키면 그 작은 오차가 추가로 감소하며 이론해에 더 가까워졌다.
+        </p>
+
+        <p>
+            따라서 적어도 본 \(M_1=2.0\), \(\theta=10^\circ\)의 sharp-nose 외부유동 조건에서는
+            OpenFOAM 계산이 oblique-shock theory와 매우 잘 일치하였다.
+            정성적인 contour, mesh refinement, shock angle, shock 전후 상태량을 모두 비교한 결과
+            본 해석 case에 대한 validation을 완료할 수 있었다.
         </p>
 
         <div class="summary-box">
-            <strong>Summary</strong><br>
-            • Mach 2 supersonic missile external-flow simulation<br>
-            • OpenFOAM <code>shockFluid</code> solver<br>
-            • 50k / 100k / 200k mesh refinement<br>
-            • \(p\), \(\rho\), \(T\), \(|U|\) contour comparison<br>
-            • Oblique-shock theory 기반의 정량 validation으로 확장 가능
+            <strong>Validation Summary</strong><br>
+            • 50k / 100k / 200k mesh에서 동일한 oblique-shock 구조 확인<br>
+            • \(y=0.25\ \mathrm{m}\) line profile을 이용한 mesh별 상태량 비교<br>
+            • Iso-pressure contour 기반 shock angle 추출 및 \(\theta-\beta-M\) theory 검증<br>
+            • 200k shock-angle error: 약 0.0019%<br>
+            • \(p_2/p_1\), \(\rho_2/\rho_1\), \(T_2/T_1\), \(M_2\) 모두 mesh refinement에 따라 오차 감소<br>
+            • 본 해석 조건에서 OpenFOAM solution과 analytical oblique-shock relation의 높은 일치 확인
         </div>
     </section>
 
