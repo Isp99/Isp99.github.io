@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Reynolds stress는 속도의 변동성분이 평균적으로 운동량을 운반하는 효과를 응력의 형태로 나타낸 것이다. RANS equation에는 이 응력이 새로운 미지수로 들어가므로, 평균 속도와 압력만으로는 방정식을 풀 수 없다. 여기서는 Reynolds stress의 성분과 물리적 의미를 정리한 뒤, Boussinesq hypothesis를 사용하여 이를 평균 속도 기울기와 연결한다.">
+    <title>1.2 Reynolds Stress and the Closure Problem | Isp99</title>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Page styles are self-contained. This file can replace reynolds-stress-and-closure-problem/index.html. -->
+    <style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style>
+</head>
+<body class="article-page"><div class="page-layout">
+<aside class="left-sidebar" aria-label="Turbulence navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Turbulence</a><div class="sidebar-group"><div class="sidebar-group-title">1. Reynolds-Averaged Turbulence Equations</div><a href="../reynolds-decomposition-and-rans-equations/" class="sidebar-link"><span class="item-number">1.1</span> Reynolds Decomposition and RANS Equations</a><a href="../reynolds-stress-and-closure-problem/" class="sidebar-link active" aria-current="page"><span class="item-number">1.2</span> Reynolds Stress and the Closure Problem</a><a href="../turbulent-kinetic-energy-equation/" class="sidebar-link"><span class="item-number">1.3</span> Turbulent Kinetic-Energy Equation</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Two-Equation Turbulence Models</div><a href="../standard-k-epsilon-model/" class="sidebar-link"><span class="item-number">2.1</span> Standard k–ε Model</a><a href="../k-omega-and-sst-models/" class="sidebar-link"><span class="item-number">2.2</span> k–ω and Shear-Stress-Transport Models</a></div></nav></aside>
+<main class="main-content" id="top">
+<nav aria-label="Current article"><a href="#top">1.2 Reynolds Stress and the Closure Problem</a></nav>
+<header><h1>1.2 Reynolds Stress and the Closure Problem</h1><p class="subtitle">Reynolds-Stress Tensor, Turbulent Kinetic Energy, and Eddy-Viscosity Closure</p><p class="intro"><strong>Reynolds stress</strong>는 속도의 변동성분이 평균적으로 운동량을 운반하는 효과를 응력의 형태로 나타낸 것이다. RANS equation에는 이 응력이 새로운 미지수로 들어가므로, 평균 속도와 압력만으로는 방정식을 풀 수 없다. 여기서는 Reynolds stress의 성분과 물리적 의미를 정리한 뒤, <strong>Boussinesq hypothesis</strong>를 사용하여 이를 평균 속도 기울기와 연결한다.</p></header>
+<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#reynolds-stress-tensor">Reynolds-Stress Tensor</a></li><li><a href="#turbulent-kinetic-energy-and-closure">Turbulent Kinetic Energy and Closure</a></li><li><a href="#boussinesq-eddy-viscosity-hypothesis">Boussinesq Eddy-Viscosity Hypothesis</a></li><li><a href="#mean-momentum-equation-with-eddy-viscosity">Mean Momentum Equation with Eddy Viscosity</a></li></ol></aside>
+<section id="reynolds-stress-tensor" aria-labelledby="reynolds-stress-tensor-title"><h2 id="reynolds-stress-tensor-title">1. Reynolds-Stress Tensor</h2>
+<h3>Definition and Sign Convention</h3>
+<p>앞에서 얻은 RANS momentum equation <a href="../reynolds-decomposition-and-rans-equations/#eq-RANSmomentum">(1.1.22)</a>은 가속도를 기준으로 쓴 식이다. 응력을 압력과 같은 단위로 다루기 위해 식 전체에 일정한 밀도 \(\rho\)를 곱하면</p>
+<div class="equation" id="eq-densityWeightedRANS">
+\[
+\rho\left(\frac{\partial\overline{u_i}}{\partial t}+\overline{u_j}\frac{\partial\overline{u_i}}{\partial x_j}\right)=-\frac{\partial\overline p}{\partial x_i}+\mu\frac{\partial^2\overline{u_i}}{\partial x_j\partial x_j}-\frac{\partial(\rho\overline{u_i'u_j'})}{\partial x_j}
+\tag{1.2.1}
+\]
+</div>
+<p>\(\overline{u_i'u_j'}\)의 단위는 \(\mathrm{m^2/s^2}\)이다. 여기에 밀도를 곱하면 응력과 같은 \(\mathrm{N/m^2}\)가 된다. 따라서 마지막 항에 포함된 양을 다음과 같이 정의한다.</p>
+<div class="equation main" id="eq-reynoldsStress">
+\[
+\boxed{\displaystyle \tau_{ij}^{R}\equiv-\rho\overline{u_i'u_j'}}
+\tag{1.2.2}
+\]
+</div>
+<p>음의 부호는 이 항을 우변에서 다른 응력과 같은 양의 발산 형태로 쓰기 위한 <strong>Sign convention</strong>이다. 이 정의를 사용하면 평균 운동량방정식은 다음과 같이 정리된다.</p>
+<div class="equation" id="eq-RANSstressForm">
+\[
+\rho\frac{\mathrm D\overline{u_i}}{\mathrm Dt}=-\frac{\partial\overline p}{\partial x_i}+\frac{\partial\tau_{ij}}{\partial x_j}+\frac{\partial\tau_{ij}^{R}}{\partial x_j}
+\tag{1.2.3}
+\]
+</div>
+<p>여기서 \(\tau_{ij}\)는 평균 분자 점성응력이며, \(\mathrm D/\mathrm Dt=\partial/\partial t+\overline{u_j}\,\partial/\partial x_j\)는 평균 속도를 따라가는 변화율이다. Reynolds stress는 분자 점성과 발생 원인이 같다는 뜻이 아니라, <strong>변동 운동에 의한 운동량 수송을 응력과 같은 형태로 표현한 것</strong>이다.</p>
+<h3>Tensor Components</h3>
+<p>\(\tau_{ij}^{R}\)에서 \(i\)는 운반되는 운동량의 방향, \(j\)는 그 운동량이 통과하는 면의 법선 방향을 나타낸다. 세 방향의 변동 속도를 \(u'\), \(v'\), \(w'\)로 쓰면</p>
+<div class="equation" id="eq-reynoldsStressMatrix">
+\[
+\boldsymbol{\tau}^{R}=-\rho\begin{bmatrix}\overline{u'^2}&amp;\overline{u'v'}&amp;\overline{u'w'}\\\overline{v'u'}&amp;\overline{v'^2}&amp;\overline{v'w'}\\\overline{w'u'}&amp;\overline{w'v'}&amp;\overline{w'^2}\end{bmatrix}
+\tag{1.2.4}
+\]
+</div>
+<p>대각 성분은 <strong>Turbulent normal stress</strong>, 비대각 성분은 <strong>Turbulent shear stress</strong>이다. 예를 들어 \(\overline{u'v'}\)는 \(y\) 방향의 변동 운동이 \(x\) 방향 운동량을 운반하는 효과와 연결된다.</p>
+<p>곱의 순서를 바꾸어도 값이 같으므로 \(\overline{u_i'u_j'}=\overline{u_j'u_i'}\)이다. 따라서 Reynolds-stress tensor는 <strong>Symmetric tensor</strong>이며, 아홉 성분 중 독립적인 성분은 여섯 개이다.</p>
+</section>
+<section id="turbulent-kinetic-energy-and-closure" aria-labelledby="turbulent-kinetic-energy-and-closure-title"><h2 id="turbulent-kinetic-energy-and-closure-title">2. Turbulent Kinetic Energy and Closure</h2>
+<h3>Turbulent Kinetic Energy</h3>
+<p><strong>Turbulent kinetic energy</strong> \(k\)는 속도 변동에 포함된 단위질량당 운동에너지이다. 세 방향의 변동을 하나의 스칼라로 모아 Turbulence의 에너지 수준을 나타낸다.</p>
+<div class="equation main" id="eq-turbulentKineticEnergy">
+\[
+\boxed{\displaystyle k=\frac12\overline{u_i'u_i'}=\frac12\left(\overline{u'^2}+\overline{v'^2}+\overline{w'^2}\right)}
+\tag{1.2.5}
+\]
+</div>
+<p>단위는 \(\mathrm{m^2/s^2}\)이며, 속도 변동의 제곱을 더한 값이므로 음수가 될 수 없다. Reynolds stress의 대각 성분을 모두 더한 <strong>Trace</strong>는 \(k\)와 직접 연결된다.</p>
+<div class="equation" id="eq-reynoldsStressTrace">
+\[
+\tau_{ii}^{R}=-\rho\overline{u_i'u_i'}=-2\rho k
+\tag{1.2.6}
+\]
+</div>
+<p>이 관계는 뒤에서 응력 모델의 대각 성분을 정할 때 사용한다. 어떤 모델을 쓰더라도 Reynolds stress의 Trace가 \(k\)의 정의와 맞아야 한다.</p>
+<h3>Closure Problem</h3>
+<p>평균 속도의 세 성분과 평균 압력을 구하려면 미지수는 네 개이다. 평균 질량보존식 하나와 운동량방정식 세 개가 있지만, RANS equation에는 여기에 Reynolds stress의 독립적인 여섯 성분이 추가된다.</p>
+<p>이처럼 <strong>주어진 방정식만으로 모든 미지수를 결정할 수 없는 상태</strong>를 <strong>Closure problem</strong>이라고 한다. Reynolds stress 자체에 대한 방정식을 유도하더라도 더 높은 차수의 상관항이 다시 생긴다. 따라서 추가 관계를 도입하여 상관항을 이미 계산하는 변수들로 표현해야 하며, 이 역할을 <strong>Turbulence model</strong>이 담당한다.</p>
+</section>
+<section id="boussinesq-eddy-viscosity-hypothesis" aria-labelledby="boussinesq-eddy-viscosity-hypothesis-title"><h2 id="boussinesq-eddy-viscosity-hypothesis-title">3. Boussinesq Eddy-Viscosity Hypothesis</h2>
+<h3>Analogy with Molecular Viscosity</h3>
+<p>Incompressible Newtonian fluid의 평균 분자 점성응력은 다음과 같이 평균 변형률 속도에 비례한다.</p>
+<div class="equation" id="eq-meanMolecularStress">
+\[
+\tau_{ij}=2\mu\overline{S}_{ij}
+\tag{1.2.7}
+\]
+</div>
+<p><strong>Mean rate-of-strain tensor</strong> \(\overline{S}_{ij}\)는 유체 요소가 얼마나 빠르게 변형되는지를 나타내며, 평균 속도 기울기의 대칭 부분으로 정의한다.</p>
+<div class="equation" id="eq-meanStrain">
+\[
+\overline{S}_{ij}=\frac12\left(\frac{\partial\overline{u_i}}{\partial x_j}+\frac{\partial\overline{u_j}}{\partial x_i}\right)
+\tag{1.2.8}
+\]
+</div>
+<p><strong>Boussinesq hypothesis</strong>는 Reynolds stress의 방향에 따라 달라지는 부분도 이 평균 변형률 속도에 비례한다고 가정한다. 이때 비례계수로 도입하는 <strong>Eddy viscosity</strong> \(\mu_t\)는 분자 점성계수 \(\mu\)와 달리 유체 고유의 물성이 아니다. 각 위치의 Turbulence 상태에 따라 계산하는 모델 변수이다.</p>
+<h3>Isotropic Contribution</h3>
+<p>평균 변형률 속도에 비례하는 항에, 모든 방향에 동일하게 작용하는 <strong>Isotropic contribution</strong>을 더하여 다음 형태에서 시작한다.</p>
+<div class="equation" id="eq-boussinesqTrial">
+\[
+\tau_{ij}^{R}=2\mu_t\overline{S}_{ij}+C\delta_{ij}
+\tag{1.2.9}
+\]
+</div>
+<p>\(\delta_{ij}\)는 \(i=j\)이면 1, 다르면 0인 <strong>Kronecker delta</strong>이다. 따라서 \(C\delta_{ij}\)는 세 대각 성분에 같은 값 \(C\)를 더한다.</p>
+<p>양변에서 \(i=j\)로 놓고 합을 취하면</p>
+<div class="equation" id="eq-boussinesqTrace">
+\[
+\tau_{ii}^{R}=2\mu_t\overline{S}_{ii}+C\delta_{ii}
+\tag{1.2.10}
+\]
+</div>
+<p>Incompressible flow에서는 \(\overline{S}_{ii}=\partial\overline{u_i}/\partial x_i=0\)이고, 세 방향을 더하므로 \(\delta_{ii}=3\)이다. 식 <a href="#eq-reynoldsStressTrace">(1.2.6)</a>를 대입하면</p>
+<div class="equation" id="eq-isotropicCoefficient">
+\[
+-2\rho k=3C,\qquad C=-\frac23\rho k
+\tag{1.2.11}
+\]
+</div>
+<p>따라서 Reynolds stress와 평균 속도 기울기를 연결하는 Boussinesq relation은 다음과 같다.</p>
+<div class="equation main" id="eq-boussinesq">
+\[
+\boxed{\displaystyle -\rho\overline{u_i'u_j'}=2\mu_t\overline{S}_{ij}-\frac23\rho k\delta_{ij}}
+\tag{1.2.12}
+\]
+</div>
+<p>첫 번째 항은 평균 변형에 따른 운동량 수송을 표현하고, 두 번째 항은 \(k\)에 맞는 Isotropic contribution을 준다. 계수 \(-2/3\)은 임의로 붙인 값이 아니라 <strong>응력의 Trace가 \(-2\rho k\)가 되어야 한다는 조건</strong>에서 정해진다.</p>
+</section>
+<section id="mean-momentum-equation-with-eddy-viscosity" aria-labelledby="mean-momentum-equation-with-eddy-viscosity-title"><h2 id="mean-momentum-equation-with-eddy-viscosity-title">4. Mean Momentum Equation with Eddy Viscosity</h2>
+<h3>Effective Viscosity and Modified Pressure</h3>
+<p>식 <a href="#eq-RANSstressForm">(1.2.3)</a>에 분자 점성응력과 Boussinesq relation을 대입하면</p>
+<div class="equation" id="eq-momentumBoussinesqSubstitution">
+\[
+\rho\frac{\mathrm D\overline{u_i}}{\mathrm Dt}=-\frac{\partial\overline p}{\partial x_i}+\frac{\partial}{\partial x_j}\left(2\mu\overline{S}_{ij}+2\mu_t\overline{S}_{ij}-\frac23\rho k\delta_{ij}\right)
+\tag{1.2.13}
+\]
+</div>
+<p>점성계수 두 개를 합하고 Isotropic contribution을 압력에 포함시키면 식을 간단히 쓸 수 있다.</p>
+<div class="equation" id="eq-effectiveViscosityPressure">
+\[
+\mu_{\mathrm{eff}}=\mu+\mu_t,\qquad p^*=\overline p+\frac23\rho k
+\tag{1.2.14}
+\]
+</div>
+<p>\(\mu_{\mathrm{eff}}\)는 <strong>Effective viscosity</strong>, \(p^*\)는 <strong>Modified pressure</strong>이다. \(p^*\)는 운동량방정식을 정리하기 위한 변수이며, 실제 평균 압력을 구할 때는 \(2\rho k/3\)를 빼야 한다.</p>
+<div class="equation main" id="eq-RANSboussinesq">
+\[
+\boxed{\displaystyle \rho\frac{\mathrm D\overline{u_i}}{\mathrm Dt}=-\frac{\partial p^*}{\partial x_i}+\frac{\partial}{\partial x_j}\left(2\mu_{\mathrm{eff}}\overline{S}_{ij}\right)}
+\tag{1.2.15}
+\]
+</div>
+<p>이제 Reynolds stress의 여섯 성분을 각각 지정하는 대신, 평균 변형률 속도와 \(k\), \(\mu_t\)로 응력을 계산할 수 있다. <strong>Eddy-viscosity model</strong>은 이 중 아직 정해지지 않은 \(\mu_t\)를 구하는 관계를 제공한다. 이어지는 에너지 방정식과 Two-equation model은 \(k\)와 그 변화의 시간척도를 계산하여 이 관계를 완성한다.</p>
+</section>
+<footer><a href="../">← Turbulence로 돌아가기</a></footer>
+</main>
+<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#reynolds-stress-tensor" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Reynolds-Stress Tensor</span></a><a href="#turbulent-kinetic-energy-and-closure" class="sidebar-link"><span class="item-number">2.</span><span>Turbulent Kinetic Energy and Closure</span></a><a href="#boussinesq-eddy-viscosity-hypothesis" class="sidebar-link"><span class="item-number">3.</span><span>Boussinesq Eddy-Viscosity Hypothesis</span></a><a href="#mean-momentum-equation-with-eddy-viscosity" class="sidebar-link"><span class="item-number">4.</span><span>Mean Momentum Equation with Eddy Viscosity</span></a></nav></aside>
+</div>
+<script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script>
+</body>
+</html>

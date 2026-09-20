@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="k–ω model은 와 함께 Turbulence의 시간척도에 해당하는 를 계산한다. SST (Shear-Stress Transport) model은 이 모델의 벽면 부근 특성과, 바깥 영역에서의 – 계열 특성을 연결하고 Eddy viscosity에 제한을 둔다. 여기서는 변수 변환으로 설명할 수 있는 부분과 별도의 모델 정의가 필요한 부분을 구분하며 두 모델의 구조를 정리한다. 앞 페이지와 같은 Incompressible, 일정 밀도 조건을 사용하며 속도는 평균값 로 표시한다.">
+    <title>2.2 k–ω and Shear-Stress-Transport Models | Isp99</title>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Page styles are self-contained. This file can replace k-omega-and-sst-models/index.html. -->
+    <style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style>
+</head>
+<body class="article-page"><div class="page-layout">
+<aside class="left-sidebar" aria-label="Turbulence navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Turbulence</a><div class="sidebar-group"><div class="sidebar-group-title">1. Reynolds-Averaged Turbulence Equations</div><a href="../reynolds-decomposition-and-rans-equations/" class="sidebar-link"><span class="item-number">1.1</span> Reynolds Decomposition and RANS Equations</a><a href="../reynolds-stress-and-closure-problem/" class="sidebar-link"><span class="item-number">1.2</span> Reynolds Stress and the Closure Problem</a><a href="../turbulent-kinetic-energy-equation/" class="sidebar-link"><span class="item-number">1.3</span> Turbulent Kinetic-Energy Equation</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Two-Equation Turbulence Models</div><a href="../standard-k-epsilon-model/" class="sidebar-link"><span class="item-number">2.1</span> Standard k–ε Model</a><a href="../k-omega-and-sst-models/" class="sidebar-link active" aria-current="page"><span class="item-number">2.2</span> k–ω and Shear-Stress-Transport Models</a></div></nav></aside>
+<main class="main-content" id="top">
+<nav aria-label="Current article"><a href="#top">2.2 k–ω and Shear-Stress-Transport Models</a></nav>
+<header><h1>2.2 k–ω and Shear-Stress-Transport Models</h1><p class="subtitle">Specific Dissipation Rate, Cross Diffusion, Blending, and Shear-Stress Limiting</p><p class="intro"><strong>k–ω model</strong>은 \(k\)와 함께 Turbulence의 시간척도에 해당하는 \(\omega\)를 계산한다. <strong>SST (Shear-Stress Transport) model</strong>은 이 모델의 벽면 부근 특성과, 바깥 영역에서의 \(k\)–\(\epsilon\) 계열 특성을 연결하고 Eddy viscosity에 제한을 둔다. 여기서는 변수 변환으로 설명할 수 있는 부분과 별도의 모델 정의가 필요한 부분을 구분하며 두 모델의 구조를 정리한다. 앞 페이지와 같은 Incompressible, 일정 밀도 조건을 사용하며 속도는 평균값 \(\overline{u_i}\)로 표시한다.</p></header>
+<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#specific-dissipation-rate">Specific Dissipation Rate</a></li><li><a href="#k-omega-transport-equations">k–Omega Transport Equations</a></li><li><a href="#cross-diffusion-and-sst-blending">Cross Diffusion and SST Blending</a></li><li><a href="#blending-function-f1">Blending Function F1</a></li><li><a href="#shear-stress-limiter">Shear-Stress Limiter</a></li><li><a href="#sst-transport-equations">SST Transport Equations</a></li><li><a href="#model-constants-and-modeling-assumptions">Model Constants and Modeling Assumptions</a></li></ol></aside>
+<section id="specific-dissipation-rate" aria-labelledby="specific-dissipation-rate-title"><h2 id="specific-dissipation-rate-title">1. Specific Dissipation Rate</h2>
+<h3>Definition and Time Scale</h3>
+<p><strong>Specific dissipation rate</strong> \(\omega\)는 에너지 소산율 \(\epsilon\)을 에너지 수준 \(k\)와 연결하여 정의한 변수이다. 에너지의 크기와 그 변화의 빠르기를 나누어 표현하기 위해 사용한다.</p>
+<div class="equation main" id="eq-omegaDefinition">
+\[
+\boxed{\displaystyle \omega\equiv\frac{\epsilon}{\beta^*k},\qquad \epsilon=\beta^*k\omega}
+\tag{2.2.1}
+\]
+</div>
+<p>\(\beta^*\)는 무차원 모델 계수이며, \(\omega\)의 단위는 \(\mathrm{s^{-1}}\)이다. 따라서 \(1/\omega\)는 시간척도에 대응한다. 같은 \(k\)에서 \(\omega\)가 클수록 \(\epsilon\)이 크고, 에너지가 소산되는 대표 시간이 짧다. 소문자 \(\omega\)는 뒤에서 사용하는 Vorticity magnitude \(\Omega\)와 다른 물리량이다.</p>
+<h3>Eddy Viscosity in k–Omega Form</h3>
+<p>\(k\)–\(\epsilon\) model의 Eddy viscosity <a href="../standard-k-epsilon-model/#eq-kEpsilonMut">(2.1.5)</a>에 \(\epsilon=\beta^*k\omega\)를 대입하면</p>
+<div class="equation" id="eq-kOmegaViscosityTransformation">
+\[
+\mu_t=\rho C_\mu\frac{k^2}{\beta^*k\omega}=\rho\frac{C_\mu}{\beta^*}\frac{k}{\omega}
+\tag{2.2.2}
+\]
+</div>
+<p>여기서 \(C_\mu=\beta^*=0.09\)에 해당하는 관계를 사용하면 기본 \(k\)–\(\omega\) 형태가 된다.</p>
+<div class="equation main" id="eq-kOmegaEddyViscosity">
+\[
+\boxed{\displaystyle \mu_t=\rho\frac{k}{\omega}}
+\tag{2.2.3}
+\]
+</div>
+<p>\(k\)는 속도 제곱의 차원이고 \(1/\omega\)는 시간의 차원이므로, \(\nu_t=\mu_t/\rho=k/\omega\)는 동점성계수의 차원을 갖는다. \(k\)–\(\epsilon\)과 마찬가지로 에너지 수준과 시간척도를 함께 사용하여 운동량 수송의 크기를 정하는 구조이다.</p>
+</section>
+<section id="k-omega-transport-equations" aria-labelledby="k-omega-transport-equations-title"><h2 id="k-omega-transport-equations-title">2. k–Omega Transport Equations</h2>
+<h3>Source Terms from Variable Transformation</h3>
+<p>\(\omega\) 방정식의 생성·소멸항이 어떤 형태가 되는지 확인하기 위해 정의에 Material derivative를 적용한다. 여기서 \(\mathrm D/\mathrm Dt\)는 평균 속도를 따라가는 변화율이다.</p>
+<div class="equation" id="eq-omegaMaterialDerivative">
+\[
+\frac{\mathrm D\omega}{\mathrm Dt}=\frac1{\beta^*k}\frac{\mathrm D\epsilon}{\mathrm Dt}-\frac{\epsilon}{\beta^*k^2}\frac{\mathrm Dk}{\mathrm Dt}
+\tag{2.2.4}
+\]
+</div>
+<p>먼저 확산을 제외하고 \(k\)와 \(\epsilon\) 방정식의 Source term만 단위질량 기준으로 쓰면</p>
+<div class="equation" id="eq-kEpsilonSourceOnly">
+\[
+\frac{\mathrm Dk}{\mathrm Dt}=\frac{P_k}{\rho}-\epsilon,\qquad \frac{\mathrm D\epsilon}{\mathrm Dt}=C_{\epsilon1}\frac{\epsilon}{k}\frac{P_k}{\rho}-C_{\epsilon2}\frac{\epsilon^2}{k}
+\tag{2.2.5}
+\]
+</div>
+<p>두 식을 식 <a href="#eq-omegaMaterialDerivative">(2.2.4)</a>에 대입하여 전개하면</p>
+<div class="equation" id="eq-omegaSourceExpanded">
+\[
+\frac{\mathrm D\omega}{\mathrm Dt}=\frac{C_{\epsilon1}\epsilon}{\beta^*k^2}\frac{P_k}{\rho}-\frac{C_{\epsilon2}\epsilon^2}{\beta^*k^2}-\frac{\epsilon}{\beta^*k^2}\frac{P_k}{\rho}+\frac{\epsilon^2}{\beta^*k^2}
+\tag{2.2.6}
+\]
+</div>
+<p>\(P_k\)를 포함하는 항끼리 모으고 \(\epsilon/(\beta^*k)=\omega\)를 대입하면</p>
+<div class="equation" id="eq-omegaProductionDerived">
+\[
+(C_{\epsilon1}-1)\frac{\epsilon}{\beta^*k^2}\frac{P_k}{\rho}=(C_{\epsilon1}-1)\frac{\omega}{k}\frac{P_k}{\rho}
+\tag{2.2.7}
+\]
+</div>
+<p>\(\epsilon^2\)를 포함하는 항에도 같은 관계를 대입하면</p>
+<div class="equation" id="eq-omegaDestructionDerived">
+\[
+-(C_{\epsilon2}-1)\frac{\epsilon^2}{\beta^*k^2}=-(C_{\epsilon2}-1)\beta^*\omega^2
+\tag{2.2.8}
+\]
+</div>
+<p>따라서 확산을 생략한 변환식은</p>
+<div class="equation" id="eq-omegaSourceStructure">
+\[
+\frac{\mathrm D\omega}{\mathrm Dt}=(C_{\epsilon1}-1)\frac{\omega}{k}\frac{P_k}{\rho}-(C_{\epsilon2}-1)\beta^*\omega^2
+\tag{2.2.9}
+\]
+</div>
+<p>이 계산은 생성항이 \((\omega/k)P_k\), 소멸항이 \(\omega^2\)에 비례하는 구조를 설명한다. 실제 \(k\)–\(\omega\) model의 계수는 이 변수 변환만으로 고정되지 않으며, 대상 유동에 맞추어 별도로 보정한다.</p>
+<h3>Modeled Transport Equations</h3>
+<p>시간변화, 평균 대류, 확산과 두 Source term을 결합한 기본 형태는 다음과 같다.</p>
+<div class="equation main" id="eq-kOmegaKEquation">
+\[
+\boxed{\displaystyle \frac{\partial(\rho k)}{\partial t}+\frac{\partial(\rho\overline{u_j}k)}{\partial x_j}=P_k-\beta^*\rho k\omega+\frac{\partial}{\partial x_j}\left[(\mu+\sigma_k\mu_t)\frac{\partial k}{\partial x_j}\right]}
+\tag{2.2.10}
+\]
+</div>
+<div class="equation main" id="eq-kOmegaOmegaEquation">
+\[
+\boxed{\displaystyle \frac{\partial(\rho\omega)}{\partial t}+\frac{\partial(\rho\overline{u_j}\omega)}{\partial x_j}=\gamma_\omega\frac{\omega}{k}P_k-\beta\rho\omega^2+\frac{\partial}{\partial x_j}\left[(\mu+\sigma_\omega\mu_t)\frac{\partial\omega}{\partial x_j}\right]}
+\tag{2.2.11}
+\]
+</div>
+<p>\(\beta^*\), \(\beta\), \(\gamma_\omega\), \(\sigma_k\), \(\sigma_\omega\)는 모델 계수이다. 여기서는 확산계수를 \(\sigma\mu_t\)로 쓰며, 앞의 \(k\)–\(\epsilon\) 식에서 사용한 \(\mu_t/\sigma\)와 계수의 정의가 다르다.</p>
+<p>\(k\)–\(\omega\) 계열은 벽면 가까이까지 방정식을 적분하여 다루는 <strong>Near-wall behavior</strong>에 장점이 있다. 한편 외부 유동에서는 멀리 떨어진 경계에 지정한 <strong>Freestream \(\omega\)</strong>에 민감할 수 있다. SST의 Blending은 이 특성을 고려하여 벽면 부근과 바깥 영역에 서로 다른 계수와 항을 적용한다.</p>
+</section>
+<section id="cross-diffusion-and-sst-blending" aria-labelledby="cross-diffusion-and-sst-blending-title"><h2 id="cross-diffusion-and-sst-blending-title">3. Cross Diffusion and SST Blending</h2>
+<h3>Inner and Outer Behavior</h3>
+<p><strong>Blending function</strong>은 위치에 따라 두 모델의 기여도를 0과 1 사이에서 정하는 가중치이다. SST는 벽면 부근에서 \(k\)–\(\omega\)의 구조를, 경계층 바깥에서는 \(k\)–\(\omega\) 변수로 변환한 \(k\)–\(\epsilon\) 계열의 구조를 사용한다. 두 영역을 갑자기 바꾸는 대신 함수 \(F_1\)으로 부드럽게 연결한다.</p>
+<p>바깥 영역에서도 풀어야 하는 변수는 \(k\)와 \(\omega\)이다. 따라서 \(k\)–\(\epsilon\) 계열의 확산항을 \(\omega\) 변수로 바꾸는 과정이 필요하며, 여기에서 <strong>Cross diffusion</strong>이 나타난다.</p>
+<h3>Product Rule in the Diffusion Terms</h3>
+<p>\(\epsilon=\beta^*k\omega\)의 공간 기울기를 구하면</p>
+<div class="equation" id="eq-epsilonGradientTransformation">
+\[
+\frac{\partial\epsilon}{\partial x_j}=\beta^*\left(\omega\frac{\partial k}{\partial x_j}+k\frac{\partial\omega}{\partial x_j}\right)
+\tag{2.2.12}
+\]
+</div>
+<p>변환의 구조를 보기 위해 단위질량 기준의 확산 연산자를 다음과 같이 놓는다. \(\Gamma_k\), \(\Gamma_\epsilon\)은 동점성계수와 같은 차원을 갖는 확산계수이다.</p>
+<div class="equation" id="eq-diffusionOperatorDefinitions">
+\[
+\mathcal D_k=\nabla\cdot(\Gamma_k\nabla k),\qquad \mathcal D_\epsilon=\nabla\cdot(\Gamma_\epsilon\nabla\epsilon)
+\tag{2.2.13}
+\]
+</div>
+<p>식 <a href="#eq-omegaMaterialDerivative">(2.2.4)</a>에서 확산에 해당하는 부분만 모으면</p>
+<div class="equation" id="eq-omegaDiffusionTransformation">
+\[
+\mathcal D_\omega=\frac1{\beta^*k}\mathcal D_\epsilon-\frac{\epsilon}{\beta^*k^2}\mathcal D_k
+\tag{2.2.14}
+\]
+</div>
+<p>여기서는 두 확산계수가 작은 국소 영역에서 일정하다고 놓아 Product rule에 따른 항을 확인한다. 이때 \(\mathcal D_k=\Gamma_k\nabla^2k\), \(\mathcal D_\epsilon=\Gamma_\epsilon\nabla^2\epsilon\)이고</p>
+<div class="equation" id="eq-epsilonLaplacianTransformation">
+\[
+\nabla^2\epsilon=\beta^*\nabla^2(k\omega)=\beta^*\left(k\nabla^2\omega+\omega\nabla^2k+2\nabla k\cdot\nabla\omega\right)
+\tag{2.2.15}
+\]
+</div>
+<p>이를 식 <a href="#eq-omegaDiffusionTransformation">(2.2.14)</a>에 대입하면</p>
+<div class="equation" id="eq-omegaDiffusionExpanded">
+\[
+\mathcal D_\omega=\Gamma_\epsilon\nabla^2\omega+\frac{\omega}{k}(\Gamma_\epsilon-\Gamma_k)\nabla^2k+\frac{2\Gamma_\epsilon}{k}\nabla k\cdot\nabla\omega
+\tag{2.2.16}
+\]
+</div>
+<p>마지막 항은 \(k\)와 \(\omega\)의 기울기가 함께 들어가는 <strong>Cross-diffusion term</strong>이다. 단순한 \(\omega\)의 확산과 달리, 두 변수의 공간 변화가 서로 연결되어 생긴다. 위 전개는 이 항의 발생 구조를 보여 주기 위한 국소 계산이며, SST의 모든 항과 계수를 그대로 유도한 식은 아니다.</p>
+<h3>Cross-Diffusion Structure</h3>
+<p>바깥 영역에서 \(\Gamma_\epsilon\)의 Turbulent contribution이 \(\nu_t\)에 비례하고 \(\nu_t\sim k/\omega\)이면</p>
+<div class="equation" id="eq-crossDiffusionScaling">
+\[
+\frac{2\Gamma_\epsilon}{k}\nabla k\cdot\nabla\omega\ \propto\ \frac{2}{\omega}\nabla k\cdot\nabla\omega
+\tag{2.2.17}
+\]
+</div>
+<p>밀도와 바깥 영역의 모델 계수 \(\sigma_{\omega2}\)를 포함하면, 단위체적 기준의 SST 방정식에 다음 구조가 들어간다.</p>
+<div class="equation" id="eq-crossDiffusionStructure">
+\[
+2\rho\frac{\sigma_{\omega2}}{\omega}\frac{\partial k}{\partial x_j}\frac{\partial\omega}{\partial x_j}
+\tag{2.2.18}
+\]
+</div>
+<p>SST에서는 여기에 \((1-F_1)\)을 곱한다. \(F_1\)이 1에 가까운 벽면 부근에서는 이 항이 억제되고, 0에 가까운 바깥 영역에서는 적용된다. 이처럼 Cross diffusion과 계수의 Blending을 함께 사용하여 두 영역을 연결한다.</p>
+</section>
+<section id="blending-function-f1" aria-labelledby="blending-function-f1-title"><h2 id="blending-function-f1-title">4. Blending Function F1</h2>
+<h3>Blended Coefficients</h3>
+<p>각 위치에서 사용하는 모델 계수 \(\phi\)는 벽면 부근의 계수 \(\phi_1\)과 바깥 영역의 계수 \(\phi_2\)를 결합하여 계산한다.</p>
+<div class="equation main" id="eq-SSTCoefficientBlend">
+\[
+\boxed{\displaystyle \phi=F_1\phi_1+(1-F_1)\phi_2}
+\tag{2.2.19}
+\]
+</div>
+<p>\(F_1=1\)이면 \(\phi=\phi_1\), \(F_1=0\)이면 \(\phi=\phi_2\)이다. 여기서 \(\phi\)는 새로운 유동 변수가 아니라 \(\sigma_k\), \(\sigma_\omega\), \(\beta\), \(\gamma_\omega\) 같은 계수를 통틀어 나타내는 기호이다.</p>
+<h3>Definition of F1</h3>
+<p>벽까지의 최단거리를 \(d\)라 하면 \(F_1\)은 다음과 같이 정의한다.</p>
+<div class="equation" id="eq-SSTF1">
+\[
+F_1=\tanh(\mathrm{arg}_1^4)
+\tag{2.2.20}
+\]
+</div>
+<div class="equation" id="eq-SSTArg1">
+\[
+\mathrm{arg}_1=\min\left[\max\left(\frac{\sqrt{k}}{\beta^*\omega d},\frac{500\nu}{d^2\omega}\right),\frac{4\rho\sigma_{\omega2}k}{CD_{k\omega}d^2}\right]
+\tag{2.2.21}
+\]
+</div>
+<div class="equation" id="eq-SSTCD">
+\[
+CD_{k\omega}=\max\left(\frac{2\rho\sigma_{\omega2}}{\omega}\frac{\partial k}{\partial x_j}\frac{\partial\omega}{\partial x_j},10^{-20}\right)
+\tag{2.2.22}
+\]
+</div>
+<p>\(\min\)과 \(\max\)는 괄호 안의 값 중 각각 작은 값과 큰 값을 선택한다. \(\tanh\)는 양의 입력이 작으면 0에 가까워지고, 커지면 1에 가까워지는 함수이다. 따라서 \(F_1\)은 위치별 조건을 받아 벽면 부근의 모델과 바깥 영역의 모델 사이를 연결한다.</p>
+<p>\(CD_{k\omega}\)는 Cross-diffusion의 기울기 곱으로 구성한 보조량이다. 작은 하한값은 식 <a href="#eq-SSTArg1">(2.2.21)</a>의 분모가 0이 되지 않도록 둔 모델 정의의 일부이다. \(F_1\)의 구체적인 함수와 수치 계수는 보존법칙만으로 정해지지 않으며, 원하는 영역별 거동을 구현하도록 구성되어 있다.</p>
+</section>
+<section id="shear-stress-limiter" aria-labelledby="shear-stress-limiter-title"><h2 id="shear-stress-limiter-title">5. Shear-Stress Limiter</h2>
+<h3>Stress Scale and Vorticity</h3>
+<p><strong>Shear-stress limiter</strong>는 기본 \(\mu_t=\rho k/\omega\) 관계로 계산한 Eddy viscosity가 지나치게 커지는 것을 제한한다. 이는 역압력구배가 있는 유동에서 전단응력을 크게 예측할 수 있는 기본 모델의 특성을 보완하기 위한 구조이다.</p>
+<p>단순 전단유동에서는 Boussinesq relation으로부터 전단응력의 크기를 대략 다음과 같이 쓸 수 있다.</p>
+<div class="equation" id="eq-turbulentShearEstimate">
+\[
+|\tau_t|\sim\mu_t\Omega
+\tag{2.2.23}
+\]
+</div>
+<p>여기서 대문자 \(\Omega\)는 평균 유동의 <strong>Vorticity magnitude</strong>이며, 소문자 \(\omega\)와 구분한다.</p>
+<div class="equation" id="eq-SSTVorticity">
+\[
+\Omega=\sqrt{2W_{ij}W_{ij}},\qquad W_{ij}=\frac12\left(\frac{\partial\overline{u_i}}{\partial x_j}-\frac{\partial\overline{u_j}}{\partial x_i}\right)
+\tag{2.2.24}
+\]
+</div>
+<p>\(W_{ij}\)는 평균 속도 기울기의 반대칭 부분이다. \(\Omega\)는 평균 유동의 국소적인 회전과 관련된 크기이고, \(\omega\)는 Turbulence 에너지의 소산 시간척도와 관련된 변수이다.</p>
+<h3>Limited Eddy Viscosity</h3>
+<p>분모를 \(a_1\omega\)와 \(\Omega F_2\) 중 큰 값으로 선택하면, 기본 관계와 제한 관계를 한 식으로 묶을 수 있다.</p>
+<div class="equation main" id="eq-SSTEddyViscosity">
+\[
+\boxed{\displaystyle \mu_t=\frac{\rho a_1k}{\max(a_1\omega,\Omega F_2)}}
+\tag{2.2.25}
+\]
+</div>
+<p>\(a_1\)은 모델 상수이고 \(F_2\)는 제한이 적용되는 영역을 조절하는 함수이다. \(a_1\omega\)가 더 크면 분자와 분모의 \(a_1\)이 약분되어 기본 \(k\)–\(\omega\) relation으로 돌아간다.</p>
+<div class="equation" id="eq-SSTUnrestrictedBranch">
+\[
+a_1\omega\ge\Omega F_2\quad\Longrightarrow\quad \mu_t=\rho\frac{k}{\omega}
+\tag{2.2.26}
+\]
+</div>
+<p>반대로 \(\Omega F_2\)가 더 크면 Eddy viscosity가 줄어든다. 이때 단순 전단유동의 응력 추정식에 대입하면</p>
+<div class="equation" id="eq-SSTLimitedBranch">
+\[
+\mu_t=\frac{\rho a_1k}{\Omega F_2},\qquad |\tau_t|\sim\mu_t\Omega=\frac{\rho a_1k}{F_2}
+\tag{2.2.27}
+\]
+</div>
+<p>경계층 안에서 \(F_2\)가 1에 가까우면 전단응력의 크기가 \(\rho k\)에 비례하는 수준으로 제한된다. <strong>SST는 두 모델의 계수를 연결하는 것에 더해, 에너지 수준에 맞추어 전단응력의 크기를 제한한다.</strong></p>
+<h3>Second Blending Function</h3>
+<p>\(F_2\)는 Eddy-viscosity limiter가 경계층 내부에서 작동하도록 영역을 조절하는 함수이다.</p>
+<div class="equation" id="eq-SSTF2">
+\[
+F_2=\tanh(\mathrm{arg}_2^2)
+\tag{2.2.28}
+\]
+</div>
+<div class="equation" id="eq-SSTArg2">
+\[
+\mathrm{arg}_2=\max\left(\frac{2\sqrt{k}}{\beta^*\omega d},\frac{500\nu}{d^2\omega}\right)
+\tag{2.2.29}
+\]
+</div>
+<p>\(F_2\)는 \(F_1\)보다 넓은 경계층 영역에서 1에 가까워지도록 구성되어 있다. 두 함수는 역할이 다르다. <strong>\(F_1\)</strong>은 계수와 Cross diffusion을 연결하고, <strong>\(F_2\)</strong>는 Eddy viscosity의 제한에 들어간다.</p>
+</section>
+<section id="sst-transport-equations" aria-labelledby="sst-transport-equations-title"><h2 id="sst-transport-equations-title">6. SST Transport Equations</h2>
+<h3>Original Menter SST Form</h3>
+<p>여기서는 첨부 원문의 <strong>Original Menter SST (1994)</strong>를 사용한다. 아래의 수송식, Vorticity 기반 제한식과 계수는 <a href="https://tmbwg.github.io/turbmodels/sst.html">Turbulence Modeling Resource</a>의 원형 SST 정의에 대응한다.</p>
+<div class="equation main" id="eq-SSTKEquation">
+\[
+\boxed{\displaystyle \frac{\partial(\rho k)}{\partial t}+\frac{\partial(\rho\overline{u_j}k)}{\partial x_j}=P_k-\beta^*\rho k\omega+\frac{\partial}{\partial x_j}\left[(\mu+\sigma_k\mu_t)\frac{\partial k}{\partial x_j}\right]}
+\tag{2.2.30}
+\]
+</div>
+<div class="equation main" id="eq-SSTOmegaEquation">
+\[
+\boxed{\displaystyle \begin{aligned}
+&amp;\frac{\partial(\rho\omega)}{\partial t}+\frac{\partial(\rho\overline{u_j}\omega)}{\partial x_j}=\frac{\gamma_\omega}{\nu_t}P_k-\beta\rho\omega^2
+\\[2.8ex]
+&amp;\quad +\frac{\partial}{\partial x_j}\left[(\mu+\sigma_\omega\mu_t)\frac{\partial\omega}{\partial x_j}\right]+2(1-F_1)\frac{\rho\sigma_{\omega2}}{\omega}\frac{\partial k}{\partial x_j}\frac{\partial\omega}{\partial x_j}
+\end{aligned}}
+\tag{2.2.31}
+\]
+</div>
+<p>\(\nu_t=\mu_t/\rho\)이며, \(\mu_t\)에는 제한식 <a href="#eq-SSTEddyViscosity">(2.2.25)</a>를 사용한다. 기본 \(k\)–\(\omega\)의 \(\omega\) 생성항과 달리 SST에서는 \(\gamma_\omega P_k/\nu_t\)로 쓴다. 제한이 작동하면 \(\nu_t=k/\omega\)가 그대로 성립하지 않을 수 있으므로 이 구분을 유지해야 한다.</p>
+<p>마지막 항은 앞에서 설명한 Cross diffusion이다. \(F_1\)이 1에 가까우면 이 항이 줄어들어 벽면 부근의 구조로 연결된다.</p>
+<h3>Production and Its Limiter</h3>
+<p>이 페이지의 Incompressible 조건에서 Production은 앞에서 정의한 Reynolds stress로 계산한다.</p>
+<div class="equation" id="eq-SSTProduction">
+\[
+P_k=\tau_{ij}^{R}\frac{\partial\overline{u_i}}{\partial x_j}=2\mu_t\overline{S}_{ij}\overline{S}_{ij}
+\tag{2.2.32}
+\]
+</div>
+<p>과도한 에너지 생성을 막기 위해 원형 SST의 \(k\) 방정식에는 다음 <strong>Production limiter</strong>를 적용할 수 있다.</p>
+<div class="equation" id="eq-SSTProductionLimiter">
+\[
+P_k^{\mathrm{lim}}=\min\left(P_k,20\beta^*\rho k\omega\right)
+\tag{2.2.33}
+\]
+</div>
+<p>이 제한을 사용할 때는 식 <a href="#eq-SSTKEquation">(2.2.30)</a>의 \(P_k\)를 \(P_k^{\mathrm{lim}}\)으로 바꾼다. \(\beta^*\rho k\omega\)는 \(k\)의 소멸항 크기이므로, 생성항이 그 크기의 20배를 넘지 않도록 제한하는 것이다. 이는 \(\mu_t\)의 분모를 바꾸는 Shear-stress limiter와 별도의 장치이다.</p>
+</section>
+<section id="model-constants-and-modeling-assumptions" aria-labelledby="model-constants-and-modeling-assumptions-title"><h2 id="model-constants-and-modeling-assumptions-title">7. Model Constants and Modeling Assumptions</h2>
+<h3>Inner and Outer Constants</h3>
+<p>벽면 부근에서 사용하는 계수 집합은</p>
+<div class="equation" id="eq-SSTInnerConstants">
+\[
+\sigma_{k1}=0.85,\qquad \sigma_{\omega1}=0.50,\qquad \beta_1=0.075
+\tag{2.2.34}
+\]
+</div>
+<p>바깥 영역에서 사용하는 계수 집합은</p>
+<div class="equation" id="eq-SSTOuterConstants">
+\[
+\sigma_{k2}=1.00,\qquad \sigma_{\omega2}=0.856,\qquad \beta_2=0.0828
+\tag{2.2.35}
+\]
+</div>
+<p>공통으로 사용하는 상수는 다음과 같다.</p>
+<div class="equation" id="eq-SSTCommonConstants">
+\[
+\beta^*=0.09,\qquad \kappa=0.41,\qquad a_1=0.31
+\tag{2.2.36}
+\]
+</div>
+<p>\(\kappa\)는 벽면 유동의 모델 보정에 사용되는 von Kármán constant이다. \(\omega\) 생성항의 계수는 두 영역에서 각각 다음 관계로 정한다.</p>
+<div class="equation" id="eq-SSTGammaConstants">
+\[
+\gamma_{\omega1}=\frac{\beta_1}{\beta^*}-\frac{\sigma_{\omega1}\kappa^2}{\sqrt{\beta^*}},\qquad \gamma_{\omega2}=\frac{\beta_2}{\beta^*}-\frac{\sigma_{\omega2}\kappa^2}{\sqrt{\beta^*}}
+\tag{2.2.37}
+\]
+</div>
+<p>각 위치의 \(\sigma_k\), \(\sigma_\omega\), \(\beta\), \(\gamma_\omega\)는 식 <a href="#eq-SSTCoefficientBlend">(2.2.19)</a>에 해당 계수의 두 값을 대입하여 계산한다. SST-2003처럼 제한식에 \(\Omega\) 대신 Strain magnitude를 사용하고 Production limiter의 계수를 바꾼 버전도 있으므로, 모델을 비교할 때는 <strong>같은 버전의 수식과 계수</strong>를 함께 확인해야 한다.</p>
+<h3>Derived Structure and Model Definition</h3>
+<p>\(\mu_t\sim\rho k/\omega\)의 차원, \(\omega\) 방정식의 Source-term 구조, Cross diffusion의 기울기 곱은 차원 분석과 변수 변환으로 설명할 수 있다. 반면 \(F_1\), \(F_2\), \(a_1\)과 각 모델 상수는 그 계산만으로 유일하게 정해지지 않는다. 원하는 벽면 부근 거동과 바깥 영역의 특성을 표현하기 위한 모델 정의와 경험적 보정이 들어 있다.</p>
+<p>RANS equation은 순간 방정식을 평균하여 얻은 관계이고, \(k\)–\(\epsilon\), \(k\)–\(\omega\), SST는 그 과정에서 남는 Reynolds stress를 계산하기 위한 추가 관계이다. 따라서 결과식을 사용할 때는 <strong>평균 과정에서 얻은 식인지, 특정 가정으로 근사한 식인지, 모델로 정한 식인지</strong>를 함께 구분해야 한다.</p>
+</section>
+<footer><a href="../">← Turbulence로 돌아가기</a></footer>
+</main>
+<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#specific-dissipation-rate" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Specific Dissipation Rate</span></a><a href="#k-omega-transport-equations" class="sidebar-link"><span class="item-number">2.</span><span>k–Omega Transport Equations</span></a><a href="#cross-diffusion-and-sst-blending" class="sidebar-link"><span class="item-number">3.</span><span>Cross Diffusion and SST Blending</span></a><a href="#blending-function-f1" class="sidebar-link"><span class="item-number">4.</span><span>Blending Function F1</span></a><a href="#shear-stress-limiter" class="sidebar-link"><span class="item-number">5.</span><span>Shear-Stress Limiter</span></a><a href="#sst-transport-equations" class="sidebar-link"><span class="item-number">6.</span><span>SST Transport Equations</span></a><a href="#model-constants-and-modeling-assumptions" class="sidebar-link"><span class="item-number">7.</span><span>Model Constants and Modeling Assumptions</span></a></nav></aside>
+</div>
+<script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script>
+</body>
+</html>

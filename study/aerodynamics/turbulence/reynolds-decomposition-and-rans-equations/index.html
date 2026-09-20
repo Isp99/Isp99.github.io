@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RANS (Reynolds-Averaged Navier–Stokes)는 Turbulence의 순간 운동을 모두 추적하는 대신, 평균 속도와 평균 압력을 구하기 위한 방정식이다. 순간 운동을 평균과 변동성분으로 나누어 Navier–Stokes equation에 대입하면, 변동성분의 평균은 사라지지만 그 곱의 평균은 남는다. 여기서는 이 항이 생기는 과정을 따라가며 평균 유동의 질량보존식과 운동량방정식을 유도한다.">
+    <title>1.1 Reynolds Decomposition and RANS Equations | Isp99</title>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Page styles are self-contained. This file can replace reynolds-decomposition-and-rans-equations/index.html. -->
+    <style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style>
+</head>
+<body class="article-page"><div class="page-layout">
+<aside class="left-sidebar" aria-label="Turbulence navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Turbulence</a><div class="sidebar-group"><div class="sidebar-group-title">1. Reynolds-Averaged Turbulence Equations</div><a href="../reynolds-decomposition-and-rans-equations/" class="sidebar-link active" aria-current="page"><span class="item-number">1.1</span> Reynolds Decomposition and RANS Equations</a><a href="../reynolds-stress-and-closure-problem/" class="sidebar-link"><span class="item-number">1.2</span> Reynolds Stress and the Closure Problem</a><a href="../turbulent-kinetic-energy-equation/" class="sidebar-link"><span class="item-number">1.3</span> Turbulent Kinetic-Energy Equation</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Two-Equation Turbulence Models</div><a href="../standard-k-epsilon-model/" class="sidebar-link"><span class="item-number">2.1</span> Standard k–ε Model</a><a href="../k-omega-and-sst-models/" class="sidebar-link"><span class="item-number">2.2</span> k–ω and Shear-Stress-Transport Models</a></div></nav></aside>
+<main class="main-content" id="top">
+<nav aria-label="Current article"><a href="#top">1.1 Reynolds Decomposition and RANS Equations</a></nav>
+<header><h1>1.1 Reynolds Decomposition and RANS Equations</h1><p class="subtitle">Mean Flow, Velocity Fluctuations, and the Origin of Reynolds Stress</p><p class="intro"><strong>RANS (Reynolds-Averaged Navier–Stokes)</strong>는 Turbulence의 순간 운동을 모두 추적하는 대신, 평균 속도와 평균 압력을 구하기 위한 방정식이다. 순간 운동을 평균과 변동성분으로 나누어 Navier–Stokes equation에 대입하면, 변동성분의 평균은 사라지지만 그 곱의 평균은 남는다. 여기서는 이 항이 생기는 과정을 따라가며 평균 유동의 질량보존식과 운동량방정식을 유도한다.</p></header>
+<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#reynolds-decomposition">Reynolds Decomposition</a></li><li><a href="#mean-continuity-equation">Mean Continuity Equation</a></li><li><a href="#averaging-the-momentum-equation">Averaging the Momentum Equation</a></li><li><a href="#rans-momentum-equation">RANS Momentum Equation</a></li></ol></aside>
+<section id="reynolds-decomposition" aria-labelledby="reynolds-decomposition-title"><h2 id="reynolds-decomposition-title">1. Reynolds Decomposition</h2>
+<h3>Mean and Fluctuating Components</h3>
+<p><strong>Reynolds decomposition</strong>은 순간값을 평균값과 그 평균으로부터의 차이로 나누는 것이다. 속도와 압력을 다음과 같이 표현한다.</p>
+<div class="equation" id="eq-reynoldsPressure">
+\[
+u_i(\boldsymbol{x},t)=\overline{u_i}(\boldsymbol{x},t)+u_i'(\boldsymbol{x},t),\qquad p=\overline p+p'
+\tag{1.1.1}
+\]
+</div>
+<p>윗줄은 평균, 프라임은 <strong>Fluctuation</strong>을 뜻한다. \(u_i'\)는 측정오차가 아니라 평균 주위에서 실제로 발생하는 속도의 변동이다. 아래첨자 \(i\)는 속도의 방향 성분을 나타내며, 이후 한 항에서 같은 첨자가 두 번 나오면 세 공간 방향에 대해 더하는 <strong>Einstein summation convention</strong>을 사용한다.</p>
+<p>통계적 성질이 시간에 따라 변하지 않는 경우, 고정된 위치에서 충분히 오래 관찰한 <strong>Time average</strong>를 다음과 같이 정의할 수 있다.</p>
+<div class="equation" id="eq-timeAverage">
+\[
+\overline\phi=\lim_{T\to\infty}\frac{1}{T}\int_{t_0}^{t_0+T}\phi(t)\,\mathrm dt
+\tag{1.1.2}
+\]
+</div>
+<p>이 시간평균은 시간에 무관하다. 뒤의 방정식에서는 평균 자체가 변할 수 있는 경우도 포함하도록 시간미분을 남겨 둔다. 이때 평균은 같은 시각의 여러 실현을 평균하는 <strong>Ensemble average</strong>로 해석할 수 있으며, Steady한 평균 유동에서는 평균값의 시간미분을 0으로 두면 된다.</p>
+<p>변동성분은 순간값에서 평균값을 뺀 것이므로, 다시 평균하면 다음 관계가 성립한다.</p>
+<div class="equation" id="eq-fluctuationMeanZero">
+\[
+\overline{u_i'}=\overline{u_i-\overline{u_i}}=0,\qquad \overline{p'}=0
+\tag{1.1.3}
+\]
+</div>
+<h3>Reynolds-Averaging Rules</h3>
+<p><strong>Reynolds averaging</strong>은 합을 항별로 평균할 수 있고, 평균값을 다시 평균해도 같은 값이 된다는 성질을 갖는다. 여기서는 평균 연산과 미분을 교환할 수 있다고 가정한다.</p>
+<div class="equation" id="eq-averagingRules">
+\[
+\overline{a+b}=\overline a+\overline b,\qquad \overline{\overline a}=\overline a,\qquad \overline{\frac{\partial a}{\partial x_i}}=\frac{\partial\overline a}{\partial x_i}
+\tag{1.1.4}
+\]
+</div>
+<p>곱은 조금 다르다. \(a=\overline a+a'\), \(b=\overline b+b'\)를 대입하여 전개하면</p>
+<div class="equation" id="eq-averageProductExpansion">
+\[
+\overline{ab}=\overline a\,\overline b+\overline a\,\overline{b'}+\overline b\,\overline{a'}+\overline{a'b'}
+\tag{1.1.5}
+\]
+</div>
+<p>\(\overline{a'}=\overline{b'}=0\)이므로 가운데 두 항만 사라진다.</p>
+<div class="equation main" id="eq-averageProduct">
+\[
+\boxed{\displaystyle \overline{ab}=\overline a\,\overline b+\overline{a'b'}}
+\tag{1.1.6}
+\]
+</div>
+<p>\(\overline{a'b'}\)는 두 변동성분이 함께 변하는 정도를 나타내는 <strong>Correlation</strong>이다. 각각의 평균이 0이어도 곱의 평균까지 0일 필요는 없다. 따라서 비선형 항을 평균할 때는 평균값만으로 표현되지 않는 항이 남으며, 이 성질이 이후 <strong>Closure problem</strong>으로 이어진다.</p>
+</section>
+<section id="mean-continuity-equation" aria-labelledby="mean-continuity-equation-title"><h2 id="mean-continuity-equation-title">2. Mean Continuity Equation</h2>
+<h3>Instantaneous and Mean Continuity</h3>
+<p>밀도가 일정한 <strong>Incompressible flow</strong>에서는 순간 속도장이 다음 질량보존식을 만족한다. 한 지점 주변의 미소체적에서 유입과 유출이 균형을 이룬다는 의미이다.</p>
+<div class="equation" id="eq-instantContinuity">
+\[
+\frac{\partial u_i}{\partial x_i}=0
+\tag{1.1.7}
+\]
+</div>
+<p>식 <a href="#eq-reynoldsPressure">(1.1.1)</a>의 Reynolds decomposition을 대입하면</p>
+<div class="equation" id="eq-continuityDecomposition">
+\[
+\frac{\partial\overline{u_i}}{\partial x_i}+\frac{\partial u_i'}{\partial x_i}=0
+\tag{1.1.8}
+\]
+</div>
+<p>평균을 취하고 평균과 미분의 순서를 바꾸면</p>
+<div class="equation" id="eq-continuityAverage">
+\[
+\frac{\partial\overline{u_i}}{\partial x_i}+\frac{\partial\overline{u_i'}}{\partial x_i}=0
+\tag{1.1.9}
+\]
+</div>
+<p>두 번째 항은 식 <a href="#eq-fluctuationMeanZero">(1.1.3)</a>에 의해 0이다. 따라서 평균 속도장 역시 같은 형태의 질량보존식을 만족한다.</p>
+<div class="equation main" id="eq-RANScontinuity">
+\[
+\boxed{\displaystyle \frac{\partial\overline{u_i}}{\partial x_i}=0}
+\tag{1.1.10}
+\]
+</div>
+<h3>Fluctuation Continuity</h3>
+<p>순간 질량보존식에서 평균 질량보존식을 빼면 변동성분에 대한 관계를 얻는다.</p>
+<div class="equation" id="eq-fluctuationContinuity">
+\[
+\frac{\partial u_i'}{\partial x_i}=0
+\tag{1.1.11}
+\]
+</div>
+<p>이 관계는 다음 운동량방정식의 비선형 항을 정리할 때 사용한다. 평균 유동과 변동성분이 각각 발산이 0이라는 성질 덕분에, 속도의 곱을 미분한 형태로 식을 바꿀 수 있다.</p>
+</section>
+<section id="averaging-the-momentum-equation" aria-labelledby="averaging-the-momentum-equation-title"><h2 id="averaging-the-momentum-equation-title">3. Averaging the Momentum Equation</h2>
+<h3>Instantaneous Momentum Equation</h3>
+<p>밀도 \(\rho\)와 점성계수 \(\mu\)가 일정하고 체적력을 생략한 Incompressible flow의 운동량방정식은 다음과 같다.</p>
+<div class="equation" id="eq-instantMomentum">
+\[
+\frac{\partial u_i}{\partial t}+u_j\frac{\partial u_i}{\partial x_j}=-\frac{1}{\rho}\frac{\partial p}{\partial x_i}+\nu\frac{\partial^2u_i}{\partial x_j\partial x_j}
+\tag{1.1.12}
+\]
+</div>
+<p>\(\nu=\mu/\rho\)는 동점성계수이다. 위 식은 가속도와 단위질량당 힘을 비교하는 형태이므로, 압력 기울기 앞에 \(1/\rho\)가 붙는다. 좌변은 시간에 따른 변화와 유체의 이동에 따른 변화를, 우변은 압력과 점성에 의한 가속도를 나타낸다.</p>
+<h3>Linear Terms</h3>
+<p>시간미분, 압력 기울기, 점성항은 모두 변수에 대해 선형이다. 평균과 미분을 교환하고 변동성분의 평균이 0이라는 성질을 적용하면</p>
+<div class="equation" id="eq-averageLocalAcceleration">
+\[
+\overline{\frac{\partial u_i}{\partial t}}=\frac{\partial\overline{u_i}}{\partial t}+\frac{\partial\overline{u_i'}}{\partial t}=\frac{\partial\overline{u_i}}{\partial t}
+\tag{1.1.13}
+\]
+</div>
+<div class="equation" id="eq-averagePressureGradient">
+\[
+\overline{-\frac{1}{\rho}\frac{\partial p}{\partial x_i}}=-\frac{1}{\rho}\frac{\partial\overline p}{\partial x_i}
+\tag{1.1.14}
+\]
+</div>
+<div class="equation" id="eq-averageViscousTerm">
+\[
+\overline{\nu\frac{\partial^2u_i}{\partial x_j\partial x_j}}=\nu\frac{\partial^2\overline{u_i}}{\partial x_j\partial x_j}
+\tag{1.1.15}
+\]
+</div>
+<p>이 세 항은 순간값이 평균값으로 바뀌며 원래의 형태를 유지한다. 새로운 항은 속도끼리 곱해지는 <strong>Nonlinear convection</strong>에서 발생한다.</p>
+<h3>Nonlinear Convective Term</h3>
+<p>대류항에 Reynolds decomposition을 대입하여 네 항으로 전개하면</p>
+<div class="equation" id="eq-convectionExpansion">
+\[
+u_j\frac{\partial u_i}{\partial x_j}=\overline{u_j}\frac{\partial\overline{u_i}}{\partial x_j}+\overline{u_j}\frac{\partial u_i'}{\partial x_j}+u_j'\frac{\partial\overline{u_i}}{\partial x_j}+u_j'\frac{\partial u_i'}{\partial x_j}
+\tag{1.1.16}
+\]
+</div>
+<p>평균을 취하면 변동성분이 하나만 들어 있는 가운데 두 항이 사라진다. 마지막 항은 두 변동성분의 곱이므로 남는다.</p>
+<div class="equation" id="eq-convectionAverage">
+\[
+\overline{u_j\frac{\partial u_i}{\partial x_j}}=\overline{u_j}\frac{\partial\overline{u_i}}{\partial x_j}+\overline{u_j'\frac{\partial u_i'}{\partial x_j}}
+\tag{1.1.17}
+\]
+</div>
+<p>남은 항에 <strong>Product rule</strong>을 적용하면</p>
+<div class="equation" id="eq-convectionProductRule">
+\[
+u_j'\frac{\partial u_i'}{\partial x_j}=\frac{\partial(u_i'u_j')}{\partial x_j}-u_i'\frac{\partial u_j'}{\partial x_j}
+\tag{1.1.18}
+\]
+</div>
+<p>식 <a href="#eq-fluctuationContinuity">(1.1.11)</a>에 의해 마지막 항은 0이다. 따라서 변동성분의 곱을 평균한 뒤 공간미분하는 형태로 정리할 수 있다.</p>
+<div class="equation" id="eq-fluctuationConvectionFlux">
+\[
+\overline{u_j'\frac{\partial u_i'}{\partial x_j}}=\frac{\partial\overline{u_i'u_j'}}{\partial x_j}
+\tag{1.1.19}
+\]
+</div>
+<div class="equation main" id="eq-averagedConvection">
+\[
+\boxed{\displaystyle \overline{u_j\frac{\partial u_i}{\partial x_j}}=\overline{u_j}\frac{\partial\overline{u_i}}{\partial x_j}+\frac{\partial\overline{u_i'u_j'}}{\partial x_j}}
+\tag{1.1.20}
+\]
+</div>
+</section>
+<section id="rans-momentum-equation" aria-labelledby="rans-momentum-equation-title"><h2 id="rans-momentum-equation-title">4. RANS Momentum Equation</h2>
+<p>평균을 취한 각 항을 식 <a href="#eq-instantMomentum">(1.1.12)</a>에 대입하면</p>
+<div class="equation" id="eq-meanMomentumBeforeRearrangement">
+\[
+\frac{\partial\overline{u_i}}{\partial t}+\overline{u_j}\frac{\partial\overline{u_i}}{\partial x_j}+\frac{\partial\overline{u_i'u_j'}}{\partial x_j}=-\frac{1}{\rho}\frac{\partial\overline p}{\partial x_i}+\nu\frac{\partial^2\overline{u_i}}{\partial x_j\partial x_j}
+\tag{1.1.21}
+\]
+</div>
+<p>변동성분의 곱을 포함한 항을 우변으로 이항하면 <strong>RANS momentum equation</strong>을 얻는다.</p>
+<div class="equation main" id="eq-RANSmomentum">
+\[
+\boxed{\displaystyle \frac{\partial\overline{u_i}}{\partial t}+\overline{u_j}\frac{\partial\overline{u_i}}{\partial x_j}=-\frac{1}{\rho}\frac{\partial\overline p}{\partial x_i}+\nu\frac{\partial^2\overline{u_i}}{\partial x_j\partial x_j}-\frac{\partial\overline{u_i'u_j'}}{\partial x_j}}
+\tag{1.1.22}
+\]
+</div>
+<p>평균 관성항, 압력항, 분자 점성항은 Navier–Stokes equation과 같은 형태이다. 여기에 변동성분이 평균적으로 운동량을 운반하는 효과가 추가된다. 이 효과는 평균 속도와 압력만으로는 바로 계산할 수 없으며, 다음 페이지에서 <strong>Reynolds stress</strong>로 정의하고 모델링하는 방법을 다룬다.</p>
+</section>
+<footer><a href="../">← Turbulence로 돌아가기</a></footer>
+</main>
+<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#reynolds-decomposition" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Reynolds Decomposition</span></a><a href="#mean-continuity-equation" class="sidebar-link"><span class="item-number">2.</span><span>Mean Continuity Equation</span></a><a href="#averaging-the-momentum-equation" class="sidebar-link"><span class="item-number">3.</span><span>Averaging the Momentum Equation</span></a><a href="#rans-momentum-equation" class="sidebar-link"><span class="item-number">4.</span><span>RANS Momentum Equation</span></a></nav></aside>
+</div>
+<script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script>
+</body>
+</html>

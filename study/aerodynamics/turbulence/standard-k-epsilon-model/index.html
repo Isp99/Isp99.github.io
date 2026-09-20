@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Standard k–ε model은 Turbulent kinetic energy 와 Dissipation rate 을 각각 수송방정식으로 계산하는 Two-equation model이다. 는 변동 운동의 에너지 수준을, 은 그 에너지가 소산되는 비율을 나타낸다. 두 값을 함께 사용하면 운동의 속도척도와 시간척도를 정할 수 있고, 이를 이용하여 Boussinesq hypothesis에 필요한 Eddy viscosity를 계산한다.">
+    <title>2.1 Standard k–ε Model | Isp99</title>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            },
+            chtml: { scale: 1.02 }
+        };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Page styles are self-contained. This file can replace standard-k-epsilon-model/index.html. -->
+    <style>
+        :root {
+            color-scheme: light;
+            --ink: #202124;
+            --heading: #161616;
+            --muted: #686868;
+            --line: #dedede;
+            --accent: #30485d;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 30px; }
+        body.article-page {
+            margin: 0;
+            padding: 0;
+            color: var(--ink);
+            background: #fff;
+            font-family: Arial, "Noto Sans KR", "Malgun Gothic", sans-serif;
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        a { color: inherit; text-underline-offset: 4px; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        strong { color: #181818; font-weight: 700; }
+        .page-layout {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 860px) 270px;
+            column-gap: 170px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 36px 24px 90px;
+        }
+        .main-content { min-width: 0; }
+        .main-content > nav {
+            margin: 0 0 30px;
+            color: #535353;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .main-content > nav a { text-decoration: none; }
+        .main-content > nav a:hover { text-decoration: underline; }
+        h1, h2, h3 { color: var(--heading); line-height: 1.4; }
+        h1 { margin: 0 0 12px; font-size: 42px; letter-spacing: -1.1px; }
+        h2 { margin: 0 0 38px; font-size: 29px; letter-spacing: -.6px; }
+        h3 { margin: 46px 0 14px; font-size: 21px; letter-spacing: -.25px; }
+        h2 + h3 { margin-top: 0; }
+        p { margin: 20px 0; }
+        .subtitle { margin: 0 0 36px; color: var(--muted); font-size: 18px; }
+        .intro { margin: 0; }
+        .contents {
+            margin: 44px 0 74px;
+            padding: 24px 30px 26px;
+            border: 1px solid var(--line);
+            background: #fafafa;
+        }
+        .contents > strong { display: block; margin-bottom: 12px; font-size: 19px; }
+        .contents ol { margin: 0; padding-left: 27px; }
+        .contents li { padding-left: 5px; margin: 7px 0; }
+        .contents li::marker { color: #777; font-variant-numeric: tabular-nums; }
+        .contents a { text-decoration: none; }
+        .contents a:hover { text-decoration: underline; }
+
+        section + section { margin-top: 108px; padding-top: 42px; border-top: 1px solid #e8e8e8; }
+        section { scroll-margin-top: 20px; }
+        .transition { margin-top: 38px; }
+        .equation {
+            max-width: 100%;
+            margin: 32px 0 12px;
+            padding: 8px 4px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            overscroll-behavior-x: contain;
+            scrollbar-width: thin;
+        }
+        .equation.main { margin: 34px 0 16px; padding-top: 16px; padding-bottom: 16px; }
+        .equation mjx-container[display="true"] { margin: 0 !important; }
+        .equation mjx-container { min-width: 0; }
+        .explanation-list {
+            margin: 24px 0 28px;
+            padding-left: 38px;
+        }
+        .explanation-list li { margin: 12px 0; padding-left: 8px; }
+        .explanation-list li::marker { color: #818181; font-size: .75em; }
+        .concept-note {
+            margin: 34px 0 0;
+            padding: 3px 0 3px 23px;
+            border-left: 3px solid #c8cdd2;
+        }
+        .concept-note p { margin: 12px 0; }
+        .comparison-wrap { margin: 30px 0; overflow-x: auto; }
+        .comparison { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.85; }
+        .comparison th, .comparison td {
+            padding: 15px 17px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .comparison thead th { background: #f7f7f7; color: #4e4e4e; font-weight: 700; }
+        .comparison tbody th { width: 27%; font-weight: 700; }
+        .comparison th:first-child, .comparison td:first-child { padding-left: 14px; }
+        footer { margin-top: 90px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 15px; }
+        footer a { text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .left-sidebar, .right-sidebar {
+            min-width: 0;
+            padding-top: 2px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.65;
+        }
+        .sidebar-inner {
+            position: sticky;
+            top: 30px;
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-title {
+            display: block;
+            margin: 0 0 16px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--line);
+            color: #222;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        a.sidebar-title:hover { text-decoration: underline; }
+        .sidebar-group { margin-bottom: 42px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .sidebar-group-title { margin: 0 0 10px; color: #555; font-size: 19.5px; line-height: 1.6; }
+        .sidebar-link {
+            display: block;
+            padding: 4px 0 4px 24px;
+            border-left: 2px solid transparent;
+            color: #777;
+            text-decoration: none;
+        }
+        .sidebar-link:hover { color: #222; }
+        .sidebar-link.active { border-left-color: var(--accent); color: #161616; font-weight: 700; }
+        .item-number { font-size: 14px; font-variant-numeric: tabular-nums; }
+        .right-sidebar .sidebar-link {
+            display: grid;
+            grid-template-columns: 18px minmax(0, 1fr);
+            gap: 8px;
+            padding: 15px 0;
+            border-left: 0;
+        }
+        .right-sidebar .sidebar-link.active { color: var(--accent); }
+
+        /* Keep the article near 860px before reducing sidebar spacing. */
+        @media (max-width: 1787px) {
+            .page-layout {
+                grid-template-columns: 230px minmax(0, 860px) 190px;
+                column-gap: clamp(40px, calc((100vw - 1328px) / 2), 170px);
+            }
+            .left-sidebar .sidebar-link { padding-left: 18px; }
+        }
+        @media (max-width: 1280px) {
+            .page-layout { grid-template-columns: 220px minmax(0, 860px); column-gap: 46px; }
+            .right-sidebar { display: none; }
+        }
+        @media (max-width: 1100px) {
+            .page-layout { display: block; max-width: 928px; padding: 44px 34px 90px; }
+            .left-sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 650px) {
+            body.article-page { font-size: 16px; line-height: 1.95; }
+            .page-layout { padding: 28px 20px 65px; }
+            .main-content > nav { margin-bottom: 25px; font-size: 14px; }
+            h1 { font-size: 32px; letter-spacing: -.8px; }
+            h2 { font-size: 25px; margin-bottom: 30px; }
+            h3 { font-size: 20px; margin-top: 38px; }
+            .subtitle { font-size: 16px; margin-bottom: 29px; }
+            .contents { padding: 20px 20px 22px; margin: 34px 0 59px; }
+            section + section { margin-top: 76px; padding-top: 32px; }
+            .equation { font-size: 15px; padding-right: 8px; padding-left: 8px; }
+            .explanation-list { padding-left: 29px; }
+            .concept-note { padding-left: 17px; }
+            .comparison { min-width: 470px; font-size: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        @media print {
+            .page-layout { display: block; max-width: none; padding: 0; }
+            .left-sidebar, .right-sidebar, .main-content > nav, footer { display: none; }
+            body.article-page { font-size: 11pt; line-height: 1.8; }
+            h1 { font-size: 25pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 13pt; }
+            h2, h3 { break-after: avoid; }
+            section + section { margin-top: 36pt; padding-top: 20pt; }
+            .equation { overflow: visible; break-inside: avoid; }
+            .concept-note, .comparison, .contents { break-inside: avoid; }
+            .comparison { min-width: 0; }
+        }
+    </style>
+</head>
+<body class="article-page"><div class="page-layout">
+<aside class="left-sidebar" aria-label="Turbulence navigation"><nav class="sidebar-inner"><a href="../" class="sidebar-title">Turbulence</a><div class="sidebar-group"><div class="sidebar-group-title">1. Reynolds-Averaged Turbulence Equations</div><a href="../reynolds-decomposition-and-rans-equations/" class="sidebar-link"><span class="item-number">1.1</span> Reynolds Decomposition and RANS Equations</a><a href="../reynolds-stress-and-closure-problem/" class="sidebar-link"><span class="item-number">1.2</span> Reynolds Stress and the Closure Problem</a><a href="../turbulent-kinetic-energy-equation/" class="sidebar-link"><span class="item-number">1.3</span> Turbulent Kinetic-Energy Equation</a></div><div class="sidebar-group"><div class="sidebar-group-title">2. Two-Equation Turbulence Models</div><a href="../standard-k-epsilon-model/" class="sidebar-link active" aria-current="page"><span class="item-number">2.1</span> Standard k–ε Model</a><a href="../k-omega-and-sst-models/" class="sidebar-link"><span class="item-number">2.2</span> k–ω and Shear-Stress-Transport Models</a></div></nav></aside>
+<main class="main-content" id="top">
+<nav aria-label="Current article"><a href="#top">2.1 Standard k–ε Model</a></nav>
+<header><h1>2.1 Standard k–ε Model</h1><p class="subtitle">Turbulent Scales, Modeled Transport, and the Closure of Mean Momentum</p><p class="intro"><strong>Standard k–ε model</strong>은 Turbulent kinetic energy \(k\)와 Dissipation rate \(\epsilon\)을 각각 수송방정식으로 계산하는 <strong>Two-equation model</strong>이다. \(k\)는 변동 운동의 에너지 수준을, \(\epsilon\)은 그 에너지가 소산되는 비율을 나타낸다. 두 값을 함께 사용하면 운동의 속도척도와 시간척도를 정할 수 있고, 이를 이용하여 Boussinesq hypothesis에 필요한 Eddy viscosity를 계산한다.</p></header>
+<aside class="contents" aria-label="Contents"><strong>Contents</strong><ol><li><a href="#turbulent-scales-and-eddy-viscosity">Turbulent Scales and Eddy Viscosity</a></li><li><a href="#modeled-k-transport-equation">Modeled k Transport Equation</a></li><li><a href="#modeled-epsilon-transport-equation">Modeled Epsilon Transport Equation</a></li><li><a href="#model-constants-and-closure">Model Constants and Closure</a></li></ol></aside>
+<section id="turbulent-scales-and-eddy-viscosity" aria-labelledby="turbulent-scales-and-eddy-viscosity-title"><h2 id="turbulent-scales-and-eddy-viscosity-title">1. Turbulent Scales and Eddy Viscosity</h2>
+<h3>Velocity, Time, and Length Scales</h3>
+<p><strong>Scale</strong>은 복잡한 변동 운동을 대표하는 크기이다. 개별 유체 운동을 모두 알지 못하더라도 대표 속도와 지속 시간을 정하면 평균적인 운동량 수송의 크기를 구성할 수 있다.</p>
+<p>\(k\)는 단위질량당 운동에너지이고, \(\epsilon\)은 단위질량당 에너지의 소산율이므로 차원은 다음과 같다. 여기서 \(L\)과 \(T\)는 길이와 시간의 차원을 뜻한다.</p>
+<div class="equation" id="eq-kEpsilonDimensions">
+\[
+[k]=\frac{L^2}{T^2},\qquad [\epsilon]=\frac{L^2}{T^3}
+\tag{2.1.1}
+\]
+</div>
+<p>따라서 Turbulent velocity scale과 time scale을 다음과 같이 잡을 수 있다.</p>
+<div class="equation" id="eq-turbulentVelocityTimeScales">
+\[
+u_t\sim\sqrt{k},\qquad T_t\sim\frac{k}{\epsilon}
+\tag{2.1.2}
+\]
+</div>
+<p>\(k/\epsilon\)은 현재의 에너지를 현재의 소산율로 나눈 시간이다. 여기에 대표 속도를 곱하면 그 시간 동안 이동하는 대표 길이가 된다.</p>
+<div class="equation" id="eq-turbulentLengthScale">
+\[
+\ell_t\sim u_tT_t\sim\sqrt{k}\frac{k}{\epsilon}=\frac{k^{3/2}}{\epsilon}
+\tag{2.1.3}
+\]
+</div>
+<h3>Eddy-Viscosity Relation</h3>
+<p>동점성계수 형태의 Eddy viscosity \(\nu_t\)는 \(L^2/T\)의 차원을 갖는다. 이를 대표 속도와 대표 길이의 곱으로 구성하면</p>
+<div class="equation" id="eq-kEpsilonViscosityScaling">
+\[
+\nu_t\sim u_t\ell_t\sim\sqrt{k}\frac{k^{3/2}}{\epsilon}=\frac{k^2}{\epsilon}
+\tag{2.1.4}
+\]
+</div>
+<p>무차원 계수 \(C_\mu\)와 밀도를 곱하면 점성계수 형태의 관계를 얻는다.</p>
+<div class="equation main" id="eq-kEpsilonMut">
+\[
+\boxed{\displaystyle \mu_t=\rho C_\mu\frac{k^2}{\epsilon}}
+\tag{2.1.5}
+\]
+</div>
+<p>이 식에서 차원 분석은 \(k^2/\epsilon\)의 형태를 설명하지만, \(C_\mu\)의 수치까지 정해 주지는 않는다. 그 값은 모델의 보정 과정에서 정한다. 이제 \(\mu_t\)를 계산하려면 유동장 각 위치의 \(k\)와 \(\epsilon\)을 구하는 두 방정식이 필요하다.</p>
+</section>
+<section id="modeled-k-transport-equation" aria-labelledby="modeled-k-transport-equation-title"><h2 id="modeled-k-transport-equation-title">2. Modeled k Transport Equation</h2>
+<h3>Conservative Form</h3>
+<p><strong>Conservative form</strong>은 단위체적 안에 저장된 양의 변화와 경계를 통한 수송을 함께 나타내는 형태이다. 일정한 밀도 조건에서 Exact \(k\) equation <a href="../turbulent-kinetic-energy-equation/#eq-exactKEquation">(1.3.15)</a>에 \(\rho\)를 곱하고 평균 질량보존식을 적용하면 좌변은 다음과 같이 바뀐다.</p>
+<div class="equation" id="eq-conservativeKLeft">
+\[
+\rho\left(\frac{\partial k}{\partial t}+\overline{u_j}\frac{\partial k}{\partial x_j}\right)=\frac{\partial(\rho k)}{\partial t}+\frac{\partial(\rho\overline{u_j}k)}{\partial x_j}
+\tag{2.1.6}
+\]
+</div>
+<p>Production은 \(P_k=\rho\mathcal P_k\), Dissipation은 \(\rho\epsilon\)으로 바뀐다. 분자 점성에 의한 확산은 이미 계산할 수 있지만, 변동 운동과 압력 변동에 의한 수송에는 미지의 상관항이 남아 있다.</p>
+<h3>Gradient-Diffusion Approximation</h3>
+<p><strong>Gradient-diffusion approximation</strong>은 아직 계산하지 못한 에너지 수송을 \(k\)의 기울기 반대 방향으로 일어나는 확산으로 근사한다. 높은 \(k\)에서 낮은 \(k\) 쪽으로 에너지가 이동하도록 평균적인 수송량을 구성하는 것이다.</p>
+<div class="equation" id="eq-modeledTurbulentKFlux">
+\[
+\frac{\rho}{2}\overline{u_i'u_i'u_j'}+\overline{p'u_j'}\approx-\frac{\mu_t}{\sigma_k}\frac{\partial k}{\partial x_j}
+\tag{2.1.7}
+\]
+</div>
+<p>\(\sigma_k\)는 \(k\)의 Turbulent diffusion 크기를 조절하는 무차원 모델 계수이다. Exact equation에서 수송량의 발산 앞에 음의 부호가 있으므로, 이 근사를 대입하면 양의 확산항이 된다.</p>
+<div class="equation" id="eq-modeledKDiffusion">
+\[
+\mathcal D_k^{\mathrm{model}}=\frac{\partial}{\partial x_j}\left[\left(\mu+\frac{\mu_t}{\sigma_k}\right)\frac{\partial k}{\partial x_j}\right]
+\tag{2.1.8}
+\]
+</div>
+<p>분자 점성에 의한 확산과 모델링한 확산을 합하고 Production, Dissipation을 대입하면</p>
+<div class="equation main" id="eq-standardKEquation">
+\[
+\boxed{\displaystyle \frac{\partial(\rho k)}{\partial t}+\frac{\partial(\rho\overline{u_j}k)}{\partial x_j}=\frac{\partial}{\partial x_j}\left[\left(\mu+\frac{\mu_t}{\sigma_k}\right)\frac{\partial k}{\partial x_j}\right]+P_k-\rho\epsilon}
+\tag{2.1.9}
+\]
+</div>
+<ul class="explanation-list"><li><strong>Local accumulation</strong>: 한 위치에 저장된 \(\rho k\)의 시간변화이다.</li><li><strong>Mean convection</strong>: 평균 속도에 의한 에너지 수송이다.</li><li><strong>Diffusion</strong>: 분자 점성과 변동 운동에 의한 공간적 재분배이다.</li><li><strong>Production</strong>: 평균 유동에서 \(k\)로 전달되는 에너지이다.</li><li><strong>Dissipation</strong>: 점성 작용으로 감소하는 \(k\)이다.</li></ul>
+<p>식의 전체 균형은 Exact equation에서 이어지지만, 미지의 수송항을 기울기 확산으로 바꾼 부분에는 모델 가정이 들어 있다.</p>
+</section>
+<section id="modeled-epsilon-transport-equation" aria-labelledby="modeled-epsilon-transport-equation-title"><h2 id="modeled-epsilon-transport-equation-title">3. Modeled Epsilon Transport Equation</h2>
+<h3>Source-Term Structure</h3>
+<p>\(\epsilon\)은 속도 변동의 기울기로 정의된다. 따라서 Exact \(\epsilon\) equation을 만들려면 변동 운동량방정식을 미분하고 속도 기울기를 곱하여 평균해야 한다. 이 과정에서는 \(k\) 방정식보다 더 복잡한 상관항이 생긴다. <strong>Standard \(\epsilon\) equation은 이를 그대로 푸는 식이 아니라, 생성·소멸·확산을 모델링한 관계</strong>이다.</p>
+<p>\(\epsilon\) 방정식의 생성항을 구성할 때는 \(k\)의 Production \(P_k\)에 시간척도의 역수 \(\epsilon/k\)를 곱한다. 여기에 계수를 도입하면</p>
+<div class="equation" id="eq-epsilonProductionModel">
+\[
+P_\epsilon=C_{\epsilon1}\frac{\epsilon}{k}P_k
+\tag{2.1.10}
+\]
+</div>
+<p>반대로 \(\epsilon\) 자체가 대표 시간 \(T_t\)에 걸쳐 감소한다고 보면 단위질량당 감소율의 크기는</p>
+<div class="equation" id="eq-epsilonDestructionScale">
+\[
+\frac{\epsilon}{T_t}\sim\frac{\epsilon}{k/\epsilon}=\frac{\epsilon^2}{k}
+\tag{2.1.11}
+\]
+</div>
+<p>밀도와 계수를 곱하면 방정식에 들어가는 소멸항을 얻는다.</p>
+<div class="equation" id="eq-epsilonDestructionModel">
+\[
+D_\epsilon=-C_{\epsilon2}\rho\frac{\epsilon^2}{k}
+\tag{2.1.12}
+\]
+</div>
+<p>이 생성항과 소멸항은 필요한 차원과 변화의 구조를 갖도록 구성한 모델이다. 차원이 맞는다는 사실만으로 그 모델이 모든 유동에서 정확해지는 것은 아니다.</p>
+<h3>Diffusion and the Final Equation</h3>
+<p>\(\epsilon\)의 공간적 수송 역시 분자 확산과 Gradient diffusion을 결합하여 나타낸다.</p>
+<div class="equation" id="eq-epsilonDiffusionModel">
+\[
+\mathcal D_\epsilon^{\mathrm{model}}=\frac{\partial}{\partial x_j}\left[\left(\mu+\frac{\mu_t}{\sigma_\epsilon}\right)\frac{\partial\epsilon}{\partial x_j}\right]
+\tag{2.1.13}
+\]
+</div>
+<p>\(\sigma_\epsilon\)은 \(\epsilon\)의 Turbulent diffusion을 조절한다. 여기에 시간변화와 평균 대류, 앞에서 구성한 두 Source term을 결합하면</p>
+<div class="equation main" id="eq-standardEpsilonEquation">
+\[
+\boxed{\displaystyle \frac{\partial(\rho\epsilon)}{\partial t}+\frac{\partial(\rho\overline{u_j}\epsilon)}{\partial x_j}=\frac{\partial}{\partial x_j}\left[\left(\mu+\frac{\mu_t}{\sigma_\epsilon}\right)\frac{\partial\epsilon}{\partial x_j}\right]+C_{\epsilon1}\frac{\epsilon}{k}P_k-C_{\epsilon2}\rho\frac{\epsilon^2}{k}}
+\tag{2.1.14}
+\]
+</div>
+<p>\(k\) 방정식은 변동 운동의 에너지 수준을 계산하고, \(\epsilon\) 방정식은 그 에너지가 소산되는 시간척도를 결정한다. 따라서 두 방정식을 함께 풀어야 식 <a href="#eq-kEpsilonMut">(2.1.5)</a>의 \(\mu_t\)가 정해진다.</p>
+</section>
+<section id="model-constants-and-closure" aria-labelledby="model-constants-and-closure-title"><h2 id="model-constants-and-closure-title">4. Model Constants and Closure</h2>
+<h3>Standard Constants</h3>
+<p>Standard \(k\)–\(\epsilon\) model의 계수는 다음과 같다.</p>
+<div class="equation main" id="eq-kEpsilonConstants">
+\[
+\boxed{\displaystyle C_\mu=0.09,\qquad C_{\epsilon1}=1.44,\qquad C_{\epsilon2}=1.92,\qquad \sigma_k=1.0,\qquad \sigma_\epsilon=1.3}
+\tag{2.1.15}
+\]
+</div>
+<p>이 값들은 대표적인 유동에 맞추어 보정한 <strong>Model constants</strong>이다. 보존법칙에서 유일하게 정해지는 상수가 아니므로, 강한 박리·회전·곡률 효과나 방향별 변동이 크게 다른 <strong>Anisotropic turbulence</strong>에서는 모델의 표현 능력에 한계가 생길 수 있다.</p>
+<h3>Coupled Mean-Flow and Turbulence Equations</h3>
+<p>평균 속도 기울기와 현재의 \(\mu_t\)로 \(P_k\)를 계산하고, 두 수송방정식으로 \(k\)와 \(\epsilon\)을 구한다. 이 값들을 식 <a href="#eq-kEpsilonMut">(2.1.5)</a>에 대입하면 새로운 \(\mu_t\)를 얻으며, Boussinesq relation으로 Reynolds stress를 계산하여 평균 운동량방정식에 반영한다.</p>
+<p>평균 유동이 Turbulence의 생성에 영향을 주고, 계산된 Turbulence가 다시 평균 유동의 운동량 수송을 바꾼다. 따라서 이 관계들은 서로 연결된 방정식 집합이다. <strong>Two-equation</strong>이라는 이름은 전체 유동 방정식이 두 개라는 뜻이 아니라, 평균 유동 방정식에 \(k\)와 \(\epsilon\)의 수송방정식 두 개를 추가한다는 뜻이다.</p>
+</section>
+<footer><a href="../">← Turbulence로 돌아가기</a></footer>
+</main>
+<aside class="right-sidebar" aria-label="On this page"><nav class="sidebar-inner"><div class="sidebar-title">On this page</div><a href="#turbulent-scales-and-eddy-viscosity" class="sidebar-link active" aria-current="location"><span class="item-number">1.</span><span>Turbulent Scales and Eddy Viscosity</span></a><a href="#modeled-k-transport-equation" class="sidebar-link"><span class="item-number">2.</span><span>Modeled k Transport Equation</span></a><a href="#modeled-epsilon-transport-equation" class="sidebar-link"><span class="item-number">3.</span><span>Modeled Epsilon Transport Equation</span></a><a href="#model-constants-and-closure" class="sidebar-link"><span class="item-number">4.</span><span>Model Constants and Closure</span></a></nav></aside>
+</div>
+<script>
+        (() => {
+            const sections = Array.from(document.querySelectorAll('main > section[id]'));
+            const links = Array.from(document.querySelectorAll('.right-sidebar a[href^="#"]'));
+            if (!sections.length || !links.length) return;
+
+            let scheduled = false;
+            const updateCurrentSection = () => {
+                let current = sections[0].id;
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= 150) current = section.id;
+                }
+                if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+                    current = sections[sections.length - 1].id;
+                }
+                for (const link of links) {
+                    const active = link.hash === '#' + current;
+                    link.classList.toggle('active', active);
+                    if (active) link.setAttribute('aria-current', 'location');
+                    else link.removeAttribute('aria-current');
+                }
+                scheduled = false;
+            };
+            const scheduleUpdate = () => {
+                if (scheduled) return;
+                scheduled = true;
+                window.requestAnimationFrame(updateCurrentSection);
+            };
+
+            window.addEventListener('scroll', scheduleUpdate, { passive: true });
+            window.addEventListener('resize', scheduleUpdate);
+            window.addEventListener('load', scheduleUpdate);
+            if ('ResizeObserver' in window) {
+                new ResizeObserver(scheduleUpdate).observe(document.querySelector('main'));
+            }
+            scheduleUpdate();
+        })();
+    </script>
+</body>
+</html>
