@@ -1,1 +1,140 @@
 
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Aerodynamics study notes — Engineering Archive">
+  <title>Aerodynamics | Engineering Archive</title>
+  <style>
+    :root {
+      --bg: #f5f8fd;
+      --surface: #ffffff;
+      --ink: #10243d;
+      --muted: #7587a4;
+      --blue: #2d60b8;
+      --blue-soft: #e7eefc;
+      --border: #d9e4f3;
+      --divider: #e5ebf4;
+      --max-width: 1152px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--bg); font-family: Inter, Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible { outline: 3px solid #77aaff; outline-offset: 3px; }
+    .container { width: min(calc(100% - 48px), var(--max-width)); margin: 0 auto; }
+    .site-header { background: var(--surface); border-bottom: 1px solid var(--border); }
+    .header-inner { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 750; letter-spacing: -.025em; white-space: nowrap; }
+    .brand-icon { width: 32px; height: 32px; border-radius: 8px; background: #315db2; color: white; display: grid; place-items: center; flex-shrink: 0; }
+    .brand-icon svg { display: block; width: 17px; height: 17px; }
+    .breadcrumbs { display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 6px; color: #8998b1; font-size: 11px; }
+    .breadcrumbs a:hover { color: var(--blue); }
+    .breadcrumbs span[aria-current] { color: #667995; }
+    .hero { padding: 48px 0 36px; }
+    .eyebrow { margin: 0 0 14px; font-size: 11px; font-weight: 800; letter-spacing: .09em; color: var(--blue); }
+    .hero h1 { margin: 0 0 9px; font-size: clamp(29px, 4vw, 42px); line-height: 1.15; letter-spacing: -.04em; font-weight: 800; }
+    .hero p { margin: 0; max-width: 700px; color: var(--muted); font-size: 14px; line-height: 1.65; }
+    .tags { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
+    .tag { background: var(--blue-soft); color: #5277b5; font-size: 11px; padding: 5px 10px; border-radius: 999px; }
+    .contents { border-top: 1px solid var(--border); padding: 33px 0 44px; }
+    .section-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .section-heading h2 { margin: 0; font-size: 21px; font-weight: 750; letter-spacing: -.025em; }
+    .section-count { color: #8090aa; font-size: 12px; font-variant-numeric: tabular-nums; }
+    .card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+    .study-card { min-height: 236px; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: 13px; padding: 23px 24px; transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease; }
+    .study-card:hover { border-color: #9db9e4; transform: translateY(-3px); box-shadow: 0 10px 26px rgba(32, 67, 112, .07); }
+    .card-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 23px; color: var(--blue); font-size: 11px; font-weight: 750; letter-spacing: .01em; }
+    .card-head svg { width: 15px; height: 15px; stroke-width: 1.9; }
+    .study-card h3 { margin: 0 0 5px; font-size: 19px; line-height: 1.2; letter-spacing: -.03em; font-weight: 780; }
+    .card-subtitle { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+    .card-divider { height: 1px; margin: 18px 0 16px; background: var(--divider); }
+    .topic-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 9px; }
+    .topic-list li { color: #6980a2; font-size: 13px; line-height: 1.35; }
+    .topic-list li::before { content: "•"; color: #8597b2; margin-right: 8px; }
+    .site-footer { border-top: 1px solid var(--border); background: #edf3fb; }
+    .footer-inner { min-height: 46px; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 11px; color: #91a1b8; }
+    .footer-inner a { color: var(--blue); }
+    .footer-inner a:hover { text-decoration: underline; }
+    @media (max-width: 760px) {
+      .card-grid { gap: 12px; }
+      .study-card { padding: 17px 16px; min-height: 220px; }
+      .card-head { margin-bottom: 20px; font-size: 10px; }
+      .study-card h3 { font-size: 16px; }
+      .topic-list li { font-size: 12px; }
+    }
+    @media (max-width: 530px) {
+      .container { width: min(calc(100% - 32px), var(--max-width)); }
+      .header-inner { min-height: 58px; }
+      .brand { font-size: 12px; }
+      .brand-icon { width: 29px; height: 29px; }
+      .breadcrumbs { max-width: 150px; font-size: 9px; }
+      .hero { padding: 32px 0 27px; }
+      .hero p { font-size: 13px; }
+      .contents { padding: 24px 0 32px; }
+      .section-heading h2 { font-size: 19px; }
+      .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .study-card { min-height: 211px; }
+      .study-card h3 { font-size: 16px; }
+    }
+    @media (max-width: 400px) {
+      .card-grid { grid-template-columns: 1fr; }
+      .study-card { min-height: auto; }
+      .card-head { margin-bottom: 18px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html" aria-label="Engineering Archive home">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 5.5c-2.2-1.4-5-1.7-8-1.3v14c3-.4 5.8-.1 8 1.3m0-14c2.2-1.4 5-1.7 8-1.3v14c-3-.4-5.8-.1-8 1.3m0-14v14"/></svg>
+        </span>
+        Engineering Archive
+      </a>
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Home</a><span>/</span><a href="../index.html#bento-study">Study Note</a><span>/</span><span aria-current="page">Aerodynamics</span>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero container" aria-labelledby="page-title">
+      <div class="eyebrow">STUDY NOTE / 01</div>
+      <h1 id="page-title">Aerodynamics</h1>
+      <p>Fundamental principles and advanced topics in fluid dynamics and aerospace engineering.</p>
+      <div class="tags" aria-label="Study metadata"><span class="tag">4 Subject Areas</span><span class="tag">Study Archive</span></div>
+    </section>
+    <section class="contents" aria-labelledby="contents-title">
+      <div class="container">
+        <div class="section-heading"><h2 id="contents-title">Study Contents</h2><span class="section-count">01 — 04</span></div>
+        <div class="card-grid">
+          <a class="study-card" href="aerodynamics/fundamentals.html" aria-label="Open Fundamentals study notes">
+            <div class="card-head"><span>01 / AERODYNAMICS</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+            <h3>Fundamentals</h3><p class="card-subtitle">Foundations of Aerodynamics</p><div class="card-divider"></div>
+            <ul class="topic-list"><li>Flow Kinematics</li><li>Conservation Equations</li><li>Potential Flow</li></ul>
+          </a>
+          <a class="study-card" href="aerodynamics/compressible-flow.html" aria-label="Open Compressible Flow study notes">
+            <div class="card-head"><span>02 / AERODYNAMICS</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+            <h3>Compressible Flow</h3><p class="card-subtitle">High-Speed Gas Dynamics</p><div class="card-divider"></div>
+            <ul class="topic-list"><li>Isentropic Flow</li><li>Shock Waves</li><li>Expansion Waves</li></ul>
+          </a>
+          <a class="study-card" href="aerodynamics/viscous-flow.html" aria-label="Open Viscous Flow study notes">
+            <div class="card-head"><span>03 / AERODYNAMICS</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+            <h3>Viscous Flow</h3><p class="card-subtitle">Viscous Fluid Dynamics</p><div class="card-divider"></div>
+            <ul class="topic-list"><li>Navier–Stokes Equations</li><li>Boundary Layer</li><li>Turbulence</li></ul>
+          </a>
+          <a class="study-card" href="aerodynamics/hypersonic-flow.html" aria-label="Open Hypersonic Flow study notes">
+            <div class="card-head"><span>04 / AERODYNAMICS</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></div>
+            <h3>Hypersonic Flow</h3><p class="card-subtitle">Hypersonic Aerodynamics</p><div class="card-divider"></div>
+            <ul class="topic-list"><li>Hypersonic Similarity</li><li>Shock Layer</li><li>High-Temperature Effects</li></ul>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><span>© Engineering Archive</span><a href="../index.html#bento-study">← Back to Study Note</a></div></footer>
+</body>
+</html>
