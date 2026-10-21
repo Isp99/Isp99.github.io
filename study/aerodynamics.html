@@ -51,7 +51,11 @@
     .card-subtitle { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
     .card-divider { height: 1px; margin: 18px 0 16px; background: var(--divider); }
     .topic-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 9px; }
-    .topic-list li { color: #6980a2; font-size: 13px; line-height: 1.35; }
+    .topic-list li { color: #6980a2; font-size: 15px; line-height: 1.55; }
+
+@media (min-width: 1000px) {
+  .topic-list li { font-size: 14px; }
+}
     .topic-list li::before { content: "•"; color: #8597b2; margin-right: 8px; }
     .site-footer { border-top: 1px solid var(--border); background: #edf3fb; }
     .footer-inner { min-height: 46px; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 11px; color: #91a1b8; }
