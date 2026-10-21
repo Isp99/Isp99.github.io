@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Engineering Archive | Study Note & Practice Project</title><style>
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;color:#172a32}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0} a{text-decoration:none;color:inherit} button{font:inherit;cursor:pointer}
+.wide{max-width:1300px;padding:0 54px;margin:0 auto}.eyebrow{font-size:11px;font-weight:750;letter-spacing:.15em;text-transform:uppercase}
+.switcher{min-height:58px;background:#1e2834;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 36px}
+.switcher .title{font-size:11px;letter-spacing:.11em;font-weight:700;color:#c7d3de}.switcher .choices{display:flex;gap:8px}
+.switcher button{background:transparent;border:1px solid #576779;color:#f1f5f9;border-radius:6px;padding:9px 16px;font-size:12px;font-weight:650}
+.switcher button.active{background:#f9fafb;color:#273547;border-color:#f9fafb}
+.concept{display:none;min-height:100vh}.concept.active{display:block}
+@media(max-width:800px){.wide{padding:0 24px}.switcher{padding:10px 13px;flex-direction:column;align-items:stretch}.switcher .title{text-align:center}.switcher .choices{justify-content:center}.switcher button{font-size:11px;padding:8px 10px}}
+
+/* Concept 01 — Academic. Keep the original serif typography, cream palette and airfoil drawing. */
+.academic{background:#f9f8f4;color:#172a32}
+.academic header{border-bottom:1px solid #dddeda}.academic .nav{height:82px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.academic .logo{font-family:Georgia,'Times New Roman',serif;font-size:24px;letter-spacing:-.045em;font-weight:700}
+.academic .logo small{font-family:Arial,sans-serif;font-size:10px;letter-spacing:.16em;font-weight:600;display:block;color:#79817d;margin-top:5px}
+.academic .links{display:flex;gap:32px;align-items:center;text-transform:uppercase;letter-spacing:.11em;font-size:11px;font-weight:750}.academic .links a:first-child{color:#a35b39}
+.academic .hero{min-height:463px;padding-top:65px;padding-bottom:65px;display:grid;grid-template-columns:1.08fr .92fr;gap:50px;align-items:center}
+.academic .hero .eyebrow{color:#ad714d}.academic h1{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-size:clamp(42px,4.7vw,67px);line-height:1.105;letter-spacing:-.05em;margin:19px 0 21px}
+.academic h1 em{font-weight:400;color:#9b6448}.academic .subtitle{color:#677370;font-size:15px;line-height:1.8;max-width:510px}
+.academic .hero-btn{display:flex;align-items:center;gap:25px;margin-top:28px;flex-wrap:wrap}
+.academic .btn-primary{background:#263c43;color:#fff;font-size:12px;font-weight:700;padding:15px 21px;border-radius:2px}.academic .btn-text{color:#31474b;font-size:12px;font-weight:700}
+.academic .flow-art{border:1px solid #ded9cc;background:#eeede6;min-height:345px;position:relative;overflow:hidden}.academic .flow-art svg{width:100%;height:100%;position:absolute;inset:0}
+.academic .figure-caption{position:absolute;bottom:17px;left:20px;font-size:10px;color:#617279;letter-spacing:.12em;font-weight:700}
+.academic .index{border-top:1px solid #e2e0d9;padding:37px 0 58px}
+.academic .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:23px}
+.academic .section-head h2{font-family:Georgia,serif;font-weight:400;letter-spacing:-.035em;font-size:33px;margin:0}.academic .section-head span{color:#838b87;font-size:11px;letter-spacing:.06em}
+.academic .card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;align-content:start}
+.academic .card{min-width:0;padding:23px;background:#fff;border:1px solid #e1e1dc;min-height:170px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;transition:border-color .18s,transform .18s}
+.academic .card .count{font-size:11px;color:#b26d4a;font-weight:800}.academic .card h3{margin:14px 0 18px;font-family:Georgia,serif;font-size:23px;font-weight:500;letter-spacing:-.02em}
+.academic .card .desc{margin:-6px 0 18px;color:#7d8784;font-size:13px;line-height:1.55;max-width:250px}.academic .card .arrow{color:#a26446;font-size:21px;line-height:1}.academic .card:hover{border-color:#bb987d;transform:translateY(-2px)}
+.academic .project-section{background:#e9ece7;padding:43px 0 65px}.academic .project-section .section-head{margin-bottom:24px}.academic .project-section .card{min-height:162px}
+.academic footer{padding:30px 0 35px;font-size:11px;color:#8c9690;border-top:1px solid #dcded9}
+@media(max-width:800px){.academic .nav{height:auto;padding-top:17px;padding-bottom:17px;align-items:flex-start;flex-direction:column}.academic .links{gap:19px;flex-wrap:wrap}.academic .hero{grid-template-columns:1fr;gap:26px;padding-top:40px;padding-bottom:42px}.academic .flow-art{min-height:240px}.academic .card-grid{grid-template-columns:1fr}.academic .card{min-height:120px}.academic .index{padding:35px 0 42px}.academic .project-section{padding:35px 0 45px}.academic .section-head h2{font-size:28px}.academic .section-head span{font-size:10px}}
+
+/* Concept 03 — Research Hub. Keep the original blue archive identity, bento geometry and flow graphic. */
+.bento{background:#f5f8fc;color:#182638}
+.bento header{border-bottom:1px solid #e5eaf1}.bento .nav{height:84px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.bento .identity{display:flex;gap:13px;align-items:center}.bento .monogram{background:#244eaa;color:#fff;width:38px;height:38px;display:flex;justify-content:center;align-items:center;font-size:16px;border-radius:11px;font-weight:800}
+.bento .brandtext{font-weight:850;font-size:15px;line-height:1.35}.bento .brandtext small{display:block;color:#8290a2;font-size:10px;font-weight:550}
+.bento .navlinks{display:flex;gap:32px;font-size:12px;font-weight:700;color:#64768a}.bento .navlinks a:first-child{color:#254c9b}
+.bento .nav-cta{border:1px solid #d4deee;background:#fff;padding:11px 16px;border-radius:9px;font-size:11px;font-weight:700;color:#204785}
+.bento .hello{padding-top:52px;padding-bottom:35px;display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center}.bento .hello .eyebrow{color:#3163b1}
+.bento h1{font-size:clamp(36px,3.75vw,53px);font-weight:760;line-height:1.17;letter-spacing:-.055em;margin:17px 0 16px}.bento h1 .blue{color:#2b61b8}
+.bento .hello p{color:#74849a;font-size:14px;line-height:1.75;margin:0;max-width:610px}.bento .quicknav{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
+.bento .quicknav a{padding:12px 16px;font-size:12px;font-weight:750;color:#2a56a2;border:1px solid #d4def1;background:#fff;border-radius:9px}.bento .quicknav a:first-child{color:#fff;background:#2d62b6;border-color:#2d62b6}
+.bento .hero-graphic{border:1px solid #dce6f3;border-radius:16px;background:linear-gradient(138deg,#d8e9ff,#f4faff);min-height:315px;overflow:hidden;position:relative;box-shadow:0 12px 32px #3564950a}
+.bento .hero-graphic .visual-copy{position:absolute;top:20px;left:23px;z-index:2}.bento .hero-graphic .visual-copy .eyebrow{color:#3d70ad}.bento .hero-graphic .visual-copy h2{font-size:24px;letter-spacing:-.04em;line-height:1.15;margin:9px 0 0}
+.bento .hero-graphic svg{width:100%;height:calc(100% - 80px);min-height:235px;position:absolute;top:80px;left:0}
+.bento .section{padding:36px 0 50px;border-top:1px solid #e3e9f1}.bento .section.alt{background:#eef3fa}
+.bento .section-top{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;margin-bottom:21px}.bento .section-top h2{font-size:24px;letter-spacing:-.045em;margin:0}
+.bento .section-top small{color:#8695a9;font-size:10px;font-weight:750;letter-spacing:.12em;text-transform:uppercase}
+.bento .card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-content:start}
+.bento .block{border:1px solid #e2e9f2;border-radius:16px;background:#fff;padding:25px;min-height:190px;box-shadow:0 12px 32px #3564950a;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;transition:border-color .18s,transform .18s}
+.bento .block .num{color:#4a77c8;font-weight:800;font-size:11px}.bento .block h3{font-size:21px;margin:12px 0 12px;letter-spacing:-.035em}.bento .block .desc{margin:-2px 0 18px;color:#7f8ea3;font-size:13px;line-height:1.55;max-width:260px}.bento .block .arrow{color:#3768b2;font-size:19px;font-weight:800}
+.bento .block:hover{border-color:#97b3db;transform:translateY(-2px)}
+.bento footer{border-top:1px solid #e3e9f1;padding:31px 0 37px;color:#95a1b1;font-size:11px}
+@media(max-width:900px){.bento .navlinks{gap:14px}.bento .nav-cta{display:none}}
+@media(max-width:800px){.bento .nav{height:auto;padding-top:17px;padding-bottom:17px}.bento .navlinks{display:none}.bento .hello{grid-template-columns:1fr;padding-top:35px;gap:27px}.bento .hero-graphic{min-height:250px}.bento .hero-graphic svg{min-height:170px;height:calc(100% - 80px)}.bento .card-grid{grid-template-columns:1fr}.bento .block{min-height:122px}.bento .section{padding:30px 0 40px}.bento .section-top h2{font-size:22px}}
+.bento .card-grid .block .desc{font-size:13px;color:#7f8ea3;line-height:1.6;margin:-2px 0 18px;max-width:260px} .bento .section:not(.alt) .block{min-height:198px} </style></head><body><main class="concept bento active" id="bento">
+  <header><div class="wide nav"><a href="#bento" class="identity"><div class="monogram">E.</div><div class="brandtext">Engineering Archive<small>PERSONAL KNOWLEDGE & RESEARCH</small></div></a><nav class="navlinks" aria-label="Research Hub navigation"><a href="#bento">Home</a><a href="#bento-study">Study Note</a><a href="#bento-projects">Practice Project</a></nav><a class="nav-cta" href="#bento-study">Browse Notes ↗</a></div></header>
+  <section class="wide hello"><div><div class="eyebrow">A PERSONAL ENGINEERING KNOWLEDGE BASE</div><h1>Exploring <span class="blue">physics</span> through simulation and <span class="blue">intelligence.</span></h1><p>Study notes and practical projects, organized as an evolving engineering archive.</p><div class="quicknav"><a href="#bento-study">Browse Study Note →</a><a href="#bento-projects">See Practice Project ↗</a></div></div><div class="hero-graphic"><div class="visual-copy"><div class="eyebrow">FEATURED FIELD</div><h2>Computational<br>Engineering</h2></div><svg preserveaspectratio="xMidYMid meet" viewbox="0 0 450 330"><defs><lineargradient id="b-surface" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#5b93d7"></stop><stop offset=".5" stop-color="#95c5e6"></stop><stop offset="1" stop-color="#235ba4"></stop></lineargradient></defs><g fill="none" opacity=".75" stroke="#3169ad" stroke-width="1.2"><path d="M-100 250Q50 145 180 235T560 220"></path><path d="M-100 232Q50 126 180 217T560 200"></path><path d="M-100 214Q50 107 180 199T560 180"></path><path d="M-100 196Q50 88 180 181T560 160"></path><path d="M-100 178Q50 69 180 163T560 140"></path><path d="M-100 160Q50 50 180 145T560 120"></path><path d="M-100 142Q50 31 180 127T560 100"></path></g><g fill="none" opacity=".7" stroke="#528bc2" stroke-width=".8"><path d="M50 -20Q-60 180 140 340"></path><path d="M90 -20Q-10 180 180 340"></path><path d="M130 -20Q30 180 220 340"></path><path d="M170 -20Q70 180 260 340"></path><path d="M210 -20Q110 180 300 340"></path><path d="M250 -20Q150 180 340 340"></path><path d="M290 -20Q190 180 380 340"></path></g><path d="M80 205Q205 165 360 213Q195 232 80 205Z" fill="url(#b-surface)" stroke="#285793" stroke-width="2.6"></path><g fill="#3869a9" font-family="monospace" font-size="12"><text x="38" y="318">SIMULATION / DATA / ML</text></g></svg></div></section>
+  <section class="section" id="bento-study"><div class="wide"><div class="section-top"><h2>Study Note</h2></div><div class="card-grid">
+    <article class="block"><span class="num">01 / STUDY</span><h3>Aerodynamics</h3><p class="desc">Fundamentals, compressible flow,<br>viscous flow and hypersonic flow.</p><span class="arrow" aria-hidden="true">↗</span></article>
+    <article class="block"><span class="num">02 / STUDY</span><h3>Artificial Intelligence</h3><p class="desc">Neural Networks and<br>Neural Operators.</p><span class="arrow" aria-hidden="true">↗</span></article>
+    <article class="block"><span class="num">03 / STUDY</span><h3>Heat Transfer</h3><p class="desc">Fundamentals, conduction,<br>convection and conjugate heat transfer.</p><span class="arrow" aria-hidden="true">↗</span></article>
+  </div></div></section>
+  <section class="section alt" id="bento-projects"><div class="wide"><div class="section-top"><h2>Practice Project</h2></div><div class="card-grid">
+    <article class="block"><span class="num">01 / PRACTICE</span><h3>CFD Simulations</h3><span class="arrow" aria-hidden="true">↗</span></article>
+    <article class="block"><span class="num">02 / PRACTICE</span><h3>AI Practice</h3><span class="arrow" aria-hidden="true">↗</span></article>
+  </div></div></section><footer><div class="wide">An evolving engineering archive.</div></footer>
+</main></body></html>
