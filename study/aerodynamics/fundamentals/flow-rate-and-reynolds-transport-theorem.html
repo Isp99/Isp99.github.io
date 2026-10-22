@@ -145,11 +145,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},opt
  \end{aligned}\]</div></li>
 <li>이때 \(\mathbf V\cdot\mathbf n>0\)이면 유출, \(\mathbf V\cdot\mathbf n<0\)이면 유입을 의미함. 따라서 CS 전체를 통한 <strong>단위시간당 순유출량</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\dot B_{\mathrm{net,out}}=\iint_S\rho b(\mathbf V\cdot\mathbf n)\mathrm dA\]</div></li>
 <li>이제 초기시간 \(t\)에서 System과 CV가 동일한 영역을 차지한다고 가정하면, 두 영역의 전체 물리량은 같음.<div class="equation" role="group" aria-label="Mathematical expression">\[B_{\mathrm{sys}}(t)=B_{CV}(t)\]</div></li>
-<li>시간이 \(\Delta t\)만큼 경과하면 System은 유체입자를 따라 이동하지만 CV는 고정되어 있음. 따라서 <strong>CV 내부의 물리량에 유출된 양을 더하고 유입된 양을 빼면</strong> System의 물리량과 같음.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
- B_{\mathrm{sys}}(t+\Delta t)
- \simeq\;&B_{CV}(t+\Delta t)\\[0.6cm]
- &+\Delta B_{\mathrm{out}}-\Delta B_{\mathrm{in}}
- \end{aligned}\]</div></li>
+<li>시간이 \(\Delta t\)만큼 경과하면 System은 유체입자를 따라 이동하지만 CV는 고정되어 있음. 따라서 <strong>CV 내부의 물리량에 유출된 양을 더하고 유입된 양을 빼면</strong> System의 물리량과 같음.<div class="equation" role="group" aria-label="Mathematical expression">\[B_{\mathrm{sys}}(t+\Delta t)\simeq B_{CV}(t+\Delta t)+\Delta B_{\mathrm{out}}-\Delta B_{\mathrm{in}}\]</div></li>
 <li>양변에서 초기 물리량을 빼고 \(\Delta t\)로 나누면, <strong>System의 물리량 변화율</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\Delta B_{\mathrm{sys}}}{\Delta t}
  \simeq\frac{\Delta B_{CV}}{\Delta t}
  +\frac{\Delta B_{\mathrm{out}}-\Delta B_{\mathrm{in}}}{\Delta t}\]</div></li>
@@ -165,11 +161,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},opt
  &=\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho b\,\mathrm d\mathcal V
  +\iint_S\rho b(\mathbf V\cdot\mathbf n)\mathrm dA
  \end{aligned}\]</div></li>
-<li>정리하면 System의 물리량 변화율을 CV 내부의 축적률과 경계를 통한 순유출률로 나타내는 <strong>Reynolds Transport Theorem (RTT)</strong>는 다음과 같음.<div class="equation key" role="group" aria-label="Mathematical expression">\[\boxed{\begin{aligned}
- \frac{\mathrm dB_{\mathrm{sys}}}{\mathrm dt}
- ={}&\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho b\,\mathrm d\mathcal V\\[0.6cm]
- &+\iint_S\rho b(\mathbf V\cdot\mathbf n)\mathrm dA
- \end{aligned}}\]</div></li>
+<li>정리하면 System의 물리량 변화율을 CV 내부의 축적률과 경계를 통한 순유출률로 나타내는 <strong>Reynolds Transport Theorem (RTT)</strong>는 다음과 같음.<div class="equation key" role="group" aria-label="Mathematical expression">\[\boxed{\frac{\mathrm dB_{\mathrm{sys}}}{\mathrm dt}=\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho b\,\mathrm d\mathcal V+\iint_S\rho b(\mathbf V\cdot\mathbf n)\mathrm dA}\]</div></li>
 <li>RTT의 우변에서 첫 번째 항은 <strong>CV 내부의 축적률(Accumulation Rate)</strong>, 두 번째 항은 <strong>CS를 통한 순유출률(Net Outflow Rate)</strong>을 의미함.</li>
 <li>질량, 운동량, 에너지에 해당하는 단위질량당 물리량 \(b\)는 다음과 같음.<div class="equation equation-table" role="group" aria-label="Mathematical expression">\[\begin{array}{c|ccc}
  &\text{Mass}&\text{Momentum}&\text{Energy}\\[0.6cm]\hline
