@@ -27,6 +27,12 @@
       .bento .section-top h2 { font-size: 26px; }
     }
 
+    /* Center each About heading vertically alongside its icon, without numbering. */
+    .bento .about-copy h3 { margin-top: 11px; }
+    @media (max-width: 800px) {
+      .bento .about-copy h3 { margin-top: 10px; }
+    }
+
     /* Same compact blue / white button style as the original homepage. */
     .bento .quicknav button.hero-search-button {
       border:1px solid #2d62b6; background:#2d62b6; color:#fff; border-radius:9px;
@@ -153,7 +159,7 @@
               </svg>
             </span>
             <div class="about-copy">
-              <span class="about-number">01</span>
+              
               <h3>Study Notes</h3>
               <p>This website is a personal engineering notebook created to organize key concepts and theories I have studied, making them easy to revisit and review.</p>
               <p>As these notes are primarily intended for personal review, some explanations may be brief or assume prior knowledge. Thank you for your understanding.</p>
@@ -167,7 +173,7 @@
               </svg>
             </span>
             <div class="about-copy">
-              <span class="about-number">02</span>
+              
               <h3>AI-Assisted Documentation &amp; Automation</h3>
               <p>This website was developed using ChatGPT-assisted workflows and automation, based on my original study materials (written in LaTeX using Overleaf), to allow more time to focus on learning and technical implementation.</p>
               <p>All technical learning and practical implementations are carried out by me, while ChatGPT serves as a supporting tool for efficiently organizing and presenting the content.</p>
