@@ -1,22 +1,100 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="Engineering Archive — Aerospace Engineering, AI, CFD and heat transfer study notes and projects." name="description"/>
-<title>Engineering Archive | Study Note &amp; Practice Project</title>
-<link href="assets/site.css" rel="stylesheet"/></head><body><main class="concept bento active" id="bento">
-<header><div class="wide nav"><a class="identity" href="#bento"><div class="monogram">E.</div><div class="brandtext">Engineering Archive<small>PERSONAL KNOWLEDGE &amp; RESEARCH</small></div></a><nav aria-label="Research Hub navigation" class="navlinks"><a href="#bento">Home</a><a href="#bento-study">Study Note</a><a href="#bento-projects">Practice Project</a></nav><a class="nav-cta" href="#bento-study">Browse Notes ↗</a></div></header>
-<section class="wide hello"><div><div class="eyebrow">PERSONAL STUDY NOTES &amp; PROJECTS</div><h1>Aerospace Engineering <span class="blue">&amp;</span><br/><span class="blue">Artificial Intelligence.</span></h1><p>Focused on topics related to aerodynamics, CFD and neural network-based methods.</p><div class="quicknav"><a href="#bento-study">Browse Study Note →</a><a href="#bento-projects">See Practice Project ↗</a></div></div><div class="hero-graphic"><img alt="Aerospace and Intelligence: hypersonic flight, streamlines and neural-network connections" class="hero-image" src="assets/hero.webp"/></div></section>
-<section class="section" id="bento-study"><div class="wide"><div class="section-top"><h2>Study Note</h2></div><div class="card-grid">
-<a aria-label="Open Aerodynamics study notes" class="block" href="https://isp99.github.io/study/aerodynamics.html?v=20261021-2"><span class="num">01 / STUDY</span><h3>Aerodynamics</h3><ul class="desc"><li>Fundamentals</li><li>Compressible Flow</li><li>Viscous Flow</li><li>Hypersonic Flow</li></ul><span aria-hidden="true" class="arrow">↗</span></a>
-<a aria-label="Open Artificial Intelligence" class="block" href="study/artificial-intelligence.html"><span class="num">02 / STUDY</span><h3>Artificial Intelligence</h3><ul class="desc"><li>Neural Networks</li><li>Neural Operators</li></ul><span aria-hidden="true" class="arrow">↗</span></a>
-<a aria-label="Open Heat Transfer" class="block" href="study/heat-transfer.html"><span class="num">03 / STUDY</span><h3>Heat Transfer</h3><ul class="desc"><li>Fundamentals</li><li>Conduction</li><li>Convection</li><li>Conjugate Heat Transfer</li></ul><span aria-hidden="true" class="arrow">↗</span></a>
-</div></div></section>
-<section class="section alt" id="bento-projects"><div class="wide"><div class="section-top"><h2>Practice Project</h2></div><div class="card-grid">
-<a aria-label="Open CFD Simulations" class="block" href="practice/cfd-simulations.html"><span class="num">01 / PRACTICE</span><h3>CFD Simulations</h3><span aria-hidden="true" class="arrow">↗</span></a>
-<a aria-label="Open AI Practice" class="block" href="practice/ai-practice.html"><span class="num">02 / PRACTICE</span><h3>AI Practice</h3><span aria-hidden="true" class="arrow">↗</span></a>
-</div></div></section>
-<footer><div class="wide">An evolving engineering archive.</div></footer>
-</main></body></html>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <meta content="Engineering Archive — Aerospace Engineering, AI, CFD and heat transfer study notes and projects." name="description"/>
+  <title>Engineering Archive | Study Note &amp; Practice Project</title>
+  <link href="assets/site.css" rel="stylesheet"/>
+  <style>
+    /* Keep the navigation centered after removing the right-hand CTA. */
+    .bento .nav {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: center;
+    }
+    .bento .identity { grid-column: 1; justify-self: start; }
+    .bento .navlinks { grid-column: 2; justify-self: center; }
+
+    /* Section titles: increased from 19px on desktop, 22px on mobile. */
+    .bento .section-top h2 {
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: -.04em;
+    }
+    @media (max-width: 800px) {
+      .bento .nav { grid-template-columns: 1fr; }
+      .bento .section-top h2 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+<main class="concept bento active" id="bento">
+  <header>
+    <div class="wide nav">
+      <a class="identity" href="#bento">
+        <div class="monogram">E.</div>
+        <div class="brandtext">Engineering Archive<small>PERSONAL KNOWLEDGE &amp; RESEARCH</small></div>
+      </a>
+      <nav aria-label="Research Hub navigation" class="navlinks">
+        <a href="#bento">Home</a>
+        <a href="#bento-study">Study Note</a>
+        <a href="#bento-projects">Practice Project</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="wide hello">
+    <div>
+      <div class="eyebrow">PERSONAL STUDY NOTES &amp; PROJECTS</div>
+      <h1>Aerospace Engineering <span class="blue">&amp;</span><br/><span class="blue">Artificial Intelligence.</span></h1>
+      <p>Focused on topics related to aerodynamics, CFD and neural network-based methods.</p>
+      <div class="quicknav">
+        <a href="#bento-study">Browse Study Note →</a>
+        <a href="#bento-projects">See Practice Project ↗</a>
+      </div>
+    </div>
+    <div class="hero-graphic">
+      <img alt="Aerospace and Intelligence: hypersonic flight, streamlines and neural-network connections" class="hero-image" src="assets/hero.webp"/>
+    </div>
+  </section>
+
+  <section class="section" id="bento-study">
+    <div class="wide">
+      <div class="section-top"><h2>Study Note</h2></div>
+      <div class="card-grid">
+        <a aria-label="Open Aerodynamics study notes" class="block" href="https://isp99.github.io/study/aerodynamics.html?v=20261021-2">
+          <span class="num">01 / STUDY</span><h3>Aerodynamics</h3>
+          <ul class="desc"><li>Fundamentals</li><li>Compressible Flow</li><li>Viscous Flow</li><li>Hypersonic Flow</li></ul>
+          <span aria-hidden="true" class="arrow">↗</span>
+        </a>
+        <a aria-label="Open Artificial Intelligence" class="block" href="study/artificial-intelligence.html">
+          <span class="num">02 / STUDY</span><h3>Artificial Intelligence</h3>
+          <ul class="desc"><li>Neural Networks</li><li>Neural Operators</li></ul>
+          <span aria-hidden="true" class="arrow">↗</span>
+        </a>
+        <a aria-label="Open Heat Transfer" class="block" href="study/heat-transfer.html">
+          <span class="num">03 / STUDY</span><h3>Heat Transfer</h3>
+          <ul class="desc"><li>Fundamentals</li><li>Conduction</li><li>Convection</li><li>Conjugate Heat Transfer</li></ul>
+          <span aria-hidden="true" class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="bento-projects">
+    <div class="wide">
+      <div class="section-top"><h2>Practice Project</h2></div>
+      <div class="card-grid">
+        <a aria-label="Open CFD Simulations" class="block" href="practice/cfd-simulations.html">
+          <span class="num">01 / PRACTICE</span><h3>CFD Simulations</h3><span aria-hidden="true" class="arrow">↗</span>
+        </a>
+        <a aria-label="Open AI Practice" class="block" href="practice/ai-practice.html">
+          <span class="num">02 / PRACTICE</span><h3>AI Practice</h3><span aria-hidden="true" class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+</html>
