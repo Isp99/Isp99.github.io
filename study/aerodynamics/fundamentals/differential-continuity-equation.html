@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Differential Continuity Equation — Conservation of Mass, Integral Continuity Equation, Divergence Theorem and Density Change of a Fluid Particle — Engineering Notebook">
+<meta name="description" content="Differential Continuity Equation — integral and differential conservation, density change, Eulerian and material forms — Engineering Notebook">
 <title>Differential Continuity Equation | Engineering Notebook</title>
 <link rel="stylesheet" href="../../../assets/site.css">
 <style>
@@ -83,7 +83,7 @@ body.inner-page .breadcrumb{font-size:16px}
 </nav>
 <div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 2.1</div>
 <h1>Differential Continuity Equation</h1><p class="hero-subtitle">Conservation of Mass</p>
-<p class="hero-description">질량 보존의 물리법칙과 Control Volume에서 출발하여 적분형 연속방정식을 유도하고, Divergence Theorem을 적용해 미분형 및 Material Form을 도출함.</p>
+<p class="hero-description">질량 보존법칙과 Control Volume에서 출발하여 적분형·미분형 연속방정식을 유도하고, 밀도 변화와 Eulerian Form 및 Material Form의 관계를 정리함.</p>
 </div></div>
 <article class="article-content">
 <div class="lesson-meta"><span>02 / Conservation of Mass</span><span>Study Notes · 2.1</span></div>
@@ -149,14 +149,17 @@ body.inner-page .breadcrumb{font-size:16px}
 <ul class="study-points">
 <li>연속방정식의 공간미분 항에 곱의 미분을 적용하면<div class="equation" role="group" aria-label="Mathematical expression">\[\nabla\cdot(\rho\mathbf V)=\mathbf V\cdot\nabla\rho+\rho\nabla\cdot\mathbf V\]</div></li>
 <li>이를 미분형 연속방정식에 대입하면<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\partial\rho}{\partial t}+\mathbf V\cdot\nabla\rho+\rho\nabla\cdot\mathbf V=0\]</div></li>
-<li>앞의 두 항은 유체입자를 따라가는 밀도 변화율이므로<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\mathrm D\rho}{\mathrm Dt}=\frac{\partial\rho}{\partial t}+\mathbf V\cdot\nabla\rho\]</div></li>
-<li>따라서 연속방정식의 <strong>Material Form</strong>은<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \frac{\mathrm D\rho}{\mathrm Dt}+\rho\nabla\cdot\mathbf V=0}\]</div></li>
-<li>같은 유체입자의 질량은 일정함. 그 입자가 차지하는 미소체적을 \(\delta\mathcal V\)라 하면<div class="equation" role="group" aria-label="Mathematical expression">\[\delta m=\rho\,\delta\mathcal V,\qquad\frac{\mathrm D(\delta m)}{\mathrm Dt}=0\]</div></li>
-<li>질량의 곱을 미분하고 \(\rho\delta\mathcal V\)로 나누면<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
- 0&=\delta\mathcal V\frac{\mathrm D\rho}{\mathrm Dt}+\rho\frac{\mathrm D(\delta\mathcal V)}{\mathrm Dt}\\[0.6cm]
- \frac{1}{\delta\mathcal V}\frac{\mathrm D(\delta\mathcal V)}{\mathrm Dt}&=-\frac{1}{\rho}\frac{\mathrm D\rho}{\mathrm Dt}=\nabla\cdot\mathbf V
- \end{aligned}\]</div></li>
-<li>따라서 <strong>Divergence는 유체입자의 상대 체적변화율</strong>임. 양수이면 팽창하면서 밀도가 감소하고, 음수이면 수축하면서 밀도가 증가함.</li>
+<li>앞의 두 항은 유체입자를 따라가는 밀도 변화율이므로<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\mathrm D\rho}{\mathrm D t}=\frac{\partial\rho}{\partial t}+\mathbf V\cdot\nabla\rho\]</div></li>
+<li>따라서 연속방정식의 <strong>Material Form</strong>은<div class="equation key" id="material-form" role="group" aria-label="Material form of continuity">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \frac{\mathrm D\rho}{\mathrm D t}+\rho\nabla\cdot\mathbf V=0}\]</div></li>
+<li>미분형 연속방정식과 Material Form은 <strong>동일한 질량보존법칙을 서로 다른 관점에서 표현한 것</strong>임.
+<div class="equation" role="group" aria-label="Eulerian and material forms of continuity">\[\begin{gathered}
+\underbrace{\frac{\partial\rho}{\partial t}+\nabla\cdot(\rho\mathbf V)=0}_{\text{Eulerian Form}}\\[0.5cm]
+\underbrace{\frac{\mathrm D\rho}{\mathrm D t}+\rho\nabla\cdot\mathbf V=0}_{\text{Material Form}}
+\end{gathered}\]</div>
+<ul class="definitions">
+<li><strong>Eulerian Form</strong>: 공간의 고정된 위치에서 질량의 축적과 이동을 관찰함.</li>
+<li><strong>Material Form</strong>: 움직이는 유체입자를 따라가면서 밀도와 체적의 변화를 관찰함.</li>
+</ul></li>
 </ul>
 </section>
 </article>
