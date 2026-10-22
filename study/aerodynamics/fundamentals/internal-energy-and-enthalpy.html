@@ -1,2 +1,132 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Internal Energy and Enthalpy — Engineering Notebook"><title>Internal Energy and Enthalpy | Engineering Notebook</title><link rel="stylesheet" href="../../../assets/site.css"></head><body class="inner-page"><header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a><nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../../index.html#bento-projects">Practice Project</a></nav></div></header><main class="shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">Aerodynamics</a><span class="separator">›</span><a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span><strong>Internal Energy and Enthalpy</strong></nav><div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 4.3</div><h1>Internal Energy and Enthalpy</h1><p class="hero-subtitle">Conservation of Energy</p><p class="hero-description">Thermal energy, viscous dissipation and enthalpy relations.</p></div></div><div class="article-content"><div class="article-meta">4.3 · Conservation of Energy</div><h2>Internal Energy and Enthalpy</h2><p>Thermal energy, viscous dissipation and enthalpy relations.</p><span class="placeholder-hint">Detailed notes and derivations will be added here.</span></div><div class="article-pager"><a href="total-energy-equation.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Total Energy Equation</span></a><a class="next" href="bernoulli-equation-along-a-streamline.html"><span class="direction">NEXT →</span><span class="adjacent">Bernoulli Equation Along a Streamline</span></a></div><a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Aerodynamics</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
-</body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Internal Energy and Enthalpy — Conservation of Energy — Engineering Notebook">
+<title>Internal Energy and Enthalpy | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+/* Flow Rate & RTT — shared Fundamentals lesson design */
+body.inner-page .breadcrumb{font-size:16px}
+.md-page .article-content{padding:43px 46px 64px}
+.md-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.md-page .lesson-meta span:first-child{color:#2e61b7}
+.md-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:68px}
+.md-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.md-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:8px 20px}
+.md-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.md-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.md-page .lesson-section{scroll-margin-top:27px}
+.md-page .lesson-section+.lesson-section{margin-top:76px;padding-top:44px;border-top:1px solid #e1eaf6}
+.md-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 37px!important;line-height:1.3}
+.md-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.md-page .study-points{list-style:none;padding:0;margin:0}
+.md-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 48px;word-break:keep-all;overflow-wrap:anywhere}
+.md-page .study-points>li:last-child{margin-bottom:0}
+.md-page .study-points>li.sub-point{margin-left:26px}
+.md-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.md-page strong{color:#23466f}
+.md-page .equation{border:none;background:transparent;border-radius:0;margin:46px 0 54px;padding:12px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px}
+.md-page .equation.key{background:#f7f9fd;border:none;border-radius:10px;margin:55px 0 61px;padding:31px 18px}
+.md-page .equation mjx-container[display="true"]{margin:.3em auto!important}
+.md-page .definitions{margin:24px 0 19px 21px;padding:0;font-size:14px;color:#627a9a;line-height:1.85}
+.md-page .definitions li{margin:9px 0}
+.md-page .definitions.two-terms{list-style:none;padding:21px 19px;margin:26px 0 17px;background:#f5f8fe;border-radius:9px;border:1px solid #e5ebf5}
+.md-page .two-terms div+div{margin-top:14px}
+.md-page .note-box{border:1px solid #d7e4f5;border-left:4px solid #4572bd;background:#f4f8fe;border-radius:11px;padding:33px 34px 37px;margin:48px 0 13px}
+.md-page .note-box h3{font-size:17px;color:#254d83;margin:0 0 23px}
+.md-page .note-box h4{font-size:14px;margin:33px 0 14px;color:#2c578e}
+.md-page .note-box p{font-size:14px;line-height:1.88;color:#506b8a;max-width:none;margin:0 0 20px;word-break:keep-all}
+.md-page .note-box .equation{background:transparent;margin:43px 0 50px}
+.md-page .note-box .equation.key{background:#f7f9fd;margin:55px 0 61px}
+/* Match the final Material Derivative navigation typography. */
+.md-page .eyebrow{font-size:12px}
+.md-page .article-pager .direction{font-size:12px}
+.md-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.md-page .back-bottom{font-size:16px}
+@media(max-width:600px){.md-page .lesson-meta{font-size:13px}.md-page .lesson-toc strong{font-size:16px}.md-page .lesson-toc a{font-size:15px}.md-page .article-pager .adjacent{font-size:14px}.md-page .back-bottom{font-size:15px}.md-page .eyebrow{font-size:11px}}
+@media(max-width:740px){.md-page .article-content{padding:24px 18px 30px}.md-page .lesson-toc{padding:16px}.md-page .lesson-toc ul{grid-template-columns:1fr}.md-page .lesson-section h2{font-size:20px!important}.md-page .study-points>li{font-size:14px;padding-left:21px}.md-page .equation{font-size:14px;padding:14px 9px}.md-page .note-box{padding:19px 15px}.md-page .lesson-section+.lesson-section{margin-top:58px;padding-top:33px}.md-page .study-points>li{margin-bottom:38px}.md-page .equation{margin:35px 0 43px;padding:10px 0}.md-page .equation.key{margin:43px 0 51px;padding:25px 11px}.md-page .note-box .equation{margin:35px 0 43px}.md-page .note-box .equation.key{margin:43px 0 51px}.md-page .note-box{margin-top:36px;padding:25px 18px 28px}}
+@media(max-width:600px){body.inner-page .breadcrumb{font-size:14px}.md-page .study-points>li.sub-point{margin-left:18px}}
+
+
+
+
+/* Diagram and physical-law hierarchy from the source LaTeX. */
+.md-page .cv-figure{max-width:650px;margin:47px auto 56px;text-align:center}
+.md-page .cv-figure svg{width:100%;height:auto;display:block}
+.md-page .cv-figure figcaption{font-size:13px;color:#8195af;line-height:1.6;margin-top:15px}
+.md-page .cv-figure .math-label{font-family:Georgia,'Times New Roman',serif;font-style:italic;fill:#1d3b65;font-size:22px}
+.md-page .principle-flow{display:flex;flex-direction:column;align-items:center;gap:16px;margin:43px auto 48px;color:#254469;line-height:1.5;font-weight:700;text-align:center;font-size:16px}
+.md-page .principle-flow .down-arrow{font-size:25px;color:#6286bb;line-height:1}
+.md-page .principle-flow .equals{font-size:22px;font-weight:500;color:#536d92;line-height:1}
+@media(max-width:740px){.md-page .cv-figure{margin:35px auto 45px}.md-page .cv-figure figcaption{font-size:12px}.md-page .principle-flow{font-size:13px;gap:12px;margin:30px auto 41px}}
+
+.md-page .equation{max-width:100%;overscroll-behavior-x:contain}
+.md-page .definitions{word-break:keep-all}
+</style>
+<script>window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav></div></header>
+<main class="shell md-page"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span><strong>Internal Energy and Enthalpy</strong></nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 4.3</div><h1>Internal Energy and Enthalpy</h1><p class="hero-subtitle">Conservation of Energy</p><p class="hero-description">Total Energy와 Internal Energy의 차이에서 출발해 운동에너지 방정식을 빼서 내부에너지식을 유도하고, 점성소산과 엔탈피·온도 방정식까지 전개함.</p></div></div>
+<article class="article-content"><div class="lesson-meta"><span>04 / Conservation of Energy</span><span>Study Notes · 4.3</span></div>
+<nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#total-and-internal">01 · Total Energy and Internal Energy</a></li>
+<li><a href="#kinetic-subtraction">02 · Subtracting the Kinetic Energy Equation</a></li>
+<li><a href="#viscous-dissipation">03 · Viscous Dissipation</a></li>
+<li><a href="#enthalpy-equation">04 · Enthalpy Equation</a></li></ul></nav>
+<section class="lesson-section" id="total-and-internal" aria-labelledby="total-and-internal-title">
+<h2 id="total-and-internal-title"><span class="section-tag">01</span>Total Energy and Internal Energy</h2>
+<ul class="study-points"><li>유동하는 유체가 가지고 있는 단위질량당 <strong>Total Energy</strong>를 \(E\)라고 정의하면, 이는 <strong>Internal Energy</strong>와 <strong>Kinetic Energy</strong>의 합으로 표현됨.</li>
+<li>앞에서 유도한 것이 Total Energy Equation이며, 여기서는 <strong>Total Energy에서 Kinetic Energy를 제외한 Internal Energy Equation</strong>을 다룸.<div class="equation key" id="eq-energy-decomposition" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle E=\underbrace{e}_{\text{Internal Energy}}+\underbrace{\frac12 V^2}_{\text{Kinetic Energy}}.}\]</div></li>
+<li>각 에너지의 물리적 의미는 다음과 같음.<ul class="definitions"><li><strong>Internal Energy \(e\)</strong>: 분자의 무작위 운동, 회전, 진동 및 분자 간 상호작용 등과 관련된 <strong>미시적인 에너지</strong>를 나타냄.</li>
+<li><strong>Kinetic Energy \(V^2/2\)</strong>: 유체가 거시적으로 이동하면서 갖는 <strong>운동에너지</strong>를 나타냄.</li>
+<li><strong>Total Energy \(E\)</strong>: Internal Energy와 Kinetic Energy의 합으로, 유체가 가지고 있는 <strong>단위질량당 총에너지</strong>를 나타냄.</li></ul></li>
+<li>여기서는 <strong>Potential Energy(위치에너지)</strong>를 Total Energy \(E\)에 포함하지 않으며, 중력 등의 영향은 <strong>Body Force(체적력)</strong>로 처리함.</li>
+<li>따라서 유체의 속도가 증가하면 <strong>Kinetic Energy</strong>가 증가하며, 유체의 온도가 증가하면 일반적으로 <strong>Internal Energy</strong>가 증가함.</li></ul>
+</section>
+<section class="lesson-section" id="kinetic-subtraction" aria-labelledby="kinetic-subtraction-title">
+<h2 id="kinetic-subtraction-title"><span class="section-tag">02</span>Subtracting the Kinetic Energy Equation</h2>
+<ul class="study-points"><li><strong>Internal Energy Equation</strong>은 Total Energy Equation에서 Kinetic Energy Equation을 빼서 얻을 수 있음.</li>
+<li>먼저 운동에너지 방정식을 얻기 위해 운동량식의 \(x,y,z\) 성분에 각각 \(u,v,w\)를 곱하여 더하면, <strong>Kinetic Energy 변화율</strong>에 해당하는 좌변은<div class="equation" id="eq-kineticLHS" role="group" aria-label="Mathematical expression">\[\begin{aligned}\rho\left(u\frac{\mathrm Du}{\mathrm Dt}+v\frac{\mathrm Dv}{\mathrm Dt}+w\frac{\mathrm Dw}{\mathrm Dt}\right)&=\rho\frac{\mathrm D}{\mathrm Dt}\left(\frac{u^2+v^2+w^2}{2}\right)\\[1.5em]&=\rho\frac{\mathrm D(V^2/2)}{\mathrm Dt}.\end{aligned}\]</div></li>
+<li>운동량 방정식의 우변에 속도벡터를 내적하면<div class="equation long-equation" id="eq-kineticRHS" role="group" aria-label="Mathematical expression">\[\mathbf V\cdot[-\nabla p+(\nabla\cdot\boldsymbol\tau)+\rho\mathbf f]=-\mathbf V\cdot\nabla p+\mathbf V\cdot(\nabla\cdot\boldsymbol\tau)+\rho\mathbf f\cdot\mathbf V.\]</div></li>
+<li>따라서 Kinetic Energy Equation을 정리하면<div class="equation long-equation" id="eq-kineticRaw" role="group" aria-label="Mathematical expression">\[\rho\frac{\mathrm D(V^2/2)}{\mathrm Dt}=-\mathbf V\cdot\nabla p+\mathbf V\cdot(\nabla\cdot\boldsymbol\tau)+\rho\mathbf f\cdot\mathbf V.\]</div></li>
+<li>이때 점성항 \(\mathbf V\cdot(\nabla\cdot\boldsymbol\tau)\)은 <strong>곱의 미분</strong>으로 분리할 수 있음. \(x\)방향 항을 먼저 보면<div class="equation long-equation" role="group" aria-label="Mathematical expression">\[\frac{\partial(u\tau_{xx})}{\partial x}=u\frac{\partial\tau_{xx}}{\partial x}+\tau_{xx}\frac{\partial u}{\partial x}\quad\Longrightarrow\quad u\frac{\partial\tau_{xx}}{\partial x}=\frac{\partial(u\tau_{xx})}{\partial x}-\tau_{xx}\frac{\partial u}{\partial x}.\]</div></li>
+<li>나머지 응력항에도 같은 계산을 적용하여 더하면<div class="equation" id="eq-dissipation-identity" role="group" aria-label="Mathematical expression">\[\mathbf V\cdot(\nabla\cdot\boldsymbol\tau)=\nabla\cdot\mathbf W_\tau-\Phi_v.\]</div></li>
+<li>이때 음수로 분리된 항의 크기를 <strong>Viscous Dissipation Function</strong> \(\Phi_v\)로 정의하며, 다음과 같음.<div class="equation" id="eq-dissipationDef" role="group" aria-label="Mathematical expression">\[\begin{aligned}\Phi_v={}&\tau_{xx}\frac{\partial u}{\partial x}+\tau_{yy}\frac{\partial v}{\partial y}+\tau_{zz}\frac{\partial w}{\partial z}\\[1.5em]&+\tau_{xy}\left(\frac{\partial u}{\partial y}+\frac{\partial v}{\partial x}\right)+\tau_{xz}\left(\frac{\partial u}{\partial z}+\frac{\partial w}{\partial x}\right)+\tau_{yz}\left(\frac{\partial v}{\partial z}+\frac{\partial w}{\partial y}\right).\end{aligned}\]</div></li>
+<li>이는 <strong>점성에 의해 거시적인 운동에너지가 내부에너지(열적 에너지)로 전환되는 비율</strong>을 의미함.</li>
+<li>따라서 운동에너지식은<div class="equation long-equation" id="eq-kinetic" role="group" aria-label="Mathematical expression">\[\rho\frac{\mathrm D(V^2/2)}{\mathrm Dt}=-\mathbf V\cdot\nabla p+\nabla\cdot\mathbf W_\tau-\Phi_v+\rho\mathbf f\cdot\mathbf V.\]</div></li>
+<li>앞서 유도한 <a href="total-energy-equation.html#eq-energyMaterial">Total Energy의 Material Form</a>에서 Kinetic Energy Equation을 뺀 뒤, 압력항에 곱의 미분을 적용하면<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}\rho\frac{\mathrm De}{\mathrm Dt}&=-\nabla\cdot(p\mathbf V)+\mathbf V\cdot\nabla p+\Phi_v-\nabla\cdot\mathbf q+\dot q_v\\[1.5em]&=-\left(\mathbf V\cdot\nabla p+p\nabla\cdot\mathbf V\right)+\mathbf V\cdot\nabla p+\Phi_v-\nabla\cdot\mathbf q+\dot q_v\\[1.5em]&=-p\nabla\cdot\mathbf V+\Phi_v-\nabla\cdot\mathbf q+\dot q_v.\end{aligned}\]</div></li>
+<li><a href="fundamentals-of-energy-conservation.html#eq-fourier">Fourier 법칙</a>를 대입하면 <strong>Internal Energy Equation</strong>은<div class="equation key" id="eq-internal" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \rho\frac{\mathrm De}{\mathrm Dt}=-p\nabla\cdot\mathbf V+\Phi_v+\nabla\cdot(k\nabla T)+\dot q_v.}\]</div><ul class="definitions"><li><strong>\(-p\nabla\cdot\mathbf V\)</strong>: <strong>Pressure-Dilatation</strong>으로 유체의 압축이나 팽창에 의해 발생하는 Pressure Work</li>
+<li><strong>\(\Phi_v\)</strong>: 점성에 의한 내부에너지 증가</li>
+<li><strong>나머지 항</strong>: 열전도와 체적 열원</li></ul></li></ul>
+</section>
+<section class="lesson-section" id="viscous-dissipation" aria-labelledby="viscous-dissipation-title">
+<h2 id="viscous-dissipation-title"><span class="section-tag">03</span>Viscous Dissipation</h2>
+<ul class="study-points"><li>비압축성 Newtonian 응력을 앞의 <a href="#eq-dissipationDef">Viscous Dissipation Function</a>에 대입하면<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}\Phi_v={}&2\mu\left[\left(\frac{\partial u}{\partial x}\right)^2+\left(\frac{\partial v}{\partial y}\right)^2+\left(\frac{\partial w}{\partial z}\right)^2\right]\\[1.5em]&+\mu\left(\frac{\partial u}{\partial y}+\frac{\partial v}{\partial x}\right)^2+\mu\left(\frac{\partial u}{\partial z}+\frac{\partial w}{\partial x}\right)^2+\mu\left(\frac{\partial v}{\partial z}+\frac{\partial w}{\partial y}\right)^2\geq0.\end{aligned}\]</div></li>
+<li>각 항이 제곱항이므로 \(\mu>0\)일 때 \(\Phi_v\)는 음수가 될 수 없음. 운동에너지식에서는 \(-\Phi_v\), 내부에너지식에서는 \(+\Phi_v\)로 나타남.</li>
+<li>즉, <strong>Viscous Dissipation</strong>에 의해 운동에너지가 감소하고 그만큼 내부에너지가 증가하므로, 전체 에너지는 보존됨.<div class="equation" role="group" aria-label="Mathematical expression">\[\underbrace{-\Phi_v}_{\text{Kinetic Energy}}+\underbrace{\Phi_v}_{\text{Internal Energy}}=0.\]</div></li></ul>
+</section>
+<section class="lesson-section" id="enthalpy-equation" aria-labelledby="enthalpy-equation-title">
+<h2 id="enthalpy-equation-title"><span class="section-tag">04</span>Enthalpy Equation</h2>
+<ul class="study-points"><li>Enthalpy Equation은 Internal Energy Equation을 압력 변화까지 포함하는 형태로 다시 표현한 방정식임.</li>
+<li>단위질량당 <strong>Enthalpy</strong>는 Internal Energy와 압력 및 체적에 관련된 에너지의 합으로 정의되므로<div class="equation" id="eq-enthalpy-def" role="group" aria-label="Mathematical expression">\[h=e+\frac p\rho.\]</div></li>
+<li>각 항의 물리적 의미는 다음과 같음.<ul class="definitions"><li><strong>Internal Energy \(e\)</strong>: 분자의 미시적인 운동 및 상호작용에 관련된 내부에너지를 나타냄.</li>
+<li><strong>Pressure Work \(p/\rho\)</strong>: 단위질량당 압력과 비체적의 곱으로, 유체가 압력에 의해 이동할 때의 <strong>Flow Work(유동일)</strong>에 해당함.</li>
+<li><strong>Enthalpy \(h\)</strong>: Internal Energy와 Flow Work를 함께 고려하는 열역학적 상태량으로, <strong>압력 변화와 열적 에너지 변화의 관계</strong>를 분석하는 데 사용됨.</li></ul></li>
+<li>Enthalpy의 정의를 유체입자를 따라 시간미분하면, <strong>곱의 미분 및 Chain Rule</strong>에 의해<div class="equation long-equation" role="group" aria-label="Mathematical expression">\[\frac{\mathrm Dh}{\mathrm Dt}=\frac{\mathrm De}{\mathrm Dt}+\frac1\rho\frac{\mathrm Dp}{\mathrm Dt}-\frac p{\rho^2}\frac{\mathrm D\rho}{\mathrm Dt}.\]</div></li>
+<li>양변에 밀도 \(\rho\)를 곱한 후 앞서 유도한 <strong>Continuity Equation</strong> \(\mathrm D\rho/\mathrm Dt=-\rho\nabla\cdot\mathbf V\)를 대입하면<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}\rho\frac{\mathrm Dh}{\mathrm Dt}&=\rho\frac{\mathrm De}{\mathrm Dt}+\frac{\mathrm Dp}{\mathrm Dt}-\frac p\rho\frac{\mathrm D\rho}{\mathrm Dt}\\[1.5em]&=\rho\frac{\mathrm De}{\mathrm Dt}+\frac{\mathrm Dp}{\mathrm Dt}+p\nabla\cdot\mathbf V.\end{aligned}\]</div></li>
+<li>여기서 앞서 유도한 <a href="#eq-internal"><strong>Internal Energy Equation</strong></a>을 대입하면<div class="equation long-equation" role="group" aria-label="Mathematical expression">\[\rho\frac{\mathrm Dh}{\mathrm Dt}=\left[-p\nabla\cdot\mathbf V+\Phi_v+\nabla\cdot(k\nabla T)+\dot q_v\right]+\frac{\mathrm Dp}{\mathrm Dt}+p\nabla\cdot\mathbf V.\]</div></li>
+<li>이때 압축 및 팽창에 의한 두 항 \(-p\nabla\cdot\mathbf V\)와 \(+p\nabla\cdot\mathbf V\)가 서로 소거되므로 최종적인 <strong>Enthalpy Equation</strong>은<div class="equation key" id="eq-enthalpyNew" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \rho\frac{\mathrm Dh}{\mathrm Dt}=\frac{\mathrm Dp}{\mathrm Dt}+\Phi_v+\nabla\cdot(k\nabla T)+\dot q_v.}\]</div></li>
+<li>따라서 <strong>Internal Energy Equation</strong>에서는 압축 및 팽창에 의한 에너지 변화를 \(-p\nabla\cdot\mathbf V\)로 나타내는 반면, <strong>Enthalpy Equation</strong>에서는 이를 압력의 Material Derivative \(\mathrm Dp/\mathrm Dt\)와 연결하여 표현함.</li>
+<li>특히 비열이 일정한 <strong>Calorically Perfect Gas</strong>에서는 Enthalpy가 온도에 비례하므로<div class="equation" role="group" aria-label="Mathematical expression">\[h=c_pT.\]</div></li>
+<li>이를 Enthalpy Equation에 대입하면 <strong>압력 변화, 점성 소산 및 열전도에 의한 온도 변화</strong>를 직접 나타내는 방정식을 얻음.<div class="equation long-equation" role="group" aria-label="Mathematical expression">\[\rho c_p\frac{\mathrm DT}{\mathrm Dt}=\frac{\mathrm Dp}{\mathrm Dt}+\Phi_v+\nabla\cdot(k\nabla T)+\dot q_v.\]</div></li>
+<li>또한 정상, 단열, 비점성 유동에서 체적력의 영향을 무시하면 유선을 따라 <strong>Total Enthalpy</strong>가 일정하므로<div class="equation" id="eq-stagnation-enthalpy" role="group" aria-label="Mathematical expression">\[h_0=h+\frac{V^2}{2}=c_pT+\frac{V^2}{2}=\text{constant}.\]</div></li>
+<li>따라서 노즐에서 유체의 속도가 증가하면 <strong>Kinetic Energy</strong>가 증가하는 대신 <strong>Static Enthalpy</strong>와 <strong>Static Temperature</strong>가 감소함. 이러한 관계는 압축성 유동의 가속 및 감속, 노즐, 터빈 등의 해석에서 중요하게 사용됨.</li></ul>
+</section></article>
+<div class="article-pager"><a href="total-energy-equation.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Total Energy Equation</span></a><a class="next" href="bernoulli-equation-along-a-streamline.html"><span class="direction">NEXT →</span><span class="adjacent">Bernoulli Equation Along a Streamline</span></a></div>
+<a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a>
+</main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Aerodynamics</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>
