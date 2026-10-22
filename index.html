@@ -26,6 +26,50 @@
       .bento .nav { grid-template-columns: 1fr; }
       .bento .section-top h2 { font-size: 26px; }
     }
+
+    /* Same compact blue / white button style as the original homepage. */
+    .bento .quicknav button.hero-search-button {
+      border:1px solid #2d62b6; background:#2d62b6; color:#fff; border-radius:9px;
+      padding:12px 16px; font-size:12px; font-weight:750; cursor:pointer;
+    }
+    .bento .quicknav button.hero-search-button:hover {background:#23539f}
+    .bento .quicknav :is(button,a):focus-visible {outline:3px solid #85aded;outline-offset:3px}
+    @media(min-width:1000px){.bento .quicknav button.hero-search-button{font-size:13px;padding:11px 17px;border-radius:8px}}
+    body.study-search-open{overflow:hidden}
+    .study-search-backdrop[hidden],.study-search-suggestions[hidden]{display:none!important}
+    .study-search-backdrop{position:fixed;inset:0;z-index:10000;background:rgba(12,30,57,.54);backdrop-filter:blur(5px);display:flex;justify-content:center;align-items:flex-start;padding:min(11vh,100px) 18px 18px}
+    .study-search-dialog{display:flex;flex-direction:column;overflow:hidden;width:min(100%,680px);max-height:min(81vh,760px);background:#fff;border:1px solid #dae6f6;border-radius:18px;box-shadow:0 26px 80px rgba(9,37,80,.25);color:#182638;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif}
+    .study-search-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;padding:25px 27px 17px}
+    .study-search-kicker{font-size:11px;color:#3867b4;font-weight:800;letter-spacing:.11em}
+    .study-search-head h2{font-size:25px;letter-spacing:-.04em;line-height:1.18;margin:6px 0}
+    .study-search-head p{font-size:13px;line-height:1.55;color:#798da9;margin:0}
+    .study-search-close{display:grid;place-items:center;flex:none;width:36px;height:36px;border:1px solid #e1e9f4;border-radius:9px;background:#f2f6fb;color:#6d84a2;font-size:23px;cursor:pointer}
+    .study-search-close:hover{background:#e5effc;color:#2d62b6}
+    .study-search-entry{margin:0 27px;border:2px solid #bdd2ee;border-radius:11px;display:flex;align-items:center;gap:12px;padding:0 14px;min-height:56px}
+    .study-search-entry:focus-within{border-color:#2d62b6;box-shadow:0 0 0 3px #e0edff}
+    .study-search-entry svg{flex:none;color:#4e77b6}
+    .study-search-entry input{font:inherit;font-size:15px;background:transparent;color:#152e50;border:0;outline:0;flex:1;min-width:0;width:100%}
+    .study-search-entry input::placeholder{color:#9aacbf}
+    .study-search-entry kbd{flex:none;border:1px solid #dce6f2;border-radius:6px;background:#f7f9fc;color:#8d9bb1;padding:3px 6px;font-size:11px}
+    .study-search-suggestions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:16px 27px 0}
+    .study-search-suggestions span{width:100%;font-size:12px;color:#879cb7;font-weight:650}
+    .study-search-suggestions button{font:inherit;font-size:12px;font-weight:650;padding:8px 10px;color:#3e669f;border:1px solid #dce8f9;background:#eef4fe;border-radius:8px;cursor:pointer}
+    .study-search-suggestions button:hover{background:#dceafc}
+    .study-search-results-area{padding:0 13px 13px;min-height:104px;overflow-y:auto}
+    .study-search-feedback{margin:17px 14px 8px;color:#8296b1;font-size:12px}
+    .study-search-results{display:grid;gap:5px;list-style:none;margin:0;padding:0}
+    .study-search-result{border-radius:11px}
+    .study-search-result a{display:flex;align-items:center;justify-content:space-between;gap:13px;padding:12px 14px;border:1px solid transparent;border-radius:11px;text-decoration:none;color:inherit}
+    .study-search-result:is(:hover,.is-active) a{border-color:#dce7f8;background:#f1f6ff}
+    .study-search-result-main{display:flex;flex-direction:column;gap:5px;min-width:0}
+    .study-search-result-category{font-size:10px;text-transform:uppercase;letter-spacing:.075em;font-weight:800;color:#3568ba}
+    .study-search-result-title{font-size:15px;font-weight:750;color:#172e50;line-height:1.35}
+    .study-search-result-desc{font-size:12px;color:#7a90a9;line-height:1.45;max-width:550px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .study-search-result-pending{font-size:10px;color:#97a6ba}
+    .study-search-result-arrow{font-size:20px;color:#3568ba}
+    .study-search-footer{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:12px 27px;background:#f8fafd;border-top:1px solid #e5ebf4;color:#94a3b8;font-size:11px}
+    @media(max-width:600px){.study-search-backdrop{padding:12px 9px}.study-search-dialog{max-height:calc(100dvh - 24px);border-radius:13px}.study-search-head{padding:19px 17px 15px}.study-search-head h2{font-size:22px}.study-search-entry{margin:0 17px}.study-search-suggestions{padding:15px 17px 0}.study-search-entry kbd{display:none}.study-search-footer{padding:12px 17px}}
+
   </style>
 </head>
 <body>
@@ -50,8 +94,8 @@
       <h1>Aerospace Engineering <span class="blue">&amp;</span><br/><span class="blue">Artificial Intelligence.</span></h1>
       <p>Focused on topics related to aerodynamics, CFD and neural network-based methods.</p>
       <div class="quicknav">
-        <a href="#bento-study">Browse Study Note →</a>
-        <a href="#bento-projects">See Practice Project ↗</a>
+        <button type="button" class="hero-search-button" id="open-study-search" aria-haspopup="dialog">⌕ Search Study Notes</button>
+        <a class="hero-continue-link" id="continue-reading" href="#bento-study" title="Explore notes until you visit a lesson">Continue Reading ↗</a>
       </div>
     </div>
     <div class="hero-graphic">
@@ -134,5 +178,28 @@
     </div>
   </section>
 </main>
+
+<div class="study-search-backdrop" id="note-search-overlay" hidden>
+  <section id="note-search-dialog" class="study-search-dialog" role="dialog" aria-modal="true" aria-labelledby="note-search-title">
+    <div class="study-search-head">
+      <div><span class="study-search-kicker">ENGINEERING NOTEBOOK</span><h2 id="note-search-title">Search Study Notes</h2><p>Find topics in Aerodynamics, Artificial Intelligence, and Heat Transfer.</p></div>
+      <button type="button" id="close-study-search" class="study-search-close" aria-label="Close search">×</button>
+    </div>
+    <div class="study-search-entry">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>
+      <input type="search" id="note-search-input" autocomplete="off" spellcheck="false" aria-label="Search study note pages" aria-controls="note-search-results" placeholder="Search a topic or concept…">
+      <kbd>ESC</kbd>
+    </div>
+    <div id="note-search-suggestions" class="study-search-suggestions">
+      <span>Popular searches</span><button data-search-term="Momentum" type="button">Momentum</button><button data-search-term="Navier-Stokes" type="button">Navier–Stokes</button><button data-search-term="Neural Operator" type="button">Neural Operator</button><button data-search-term="Heat Transfer" type="button">Heat Transfer</button>
+    </div>
+    <div class="study-search-results-area">
+      <p id="note-search-feedback" class="study-search-feedback" role="status" aria-live="polite">Search across the engineering notebook.</p>
+      <ul id="note-search-results" class="study-search-results"></ul>
+    </div>
+    <div class="study-search-footer"><span>↑↓ Navigate · Enter Open · Esc Close</span><span>Ctrl / ⌘ + K</span></div>
+  </section>
+</div>
+<script defer src="assets/notebook-search.js?v=20261022-search1"></script>
 </body>
 </html>
