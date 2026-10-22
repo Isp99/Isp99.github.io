@@ -1,1 +1,169 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Differential Continuity Equation — Engineering Archive"><title>Differential Continuity Equation | Engineering Archive</title><link rel="stylesheet" href="../../../assets/site.css"></head><body class="inner-page"><header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Archive<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a><nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../../index.html#bento-projects">Practice Project</a></nav></div></header><main class="shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">Aerodynamics</a><span class="separator">›</span><a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span><strong>Differential Continuity Equation</strong></nav><div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 2.1</div><h1>Differential Continuity Equation</h1><p class="hero-subtitle">Conservation of Mass</p><p class="hero-description">From integral conservation to the local continuity equation.</p></div></div><div class="article-content"><div class="article-meta">2.1 · Conservation of Mass</div><h2>Differential Continuity Equation</h2><p>From integral conservation to the local continuity equation.</p><span class="placeholder-hint">Detailed notes and derivations will be added here.</span></div><div class="article-pager"><a href="flow-rate-and-reynolds-transport-theorem.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Flow Rate and Reynolds Transport Theorem</span></a><a class="next" href="incompressible-and-steady-flow.html"><span class="direction">NEXT →</span><span class="adjacent">Incompressible and Steady Flow</span></a></div><a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Archive</span><span>Fundamentals of Aerodynamics</span></div></footer></body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Differential Continuity Equation — Conservation of Mass, Integral Continuity Equation, Divergence Theorem and Density Change of a Fluid Particle — Engineering Archive">
+<title>Differential Continuity Equation | Engineering Archive</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+/* Flow Rate & RTT — shared Fundamentals lesson design */
+body.inner-page .breadcrumb{font-size:16px}
+.md-page .article-content{padding:43px 46px 64px}
+.md-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.md-page .lesson-meta span:first-child{color:#2e61b7}
+.md-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:68px}
+.md-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.md-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:8px 20px}
+.md-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.md-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.md-page .lesson-section{scroll-margin-top:27px}
+.md-page .lesson-section+.lesson-section{margin-top:76px;padding-top:44px;border-top:1px solid #e1eaf6}
+.md-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 37px!important;line-height:1.3}
+.md-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.md-page .study-points{list-style:none;padding:0;margin:0}
+.md-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 48px;word-break:keep-all;overflow-wrap:anywhere}
+.md-page .study-points>li:last-child{margin-bottom:0}
+.md-page .study-points>li.sub-point{margin-left:26px}
+.md-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.md-page strong{color:#23466f}
+.md-page .equation{border:none;background:transparent;border-radius:0;margin:46px 0 54px;padding:12px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px}
+.md-page .equation.key{background:#f7f9fd;border:none;border-radius:10px;margin:55px 0 61px;padding:31px 18px}
+.md-page .equation mjx-container[display="true"]{margin:.3em auto!important}
+.md-page .definitions{margin:24px 0 19px 21px;padding:0;font-size:14px;color:#627a9a;line-height:1.85}
+.md-page .definitions li{margin:9px 0}
+.md-page .definitions.two-terms{list-style:none;padding:21px 19px;margin:26px 0 17px;background:#f5f8fe;border-radius:9px;border:1px solid #e5ebf5}
+.md-page .two-terms div+div{margin-top:14px}
+.md-page .note-box{border:1px solid #d7e4f5;border-left:4px solid #4572bd;background:#f4f8fe;border-radius:11px;padding:33px 34px 37px;margin:48px 0 13px}
+.md-page .note-box h3{font-size:17px;color:#254d83;margin:0 0 23px}
+.md-page .note-box h4{font-size:14px;margin:33px 0 14px;color:#2c578e}
+.md-page .note-box p{font-size:14px;line-height:1.88;color:#506b8a;max-width:none;margin:0 0 20px;word-break:keep-all}
+.md-page .note-box .equation{background:transparent;margin:43px 0 50px}
+.md-page .note-box .equation.key{background:#f7f9fd;margin:55px 0 61px}
+/* Match the final Material Derivative navigation typography. */
+.md-page .eyebrow{font-size:12px}
+.md-page .article-pager .direction{font-size:12px}
+.md-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.md-page .back-bottom{font-size:16px}
+@media(max-width:600px){.md-page .lesson-meta{font-size:13px}.md-page .lesson-toc strong{font-size:16px}.md-page .lesson-toc a{font-size:15px}.md-page .article-pager .adjacent{font-size:14px}.md-page .back-bottom{font-size:15px}.md-page .eyebrow{font-size:11px}}
+@media(max-width:740px){.md-page .article-content{padding:24px 18px 30px}.md-page .lesson-toc{padding:16px}.md-page .lesson-toc ul{grid-template-columns:1fr}.md-page .lesson-section h2{font-size:20px!important}.md-page .study-points>li{font-size:14px;padding-left:21px}.md-page .equation{font-size:14px;padding:14px 9px}.md-page .note-box{padding:19px 15px}.md-page .lesson-section+.lesson-section{margin-top:58px;padding-top:33px}.md-page .study-points>li{margin-bottom:38px}.md-page .equation{margin:35px 0 43px;padding:10px 0}.md-page .equation.key{margin:43px 0 51px;padding:25px 11px}.md-page .note-box .equation{margin:35px 0 43px}.md-page .note-box .equation.key{margin:43px 0 51px}.md-page .note-box{margin-top:36px;padding:25px 18px 28px}}
+@media(max-width:600px){body.inner-page .breadcrumb{font-size:14px}.md-page .study-points>li.sub-point{margin-left:18px}}
+
+
+
+
+/* Diagram and physical-law hierarchy from the source LaTeX. */
+.md-page .cv-figure{max-width:650px;margin:47px auto 56px;text-align:center}
+.md-page .cv-figure svg{width:100%;height:auto;display:block}
+.md-page .cv-figure figcaption{font-size:13px;color:#8195af;line-height:1.6;margin-top:15px}
+.md-page .cv-figure .math-label{font-family:Georgia,'Times New Roman',serif;font-style:italic;fill:#1d3b65;font-size:22px}
+.md-page .principle-flow{display:flex;flex-direction:column;align-items:center;gap:16px;margin:43px auto 48px;color:#254469;line-height:1.5;font-weight:700;text-align:center;font-size:16px}
+.md-page .principle-flow .down-arrow{font-size:25px;color:#6286bb;line-height:1}
+.md-page .principle-flow .equals{font-size:22px;font-weight:500;color:#536d92;line-height:1}
+@media(max-width:740px){.md-page .cv-figure{margin:35px auto 45px}.md-page .cv-figure figcaption{font-size:12px}.md-page .principle-flow{font-size:13px;gap:12px;margin:30px auto 41px}}
+</style>
+<script>window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Archive<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation">
+<a href="../../../index.html">Home</a>
+<a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a>
+<a href="../../aerodynamics.html">Aerodynamics ↗</a>
+</nav></div></header>
+<main class="shell md-page">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<a href="../../../index.html">Home</a><span class="separator">›</span>
+<a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span>
+<a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
+<a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span>
+<strong>Differential Continuity Equation</strong>
+</nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 2.1</div>
+<h1>Differential Continuity Equation</h1><p class="hero-subtitle">Conservation of Mass</p>
+<p class="hero-description">질량 보존의 물리법칙과 Control Volume에서 출발하여 적분형 연속방정식을 유도하고, Divergence Theorem을 적용해 미분형 및 Material Form을 도출함.</p>
+</div></div>
+<article class="article-content">
+<div class="lesson-meta"><span>02 / Conservation of Mass</span><span>Study Notes · 2.1</span></div>
+<nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong>
+<ul><li><a href="#mass-conservation">01 · Mass Conservation</a></li>
+<li><a href="#integral-to-differential">02 · From the Integral Form to the Differential Form</a></li>
+<li><a href="#particle-density">03 · Density Change of a Fluid Particle</a></li></ul></nav>
+<section class="lesson-section" id="mass-conservation"><h2><span class="section-tag">01</span>Mass Conservation</h2>
+<ul class="study-points">
+<li>공간에 고정된 Control Volume \(\mathcal V\)와 이를 둘러싼 Control Surface \(S\)를 고려함.<figure class="cv-figure">
+<svg viewBox="0 0 660 330" role="img" aria-labelledby="cv-diagram-title cv-diagram-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="cv-diagram-title">Finite control volume fixed in space</title>
+<desc id="cv-diagram-desc">An irregular closed control surface S encloses a fixed control volume. Inflow arrows enter at the left, outflow arrows exit right. The local velocity vector V, an infinitesimal volume dV and the outward surface vector dS are labelled.</desc>
+<defs><marker id="cvArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse" viewBox="0 0 8 8"><path d="M0 0 L8 4 L0 8 Z" fill="#2d60b8"/></marker></defs>
+<path d="M 210,258 C 163,219 180,142 216,90 C 247,41 313,37 368,61 C 422,77 475,107 492,171 C 514,224 465,273 406,288 C 325,307 254,290 210,258 Z" fill="#eaf1fc" fill-opacity=".65" stroke="#2d60b8" stroke-width="3"/>
+<path d="M 205,258 C 164,215 181,142 216,90 C 249,41 316,37 368,61 C 426,78 474,110 492,171 C 508,227 465,270 406,288 C 325,307 254,290 205,258 Z" fill="none" stroke="#789bcd" stroke-width="1" opacity=".4"/>
+<g stroke="#2d60b8" stroke-width="2.7" fill="none" marker-end="url(#cvArrow)">
+<path d="M 26,115 L 169,115"/><path d="M 26,171 L 171,171"/><path d="M 26,226 L 175,226"/>
+<path d="M 521,112 L 637,103"/><path d="M 526,175 L 643,164"/><path d="M 517,231 L 637,218"/>
+<path d="M 269,178 L 396,178"/>
+<path d="M 448,91 L 548,19"/>
+</g>
+<path d="M 437,91 L 461,78 L 471,94 L 447,107 Z" fill="#d6e6fa" stroke="#a26c45" stroke-width="2"/>
+<rect x="322" y="230" width="36" height="29" fill="#dce9f9" stroke="#315f9e" stroke-width="2"/>
+<g class="math-label"><text x="400" y="169">V</text><text x="559" y="27">dS</text><text x="363" y="252">d𝒱</text><text x="248" y="117">𝒱</text><text x="175" y="278">S</text></g>
+</svg>
+<figcaption>Finite control volume fixed in space.</figcaption>
+</figure></li>
+<li><strong>Key Physical Principle</strong>: 질량은 생성되거나 소멸되지 않음.<div class="principle-flow"><span class="down-arrow" aria-hidden="true">↓</span><span>(Net mass flow out of CV through surface S)</span><span class="equals">=</span><span>(Time rate of decrease of mass in CV)</span></div></li>
+<li>먼저 좌변의 <strong>순유출 질량유량</strong>을 구함. 미소면적을 통과하는 질량유량은<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d\dot m=\rho\mathbf V\cdot\mathrm d\mathbf S,\qquad\mathrm d\mathbf S=\mathbf n\,\mathrm dS\]</div></li>
+<li>이를 닫힌 표면 \(S\) 전체에 적분하면<div class="equation" role="group" aria-label="Mathematical expression">\[\text{(L.H.S.)}=\dot m_{\mathrm{net,out}}=\iint_S\rho\mathbf V\cdot\mathrm d\mathbf S\]</div></li>
+<li>\(\mathbf n\)은 바깥쪽 단위법선벡터임. 유출은 양수, 유입은 음수이므로 이 적분은 <strong>유출량에서 유입량을 뺀 값</strong>임.</li>
+<li>다음으로 우변의 <strong>CV 내부 질량 감소율</strong>을 구함. 미소체적 \(\mathrm d\mathcal V\)에 포함된 질량은<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm dm=\rho\,\mathrm d\mathcal V\]</div></li>
+<li>따라서 CV 내부의 전체 질량은<div class="equation" role="group" aria-label="Mathematical expression">\[m_{CV}=\iiint_{\mathcal V}\rho\,\mathrm d\mathcal V\]</div></li>
+<li>위 질량의 시간 변화율에 음수를 붙이면 <strong>질량 감소율</strong>이므로<div class="equation" role="group" aria-label="Mathematical expression">\[\text{(R.H.S.)}=-\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho\,\mathrm d\mathcal V\]</div></li>
+<li>앞에서 제시한 물리 법칙에 따라 좌변과 우변을 같게 두면<div class="equation" role="group" aria-label="Mathematical expression">\[\iint_S\rho\mathbf V\cdot\mathrm d\mathbf S=-\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho\,\mathrm d\mathcal V\]</div></li>
+<li>이를 한쪽으로 정리하면 <strong>Integral Continuity Equation</strong>을 얻음.<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \frac{\partial}{\partial t}\iiint_{\mathcal V}\rho\,\mathrm d\mathcal V+\iint_S\rho\mathbf V\cdot\mathrm d\mathbf S=0}\]</div></li>
+<li>즉, 순유출 질량유량이 양수이면 CV 내부의 질량은 감소함.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+ \frac{\mathrm dm_{CV}}{\mathrm dt}
+ &=-\left(\sum\dot m_{\mathrm{out}}-\sum\dot m_{\mathrm{in}}\right)\\[0.6cm]
+ &=\sum\dot m_{\mathrm{in}}-\sum\dot m_{\mathrm{out}}
+ \end{aligned}\]</div></li>
+<li>정상유동에서는 내부 질량이 변하지 않으므로<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\mathrm dm_{CV}}{\mathrm dt}=0\quad\Longrightarrow\quad\sum\dot m_{\mathrm{in}}=\sum\dot m_{\mathrm{out}}\]</div></li>
+<li>입구와 출구가 하나씩이고 각 단면에서 밀도와 법선방향 속력이 균일하면<div class="equation" role="group" aria-label="Mathematical expression">\[\rho_1V_1A_1=\rho_2V_2A_2\]</div></li>
+</ul>
+</section>
+<section class="lesson-section" id="integral-to-differential"><h2><span class="section-tag">02</span>From the Integral Form to the Differential Form</h2>
+<ul class="study-points">
+<li>적분형 연속방정식의 표면적분에 <strong>Divergence Theorem</strong>을 적용하면<div class="equation" role="group" aria-label="Mathematical expression">\[\iint_S(\rho\mathbf V)\cdot\mathrm d\mathbf S=\iiint_{\mathcal V}\nabla\cdot(\rho\mathbf V)\,\mathrm d\mathcal V\]</div></li>
+<li>또한 CV가 공간에 고정되어 있으므로 시간미분을 체적적분 안으로 옮길 수 있음.<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho\,\mathrm d\mathcal V=\iiint_{\mathcal V}\frac{\partial\rho}{\partial t}\,\mathrm d\mathcal V\]</div></li>
+<li>두 관계를 Integral Continuity Equation에 대입하여 순서대로 정리하면<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+ \frac{\partial}{\partial t}\iiint_{\mathcal V}\rho\,\mathrm d\mathcal V+\iint_S\rho\mathbf V\cdot\mathrm d\mathbf S
+ &=\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho\,\mathrm d\mathcal V+\iiint_{\mathcal V}\nabla\cdot(\rho\mathbf V)\,\mathrm d\mathcal V\\[0.6cm]
+ &=\iiint_{\mathcal V}\frac{\partial\rho}{\partial t}\,\mathrm d\mathcal V+\iiint_{\mathcal V}\nabla\cdot(\rho\mathbf V)\,\mathrm d\mathcal V\\[0.6cm]
+ &=\iiint_{\mathcal V}\left[\frac{\partial\rho}{\partial t}+\nabla\cdot(\rho\mathbf V)\right]\mathrm d\mathcal V\\[0.6cm]
+ &=0
+ \end{aligned}\]</div></li>
+<li>임의의 CV에 대해 성립하므로, 유동장이 매끄러운 위치에서는 적분 안의 항이 0이어야 함. 따라서 <strong>Differential Continuity Equation</strong>은<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \frac{\partial\rho}{\partial t}+\nabla\cdot(\rho\mathbf V)=0}\]</div></li>
+<li>이를 Cartesian 성분으로 나타내면<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\partial\rho}{\partial t}+\frac{\partial(\rho u)}{\partial x}+\frac{\partial(\rho v)}{\partial y}+\frac{\partial(\rho w)}{\partial z}=0\]</div></li>
+</ul>
+</section>
+<section class="lesson-section" id="particle-density"><h2><span class="section-tag">03</span>Density Change of a Fluid Particle</h2>
+<ul class="study-points">
+<li>연속방정식의 공간미분 항에 곱의 미분을 적용하면<div class="equation" role="group" aria-label="Mathematical expression">\[\nabla\cdot(\rho\mathbf V)=\mathbf V\cdot\nabla\rho+\rho\nabla\cdot\mathbf V\]</div></li>
+<li>이를 미분형 연속방정식에 대입하면<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\partial\rho}{\partial t}+\mathbf V\cdot\nabla\rho+\rho\nabla\cdot\mathbf V=0\]</div></li>
+<li>앞의 두 항은 유체입자를 따라가는 밀도 변화율이므로<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\mathrm D\rho}{\mathrm Dt}=\frac{\partial\rho}{\partial t}+\mathbf V\cdot\nabla\rho\]</div></li>
+<li>따라서 연속방정식의 <strong>Material Form</strong>은<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \frac{\mathrm D\rho}{\mathrm Dt}+\rho\nabla\cdot\mathbf V=0}\]</div></li>
+<li>같은 유체입자의 질량은 일정함. 그 입자가 차지하는 미소체적을 \(\delta\mathcal V\)라 하면<div class="equation" role="group" aria-label="Mathematical expression">\[\delta m=\rho\,\delta\mathcal V,\qquad\frac{\mathrm D(\delta m)}{\mathrm Dt}=0\]</div></li>
+<li>질량의 곱을 미분하고 \(\rho\delta\mathcal V\)로 나누면<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+ 0&=\delta\mathcal V\frac{\mathrm D\rho}{\mathrm Dt}+\rho\frac{\mathrm D(\delta\mathcal V)}{\mathrm Dt}\\[0.6cm]
+ \frac{1}{\delta\mathcal V}\frac{\mathrm D(\delta\mathcal V)}{\mathrm Dt}&=-\frac{1}{\rho}\frac{\mathrm D\rho}{\mathrm Dt}=\nabla\cdot\mathbf V
+ \end{aligned}\]</div></li>
+<li>따라서 <strong>Divergence는 유체입자의 상대 체적변화율</strong>임. 양수이면 팽창하면서 밀도가 감소하고, 음수이면 수축하면서 밀도가 증가함.</li>
+</ul>
+</section>
+</article>
+<div class="article-pager">
+<a href="flow-rate-and-reynolds-transport-theorem.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Flow Rate and Reynolds Transport Theorem</span></a>
+<a class="next" href="incompressible-and-steady-flow.html"><span class="direction">NEXT →</span><span class="adjacent">Incompressible and Steady Flow</span></a>
+</div>
+<a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a>
+</main><footer class="site-footer"><div class="shell"><span>© Engineering Archive</span><span>Fundamentals of Aerodynamics</span></div></footer>
+</body></html>
