@@ -66,18 +66,55 @@ body.inner-page .breadcrumb{font-size:16px}
 .md-page .definitions{word-break:keep-all}
 </style>
 
+<script>window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body class="inner-page">
 <header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
 <nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav></div></header>
 <main class="shell md-page">
 <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span><strong>Integral Momentum Equation</strong></nav>
-<div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 3.1</div><h1>Integral Momentum Equation</h1><p class="hero-subtitle">Conservation of Momentum</p><p class="hero-description">Integral momentum balance for a control volume, including momentum transport and external forces.</p></div></div>
+<div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 3.1</div><h1>Integral Momentum Equation</h1><p class="hero-subtitle">Conservation of Momentum</p><p class="hero-description">Newton의 제2법칙에서 출발하여 Body Force, Surface Force와 운동량 유출·축적을 정의하고 적분형 운동량 보존식을 유도함.</p></div></div>
 <article class="article-content">
 <div class="lesson-meta"><span>03 / Conservation of Momentum</span><span>Study Notes · 3.1</span></div>
-<section class="lesson-section" id="study-notes"><h2><span class="section-tag">01</span>Integral Momentum Equation</h2>
-<p>Detailed study notes and derivations will be added here.</p>
-<span class="placeholder-hint">Contents in preparation</span></section></article>
+<nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#newton-second-law">01 · Newton's Second Law and the Force Terms</a></li>
+<li><a href="#momentum-flow">02 · Momentum Flow and Momentum Change inside the CV</a></li></ul></nav>
+<section class="lesson-section" id="newton-second-law">
+<h2><span class="section-tag">01</span>Newton's Second Law and the Force Terms</h2>
+<ul class="study-points">
+<li><strong>Key Physical Principle</strong>: 유체에 작용하는 외력은 유체의 운동량 변화율과 같음.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{gathered}\Downarrow\\[1.5em] \text{(Force)}=\text{(Time rate of change of momentum)} \end{gathered}\]</div></li>
+<li>동일한 유체입자로 이루어진 System의 운동량을 \(\mathbf P_{\mathrm{sys}}\)라 하면<div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf F=\frac{\mathrm d \mathbf P_{\mathrm{sys}}}{\mathrm d t},\qquad\mathbf P_{\mathrm{sys}}=\iiint_{\mathrm{sys}}\rho\mathbf V\,\mathrm d \mathcal V.\]</div></li>
+<li>먼저 좌변의 <strong>Force Term</strong>을 구함. 유체에 작용하는 힘은 다음 두 종류로 나뉨. \begin{enumerate}[itemsep=0.15cm]</li>
+<li><strong>Body Force</strong>: 체적 전체의 유체에 작용하는 힘. 중력, 전자기력 등이 해당함.</li>
+<li><strong>Surface Force</strong>: 경계면을 통해 작용하는 힘. 압력과 점성응력에 의한 힘이 해당함. \end{enumerate</li>
+<li>단위질량당 Body Force를 \(\mathbf f\)라 하면, 미소질량에 작용하는 <strong>미소 체적력</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d \mathbf F_{\mathrm{body}}=\mathbf f\,\mathrm d m=\rho\mathbf f\,\mathrm d \mathcal V.\]</div></li>
+<li>이를 CV 전체에 적분하면 <strong>Body Force</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf F_{\mathrm{body}}=\iiint_{\mathcal V}\rho\mathbf f\,\mathrm d \mathcal V.\]</div></li>
+<li>\(\mathbf f\)의 단위는 가속도와 같은 \(\mathrm{m/s^2}\)임. 균일한 중력만 존재하면 \(\mathbf f=\mathbf g\)이므로<div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf F_{\mathrm{body}}=\mathbf g\iiint_{\mathcal V}\rho\,\mathrm d \mathcal V=m_{CV}\mathbf g.\]</div></li>
+<li>Surface Force 는 <strong>pressure force</strong>랑 <strong>Viscous Force</strong>로 나눠서 생각가능</li>
+<li>압력은 경계면을 안쪽으로 누르므로 바깥쪽 면적벡터 \(\dd\mathbf S\)와 반대 방향임. 따라서 <strong>미소 pressure force</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d \mathbf F_{\mathrm{pressure}}=-p\,\mathrm d \mathbf S.\]</div></li>
+<li>이를 표면 \(S\) 전체에 적분하면 <strong>Pressure Force</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf F_{\mathrm{pressure}}=-\iint_Sp\,\mathrm d \mathbf S.\]</div></li>
+<li>점성이 있는 유동에서는 <strong>Normal Viscous Stress</strong>와 <strong>Shear Stress</strong>도 표면에 힘을 가함. 미소 점성력은<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d \mathbf F_{\mathrm{viscous}}=\boldsymbol\tau\cdot\mathrm d \mathbf S.\]</div></li>
+<li>따라서 표면 전체에 작용하는 <strong>Viscous Force</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf F_{\mathrm{viscous}}=\iint_S\boldsymbol\tau\cdot\mathrm d \mathbf S.\]</div></li>
+<li>세 힘을 합하면 유체에 작용하는 <strong>Total External Force</strong>는<div class="equation" id="eq-totalForce" role="group" aria-label="Mathematical expression">\[\mathbf F=-\iint_Sp\,\mathrm d \mathbf S +\iiint_{\mathcal V}\rho\mathbf f\,\mathrm d \mathcal V +\iint_S\boldsymbol\tau\cdot\mathrm d \mathbf S. \]</div></li>
+<li>점성응력은 각 방향의 응력 성분에 부호가 포함되어 있으므로, 압력항과 같이 별도의 음수를 붙이지 않음.</li>
+<li>압력응력과 점성응력을 합친 <strong>Total Stress Tensor</strong>는<div class="equation" id="eq-stressNew" role="group" aria-label="Mathematical expression">\[\boldsymbol\sigma=-p\mathbf I+\boldsymbol\tau =\begin{pmatrix} -p+\tau_{xx}&\tau_{xy}&\tau_{xz}\\ \tau_{yx}&-p+\tau_{yy}&\tau_{yz}\\ \tau_{zx}&\tau_{zy}&-p+\tau_{zz} \end{pmatrix}. \]</div></li>
+<li>여기서 \(\tau_{ij}\)는 \(j\)방향 법선을 갖는 면에 작용하는 \(i\)방향 점성응력임. 예를 들어 미소 점성력의 \(x\)성분은<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d F_{\mathrm{viscous},x}=(\tau_{xx}n_x+\tau_{xy}n_y+\tau_{xz}n_z)\mathrm d S.\]</div></li>
+<li>일반적인 단순유체에서는 응력 Tensor가 대칭이며, 전체 Surface Force는 다음과 같이 쓸 수 있음.<div class="equation" role="group" aria-label="Mathematical expression">\[\boldsymbol\tau^{\mathsf T}=\boldsymbol\tau,\qquad \mathbf F_{\mathrm{surface}}=\iint_S\boldsymbol\sigma\cdot\mathrm d \mathbf S.\]</div></li>
+</ul></section>
+<section class="lesson-section" id="momentum-flow">
+<h2><span class="section-tag">02</span>Momentum Flow and Momentum Change inside the CV</h2>
+<ul class="study-points">
+<li>이제 물리 법칙의 우변인 <strong>운동량 변화율</strong>을 구함. 유체가 운동량을 가지고 CV 경계를 통과하므로, 외력의 효과는 <strong>운동량의 순유출률</strong>과 <strong>CV 내부 운동량 변화율</strong>에 함께 나타남.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{gathered} \text{(Force)}\\[1.5em] =\text{(Net momentum flow out through }S\text{)}\\[1.5em] +\text{(Time rate of change of momentum in }\mathcal V\text{)} \end{gathered}\]</div></li>
+<li>먼저 운동량 유량은 <strong>질량유량 \(\times\) 속도</strong> 이므로 미소면적을 통과하는 운동량 유량은<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d \dot{\mathbf P}_{\mathrm{flow}} =\mathbf V\,\mathrm d \dot m=(\rho\mathbf V\cdot\mathrm d \mathbf S)\mathbf V.\]</div></li>
+<li>표면 \(S\) 전체에 적분하면 <strong>Momentum Net Outflow Rate</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[\dot{\mathbf P}_{\mathrm{net,out}}=\iint_S(\rho\mathbf V\cdot\mathrm d \mathbf S)\mathbf V.\]</div></li>
+<li>다음으로 미소체적에 포함된 <strong>미소 운동량</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d \mathbf P=\mathbf V\,\mathrm d m=\rho\mathbf V\,\mathrm d \mathcal V.\]</div></li>
+<li>이를 CV 전체에 적분하면 <strong>CV 내부 운동량</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf P_{CV}=\iiint_{\mathcal V}\rho\mathbf V\,\mathrm d \mathcal V.\]</div></li>
+<li>따라서 CV 내부 운동량의 <strong>시간 변화율</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\partial\mathbf P_{CV}}{\partial t}=\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho\mathbf V\,\mathrm d \mathcal V.\]</div></li>
+<li>운동량 보존에 따라 순유출률과 내부 변화율의 합은 외력과 같으므로<div class="equation" role="group" aria-label="Mathematical expression">\[\iint_S(\rho\mathbf V\cdot\mathrm d \mathbf S)\mathbf V +\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho\mathbf V\,\mathrm d \mathcal V=\mathbf F.\]</div></li>
+<li>앞에서 구한 Force Term <a href="#eq-totalForce">Total External Force</a>을 대입하면 <strong>Integral Momentum Equation</strong>을 얻음.<div class="equation key" id="eq-momentumIntNew" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \begin{aligned} &\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho\mathbf V\,\mathrm d \mathcal V +\iint_S(\rho\mathbf V\cdot\mathrm d \mathbf S)\mathbf V\\[1.5em] &\qquad=-\iint_Sp\,\mathrm d \mathbf S +\iiint_{\mathcal V}\rho\mathbf f\,\mathrm d \mathcal V +\iint_S\boldsymbol\tau\cdot\mathrm d \mathbf S. \end{aligned} }\]</div></li>
+<li>적분형은 경계에서의 유동과 힘을 연결하므로, 내부의 모든 국소 유동을 구하지 않고도 유한 영역의 전체 운동량 수지를 분석할 수 있음.</li>
+</ul></section>
+</article>
 <div class="article-pager"><a href="incompressible-and-steady-flow.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Incompressible and Steady Flow</span></a><a class="next" href="differential-momentum-equation.html"><span class="direction">NEXT →</span><span class="adjacent">Differential Momentum Equation</span></a></div>
 <a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a>
 </main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Aerodynamics</span></div></footer>
