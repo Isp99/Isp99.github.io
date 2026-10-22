@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Fundamentals of Energy Conservation — Conservation of Energy — Engineering Notebook">
+<title>Fundamentals of Energy Conservation | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+/* Flow Rate & RTT — shared Fundamentals lesson design */
+body.inner-page .breadcrumb{font-size:16px}
+.md-page .article-content{padding:43px 46px 64px}
+.md-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.md-page .lesson-meta span:first-child{color:#2e61b7}
+.md-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:68px}
+.md-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.md-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:8px 20px}
+.md-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.md-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.md-page .lesson-section{scroll-margin-top:27px}
+.md-page .lesson-section+.lesson-section{margin-top:76px;padding-top:44px;border-top:1px solid #e1eaf6}
+.md-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 37px!important;line-height:1.3}
+.md-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.md-page .study-points{list-style:none;padding:0;margin:0}
+.md-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 48px;word-break:keep-all;overflow-wrap:anywhere}
+.md-page .study-points>li:last-child{margin-bottom:0}
+.md-page .study-points>li.sub-point{margin-left:26px}
+.md-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.md-page strong{color:#23466f}
+.md-page .equation{border:none;background:transparent;border-radius:0;margin:46px 0 54px;padding:12px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px}
+.md-page .equation.key{background:#f7f9fd;border:none;border-radius:10px;margin:55px 0 61px;padding:31px 18px}
+.md-page .equation mjx-container[display="true"]{margin:.3em auto!important}
+.md-page .definitions{margin:24px 0 19px 21px;padding:0;font-size:14px;color:#627a9a;line-height:1.85}
+.md-page .definitions li{margin:9px 0}
+.md-page .definitions.two-terms{list-style:none;padding:21px 19px;margin:26px 0 17px;background:#f5f8fe;border-radius:9px;border:1px solid #e5ebf5}
+.md-page .two-terms div+div{margin-top:14px}
+.md-page .note-box{border:1px solid #d7e4f5;border-left:4px solid #4572bd;background:#f4f8fe;border-radius:11px;padding:33px 34px 37px;margin:48px 0 13px}
+.md-page .note-box h3{font-size:17px;color:#254d83;margin:0 0 23px}
+.md-page .note-box h4{font-size:14px;margin:33px 0 14px;color:#2c578e}
+.md-page .note-box p{font-size:14px;line-height:1.88;color:#506b8a;max-width:none;margin:0 0 20px;word-break:keep-all}
+.md-page .note-box .equation{background:transparent;margin:43px 0 50px}
+.md-page .note-box .equation.key{background:#f7f9fd;margin:55px 0 61px}
+/* Match the final Material Derivative navigation typography. */
+.md-page .eyebrow{font-size:12px}
+.md-page .article-pager .direction{font-size:12px}
+.md-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.md-page .back-bottom{font-size:16px}
+@media(max-width:600px){.md-page .lesson-meta{font-size:13px}.md-page .lesson-toc strong{font-size:16px}.md-page .lesson-toc a{font-size:15px}.md-page .article-pager .adjacent{font-size:14px}.md-page .back-bottom{font-size:15px}.md-page .eyebrow{font-size:11px}}
+@media(max-width:740px){.md-page .article-content{padding:24px 18px 30px}.md-page .lesson-toc{padding:16px}.md-page .lesson-toc ul{grid-template-columns:1fr}.md-page .lesson-section h2{font-size:20px!important}.md-page .study-points>li{font-size:14px;padding-left:21px}.md-page .equation{font-size:14px;padding:14px 9px}.md-page .note-box{padding:19px 15px}.md-page .lesson-section+.lesson-section{margin-top:58px;padding-top:33px}.md-page .study-points>li{margin-bottom:38px}.md-page .equation{margin:35px 0 43px;padding:10px 0}.md-page .equation.key{margin:43px 0 51px;padding:25px 11px}.md-page .note-box .equation{margin:35px 0 43px}.md-page .note-box .equation.key{margin:43px 0 51px}.md-page .note-box{margin-top:36px;padding:25px 18px 28px}}
+@media(max-width:600px){body.inner-page .breadcrumb{font-size:14px}.md-page .study-points>li.sub-point{margin-left:18px}}
+
+
+
+
+/* Diagram and physical-law hierarchy from the source LaTeX. */
+.md-page .cv-figure{max-width:650px;margin:47px auto 56px;text-align:center}
+.md-page .cv-figure svg{width:100%;height:auto;display:block}
+.md-page .cv-figure figcaption{font-size:13px;color:#8195af;line-height:1.6;margin-top:15px}
+.md-page .cv-figure .math-label{font-family:Georgia,'Times New Roman',serif;font-style:italic;fill:#1d3b65;font-size:22px}
+.md-page .principle-flow{display:flex;flex-direction:column;align-items:center;gap:16px;margin:43px auto 48px;color:#254469;line-height:1.5;font-weight:700;text-align:center;font-size:16px}
+.md-page .principle-flow .down-arrow{font-size:25px;color:#6286bb;line-height:1}
+.md-page .principle-flow .equals{font-size:22px;font-weight:500;color:#536d92;line-height:1}
+@media(max-width:740px){.md-page .cv-figure{margin:35px auto 45px}.md-page .cv-figure figcaption{font-size:12px}.md-page .principle-flow{font-size:13px;gap:12px;margin:30px auto 41px}}
+
+.md-page .equation{max-width:100%;overscroll-behavior-x:contain}
+.md-page .definitions{word-break:keep-all}
+</style>
+<script>window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav></div></header>
+<main class="shell md-page">
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span><strong>Fundamentals of Energy Conservation</strong></nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 4.1</div>
+<h1>Fundamentals of Energy Conservation</h1><p class="hero-subtitle">Conservation of Energy</p><p class="hero-description">First law of thermodynamics, heat and work terms, and energy transport.</p></div></div>
+<article class="article-content">
+<div class="lesson-meta"><span>04 / Conservation of Energy</span><span>Study Notes · 4.1</span></div>
+<nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#first-law">01 · First Law of Thermodynamics</a></li>
+<li><a href="#heat-added">02 · Rate of Heat Added to the Fluid</a></li>
+<li><a href="#work-on-fluid">03 · Rate of Work Done on the Fluid</a></li>
+<li><a href="#energy-flow">04 · Energy Flow and Energy Change inside the CV</a></li></ul></nav>
+<section class="lesson-section" id="first-law">
+<h2><span class="section-tag">01</span>First Law of Thermodynamics</h2>
+<ul class="study-points">
+<li><strong>Key Physical Principle</strong>: 에너지는 생성되거나 소멸되지 않음.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{gathered}\Downarrow\\[1.5em] \begin{gathered} \text{(Rate of heat added to fluid)}\\[1.5em] +\text{(Rate of work done on fluid)}\\[1.5em] =\text{(Rate of change of energy of fluid)} \end{gathered} \end{gathered}\]</div></li>
+<li>열과 일은 <strong>유체에 공급되는 방향을 양수</strong>로 정의함. 먼저 좌변의 열 공급률을 구하고, 이어서 각 힘의 일률을 구함.</li>
+</ul>
+</section>
+<section class="lesson-section" id="heat-added">
+<h2><span class="section-tag">02</span>Rate of Heat Added to the Fluid</h2>
+<ul class="study-points">
+<li>단위질량당 체적 열원의 가열률을 \(\dot q\)라 하면 단위는 \(\mathrm{W/kg}\)임. 미소체적에 공급되는 열의 시간당 양은<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d \dot Q_{\mathrm{vol}}=\dot q\,\mathrm d m=\rho\dot q\,\mathrm d \mathcal V.\]</div></li>
+<li>따라서 CV 전체의 <strong>Volumetric Heating Rate</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[\dot Q_{\mathrm{vol}}=\iiint_{\mathcal V}\rho\dot q\,\mathrm d \mathcal V.\]</div></li>
+<li>표면을 통한 열전달은 <strong>Heat Flux</strong> \(\mathbf q\)로 나타냄. 이는 단위면적당 열전달률과 방향을 나타내며 단위는 \(\mathrm{W/m^2}\)임. Fourier 법칙에 따르면<div class="equation" id="eq-fourier" role="group" aria-label="Mathematical expression">\[\mathbf q=-k\nabla T.\]</div></li>
+<li>\(k\)는 Thermal Conductivity이며, 마이너스 기호는 온도가 낮아지는 방향으로 열이 흐름을 의미함.</li>
+<li>바깥쪽 면적벡터를 사용하므로 <strong>CV로 들어오는 순 열전달률</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\dot Q_{\mathrm{cond}}=-\iint_S\mathbf q\cdot\mathrm d \mathbf S.\]</div></li>
+<li>두 열 공급 항을 합하면<div class="equation" id="eq-heatInput" role="group" aria-label="Mathematical expression">\[\dot Q_{\mathrm{in}} =\dot Q_{\mathrm{vol}}+\dot Q_{\mathrm{cond}} =\iiint_{\mathcal V}\rho\dot q\,\mathrm d \mathcal V -\iint_S\mathbf q\cdot\mathrm d \mathbf S.\]</div></li>
+</ul>
+</section>
+<section class="lesson-section" id="work-on-fluid">
+<h2><span class="section-tag">03</span>Rate of Work Done on the Fluid</h2>
+<ul class="study-points">
+<li>움직이는 물체에 힘이 하는 <strong>일률</strong>은 힘과 속도의 내적이므로<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d \dot W=\mathrm d \mathbf F\cdot\mathbf V.\]</div></li>
+<li>먼저 미소 Pressure Force는 \(\mathrm d \mathbf F_p=-p\,\mathrm d \mathbf S\)이므로, <strong>Pressure Work Rate</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[\dot W_p=-\iint_S(p\,\mathrm d \mathbf S)\cdot\mathbf V=-\iint_Sp\mathbf V\cdot\mathrm d \mathbf S.\]</div></li>
+<li>미소 체적력은 \(\rho\mathbf f\\mathrm d \mathcal V\) 에 대해서 <strong>Body-Force Work Rate</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[\dot W_b=\iiint_{\mathcal V}(\rho\mathbf f\,\mathrm d \mathcal V)\cdot\mathbf V=\iiint_{\mathcal V}\rho(\mathbf f\cdot\mathbf V)\,\mathrm d \mathcal V.\]</div></li>
+<li>Viscous flow에서는 표면의 점성응력도 일을 하기 때문에 <strong>Viscous Work Rate</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[\dot W_\tau=\iint_S(\boldsymbol\tau\cdot\mathrm d \mathbf S)\cdot\mathbf V.\]</div></li>
+<li>따라서 유체에 공급되는 <strong>Total Work Rate</strong>는<div class="equation" id="eq-workInput" role="group" aria-label="Mathematical expression">\[\dot W_{\mathrm{on}}=\dot W_p+\dot W_b+\dot W_\tau =-\iint_Sp\mathbf V\cdot\mathrm d \mathbf S +\iiint_{\mathcal V}\rho(\mathbf f\cdot\mathbf V)\,\mathrm d \mathcal V +\dot W_\tau.\]</div></li>
+<li>위치에너지 변화는 체적력이 하는 일에 포함함. 따라서 아래에서 정의하는 \(E\)에는 위치에너지를 다시 더하지 않음.</li>
+</ul>
+</section>
+<section class="lesson-section" id="energy-flow">
+<h2><span class="section-tag">04</span>Energy Flow and Energy Change inside the CV</h2>
+<ul class="study-points">
+<li>이제 물리 법칙의 우변인 에너지 변화율을 구함. 단위질량당 Internal Energy를 \(e\)라 하면 <strong>Specific Total Energy</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[E=e+\frac{V^2}{2},\qquad V^2=\mathbf V\cdot\mathbf V.\]</div></li>
+<li>단위시간에 <strong>표면을 통과하는 유체는 질량과 함께 에너지도 운반</strong>하므로 미소면적을 통과하는 <strong>에너지 유량</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d \dot{\mathcal E}_{\mathrm{flow}}=E\,\mathrm d \dot m=(\rho\mathbf V\cdot\mathrm d \mathbf S)\left(e+\frac{V^2}{2}\right).\]</div></li>
+<li>표면 \(S\) 전체에 적분하면 <strong>Total Energy Net Outflow Rate</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[\dot{\mathcal E}_{\mathrm{net,out}}=\iint_S(\rho\mathbf V\cdot\mathrm d \mathbf S)\left(e+\frac{V^2}{2}\right).\]</div></li>
+<li>미소체적에 포함된 에너지는 <strong>질량 \(\times\) 단위질량당 에너지</strong>이므로<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d \mathcal E=E\,\mathrm d m=\rho\left(e+\frac{V^2}{2}\right)\mathrm d \mathcal V.\]</div></li>
+<li>따라서 CV 내부의 전체 에너지는<div class="equation" role="group" aria-label="Mathematical expression">\[\mathcal E_{CV}=\iiint_{\mathcal V}\rho\left(e+\frac{V^2}{2}\right)\mathrm d \mathcal V.\]</div></li>
+<li>비정상유동에서는 CV 내부의 유동장도 시간에 따라 변함. 이에 따른 <strong>총에너지 축적률</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\partial\mathcal E_{CV}}{\partial t}=\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho\left(e+\frac{V^2}{2}\right)\mathrm d \mathcal V.\]</div></li>
+<li>열과 일이 공급되면 그 에너지는 CV 안에 축적되거나 유체와 함께 경계를 통과함. 따라서<div class="equation" role="group" aria-label="Mathematical expression">\[\dot Q_{\mathrm{in}}+\dot W_{\mathrm{on}} =\frac{\partial\mathcal E_{CV}}{\partial t}+\dot{\mathcal E}_{\mathrm{net,out}}.\]</div></li>
+</ul>
+</section>
+</article>
+<div class="article-pager">
+<a href="newtonian-stress-and-navier-stokes-equation.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Newtonian Stress and Navier–Stokes Equation</span></a>
+<a class="next" href="total-energy-equation.html"><span class="direction">NEXT →</span><span class="adjacent">Total Energy Equation</span></a>
+</div>
+<a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a>
+</main>
+<footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Aerodynamics</span></div></footer>
+<script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
+</body></html>
