@@ -1,1 +1,136 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Aerodynamics — Engineering Archive"><title>Aerodynamics | Engineering Archive</title><link rel="stylesheet" href="../assets/site.css"></head><body class="inner-page"><header class="site-header"><div class="shell"><a class="brand" href="../index.html"><span class="brand-logo">E.</span><span>Engineering Archive<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a><nav class="site-nav" aria-label="Main navigation"><a href="../index.html">Home</a><a class="desktop-link" href="../index.html#bento-study" aria-current="page">Study Note</a><a href="../index.html#bento-projects">Practice Project</a></nav></div></header><main class="shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a><span class="separator">›</span><a href="../index.html#bento-study">Study Note</a><span class="separator">›</span><strong>Aerodynamics</strong></nav><div class="hero"><div class="hero-text"><h1>Aerodynamics</h1><p class="hero-subtitle">Study Notes</p><p class="hero-description">Fundamental principles and advanced topics in fluid motion, compressible flow, viscous effects, and hypersonics.</p></div></div><div class="contents-header"><h2>Study Contents</h2><span class="count">04 SUBJECTS</span></div><div class="note-grid"><a class="note-card" href="aerodynamics/fundamentals.html"><div class="note-top"><span class="note-index">01 / AERODYNAMICS</span><span class="note-arrow" aria-hidden="true">↗</span></div><h3 class="note-title">Fundamentals</h3><p class="note-sub">Foundations of Aerodynamics</p><ul><li>Flow Kinematics</li><li>Conservation Equations</li><li>Potential Flow</li></ul></a><a class="note-card" href="aerodynamics/compressible-flow.html"><div class="note-top"><span class="note-index">02 / AERODYNAMICS</span><span class="note-arrow" aria-hidden="true">↗</span></div><h3 class="note-title">Compressible Flow</h3><p class="note-sub">High-Speed Gas Dynamics</p><ul><li>Isentropic Flow</li><li>Shock Waves</li><li>Nozzle Flow</li></ul></a><a class="note-card" href="aerodynamics/viscous-flow.html"><div class="note-top"><span class="note-index">03 / AERODYNAMICS</span><span class="note-arrow" aria-hidden="true">↗</span></div><h3 class="note-title">Viscous Flow</h3><p class="note-sub">Viscosity and Boundary Layers</p><ul><li>Viscous Governing Equations</li><li>Boundary Layers</li><li>Turbulence</li></ul></a><a class="note-card" href="aerodynamics/hypersonic-flow.html"><div class="note-top"><span class="note-index">04 / AERODYNAMICS</span><span class="note-arrow" aria-hidden="true">↗</span></div><h3 class="note-title">Hypersonic Flow</h3><p class="note-sub">Fundamentals of High-Mach-Number Flow</p><ul><li>Hypersonic Flow Physics</li><li>Shock Interactions</li><li>High-Temperature Effects</li></ul></a></div><a class="back-bottom" href="../index.html#bento-study">← Back to Study Note</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Archive</span><span>Aerodynamics</span></div></footer></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Aerodynamics — Engineering Archive">
+  <title>Aerodynamics | Engineering Archive</title>
+  <link rel="stylesheet" href="../assets/site.css">
+  <style>
+    /* Typography-only refinements; preserve the original layout in site.css. */
+    body.inner-page .hero-text .hero-description {
+      margin-top: 14px;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    body.inner-page .contents-header h2 {
+      font-size: 24px;
+    }
+    body.inner-page .contents-header .count {
+      font-size: 14px;
+    }
+    body.inner-page .note-card .note-index {
+      font-size: 14px;
+    }
+    body.inner-page .note-card .note-title {
+      font-size: 23px;
+    }
+    body.inner-page .back-bottom {
+      font-size: 16px;
+    }
+    @media (max-width: 600px) {
+      body.inner-page .hero-text .hero-description { font-size: 15px; }
+      body.inner-page .contents-header h2 { font-size: 22px; }
+      body.inner-page .contents-header .count { font-size: 13px; }
+      body.inner-page .note-card .note-index { font-size: 13px; }
+      body.inner-page .note-card .note-title { font-size: 21px; }
+      body.inner-page .back-bottom { font-size: 15px; }
+    }
+  </style>
+</head>
+<body class="inner-page">
+  <header class="site-header">
+    <div class="shell">
+      <a class="brand" href="../index.html">
+        <span class="brand-logo">E.</span>
+        <span>Engineering Archive<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../index.html">Home</a>
+        <a class="desktop-link" href="../index.html#bento-study" aria-current="page">Study Note</a>
+        <a href="../index.html#bento-projects">Practice Project</a>
+      </nav>
+    </div>
+  </header>
+  <main class="shell">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../index.html">Home</a>
+      <span class="separator">›</span>
+      <a href="../index.html#bento-study">Study Note</a>
+      <span class="separator">›</span>
+      <strong>Aerodynamics</strong>
+    </nav>
+    <div class="hero">
+      <div class="hero-text">
+        <h1>Aerodynamics</h1>
+        <p class="hero-description">Fundamental principles and advanced topics in fluid motion, compressible flow, viscous effects, and hypersonics.</p>
+      </div>
+    </div>
+    <div class="contents-header">
+      <h2>Study Contents</h2>
+      <span class="count">04 SUBJECTS</span>
+    </div>
+    <div class="note-grid">
+      <a class="note-card" href="aerodynamics/fundamentals.html">
+        <div class="note-top">
+          <span class="note-index">01 / AERODYNAMICS</span>
+          <span class="note-arrow" aria-hidden="true">↗</span>
+        </div>
+        <h3 class="note-title">Fundamentals</h3>
+        <p class="note-sub">Foundations of Aerodynamics</p>
+        <ul>
+          <li>Flow Kinematics</li>
+          <li>Conservation Equations</li>
+          <li>Potential Flow</li>
+        </ul>
+      </a>
+      <a class="note-card" href="aerodynamics/compressible-flow.html">
+        <div class="note-top">
+          <span class="note-index">02 / AERODYNAMICS</span>
+          <span class="note-arrow" aria-hidden="true">↗</span>
+        </div>
+        <h3 class="note-title">Compressible Flow</h3>
+        <p class="note-sub">High-Speed Gas Dynamics</p>
+        <ul>
+          <li>Isentropic Flow</li>
+          <li>Shock Waves</li>
+          <li>Nozzle Flow</li>
+        </ul>
+      </a>
+      <a class="note-card" href="aerodynamics/viscous-flow.html">
+        <div class="note-top">
+          <span class="note-index">03 / AERODYNAMICS</span>
+          <span class="note-arrow" aria-hidden="true">↗</span>
+        </div>
+        <h3 class="note-title">Viscous Flow</h3>
+        <p class="note-sub">Viscosity and Boundary Layers</p>
+        <ul>
+          <li>Viscous Governing Equations</li>
+          <li>Boundary Layers</li>
+          <li>Turbulence</li>
+        </ul>
+      </a>
+      <a class="note-card" href="aerodynamics/hypersonic-flow.html">
+        <div class="note-top">
+          <span class="note-index">04 / AERODYNAMICS</span>
+          <span class="note-arrow" aria-hidden="true">↗</span>
+        </div>
+        <h3 class="note-title">Hypersonic Flow</h3>
+        <p class="note-sub">Fundamentals of High-Mach-Number Flow</p>
+        <ul>
+          <li>Hypersonic Flow Physics</li>
+          <li>Shock Interactions</li>
+          <li>High-Temperature Effects</li>
+        </ul>
+      </a>
+    </div>
+    <a class="back-bottom" href="../index.html#bento-study">← Back to Study Note</a>
+  </main>
+  <footer class="site-footer">
+    <div class="shell">
+      <span>© Engineering Archive</span>
+      <span>Aerodynamics</span>
+    </div>
+  </footer>
+</body>
+</html>
