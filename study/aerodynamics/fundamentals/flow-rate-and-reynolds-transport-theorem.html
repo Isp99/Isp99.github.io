@@ -1,1 +1,180 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Flow Rate and Reynolds Transport Theorem — Engineering Archive"><title>Flow Rate and Reynolds Transport Theorem | Engineering Archive</title><link rel="stylesheet" href="../../../assets/site.css"></head><body class="inner-page"><header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Archive<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a><nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../../index.html#bento-projects">Practice Project</a></nav></div></header><main class="shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">Aerodynamics</a><span class="separator">›</span><a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span><strong>Flow Rate and Reynolds Transport Theorem</strong></nav><div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 1.2</div><h1>Flow Rate and Reynolds Transport Theorem</h1><p class="hero-subtitle">Fluid Motion and Transport</p><p class="hero-description">Transport through surfaces and system–control volume relations.</p></div></div><div class="article-content"><div class="article-meta">1.2 · Fluid Motion and Transport</div><h2>Flow Rate and Reynolds Transport Theorem</h2><p>Transport through surfaces and system–control volume relations.</p><span class="placeholder-hint">Detailed notes and derivations will be added here.</span></div><div class="article-pager"><a href="material-derivative.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Material Derivative</span></a><a class="next" href="differential-continuity-equation.html"><span class="direction">NEXT →</span><span class="adjacent">Differential Continuity Equation</span></a></div><a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Archive</span><span>Fundamentals of Aerodynamics</span></div></footer></body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Flow Rate and Reynolds Transport Theorem — Transport through a Surface, System and Control Volume, Mass Flow Rate and RTT derivation — Engineering Archive">
+<title>Flow Rate and Reynolds Transport Theorem | Engineering Archive</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+/* Flow Rate & RTT — shared Fundamentals lesson design */
+body.inner-page .breadcrumb{font-size:16px}
+.md-page .article-content{padding:43px 46px 64px}
+.md-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:12px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.md-page .lesson-meta span:first-child{color:#2e61b7}
+.md-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:68px}
+.md-page .lesson-toc strong{display:block;color:#2c548e;font-size:14px;margin-bottom:17px}
+.md-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:8px 20px}
+.md-page .lesson-toc a{font-size:13px;color:#537094;font-weight:650;line-height:1.55}
+.md-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.md-page .lesson-section{scroll-margin-top:27px}
+.md-page .lesson-section+.lesson-section{margin-top:76px;padding-top:44px;border-top:1px solid #e1eaf6}
+.md-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 37px!important;line-height:1.3}
+.md-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.md-page .study-points{list-style:none;padding:0;margin:0}
+.md-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 48px;word-break:keep-all;overflow-wrap:anywhere}
+.md-page .study-points>li:last-child{margin-bottom:0}
+.md-page .study-points>li.sub-point{margin-left:26px}
+.md-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.md-page strong{color:#23466f}
+.md-page .equation{border:none;background:transparent;border-radius:0;margin:46px 0 54px;padding:12px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px}
+.md-page .equation.key{background:#f7f9fd;border:none;border-radius:10px;margin:55px 0 61px;padding:31px 18px}
+.md-page .equation mjx-container[display="true"]{margin:.3em auto!important}
+.md-page .definitions{margin:24px 0 19px 21px;padding:0;font-size:14px;color:#627a9a;line-height:1.85}
+.md-page .definitions li{margin:9px 0}
+.md-page .definitions.two-terms{list-style:none;padding:21px 19px;margin:26px 0 17px;background:#f5f8fe;border-radius:9px;border:1px solid #e5ebf5}
+.md-page .two-terms div+div{margin-top:14px}
+.md-page .note-box{border:1px solid #d7e4f5;border-left:4px solid #4572bd;background:#f4f8fe;border-radius:11px;padding:33px 34px 37px;margin:48px 0 13px}
+.md-page .note-box h3{font-size:17px;color:#254d83;margin:0 0 23px}
+.md-page .note-box h4{font-size:14px;margin:33px 0 14px;color:#2c578e}
+.md-page .note-box p{font-size:14px;line-height:1.88;color:#506b8a;max-width:none;margin:0 0 20px;word-break:keep-all}
+.md-page .note-box .equation{background:transparent;margin:43px 0 50px}
+.md-page .note-box .equation.key{background:#f7f9fd;margin:55px 0 61px}
+@media(max-width:740px){.md-page .article-content{padding:24px 18px 30px}.md-page .lesson-toc{padding:16px}.md-page .lesson-toc ul{grid-template-columns:1fr}.md-page .lesson-section h2{font-size:20px!important}.md-page .study-points>li{font-size:14px;padding-left:21px}.md-page .equation{font-size:14px;padding:14px 9px}.md-page .note-box{padding:19px 15px}.md-page .lesson-section+.lesson-section{margin-top:58px;padding-top:33px}.md-page .study-points>li{margin-bottom:38px}.md-page .equation{margin:35px 0 43px;padding:10px 0}.md-page .equation.key{margin:43px 0 51px;padding:25px 11px}.md-page .note-box .equation{margin:35px 0 43px}.md-page .note-box .equation.key{margin:43px 0 51px}.md-page .note-box{margin-top:36px;padding:25px 18px 28px}}
+@media(max-width:600px){body.inner-page .breadcrumb{font-size:14px}.md-page .study-points>li.sub-point{margin-left:18px}}
+
+
+/* Compact, scalable recreation of the source TikZ transport diagram. */
+.md-page .transport-figure{margin:47px auto 56px;max-width:620px;text-align:center}
+.md-page .transport-figure svg{display:block;width:100%;height:auto}
+.md-page .transport-figure figcaption{font-size:13px;color:#8195af;line-height:1.6;margin-top:14px}
+.md-page .transport-figure .drawing-label{font-family:Georgia,'Times New Roman',serif;fill:#1d3b65;font-size:21px;font-style:italic}
+.md-page .transport-figure .meas-label{fill:#48668b;font-size:18px}
+.md-page .equation-table{font-size:16px}
+@media(max-width:740px){.md-page .transport-figure{margin:35px auto 45px}.md-page .transport-figure figcaption{font-size:12px}}
+</style>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Archive<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation">
+<a href="../../../index.html">Home</a>
+<a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a>
+<a href="../../aerodynamics.html">Aerodynamics ↗</a>
+</nav></div></header>
+<main class="shell md-page">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<a href="../../../index.html">Home</a><span class="separator">›</span>
+<a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span>
+<a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
+<a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span>
+<strong>Flow Rate and Reynolds Transport Theorem</strong>
+</nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 1.2</div>
+<h1>Flow Rate and Reynolds Transport Theorem</h1>
+<p class="hero-subtitle">Fluid Motion and Transport</p>
+<p class="hero-description">단면을 통과하는 질량유량을 미소체적과 미소질량에서 유도하고, System과 고정 Control Volume의 관계로부터 Reynolds Transport Theorem을 도출함.</p>
+</div></div>
+<article class="article-content">
+<div class="lesson-meta"><span>01 / Fluid Motion and Transport</span><span>Study Notes · 1.2</span></div>
+<nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong>
+<ul><li><a href="#transport">01 · Transport through a Surface</a></li>
+<li><a href="#control-volume">02 · System and Control Volume</a></li></ul></nav>
+<section class="lesson-section" id="transport"><h2><span class="section-tag">01</span>Transport through a Surface</h2>
+<ul class="study-points">
+<li>그림과 같이 밀도 \(\rho\)인 유체가 단면적 \(A\)를 법선방향 속도 \(V_n\)으로 통과할 때, 시간 \(\mathrm dt\) 동안 통과하는 유체의 길이는 \(V_n\mathrm dt\)이므로,<figure class="transport-figure">
+<svg viewBox="0 0 630 270" role="img" aria-labelledby="transport-title transport-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="transport-title">Fluid passing through area A during a time interval</title>
+<desc id="transport-desc">A fluid region of density rho moves a distance V sub n times d t through the surface A, with outward normal n pointing right.</desc>
+<defs>
+  <marker id="transport-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0 0L10 5L0 10Z" fill="#2d61b8"/>
+  </marker>
+  <marker id="transport-dim-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0 0L10 5L0 10Z" fill="#536c8f"/>
+  </marker>
+</defs>
+<rect x="98" y="42" width="349" height="143" rx="1" fill="#e7f0fb" stroke="#2d61b8" stroke-width="2"/>
+<line x1="447" y1="19" x2="447" y2="206" stroke="#b77b52" stroke-width="5" stroke-linecap="round"/>
+<line x1="31" y1="112" x2="272" y2="112" stroke="#2d61b8" stroke-width="2.6" marker-end="url(#transport-arrow)"/>
+<text x="175" y="96" class="drawing-label" text-anchor="middle">Vₙ</text>
+<text x="278" y="79" class="drawing-label" text-anchor="middle">ρ</text>
+<line x1="447" y1="112" x2="570" y2="112" stroke="#2d61b8" stroke-width="2.6" marker-end="url(#transport-arrow)"/>
+<text x="588" y="117" class="drawing-label">n</text>
+<text x="447" y="13" class="drawing-label" text-anchor="middle">A</text>
+<line x1="98" y1="216" x2="98" y2="237" stroke="#8ba1bd" stroke-width="1.3"/>
+<line x1="447" y1="216" x2="447" y2="237" stroke="#8ba1bd" stroke-width="1.3"/>
+<line x1="101" y1="228" x2="444" y2="228" stroke="#536c8f" stroke-width="1.4" marker-start="url(#transport-dim-arrow)" marker-end="url(#transport-dim-arrow)"/>
+<text x="273" y="258" text-anchor="middle" class="meas-label">Vₙ dt</text>
+</svg>
+<figcaption>Fluid passing through area \(A\) during \(\mathrm dt\).</figcaption>
+</figure></li>
+<li>시간 \(\mathrm dt\) 동안 단면적 \(A\)를 통과하는 유체의 <strong>미소체적</strong> \(\mathrm d\mathcal V\)는<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d\mathcal V=(V_n\mathrm dt)A\]</div></li>
+<li>이때 유체의 밀도를 \(\rho\)라 하면, 통과하는 유체의 <strong>미소질량</strong> \(\mathrm dm\)은<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+  \mathrm dm&=\rho\,\mathrm d\mathcal V\\[0.6cm]
+  &=\rho V_n A\,\mathrm dt
+  \end{aligned}\]</div></li>
+<li>따라서 단위시간당 통과하는 질량인 <strong>Mass Flow Rate (질량유량)</strong>은<div class="equation key" role="group" aria-label="Mathematical expression">\[\boxed{\dot m=\rho V_n A}\]</div></li>
+<li>밀도와 속도가 단면에서 일정하지 않은 경우에는, 미소면적 \(\mathrm dA\)를 통과하는 <strong>미소 질량유량</strong> \(\mathrm d\dot m\)을 먼저 구함.<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d\dot m=\rho(\mathbf V\cdot\mathbf n)\mathrm dA\]</div></li>
+<li>이를 Control Surface 전체에 적분하면, <strong>단위시간당 순유출 질량유량</strong>은<div class="equation key" role="group" aria-label="Mathematical expression">\[\boxed{\dot m_{\mathrm{net,out}}=\iint_S\rho(\mathbf V\cdot\mathbf n)\mathrm dA}\]</div></li>
+<li>\(\mathbf n\)은 <strong>CV 바깥쪽 법선</strong>. 유출은 \(\mathbf V\cdot\mathbf n>0\), 유입은 \(\mathbf V\cdot\mathbf n<0\)임.</li>
+</ul></section>
+<section class="lesson-section" id="control-volume"><h2><span class="section-tag">02</span>System and Control Volume</h2>
+<ul class="study-points">
+<li><strong>System</strong>은 동일한 유체입자들로 구성된 집합이며, <strong>Control Volume (CV)</strong>은 유동을 관찰하기 위해 설정한 공간 영역임. 여기서는 공간에 고정된 CV를 고려함.</li>
+<li>고정된 CV의 체적 영역을 \(\mathcal V\), 닫힌 경계면을 \(S\)로 나타냄. \(S\) 위에서 바깥쪽 면적벡터는<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d\mathbf S=\mathbf n\,\mathrm dS=\mathbf n\,\mathrm dA\]</div></li>
+<li>단위질량당 물리량을 \(b\)라 하면, 밀도 \(\rho\)와 미소체적 \(\mathrm d\mathcal V\)를 갖는 유체의 <strong>미소 물리량</strong> \(\mathrm dB\)는<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+ \mathrm dB&=b\,\mathrm dm\\[0.6cm]
+ &=\rho b\,\mathrm d\mathcal V
+ \end{aligned}\]</div></li>
+<li>따라서 CV 내부에 포함된 <strong>전체 물리량</strong> \(B_{CV}\)는 미소 물리량을 CV 전체에 대해 적분하여 구할 수 있으며,<div class="equation" role="group" aria-label="Mathematical expression">\[B_{CV}=\iiint_{\mathcal V}\rho b\,\mathrm d\mathcal V\]</div></li>
+<li>미소시간 \(\mathrm dt\) 동안 미소면적 \(\mathrm dA\)를 통해 이동하는 유체가 운반하는 <strong>순유출 물리량</strong> \(\mathrm dB_{\mathrm{cross}}\)는<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+ \mathrm dB_{\mathrm{cross}}
+ &=b\,\rho(V_n\mathrm dt)\mathrm dA\\[0.6cm]
+ &=\rho b(\mathbf V\cdot\mathbf n)\mathrm dA\,\mathrm dt
+ \end{aligned}\]</div></li>
+<li>이때 \(\mathbf V\cdot\mathbf n>0\)이면 유출, \(\mathbf V\cdot\mathbf n<0\)이면 유입을 의미함. 따라서 CS 전체를 통한 <strong>단위시간당 순유출량</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\dot B_{\mathrm{net,out}}=\iint_S\rho b(\mathbf V\cdot\mathbf n)\mathrm dA\]</div></li>
+<li>이제 초기시간 \(t\)에서 System과 CV가 동일한 영역을 차지한다고 가정하면, 두 영역의 전체 물리량은 같음.<div class="equation" role="group" aria-label="Mathematical expression">\[B_{\mathrm{sys}}(t)=B_{CV}(t)\]</div></li>
+<li>시간이 \(\Delta t\)만큼 경과하면 System은 유체입자를 따라 이동하지만 CV는 고정되어 있음. 따라서 <strong>CV 내부의 물리량에 유출된 양을 더하고 유입된 양을 빼면</strong> System의 물리량과 같음.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+ B_{\mathrm{sys}}(t+\Delta t)
+ \simeq\;&B_{CV}(t+\Delta t)\\[0.6cm]
+ &+\Delta B_{\mathrm{out}}-\Delta B_{\mathrm{in}}
+ \end{aligned}\]</div></li>
+<li>양변에서 초기 물리량을 빼고 \(\Delta t\)로 나누면, <strong>System의 물리량 변화율</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\Delta B_{\mathrm{sys}}}{\Delta t}
+ \simeq\frac{\Delta B_{CV}}{\Delta t}
+ +\frac{\Delta B_{\mathrm{out}}-\Delta B_{\mathrm{in}}}{\Delta t}\]</div></li>
+<li>\(\Delta t\to0\)의 극한에서 고정된 CV 내부의 <strong>물리량 변화율</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\mathrm dB_{CV}}{\mathrm dt}
+ =\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho b\,\mathrm d\mathcal V\]</div></li>
+<li>같은 극한에서 CS를 통한 <strong>순유출률</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\lim_{\Delta t\to0}
+ \frac{\Delta B_{\mathrm{out}}-\Delta B_{\mathrm{in}}}{\Delta t}
+ =\iint_S\rho b(\mathbf V\cdot\mathbf n)\mathrm dA\]</div></li>
+<li>따라서<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+ \frac{\mathrm dB_{\mathrm{sys}}}{\mathrm dt}
+ &=\frac{\mathrm dB_{CV}}{\mathrm dt}
+ +\frac{\mathrm dB_{\mathrm{out}}-\mathrm dB_{\mathrm{in}}}{\mathrm dt}\\[0.6cm]
+ &=\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho b\,\mathrm d\mathcal V
+ +\iint_S\rho b(\mathbf V\cdot\mathbf n)\mathrm dA
+ \end{aligned}\]</div></li>
+<li>정리하면 System의 물리량 변화율을 CV 내부의 축적률과 경계를 통한 순유출률로 나타내는 <strong>Reynolds Transport Theorem (RTT)</strong>는 다음과 같음.<div class="equation key" role="group" aria-label="Mathematical expression">\[\boxed{\begin{aligned}
+ \frac{\mathrm dB_{\mathrm{sys}}}{\mathrm dt}
+ ={}&\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho b\,\mathrm d\mathcal V\\[0.6cm]
+ &+\iint_S\rho b(\mathbf V\cdot\mathbf n)\mathrm dA
+ \end{aligned}}\]</div></li>
+<li>RTT의 우변에서 첫 번째 항은 <strong>CV 내부의 축적률(Accumulation Rate)</strong>, 두 번째 항은 <strong>CS를 통한 순유출률(Net Outflow Rate)</strong>을 의미함.</li>
+<li>질량, 운동량, 에너지에 해당하는 단위질량당 물리량 \(b\)는 다음과 같음.<div class="equation equation-table" role="group" aria-label="Mathematical expression">\[\begin{array}{c|ccc}
+ &\text{Mass}&\text{Momentum}&\text{Energy}\\[0.6cm]\hline
+ b&1&\mathbf V&e+V^2/2
+ \end{array}\]</div></li>
+</ul></section>
+</article>
+<div class="article-pager">
+<a href="material-derivative.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Material Derivative</span></a>
+<a class="next" href="differential-continuity-equation.html"><span class="direction">NEXT →</span><span class="adjacent">Differential Continuity Equation</span></a>
+</div>
+<a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a>
+</main><footer class="site-footer"><div class="shell"><span>© Engineering Archive</span><span>Fundamentals of Aerodynamics</span></div></footer>
+</body></html>
