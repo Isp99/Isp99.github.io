@@ -73,13 +73,14 @@ body.inner-page .breadcrumb{font-size:16px}
 <nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav></div></header>
 <main class="shell md-page">
 <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span><strong>Newtonian Stress and Navier–Stokes Equation</strong></nav>
-<div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 3.3</div><h1>Newtonian Stress and Navier–Stokes Equation</h1><p class="hero-subtitle">Conservation of Momentum</p><p class="hero-description">Newtonian 응력과 속도구배 관계에서 출발하여 Laplacian, 비압축성 및 압축성 Navier–Stokes 방정식을 단계적으로 유도함.</p></div></div>
+<div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 3.3</div><h1>Newtonian Stress and Navier–Stokes Equation</h1><p class="hero-subtitle">Conservation of Momentum</p><p class="hero-description">Newtonian 응력에서 출발해 점성력의 Laplacian, 비압축성·압축성 Navier–Stokes 방정식 및 보존형·비보존형 운동량 방정식을 단계적으로 유도함.</p></div></div>
 <article class="article-content">
 <div class="lesson-meta"><span>03 / Conservation of Momentum</span><span>Study Notes · 3.3</span></div>
 <nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#velocity-gradient">01 · Stress from the Velocity Gradient</a></li>
 <li><a href="#stress-laplacian">02 · From Stress to the Laplacian</a></li>
 <li><a href="#incompressible-navier-stokes">03 · Incompressible Navier–Stokes Equation</a></li>
-<li><a href="#compressible-newtonian">04 · Compressible Newtonian Flow</a></li></ul></nav>
+<li><a href="#compressible-newtonian">04 · Compressible Navier–Stokes Equation</a></li>
+<li><a href="#conservative-form">05 · Conservative Form of the Navier–Stokes Equation</a></li></ul></nav>
 <section class="lesson-section" id="velocity-gradient">
 <h2><span class="section-tag">01</span>Stress from the Velocity Gradient</h2>
 <ul class="study-points">
@@ -106,11 +107,28 @@ body.inner-page .breadcrumb{font-size:16px}
 <li>점성항은 이웃한 영역 사이의 <strong>운동량 확산</strong>을 나타냄.</li>
 </ul></section>
 <section class="lesson-section" id="compressible-newtonian">
-<h2><span class="section-tag">04</span>Compressible Newtonian Flow</h2>
+<h2><span class="section-tag">04</span>Compressible Navier–Stokes Equation</h2>
 <ul class="study-points">
 <li>Stokes' hypothesis와 Constant viscosity를 유지하는 Compressible flow에서는 \(\nabla\cdot\mathbf V\neq0\)일 수 있으므로<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}(\nabla\cdot\boldsymbol\tau)_x &=\mu\nabla^2u +\mu\frac{\partial}{\partial x}(\nabla\cdot\mathbf V) -\frac23\mu\frac{\partial}{\partial x}(\nabla\cdot\mathbf V),\\[1.5em] &=\mu\nabla^2u+\frac13\mu\frac{\partial}{\partial x}(\nabla\cdot\mathbf V),\\[2.5em] \therefore \nabla\cdot\boldsymbol\tau &=\mu\nabla^2\mathbf V+\frac13\mu\nabla(\nabla\cdot\mathbf V).\end{aligned}\]</div></li>
 <li>비압축성 유동과 달리 \(\nabla\cdot\mathbf V\)가 0이 아닐 수 있으므로, <strong>체적 팽창·수축에 의한 점성항</strong>이 추가됨. 이를 운동량식에 대입하면<div class="equation key" id="eq-NScomp" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \rho\frac{\mathrm D \mathbf V}{\mathrm D t} =-\nabla p+\mu\nabla^2\mathbf V +\frac13\mu\nabla(\nabla\cdot\mathbf V)+\rho\mathbf f. }\]</div></li>
 </ul></section>
+<section class="lesson-section" id="conservative-form">
+<h2><span class="section-tag">05</span>Conservative Form of the Navier–Stokes Equation</h2>
+<ul class="study-points">
+<li>앞서 유도한 <strong>Incompressible Navier–Stokes Equation</strong>은 동일한 운동량 보존법칙을 <strong>Non-conservative Form</strong>과 <strong>Conservative Form</strong>으로 표현할 수 있음.
+<div class="equation" role="group" aria-label="Non-conservative and Conservative Forms of the Navier–Stokes Equation">\[
+\begin{aligned}
+\underbrace{\rho\left[\frac{\partial\mathbf V}{\partial t}+(\mathbf V\cdot\nabla)\mathbf V\right]}_{\substack{\rho\,\frac{\mathrm D\mathbf V}{\mathrm D t}\\\text{Non-conservative Form}}}
+&=-\nabla p+\mu\nabla^2\mathbf V+\rho\mathbf f\\[0.8cm]
+\underbrace{\frac{\partial(\rho\mathbf V)}{\partial t}+\nabla\cdot(\rho\mathbf V\otimes\mathbf V)}_{\text{Conservative Form}}
+&=-\nabla p+\mu\nabla^2\mathbf V+\rho\mathbf f.
+\end{aligned}
+\]</div></li>
+<li><strong>Non-conservative Form</strong>: 유체 입자(Fluid Particle)가 힘을 받아 어떻게 가속되는지 표현함.</li>
+<li><strong>Conservative Form</strong>: 특정 공간(Control Volume) 안의 운동량이 얼마나 변하고, 경계를 통해 얼마나 유입·유출되는지 표현함.</li>
+<li>두 형태는 연속방정식을 만족하는 매끄러운 유동에서 수학적으로 동등하지만, <strong>Conservative Form</strong>은 운동량의 유입과 유출을 Flux 형태로 나타내므로 이후 <strong>CFD의 Finite Volume Method(FVM)</strong>에서 보존성을 유지하는 데 중요하게 사용됨.</li>
+</ul>
+</section>
 </article>
 <div class="article-pager"><a href="differential-momentum-equation.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Differential Momentum Equation</span></a><a class="next" href="total-energy-equation.html"><span class="direction">NEXT →</span><span class="adjacent">Total Energy Equation</span></a></div>
 <a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a>
