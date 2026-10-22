@@ -1,1 +1,171 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Material Derivative — Engineering Archive"><title>Material Derivative | Engineering Archive</title><link rel="stylesheet" href="../../../assets/site.css"></head><body class="inner-page"><header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Archive<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a><nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../../index.html#bento-projects">Practice Project</a></nav></div></header><main class="shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">Aerodynamics</a><span class="separator">›</span><a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span><strong>Material Derivative</strong></nav><div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 1.1</div><h1>Material Derivative</h1><p class="hero-subtitle">Fluid Motion and Transport</p><p class="hero-description">Time rate of change of a fluid property following a moving fluid particle.</p></div></div><div class="article-content"><div class="article-meta">1.1 · Fluid Motion and Transport</div><h2>Material Derivative</h2><p>Time rate of change of a fluid property following a moving fluid particle.</p><span class="placeholder-hint">Detailed notes and derivations will be added here.</span></div><div class="article-pager"><a class="next" href="flow-rate-and-reynolds-transport-theorem.html"><span class="direction">NEXT →</span><span class="adjacent">Flow Rate and Reynolds Transport Theorem</span></a></div><a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Archive</span><span>Fundamentals of Aerodynamics</span></div></footer></body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Material Derivative: Continuum Assumption, Eulerian and Lagrangian Descriptions, Chain Rule Derivation and Fluid Acceleration — Engineering Archive">
+<title>Material Derivative | Engineering Archive</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+/* Material Derivative — scoped page-specific instructional layout */
+body.inner-page .breadcrumb{font-size:16px}
+.md-page .article-content{padding:35px 42px 45px}
+.md-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:28px;font-size:12px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.md-page .lesson-meta span:first-child{color:#2e61b7}
+.md-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:19px 23px;margin-bottom:40px}
+.md-page .lesson-toc strong{display:block;color:#2c548e;font-size:14px;margin-bottom:12px}
+.md-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:8px 20px}
+.md-page .lesson-toc a{font-size:13px;color:#537094;font-weight:650;line-height:1.55}
+.md-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.md-page .lesson-section{scroll-margin-top:27px}
+.md-page .lesson-section+.lesson-section{margin-top:43px;padding-top:33px;border-top:1px solid #e1eaf6}
+.md-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 22px!important;line-height:1.3}
+.md-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.md-page .study-points{list-style:none;padding:0;margin:0}
+.md-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.85;color:#465f7e;margin:0 0 21px;word-break:keep-all;overflow-wrap:anywhere}
+.md-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.md-page strong{color:#23466f}
+.md-page .equation{border:1px solid #e9eff8;background:#f7f9fd;border-radius:10px;margin:14px 0 6px;padding:17px 12px;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px}
+.md-page .equation.key{background:#edf4ff;border:1px solid #bdcfec;border-left:4px solid #3367bb;padding:19px 15px}
+.md-page .equation mjx-container[display="true"]{margin:.3em auto!important}
+.md-page .definitions{margin:10px 0 0 21px;padding:0;font-size:14px;color:#627a9a;line-height:1.8}
+.md-page .definitions li{margin:3px 0}
+.md-page .definitions.two-terms{list-style:none;padding:13px 16px;margin:13px 0 0;background:#f5f8fe;border-radius:9px;border:1px solid #e5ebf5}
+.md-page .two-terms div+div{margin-top:6px}
+.md-page .note-box{border:1px solid #d7e4f5;border-left:4px solid #4572bd;background:#f4f8fe;border-radius:11px;padding:24px;margin-top:27px}
+.md-page .note-box h3{font-size:17px;color:#254d83;margin:0 0 13px}
+.md-page .note-box h4{font-size:14px;margin:21px 0 8px;color:#2c578e}
+.md-page .note-box p{font-size:14px;line-height:1.8;color:#506b8a;max-width:none;margin:0 0 10px;word-break:keep-all}
+.md-page .note-box .equation{background:white}
+.md-page .note-box .equation.key{background:#eaf2ff}
+.md-page .chapter-break{background:#eaf1fc;border:1px solid #d9e5f7;border-radius:12px;margin:48px 0 36px;padding:25px 27px}
+.md-page .chapter-break .overline{font-size:11px;font-weight:800;letter-spacing:.1em;color:#4877be}
+.md-page .chapter-break h2{font-size:26px!important;color:#1f477e;margin:8px 0 8px!important}
+.md-page .chapter-break p{font-size:14px;color:#6f88aa;line-height:1.65;margin:0;max-width:none}
+@media(max-width:740px){.md-page .article-content{padding:24px 18px 30px}.md-page .lesson-toc{padding:16px}.md-page .lesson-toc ul{grid-template-columns:1fr}.md-page .lesson-section h2{font-size:20px!important}.md-page .study-points>li{font-size:14px;padding-left:21px}.md-page .equation{font-size:14px;padding:14px 9px}.md-page .note-box{padding:19px 15px}.md-page .chapter-break{padding:21px}.md-page .chapter-break h2{font-size:23px!important}}
+@media(max-width:600px){body.inner-page .breadcrumb{font-size:14px}}
+</style>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Archive<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation">
+<a href="../../../index.html">Home</a>
+<a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a>
+<a href="../../aerodynamics.html">Aerodynamics ↗</a>
+</nav></div></header>
+<main class="shell md-page">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<a href="../../../index.html">Home</a><span class="separator">›</span>
+<a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span>
+<a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
+<a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span>
+<strong>Material Derivative</strong>
+</nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 1.1</div>
+<h1>Material Derivative</h1><p class="hero-subtitle">Fluid Motion and Transport</p>
+<p class="hero-description">연속체 가정과 유동 기술 관점에서 출발하여, 물질미분과 유체입자의 가속도를 단계적으로 유도함.</p>
+</div></div>
+<article class="article-content">
+<div class="lesson-meta"><span>01 / Fluid Motion and Transport</span><span>Study Notes · 1.1</span></div>
+<nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong>
+<ul><li><a href="#continuum">01 · Continuum Assumption</a></li>
+<li><a href="#descriptions">02 · Eulerian and Lagrangian Descriptions</a></li>
+<li><a href="#derivation">03 · Mathematical Derivation</a></li>
+<li><a href="#acceleration">04 · Acceleration</a></li></ul></nav>
+<section class="lesson-section" id="continuum"><h2><span class="section-tag">01</span>Continuum Assumption</h2><ul class="study-points"><li>일반적인 공기역학 해석에서는 미시적인 분자 운동을 평균화하여 거시적인 물리량을 연속적인 장(Field)으로 표현하기 위해 <strong>Continuum Assumption</strong>을 적용함.</li>
+<li>실제 유체는 개별 분자로 구성되어 있지만, 충분히 작은 체적에도 다수의 분자가 존재하므로 분자들의 평균적인 거동을 하나의 물리량으로 나타낼 수 있음.</li>
+<li>예를 들어 <strong>Density</strong>는 단위체적당 질량으로 정의되며, 연속체 관점에서는 다음과 같이 표현함.<div class="equation" role="group" aria-label="Mathematical expression">\[\rho(x,y,z,t)=\lim_{\Delta\mathcal V\to0}\frac{\Delta m}{\Delta\mathcal V}\]</div></li>
+<li>여기서 \(\Delta\mathcal V\to0\)은 연속체 모델에서의 수학적 극한을 의미함. 실제 평균화 체적은 <strong>충분한 분자를 포함하면서도 유동의 변화 길이에 비해 작아야 함</strong>.</li>
+<li>이러한 가정을 통해 Density, Pressure, Temperature, Velocity 등을 공간과 시간의 연속적인 함수로 정의할 수 있음.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+ \rho&=\rho(x,y,z,t),\qquad p=p(x,y,z,t),\\
+ T&=T(x,y,z,t),\qquad \mathbf V=\mathbf V(x,y,z,t)
+ \end{aligned}\]</div></li>
+<li>연속체 가정의 타당성은 분자의 평균자유행로와 유동의 대표길이의 비율인 <strong>Knudsen Number</strong>로 판단함.<div class="equation key" role="group" aria-label="Mathematical expression">\[\boxed{\mathrm{Kn}=\frac{\lambda}{L}\ll1}\]</div><ul class="definitions"><li>\(\lambda\): Mean Free Path (평균자유행로)</li><li>\(L\): Characteristic Length (대표길이)</li></ul></li>
+<li>\(\mathrm{Kn}\ll1\)이면 연속체 가정이 대체로 타당하며, 희박기체 유동과 같이 \(\mathrm{Kn}\)이 커지는 경우에는 분자 운동을 고려하는 해석 방법이 필요할 수 있음.</li></ul></section>
+<section class="lesson-section" id="descriptions"><h2><span class="section-tag">02</span>Eulerian and Lagrangian Descriptions</h2><ul class="study-points"><li>유체의 운동은 <strong>공간의 고정된 위치</strong>에서 물리량의 변화를 관찰하거나, <strong>개별 유체입자를 따라 이동</strong>하며 관찰할 수 있음. 이에 따라 Eulerian과 Lagrangian의 두 가지 기술 방식으로 구분함.</li>
+<li><strong>Eulerian Description:</strong> 공간의 한 위치를 고정하고 유체의 변화를 관찰함.<div class="equation" role="group" aria-label="Mathematical expression">\[\rho=\rho(x_0,y_0,z_0,t),\qquad\text{고정점의 변화율}=\frac{\partial\rho}{\partial t}\]</div></li>
+<li><strong>Lagrangian Description:</strong> 같은 유체입자를 따라가며 관찰함.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+ \mathbf x&=\bigl(x(t),y(t),z(t)\bigr),\\
+ \frac{\mathrm dx}{\mathrm dt}&=u,\quad
+ \frac{\mathrm dy}{\mathrm dt}=v,\quad
+ \frac{\mathrm dz}{\mathrm dt}=w
+ \end{aligned}\]</div></li>
+<li>Newton의 제2법칙에서 가속도는 <strong>특정 유체입자를 따라가며 측정한 속도의 시간 변화율</strong>이므로, <strong>Lagrangian 관점에 해당</strong>.<div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf a=\frac{\mathrm D\mathbf V}{\mathrm Dt}\qquad\text{Lagrangian Acceleration}\]</div></li>
+<li>반면 Eulerian 관점에서는 고정된 위치에서의 속도 변화를 관찰하므로 (고정된 위치를 지나가는 순간의 속도변화)<div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf a_{\mathrm{local}}=\frac{\partial\mathbf V}{\partial t}\]</div></li>
+<li>특정 위치에서 속도의 변화가 없을지라도 (\(\partial\mathbf V/\partial t=0\)) 다른 위치에서는 속도가 다를 수 있음.</li>
+<li>이를 <strong>Convective Acceleration</strong>이라 하며 Eulerian 관점에서도 실제 유체입자의 전체 가속도는<div class="equation key" role="group" aria-label="Mathematical expression">\[\frac{\mathrm D\mathbf V}{\mathrm Dt}=
+ \underbrace{\frac{\partial\mathbf V}{\partial t}}_{\text{Local Acceleration}}+
+ \underbrace{(\mathbf V\cdot\nabla)\mathbf V}_{\text{Convective Acceleration}}\]</div></li>
+<li>이처럼 고정된 위치의 시간 변화와 입자의 공간 이동에 따른 변화를 합한 연산을 <strong>Material Derivative</strong>라 하며, 다음 절에서 유도함.</li>
+<li><strong>Local Acceleration:</strong> 고정된 위치에서 시간에 따른 속도 변화.</li>
+<li><strong>Convective Acceleration:</strong> 유체입자가 공간적으로 속도가 다른 위치로 이동하면서 발생하는 속도 변화.</li></ul><aside class="note-box"><h3>Note · Eulerian vs. Lagrangian</h3>
+<p>Eulerian과 Lagrangian 관점은 동일한 유체 속도를 서로 다른 독립변수로 표현하므로, 그 미분의 의미가 다름.</p>
+<h4>Lagrangian Description</h4>
+<p>특정 유체입자를 따라가므로 그 입자의 속도는 시간의 함수로 표현함.</p><div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf v_p=\mathbf v_p(t)\]</div>
+<h4>Eulerian Description</h4>
+<p>공간의 각 위치에서 유체의 속도를 정의하므로, 속도는 공간과 시간의 함수인 <strong>Velocity Field</strong>로 표현함.</p><div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf V=\mathbf V(x,y,z,t)\]</div>
+<h4>Relationship between Two Descriptions</h4>
+<p>특정 유체입자의 위치를 \(\mathbf x_p(t)=\bigl(x_p(t),y_p(t),z_p(t)\bigr)\)라 하면, <strong>해당 위치의 속도장 값이 입자의 속도와 일치함</strong>.</p><div class="equation key" role="group" aria-label="Mathematical expression">\[\boxed{\mathbf v_p(t)=\mathbf V\!\left(\mathbf x_p(t),t\right)}\]</div>
+<p>따라서 <strong>고정된 위치에서의 속도 변화율</strong>과 <strong>움직이는 입자의 속도 변화율</strong>은 일반적으로 서로 다름.</p></aside></section>
+<div class="chapter-break"><span class="overline">FUNDAMENTALS · SUBSECTION 1.1</span><h2>Material Derivative</h2><p>유체입자가 이동하면서 경험하는 물리량의 변화율을 Chain Rule로 유도함.</p></div>
+<section class="lesson-section" id="derivation"><h2><span class="section-tag">03</span>Mathematical Derivation</h2><ul class="study-points"><li>Eulerian 관점에서 정의된 밀도장 \(\rho(x,y,z,t)\)를 따라 유체입자의 위치가 \(\mathbf x_p(t)\)로 변하면, 입자가 경험하는 <strong>Density</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[\rho_p(t)=\rho\bigl(x_p(t),y_p(t),z_p(t),t\bigr)\]</div></li>
+<li>입자를 따라가는 밀도 변화에 <strong>Chain Rule</strong>을 적용하면<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d\rho=\frac{\partial\rho}{\partial t}\mathrm dt+
+ \frac{\partial\rho}{\partial x}\mathrm dx+
+ \frac{\partial\rho}{\partial y}\mathrm dy+
+ \frac{\partial\rho}{\partial z}\mathrm dz\]</div></li>
+<li>위 식을 \(\mathrm dt\)로 나누면, 이동하는 유체입자에서의 <strong>밀도 변화율</strong>은 다음과 같음.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+ \frac{\mathrm D\rho}{\mathrm Dt}
+ &=\frac{\partial\rho}{\partial t}
+ +\frac{\partial\rho}{\partial x}\frac{\mathrm dx}{\mathrm dt}
+ +\frac{\partial\rho}{\partial y}\frac{\mathrm dy}{\mathrm dt}
+ +\frac{\partial\rho}{\partial z}\frac{\mathrm dz}{\mathrm dt}\\[5pt]
+ &=\frac{\partial\rho}{\partial t}
+ +u\frac{\partial\rho}{\partial x}
+ +v\frac{\partial\rho}{\partial y}
+ +w\frac{\partial\rho}{\partial z}
+ \end{aligned}\]</div></li>
+<li>유체입자의 속도 성분 \(u=\mathrm dx/\mathrm dt\), \(v=\mathrm dy/\mathrm dt\), \(w=\mathrm dz/\mathrm dt\)를 사용하고, 공간미분을 나타내는 <strong>Gradient Operator</strong>를 정의하면<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+ \nabla&=\mathbf i\frac{\partial}{\partial x}
+ +\mathbf j\frac{\partial}{\partial y}
+ +\mathbf k\frac{\partial}{\partial z},\\[5pt]
+ \mathbf V\cdot\nabla&=
+ u\frac{\partial}{\partial x}
+ +v\frac{\partial}{\partial y}
+ +w\frac{\partial}{\partial z}
+ \end{aligned}\]</div></li>
+<li>따라서 Eulerian 관점의 시간 변화율과 공간 변화율을 합하여, 유체입자를 따라가는 변화율인 <strong>Material Derivative</strong>를 정의함.<div class="equation key" role="group" aria-label="Mathematical expression">\[\boxed{\frac{\mathrm D}{\mathrm Dt}=\frac{\partial}{\partial t}+\mathbf V\cdot\nabla}\]</div><div class="definitions two-terms"><div><strong>\(\partial/\partial t\)</strong> : 고정점의 시간변화</div><div><strong>\(\mathbf V\cdot\nabla\)</strong> : 공간적으로 다른 값을 갖는 위치로 이동하며 겪는 변화</div></div></li></ul></section>
+<section class="lesson-section" id="acceleration"><h2><span class="section-tag">04</span>Acceleration</h2><ul class="study-points"><li>앞에서 정의한 Material Derivative를 속도의 각 성분에 적용하면<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+ a_x=\frac{\mathrm Du}{\mathrm Dt}
+ &=\frac{\partial u}{\partial t}
+ +u\frac{\partial u}{\partial x}+v\frac{\partial u}{\partial y}+w\frac{\partial u}{\partial z},\\[7pt]
+ a_y=\frac{\mathrm Dv}{\mathrm Dt}
+ &=\frac{\partial v}{\partial t}
+ +u\frac{\partial v}{\partial x}+v\frac{\partial v}{\partial y}+w\frac{\partial v}{\partial z},\\[7pt]
+ a_z=\frac{\mathrm Dw}{\mathrm Dt}
+ &=\frac{\partial w}{\partial t}
+ +u\frac{\partial w}{\partial x}+v\frac{\partial w}{\partial y}+w\frac{\partial w}{\partial z}
+ \end{aligned}\]</div></li>
+<li>\(x,y,z\) 방향의 가속도를 하나의 벡터로 모으면, 유체입자의 <strong>전체 가속도</strong>는<div class="equation key" role="group" aria-label="Mathematical expression">\[\boxed{\mathbf a=\frac{\mathrm D\mathbf V}{\mathrm Dt}
+ =\frac{\partial\mathbf V}{\partial t}+(\mathbf V\cdot\nabla)\mathbf V}\]</div></li>
+<li><strong>Steady Flow</strong>에서도 위치에 따라 속도가 바뀌면 가속도가 존재.<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\partial\mathbf V}{\partial t}=0\quad\Longrightarrow\quad
+ \mathbf a=(\mathbf V\cdot\nabla)\mathbf V\]</div></li>
+<li>예를 들어 \(u=Ax\), \(v=-Ay\), \(w=0\)인 steady state를 고려함. \(A\)를 상수로 두고 각 속도 성분을 미분하면, <strong>Local Acceleration</strong>은 0이지만 <strong>Convective Acceleration</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+ \frac{\partial u}{\partial t}&=0,\qquad
+ \frac{\partial v}{\partial t}=0,\\
+ a_x&=u\frac{\partial u}{\partial x}+v\frac{\partial u}{\partial y}\\
+ &=(Ax)A+(-Ay)0=A^2x,\\
+ a_y&=u\frac{\partial v}{\partial x}+v\frac{\partial v}{\partial y}\\
+ &=(Ax)0+(-Ay)(-A)=A^2y,\\
+ \mathbf a&=A^2x\,\mathbf i+A^2y\,\mathbf j
+ \end{aligned}\]</div></li>
+<li>고정점의 속도는 일정하지만, 입자는 다른 위치로 이동하면서 속도가 변함.</li></ul></section>
+</article>
+<div class="article-pager"><a class="next" href="flow-rate-and-reynolds-transport-theorem.html"><span class="direction">NEXT →</span><span class="adjacent">Flow Rate and Reynolds Transport Theorem</span></a></div>
+<a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a>
+</main><footer class="site-footer"><div class="shell"><span>© Engineering Archive</span><span>Fundamentals of Aerodynamics</span></div></footer>
+</body></html>
