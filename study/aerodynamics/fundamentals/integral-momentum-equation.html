@@ -84,14 +84,16 @@ body.inner-page .breadcrumb{font-size:16px}
 <ul class="study-points">
 <li><strong>Key Physical Principle</strong>: 유체에 작용하는 외력은 유체의 운동량 변화율과 같음.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{gathered}\Downarrow\\[1.5em] \text{(Force)}=\text{(Time rate of change of momentum)} \end{gathered}\]</div></li>
 <li>동일한 유체입자로 이루어진 System의 운동량을 \(\mathbf P_{\mathrm{sys}}\)라 하면<div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf F=\frac{\mathrm d \mathbf P_{\mathrm{sys}}}{\mathrm d t},\qquad\mathbf P_{\mathrm{sys}}=\iiint_{\mathrm{sys}}\rho\mathbf V\,\mathrm d \mathcal V.\]</div></li>
-<li>먼저 좌변의 <strong>Force Term</strong>을 구함. 유체에 작용하는 힘은 다음 두 종류로 나뉨. \begin{enumerate}[itemsep=0.15cm]</li>
+<li>먼저 좌변의 <strong>Force Term</strong>을 구함. 유체에 작용하는 힘은 다음 두 종류로 나뉨.
+<ol class="definitions">
 <li><strong>Body Force</strong>: 체적 전체의 유체에 작용하는 힘. 중력, 전자기력 등이 해당함.</li>
-<li><strong>Surface Force</strong>: 경계면을 통해 작용하는 힘. 압력과 점성응력에 의한 힘이 해당함. \end{enumerate</li>
+<li><strong>Surface Force</strong>: 경계면을 통해 작용하는 힘. 압력과 점성응력에 의한 힘이 해당함.</li>
+</ol></li>
 <li>단위질량당 Body Force를 \(\mathbf f\)라 하면, 미소질량에 작용하는 <strong>미소 체적력</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d \mathbf F_{\mathrm{body}}=\mathbf f\,\mathrm d m=\rho\mathbf f\,\mathrm d \mathcal V.\]</div></li>
 <li>이를 CV 전체에 적분하면 <strong>Body Force</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf F_{\mathrm{body}}=\iiint_{\mathcal V}\rho\mathbf f\,\mathrm d \mathcal V.\]</div></li>
 <li>\(\mathbf f\)의 단위는 가속도와 같은 \(\mathrm{m/s^2}\)임. 균일한 중력만 존재하면 \(\mathbf f=\mathbf g\)이므로<div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf F_{\mathrm{body}}=\mathbf g\iiint_{\mathcal V}\rho\,\mathrm d \mathcal V=m_{CV}\mathbf g.\]</div></li>
 <li>Surface Force 는 <strong>pressure force</strong>랑 <strong>Viscous Force</strong>로 나눠서 생각가능</li>
-<li>압력은 경계면을 안쪽으로 누르므로 바깥쪽 면적벡터 \(\dd\mathbf S\)와 반대 방향임. 따라서 <strong>미소 pressure force</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d \mathbf F_{\mathrm{pressure}}=-p\,\mathrm d \mathbf S.\]</div></li>
+<li>압력은 경계면을 안쪽으로 누르므로 바깥쪽 면적벡터 \(\mathrm d\mathbf S\)와 반대 방향임. 따라서 <strong>미소 pressure force</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d \mathbf F_{\mathrm{pressure}}=-p\,\mathrm d \mathbf S.\]</div></li>
 <li>이를 표면 \(S\) 전체에 적분하면 <strong>Pressure Force</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf F_{\mathrm{pressure}}=-\iint_Sp\,\mathrm d \mathbf S.\]</div></li>
 <li>점성이 있는 유동에서는 <strong>Normal Viscous Stress</strong>와 <strong>Shear Stress</strong>도 표면에 힘을 가함. 미소 점성력은<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d \mathbf F_{\mathrm{viscous}}=\boldsymbol\tau\cdot\mathrm d \mathbf S.\]</div></li>
 <li>따라서 표면 전체에 작용하는 <strong>Viscous Force</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf F_{\mathrm{viscous}}=\iint_S\boldsymbol\tau\cdot\mathrm d \mathbf S.\]</div></li>
