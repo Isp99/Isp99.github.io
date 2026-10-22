@@ -4,7 +4,7 @@
 .wide{max-width:1300px;padding:0 54px;margin:0 auto}.eyebrow{font-size:11px;font-weight:750;letter-spacing:.15em;text-transform:uppercase}
 .concept{min-height:100vh}
 @media(max-width:800px){.wide{padding:0 24px}}
-/* Engineering Archive homepage — original blue bento layout */
+/* Engineering Notebook homepage — original blue bento layout */
 .bento{background:#f5f8fc;color:#182638}
 .bento header{border-bottom:1px solid #e5eaf1}.bento .nav{height:84px;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .bento .identity{display:flex;gap:13px;align-items:center}.bento .monogram{background:#244eaa;color:#fff;width:38px;height:38px;display:flex;justify-content:center;align-items:center;font-size:16px;border-radius:11px;font-weight:800}
@@ -90,11 +90,11 @@
 
 
 /* -----------------------------------------------------------------------
-   INNER PAGES: Engineering Archive Home's font family, palette, geometry.
+   INNER PAGES: Engineering Notebook Home's font family, palette, geometry.
    All new pages use this stylesheet. No external font download required.
    ----------------------------------------------------------------------- */
-:root{--archive-bg:#f5f8fc;--archive-ink:#182638;--archive-blue:#2d62b6;--archive-border:#e2e9f2;--archive-muted:#7386a2;--archive-alt:#eef3fa;}
-body.inner-page{background:var(--archive-bg);color:var(--archive-ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;}
+:root{--notebook-bg:#f5f8fc;--notebook-ink:#182638;--notebook-blue:#2d62b6;--notebook-border:#e2e9f2;--notebook-muted:#7386a2;--notebook-alt:#eef3fa;}
+body.inner-page{background:var(--notebook-bg);color:var(--notebook-ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;}
 .inner-page .shell{width:min(calc(100% - 48px),1008px);margin:0 auto;}
 .inner-page .site-header{background:transparent;border-bottom:1px solid #e5eaf1;}
 .inner-page .site-header .shell{height:56px;display:flex;justify-content:space-between;align-items:center;gap:18px;}
@@ -110,7 +110,7 @@ body.inner-page{background:var(--archive-bg);color:var(--archive-ink);font-famil
 .inner-page .site-footer .shell{display:flex;justify-content:space-between;gap:14px;}
 .inner-page .hero{min-height:218px;position:relative;padding:42px 0 41px;overflow:hidden;}
 .inner-page .hero-text{max-width:650px;position:relative;z-index:1;}
-.inner-page .eyebrow{font-size:10px;letter-spacing:.1em;color:var(--archive-blue);font-weight:800;margin:0 0 10px;}
+.inner-page .eyebrow{font-size:10px;letter-spacing:.1em;color:var(--notebook-blue);font-weight:800;margin:0 0 10px;}
 .inner-page h1{font-size:clamp(34px,4.5vw,46px);margin:0;line-height:1.13;letter-spacing:-.045em;color:#102746;font-weight:800;}
 .inner-page .hero-subtitle{font-size:18px;color:#7185a4;margin:7px 0 17px;}
 .inner-page .hero-description{max-width:640px;font-size:13px;line-height:1.7;color:#7c90ad;margin:0;}
