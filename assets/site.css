@@ -89,6 +89,37 @@
 .bento a.block:focus-visible{outline:3px solid #2d62b6;outline-offset:3px}
 
 
+
+/* Homepage: About This Notebook — matches existing blue-and-white bento style. */
+.bento .about-section{background:#f5f8fc;border-top:1px solid #e3e9f1;padding:18px 0 38px}
+.bento .about-panel{background:#fff;border:1px solid #d9e5f5;border-radius:12px;padding:23px 27px 27px;box-shadow:0 7px 24px rgba(53,100,149,.035)}
+.bento .about-kicker{font-size:11px;font-weight:800;letter-spacing:.085em;color:#2d62b6;margin:0 0 5px}
+.bento .about-panel h2{font-size:25px;line-height:1.2;letter-spacing:-.04em;color:#182638;margin:0;font-weight:750}
+.bento .about-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:17px}
+.bento .about-item{display:flex;gap:17px;min-width:0;align-items:flex-start}
+.bento .about-item+.about-item{border-left:1px solid #e1e9f4;padding-left:26px}
+.bento .about-icon{display:grid;place-items:center;flex:none;width:45px;height:45px;background:#edf4ff;border-radius:12px;color:#2d62b6}
+.bento .about-copy{min-width:0}
+.bento .about-number{display:block;color:#2d62b6;font-size:11px;line-height:1.2;font-weight:800}
+.bento .about-copy h3{font-size:17px;line-height:1.3;letter-spacing:-.025em;color:#182638;margin:4px 0 9px;font-weight:750}
+.bento .about-copy p{color:#7184a2;font-size:12.5px;line-height:1.68;margin:0}
+.bento .about-copy p+p{margin-top:18px}
+@media(max-width:800px){
+ .bento .about-section{padding:17px 0 32px}
+ .bento .about-panel{padding:22px 19px}
+ .bento .about-panel h2{font-size:23px}
+ .bento .about-grid{grid-template-columns:1fr;gap:22px;margin-top:21px}
+ .bento .about-item+.about-item{padding:22px 0 0;border-left:0;border-top:1px solid #e1e9f4}
+ .bento .about-item{gap:14px}
+ .bento .about-icon{width:42px;height:42px}
+ .bento .about-copy p{font-size:13px}
+}
+@media(max-width:400px){
+ .bento .about-icon{width:36px;height:36px;border-radius:9px}
+ .bento .about-item{gap:11px}
+ .bento .about-copy h3{font-size:16px}
+}
+
 /* -----------------------------------------------------------------------
    INNER PAGES: Engineering Notebook Home's font family, palette, geometry.
    All new pages use this stylesheet. No external font download required.
