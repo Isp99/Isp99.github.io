@@ -15,7 +15,7 @@
      resume.setAttribute("aria-label","Continue reading "+String(v.title||"your last note"));
    }catch(_){}
  }
- const lower=s=>String(s||"").toLocaleLowerCase();
+ const lower=s=>String(s||"").toLocaleLowerCase().replace(/[-–—]/g," ").replace(/\s+/g," ").trim();
  function score(doc,q,terms){
    const title=lower(doc.title),desc=lower(doc.description),group=lower(doc.group),words=lower(doc.keywords);
    if(!terms.every(t=>(title+" "+desc+" "+group+" "+words).includes(t)))return -1;
