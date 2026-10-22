@@ -63,6 +63,8 @@ body.inner-page .breadcrumb{font-size:16px}
 @media(max-width:740px){.md-page .cv-figure{margin:35px auto 45px}.md-page .cv-figure figcaption{font-size:12px}.md-page .principle-flow{font-size:13px;gap:12px;margin:30px auto 41px}}
 
 .md-page .equation{max-width:100%;overscroll-behavior-x:contain}
+.md-page .equation.single-line-momentum{font-size:14px;white-space:nowrap;overflow-x:auto}
+
 .md-page .definitions{word-break:keep-all}
 </style>
 <script>window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
@@ -101,7 +103,7 @@ body.inner-page .breadcrumb{font-size:16px}
 <li>따라서 운동량식은<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \rho\left[\frac{\partial\mathbf V}{\partial t}+(\mathbf V\cdot\nabla)\mathbf V\right] =-\nabla p+\rho\mathbf f+\nabla\cdot\boldsymbol\tau.}\]</div></li>
 <li>대괄호 안을 Material Derivative로 쓰면<div class="equation key" id="eq-momentumMaterialNew" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \rho\frac{\mathrm D \mathbf V}{\mathrm D t}=-\nabla p+\rho\mathbf f+\nabla\cdot\boldsymbol\tau. }\]</div></li>
 <li>좌변은 <strong>질량밀도 \(\times\) 가속도</strong>, 우변은 단위체적당 외력임. 이 과정에서는 밀도가 일정하다는 가정을 사용하지 않았음.</li>
-<li>보존형의 \(x\)성분을 풀어 쓰면<div class="equation" id="eq-xConservative" role="group" aria-label="Mathematical expression">\[\begin{aligned} \frac{\partial(\rho u)}{\partial t} +\frac{\partial(\rho u^2)}{\partial x} +\frac{\partial(\rho uv)}{\partial y} +\frac{\partial(\rho uw)}{\partial z} ={}&-\frac{\partial p}{\partial x}+\rho f_x\\[1.5em] &+\frac{\partial\tau_{xx}}{\partial x} +\frac{\partial\tau_{xy}}{\partial y}+\frac{\partial\tau_{xz}}{\partial z}. \end{aligned} \]</div></li>
+<li>보존형의 \(x\)성분을 풀어 쓰면<div class="equation single-line-momentum" id="eq-xConservative" role="group" aria-label="Mathematical expression">\[\frac{\partial(\rho u)}{\partial t}+\frac{\partial(\rho u^2)}{\partial x}+\frac{\partial(\rho uv)}{\partial y}+\frac{\partial(\rho uw)}{\partial z}=-\frac{\partial p}{\partial x}+\rho f_x+\frac{\partial\tau_{xx}}{\partial x}+\frac{\partial\tau_{xy}}{\partial y}+\frac{\partial\tau_{xz}}{\partial z}.\]</div></li>
 <li>같은 성분의 Material Form은<div class="equation" id="eq-xMaterial" role="group" aria-label="Mathematical expression">\[\rho\frac{\mathrm D u}{\mathrm D t}=-\frac{\partial p}{\partial x}+\rho f_x+\frac{\partial\tau_{xx}}{\partial x}+\frac{\partial\tau_{xy}}{\partial y}+\frac{\partial\tau_{xz}}{\partial z}. \]</div></li>
 </ul></section>
 </article>
