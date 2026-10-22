@@ -9,40 +9,37 @@
 <style>
 /* Material Derivative — scoped page-specific instructional layout */
 body.inner-page .breadcrumb{font-size:16px}
-.md-page .article-content{padding:35px 42px 45px}
-.md-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:28px;font-size:12px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.md-page .article-content{padding:43px 46px 64px}
+.md-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:12px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
 .md-page .lesson-meta span:first-child{color:#2e61b7}
-.md-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:19px 23px;margin-bottom:40px}
-.md-page .lesson-toc strong{display:block;color:#2c548e;font-size:14px;margin-bottom:12px}
+.md-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:68px}
+.md-page .lesson-toc strong{display:block;color:#2c548e;font-size:14px;margin-bottom:17px}
 .md-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:8px 20px}
 .md-page .lesson-toc a{font-size:13px;color:#537094;font-weight:650;line-height:1.55}
 .md-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
 .md-page .lesson-section{scroll-margin-top:27px}
-.md-page .lesson-section+.lesson-section{margin-top:43px;padding-top:33px;border-top:1px solid #e1eaf6}
-.md-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 22px!important;line-height:1.3}
+.md-page .lesson-section+.lesson-section{margin-top:76px;padding-top:44px;border-top:1px solid #e1eaf6}
+.md-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 37px!important;line-height:1.3}
 .md-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
 .md-page .study-points{list-style:none;padding:0;margin:0}
-.md-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.85;color:#465f7e;margin:0 0 21px;word-break:keep-all;overflow-wrap:anywhere}
+.md-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 38px;word-break:keep-all;overflow-wrap:anywhere}
+.md-page .study-points>li:last-child{margin-bottom:0}
 .md-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
 .md-page strong{color:#23466f}
-.md-page .equation{border:1px solid #e9eff8;background:#f7f9fd;border-radius:10px;margin:14px 0 6px;padding:17px 12px;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px}
-.md-page .equation.key{background:#edf4ff;border:1px solid #bdcfec;border-left:4px solid #3367bb;padding:19px 15px}
+.md-page .equation{border:1px solid #e9eff8;background:#f7f9fd;border-radius:10px;margin:26px 0 29px;padding:23px 16px;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px}
+.md-page .equation.key{background:#edf4ff;border:1px solid #bdcfec;border-left:4px solid #3367bb;padding:27px 18px}
 .md-page .equation mjx-container[display="true"]{margin:.3em auto!important}
-.md-page .definitions{margin:10px 0 0 21px;padding:0;font-size:14px;color:#627a9a;line-height:1.8}
-.md-page .definitions li{margin:3px 0}
-.md-page .definitions.two-terms{list-style:none;padding:13px 16px;margin:13px 0 0;background:#f5f8fe;border-radius:9px;border:1px solid #e5ebf5}
-.md-page .two-terms div+div{margin-top:6px}
-.md-page .note-box{border:1px solid #d7e4f5;border-left:4px solid #4572bd;background:#f4f8fe;border-radius:11px;padding:24px;margin-top:27px}
-.md-page .note-box h3{font-size:17px;color:#254d83;margin:0 0 13px}
-.md-page .note-box h4{font-size:14px;margin:21px 0 8px;color:#2c578e}
-.md-page .note-box p{font-size:14px;line-height:1.8;color:#506b8a;max-width:none;margin:0 0 10px;word-break:keep-all}
-.md-page .note-box .equation{background:white}
+.md-page .definitions{margin:24px 0 19px 21px;padding:0;font-size:14px;color:#627a9a;line-height:1.85}
+.md-page .definitions li{margin:9px 0}
+.md-page .definitions.two-terms{list-style:none;padding:21px 19px;margin:26px 0 17px;background:#f5f8fe;border-radius:9px;border:1px solid #e5ebf5}
+.md-page .two-terms div+div{margin-top:14px}
+.md-page .note-box{border:1px solid #d7e4f5;border-left:4px solid #4572bd;background:#f4f8fe;border-radius:11px;padding:33px 34px 37px;margin:48px 0 13px}
+.md-page .note-box h3{font-size:17px;color:#254d83;margin:0 0 23px}
+.md-page .note-box h4{font-size:14px;margin:33px 0 14px;color:#2c578e}
+.md-page .note-box p{font-size:14px;line-height:1.88;color:#506b8a;max-width:none;margin:0 0 20px;word-break:keep-all}
+.md-page .note-box .equation{background:white;margin:23px 0 31px}
 .md-page .note-box .equation.key{background:#eaf2ff}
-.md-page .chapter-break{background:#eaf1fc;border:1px solid #d9e5f7;border-radius:12px;margin:48px 0 36px;padding:25px 27px}
-.md-page .chapter-break .overline{font-size:11px;font-weight:800;letter-spacing:.1em;color:#4877be}
-.md-page .chapter-break h2{font-size:26px!important;color:#1f477e;margin:8px 0 8px!important}
-.md-page .chapter-break p{font-size:14px;color:#6f88aa;line-height:1.65;margin:0;max-width:none}
-@media(max-width:740px){.md-page .article-content{padding:24px 18px 30px}.md-page .lesson-toc{padding:16px}.md-page .lesson-toc ul{grid-template-columns:1fr}.md-page .lesson-section h2{font-size:20px!important}.md-page .study-points>li{font-size:14px;padding-left:21px}.md-page .equation{font-size:14px;padding:14px 9px}.md-page .note-box{padding:19px 15px}.md-page .chapter-break{padding:21px}.md-page .chapter-break h2{font-size:23px!important}}
+@media(max-width:740px){.md-page .article-content{padding:24px 18px 30px}.md-page .lesson-toc{padding:16px}.md-page .lesson-toc ul{grid-template-columns:1fr}.md-page .lesson-section h2{font-size:20px!important}.md-page .study-points>li{font-size:14px;padding-left:21px}.md-page .equation{font-size:14px;padding:14px 9px}.md-page .note-box{padding:19px 15px}.md-page .lesson-section+.lesson-section{margin-top:58px;padding-top:33px}.md-page .study-points>li{margin-bottom:30px}.md-page .equation{margin:21px 0 24px;padding:19px 10px}.md-page .equation.key{padding:22px 11px}.md-page .note-box{margin-top:36px;padding:25px 18px 28px}}
 @media(max-width:600px){body.inner-page .breadcrumb{font-size:14px}}
 </style>
 <script>
@@ -112,7 +109,6 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},opt
 <h4>Relationship between Two Descriptions</h4>
 <p>특정 유체입자의 위치를 \(\mathbf x_p(t)=\bigl(x_p(t),y_p(t),z_p(t)\bigr)\)라 하면, <strong>해당 위치의 속도장 값이 입자의 속도와 일치함</strong>.</p><div class="equation key" role="group" aria-label="Mathematical expression">\[\boxed{\mathbf v_p(t)=\mathbf V\!\left(\mathbf x_p(t),t\right)}\]</div>
 <p>따라서 <strong>고정된 위치에서의 속도 변화율</strong>과 <strong>움직이는 입자의 속도 변화율</strong>은 일반적으로 서로 다름.</p></aside></section>
-<div class="chapter-break"><span class="overline">FUNDAMENTALS · SUBSECTION 1.1</span><h2>Material Derivative</h2><p>유체입자가 이동하면서 경험하는 물리량의 변화율을 Chain Rule로 유도함.</p></div>
 <section class="lesson-section" id="derivation"><h2><span class="section-tag">03</span>Mathematical Derivation</h2><ul class="study-points"><li>Eulerian 관점에서 정의된 밀도장 \(\rho(x,y,z,t)\)를 따라 유체입자의 위치가 \(\mathbf x_p(t)\)로 변하면, 입자가 경험하는 <strong>Density</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[\rho_p(t)=\rho\bigl(x_p(t),y_p(t),z_p(t),t\bigr)\]</div></li>
 <li>입자를 따라가는 밀도 변화에 <strong>Chain Rule</strong>을 적용하면<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d\rho=\frac{\partial\rho}{\partial t}\mathrm dt+
  \frac{\partial\rho}{\partial x}\mathrm dx+
