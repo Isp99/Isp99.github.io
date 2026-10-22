@@ -26,8 +26,8 @@ body.inner-page .breadcrumb{font-size:16px}
 .md-page .study-points>li:last-child{margin-bottom:0}
 .md-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
 .md-page strong{color:#23466f}
-.md-page .equation{border:1px solid #e9eff8;background:#f7f9fd;border-radius:10px;margin:26px 0 29px;padding:23px 16px;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px}
-.md-page .equation.key{background:#edf4ff;border:1px solid #bdcfec;border-left:4px solid #3367bb;padding:27px 18px}
+.md-page .equation{border:none;background:transparent;border-radius:0;margin:26px 0 30px;padding:7px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px}
+.md-page .equation.key{background:#f7f9fd;border:none;border-radius:10px;margin:43px 0 47px;padding:29px 18px}
 .md-page .equation mjx-container[display="true"]{margin:.3em auto!important}
 .md-page .definitions{margin:24px 0 19px 21px;padding:0;font-size:14px;color:#627a9a;line-height:1.85}
 .md-page .definitions li{margin:9px 0}
@@ -37,9 +37,9 @@ body.inner-page .breadcrumb{font-size:16px}
 .md-page .note-box h3{font-size:17px;color:#254d83;margin:0 0 23px}
 .md-page .note-box h4{font-size:14px;margin:33px 0 14px;color:#2c578e}
 .md-page .note-box p{font-size:14px;line-height:1.88;color:#506b8a;max-width:none;margin:0 0 20px;word-break:keep-all}
-.md-page .note-box .equation{background:white;margin:23px 0 31px}
-.md-page .note-box .equation.key{background:#eaf2ff}
-@media(max-width:740px){.md-page .article-content{padding:24px 18px 30px}.md-page .lesson-toc{padding:16px}.md-page .lesson-toc ul{grid-template-columns:1fr}.md-page .lesson-section h2{font-size:20px!important}.md-page .study-points>li{font-size:14px;padding-left:21px}.md-page .equation{font-size:14px;padding:14px 9px}.md-page .note-box{padding:19px 15px}.md-page .lesson-section+.lesson-section{margin-top:58px;padding-top:33px}.md-page .study-points>li{margin-bottom:30px}.md-page .equation{margin:21px 0 24px;padding:19px 10px}.md-page .equation.key{padding:22px 11px}.md-page .note-box{margin-top:36px;padding:25px 18px 28px}}
+.md-page .note-box .equation{background:transparent;margin:29px 0 35px}
+.md-page .note-box .equation.key{background:#f7f9fd;margin:43px 0 47px}
+@media(max-width:740px){.md-page .article-content{padding:24px 18px 30px}.md-page .lesson-toc{padding:16px}.md-page .lesson-toc ul{grid-template-columns:1fr}.md-page .lesson-section h2{font-size:20px!important}.md-page .study-points>li{font-size:14px;padding-left:21px}.md-page .equation{font-size:14px;padding:14px 9px}.md-page .note-box{padding:19px 15px}.md-page .lesson-section+.lesson-section{margin-top:58px;padding-top:33px}.md-page .study-points>li{margin-bottom:30px}.md-page .equation{margin:24px 0 29px;padding:6px 0}.md-page .equation.key{margin:35px 0 40px;padding:24px 11px}.md-page .note-box .equation.key{margin:35px 0 40px}.md-page .note-box{margin-top:36px;padding:25px 18px 28px}}
 @media(max-width:600px){body.inner-page .breadcrumb{font-size:14px}}
 </style>
 <script>
@@ -95,7 +95,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},opt
 <li>Newton의 제2법칙에서 가속도는 <strong>특정 유체입자를 따라가며 측정한 속도의 시간 변화율</strong>이므로, <strong>Lagrangian 관점에 해당</strong>.<div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf a=\frac{\mathrm D\mathbf V}{\mathrm Dt}\qquad\text{Lagrangian Acceleration}\]</div></li>
 <li>반면 Eulerian 관점에서는 고정된 위치에서의 속도 변화를 관찰하므로 (고정된 위치를 지나가는 순간의 속도변화)<div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf a_{\mathrm{local}}=\frac{\partial\mathbf V}{\partial t}\]</div></li>
 <li>특정 위치에서 속도의 변화가 없을지라도 (\(\partial\mathbf V/\partial t=0\)) 다른 위치에서는 속도가 다를 수 있음.</li>
-<li>이를 <strong>Convective Acceleration</strong>이라 하며 Eulerian 관점에서도 실제 유체입자의 전체 가속도는<div class="equation key" role="group" aria-label="Mathematical expression">\[\frac{\mathrm D\mathbf V}{\mathrm Dt}=
+<li>이를 <strong>Convective Acceleration</strong>이라 하며 Eulerian 관점에서도 실제 유체입자의 전체 가속도는<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\mathrm D\mathbf V}{\mathrm Dt}=
  \underbrace{\frac{\partial\mathbf V}{\partial t}}_{\text{Local Acceleration}}+
  \underbrace{(\mathbf V\cdot\nabla)\mathbf V}_{\text{Convective Acceleration}}\]</div></li>
 <li>이처럼 고정된 위치의 시간 변화와 입자의 공간 이동에 따른 변화를 합한 연산을 <strong>Material Derivative</strong>라 하며, 다음 절에서 유도함.</li>
