@@ -50,7 +50,7 @@ body.inner-page .breadcrumb{font-size:16px}
 @media(max-width:600px){body.inner-page .breadcrumb{font-size:14px}.md-page .study-points>li.sub-point{margin-left:18px}}
 </style>
 <script>
-window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
@@ -89,7 +89,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},opt
  \rho&=\rho(x,y,z,t),\qquad p=p(x,y,z,t),\\[0.6cm]
  T&=T(x,y,z,t),\qquad \mathbf V=\mathbf V(x,y,z,t)
  \end{aligned}\]</div></li>
-<li>연속체 가정의 타당성은 분자의 평균자유행로와 유동의 대표길이의 비율인 <strong>Knudsen Number</strong>로 판단함.<div class="equation key" role="group" aria-label="Mathematical expression">\[\boxed{\mathrm{Kn}=\frac{\lambda}{L}\ll1}\]</div><ul class="definitions"><li>\(\lambda\): Mean Free Path (평균자유행로)</li><li>\(L\): Characteristic Length (대표길이)</li></ul></li>
+<li>연속체 가정의 타당성은 분자의 평균자유행로와 유동의 대표길이의 비율인 <strong>Knudsen Number</strong>로 판단함.<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \mathrm{Kn}=\frac{\lambda}{L}\ll1}\]</div><ul class="definitions"><li>\(\lambda\): Mean Free Path (평균자유행로)</li><li>\(L\): Characteristic Length (대표길이)</li></ul></li>
 <li>\(\mathrm{Kn}\ll1\)이면 연속체 가정이 대체로 타당하며, 희박기체 유동과 같이 \(\mathrm{Kn}\)이 커지는 경우에는 분자 운동을 고려하는 해석 방법이 필요할 수 있음.</li></ul></section>
 <section class="lesson-section" id="descriptions"><h2><span class="section-tag">02</span>Eulerian and Lagrangian Descriptions</h2><ul class="study-points"><li>유체의 운동은 <strong>공간의 고정된 위치</strong>에서 물리량의 변화를 관찰하거나, <strong>개별 유체입자를 따라 이동</strong>하며 관찰할 수 있음. 이에 따라 Eulerian과 Lagrangian의 두 가지 기술 방식으로 구분함.</li>
 <li><strong>Eulerian Description:</strong> 공간의 한 위치를 고정하고 유체의 변화를 관찰함.<div class="equation" role="group" aria-label="Mathematical expression">\[\rho=\rho(x_0,y_0,z_0,t),\qquad\text{고정점의 변화율}=\frac{\partial\rho}{\partial t}\]</div></li>
@@ -114,7 +114,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},opt
 <h4>Eulerian Description</h4>
 <p>공간의 각 위치에서 유체의 속도를 정의하므로, 속도는 공간과 시간의 함수인 <strong>Velocity Field</strong>로 표현함.</p><div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf V=\mathbf V(x,y,z,t)\]</div>
 <h4>Relationship between Two Descriptions</h4>
-<p>특정 유체입자의 위치를 \(\mathbf x_p(t)=\bigl(x_p(t),y_p(t),z_p(t)\bigr)\)라 하면, <strong>해당 위치의 속도장 값이 입자의 속도와 일치함</strong>.</p><div class="equation key" role="group" aria-label="Mathematical expression">\[\boxed{\mathbf v_p(t)=\mathbf V\!\left(\mathbf x_p(t),t\right)}\]</div>
+<p>특정 유체입자의 위치를 \(\mathbf x_p(t)=\bigl(x_p(t),y_p(t),z_p(t)\bigr)\)라 하면, <strong>해당 위치의 속도장 값이 입자의 속도와 일치함</strong>.</p><div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \mathbf v_p(t)=\mathbf V\!\left(\mathbf x_p(t),t\right)}\]</div>
 <p>따라서 <strong>고정된 위치에서의 속도 변화율</strong>과 <strong>움직이는 입자의 속도 변화율</strong>은 일반적으로 서로 다름.</p></aside></section>
 <section class="lesson-section" id="derivation"><h2><span class="section-tag">03</span>Mathematical Derivation</h2><ul class="study-points"><li>Eulerian 관점에서 정의된 밀도장 \(\rho(x,y,z,t)\)를 따라 유체입자의 위치가 \(\mathbf x_p(t)\)로 변하면, 입자가 경험하는 <strong>Density</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[\rho_p(t)=\rho\bigl(x_p(t),y_p(t),z_p(t),t\bigr)\]</div></li>
 <li>입자를 따라가는 밀도 변화에 <strong>Chain Rule</strong>을 적용하면<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d\rho=\frac{\partial\rho}{\partial t}\mathrm dt+
@@ -141,7 +141,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},opt
  +v\frac{\partial}{\partial y}
  +w\frac{\partial}{\partial z}
  \end{aligned}\]</div></li>
-<li>따라서 Eulerian 관점의 시간 변화율과 공간 변화율을 합하여, 유체입자를 따라가는 변화율인 <strong>Material Derivative</strong>를 정의함.<div class="equation key" role="group" aria-label="Mathematical expression">\[\boxed{\frac{\mathrm D}{\mathrm Dt}=\frac{\partial}{\partial t}+\mathbf V\cdot\nabla}\]</div><div class="definitions two-terms"><div><strong>\(\partial/\partial t\)</strong> : 고정점의 시간변화</div><div><strong>\(\mathbf V\cdot\nabla\)</strong> : 공간적으로 다른 값을 갖는 위치로 이동하며 겪는 변화</div></div></li></ul></section>
+<li>따라서 Eulerian 관점의 시간 변화율과 공간 변화율을 합하여, 유체입자를 따라가는 변화율인 <strong>Material Derivative</strong>를 정의함.<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \frac{\mathrm D}{\mathrm Dt}=\frac{\partial}{\partial t}+\mathbf V\cdot\nabla}\]</div><div class="definitions two-terms"><div><strong>\(\partial/\partial t\)</strong> : 고정점의 시간변화</div><div><strong>\(\mathbf V\cdot\nabla\)</strong> : 공간적으로 다른 값을 갖는 위치로 이동하며 겪는 변화</div></div></li></ul></section>
 <section class="lesson-section" id="acceleration"><h2><span class="section-tag">04</span>Acceleration</h2><ul class="study-points"><li>앞에서 정의한 Material Derivative를 속도의 각 성분에 적용하면<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
  a_x=\frac{\mathrm Du}{\mathrm Dt}
  &=\frac{\partial u}{\partial t}
@@ -153,7 +153,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},opt
  &=\frac{\partial w}{\partial t}
  +u\frac{\partial w}{\partial x}+v\frac{\partial w}{\partial y}+w\frac{\partial w}{\partial z}
  \end{aligned}\]</div></li>
-<li>\(x,y,z\) 방향의 가속도를 하나의 벡터로 모으면, 유체입자의 <strong>전체 가속도</strong>는<div class="equation key" role="group" aria-label="Mathematical expression">\[\boxed{\mathbf a=\frac{\mathrm D\mathbf V}{\mathrm Dt}
+<li>\(x,y,z\) 방향의 가속도를 하나의 벡터로 모으면, 유체입자의 <strong>전체 가속도</strong>는<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \mathbf a=\frac{\mathrm D\mathbf V}{\mathrm Dt}
  =\frac{\partial\mathbf V}{\partial t}+(\mathbf V\cdot\nabla)\mathbf V}\]</div></li>
 <li><strong>Steady Flow</strong>에서도 위치에 따라 속도가 바뀌면 가속도가 존재.<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\partial\mathbf V}{\partial t}=0\quad\Longrightarrow\quad
  \mathbf a=(\mathbf V\cdot\nabla)\mathbf V\]</div></li>
