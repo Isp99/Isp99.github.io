@@ -60,7 +60,7 @@ body.inner-page .breadcrumb{font-size:16px}
 @media(max-width:740px){.md-page .transport-figure{margin:35px auto 45px}.md-page .transport-figure figcaption{font-size:12px}}
 </style>
 <script>
-window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
@@ -124,9 +124,9 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},opt
   \mathrm dm&=\rho\,\mathrm d\mathcal V\\[0.6cm]
   &=\rho V_n A\,\mathrm dt
   \end{aligned}\]</div></li>
-<li>따라서 단위시간당 통과하는 질량인 <strong>Mass Flow Rate (질량유량)</strong>은<div class="equation key" role="group" aria-label="Mathematical expression">\[\boxed{\dot m=\rho V_n A}\]</div></li>
+<li>따라서 단위시간당 통과하는 질량인 <strong>Mass Flow Rate (질량유량)</strong>은<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \dot m=\rho V_n A}\]</div></li>
 <li>밀도와 속도가 단면에서 일정하지 않은 경우에는, 미소면적 \(\mathrm dA\)를 통과하는 <strong>미소 질량유량</strong> \(\mathrm d\dot m\)을 먼저 구함.<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d\dot m=\rho(\mathbf V\cdot\mathbf n)\mathrm dA\]</div></li>
-<li>이를 Control Surface 전체에 적분하면, <strong>단위시간당 순유출 질량유량</strong>은<div class="equation key" role="group" aria-label="Mathematical expression">\[\boxed{\dot m_{\mathrm{net,out}}=\iint_S\rho(\mathbf V\cdot\mathbf n)\mathrm dA}\]</div></li>
+<li>이를 Control Surface 전체에 적분하면, <strong>단위시간당 순유출 질량유량</strong>은<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \dot m_{\mathrm{net,out}}=\iint_S\rho(\mathbf V\cdot\mathbf n)\mathrm dA}\]</div></li>
 <li>\(\mathbf n\)은 <strong>CV 바깥쪽 법선</strong>. 유출은 \(\mathbf V\cdot\mathbf n>0\), 유입은 \(\mathbf V\cdot\mathbf n<0\)임.</li>
 </ul></section>
 <section class="lesson-section" id="control-volume"><h2><span class="section-tag">02</span>System and Control Volume</h2>
@@ -161,7 +161,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},opt
  &=\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho b\,\mathrm d\mathcal V
  +\iint_S\rho b(\mathbf V\cdot\mathbf n)\mathrm dA
  \end{aligned}\]</div></li>
-<li>정리하면 System의 물리량 변화율을 CV 내부의 축적률과 경계를 통한 순유출률로 나타내는 <strong>Reynolds Transport Theorem (RTT)</strong>는 다음과 같음.<div class="equation key" role="group" aria-label="Mathematical expression">\[\boxed{\frac{\mathrm dB_{\mathrm{sys}}}{\mathrm dt}=\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho b\,\mathrm d\mathcal V+\iint_S\rho b(\mathbf V\cdot\mathbf n)\mathrm dA}\]</div></li>
+<li>정리하면 System의 물리량 변화율을 CV 내부의 축적률과 경계를 통한 순유출률로 나타내는 <strong>Reynolds Transport Theorem (RTT)</strong>는 다음과 같음.<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \frac{\mathrm dB_{\mathrm{sys}}}{\mathrm dt}=\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho b\,\mathrm d\mathcal V+\iint_S\rho b(\mathbf V\cdot\mathbf n)\mathrm dA}\]</div></li>
 <li>RTT의 우변에서 첫 번째 항은 <strong>CV 내부의 축적률(Accumulation Rate)</strong>, 두 번째 항은 <strong>CS를 통한 순유출률(Net Outflow Rate)</strong>을 의미함.</li>
 <li>질량, 운동량, 에너지에 해당하는 단위질량당 물리량 \(b\)는 다음과 같음.<div class="equation equation-table" role="group" aria-label="Mathematical expression">\[\begin{array}{c|ccc}
  &\text{Mass}&\text{Momentum}&\text{Energy}\\[0.6cm]\hline
