@@ -1,1 +1,194 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Artificial Intelligence — Engineering Notebook"><title>Artificial Intelligence | Engineering Notebook</title><link rel="stylesheet" href="../assets/site.css"></head><body class="inner-page"><header class="site-header"><div class="shell"><a class="brand" href="../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a><nav class="site-nav" aria-label="Main navigation"><a href="../index.html">Home</a><a class="desktop-link" href="../index.html#bento-study" aria-current="page">Study Note</a><a href="../index.html#bento-projects">Practice Project</a></nav></div></header><main class="shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a><span class="separator">›</span><a href="../index.html#bento-study">Study Note</a><span class="separator">›</span><strong>Artificial Intelligence</strong></nav><div class="hero"><div class="hero-text"><h1>Artificial Intelligence</h1><p class="hero-subtitle">Neural Networks and Operator Learning</p></div></div><div class="contents-header"><h2>Study Contents</h2><span class="count">02 TOPICS</span></div><div class="note-grid"><a class="note-card" href="artificial-intelligence/neural-networks.html"><div class="note-top"><span class="note-index">01 / STUDY</span><span class="note-arrow">↗</span></div><h3 class="note-title">Neural Networks</h3><p class="note-sub">Artificial Intelligence</p><span class="pending-label">Study notes in preparation</span></a><a class="note-card" href="artificial-intelligence/neural-operators.html"><div class="note-top"><span class="note-index">02 / STUDY</span><span class="note-arrow">↗</span></div><h3 class="note-title">Neural Operators</h3><p class="note-sub">Artificial Intelligence</p><span class="pending-label">Study notes in preparation</span></a></div><a class="back-bottom" href="../index.html#bento-study">← Back to Study Note</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Artificial Intelligence</span></div></footer></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Artificial Intelligence — Engineering Notebook">
+  <title>Artificial Intelligence | Engineering Notebook</title>
+  <link rel="stylesheet" href="../assets/site.css">
+  <style>
+    /* Typography-only refinements; preserve the original layout in site.css. */
+    body.inner-page .hero-text .hero-description {
+      margin-top: 14px;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    body.inner-page .contents-header h2 {
+      font-size: 24px;
+    }
+    body.inner-page .contents-header .count {
+      font-size: 14px;
+    }
+    body.inner-page .note-card .note-index {
+      font-size: 14px;
+    }
+    body.inner-page .note-card .note-title {
+      font-size: 23px;
+    }
+    body.inner-page .back-bottom {
+      font-size: 16px;
+    }
+    /* Breadcrumb typography shared by Artificial Intelligence and Fundamentals. */
+    body.inner-page .breadcrumb {
+      font-size: 16px;
+    }
+    @media (max-width: 600px) {
+      body.inner-page .breadcrumb { font-size: 14px; }
+      body.inner-page .hero-text .hero-description { font-size: 15px; }
+      body.inner-page .contents-header h2 { font-size: 22px; }
+      body.inner-page .contents-header .count { font-size: 13px; }
+      body.inner-page .note-card .note-index { font-size: 13px; }
+      body.inner-page .note-card .note-title { font-size: 21px; }
+      body.inner-page .back-bottom { font-size: 15px; }
+    }
+
+    /* AI subjects: Aerodynamics card language, grouped into NN and NO. */
+    .ai-group { margin: 0 0 36px; }
+    .ai-group-heading {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 18px; margin: 0 0 17px; padding: 0 0 14px;
+      border-bottom: 1px solid #dce6f3;
+    }
+    .ai-group-index { display: block; margin-bottom: 7px; color: #5077ba; font-size: 12px; font-weight: 800; letter-spacing: .07em; }
+    .ai-group-heading h2 { margin: 0; color: #172a42; font-size: 24px; line-height: 1.25; font-weight: 750; letter-spacing: -.035em; }
+    .ai-group-count { padding-bottom: 3px; color: #8195b2; font-size: 13px; font-weight: 600; white-space: nowrap; }
+    .inner-page .ai-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: 0; gap: 17px; }
+    .ai-grid .note-card { min-height: 326px; padding: 23px 22px; }
+    .ai-grid .note-title { min-height: 78px; margin-top: 21px; }
+    .ai-grid .note-sub { font-size: 13px; line-height: 1.55; }
+    .ai-grid .note-card ul { margin-top: auto; }
+    @media (max-width: 920px) {
+      .inner-page .ai-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .ai-grid .note-card { min-height: 300px; }
+    }
+    @media (max-width: 740px) {
+      .inner-page .ai-grid { grid-template-columns: 1fr; gap: 13px; }
+      .ai-grid .note-card { min-height: 260px; padding: 19px; }
+      .ai-grid .note-title { min-height: 0; margin-top: 16px; }
+      .ai-group-heading h2 { font-size: 22px; }
+      .ai-group { margin-bottom: 31px; }
+    }
+    @media (max-width: 600px) {
+      .ai-group-index { font-size: 11px; }
+      .ai-group-count { font-size: 12px; }
+    }
+  </style>
+</head>
+<body class="inner-page">
+  <header class="site-header">
+    <div class="shell">
+      <a class="brand" href="../index.html">
+        <span class="brand-logo">E.</span>
+        <span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../index.html">Home</a>
+        <a class="desktop-link" href="../index.html#bento-study" aria-current="page">Study Note</a>
+        <a href="../index.html#bento-projects">Practice Project</a>
+      </nav>
+    </div>
+  </header>
+  <main class="shell">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../index.html">Home</a>
+      <span class="separator">›</span>
+      <a href="../index.html#bento-study">Study Note</a>
+      <span class="separator">›</span>
+      <strong>Artificial Intelligence</strong>
+    </nav>
+    <div class="hero">
+      <div class="hero-text">
+        <h1>Artificial Intelligence</h1>
+        <p class="hero-description">Fundamental principles and advanced methods in neural network learning, physics-informed modeling, and neural operator architectures.</p>
+      </div>
+    </div>
+    <div class="contents-header">
+      <h2>Study Contents</h2>
+      <span class="count">06 SUBJECTS</span>
+    </div>
+    <section class="ai-group" aria-labelledby="ai-group-1">
+      <div class="ai-group-heading">
+        <div><span class="ai-group-index">01 / NEURAL NETWORKS</span><h2 id="ai-group-1">Neural Networks</h2></div>
+        <span class="ai-group-count">03 SUBJECTS</span>
+      </div>
+      <div class="note-grid ai-grid">
+        <a class="note-card" href="artificial-intelligence/neural-networks.html">
+          <div class="note-top"><span class="note-index">01 / NEURAL NETWORKS</span><span class="note-arrow" aria-hidden="true">↗</span></div>
+          <h3 class="note-title">Fundamentals of Neural Networks</h3>
+          <p class="note-sub">Core Concepts and Learning Principles</p>
+          <ul>
+            <li>Perceptron &amp; MLP</li>
+            <li>Backpropagation</li>
+            <li>Optimization &amp; Regularization</li>
+          </ul>
+        </a>
+        <a class="note-card" href="artificial-intelligence/convolutional-neural-networks.html">
+          <div class="note-top"><span class="note-index">02 / NEURAL NETWORKS</span><span class="note-arrow" aria-hidden="true">↗</span></div>
+          <h3 class="note-title">Convolutional Neural Networks</h3>
+          <p class="note-sub">Learning from Spatial Structure</p>
+          <ul>
+            <li>Convolution &amp; Pooling</li>
+            <li>CNN Architectures</li>
+            <li>Spatial Feature Extraction</li>
+          </ul>
+        </a>
+        <a class="note-card" href="artificial-intelligence/physics-informed-neural-networks.html">
+          <div class="note-top"><span class="note-index">03 / NEURAL NETWORKS</span><span class="note-arrow" aria-hidden="true">↗</span></div>
+          <h3 class="note-title">Physics-Informed Neural Networks</h3>
+          <p class="note-sub">Learning with Physical Constraints</p>
+          <ul>
+            <li>Automatic Differentiation</li>
+            <li>PDE Residuals</li>
+            <li>Initial &amp; Boundary Conditions</li>
+          </ul>
+        </a>
+      </div>
+    </section>
+    <section class="ai-group" aria-labelledby="ai-group-2">
+      <div class="ai-group-heading">
+        <div><span class="ai-group-index">02 / NEURAL OPERATORS</span><h2 id="ai-group-2">Neural Operators</h2></div>
+        <span class="ai-group-count">03 SUBJECTS</span>
+      </div>
+      <div class="note-grid ai-grid">
+        <a class="note-card" href="artificial-intelligence/neural-operators.html">
+          <div class="note-top"><span class="note-index">04 / NEURAL OPERATORS</span><span class="note-arrow" aria-hidden="true">↗</span></div>
+          <h3 class="note-title">Fundamentals of Neural Operators</h3>
+          <p class="note-sub">Function-to-Function Learning</p>
+          <ul>
+            <li>Function Spaces</li>
+            <li>Operator Learning</li>
+            <li>Discretization &amp; Generalization</li>
+          </ul>
+        </a>
+        <a class="note-card" href="artificial-intelligence/fourier-neural-operator.html">
+          <div class="note-top"><span class="note-index">05 / NEURAL OPERATORS</span><span class="note-arrow" aria-hidden="true">↗</span></div>
+          <h3 class="note-title">Fourier Neural Operator</h3>
+          <p class="note-sub">Spectral Operator Learning</p>
+          <ul>
+            <li>Fourier Transform</li>
+            <li>Spectral Convolution</li>
+            <li>FNO Architecture</li>
+          </ul>
+        </a>
+        <a class="note-card" href="artificial-intelligence/deeponet.html">
+          <div class="note-top"><span class="note-index">06 / NEURAL OPERATORS</span><span class="note-arrow" aria-hidden="true">↗</span></div>
+          <h3 class="note-title">Deep Operator Network (DeepONet)</h3>
+          <p class="note-sub">Branch–Trunk Operator Learning</p>
+          <ul>
+            <li>Branch &amp; Trunk Networks</li>
+            <li>Operator Approximation</li>
+            <li>DeepONet Architecture</li>
+          </ul>
+        </a>
+      </div>
+    </section>
+    <a class="back-bottom" href="../index.html#bento-study">← Back to Study Note</a>
+  </main>
+  <footer class="site-footer">
+    <div class="shell">
+      <span>© Engineering Notebook</span>
+      <span>Artificial Intelligence</span>
+    </div>
+  </footer>
+</body>
+</html>
