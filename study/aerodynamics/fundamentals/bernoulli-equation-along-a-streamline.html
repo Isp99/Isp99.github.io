@@ -83,7 +83,8 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 <li>위 관계를 \(x\)방향 Euler Equation의 좌변에 대입하고 <strong>Total Differential</strong>로 정리하면,<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
 \mathrm{LHS}&=u\frac{\partial u}{\partial x}\mathrm dx+u\frac{\partial u}{\partial y}\mathrm dy+u\frac{\partial u}{\partial z}\mathrm dz\\[1.4ex]
 &=u\left(\frac{\partial u}{\partial x}\mathrm dx+\frac{\partial u}{\partial y}\mathrm dy+\frac{\partial u}{\partial z}\mathrm dz\right)\\[1.4ex]
-&=u\,\mathrm du=\mathrm d\left(\frac{u^2}{2}\right)
+&=u\,\mathrm du\\[1.4ex]
+&=\mathrm d\left(\frac{u^2}{2}\right).
 \end{aligned}\]</div></li>
 <li>따라서 \(x\)방향 식은 다음과 같고, \(y,z\)방향에도 같은 계산을 적용하면,<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
 u\,\mathrm du&=-\frac1\rho\frac{\partial p}{\partial x}\mathrm dx,\\[1.4ex]
@@ -92,10 +93,10 @@ w\,\mathrm dw&=-\frac1\rho\frac{\partial p}{\partial z}\mathrm dz.
 \end{aligned}\]</div></li>
 <li>\(x,y,z\) 방향에서 유체입자가 경험하는 미소 속도변화를 모두 더하면 <strong>속력 변화</strong>와 <strong>압력 변화</strong> 사이의 관계는<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
 u\,\mathrm du+v\,\mathrm dv+w\,\mathrm dw
+&=\frac12\mathrm d(u^2+v^2+w^2)\\[1.5ex]
+&=\mathrm d\left(\frac{V^2}{2}\right)\\[1.5ex]
 &=-\frac1\rho\left(\frac{\partial p}{\partial x}\mathrm dx+\frac{\partial p}{\partial y}\mathrm dy+\frac{\partial p}{\partial z}\mathrm dz\right)\\[1.5ex]
-&=-\frac{\mathrm dp}{\rho},\\[2ex]
-u\,\mathrm du+v\,\mathrm dv+w\,\mathrm dw
-&=\frac12\mathrm d(u^2+v^2+w^2)=\mathrm d\left(\frac{V^2}{2}\right).
+&=-\frac{\mathrm dp}{\rho}.
 \end{aligned}\]</div></li>
 <li>따라서 <strong>Streamline Euler Equation</strong>을 얻음.<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle V\,\mathrm dV+\frac{\mathrm dp}{\rho}=0}\]</div></li>
 <li>같은 <strong>Streamline</strong>에서 속력이 증가하면 압력은 감소함. 이 단계에서는 아직 <strong>Incompressible</strong> 가정이 필요하지 않음.</li></ul></section>
