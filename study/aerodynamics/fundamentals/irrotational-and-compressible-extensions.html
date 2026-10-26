@@ -82,15 +82,16 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 <li>정상 Euler Equation의 \(z\)성분에 비회전 조건을 대입하면, 중력은 \(-z\)방향으로 작용하므로<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
 u\frac{\partial w}{\partial x}+v\frac{\partial w}{\partial y}+w\frac{\partial w}{\partial z}
 &=u\frac{\partial u}{\partial z}+v\frac{\partial v}{\partial z}+w\frac{\partial w}{\partial z}\\[2ex]
-&=\frac{\partial}{\partial z}\left(\frac{u^2+v^2+w^2}{2}\right)
-=\frac{\partial}{\partial z}\left(\frac{V^2}{2}\right).
+&=\frac{\partial}{\partial z}\left(\frac{u^2+v^2+w^2}{2}\right)\\[2ex]
+&=\frac{\partial}{\partial z}\left(\frac{V^2}{2}\right).
 \end{aligned}\]</div></li>
 <li>따라서 \(z\)방향 Euler Equation은<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\partial}{\partial z}\left(\frac{V^2}{2}\right)=-\frac1\rho\frac{\partial p}{\partial z}-g\]</div></li>
 <li>\(x,y\)를 고정하고 \(z\)방향으로 적분하면 압력항은 <strong>Product Rule</strong>에 의해<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
-&\int_{z_1}^{z_2}\frac{\partial}{\partial z}\left(\frac{V^2}{2}\right)\mathrm dz
-+\int_{z_1}^{z_2}\frac1\rho\frac{\partial p}{\partial z}\,\mathrm dz+g\int_{z_1}^{z_2}\mathrm dz\\[1.5ex]
+\int_{z_1}^{z_2}\frac{\partial}{\partial z}\left(\frac{V^2}{2}\right)\mathrm dz
++\int_{z_1}^{z_2}\frac1\rho\frac{\partial p}{\partial z}\,\mathrm dz+g\int_{z_1}^{z_2}\mathrm dz
 &=\int_{z_1}^{z_2}\frac{\partial}{\partial z}\left(\frac{V^2}{2}+\frac p\rho+gz\right)\mathrm dz
-+\int_{z_1}^{z_2}\frac p{\rho^2}\frac{\partial\rho}{\partial z}\,\mathrm dz=0.
++\int_{z_1}^{z_2}\frac p{\rho^2}\frac{\partial\rho}{\partial z}\,\mathrm dz\\[2ex]
+&=0.
 \end{aligned}\]</div></li>
 <li>여기서 <strong>영역 전체에서 밀도 \(\rho\)가 일정</strong>하다고 가정하면 \(\nabla\rho=0\)이므로<div class="equation" role="group" aria-label="Mathematical expression">\[\int_{z_1}^{z_2}\frac{\partial}{\partial z}\left(\frac{V^2}{2}+\frac p\rho+gz\right)\mathrm dz
 +\underbrace{\int_{z_1}^{z_2}\frac p{\rho^2}\frac{\partial\rho}{\partial z}\,\mathrm dz}_{=0}=0\]</div></li>
@@ -102,10 +103,18 @@ u\frac{\partial w}{\partial x}+v\frac{\partial w}{\partial y}+w\frac{\partial w}
 <li>이 결과를 이용하면 서로 다른 Streamline에 위치한 자유류와 물체 표면의 압력을 연결할 수 있음.</li></ul></section>
 <section class="lesson-section" id="compressible"><h2><span class="section-tag">02</span>Pressure Integration in Compressible Flow</h2><ul class="study-points"><li>밀도가 변하면 Streamline Euler Equation에서 \(1/\rho\)를 적분 밖으로 꺼낼 수 없음. 체적력을 무시하고 점 1에서 점 2까지 적분하면<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{V_2^2-V_1^2}{2}+\int_{p_1}^{p_2}\frac{\mathrm dp}{\rho}=0\]</div></li>
 <li><strong>Isentropic Flow</strong>에서는 \(\mathrm ds=0\)이므로, <strong>Gibbs Relation</strong>을 적용하면<div class="equation" role="group" aria-label="Mathematical expression">\[T\,\mathrm ds=\mathrm dh-\frac{\mathrm dp}{\rho}=0\quad\Longrightarrow\quad \mathrm dh=\frac{\mathrm dp}{\rho}\]</div></li>
-<li>이를 속력과 압력의 관계에 대입하고, 같은 식을 <strong>Total Differential</strong>로 연결하여 정리하면<div class="equation" role="group" aria-label="Mathematical expression">\[V\,\mathrm dV+\frac{\mathrm dp}{\rho}=V\,\mathrm dV+\mathrm dh=\mathrm d\left(\frac{V^2}{2}\right)+\mathrm dh=\mathrm d\left(h+\frac{V^2}{2}\right)=0\]</div></li>
+<li>이를 속력과 압력의 관계에 대입하고, 같은 식을 <strong>Total Differential</strong>로 연결하여 정리하면<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+V\,\mathrm dV+\frac{\mathrm dp}{\rho}
+&=V\,\mathrm dV+\mathrm dh\\[2ex]
+&=\mathrm d\left(\frac{V^2}{2}\right)+\mathrm dh\\[2ex]
+&=\mathrm d\left(h+\frac{V^2}{2}\right)\\[2ex]
+&=0.
+\end{aligned}\]</div></li>
 <li>동일한 <strong>Streamline</strong> 위의 점 1에서 점 2까지 적분하면<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
-\int_1^2\mathrm d\left(h+\frac{V^2}{2}\right)&=\left[h+\frac{V^2}{2}\right]_1^2\\[2ex]
-&=\left(h_2+\frac{V_2^2}{2}\right)-\left(h_1+\frac{V_1^2}{2}\right)=0.
+\int_1^2\mathrm d\left(h+\frac{V^2}{2}\right)
+&=\left[h+\frac{V^2}{2}\right]_1^2\\[2ex]
+&=\left(h_2+\frac{V_2^2}{2}\right)-\left(h_1+\frac{V_1^2}{2}\right)\\[2ex]
+&=0.
 \end{aligned}\]</div></li>
 <li>따라서 <strong>Total Enthalpy</strong>가 유선을 따라 일정함.<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle h_1+\frac{V_1^2}{2}=h_2+\frac{V_2^2}{2}}\]</div></li>
 <li>이는 에너지 보존에서 얻은 <strong>Total Enthalpy</strong> 관계와 일치함. 압축성 유동에 \(p+\rho V^2/2=\mathrm{constant}\)를 그대로 적용하지 않음.</li></ul></section></article>
