@@ -1,2 +1,141 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Vorticity Transport Equation — Engineering Notebook"><title>Vorticity Transport Equation | Engineering Notebook</title><link rel="stylesheet" href="../../../assets/site.css"></head><body class="inner-page"><header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a><nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../../index.html#bento-projects">Practice Project</a></nav></div></header><main class="shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">Aerodynamics</a><span class="separator">›</span><a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span><strong>Vorticity Transport Equation</strong></nav><div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 6.2</div><h1>Vorticity Transport Equation</h1><p class="hero-subtitle">Vorticity and Circulation</p><p class="hero-description">Convection, diffusion, stretching and vorticity generation.</p></div></div><div class="article-content"><div class="article-meta">6.2 · Vorticity and Circulation</div><h2>Vorticity Transport Equation</h2><p>Convection, diffusion, stretching and vorticity generation.</p><span class="placeholder-hint">Detailed notes and derivations will be added here.</span></div><div class="article-pager"><a href="circulation-and-stokes-theorem.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Circulation and Stokes&#x27; Theorem</span></a><a class="next" href="kelvin-s-circulation-theorem.html"><span class="direction">NEXT →</span><span class="adjacent">Kelvin&#x27;s Circulation Theorem</span></a></div><a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Aerodynamics</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
-</body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Vorticity Transport Equation — Fundamentals of Aerodynamics · Engineering Notebook">
+<title>Vorticity Transport Equation | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+/* Material Derivative — scoped page-specific instructional layout */
+body.inner-page .breadcrumb{font-size:16px}
+.md-page .article-content{padding:43px 46px 64px}
+.md-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.md-page .lesson-meta span:first-child{color:#2e61b7}
+.md-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:68px}
+.md-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.md-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:8px 20px}
+.md-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.md-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.md-page .lesson-section{scroll-margin-top:27px}
+.md-page .lesson-section+.lesson-section{margin-top:76px;padding-top:44px;border-top:1px solid #e1eaf6}
+.md-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 37px!important;line-height:1.3}
+.md-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.md-page .study-points{list-style:none;padding:0;margin:0}
+.md-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 48px;word-break:keep-all;overflow-wrap:anywhere}
+.md-page .study-points>li:last-child{margin-bottom:0}
+.md-page .study-points>li.sub-point{margin-left:26px}
+.md-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.md-page strong{color:#23466f}
+.md-page .equation{border:none;background:transparent;border-radius:0;margin:46px 0 54px;padding:12px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px}
+.md-page .equation.key{background:#f7f9fd;border:none;border-radius:10px;margin:55px 0 61px;padding:31px 18px}
+.md-page .equation mjx-container[display="true"]{margin:.3em auto!important}
+.md-page .definitions{margin:24px 0 19px 21px;padding:0;font-size:14px;color:#627a9a;line-height:1.85}
+.md-page .definitions li{margin:9px 0}
+.md-page .definitions.two-terms{list-style:none;padding:21px 19px;margin:26px 0 17px;background:#f5f8fe;border-radius:9px;border:1px solid #e5ebf5}
+.md-page .two-terms div+div{margin-top:14px}
+.md-page .note-box{border:1px solid #d7e4f5;border-left:4px solid #4572bd;background:#f4f8fe;border-radius:11px;padding:33px 34px 37px;margin:48px 0 13px}
+.md-page .note-box h3{font-size:17px;color:#254d83;margin:0 0 23px}
+.md-page .note-box h4{font-size:14px;margin:33px 0 14px;color:#2c578e}
+.md-page .note-box p{font-size:14px;line-height:1.88;color:#506b8a;max-width:none;margin:0 0 20px;word-break:keep-all}
+.md-page .note-box .equation{background:transparent;margin:43px 0 50px}
+.md-page .note-box .equation.key{background:#f7f9fd;margin:55px 0 61px}
+/* Slightly larger page navigation and study metadata. */
+.md-page .eyebrow{font-size:12px}
+.md-page .article-pager .direction{font-size:12px}
+.md-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.md-page .back-bottom{font-size:16px}
+@media(max-width:600px){.md-page .lesson-meta{font-size:13px}.md-page .lesson-toc strong{font-size:16px}.md-page .lesson-toc a{font-size:15px}.md-page .article-pager .adjacent{font-size:14px}.md-page .back-bottom{font-size:15px}.md-page .eyebrow{font-size:11px}}
+@media(max-width:740px){.md-page .article-content{padding:24px 18px 30px}.md-page .lesson-toc{padding:16px}.md-page .lesson-toc ul{grid-template-columns:1fr}.md-page .lesson-section h2{font-size:20px!important}.md-page .study-points>li{font-size:14px;padding-left:21px}.md-page .equation{font-size:14px;padding:14px 9px}.md-page .note-box{padding:19px 15px}.md-page .lesson-section+.lesson-section{margin-top:58px;padding-top:33px}.md-page .study-points>li{margin-bottom:38px}.md-page .equation{margin:35px 0 43px;padding:10px 0}.md-page .equation.key{margin:43px 0 51px;padding:25px 11px}.md-page .note-box .equation{margin:35px 0 43px}.md-page .note-box .equation.key{margin:43px 0 51px}.md-page .note-box{margin-top:36px;padding:25px 18px 28px}}
+@media(max-width:600px){body.inner-page .breadcrumb{font-size:14px}.md-page .study-points>li.sub-point{margin-left:18px}}
+
+.md-page .comparison-table{width:100%;border-collapse:collapse;margin:33px 0 40px;table-layout:fixed;color:#344c68;font-size:14px}
+.md-page .comparison-table th{background:#183353;color:white;text-align:left;padding:15px 14px;font-weight:700}
+.md-page .comparison-table td{padding:16px 14px;vertical-align:top;line-height:1.75;border-bottom:1px solid #e0e8f4;word-break:keep-all}
+.md-page .comparison-table tbody tr:nth-child(odd){background:#f2f6fc}
+.md-page .comparison-table tbody td:first-child{font-weight:700;color:#23466f;width:21%}
+.md-page .lesson-figure{max-width:100%;margin:34px auto 48px;text-align:center}
+.md-page .lesson-figure svg{display:block;width:100%;max-width:700px;height:auto;margin:auto;background:#fafcff;border:1px solid #e3eaf5;border-radius:12px}
+.md-page .lesson-figure figcaption{margin:13px auto 0;font-size:13px;color:#6881a1;line-height:1.7}
+.md-page .equation .math-caption{font-size:12px;color:#557394;margin-top:13px;letter-spacing:.01em}
+.md-page .inline-insight{font-weight:700;color:#23466f}
+@media(max-width:740px){.md-page .comparison-table{font-size:12px}.md-page .comparison-table th,.md-page .comparison-table td{padding:11px 8px}}
+
+.md-page .term-detail{margin:38px 0 48px;padding:0 0 0 24px}
+.md-page .term-detail h3{font-size:19px!important;font-weight:780;line-height:1.45;color:#183353;margin:20px 0 6px}
+.md-page .term-detail .equation{margin:15px 0 22px;padding:10px 0}
+.md-page .term-detail ul{list-style:none;padding:0;margin:0}
+.md-page .term-detail li{position:relative;padding-left:22px;font-size:15px;color:#465f7e;line-height:1.9;margin:7px 0;word-break:keep-all}
+.md-page .term-detail li::before{content:"";position:absolute;left:2px;top:.85em;width:6px;height:6px;border-radius:50%;background:#3f71c1}
+.md-page .wide-equation{font-size:15px}
+@media(max-width:740px){.md-page .term-detail{padding-left:0}.md-page .term-detail h3{font-size:16px!important}.md-page .wide-equation{font-size:13px}}
+</style>
+<script>
+window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation">
+<a href="../../../index.html">Home</a>
+<a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a>
+<a href="../../aerodynamics.html">Aerodynamics ↗</a>
+</nav></div></header>
+<main class="shell md-page">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<a href="../../../index.html">Home</a><span class="separator">›</span>
+<a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span>
+<a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
+<a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span>
+<strong>Vorticity Transport Equation</strong>
+</nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 6.2</div>
+<h1>Vorticity Transport Equation</h1><p class="hero-subtitle">Vorticity and Circulation</p>
+<p class="hero-description">2차원 Vorticity Transport Equation의 유도와 3차원 Vortex Stretching/Tilting 항을 학습함.</p>
+</div></div>
+<article class="article-content"><div class="lesson-meta"><span>06 / Vorticity and Circulation</span><span>Study Notes · 6.2</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#two-dimensional">01 · Two-Dimensional Derivation</a></li><li><a href="#three-dimensional">02 · Three-Dimensional Stretching</a></li></ul></nav><section class="lesson-section" id="two-dimensional"><h2><span class="section-tag">01</span>Two-Dimensional Derivation</h2><ul class="study-points"><li>Vorticity의 정의를 통해서는 현재 유동의 국소적인 회전성을 알 수 있음.</li><li>그 회전성이 <strong>시간에 따라 어떻게 생성되고, 이동하고, 확산되고, 강해지거나 약해지는지</strong>를 해석하는 방정식이 <strong>Vorticity Transport Equation</strong>임.</li><li><strong>2차원·Incompressible·밀도와 점도 일정·체적력 없음</strong>을 가정하고 두 운동량식에서 압력을 제거하면 Transport Equation을 얻을 수 있음.<div class="equation wide-equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+\frac{\partial u}{\partial t}
++u\frac{\partial u}{\partial x}+v\frac{\partial u}{\partial y}
+&=-\frac1\rho\frac{\partial p}{\partial x}
++\nu\left(\frac{\partial^2u}{\partial x^2}+\frac{\partial^2u}{\partial y^2}\right),\\[1.5ex]
+\frac{\partial v}{\partial t}
++u\frac{\partial v}{\partial x}+v\frac{\partial v}{\partial y}
+&=-\frac1\rho\frac{\partial p}{\partial y}
++\nu\left(\frac{\partial^2v}{\partial x^2}+\frac{\partial^2v}{\partial y^2}\right).
+\end{aligned}\]</div></li><li>위 식에서 \(y\)방향 운동량식을 \(x\)로 미분하고, \(x\)방향 운동량식을 \(y\)로 미분한 뒤 차를 구하면 <strong>Pressure의 혼합편미분 항</strong>은 상쇄되고 <strong>Time Derivative</strong>는 Vorticity의 시간변화가 됨.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+\text{Pressure term}&=-\frac1\rho\frac{\partial^2p}{\partial x\partial y}
++\frac1\rho\frac{\partial^2p}{\partial y\partial x}=0,\\[2ex]
+\text{Time term}&=\frac{\partial}{\partial t}
+\left(\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}\right)
+=\frac{\partial\omega_z}{\partial t}.
+\end{aligned}\]</div></li><li>대류항은 곱의 미분으로 전개하고 Vorticity 및 연속방정식을 이용해 묶음.<div class="equation wide-equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+\frac{\partial}{\partial x}\left(u\frac{\partial v}{\partial x}
++v\frac{\partial v}{\partial y}\right)
+-\frac{\partial}{\partial y}\left(u\frac{\partial u}{\partial x}
++v\frac{\partial u}{\partial y}\right)\\[2.5ex]
+&=u\left(\frac{\partial^2v}{\partial x^2}
+-\frac{\partial^2u}{\partial x\partial y}\right)
++v\left(\frac{\partial^2v}{\partial x\partial y}
+-\frac{\partial^2u}{\partial y^2}\right)
++\left(\frac{\partial u}{\partial x}+\frac{\partial v}{\partial y}\right)
+\left(\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}\right)\\[2.5ex]
+&=u\frac{\partial\omega_z}{\partial x}
++v\frac{\partial\omega_z}{\partial y}
++\underbrace{\left(\frac{\partial u}{\partial x}
++\frac{\partial v}{\partial y}\right)}_{0}\omega_z.
+\end{aligned}\]</div></li><li>점성항은 미분 순서를 바꾸면 Vorticity의 <strong>Laplacian</strong>으로 나타낼 수 있음.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+\nu\left[\frac{\partial}{\partial x}(\nabla^2v)-\frac{\partial}{\partial y}(\nabla^2u)\right]
+&=\nu\nabla^2\left(\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}\right)\\[2ex]
+&=\nu\left(\frac{\partial^2\omega_z}{\partial x^2}+\frac{\partial^2\omega_z}{\partial y^2}\right).
+\end{aligned}\]</div></li><li>시간항·대류항·점성항을 합치면 2차원 <strong>Vorticity Transport Equation</strong>은<div class="equation key wide-equation" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \underbrace{\frac{\partial\omega_z}{\partial t}}_{\text{Local Change}}
++\underbrace{u\frac{\partial\omega_z}{\partial x}
++v\frac{\partial\omega_z}{\partial y}}_{\text{Convection}}
+=\underbrace{\nu\nabla^2\omega_z}_{\text{Viscous Diffusion}}}\]</div><div class="term-detail"><h3>Local Change — 시간에 따른 Vorticity 변화</h3><div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\partial\omega_z}{\partial t}\]</div><ul><li>공간에 고정된 특정 위치에서 Vorticity가 시간에 따라 얼마나 변하는지를 나타냄.</li></ul><h3>Convection — 유동에 의한 Vorticity 수송</h3><div class="equation" role="group" aria-label="Mathematical expression">\[u\frac{\partial\omega_z}{\partial x}+v\frac{\partial\omega_z}{\partial y}\]</div><ul><li>유체가 이동하면서 자신이 가진 Vorticity를 함께 운반하는 현상을 나타냄.</li></ul><h3>Viscous Diffusion — 점성에 의한 Vorticity 확산</h3><div class="equation" role="group" aria-label="Mathematical expression">\[\nu\nabla^2\omega_z\]</div><ul><li>Vorticity의 공간적인 불균일성이 점성에 의해 완화되는 현상을 나타냄.</li><li>국소적으로 집중된 Vorticity가 주변으로 확산되면서 와류의 분포가 넓어짐.</li></ul></div></li></ul></section><section class="lesson-section" id="three-dimensional"><h2><span class="section-tag">02</span>Three-Dimensional Stretching</h2><ul class="study-points"><li>3차원에서는 Vorticity 벡터가 각 방향의 속도구배에 따라 변화하므로, 2차원 Vorticity Transport Equation에 <strong>Vortex Stretching / Tilting</strong> 항이 추가됨.</li><li>동일한 <strong>Incompressible·상수 물성·체적력 없음</strong> 조건에서 얻는 3차원 Vorticity Transport Equation은<div class="equation key wide-equation" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \underbrace{\frac{\partial\boldsymbol\omega}{\partial t}}_{\text{Local Change}}
++\underbrace{(\mathbf V\cdot\nabla)\boldsymbol\omega}_{\text{Convection}}
+=\underbrace{(\boldsymbol\omega\cdot\nabla)\mathbf V}_{\text{Vortex Stretching / Tilting}}
++\underbrace{\nu\nabla^2\boldsymbol\omega}_{\text{Viscous Diffusion}}}\]</div></li><li>새 항의 \(x\)성분을 펼치면 Vorticity 방향의 속도변화가 Vorticity를 변화시킴을 확인할 수 있음.<div class="equation" role="group" aria-label="Mathematical expression">\[\bigl[(\boldsymbol\omega\cdot\nabla)\mathbf V\bigr]_x
+=\omega_x\frac{\partial u}{\partial x}
++\omega_y\frac{\partial u}{\partial y}
++\omega_z\frac{\partial u}{\partial z}\]</div></li><li>이것이 <strong>Vortex Stretching / Tilting</strong>임. 엄밀한 2차원 유동에서는 \(\omega_x=\omega_y=0\), \(\partial\mathbf V/\partial z=0\)이므로 Stretching / Tilting 항은 사라짐.<div class="equation" role="group" aria-label="Mathematical expression">\[(\boldsymbol\omega\cdot\nabla)\mathbf V=\omega_z\frac{\partial\mathbf V}{\partial z}=0\]</div></li></ul></section></article><div class="article-pager"><a href="circulation-and-stokes-theorem.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Circulation and Stokes' Theorem</span></a><a class="next" href="kelvin-s-circulation-theorem.html"><span class="direction">NEXT →</span><span class="adjacent">Kelvin's Circulation Theorem</span></a></div><a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Aerodynamics</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>
