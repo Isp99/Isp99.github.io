@@ -1,2 +1,120 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Bernoulli Equation Along a Streamline — Engineering Notebook"><title>Bernoulli Equation Along a Streamline | Engineering Notebook</title><link rel="stylesheet" href="../../../assets/site.css"></head><body class="inner-page"><header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a><nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../../index.html#bento-projects">Practice Project</a></nav></div></header><main class="shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">Aerodynamics</a><span class="separator">›</span><a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span><strong>Bernoulli Equation Along a Streamline</strong></nav><div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 5.1</div><h1>Bernoulli Equation Along a Streamline</h1><p class="hero-subtitle">Euler and Bernoulli Equations</p><p class="hero-description">Derive Bernoulli relations from the Euler equation.</p></div></div><div class="article-content"><div class="article-meta">5.1 · Euler and Bernoulli Equations</div><h2>Bernoulli Equation Along a Streamline</h2><p>Derive Bernoulli relations from the Euler equation.</p><span class="placeholder-hint">Detailed notes and derivations will be added here.</span></div><div class="article-pager"><a href="internal-energy-and-enthalpy.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Internal Energy and Enthalpy</span></a><a class="next" href="irrotational-and-compressible-extensions.html"><span class="direction">NEXT →</span><span class="adjacent">Irrotational and Compressible Extensions</span></a></div><a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Aerodynamics</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Bernoulli Equation Along a Streamline — Fundamentals of Aerodynamics · Engineering Notebook">
+<title>Bernoulli Equation Along a Streamline | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+/* Material Derivative — scoped page-specific instructional layout */
+body.inner-page .breadcrumb{font-size:16px}
+.md-page .article-content{padding:43px 46px 64px}
+.md-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.md-page .lesson-meta span:first-child{color:#2e61b7}
+.md-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:68px}
+.md-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.md-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:8px 20px}
+.md-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.md-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.md-page .lesson-section{scroll-margin-top:27px}
+.md-page .lesson-section+.lesson-section{margin-top:76px;padding-top:44px;border-top:1px solid #e1eaf6}
+.md-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 37px!important;line-height:1.3}
+.md-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.md-page .study-points{list-style:none;padding:0;margin:0}
+.md-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 48px;word-break:keep-all;overflow-wrap:anywhere}
+.md-page .study-points>li:last-child{margin-bottom:0}
+.md-page .study-points>li.sub-point{margin-left:26px}
+.md-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.md-page strong{color:#23466f}
+.md-page .equation{border:none;background:transparent;border-radius:0;margin:46px 0 54px;padding:12px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px}
+.md-page .equation.key{background:#f7f9fd;border:none;border-radius:10px;margin:55px 0 61px;padding:31px 18px}
+.md-page .equation mjx-container[display="true"]{margin:.3em auto!important}
+.md-page .definitions{margin:24px 0 19px 21px;padding:0;font-size:14px;color:#627a9a;line-height:1.85}
+.md-page .definitions li{margin:9px 0}
+.md-page .definitions.two-terms{list-style:none;padding:21px 19px;margin:26px 0 17px;background:#f5f8fe;border-radius:9px;border:1px solid #e5ebf5}
+.md-page .two-terms div+div{margin-top:14px}
+.md-page .note-box{border:1px solid #d7e4f5;border-left:4px solid #4572bd;background:#f4f8fe;border-radius:11px;padding:33px 34px 37px;margin:48px 0 13px}
+.md-page .note-box h3{font-size:17px;color:#254d83;margin:0 0 23px}
+.md-page .note-box h4{font-size:14px;margin:33px 0 14px;color:#2c578e}
+.md-page .note-box p{font-size:14px;line-height:1.88;color:#506b8a;max-width:none;margin:0 0 20px;word-break:keep-all}
+.md-page .note-box .equation{background:transparent;margin:43px 0 50px}
+.md-page .note-box .equation.key{background:#f7f9fd;margin:55px 0 61px}
+/* Slightly larger page navigation and study metadata. */
+.md-page .eyebrow{font-size:12px}
+.md-page .article-pager .direction{font-size:12px}
+.md-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.md-page .back-bottom{font-size:16px}
+@media(max-width:600px){.md-page .lesson-meta{font-size:13px}.md-page .lesson-toc strong{font-size:16px}.md-page .lesson-toc a{font-size:15px}.md-page .article-pager .adjacent{font-size:14px}.md-page .back-bottom{font-size:15px}.md-page .eyebrow{font-size:11px}}
+@media(max-width:740px){.md-page .article-content{padding:24px 18px 30px}.md-page .lesson-toc{padding:16px}.md-page .lesson-toc ul{grid-template-columns:1fr}.md-page .lesson-section h2{font-size:20px!important}.md-page .study-points>li{font-size:14px;padding-left:21px}.md-page .equation{font-size:14px;padding:14px 9px}.md-page .note-box{padding:19px 15px}.md-page .lesson-section+.lesson-section{margin-top:58px;padding-top:33px}.md-page .study-points>li{margin-bottom:38px}.md-page .equation{margin:35px 0 43px;padding:10px 0}.md-page .equation.key{margin:43px 0 51px;padding:25px 11px}.md-page .note-box .equation{margin:35px 0 43px}.md-page .note-box .equation.key{margin:43px 0 51px}.md-page .note-box{margin-top:36px;padding:25px 18px 28px}}
+@media(max-width:600px){body.inner-page .breadcrumb{font-size:14px}.md-page .study-points>li.sub-point{margin-left:18px}}
+</style>
+<script>
+window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation">
+<a href="../../../index.html">Home</a>
+<a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a>
+<a href="../../aerodynamics.html">Aerodynamics ↗</a>
+</nav></div></header>
+<main class="shell md-page">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<a href="../../../index.html">Home</a><span class="separator">›</span>
+<a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span>
+<a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
+<a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span>
+<strong>Bernoulli Equation Along a Streamline</strong>
+</nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 5.1</div>
+<h1>Bernoulli Equation Along a Streamline</h1><p class="hero-subtitle">Euler and Bernoulli Equations</p>
+<p class="hero-description">Euler Equation에서 유선을 따라 속력과 압력의 관계를 유도하고, 일정 밀도 조건의 Bernoulli Equation과 중력 효과를 정리함.</p>
+</div></div>
+<article class="article-content"><div class="lesson-meta"><span>05 / Euler and Bernoulli Equations</span><span>Study Notes · 5.1</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#differential">01 · From Euler's Equation to a Total Differential</a></li>
+<li><a href="#density">02 · Integration at Constant Density</a></li>
+<li><a href="#gravity">03 · Including Gravity</a></li></ul></nav><section class="lesson-section" id="differential"><h2><span class="section-tag">01</span>From Euler's Equation to a Total Differential</h2><ul class="study-points"><li><strong>Steady, Inviscid, 체적력 없음</strong>을 가정하고 \(x\)방향 Euler Equation을 전개하면,<div class="equation" role="group" aria-label="Mathematical expression">\[u\frac{\partial u}{\partial x}+v\frac{\partial u}{\partial y}+w\frac{\partial u}{\partial z}=-\frac1\rho\frac{\partial p}{\partial x}\]</div></li>
+<li>이때 양변에 \(\mathrm dx\)를 곱하면,<div class="equation" role="group" aria-label="Mathematical expression">\[u\frac{\partial u}{\partial x}\mathrm dx+v\frac{\partial u}{\partial y}\mathrm dx+w\frac{\partial u}{\partial z}\mathrm dx=-\frac1\rho\frac{\partial p}{\partial x}\mathrm dx\]</div></li>
+<li>유체입자의 순간적인 이동 방향은 해당 위치의 속도 벡터와 일치하므로, 시간 \(\mathrm dt\) 동안의 미소변위는<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm dx=u\,\mathrm dt,\quad \mathrm dy=v\,\mathrm dt,\quad \mathrm dz=w\,\mathrm dt\quad\Longrightarrow\quad v\,\mathrm dx=u\,\mathrm dy,\quad w\,\mathrm dx=u\,\mathrm dz\]</div></li>
+<li>이는 특정 유체입자가 실제로 이동하는 경로를 나타냄. 따라서 위 관계를 Euler Equation에 대입하면, 공간상의 임의의 두 점이 아니라 <strong>유체입자의 이동 경로</strong>를 따라 방정식을 전개하게 됨. 정상유동에서는 이 경로가 <strong>Streamline</strong>과 일치함.</li>
+<li>위 관계를 \(x\)방향 Euler Equation의 좌변에 대입하고 <strong>Total Differential</strong>로 정리하면,<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+\mathrm{LHS}&=u\frac{\partial u}{\partial x}\mathrm dx+u\frac{\partial u}{\partial y}\mathrm dy+u\frac{\partial u}{\partial z}\mathrm dz\\[1.4ex]
+&=u\left(\frac{\partial u}{\partial x}\mathrm dx+\frac{\partial u}{\partial y}\mathrm dy+\frac{\partial u}{\partial z}\mathrm dz\right)\\[1.4ex]
+&=u\,\mathrm du=\mathrm d\left(\frac{u^2}{2}\right)
+\end{aligned}\]</div></li>
+<li>따라서 \(x\)방향 식은 다음과 같고, \(y,z\)방향에도 같은 계산을 적용하면,<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+u\,\mathrm du&=-\frac1\rho\frac{\partial p}{\partial x}\mathrm dx,\\[1.4ex]
+v\,\mathrm dv&=-\frac1\rho\frac{\partial p}{\partial y}\mathrm dy,\\[1.4ex]
+w\,\mathrm dw&=-\frac1\rho\frac{\partial p}{\partial z}\mathrm dz.
+\end{aligned}\]</div></li>
+<li>\(x,y,z\) 방향에서 유체입자가 경험하는 미소 속도변화를 모두 더하면 <strong>속력 변화</strong>와 <strong>압력 변화</strong> 사이의 관계는<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+u\,\mathrm du+v\,\mathrm dv+w\,\mathrm dw
+&=-\frac1\rho\left(\frac{\partial p}{\partial x}\mathrm dx+\frac{\partial p}{\partial y}\mathrm dy+\frac{\partial p}{\partial z}\mathrm dz\right)\\[1.5ex]
+&=-\frac{\mathrm dp}{\rho},\\[2ex]
+u\,\mathrm du+v\,\mathrm dv+w\,\mathrm dw
+&=\frac12\mathrm d(u^2+v^2+w^2)=\mathrm d\left(\frac{V^2}{2}\right).
+\end{aligned}\]</div></li>
+<li>따라서 <strong>Streamline Euler Equation</strong>을 얻음.<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle V\,\mathrm dV+\frac{\mathrm dp}{\rho}=0}\]</div></li>
+<li>같은 <strong>Streamline</strong>에서 속력이 증가하면 압력은 감소함. 이 단계에서는 아직 <strong>Incompressible</strong> 가정이 필요하지 않음.</li></ul></section>
+<section class="lesson-section" id="density"><h2><span class="section-tag">02</span>Integration at Constant Density</h2><ul class="study-points"><li>동일한 <strong>Streamline</strong> 위의 점 1에서 점 2까지 적분하면, 압력항에 <strong>Product Rule</strong>을 적용하여<div class="equation" role="group" aria-label="Mathematical expression">\[\int_{V_1}^{V_2}V\,\mathrm dV+\int_1^2\frac{\mathrm dp}{\rho}
+=\int_{V_1}^{V_2}V\,\mathrm dV+\int_1^2\mathrm d\left(\frac p\rho\right)+\int_1^2\frac p{\rho^2}\,\mathrm d\rho\]</div></li>
+<li>여기서 <strong>Streamline을 따라 밀도 \(\rho\)가 일정</strong>하다고 가정하면 \(\mathrm d\rho=0\)이므로<div class="equation" role="group" aria-label="Mathematical expression">\[\int_{V_1}^{V_2}V\,\mathrm dV+\int_1^2\frac{\mathrm dp}{\rho}
+=\int_{V_1}^{V_2}V\,\mathrm dV+\int_1^2\mathrm d\left(\frac p\rho\right)+\underbrace{\int_1^2\frac p{\rho^2}\,\mathrm d\rho}_{=0}\]</div><div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
+\frac{V_2^2-V_1^2}{2}+\frac{p_2-p_1}{\rho}&=0,\\[1.5ex]
+p_1+\frac12\rho V_1^2&=p_2+\frac12\rho V_2^2.
+\end{aligned}\]</div></li>
+<li>따라서 <strong>Bernoulli Equation</strong>은<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle p+\frac12\rho V^2=C\qquad\text{along a streamline}}\]</div></li>
+<li>적용 조건은 <strong>Steady · Inviscid · 체적력 없음 · Streamline을 따라 일정한 밀도</strong>임.</li>
+<li>이 상수 \(C\)는 같은 Streamline을 따라 일정하지만, <strong>서로 다른 Streamline에서는 값이 다를 수 있음.</strong></li></ul></section>
+<section class="lesson-section" id="gravity"><h2><span class="section-tag">03</span>Including Gravity</h2><ul class="study-points"><li>중력 \(\mathbf f=-g\mathbf k\)를 고려하면 높이 \(z\)에 따른 <strong>Gravitational Potential Energy</strong>가 추가됨. \(z\)방향 Euler 식에 중력항을 포함하면<div class="equation" role="group" aria-label="Mathematical expression">\[w\,\mathrm dw=-\frac1\rho\frac{\partial p}{\partial z}\,\mathrm dz-g\,\mathrm dz\]</div></li>
+<li>위 식에 \(x,y\)방향 Euler 식을 합하면<div class="equation" role="group" aria-label="Mathematical expression">\[V\,\mathrm dV+\frac{\mathrm dp}{\rho}+g\,\mathrm dz=0\]</div></li>
+<li><strong>Streamline을 따라 밀도 \(\rho\)가 일정한 경우</strong>, 동일한 Streamline 위의 점 1에서 점 2까지 적분하면<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{V_2^2-V_1^2}{2}+\frac{p_2-p_1}{\rho}+g(z_2-z_1)=0\]</div></li>
+<li>따라서 중력이 포함된 <strong>Bernoulli Equation</strong>은<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \frac p\rho+\frac{V^2}{2}+gz=B\qquad\text{along a streamline}}\]</div></li></ul></section></article>
+<div class="article-pager"><a href="internal-energy-and-enthalpy.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Internal Energy and Enthalpy</span></a><a class="next" href="irrotational-and-compressible-extensions.html"><span class="direction">NEXT →</span><span class="adjacent">Irrotational and Compressible Extensions</span></a></div>
+<a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a>
+</main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Aerodynamics</span></div></footer>
+<script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
 </body></html>
