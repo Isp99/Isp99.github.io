@@ -184,18 +184,43 @@ V_r=\frac{Q}{2\pi r},\qquad V_\theta=0.\end{gathered}\]</div></li>
 <li><p>적분 후 남은 함수 \(g(r)\)는 \(V_\theta=-\partial\psi/\partial r=0\) 조건으로 결정함.</p><div class="equation" role="group" aria-label="수학 수식">\[-\frac{\partial\psi}{\partial r}=-g'(r)=0\qquad\rightarrow\qquad\psi=\frac{Q}{2\pi}\theta+C_\psi.\]</div></li>
 <li><p>상수 \(C_\phi\), \(C_\psi\)는 속도에 영향을 주지 않으므로, 기준반지름 \(r_0\)에서 \(\phi=0\)이 되도록 \(C_\phi=-\frac{Q}{2\pi}\ln r_0\)로 정하고 \(C_\psi=0\)으로 두면</p><div class="equation key" role="group" aria-label="수학 수식" id="eq-eq-sourceNew">\[\phi=\frac{Q}{2\pi}\ln\frac r{r_0}\qquad\psi=\frac{Q}{2\pi}\theta\]</div></li>
 <li><p>\(Q&gt;0\)이면 <strong>Source</strong>, \(Q&lt;0\)이면 <strong>Sink</strong>이며, 원점은 유량이 공급되거나 제거되는 특이점이므로 위 식은 \(r&gt;0\)에 적용함.</p></li></ul></section>
-<section class="lesson-section" id="doublet"><h2><span class="section-tag">09</span>Doublet</h2><figure class="lesson-figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 310" role="img" aria-label="Source와 Sink를 접근시켜 Doublet을 만드는 과정 및 Doublet 유선 개념"><defs><marker id="pf-d" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="none" stroke="#2363a5" stroke-width="1.4"/></marker></defs>
-<text x="195" y="37" font-size="20" text-anchor="middle" fill="#254a76">Source–Sink Pair</text>
-<circle cx="110" cy="155" r="7" fill="#b66846"/><circle cx="275" cy="155" r="7" fill="#b66846"/>
-<path d="M110 155C45 45 340 45 275 155M110 155C45 265 340 265 275 155M110 155H275" fill="none" stroke="#2c659e" stroke-width="2.7"/>
-<path d="M165 82H211M165 228H211M175 155H211" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-d)"/>
-<text x="81" y="178" font-size="18" fill="#a8553a">+Q</text><text x="279" y="177" font-size="18" fill="#a8553a">−Q</text>
-<path d="M110 249H275" stroke="#9bb0c9"/><path d="M110 242V256M275 242V256" stroke="#9bb0c9"/><text x="189" y="270" text-anchor="middle" font-size="17" fill="#7089a6">ℓ</text>
-<path d="M367 155H415" stroke="#6c8dac" stroke-width="2.1" marker-end="url(#pf-d)"/>
-<text x="389" y="122" text-anchor="middle" font-size="14" fill="#5a7798">ℓ → 0</text>
-<text x="589" y="37" font-size="20" text-anchor="middle" fill="#254a76">Doublet (κ = Qℓ)</text>
-<circle cx="575" cy="132" r="23" stroke="#2c659e" stroke-width="1.9" fill="none"/><path d="M575 109q5.75 0 11.5 2.3" stroke="#2363a5" stroke-width="2" fill="none" marker-end="url(#pf-d)"/><circle cx="575" cy="178" r="23" stroke="#2c659e" stroke-width="1.9" fill="none"/><path d="M575 201q5.75 0 11.5 -2.3" stroke="#2363a5" stroke-width="2" fill="none" marker-end="url(#pf-d)"/><circle cx="575" cy="113" r="42" stroke="#2c659e" stroke-width="1.9" fill="none"/><path d="M575 71q10.5 0 21 4.2" stroke="#2363a5" stroke-width="2" fill="none" marker-end="url(#pf-d)"/><circle cx="575" cy="197" r="42" stroke="#2c659e" stroke-width="1.9" fill="none"/><path d="M575 239q10.5 0 21 -4.2" stroke="#2363a5" stroke-width="2" fill="none" marker-end="url(#pf-d)"/><circle cx="575" cy="95" r="60" stroke="#2c659e" stroke-width="1.9" fill="none"/><path d="M575 35q15 0 30 6" stroke="#2363a5" stroke-width="2" fill="none" marker-end="url(#pf-d)"/><circle cx="575" cy="215" r="60" stroke="#2c659e" stroke-width="1.9" fill="none"/><path d="M575 275q15 0 30 -6" stroke="#2363a5" stroke-width="2" fill="none" marker-end="url(#pf-d)"/><circle cx="575" cy="155" r="5.5" fill="#b66846"/>
-<text x="587" y="168" font-size="17" fill="#aa5c40">κ</text></svg><figcaption>Source–Sink 쌍의 극한으로 정의되는 Doublet 유동 개념도</figcaption></figure><ul class="study-points"><li><p>정의: <strong>같은 세기의 Source와 Sink를 무한히 가까이 접근시키면서, 세기와 거리의 곱을 일정하게 유지하여 얻는 유동</strong></p></li>
+<section class="lesson-section" id="doublet"><h2><span class="section-tag">09</span>Doublet</h2><figure class="lesson-figure">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" role="img" aria-label="왼쪽 Source와 Sink 사이의 유선 및 오른쪽 원점에서 접하는 Doublet의 위아래 대칭 원형 유선">
+<defs><marker id="doublet-arrow-clean" viewBox="0 0 10 10" markerWidth="7" markerHeight="7" refX="8.2" refY="5" orient="auto-start-reverse"><path d="M1 1L9 5L1 9Z" fill="#2c639f"/></marker></defs>
+<text x="193" y="33" font-size="20" text-anchor="middle" fill="#254a76">Source–Sink Pair</text>
+<path d="M107 165 Q150 85.5 193 85.5 Q236 85.5 279 165" fill="none" stroke="#2c639f" stroke-width="2.15" marker-mid="url(#doublet-arrow-clean)"/>
+<path d="M107 165 Q150 109.5 193 109.5 Q236 109.5 279 165" fill="none" stroke="#2c639f" stroke-width="2.15" marker-mid="url(#doublet-arrow-clean)"/>
+<path d="M107 165 Q150 132.5 193 132.5 Q236 132.5 279 165" fill="none" stroke="#2c639f" stroke-width="2.15" marker-mid="url(#doublet-arrow-clean)"/>
+<path d="M107 165 Q150 197.5 193 197.5 Q236 197.5 279 165" fill="none" stroke="#2c639f" stroke-width="2.15" marker-mid="url(#doublet-arrow-clean)"/>
+<path d="M107 165 Q150 220.5 193 220.5 Q236 220.5 279 165" fill="none" stroke="#2c639f" stroke-width="2.15" marker-mid="url(#doublet-arrow-clean)"/>
+<path d="M107 165 Q150 244.5 193 244.5 Q236 244.5 279 165" fill="none" stroke="#2c639f" stroke-width="2.15" marker-mid="url(#doublet-arrow-clean)"/>
+<path d="M107 165 L193 165 L279 165" fill="none" stroke="#2c639f" stroke-width="2.15" marker-mid="url(#doublet-arrow-clean)"/>
+<circle cx="107" cy="165" r="6" fill="#b66846"/><circle cx="279" cy="165" r="6" fill="#b66846"/>
+<text x="83" y="187" font-size="16" text-anchor="end" fill="#ae654a">+Q</text>
+<text x="292" y="187" font-size="16" fill="#ae654a">−Q</text>
+<path d="M107 280H279 M107 273V287 M279 273V287" fill="none" stroke="#9cafc8" stroke-width="1.4"/>
+<text x="193" y="301" font-size="17" text-anchor="middle" fill="#6983a4">ℓ</text>
+<text x="413" y="134" font-size="17" text-anchor="middle" fill="#537295">ℓ → 0</text>
+<path d="M376 163H448" fill="none" stroke="#3975b0" stroke-width="2.5" marker-end="url(#doublet-arrow-clean)"/>
+<text x="413" y="194" font-size="15" text-anchor="middle" fill="#6e86a5">Qℓ = κ (constant)</text>
+<text x="590" y="31" font-size="20" text-anchor="middle" fill="#254a76">Doublet (κ = Qℓ)</text>
+<circle cx="590" cy="107" r="58" fill="none" stroke="#2c639f" stroke-width="2.15"/>
+<circle cx="590" cy="223" r="58" fill="none" stroke="#2c639f" stroke-width="2.15"/>
+<circle cx="590" cy="125" r="40" fill="none" stroke="#2c639f" stroke-width="2.15"/>
+<circle cx="590" cy="205" r="40" fill="none" stroke="#2c639f" stroke-width="2.15"/>
+<circle cx="590" cy="142" r="23" fill="none" stroke="#2c639f" stroke-width="2.15"/>
+<circle cx="590" cy="188" r="23" fill="none" stroke="#2c639f" stroke-width="2.15"/>
+<path d="M574.92 50.99 A58 58 0 0 1 605.08 50.99" fill="none" stroke="#2c639f" stroke-width="1.9" marker-end="url(#doublet-arrow-clean)"/>
+<path d="M574.92 279.01 A58 58 0 0 0 605.08 279.01" fill="none" stroke="#2c639f" stroke-width="1.9" marker-end="url(#doublet-arrow-clean)"/>
+<path d="M579.60 86.38 A40 40 0 0 1 600.40 86.38" fill="none" stroke="#2c639f" stroke-width="1.9" marker-end="url(#doublet-arrow-clean)"/>
+<path d="M579.60 243.62 A40 40 0 0 0 600.40 243.62" fill="none" stroke="#2c639f" stroke-width="1.9" marker-end="url(#doublet-arrow-clean)"/>
+<path d="M584.02 119.79 A23 23 0 0 1 595.98 119.79" fill="none" stroke="#2c639f" stroke-width="1.9" marker-end="url(#doublet-arrow-clean)"/>
+<path d="M584.02 210.21 A23 23 0 0 0 595.98 210.21" fill="none" stroke="#2c639f" stroke-width="1.9" marker-end="url(#doublet-arrow-clean)"/>
+<circle cx="590" cy="165" r="5.5" fill="#b66846"/>
+<text x="604" y="179" font-size="17" fill="#ae654a">κ</text>
+</svg>
+<figcaption>Source–Sink 쌍의 극한으로 정의되는 Doublet 유동 개념도</figcaption>
+</figure><ul class="study-points"><li><p>정의: <strong>같은 세기의 Source와 Sink를 무한히 가까이 접근시키면서, 세기와 거리의 곱을 일정하게 유지하여 얻는 유동</strong></p></li>
 <li><p>먼저 Source \(+Q\)와 Sink \(-Q\)를 각각 \(x=-\ell/2\), \(x=+\ell/2\)에 놓음. 임의의 점 \((x,y)\)에서 Source와 Sink까지의 거리를 각각 \(r_s\), \(r_k\)로 정의하면</p><div class="equation" role="group" aria-label="수학 수식">\[r_s=\sqrt{(x+\ell/2)^2+y^2},\qquad r_k=\sqrt{(x-\ell/2)^2+y^2}.\]</div></li>
 <li><p><strong>Potential function</strong>은 Source와 Sink의 Potential function을 중첩하여 구함. 두 유동에 동일한 기준반지름 \(r_0\)를 사용하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\phi&=\frac{Q}{2\pi}\ln\frac{r_s}{r_0}-\frac{Q}{2\pi}\ln\frac{r_k}{r_0},\\[1.5ex]
 &=\frac{Q}{2\pi}\ln\frac{r_s}{r_k}.\end{aligned}\]</div></li>
