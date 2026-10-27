@@ -1,2 +1,243 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Stream Function — Engineering Notebook"><title>Stream Function | Engineering Notebook</title><link rel="stylesheet" href="../../../assets/site.css"></head><body class="inner-page"><header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a><nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../../index.html#bento-projects">Practice Project</a></nav></div></header><main class="shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">Aerodynamics</a><span class="separator">›</span><a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span><strong>Stream Function</strong></nav><div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 7.1</div><h1>Stream Function</h1><p class="hero-subtitle">Potential Flow</p><p class="hero-description">Stream-function properties and kinematic constraints.</p></div></div><div class="article-content"><div class="article-meta">7.1 · Potential Flow</div><h2>Stream Function</h2><p>Stream-function properties and kinematic constraints.</p><span class="placeholder-hint">Detailed notes and derivations will be added here.</span></div><div class="article-pager"><a href="kelvin-s-circulation-theorem.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Kelvin&#x27;s Circulation Theorem</span></a><a class="next" href="elementary-potential-flows.html"><span class="direction">NEXT →</span><span class="adjacent">Elementary Potential Flows</span></a></div><a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Aerodynamics</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
-</body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Stream Function — Fundamentals of Aerodynamics · Engineering Notebook">
+<title>Stream Function | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+/* Material Derivative — scoped page-specific instructional layout */
+body.inner-page .breadcrumb{font-size:16px}
+.md-page .article-content{padding:43px 46px 64px}
+.md-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.md-page .lesson-meta span:first-child{color:#2e61b7}
+.md-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:68px}
+.md-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.md-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:8px 20px}
+.md-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.md-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.md-page .lesson-section{scroll-margin-top:27px}
+.md-page .lesson-section+.lesson-section{margin-top:76px;padding-top:44px;border-top:1px solid #e1eaf6}
+.md-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 37px!important;line-height:1.3}
+.md-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.md-page .study-points{list-style:none;padding:0;margin:0}
+.md-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 48px;word-break:keep-all;overflow-wrap:anywhere}
+.md-page .study-points>li:last-child{margin-bottom:0}
+.md-page .study-points>li.sub-point{margin-left:26px}
+.md-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.md-page strong{color:#23466f}
+.md-page .equation{border:none;background:transparent;border-radius:0;margin:46px 0 54px;padding:12px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px}
+.md-page .equation.key{background:#f7f9fd;border:none;border-radius:10px;margin:55px 0 61px;padding:31px 18px}
+.md-page .equation mjx-container[display="true"]{margin:.3em auto!important}
+.md-page .definitions{margin:24px 0 19px 21px;padding:0;font-size:14px;color:#627a9a;line-height:1.85}
+.md-page .definitions li{margin:9px 0}
+.md-page .definitions.two-terms{list-style:none;padding:21px 19px;margin:26px 0 17px;background:#f5f8fe;border-radius:9px;border:1px solid #e5ebf5}
+.md-page .two-terms div+div{margin-top:14px}
+.md-page .note-box{border:1px solid #d7e4f5;border-left:4px solid #4572bd;background:#f4f8fe;border-radius:11px;padding:33px 34px 37px;margin:48px 0 13px}
+.md-page .note-box h3{font-size:17px;color:#254d83;margin:0 0 23px}
+.md-page .note-box h4{font-size:14px;margin:33px 0 14px;color:#2c578e}
+.md-page .note-box p{font-size:14px;line-height:1.88;color:#506b8a;max-width:none;margin:0 0 20px;word-break:keep-all}
+.md-page .note-box .equation{background:transparent;margin:43px 0 50px}
+.md-page .note-box .equation.key{background:#f7f9fd;margin:55px 0 61px}
+/* Slightly larger page navigation and study metadata. */
+.md-page .eyebrow{font-size:12px}
+.md-page .article-pager .direction{font-size:12px}
+.md-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.md-page .back-bottom{font-size:16px}
+@media(max-width:600px){.md-page .lesson-meta{font-size:13px}.md-page .lesson-toc strong{font-size:16px}.md-page .lesson-toc a{font-size:15px}.md-page .article-pager .adjacent{font-size:14px}.md-page .back-bottom{font-size:15px}.md-page .eyebrow{font-size:11px}}
+@media(max-width:740px){.md-page .article-content{padding:24px 18px 30px}.md-page .lesson-toc{padding:16px}.md-page .lesson-toc ul{grid-template-columns:1fr}.md-page .lesson-section h2{font-size:20px!important}.md-page .study-points>li{font-size:14px;padding-left:21px}.md-page .equation{font-size:14px;padding:14px 9px}.md-page .note-box{padding:19px 15px}.md-page .lesson-section+.lesson-section{margin-top:58px;padding-top:33px}.md-page .study-points>li{margin-bottom:38px}.md-page .equation{margin:35px 0 43px;padding:10px 0}.md-page .equation.key{margin:43px 0 51px;padding:25px 11px}.md-page .note-box .equation{margin:35px 0 43px}.md-page .note-box .equation.key{margin:43px 0 51px}.md-page .note-box{margin-top:36px;padding:25px 18px 28px}}
+@media(max-width:600px){body.inner-page .breadcrumb{font-size:14px}.md-page .study-points>li.sub-point{margin-left:18px}}
+
+.md-page .comparison-table{width:100%;border-collapse:collapse;margin:33px 0 40px;table-layout:fixed;color:#344c68;font-size:14px}
+.md-page .comparison-table th{background:#183353;color:white;text-align:left;padding:15px 14px;font-weight:700}
+.md-page .comparison-table td{padding:16px 14px;vertical-align:top;line-height:1.75;border-bottom:1px solid #e0e8f4;word-break:keep-all}
+.md-page .comparison-table tbody tr:nth-child(odd){background:#f2f6fc}
+.md-page .comparison-table tbody td:first-child{font-weight:700;color:#23466f;width:21%}
+.md-page .lesson-figure{max-width:100%;margin:34px auto 48px;text-align:center}
+.md-page .lesson-figure svg{display:block;width:100%;max-width:700px;height:auto;margin:auto;background:#fafcff;border:1px solid #e3eaf5;border-radius:12px}
+.md-page .lesson-figure figcaption{margin:13px auto 0;font-size:13px;color:#6881a1;line-height:1.7}
+.md-page .equation .math-caption{font-size:12px;color:#557394;margin-top:13px;letter-spacing:.01em}
+.md-page .inline-insight{font-weight:700;color:#23466f}
+@media(max-width:740px){.md-page .comparison-table{font-size:12px}.md-page .comparison-table th,.md-page .comparison-table td{padding:11px 8px}}
+
+/* Potential Flow diagrams and source-based study notes */
+.md-page .lesson-figure{width:100%;margin:32px auto 24px;padding:12px 12px 14px;border:1px solid #e0e9f5;border-radius:13px;background:#f9fbff;text-align:center;overflow:hidden}
+.md-page .lesson-figure svg{display:block;width:100%;height:auto;max-width:820px;margin:0 auto}
+.md-page .lesson-figure figcaption{font-size:13px;color:#7086a5;margin-top:10px;line-height:1.6}
+.md-page .study-points>li p{margin:0 0 13px;line-height:1.9}
+.md-page .study-points>li .equation{margin:23px 0 30px}
+.md-page .study-points>li .equation.key{margin:28px 0 38px}
+.md-page .source-note{margin:0 0 35px;color:#6b81a1;font-size:14px;line-height:1.85}
+.md-page .study-points>li .lesson-figure{margin:24px auto}
+.md-page .lesson-section .study-points>li{margin-bottom:30px}
+.md-page .lesson-section+.lesson-section{margin-top:66px}
+.md-page .lesson-figure text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif}
+@media(max-width:740px){.md-page .lesson-figure{padding:8px 6px}.md-page .lesson-figure figcaption{font-size:12px}}
+
+</style>
+<script>
+window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation">
+<a href="../../../index.html">Home</a>
+<a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a>
+<a href="../../aerodynamics.html">Aerodynamics ↗</a>
+</nav></div></header>
+<main class="shell md-page">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<a href="../../../index.html">Home</a><span class="separator">›</span>
+<a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span>
+<a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
+<a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span>
+<strong>Stream Function</strong>
+</nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 7.1</div>
+<h1>Stream Function</h1><p class="hero-subtitle">Potential Flow</p>
+<p class="hero-description">2차원 비압축성 유동에서 유선함수와 연속방정식, 유량 및 와도의 관계를 유도함.</p>
+</div></div>
+<article class="article-content"><div class="lesson-meta"><span>07 / Potential Flow</span><span>Study Notes · 7.1</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#introduction-to-potential-flow">01 · Introduction to Potential Flow</a></li><li><a href="#laplace-equation">02 · Laplace Equation</a></li><li><a href="#definition-and-continuity">03 · Definition and Continuity</a></li><li><a href="#streamlines-and-flow-rate">04 · Streamlines and Flow Rate</a></li><li><a href="#vorticity-and-velocity-potential">05 · Vorticity and Velocity Potential</a></li></ul></nav><section class="lesson-section" id="introduction-to-potential-flow"><h2><span class="section-tag">01</span>Introduction to Potential Flow</h2><ul class="study-points"><li><p><strong>속도장 \(\mathbf V\) 를 스칼라 함수 \(\phi\) 의 Gradient</strong> 로 표현할 수 있는 유동을 Potential Flow 라고 함</p><div class="equation key" role="group" aria-label="수학 수식" id="eq-eq-potentialDef">\[\mathbf V=\nabla\phi\]</div></li>
+<li><p>따라서 각 성분은.</p><div class="equation key" role="group" aria-label="수학 수식">\[u=\frac{\partial\phi}{\partial x},\qquad
+v=\frac{\partial\phi}{\partial y},\qquad
+w=\frac{\partial\phi}{\partial z}\]</div></li>
+<li><p>Potential flow 에 Curl을 취해보면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\nabla\times\mathbf V
+&=\nabla\times(\nabla\phi),\\[2.0ex]
+&=\begin{pmatrix}
+\displaystyle\frac{\partial^2\phi}{\partial y\partial z}-\frac{\partial^2\phi}{\partial z\partial y}\\[2.0ex]
+\displaystyle\frac{\partial^2\phi}{\partial z\partial x}-\frac{\partial^2\phi}{\partial x\partial z}\\[2.0ex]
+\displaystyle\frac{\partial^2\phi}{\partial x\partial y}-\frac{\partial^2\phi}{\partial y\partial x}
+\end{pmatrix},\\[2.0ex]
+&=\mathbf 0.\end{aligned}\]</div></li>
+<li><p>따라서 <strong> Velocity Potential 이 존재하려면 유동은 Irrotational Flow </strong></p><div class="equation key" role="group" aria-label="수학 수식">\[\text{Potential Flow}\implies\text{Irrotational Flow}\]</div></li></ul></section>
+<section class="lesson-section" id="laplace-equation"><h2><span class="section-tag">02</span>Laplace Equation</h2><ul class="study-points"><li><p>Incompressible을 가정한 뒤 Potential flow 조건에 대입하면, <a href="#eq-eq-potentialDef">앞의 식</a>를 대입하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\nabla\cdot\mathbf V
+&=\frac{\partial u}{\partial x}
++\frac{\partial v}{\partial y}
++\frac{\partial w}{\partial z}\\[2.0ex]
+&=\frac{\partial}{\partial x}
+\left(\frac{\partial\phi}{\partial x}\right)
++\frac{\partial}{\partial y}
+\left(\frac{\partial\phi}{\partial y}\right)
++\frac{\partial}{\partial z}
+\left(\frac{\partial\phi}{\partial z}\right)\\[2.0ex]
+&=\frac{\partial^2\phi}{\partial x^2}
++\frac{\partial^2\phi}{\partial y^2}
++\frac{\partial^2\phi}{\partial z^2}\\[2.0ex]
+&=\nabla^2\phi,\\[2.0ex]
+&=0.\end{aligned}\]</div></li>
+<li><p>따라서,</p><div class="equation key" role="group" aria-label="수학 수식" id="eq-eq-LaplaceNew">\[\nabla^2\phi
+=\frac{\partial^2\phi}{\partial x^2}
++\frac{\partial^2\phi}{\partial y^2}
++\frac{\partial^2\phi}{\partial z^2}=0.\]</div></li>
+<li><p>이런 Potential flow를 사용하면 복잡한 유동해석을 보다 간단하게 해석 가능</p></li>
+<li><p>일반적인 Navier–Stokes 해석: 여러 속도 성분과 압력이 연성된 <strong>비선형 방정식 문제</strong></p></li>
+<li><p>비압축성 Potential Flow 해석: 하나의 스칼라 함수에 대한 <strong>선형 Laplace 방정식</strong> 문제 \subsection{Stream Function}</p></li></ul></section>
+<section class="lesson-section" id="definition-and-continuity"><h2><span class="section-tag">03</span>Definition and Continuity</h2><ul class="study-points"><li><p>2차원 유동에서 속도벡터는 \(x,y\) 방향의 속도 성분으로 구성되므로</p><div class="equation" role="group" aria-label="수학 수식">\[\mathbf V=u\mathbf i+v\mathbf j\]</div></li>
+<li><p><strong>Incompressible Flow</strong>에서는 <strong>Continuity Equation</strong>은 다음과 같이 단순화됨.</p><div class="equation" role="group" aria-label="수학 수식">\[\nabla\cdot\mathbf V
+=\frac{\partial u}{\partial x}
++\frac{\partial v}{\partial y}
+=0\]</div></li>
+<li><p>2차원 속도장을 <strong> 직접 구하려면 \(u(x,y)\), \(v(x,y)\) 라는 두 함수가 필요</strong>하지만 <strong>하나의 Scalar Function을 사용하면 \(\psi(x,y)\) 하나를 구한 뒤 미분해서 두 속도 성분을 얻을 수 있음</strong></p></li>
+<li><p>따라서 위 조건을 자동으로 만족시키면서 <strong>속도장을 하나의 Scalar Function</strong>으로 표현하기 위해 <strong>Stream Function</strong> \(\psi(x,y)\)를 다음과 같이 정의</p><div class="equation key" role="group" aria-label="수학 수식" id="eq-eq-psiDef">\[u=\frac{\partial\psi}{\partial y},
+\qquad
+v=-\frac{\partial\psi}{\partial x}\]</div></li>
+<li><p>이 과정에서는 <strong>Irrotational Flow</strong> 조건을 사용하지 않았으므로, Stream Function은 <strong>Rotational Flow</strong>에서도 사용할 수 있음.</p></li>
+<li><p>즉, Velocity Potential \(\phi\)가 비회전성과 연관된 함수인 것과 달리, Stream Function \(\psi\)는 <strong>2차원 incompressible 조건</strong>과 직접적으로 연관된 함수임.</p></li></ul></section>
+<section class="lesson-section" id="streamlines-and-flow-rate"><h2><span class="section-tag">04</span>Streamlines and Flow Rate</h2><ul class="study-points"><li><p><strong>Streamline</strong>은 유동장의 각 위치에서 속도벡터가 접선 방향을 향하는 곡선이므로, Streamline 위의 미소변위 \(\mathrm{d}\mathbf r\)는 속도벡터 \(\mathbf V\)와 평행함.</p></li>
+<li><p>2차원에서 <strong>Streamline을 따라 유동이 이동할때</strong> 미소변위는</p><div class="equation" role="group" aria-label="수학 수식">\[\mathrm{d}\mathbf r=\mathrm{d} x\,\mathbf i+\mathrm{d} y\,\mathbf j\]</div></li>
+<li><p>따라서 \(\mathbf V\)와 \(\mathrm{d}\mathbf r\)가 평행하다는 조건으로부터 두 벡터의 외적은 0이므로</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\mathbf V\times\mathrm{d}\mathbf r
+&=(u\mathbf i+v\mathbf j)
+\times(\mathrm{d} x\,\mathbf i+\mathrm{d} y\,\mathbf j),\\[2.0ex]
+&=(u\mathrm{d} y-v\mathrm{d} x)\mathbf k,\\[2.0ex]
+&=\mathbf 0.\end{aligned}\]</div></li>
+<li><p>따라서 <strong>Streamline을 따라 이동하는 미소변위</strong>는 다음 관계를 만족함.</p><div class="equation" role="group" aria-label="수학 수식" id="eq-eq-streamlineCondition">\[u\mathrm{d} y-v\mathrm{d} x=0\]</div></li>
+<li><p>한편 Stream Function은 \(\psi(x,y)\)로 표현되는 Scalar Function이므로, 미소변위 \((\mathrm{d} x,\mathrm{d} y)\)에 따른 \(\psi\)의 변화량을 전미분하면</p><div class="equation" role="group" aria-label="수학 수식" id="eq-eq-psiDifferential">\[\begin{aligned}\mathrm{d}\psi
+&=\frac{\partial\psi}{\partial x}\mathrm{d} x
++\frac{\partial\psi}{\partial y}\mathrm{d} y,\\[2.0ex]
+&=-v\mathrm{d} x+u\mathrm{d} y,\\[2.0ex]
+&=u\mathrm{d} y-v\mathrm{d} x.\end{aligned}\]</div></li>
+<li><p>여기서 Streamline을 따라 이동하면 <a href="#eq-eq-streamlineCondition">앞의 식</a>에 의해 \(u\mathrm{d} y-v\mathrm{d} x=0\)이므로</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\mathrm{d}\psi
+&=u\mathrm{d} y-v\mathrm{d} x,\\[2.0ex]
+&=0.\end{aligned}\]</div></li>
+<li><p>따라서 Streamline을 따라 Stream Function의 값은 변하지 않으며, 다음 관계를 얻음.</p><div class="equation key" role="group" aria-label="수학 수식" id="eq-eq-psiStreamline">\[\psi=\mathrm{constant}
+\qquad \text{along a streamline}\]</div></li>
+<li><p>즉, <strong>Stream Function의 contour은 Streamline을 나타내므로</strong>, 속도장으로부터 개별 유선을 직접 추적하지 않아도 \(\psi\)의 contour을 통해 유선의 형태를 확인할 수 있음.</p></li>
+<li><p>다음으로 Stream Function은 <strong>두 Streamline 사이의 체적유량</strong>을 계산하는 데에도 활용할 수 있음.</p><figure class="lesson-figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 310" role="img" aria-label="두 유선 A와 B를 가로지르는 경로와 유량 차이를 나타내는 도식">
+<defs><marker id="pf-f1" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="none" stroke="#2363a5" stroke-width="1.4"/></marker></defs>
+<path d="M48 196C220 170 505 228 730 189L730 96C505 133 220 70 48 111Z" fill="#e8f2ff" stroke="none"/>
+<path d="M48 111C220 70 505 133 730 96" fill="none" stroke="#2b629d" stroke-width="3"/>
+<path d="M48 196C220 170 505 228 730 189" fill="none" stroke="#2b629d" stroke-width="3"/>
+<path d="M160 94L247 95M520 112L608 107M160 185L248 184M520 209L608 199" fill="none" stroke="#2363a5" stroke-width="2" marker-end="url(#pf-f1)"/>
+<path d="M397 208L397 120" stroke="#b86a44" stroke-width="3" marker-end="url(#pf-f1)"/>
+<circle cx="397" cy="208" r="4.5" fill="#b86a44"/><circle cx="397" cy="120" r="4.5" fill="#b86a44"/>
+<text x="70" y="79" fill="#254f83" font-size="19">ψB</text><text x="70" y="226" fill="#254f83" font-size="19">ψA</text>
+<text x="417" y="166" fill="#aa5b35" font-size="18">Q′AB = ψB − ψA</text>
+<text x="363" y="107" fill="#a8583a" font-size="17">B</text><text x="361" y="240" fill="#a8583a" font-size="17">A</text>
+<text x="610" y="56" fill="#56769b" font-size="16">Streamline B</text><text x="603" y="251" fill="#56769b" font-size="16">Streamline A</text></svg><figcaption>두 유선 사이를 가로지르는 단면을 통과하는 단위깊이당 체적유량</figcaption></figure></li>
+<li><p>2차원 유동에서 곡선 위의 미소변위가 \((\mathrm{d} x,\mathrm{d} y)\)일 때, 곡선의 진행 방향에 대한 오른쪽 법선방향으로 통과하는 단위깊이당 미소 체적유량은</p><div class="equation" role="group" aria-label="수학 수식" id="eq-eq-psiFlowDifferential">\[\begin{aligned}\mathrm{d} Q'
+&=\mathbf V\cdot\mathbf n\,\mathrm{d} s,\\[2.0ex]
+&=u\mathrm{d} y-v\mathrm{d} x.\end{aligned}\]</div></li>
+<li><p><a href="#eq-eq-psiDifferential">앞의 식</a>과 비교하면 \(\mathrm{d}\psi=u\mathrm{d} y-v\mathrm{d} x\)이므로 (여기서는 streamline 을 따르는 유동이 아니므로 이 값은 0 이아님 )</p><div class="equation" role="group" aria-label="수학 수식">\[\mathrm{d} Q'=\mathrm{d}\psi\]</div></li>
+<li><p>따라서 서로 다른 두 Streamline 위의 점 \(A,B\)를 연결하는 곡선을 따라 적분하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}Q'_{AB}
+&=\int_A^B\mathrm{d} Q',\\[2.0ex]
+&=\int_A^B(u\mathrm{d} y-v\mathrm{d} x),\\[2.0ex]
+&=\int_{\psi_A}^{\psi_B}\mathrm{d}\psi,\\[2.0ex]
+&=\psi_B-\psi_A.\end{aligned}\]</div></li>
+<li><p>따라서 <strong>두 Streamline의 Stream Function 값 차이는 두 유선 사이를 통과하는 단위깊이당 체적유량</strong>을 나타냄.</p><div class="equation key" role="group" aria-label="수학 수식" id="eq-eq-psiFlowRate">\[Q'_{AB}=\psi_B-\psi_A\]</div></li>
+<li><p>여기서 \(Q'\)의 단위는 \(\mathrm{m^2/s}\)이므로, Stream Function \(\psi\) 역시 \(\mathrm{m^2/s}\)의 단위를 가짐.</p></li>
+<li><p>이때 실제 깊이가 일정한 \(b\)인 2차원 유동에서는 전체 체적유량을 \(Q=bQ'\)로 계산할 수 있음.</p></li></ul></section>
+<section class="lesson-section" id="vorticity-and-velocity-potential"><h2><span class="section-tag">05</span>Vorticity and Velocity Potential</h2><ul class="study-points"><li><p>앞에서 Stream Function은 <strong>Incompressible Flow</strong> 조건으로부터 도입되었으므로, 유동이 회전하는 경우에도 사용할 수 있음</p></li>
+<li><p>이제 <strong>Vorticity</strong>의 정의를 이용하여 Stream Function과 유체의 회전 사이의 관계를 유도</p></li>
+<li><p>2차원 유동에서는 속도 성분이 \(u(x,y),v(x,y)\)로 주어지고 \(w=0\)이며, \(z\) 방향 변화가 없으므로 Vorticity는 \(z\) 방향 성분만 존재함.</p><div class="equation" role="group" aria-label="수학 수식">\[\boldsymbol\omega
+=\nabla\times\mathbf V
+=\omega_z\mathbf k\]</div></li>
+<li><p>여기서 \(\omega_z\)에 stream function을 대입하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\omega_z
+&=\frac{\partial v}{\partial x}
+-\frac{\partial u}{\partial y},\\[2.0ex]
+&=\frac{\partial}{\partial x}
+\left(-\frac{\partial\psi}{\partial x}\right)
+-\frac{\partial}{\partial y}
+\left(\frac{\partial\psi}{\partial y}\right),\\[2.0ex]
+&=-\frac{\partial^2\psi}{\partial x^2}
+-\frac{\partial^2\psi}{\partial y^2},\\[2.0ex]
+&=-\left(
+\frac{\partial^2\psi}{\partial x^2}
++\frac{\partial^2\psi}{\partial y^2}
+\right),\\[2.0ex]
+&=-\nabla^2\psi.\end{aligned}\]</div></li>
+<li><p>따라서 <strong>Stream Function과 Vorticity</strong>는 다음 관계를 만족함.</p><div class="equation key" role="group" aria-label="수학 수식" id="eq-eq-psiVorticity">\[\nabla^2\psi=-\omega_z\]</div></li>
+<li><p>이 방정식은 2차원 incompressible flow에서 <strong>Stream Function과 Vorticity를 연결하는 Poisson Equation</strong>이며, CFD의 <strong>Stream Function--Vorticity Formulation</strong>에서 중요하게 활용됨.</p></li>
+<li><p>특히 유동이 <strong>Irrotational Flow</strong>라면 Vorticity가 0이므로</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\nabla^2\psi
+&=-\omega_z,\\[2.0ex]
+&=0.\end{aligned}\]</div></li>
+<li><p>따라서 <strong>2차원 Incompressible 및 Irrotational Flow</strong>에서는 Stream Function 역시 <strong>Laplace Equation</strong>을 만족함.</p></li>
+<li><p>한편 <strong>Velocity Potential</strong> \(\phi\)는 속도장을 Gradient로 표현하는 함수이므로, 비회전 유동에서는</p><div class="equation" role="group" aria-label="수학 수식">\[\mathbf V=\nabla\phi\]</div></li>
+<li><p>따라서 Velocity Potential과 Stream Function이 동시에 존재하는 경우 두 함수의 정의를 비교하면</p><div class="equation" role="group" aria-label="수학 수식">\[u=\frac{\partial\phi}{\partial x}
+=\frac{\partial\psi}{\partial y},
+\qquad
+v=\frac{\partial\phi}{\partial y}
+=-\frac{\partial\psi}{\partial x}\]</div></li>
+<li><p>위 관계는 <strong>Cauchy--Riemann Equations</strong>에 해당하며, 두 Scalar Function의 Gradient를 계산하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\nabla\phi\cdot\nabla\psi
+&=\left(
+\frac{\partial\phi}{\partial x}\mathbf i
++\frac{\partial\phi}{\partial y}\mathbf j
+\right)
+\cdot
+\left(
+\frac{\partial\psi}{\partial x}\mathbf i
++\frac{\partial\psi}{\partial y}\mathbf j
+\right),\\[2.0ex]
+&=(u\mathbf i+v\mathbf j)
+\cdot(-v\mathbf i+u\mathbf j),\\[2.0ex]
+&=-uv+vu,\\[2.0ex]
+&=0.\end{aligned}\]</div></li>
+<li><p>따라서 두 함수의 Gradient는 서로 수직이며, 속도가 0이 아닌 곳에서는 <strong>동일 Potential선과 Streamline이 서로 직교</strong>함.</p><div class="equation key" role="group" aria-label="수학 수식" id="eq-eq-potentialStreamOrthogonal">\[\nabla\phi\cdot\nabla\psi=0\]</div></li>
+<li><p>이와 같이 두 함수를 함께 사용하면 <strong>2차원 비압축성 비회전 유동</strong>에서 속도장의 크기와 방향, Streamline, 등일 Potential선 및 체적유량을 서로 연관시켜 해석할 수 있음. \subsection{Elementary Potential Flows} \definecolor{PFblue}{RGB}{33,101,140} \definecolor{PFred}{RGB}{188,85,56} \definecolor{PFgray}{RGB}{135,145,155} \tikzset{ PFstream/.style={ draw=PFblue, line width=0.9pt }, PFarrow/.style={ -{Stealth[length=2.0mm,width=1.4mm]} }, PFaxes/.style={ draw=PFgray!75, line width=0.45pt, -{Stealth[length=1.7mm]} }, PFflow/.style={ PFstream, postaction={decorate}, decoration={ markings, mark=at position 0.24 with {\arrow{Stealth}}, mark=at position 0.72 with {\arrow{Stealth}} }, PFround/.style={ PFstream, postaction={decorate}, decoration={ markings, mark=at position 0.19 with {\arrow{Stealth}}, mark=at position 0.69 with {\arrow{Stealth}}</p></li></ul></section></article>
+<div class="article-pager"><a href="vorticity-transport-equation.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Vorticity Transport Equation</span></a><a class="next" href="elementary-potential-flows.html"><span class="direction">NEXT →</span><span class="adjacent">Elementary Potential Flows</span></a></div>
+<a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a>
+</main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Aerodynamics</span></div></footer>
+<script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>
