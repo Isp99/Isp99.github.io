@@ -1,2 +1,207 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Elementary Potential Flows — Engineering Notebook"><title>Elementary Potential Flows | Engineering Notebook</title><link rel="stylesheet" href="../../../assets/site.css"></head><body class="inner-page"><header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a><nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../../index.html#bento-projects">Practice Project</a></nav></div></header><main class="shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">Aerodynamics</a><span class="separator">›</span><a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span><strong>Elementary Potential Flows</strong></nav><div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 7.2</div><h1>Elementary Potential Flows</h1><p class="hero-subtitle">Potential Flow</p><p class="hero-description">Building blocks of irrotational potential-flow solutions.</p></div></div><div class="article-content"><div class="article-meta">7.2 · Potential Flow</div><h2>Elementary Potential Flows</h2><p>Building blocks of irrotational potential-flow solutions.</p><span class="placeholder-hint">Detailed notes and derivations will be added here.</span></div><div class="article-pager"><a href="stream-function.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Stream Function</span></a><a class="next" href="flow-around-a-circular-cylinder.html"><span class="direction">NEXT →</span><span class="adjacent">Flow around a Circular Cylinder</span></a></div><a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Aerodynamics</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
-</body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Elementary Potential Flows — Fundamentals of Aerodynamics · Engineering Notebook">
+<title>Elementary Potential Flows | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+/* Material Derivative — scoped page-specific instructional layout */
+body.inner-page .breadcrumb{font-size:16px}
+.md-page .article-content{padding:43px 46px 64px}
+.md-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.md-page .lesson-meta span:first-child{color:#2e61b7}
+.md-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:68px}
+.md-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.md-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:8px 20px}
+.md-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.md-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.md-page .lesson-section{scroll-margin-top:27px}
+.md-page .lesson-section+.lesson-section{margin-top:76px;padding-top:44px;border-top:1px solid #e1eaf6}
+.md-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 37px!important;line-height:1.3}
+.md-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.md-page .study-points{list-style:none;padding:0;margin:0}
+.md-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 48px;word-break:keep-all;overflow-wrap:anywhere}
+.md-page .study-points>li:last-child{margin-bottom:0}
+.md-page .study-points>li.sub-point{margin-left:26px}
+.md-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.md-page strong{color:#23466f}
+.md-page .equation{border:none;background:transparent;border-radius:0;margin:46px 0 54px;padding:12px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px}
+.md-page .equation.key{background:#f7f9fd;border:none;border-radius:10px;margin:55px 0 61px;padding:31px 18px}
+.md-page .equation mjx-container[display="true"]{margin:.3em auto!important}
+.md-page .definitions{margin:24px 0 19px 21px;padding:0;font-size:14px;color:#627a9a;line-height:1.85}
+.md-page .definitions li{margin:9px 0}
+.md-page .definitions.two-terms{list-style:none;padding:21px 19px;margin:26px 0 17px;background:#f5f8fe;border-radius:9px;border:1px solid #e5ebf5}
+.md-page .two-terms div+div{margin-top:14px}
+.md-page .note-box{border:1px solid #d7e4f5;border-left:4px solid #4572bd;background:#f4f8fe;border-radius:11px;padding:33px 34px 37px;margin:48px 0 13px}
+.md-page .note-box h3{font-size:17px;color:#254d83;margin:0 0 23px}
+.md-page .note-box h4{font-size:14px;margin:33px 0 14px;color:#2c578e}
+.md-page .note-box p{font-size:14px;line-height:1.88;color:#506b8a;max-width:none;margin:0 0 20px;word-break:keep-all}
+.md-page .note-box .equation{background:transparent;margin:43px 0 50px}
+.md-page .note-box .equation.key{background:#f7f9fd;margin:55px 0 61px}
+/* Slightly larger page navigation and study metadata. */
+.md-page .eyebrow{font-size:12px}
+.md-page .article-pager .direction{font-size:12px}
+.md-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.md-page .back-bottom{font-size:16px}
+@media(max-width:600px){.md-page .lesson-meta{font-size:13px}.md-page .lesson-toc strong{font-size:16px}.md-page .lesson-toc a{font-size:15px}.md-page .article-pager .adjacent{font-size:14px}.md-page .back-bottom{font-size:15px}.md-page .eyebrow{font-size:11px}}
+@media(max-width:740px){.md-page .article-content{padding:24px 18px 30px}.md-page .lesson-toc{padding:16px}.md-page .lesson-toc ul{grid-template-columns:1fr}.md-page .lesson-section h2{font-size:20px!important}.md-page .study-points>li{font-size:14px;padding-left:21px}.md-page .equation{font-size:14px;padding:14px 9px}.md-page .note-box{padding:19px 15px}.md-page .lesson-section+.lesson-section{margin-top:58px;padding-top:33px}.md-page .study-points>li{margin-bottom:38px}.md-page .equation{margin:35px 0 43px;padding:10px 0}.md-page .equation.key{margin:43px 0 51px;padding:25px 11px}.md-page .note-box .equation{margin:35px 0 43px}.md-page .note-box .equation.key{margin:43px 0 51px}.md-page .note-box{margin-top:36px;padding:25px 18px 28px}}
+@media(max-width:600px){body.inner-page .breadcrumb{font-size:14px}.md-page .study-points>li.sub-point{margin-left:18px}}
+
+.md-page .comparison-table{width:100%;border-collapse:collapse;margin:33px 0 40px;table-layout:fixed;color:#344c68;font-size:14px}
+.md-page .comparison-table th{background:#183353;color:white;text-align:left;padding:15px 14px;font-weight:700}
+.md-page .comparison-table td{padding:16px 14px;vertical-align:top;line-height:1.75;border-bottom:1px solid #e0e8f4;word-break:keep-all}
+.md-page .comparison-table tbody tr:nth-child(odd){background:#f2f6fc}
+.md-page .comparison-table tbody td:first-child{font-weight:700;color:#23466f;width:21%}
+.md-page .lesson-figure{max-width:100%;margin:34px auto 48px;text-align:center}
+.md-page .lesson-figure svg{display:block;width:100%;max-width:700px;height:auto;margin:auto;background:#fafcff;border:1px solid #e3eaf5;border-radius:12px}
+.md-page .lesson-figure figcaption{margin:13px auto 0;font-size:13px;color:#6881a1;line-height:1.7}
+.md-page .equation .math-caption{font-size:12px;color:#557394;margin-top:13px;letter-spacing:.01em}
+.md-page .inline-insight{font-weight:700;color:#23466f}
+@media(max-width:740px){.md-page .comparison-table{font-size:12px}.md-page .comparison-table th,.md-page .comparison-table td{padding:11px 8px}}
+
+/* Potential Flow diagrams and source-based study notes */
+.md-page .lesson-figure{width:100%;margin:32px auto 24px;padding:12px 12px 14px;border:1px solid #e0e9f5;border-radius:13px;background:#f9fbff;text-align:center;overflow:hidden}
+.md-page .lesson-figure svg{display:block;width:100%;height:auto;max-width:820px;margin:0 auto}
+.md-page .lesson-figure figcaption{font-size:13px;color:#7086a5;margin-top:10px;line-height:1.6}
+.md-page .study-points>li p{margin:0 0 13px;line-height:1.9}
+.md-page .study-points>li .equation{margin:23px 0 30px}
+.md-page .study-points>li .equation.key{margin:28px 0 38px}
+.md-page .source-note{margin:0 0 35px;color:#6b81a1;font-size:14px;line-height:1.85}
+.md-page .study-points>li .lesson-figure{margin:24px auto}
+.md-page .lesson-section .study-points>li{margin-bottom:30px}
+.md-page .lesson-section+.lesson-section{margin-top:66px}
+.md-page .lesson-figure text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif}
+@media(max-width:740px){.md-page .lesson-figure{padding:8px 6px}.md-page .lesson-figure figcaption{font-size:12px}}
+
+</style>
+<script>
+window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation">
+<a href="../../../index.html">Home</a>
+<a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a>
+<a href="../../aerodynamics.html">Aerodynamics ↗</a>
+</nav></div></header>
+<main class="shell md-page">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<a href="../../../index.html">Home</a><span class="separator">›</span>
+<a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span>
+<a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
+<a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span>
+<strong>Elementary Potential Flows</strong>
+</nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 7.2</div>
+<h1>Elementary Potential Flows</h1><p class="hero-subtitle">Potential Flow</p>
+<p class="hero-description">Uniform Flow, Source/Sink, Doublet, Vortex의 속도포텐셜과 유선함수를 유도함.</p>
+</div></div>
+<article class="article-content"><div class="lesson-meta"><span>07 / Potential Flow</span><span>Study Notes · 7.2</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#introduction">01 · Introduction</a></li><li><a href="#uniform-flow">02 · Uniform Flow</a></li><li><a href="#source-and-sink">03 · Source and Sink</a></li><li><a href="#doublet">04 · Doublet</a></li><li><a href="#vortex-flow">05 · Vortex Flow</a></li></ul></nav><section class="lesson-section" id="introduction"><h2><span class="section-tag">06</span>Introduction</h2><ul class="study-points"><li><p>Laplace Equation의 선형성을 통해서 Superposition 의 원리를 다음과 같이 적용 가능함</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\nabla^2\phi_1&=0, \qquad \nabla^2\phi_2=0.\end{aligned}\]</div></li>
+<li><p>을 만족하는 두 포텐셜은 다음 관계 성림</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\nabla^2(\phi_1+\phi_2)
+&=\nabla^2\phi_1+\nabla^2\phi_2,\\[2.0ex]
+&=0.\end{aligned}\]</div></li>
+<li><p>이를 활용하면 복잡한 유동을 후술한 4개의 간단한 Potential Flow의 합으로 생각 가능하며 이들은 아래와 같음</p></li>
+<li><p><strong>Uniform Flow</strong></p></li>
+<li><p><strong>Source / Sink</strong></p></li>
+<li><p><strong> Doublet</strong></p></li>
+<li><p><strong> Vortex Flow</strong></p></li>
+<li><p>이들은 Incompressible, Irrotational Flow 이며 복잡한 실제 유동의 상당 부분을 간단한 수학적 모델로 근사함</p></li>
+<li><p>주로 다음목적으로 사용</p></li>
+<li><p>물체 주위의 외부유동(External Flow)을 해석할</p></li>
+<li><p>Airfoil의 양력 및 압력 분포 예측 및 항공기 날개 초기 설계</p></li>
+<li><p>CFD 결과 검증 및 초기 유동장 구성</p></li>
+<li><p>단, D'Alembert's Paradox 등 정확하지는 않기 때문에 Boundary layer (점성의 결과) 등을 고려해 모델확장</p></li></ul></section>
+<section class="lesson-section" id="uniform-flow"><h2><span class="section-tag">07</span>Uniform Flow</h2><figure class="lesson-figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 310" role="img" aria-label="평행한 직선 유선이 오른쪽으로 흐르는 균일유동"><defs><marker id="pf-u" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="none" stroke="#2363a5" stroke-width="1.4"/></marker></defs><path d="M80 72H705" fill="none" stroke="#2c659e" stroke-width="2.5"/><path d="M330 72h92" fill="none" stroke="#2c659e" stroke-width="1.9" marker-end="url(#pf-u)"/><path d="M80 112H705" fill="none" stroke="#2c659e" stroke-width="2.5"/><path d="M330 112h92" fill="none" stroke="#2c659e" stroke-width="1.9" marker-end="url(#pf-u)"/><path d="M80 152H705" fill="none" stroke="#2c659e" stroke-width="2.5"/><path d="M330 152h92" fill="none" stroke="#2c659e" stroke-width="1.9" marker-end="url(#pf-u)"/><path d="M80 192H705" fill="none" stroke="#2c659e" stroke-width="2.5"/><path d="M330 192h92" fill="none" stroke="#2c659e" stroke-width="1.9" marker-end="url(#pf-u)"/><path d="M80 232H705" fill="none" stroke="#2c659e" stroke-width="2.5"/><path d="M330 232h92" fill="none" stroke="#2c659e" stroke-width="1.9" marker-end="url(#pf-u)"/>
+<path d="M75 266H710" stroke="#b8c7d8" stroke-width="1"/><text x="680" y="285" fill="#627a99" font-size="15">x</text>
+<text x="385" y="45" text-anchor="middle" fill="#294f7c" font-size="19">V = U eₓ,   ψ = Uy = constant</text></svg><figcaption>Uniform Flow: 일정한 속도의 직선 평행 유선</figcaption></figure><ul class="study-points"><li><p>정의: <strong>모든 위치에서 같은 방향과 속도로 흐르는 유동</strong></p></li>
+<li><p>\(+x\)방향으로 일정한 속도 \(U\)를 갖는 유동을 고려함.</p><div class="equation" role="group" aria-label="수학 수식">\[u=U,\qquad v=0.\]</div></li>
+<li><p>Potential function의 정의로 부터 \(\phi\) 를 구하기 위해 속도를 를 \(x\)에 대해 적분하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\frac{\partial\phi}{\partial x}&=U, \qquad {\rightarrow} \qquad  \phi=Ux+f(y).\end{aligned}\]</div></li>
+<li><p>적분 후 남은 함수 \(f(y)\)는 \(v=0\) 조건으로 결정함.</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\frac{\partial\phi}{\partial y}&=v=0,\qquad {\rightarrow} \qquad \phi=Ux+C.\end{aligned}\]</div></li>
+<li><p>상수 \(C\)는 속도에 영향을 주지 않으므로 0으로 둠. 같은 방식으로 Stream function을 구하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\frac{\partial\psi}{\partial y}=U&\quad\Longrightarrow\quad\psi=Uy+g(x),\\
+-\frac{\partial\psi}{\partial x}=g'(x) =0   &\quad\Longrightarrow\quad g(x)=C.\end{aligned}\]</div></li>
+<li><p>따라서,</p><div class="equation key" role="group" aria-label="수학 수식" id="eq-eq-uniformNew">\[\phi=Ux \qquad \psi=Uy\]</div></li></ul></section>
+<section class="lesson-section" id="source-and-sink"><h2><span class="section-tag">08</span>Source and Sink</h2><figure class="lesson-figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 310" role="img" aria-label="Source에서는 유선이 원점으로부터 방출되고 Sink에서는 원점으로 수렴함"><defs><marker id="pf-s" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="none" stroke="#2363a5" stroke-width="1.4"/></marker></defs>
+<circle cx="185" cy="151" r="6.5" fill="#bb684a"/>
+<circle cx="185" cy="151" r="89" fill="none" stroke="#aec1d8" stroke-width="1.3" stroke-dasharray="5 5"/>
+<path d="M208.0 151.0L299.0 151.0" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M204.9 162.5L283.7 208.0" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M196.5 170.9L242.0 249.7" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M185.0 174.0L185.0 265.0" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M173.5 170.9L128.0 249.7" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M165.1 162.5L86.3 208.0" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M162.0 151.0L71.0 151.0" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M165.1 139.5L86.3 94.0" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M173.5 131.1L128.0 52.3" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M185.0 128.0L185.0 37.0" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M196.5 131.1L242.0 52.3" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M204.9 139.5L283.7 94.0" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/>
+<text x="185" y="33" text-anchor="middle" font-size="21" fill="#254a76">Source (Q > 0)</text>
+
+<circle cx="580" cy="151" r="6.5" fill="#bb684a"/>
+<circle cx="580" cy="151" r="89" fill="none" stroke="#aec1d8" stroke-width="1.3" stroke-dasharray="5 5"/>
+<path d="M694.0 151.0L603.0 151.0" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M678.7 208.0L599.9 162.5" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M637.0 249.7L591.5 170.9" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M580.0 265.0L580.0 174.0" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M523.0 249.7L568.5 170.9" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M481.3 208.0L560.1 162.5" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M466.0 151.0L557.0 151.0" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M481.3 94.0L560.1 139.5" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M523.0 52.3L568.5 131.1" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M580.0 37.0L580.0 128.0" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M637.0 52.3L591.5 131.1" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/><path d="M678.7 94.0L599.9 139.5" fill="none" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-s)"/>
+<text x="580" y="33" text-anchor="middle" font-size="21" fill="#254a76">Sink (Q < 0)</text>
+<path d="M382 46V255" stroke="#d7e1ed" stroke-width="2" stroke-dasharray="5 7"/></svg><figcaption>Source(좌)와 Sink(우): 방사형 유선과 유동 방향</figcaption></figure><ul class="study-points"><li><p>정의: <strong>한 점에서 유체가 방사형으로 퍼져 나오거나 빨려 들어가는 유동</strong></p></li>
+<li><p>원점을 중심으로 하는 극좌표 \((r,\theta)\)를 사용하며, <strong>단위 깊이당 체적유량</strong>을 \(Q\)로 정의함. 반지름 \(r\)인 원에서 방사형 속도 \(V_r\)가 일정하므로</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{gathered}\begin{aligned}
+Q&=\int_0^{2\pi}V_r(r)\,r\mathrm{d}\theta,\\[1.5ex]
+&=2\pi rV_r
+\end{aligned}\\[0.3cm]
+\Downarrow\\[0.3cm]
+V_r=\frac{Q}{2\pi r},\qquad V_\theta=0.\end{gathered}\]</div></li>
+<li><p><strong>Potential function</strong>의 정의로부터 \(\phi\)를 구하기 위해 방사형 속도 \(V_r\)를 \(r\)에 대해 적분하면</p><div class="equation" role="group" aria-label="수학 수식">\[\frac{\partial\phi}{\partial r}=\frac{Q}{2\pi r}\qquad\rightarrow\qquad\phi=\frac{Q}{2\pi}\ln r+f(\theta).\]</div></li>
+<li><p>적분 후 남은 함수 \(f(\theta)\)는 \(V_\theta=0\) 조건으로 결정함.</p><div class="equation" role="group" aria-label="수학 수식">\[\frac1r\frac{\partial\phi}{\partial\theta}=\frac{f'(\theta)}r=0\qquad\rightarrow\qquad\phi=\frac{Q}{2\pi}\ln r+C_\phi.\]</div></li>
+<li><p>같은 방식으로 <strong>Stream function</strong>의 정의로부터 \(\psi\)를 구하기 위해 \(\partial\psi/\partial\theta=rV_r\)를 \(\theta\)에 대해 적분하면</p><div class="equation" role="group" aria-label="수학 수식">\[\frac{\partial\psi}{\partial\theta}=rV_r=\frac{Q}{2\pi}\qquad\rightarrow\qquad\psi=\frac{Q}{2\pi}\theta+g(r).\]</div></li>
+<li><p>적분 후 남은 함수 \(g(r)\)는 \(V_\theta=-\partial\psi/\partial r=0\) 조건으로 결정함.</p><div class="equation" role="group" aria-label="수학 수식">\[-\frac{\partial\psi}{\partial r}=-g'(r)=0\qquad\rightarrow\qquad\psi=\frac{Q}{2\pi}\theta+C_\psi.\]</div></li>
+<li><p>상수 \(C_\phi\), \(C_\psi\)는 속도에 영향을 주지 않으므로, 기준반지름 \(r_0\)에서 \(\phi=0\)이 되도록 \(C_\phi=-\frac{Q}{2\pi}\ln r_0\)로 정하고 \(C_\psi=0\)으로 두면</p><div class="equation key" role="group" aria-label="수학 수식" id="eq-eq-sourceNew">\[\phi=\frac{Q}{2\pi}\ln\frac r{r_0}\qquad\psi=\frac{Q}{2\pi}\theta\]</div></li>
+<li><p>\(Q&gt;0\)이면 <strong>Source</strong>, \(Q&lt;0\)이면 <strong>Sink</strong>이며, 원점은 유량이 공급되거나 제거되는 특이점이므로 위 식은 \(r&gt;0\)에 적용함.</p></li></ul></section>
+<section class="lesson-section" id="doublet"><h2><span class="section-tag">09</span>Doublet</h2><figure class="lesson-figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 310" role="img" aria-label="Source와 Sink를 접근시켜 Doublet을 만드는 과정 및 Doublet 유선 개념"><defs><marker id="pf-d" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="none" stroke="#2363a5" stroke-width="1.4"/></marker></defs>
+<text x="195" y="37" font-size="20" text-anchor="middle" fill="#254a76">Source–Sink Pair</text>
+<circle cx="110" cy="155" r="7" fill="#b66846"/><circle cx="275" cy="155" r="7" fill="#b66846"/>
+<path d="M110 155C45 45 340 45 275 155M110 155C45 265 340 265 275 155M110 155H275" fill="none" stroke="#2c659e" stroke-width="2.7"/>
+<path d="M165 82H211M165 228H211M175 155H211" stroke="#2c659e" stroke-width="2" marker-end="url(#pf-d)"/>
+<text x="81" y="178" font-size="18" fill="#a8553a">+Q</text><text x="279" y="177" font-size="18" fill="#a8553a">−Q</text>
+<path d="M110 249H275" stroke="#9bb0c9"/><path d="M110 242V256M275 242V256" stroke="#9bb0c9"/><text x="189" y="270" text-anchor="middle" font-size="17" fill="#7089a6">ℓ</text>
+<path d="M367 155H415" stroke="#6c8dac" stroke-width="2.1" marker-end="url(#pf-d)"/>
+<text x="389" y="122" text-anchor="middle" font-size="14" fill="#5a7798">ℓ → 0</text>
+<text x="589" y="37" font-size="20" text-anchor="middle" fill="#254a76">Doublet (κ = Qℓ)</text>
+<circle cx="567.5" cy="155" r="55" stroke="#2c659e" stroke-width="1.7" fill="none"/><path d="M622.5 155a55 55 0 0 1 -20 27.5" stroke="#2c659e" stroke-width="2" fill="none" marker-end="url(#pf-d)"/><circle cx="582" cy="155" r="84" stroke="#2c659e" stroke-width="1.7" fill="none"/><path d="M666 155a84 84 0 0 1 -20 35" stroke="#2c659e" stroke-width="2" fill="none" marker-end="url(#pf-d)"/><circle cx="597" cy="155" r="114" stroke="#2c659e" stroke-width="1.7" fill="none"/><path d="M711 155a114 114 0 0 1 -20 35" stroke="#2c659e" stroke-width="2" fill="none" marker-end="url(#pf-d)"/>
+<circle cx="540" cy="155" r="5.5" fill="#b66846"/>
+<text x="540" y="185" font-size="17" fill="#aa5c40">κ</text></svg><figcaption>Source–Sink 쌍의 극한으로 정의되는 Doublet 유동 개념도</figcaption></figure><ul class="study-points"><li><p>정의: <strong>같은 세기의 Source와 Sink를 무한히 가까이 접근시키면서, 세기와 거리의 곱을 일정하게 유지하여 얻는 유동</strong></p></li>
+<li><p>먼저 Source \(+Q\)와 Sink \(-Q\)를 각각 \(x=-\ell/2\), \(x=+\ell/2\)에 놓음. 임의의 점 \((x,y)\)에서 Source와 Sink까지의 거리를 각각 \(r_s\), \(r_k\)로 정의하면</p><div class="equation" role="group" aria-label="수학 수식">\[r_s=\sqrt{(x+\ell/2)^2+y^2},\qquad r_k=\sqrt{(x-\ell/2)^2+y^2}.\]</div></li>
+<li><p><strong>Potential function</strong>은 Source와 Sink의 Potential function을 중첩하여 구함. 두 유동에 동일한 기준반지름 \(r_0\)를 사용하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\phi&=\frac{Q}{2\pi}\ln\frac{r_s}{r_0}-\frac{Q}{2\pi}\ln\frac{r_k}{r_0},\\[1.5ex]
+&=\frac{Q}{2\pi}\ln\frac{r_s}{r_k}.\end{aligned}\]</div></li>
+<li><p>\(r=\sqrt{x^2+y^2}\), \(x=r\cos\theta\)를 대입하고 \(\ell\ll r\)에서 \(\sqrt{1+\epsilon}\simeq1+\epsilon/2\)를 적용하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}r_s&=r\sqrt{1+\frac{\ell\cos\theta}{r}+\frac{\ell^2}{4r^2}}\simeq r+\frac\ell2\cos\theta,\\[1.5ex]
+r_k&=r\sqrt{1-\frac{\ell\cos\theta}{r}+\frac{\ell^2}{4r^2}}\simeq r-\frac\ell2\cos\theta.\end{aligned}\]</div></li>
+<li><p>따라서 \(\ln(1+\epsilon)\simeq\epsilon\)를 사용하면 Potential function에 포함된 거리비의 로그는</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\ln\frac{r_s}{r_k}&\simeq\ln\left(1+\frac{\ell\cos\theta}{2r}\right)-\ln\left(1-\frac{\ell\cos\theta}{2r}\right),\\[1.5ex]
+&\simeq\frac{\ell\cos\theta}{2r}+\frac{\ell\cos\theta}{2r},\\[1.5ex]
+&=\frac{\ell\cos\theta}{r}.\end{aligned}\]</div></li>
+<li><p>위 결과를 대입한 뒤 \(\ell\rightarrow0\)에서 세기와 거리의 곱 \(Q\ell=\kappa\)를 일정하게 유지하면 <strong>Doublet</strong>의 Potential function을 얻음.</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{gathered}\phi\simeq\frac{Q\ell}{2\pi r}\cos\theta\\[0.3cm]
+\Downarrow\quad\ell\rightarrow0,\quad Q\ell=\kappa\\[0.3cm]
+\phi=\frac{\kappa}{2\pi r}\cos\theta.\end{gathered}\]</div></li>
+<li><p>Potential function을 미분하여 방사형 속도와 원주방향 속도를 구하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}V_r&=\frac{\partial\phi}{\partial r}=-\frac{\kappa}{2\pi r^2}\cos\theta,\\[1.5ex]
+V_\theta&=\frac1r\frac{\partial\phi}{\partial\theta}=-\frac{\kappa}{2\pi r^2}\sin\theta.\end{aligned}\]</div></li>
+<li><p><strong>Stream function</strong>의 정의로부터 \(\psi\)를 구하기 위해 \(\partial\psi/\partial\theta=rV_r\)를 \(\theta\)에 대해 적분하면</p><div class="equation" role="group" aria-label="수학 수식">\[\frac{\partial\psi}{\partial\theta}=-\frac{\kappa}{2\pi r}\cos\theta\qquad\rightarrow\qquad\psi=-\frac{\kappa}{2\pi r}\sin\theta+g(r).\]</div></li>
+<li><p>적분 후 남은 함수 \(g(r)\)는 \(V_\theta=-\partial\psi/\partial r\) 조건으로 결정함. 적분 결과를 미분하여 앞에서 구한 \(V_\theta\)와 비교하면</p><div class="equation" role="group" aria-label="수학 수식">\[-\frac{\kappa}{2\pi r^2}\sin\theta-g'(r)=-\frac{\kappa}{2\pi r^2}\sin\theta\qquad\rightarrow\qquad g'(r)=0.\]</div></li>
+<li><p>따라서 \(g(r)=C\)이며, 상수 \(C\)는 속도에 영향을 주지 않으므로 0으로 두면</p><div class="equation key" role="group" aria-label="수학 수식" id="eq-eq-doubletNew">\[\phi=\frac{\kappa}{2\pi r}\cos\theta\qquad\psi=-\frac{\kappa}{2\pi r}\sin\theta\]</div></li>
+<li><p>\(\kappa&gt;0\)은 Source를 왼쪽, Sink를 오른쪽에 놓은 경우이며, 원점은 두 특이점이 합쳐진 지점이므로 위 식은 \(r&gt;0\)에 적용함.</p></li></ul></section>
+<section class="lesson-section" id="vortex-flow"><h2><span class="section-tag">10</span>Vortex Flow</h2><figure class="lesson-figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 310" role="img" aria-label="원점을 중심으로 반시계방향의 순환을 나타내는 자유와류"><defs><marker id="pf-v" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="none" stroke="#2363a5" stroke-width="1.4"/></marker></defs><circle cx="317" cy="150" r="45" fill="none" stroke="#2c659e" stroke-width="2.4"/><path d="M362 150a45 45 0 0 1 -15 15" fill="none" stroke="#2363a5" stroke-width="2.3" marker-end="url(#pf-v)"/><circle cx="317" cy="150" r="75" fill="none" stroke="#2c659e" stroke-width="2.4"/><path d="M392 150a75 75 0 0 1 -25 25" fill="none" stroke="#2363a5" stroke-width="2.3" marker-end="url(#pf-v)"/><circle cx="317" cy="150" r="107" fill="none" stroke="#2c659e" stroke-width="2.4"/><path d="M424 150a107 107 0 0 1 -25 25" fill="none" stroke="#2363a5" stroke-width="2.3" marker-end="url(#pf-v)"/><circle cx="317" cy="150" r="139" fill="none" stroke="#2c659e" stroke-width="2.4"/><path d="M456 150a139 139 0 0 1 -25 25" fill="none" stroke="#2363a5" stroke-width="2.3" marker-end="url(#pf-v)"/>
+<circle cx="317" cy="150" r="5.5" fill="#bc6847"/>
+<path d="M317 150L398 97" stroke="#94aabe" stroke-width="1.5"/>
+<text x="363" y="112" fill="#7086a4" font-size="17">r</text>
+<text x="505" y="118" fill="#244b7b" font-size="19">Vr = 0</text>
+<text x="505" y="153" fill="#244b7b" font-size="19">Vθ = Γ / (2πr)</text>
+<text x="505" y="196" fill="#56769b" font-size="17">Γ &gt; 0: counterclockwise</text></svg><figcaption>Vortex Flow: 동심원형 유선과 접선방향 속도</figcaption></figure><ul class="study-points"><li><p>정의: <strong>한 점을 중심으로 원형 경로를 따라 흐르며, 원주방향 속력이 중심으로부터의 거리에 반비례하는 유동</strong></p></li>
+<li><p>방사형 속도는 0이며, 원점을 둘러싸는 원형 경로의 순환이 반지름과 관계없이 \(\Gamma\)로 일정한 유동을 고려함. 반지름 \(r\)인 원에서 원주방향 속도 \(V_\theta\)가 일정하므로</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{gathered}\begin{aligned}
+\Gamma&=\int_0^{2\pi}V_\theta(r)\,r\mathrm{d}\theta,\\[1.5ex]
+&=2\pi rV_\theta
+\end{aligned}\\[0.3cm]
+\Downarrow\\[0.3cm]
+V_r=0,\qquad V_\theta=\frac{\Gamma}{2\pi r}.\end{gathered}\]</div></li>
+<li><p><strong>Potential function</strong>의 정의로부터 \(\phi\)를 구하기 위해 \(\partial\phi/\partial\theta=rV_\theta\)를 \(\theta\)에 대해 적분하면</p><div class="equation" role="group" aria-label="수학 수식">\[\frac{\partial\phi}{\partial\theta}=rV_\theta=\frac{\Gamma}{2\pi}\qquad\rightarrow\qquad\phi=\frac{\Gamma}{2\pi}\theta+f(r).\]</div></li>
+<li><p>적분 후 남은 함수 \(f(r)\)는 \(V_r=0\) 조건으로 결정함.</p><div class="equation" role="group" aria-label="수학 수식">\[\frac{\partial\phi}{\partial r}=f'(r)=0\qquad\rightarrow\qquad\phi=\frac{\Gamma}{2\pi}\theta+C_\phi.\]</div></li>
+<li><p>같은 방식으로 <strong>Stream function</strong>의 정의로부터 \(\psi\)를 구하기 위해 \(\partial\psi/\partial r=-V_\theta\)를 \(r\)에 대해 적분하면</p><div class="equation" role="group" aria-label="수학 수식">\[\frac{\partial\psi}{\partial r}=-\frac{\Gamma}{2\pi r}\qquad\rightarrow\qquad\psi=-\frac{\Gamma}{2\pi}\ln r+g(\theta).\]</div></li>
+<li><p>적분 후 남은 함수 \(g(\theta)\)는 \(V_r=(1/r)\partial\psi/\partial\theta=0\) 조건으로 결정함.</p><div class="equation" role="group" aria-label="수학 수식">\[\frac1r\frac{\partial\psi}{\partial\theta}=\frac{g'(\theta)}r=0\qquad\rightarrow\qquad\psi=-\frac{\Gamma}{2\pi}\ln r+C_\psi.\]</div></li>
+<li><p>상수 \(C_\phi\), \(C_\psi\)는 속도에 영향을 주지 않으므로, \(C_\phi=0\)으로 두고 기준반지름 \(r_0\)에서 \(\psi=0\)이 되도록 \(C_\psi=\frac{\Gamma}{2\pi}\ln r_0\)로 정하면</p><div class="equation key" role="group" aria-label="수학 수식" id="eq-eq-vortexNew">\[\phi=\frac{\Gamma}{2\pi}\theta\qquad\psi=-\frac{\Gamma}{2\pi}\ln\frac r{r_0}\]</div></li>
+<li><p>\(\Gamma&gt;0\)이면 반시계방향, \(\Gamma&lt;0\)이면 시계방향 유동이며, 원점은 속도가 특이해지는 지점이므로 위 식은 \(r&gt;0\)에 적용함.</p></li>
+<li><p>원점을 제외한 영역에서 와도를 계산하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\omega_z&=\frac1r\frac{\partial(rV_\theta)}{\partial r}-\frac1r\frac{\partial V_r}{\partial\theta},\\[1.5ex]
+&=\frac1r\frac{\partial}{\partial r}\left(\frac{\Gamma}{2\pi}\right)-0,\\[1.5ex]
+&=0\qquad(r>0).\end{aligned}\]</div></li>
+<li><p>따라서 유선은 원형이지만 원점 밖의 유동은 <strong>비회전</strong>임. 원점을 둘러싼 순환은 \(\Gamma\)이며, 원점의 특이점을 포함하는 면에 Stokes 정리를 그대로 적용할 수는 없음.</p></li></ul></section></article>
+<div class="article-pager"><a href="stream-function.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Stream Function</span></a><a class="next" href="flow-around-a-circular-cylinder.html"><span class="direction">NEXT →</span><span class="adjacent">Flow around a Circular Cylinder</span></a></div>
+<a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a>
+</main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Aerodynamics</span></div></footer>
+<script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>
