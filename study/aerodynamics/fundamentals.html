@@ -70,6 +70,22 @@
     body.inner-page .topic-card .topic-number { font-size: 15px; }
     body.inner-page .topic-head { padding-top: 16px; padding-bottom: 16px; min-height: 84px; }
   }
+  /* Subsubsections: a restrained second-level list beneath the main article card. */
+  body.inner-page .topic-children {padding:10px 26px 15px 106px;background:#fff;border-top:1px solid #e3ebf7;}
+  body.inner-page .topic-child {display:flex;align-items:center;gap:17px;padding:12px 13px;min-height:48px;border-radius:8px;text-decoration:none;transition:background .18s ease;}
+  body.inner-page .topic-child + .topic-child {border-top:1px solid #edf2f8;}
+  body.inner-page .topic-child:hover, body.inner-page .topic-child:focus-visible {background:#f4f8ff;}
+  body.inner-page .topic-child-number {width:47px;flex:none;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:#7b91af;}
+  body.inner-page .topic-child-title {flex:1;font-size:15px;font-weight:600;line-height:1.5;color:#4e6686;}
+  body.inner-page .topic-child:hover .topic-child-title {color:#2c61b6;}
+  body.inner-page .topic-child svg {flex:none;color:#91a6c1;}
+  body.inner-page .topic-child:focus-visible {outline:2px solid #739eec;outline-offset:-2px;}
+  @media(max-width:600px){
+    body.inner-page .topic-children {padding:7px 11px 11px 20px;}
+    body.inner-page .topic-child {gap:12px;padding:10px 7px;}
+    body.inner-page .topic-child-number {width:44px;font-size:11px;}
+    body.inner-page .topic-child-title {font-size:13px;}
+  }
 </style>
 </head>
 <body class="inner-page">
@@ -145,6 +161,24 @@
 </span>
 <svg aria-hidden="true" class="launch" height="21" viewbox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
 </a>
+<nav class="topic-children" aria-label="Subsubsections of Dimensionless Parameters and Aerodynamic Coefficients">
+<a class="topic-child" href="fundamentals/dimensionless-parameters-and-aerodynamic-coefficients.html#reynolds-number">
+<span class="topic-child-number">1.3.1</span><span class="topic-child-title">Reynolds Number</span>
+<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg>
+</a>
+<a class="topic-child" href="fundamentals/dimensionless-parameters-and-aerodynamic-coefficients.html#pressure-coefficient">
+<span class="topic-child-number">1.3.2</span><span class="topic-child-title">Pressure Coefficient</span>
+<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg>
+</a>
+<a class="topic-child" href="fundamentals/dimensionless-parameters-and-aerodynamic-coefficients.html#skin-friction-coefficient">
+<span class="topic-child-number">1.3.3</span><span class="topic-child-title">Skin-Friction Coefficient</span>
+<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg>
+</a>
+<a class="topic-child" href="fundamentals/dimensionless-parameters-and-aerodynamic-coefficients.html#lift-and-drag-coefficients">
+<span class="topic-child-number">1.3.4</span><span class="topic-child-title">Lift and Drag Coefficients</span>
+<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg>
+</a>
+</nav>
 </article>
 </section>
 <section aria-labelledby="chapter-title-2" class="chapter" id="chapter-2">
