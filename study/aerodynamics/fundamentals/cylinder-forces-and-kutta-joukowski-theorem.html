@@ -48,7 +48,45 @@ body.inner-page .breadcrumb{font-size:16px}
 .note-page .lesson-figure figcaption{font-size:12px;color:#8295ad;line-height:1.7;margin-top:8px;}
 .note-page .equation.key{overflow-x:auto;}
 .note-page .study-points .lesson-figure{margin:25px auto 32px;}
-@media(max-width:740px){.note-page .lesson-figure{margin:16px auto 27px;}}</style><script>
+@media(max-width:740px){.note-page .lesson-figure{margin:16px auto 27px;}}
+/* Hierarchical bullet styling for the D'Alembert paradox conclusion only. */
+.note-page .study-points > li.paradox-group{
+  margin:45px 0 35px;
+  padding-top:25px;
+  border-top:1px solid #e3eaf5;
+}
+.note-page .paradox-group > .paradox-heading{
+  display:block;
+  margin:0 0 14px;
+  color:#204a81;
+  font-size:16px;
+  font-weight:750;
+  line-height:1.6;
+}
+.note-page .paradox-group .paradox-details{
+  margin:8px 0 0 11px;
+  padding:0 0 0 22px;
+  list-style:circle;
+  font-size:14px;
+  line-height:1.85;
+  color:#607791;
+}
+.note-page .paradox-group .paradox-details > li{
+  margin:0 0 14px;
+  padding-left:2px;
+}
+.note-page .paradox-group .equation.key{
+  margin:25px 0 30px;
+  padding:24px 14px;
+}
+.note-page .paradox-conclusion{padding-bottom:5px}
+@media(max-width:740px){
+  .note-page .study-points > li.paradox-group{margin-top:34px;padding-top:20px}
+  .note-page .paradox-group > .paradox-heading{font-size:15px}
+  .note-page .paradox-group .paradox-details{font-size:13.5px;margin-left:4px;padding-left:19px}
+  .note-page .paradox-group .equation.key{margin:20px 0 25px;padding:20px 10px}
+}
+</style><script>
 window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head>
@@ -70,14 +108,36 @@ L'&=-\rho U\Gamma.\end{aligned}\]</div></li><li>항력에서는 모든 항에 \(
 \int_0^{2\pi}\sin\theta\cos\theta\,\mathrm d\theta
 &=\left[\frac{\sin^2\theta}{2}\right]_0^{2\pi}=0,\\[2.0em]
 \int_0^{2\pi}\sin^2\theta\cos\theta\,\mathrm d\theta
-&=\left[\frac{\sin^3\theta}{3}\right]_0^{2\pi}=0.\end{aligned}\]</div></li><li>원통 표면의 압력분포를 원주 전체에 적분하면, <strong>흐름 방향의 압력에 의한 합력이 서로 상쇄</strong>되어 단위 Span당 항력은 0이 됨.
-<div class="equation key" role="group" aria-label="Zero drag predicted by inviscid potential flow">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle D'=0}\]</div></li>
-<li>이처럼 <strong>Inviscid Potential Flow</strong>에서는 물체에 작용하는 항력이 0으로 예측되지만, 실제 원통에는 항력이 발생함. 이상유동의 예측과 실제 관찰 사이에 나타나는 이러한 모순을 <strong>D'Alembert's Paradox</strong>라고 함.</li>
-<li>앞에서 구한 양력은 순환 \(\Gamma\)에 따라 \(L'=-\rho U\Gamma\)로 나타날 수 있지만, 이상유동 모델에서는 <strong>순환이 존재하더라도 항력은 여전히 0</strong>임.</li>
-<li>실제 유체에는 <strong>Viscosity</strong>가 존재하며, 고체 표면에서 유체가 <strong>No-Slip Condition</strong>을 만족하기 때문에 표면 근처에 큰 속도구배를 갖는 <strong>Boundary Layer</strong>가 형성됨. 이로 인해 표면 전단응력에 의한 <strong>Skin-Friction Drag</strong>도 발생함.</li>
-<li>원통 뒤쪽에서는 압력이 회복되는 구간의 <strong>Adverse Pressure Gradient</strong> 때문에 경계층의 유동이 감속할 수 있음. 이때 벽면 근처 유동이 역류하면서 <strong>Flow Separation(박리)</strong>이 발생하고, 원통 뒤쪽에 <strong>Wake(후류)</strong>가 형성됨.</li>
-<li>박리와 후류가 형성되면 원통 전·후면의 압력분포가 달라져 압력에 의한 힘이 더 이상 완전히 상쇄되지 않으므로 <strong>Pressure Drag</strong>가 발생함. 따라서 점성은 표면 전단응력뿐 아니라 <strong>박리와 압력분포의 변화</strong>를 통해 항력에도 영향을 미침.</li>
-<li>결국 실제 물체 주변의 <strong>항력, 경계층, 박리 및 후류</strong>를 이해하려면 점성 효과를 고려해야 하므로, 다음 단계에서는 <strong>Viscous Flow</strong>를 학습하는 것이 중요함.</li></ul></section>
+&=\left[\frac{\sin^3\theta}{3}\right]_0^{2\pi}=0.\end{aligned}\]</div></li><li class="paradox-group">
+  <strong class="paradox-heading">핵심 결과 — D'Alembert's Paradox</strong>
+  <ul class="paradox-details">
+    <li>원통 표면의 압력분포를 원주 전체에 적분하면, <strong>흐름 방향의 압력에 의한 합력이 서로 상쇄</strong>되어 단위 Span당 항력은 0이 됨.</li>
+  </ul>
+  <div class="equation key" role="group" aria-label="Zero drag predicted by inviscid potential flow">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle D'=0}\]</div>
+  <ul class="paradox-details">
+    <li><strong>Inviscid Potential Flow</strong>에서는 항력이 0으로 예측되지만, 실제 원통에는 항력이 발생함. 이상유동의 예측과 실제 관찰 사이의 이러한 모순을 <strong>D'Alembert's Paradox</strong>라고 함.</li>
+    <li>앞에서 구한 양력은 순환 \(\Gamma\)에 따라 \(L'=-\rho U\Gamma\)로 나타날 수 있지만, 이상유동 모델에서는 <strong>순환이 존재하더라도 항력은 여전히 0</strong>임.</li>
+  </ul>
+</li>
+<li class="paradox-group">
+  <strong class="paradox-heading">실제 유동에서 항력이 발생하는 이유</strong>
+  <ul class="paradox-details">
+    <li>실제 유체에는 <strong>Viscosity</strong>가 존재하며, 고체 표면에서 <strong>No-Slip Condition</strong>을 만족하므로 표면 근처에 큰 속도구배를 갖는 <strong>Boundary Layer</strong>가 형성됨.</li>
+    <li>경계층 내부의 점성 전단응력으로 인해 표면에 <strong>Skin-Friction Drag</strong>가 발생함.</li>
+    <li>원통 뒤쪽의 압력 회복 구간에서는 <strong>Adverse Pressure Gradient</strong>에 의해 경계층 유동이 감속하고, 벽면 근처에서 역류가 발생하면 <strong>Flow Separation(박리)</strong>이 일어날 수 있음.</li>
+    <li>박리된 유동은 원통 뒤쪽에 <strong>Wake(후류)</strong>를 형성하며, 전·후면의 압력분포가 달라져 압력에 의한 힘이 더 이상 완전히 상쇄되지 않음.</li>
+    <li>이처럼 점성은 직접적인 표면 마찰뿐 아니라 <strong>경계층·박리·후류를 통한 압력분포 변화</strong>에도 영향을 주어 <strong>Pressure Drag</strong>를 발생시킴.</li>
+  </ul>
+</li>
+<li class="paradox-group paradox-conclusion">
+  <strong class="paradox-heading">점성 유동 해석의 중요성</strong>
+  <ul class="paradox-details">
+    <li>Potential Flow는 이상적인 속도장과 압력분포를 이해하는 데 유용하지만, <strong>실제 물체의 항력</strong>을 완전하게 설명하지는 못함.</li>
+    <li>실제 유동의 <strong>항력, 경계층, 박리 및 후류</strong>를 이해하기 위해서는 점성 효과를 고려해야 함.</li>
+    <li>따라서 다음 단계에서는 <strong>Viscous Flow</strong>를 학습하는 것이 중요함.</li>
+  </ul>
+</li>
+</ul></section>
 </article>
 <div class="article-pager"><a href="aerodynamic-coefficients.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Surface Forces and Force Decomposition</span></a></div>
 <a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a></main>
