@@ -1,2 +1,87 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Aerodynamic Coefficients — Engineering Notebook"><title>Aerodynamic Coefficients | Engineering Notebook</title><link rel="stylesheet" href="../../../assets/site.css"></head><body class="inner-page"><header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a><nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../../index.html#bento-projects">Practice Project</a></nav></div></header><main class="shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">Aerodynamics</a><span class="separator">›</span><a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span><strong>Aerodynamic Coefficients</strong></nav><div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 8.1</div><h1>Aerodynamic Coefficients</h1><p class="hero-subtitle">Aerodynamic Forces and Moments</p><p class="hero-description">Reference quantities and nondimensional aerodynamic loads.</p></div></div><div class="article-content"><div class="article-meta">8.1 · Aerodynamic Forces and Moments</div><h2>Aerodynamic Coefficients</h2><p>Reference quantities and nondimensional aerodynamic loads.</p><span class="placeholder-hint">Detailed notes and derivations will be added here.</span></div><div class="article-pager"><a href="flow-around-a-circular-cylinder.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Flow around a Circular Cylinder</span></a><a class="next" href="cylinder-forces-and-kutta-joukowski-theorem.html"><span class="direction">NEXT →</span><span class="adjacent">Cylinder Forces and Kutta–Joukowski Theorem</span></a></div><a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Aerodynamics</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
-</body></html>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Surface pressure, shear stress, lift and drag decomposition."><title>Surface Forces and Force Decomposition | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css"><style>
+/* Material Derivative — scoped page-specific instructional layout */
+body.inner-page .breadcrumb{font-size:16px}
+.note-page .article-content{padding:43px 46px 64px}
+.note-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.note-page .lesson-meta span:first-child{color:#2e61b7}
+.note-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:68px}
+.note-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.note-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:8px 20px}
+.note-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.note-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.note-page .lesson-section{scroll-margin-top:27px}
+.note-page .lesson-section+.lesson-section{margin-top:76px;padding-top:44px;border-top:1px solid #e1eaf6}
+.note-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 37px!important;line-height:1.3}
+.note-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.note-page .study-points{list-style:none;padding:0;margin:0}
+.note-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 48px;word-break:keep-all;overflow-wrap:anywhere}
+.note-page .study-points>li:last-child{margin-bottom:0}
+.note-page .study-points>li.sub-point{margin-left:26px}
+.note-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.note-page strong{color:#23466f}
+.note-page .equation{border:none;background:transparent;border-radius:0;margin:46px 0 54px;padding:12px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px}
+.note-page .equation.key{background:#f7f9fd;border:none;border-radius:10px;margin:55px 0 61px;padding:31px 18px}
+.note-page .equation mjx-container[display="true"]{margin:.3em auto!important}
+.note-page .definitions{margin:24px 0 19px 21px;padding:0;font-size:14px;color:#627a9a;line-height:1.85}
+.note-page .definitions li{margin:9px 0}
+.note-page .definitions.two-terms{list-style:none;padding:21px 19px;margin:26px 0 17px;background:#f5f8fe;border-radius:9px;border:1px solid #e5ebf5}
+.note-page .two-terms div+div{margin-top:14px}
+.note-page .note-box{border:1px solid #d7e4f5;border-left:4px solid #4572bd;background:#f4f8fe;border-radius:11px;padding:33px 34px 37px;margin:48px 0 13px}
+.note-page .note-box h3{font-size:17px;color:#254d83;margin:0 0 23px}
+.note-page .note-box h4{font-size:14px;margin:33px 0 14px;color:#2c578e}
+.note-page .note-box p{font-size:14px;line-height:1.88;color:#506b8a;max-width:none;margin:0 0 20px;word-break:keep-all}
+.note-page .note-box .equation{background:transparent;margin:43px 0 50px}
+.note-page .note-box .equation.key{background:#f7f9fd;margin:55px 0 61px}
+/* Slightly larger page navigation and study metadata. */
+.note-page .eyebrow{font-size:12px}
+.note-page .article-pager .direction{font-size:12px}
+.note-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.note-page .back-bottom{font-size:16px}
+@media(max-width:600px){.note-page .lesson-meta{font-size:13px}.note-page .lesson-toc strong{font-size:16px}.note-page .lesson-toc a{font-size:15px}.note-page .article-pager .adjacent{font-size:14px}.note-page .back-bottom{font-size:15px}.note-page .eyebrow{font-size:11px}}
+@media(max-width:740px){.note-page .article-content{padding:24px 18px 30px}.note-page .lesson-toc{padding:16px}.note-page .lesson-toc ul{grid-template-columns:1fr}.note-page .lesson-section h2{font-size:20px!important}.note-page .study-points>li{font-size:14px;padding-left:21px}.note-page .equation{font-size:14px;padding:14px 9px}.note-page .note-box{padding:19px 15px}.note-page .lesson-section+.lesson-section{margin-top:58px;padding-top:33px}.note-page .study-points>li{margin-bottom:38px}.note-page .equation{margin:35px 0 43px;padding:10px 0}.note-page .equation.key{margin:43px 0 51px;padding:25px 11px}.note-page .note-box .equation{margin:35px 0 43px}.note-page .note-box .equation.key{margin:43px 0 51px}.note-page .note-box{margin-top:36px;padding:25px 18px 28px}}
+@media(max-width:600px){body.inner-page .breadcrumb{font-size:14px}.note-page .study-points>li.sub-point{margin-left:18px}}
+
+.note-page .lesson-figure{max-width:760px;margin:24px auto 45px;text-align:center;}
+.note-page .lesson-figure svg{display:block;width:100%;height:auto;max-width:720px;margin:0 auto;}
+.note-page .lesson-figure figcaption{font-size:12px;color:#8295ad;line-height:1.7;margin-top:8px;}
+.note-page .equation.key{overflow-x:auto;}
+.note-page .study-points .lesson-figure{margin:25px auto 32px;}
+@media(max-width:740px){.note-page .lesson-figure{margin:16px auto 27px;}}</style><script>
+window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head>
+<body class="inner-page"><header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a><nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav></div></header>
+<main class="shell note-page"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../fundamentals.html">Fundamentals</a><span class="separator">›</span><strong>Surface Forces and Force Decomposition</strong></nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">FUNDAMENTALS / 8.1</div><h1>Surface Forces and Force Decomposition</h1><p class="hero-subtitle">Aerodynamic Forces and Moments</p><p class="hero-description">Surface pressure, shear stress, lift and drag decomposition.</p></div></div>
+<article class="article-content"><div class="lesson-meta"><span>08 / Aerodynamic Forces and Moments</span><span>Study Notes · 8.1</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#section-1">01 · Surface Pressure and Shear Stress</a></li><li><a href="#section-2">02 · Lift and Drag</a></li></ul></nav><section class="lesson-section" id="section-1"><h2><span class="section-tag">01</span>Surface Pressure and Shear Stress</h2><ul class="study-points"><li>물체 표면의 미소면적 \(\mathrm d A\)에서 <strong>Pressure Force</strong>와 <strong>Shear Force</strong>가 발생함. \(\mathbf n_b\)를 물체에서 유체 쪽으로 향하는 단위법선벡터라 하면, 각각의 <strong>미소 공력</strong>은 <div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d\mathbf F_p=-p\mathbf n_b\,\mathrm d A,\qquad
+\mathrm d\mathbf F_\tau=\boldsymbol\tau\cdot\mathbf n_b\,\mathrm d A\]</div></li><li>두 힘을 합하면 미소면적에 작용하는 <strong>전체 공력</strong>은 <div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d\mathbf F=(-p\mathbf n_b+\boldsymbol\tau\cdot\mathbf n_b)\mathrm d A\]</div></li><li>표면 전체를 적분하면 { <div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \mathbf F=\oint_{S_b}
+(-p\mathbf n_b+\boldsymbol\tau\cdot\mathbf n_b)\mathrm d A.}\]</div></li><li>일정한 자유류 압력 \(p_\infty\)는 닫힌 표면에서 합력이 0이므로, \(p\) 대신 \(p-p_\infty\)를 사용해도 같음. <div class="equation" role="group" aria-label="Mathematical expression">\[\oint_{S_b}p_\infty\mathbf n_b\,\mathrm d A
+=p_\infty\oint_{S_b}\mathbf n_b\,\mathrm d A=0.\]</div></li><li>기준점 \(O\)에 대한 모멘트는 <strong>위치벡터 \(\times\) 힘</strong>을 적분함. <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}\mathrm d\mathbf M_O&=(\mathbf r-\mathbf r_O)\times\mathrm d\mathbf F,\\
+\mathbf M_O&=\oint_{S_b}(\mathbf r-\mathbf r_O)\times
+(-p\mathbf n_b+\boldsymbol\tau\cdot\mathbf n_b)\mathrm d A.\end{aligned}\]</div></li></ul></section>
+<section class="lesson-section" id="section-2"><h2><span class="section-tag">02</span>Lift and Drag</h2><ul class="study-points"><li>물체에 작용하는 공기역학적 힘은 자유류 방향의 <strong>Drag</strong>와 그에 수직인 방향의 <strong>Lift</strong>로 분해할 수 있음. 자유류 방향 단위벡터를 \(\mathbf e_D\), 양력 방향 단위벡터를 \(\mathbf e_L\)로 정의하면 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}D&=\mathbf F\cdot\mathbf e_D,\\[2.0ex]
+L&=\mathbf F\cdot\mathbf e_L.\end{aligned}\]</div></li><li><strong>Chord</strong>는 Airfoil의 <strong>Leading Edge(앞전)</strong>와 <strong>Trailing Edge(뒷전)</strong>를 연결한 직선이며, 그 길이를 <strong>Chord Length</strong> \(c\)라 함.<ul class="definitions"><li><strong>Axial Force (\(A\))</strong>: Chord에 평행한 방향의 힘.</li><li><strong>Normal Force (\(N\))</strong>: Chord에 수직인 방향의 힘.</li><li><strong>Angle of Attack (\(\alpha\))</strong>: Chord와 자유류 방향 사이의 각도.</li></ul><figure class="lesson-figure"><svg viewBox="0 0 720 410" role="img" aria-label="Lift drag axial and normal components on a pitched airfoil" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2d70b6"/></marker><marker id="arrR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#b55353"/></marker></defs>
+ <g transform="translate(360 214) rotate(16)"><path d="M-190 0C-120 -38 -20 -33 190 0 C30 14 -115 13 -190 0Z" fill="#e9f1fb" stroke="#6f7e94" stroke-width="2"/><path d="M-190 0H190" stroke="#879cb7" stroke-dasharray="6 5"/><text x="-95" y="28" fill="#526f92" font-size="16">Chord</text><text x="-200" y="-15" fill="#526f92" font-size="15">LE</text><text x="185" y="23" fill="#526f92" font-size="15">TE</text></g>
+ <g stroke-width="4" fill="none"><path d="M75 120H215" stroke="#2d70b6" marker-end="url(#arrB)"/><path d="M360 214H529 M360 214V57" stroke="#2d70b6" marker-end="url(#arrB)"/><path d="M360 214L515 257 M360 214L403 62" stroke="#b55353" marker-end="url(#arrR)"/></g>
+ <g fill="#526580" font-size="21" font-family="sans-serif"><text x="116" y="110">U∞</text><text x="544" y="218">D</text><text x="350" y="45">L</text><text x="525" y="282">A</text><text x="411" y="59">N</text><text x="245" y="294">α</text></g>
+ <path d="M168 257 H283 M168 257L281 289" stroke="#9aabc2" fill="none" stroke-dasharray="5 6"/></svg><figcaption>Airfoil force decomposition (adapted from the attached TikZ diagram).</figcaption></figure></li><li>Chord 방향 단위벡터를 \(\mathbf e_c\), Chord 수직방향 단위벡터를 \(\mathbf e_n\)으로 정의하면, 전체 공기역학적 힘은 <div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf F=A\mathbf e_c+N\mathbf e_n.\]</div></li><li>자유류 방향은 Chord 방향에 대해 \(\alpha\)만큼 회전한 방향이므로 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}\mathbf e_D
+&=\cos\alpha\,\mathbf e_c
++\sin\alpha\,\mathbf e_n,\\[2.0ex]
+\mathbf e_L
+&=-\sin\alpha\,\mathbf e_c
++\cos\alpha\,\mathbf e_n.\end{aligned}\]</div></li><li>이를 Lift와 Drag의 정의에 대입하면 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}D
+&=\mathbf F\cdot\mathbf e_D,\\[2.0ex]
+&=(A\mathbf e_c+N\mathbf e_n)
+\cdot
+(\cos\alpha\,\mathbf e_c+\sin\alpha\,\mathbf e_n),\\[2.0ex]
+&=A\cos\alpha+N\sin\alpha.\end{aligned}\]</div> <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}L
+&=\mathbf F\cdot\mathbf e_L,\\[2.0ex]
+&=(A\mathbf e_c+N\mathbf e_n)
+\cdot
+(-\sin\alpha\,\mathbf e_c+\cos\alpha\,\mathbf e_n),\\[2.0ex]
+&=-A\sin\alpha+N\cos\alpha.\end{aligned}\]</div></li><li><strong>Pressure Drag</strong>와 <strong>Skin-Friction Drag</strong>는 힘의 발생 원인에 따른 구분이며, Lift와 Drag는 자유류에 대한 힘의 방향에 따른 구분임.</li></ul></section></article>
+<div class="article-pager"><a href="flow-around-a-circular-cylinder.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Flow around a Circular Cylinder</span></a><a class="next" href="cylinder-forces-and-kutta-joukowski-theorem.html"><span class="direction">NEXT →</span><span class="adjacent">Cylinder Forces and Kutta–Joukowski Theorem</span></a></div>
+<a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a></main>
+<footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Aerodynamics</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>
