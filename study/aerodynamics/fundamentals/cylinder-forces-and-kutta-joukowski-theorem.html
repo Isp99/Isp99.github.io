@@ -58,33 +58,33 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 <article class="article-content"><div class="lesson-meta"><span>08 / Aerodynamic Forces and Moments</span><span>Study Notes · 8.2</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#section-1">01 · Integrating the Cylinder Pressure</a></li><li><a href="#section-2">02 · Lift from the Far-Field Momentum Balance</a></li></ul></nav><section class="lesson-section" id="section-1"><h2><span class="section-tag">01</span>Integrating the Cylinder Pressure</h2><figure class="lesson-figure"><svg viewBox="0 0 720 365" role="img" aria-label="Pressure acting on an infinitesimal segment of the circular cylinder surface" xmlns="http://www.w3.org/2000/svg"><defs><marker id="pArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#376fae"/></marker><marker id="pRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#c96363"/></marker></defs>
  <circle cx="349" cy="183" r="108" fill="#f1f5fb" stroke="#7c90a9" stroke-width="2.5"/><path d="M349 183L424 108" stroke="#8a9ab0" stroke-width="2" stroke-dasharray="5 4"/><path d="M424 108L470 62" stroke="#376fae" stroke-width="3" marker-end="url(#pArrow)"/><path d="M424 108L364 168" stroke="#c96363" stroke-width="4" marker-end="url(#pRed)"/>
  <path d="M424 108V170 M424 108H360" stroke="#c96363" stroke-width="1.5" stroke-dasharray="4 6"/><path d="M67 183H201" stroke="#376fae" stroke-width="4" marker-end="url(#pArrow)"/>
- <g font-size="19" fill="#405672" font-family="sans-serif"><text x="100" y="166">U∞</text><text x="477" y="55">nᵦ</text><text x="378" y="145">a</text><text x="364" y="209">θ</text><text x="302" y="142">dFₚ</text><text x="445" y="134">dD′</text><text x="430" y="199">dL′</text></g></svg><figcaption>Reconstructed cylinder surface-force schematic (the referenced FIG/Cyl.png was not included in the attachment).</figcaption></figure><ul class="study-points"><li>반지름이 a 인 원통 표면에서는 \(\mathbf n_b=(\cos\theta,\sin\theta)\), 단위 길이당 면적은 \(a\mathrm d\theta\)이므로 점성응력을 무시하면 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}\mathrm d D'&=-(p-p_\infty)\cos\theta\,a\mathrm d\theta,\\[2.0ex]
+ <g font-size="19" fill="#405672" font-family="sans-serif"><text x="100" y="166">U∞</text><text x="477" y="55">nᵦ</text><text x="378" y="145">a</text><text x="364" y="209">θ</text><text x="302" y="142">dFₚ</text><text x="445" y="134">dD′</text><text x="430" y="199">dL′</text></g></svg><figcaption>Reconstructed cylinder surface-force schematic (the referenced FIG/Cyl.png was not included in the attachment).</figcaption></figure><ul class="study-points"><li>반지름이 a 인 원통 표면에서는 \(\mathbf n_b=(\cos\theta,\sin\theta)\), 단위 길이당 면적은 \(a\mathrm d\theta\)이므로 점성응력을 무시하면 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}\mathrm d D'&=-(p-p_\infty)\cos\theta\,a\mathrm d\theta,\\[2.0em]
 \mathrm d L'&=-(p-p_\infty)\sin\theta\,a\mathrm d\theta.\end{aligned}\]</div></li><li>Bernoulli Equation에 앞에서 구한 앞에서 Uniform Flow + Doublet + Vortex를 중첩하여 구한 원통 표면의 접선속도를 대입하면 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}p-p_\infty
-&=\frac{\rho}{2}\left[U^2-\left(-2U\sin\theta+\frac\Gamma{2\pi a}\right)^2\right],\\[2.0ex]
+&=\frac{\rho}{2}\left[U^2-\left(-2U\sin\theta+\frac\Gamma{2\pi a}\right)^2\right],\\[2.0em]
 &=\frac{\rho U^2}{2}(1-4\sin^2\theta)
 +\frac{\rho U\Gamma}{\pi a}\sin\theta
--\frac{\rho\Gamma^2}{8\pi^2a^2}.\end{aligned}\]</div></li><li>양력 적분에 대입하면 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}L'={}&-\frac{\rho U^2a}{2}\int_0^{2\pi}(1-4\sin^2\theta)\sin\theta\,\mathrm d\theta\\[2.0ex]
+-\frac{\rho\Gamma^2}{8\pi^2a^2}.\end{aligned}\]</div></li><li>양력 적분에 대입하면 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}L'={}&-\frac{\rho U^2a}{2}\int_0^{2\pi}(1-4\sin^2\theta)\sin\theta\,\mathrm d\theta\\[2.0em]
 &-\frac{\rho U\Gamma}{\pi}\int_0^{2\pi}\sin^2\theta\,\mathrm d\theta
-+\frac{\rho\Gamma^2}{8\pi^2a}\int_0^{2\pi}\sin\theta\,\mathrm d\theta.\end{aligned}\]</div></li><li>원주 전체를 적분하면 홀수차 사인항은 서로 상쇄되고, \(\int_0^{2\pi}\sin^2\theta\mathrm d\theta=\pi\)이므로 <strong>단위 Span당 Lift</strong>는 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}L'&=0-\frac{\rho U\Gamma}{\pi}\pi+0,\\[2.0ex]
-L'&=-\rho U\Gamma.\end{aligned}\]</div></li><li>항력에서는 모든 항에 \(\cos\theta\)가 곱해지며, 각 적분이 0이 됨. <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}\int_0^{2\pi}\cos\theta\,\mathrm d\theta&=0,\\[2.0ex]
++\frac{\rho\Gamma^2}{8\pi^2a}\int_0^{2\pi}\sin\theta\,\mathrm d\theta.\end{aligned}\]</div></li><li>원주 전체를 적분하면 홀수차 사인항은 서로 상쇄되고, \(\int_0^{2\pi}\sin^2\theta\mathrm d\theta=\pi\)이므로 <strong>단위 Span당 Lift</strong>는 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}L'&=0-\frac{\rho U\Gamma}{\pi}\pi+0,\\[2.0em]
+L'&=-\rho U\Gamma.\end{aligned}\]</div></li><li>항력에서는 모든 항에 \(\cos\theta\)가 곱해지며, 각 적분이 0이 됨. <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}\int_0^{2\pi}\cos\theta\,\mathrm d\theta&=0,\\[2.0em]
 \int_0^{2\pi}\sin\theta\cos\theta\,\mathrm d\theta
-&=\left[\frac{\sin^2\theta}{2}\right]_0^{2\pi}=0,\\[2.0ex]
+&=\left[\frac{\sin^2\theta}{2}\right]_0^{2\pi}=0,\\[2.0em]
 \int_0^{2\pi}\sin^2\theta\cos\theta\,\mathrm d\theta
-&=\left[\frac{\sin^3\theta}{3}\right]_0^{2\pi}=0,\\[2.0ex]
+&=\left[\frac{\sin^3\theta}{3}\right]_0^{2\pi}=0,\\[2.0em]
 D'&=0.\end{aligned}\]</div></li><li><strong>D'Alembert's paradox</strong>: 이 이상적인 정상 Potential-flow 모델은 실제 원통의 항력을 예측하지 못함. 실제 유동의 점성·박리·후류를 고려하지 않았기 때문</li></ul></section>
-<section class="lesson-section" id="section-2"><h2><span class="section-tag">02</span>Lift from the Far-Field Momentum Balance</h2><ul class="study-points"><li>원통 이외의 2차원 물체도, 정상·incompressible·Inviscid Potential flow에서 같은 양력 관계를 가짐. 물체를 둘러싼 큰 원 \(r=R\)에서 운동량을 계산함.</li><li>충분히 먼 곳에서 자유류와 순환의 주된 속도성분은 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}u&\simeq U-\frac\Gamma{2\pi R}\sin\theta,\\[2.0ex]
-v&\simeq\frac\Gamma{2\pi R}\cos\theta,\\[2.0ex]
+<section class="lesson-section" id="section-2"><h2><span class="section-tag">02</span>Lift from the Far-Field Momentum Balance</h2><ul class="study-points"><li>원통 이외의 2차원 물체도, 정상·incompressible·Inviscid Potential flow에서 같은 양력 관계를 가짐. 물체를 둘러싼 큰 원 \(r=R\)에서 운동량을 계산함.</li><li>충분히 먼 곳에서 자유류와 순환의 주된 속도성분은 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}u&\simeq U-\frac\Gamma{2\pi R}\sin\theta,\\[2.0em]
+v&\simeq\frac\Gamma{2\pi R}\cos\theta,\\[2.0em]
 V_r=u\cos\theta+v\sin\theta&\simeq U\cos\theta.\end{aligned}\]</div></li><li>\(R\to\infty\)에서 \(y\)운동량의 순유출은 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}\dot P_y'
-&=\lim_{R\to\infty}\int_0^{2\pi}\rho vV_rR\mathrm d\theta,\\[2.0ex]
+&=\lim_{R\to\infty}\int_0^{2\pi}\rho vV_rR\mathrm d\theta,\\[2.0em]
 &=\frac{\rho U\Gamma}{2\pi}\int_0^{2\pi}\cos^2\theta\mathrm d\theta
 =\frac{\rho U\Gamma}{2}.\end{aligned}\]</div></li><li>Bernoulli 식에서 먼 경계의 압력은 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}u^2+v^2&\simeq U^2-\frac{U\Gamma}{\pi R}\sin\theta
-+\frac{\Gamma^2}{4\pi^2R^2},\\[2.0ex]
++\frac{\Gamma^2}{4\pi^2R^2},\\[2.0em]
 p-p_\infty&\simeq\frac{\rho U\Gamma}{2\pi R}\sin\theta
 -\frac{\rho\Gamma^2}{8\pi^2R^2}.\end{aligned}\]</div></li><li>따라서 먼 경계에서 유체에 작용하는 \(y\)방향 pressure force은 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}F'_{p,y}
-&=-\lim_{R\to\infty}R\int_0^{2\pi}(p-p_\infty)\sin\theta\mathrm d\theta,\\[2.0ex]
+&=-\lim_{R\to\infty}R\int_0^{2\pi}(p-p_\infty)\sin\theta\mathrm d\theta,\\[2.0em]
 &=-\frac{\rho U\Gamma}{2\pi}\int_0^{2\pi}\sin^2\theta\mathrm d\theta
-=-\frac{\rho U\Gamma}{2}.\end{aligned}\]</div></li><li>물체가 유체에 가하는 힘을 \(F'_{b,y}\)라 하면, 운동량식과 작용·반작용에서 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}F'_{b,y}+F'_{p,y}&=\dot P_y',\\[2.0ex]
-F'_{b,y}-\frac{\rho U\Gamma}{2}&=\frac{\rho U\Gamma}{2},\\[2.0ex]
+=-\frac{\rho U\Gamma}{2}.\end{aligned}\]</div></li><li>물체가 유체에 가하는 힘을 \(F'_{b,y}\)라 하면, 운동량식과 작용·반작용에서 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}F'_{b,y}+F'_{p,y}&=\dot P_y',\\[2.0em]
+F'_{b,y}-\frac{\rho U\Gamma}{2}&=\frac{\rho U\Gamma}{2},\\[2.0em]
 L'=-F'_{b,y}&=-\rho U\Gamma.\end{aligned}\]</div></li><li>따라서, { <div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle L'=-\rho_\infty U_\infty\Gamma.}\]</div></li><li><strong>Kutta--Joukowski theorem</strong>. 반시계방향 순환이 양수이므로, \(+x\)방향 자유류에서 양의 양력은 \(\Gamma<0\)에 해당함.</li></ul></section></article>
 <div class="article-pager"><a href="aerodynamic-coefficients.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Surface Forces and Force Decomposition</span></a><a class="next" href="center-of-pressure-and-aerodynamic-center.html"><span class="direction">NEXT →</span><span class="adjacent">Center of Pressure and Aerodynamic Center</span></a></div>
 <a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a></main>
