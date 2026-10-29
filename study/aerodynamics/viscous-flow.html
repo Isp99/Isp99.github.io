@@ -1,2 +1,380 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Viscous Flow — Engineering Notebook"><title>Viscous Flow | Engineering Notebook</title><link rel="stylesheet" href="../../assets/site.css"></head><body class="inner-page"><header class="site-header"><div class="shell"><a class="brand" href="../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a><nav class="site-nav" aria-label="Main navigation"><a href="../../index.html">Home</a><a class="desktop-link" href="../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../index.html#bento-projects">Practice Project</a></nav></div></header><main class="shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../index.html">Home</a><span class="separator">›</span><a href="../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../aerodynamics.html">Aerodynamics</a><span class="separator">›</span><strong>Viscous Flow</strong></nav><div class="hero"><div class="hero-text"><h1>Viscous Flow</h1><p class="hero-subtitle">Viscosity, Boundary Layers, and Turbulence</p></div></div><div class="article-content"><h2>Study Contents</h2><p>The detailed study notes for this subject will be added as the notebook develops.</p><span class="placeholder-hint">Contents in preparation</span></div><a class="back-bottom" href="../aerodynamics.html">← Back to Aerodynamics</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Aerodynamics</span></div></footer><script defer src="../../assets/study-tracker.js?v=20261022-search1"></script>
-</body></html>
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Fundamentals of Viscous Flow — study notes and chapter contents in Engineering Notebook." name="description"/>
+<title>Viscous Flow | Engineering Notebook</title>
+
+<link href="../../assets/site.css" rel="stylesheet"/>
+<style>
+  /* Match typography shared with study/aerodynamics.html.
+     Chapter and article layouts remain controlled by site.css. */
+  body.inner-page .hero-text .hero-description {
+    margin-top: 14px;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  body.inner-page .contents-header h2 {
+    font-size: 24px;
+  }
+  body.inner-page .contents-header .count {
+    font-size: 14px;
+  }
+  body.inner-page .back-bottom {
+    font-size: 16px;
+  }
+  /* Chapter > article hierarchy: align with the approved preview. */
+  body.inner-page .chapter-heading h2 {
+    font-size: 26px;
+    line-height: 1.3;
+  }
+  body.inner-page .chapter-heading .chapter-mark {
+    font-size: 16px;
+  }
+  body.inner-page .chapter-heading .chapter-counter {
+    font-size: 14px;
+  }
+  body.inner-page .topic-card .topic-title {
+    font-size: 19px;
+    line-height: 1.35;
+  }
+  body.inner-page .topic-card .topic-description {
+    font-size: 13px;
+  }
+  body.inner-page .topic-card .topic-number {
+    font-size: 16px;
+  }
+  /* Make article cards slightly more compact without changing the layout. */
+  body.inner-page .topic-head {
+    padding-top: 18px;
+    padding-bottom: 18px;
+    min-height: 92px;
+  }
+  /* Breadcrumb typography shared by Aerodynamics and Fundamentals. */
+  body.inner-page .breadcrumb {
+    font-size: 16px;
+  }
+  @media (max-width: 600px) {
+    body.inner-page .breadcrumb { font-size: 14px; }
+    body.inner-page .hero-text .hero-description { font-size: 15px; }
+    body.inner-page .contents-header h2 { font-size: 22px; }
+    body.inner-page .contents-header .count { font-size: 13px; }
+    body.inner-page .back-bottom { font-size: 15px; }
+    body.inner-page .chapter-heading h2 { font-size: 22px; }
+    body.inner-page .chapter-heading .chapter-mark { font-size: 14px; }
+    body.inner-page .chapter-heading .chapter-counter { font-size: 12px; }
+    body.inner-page .topic-card .topic-title { font-size: 17px; }
+    body.inner-page .topic-card .topic-description { font-size: 12px; }
+    body.inner-page .topic-card .topic-number { font-size: 15px; }
+    body.inner-page .topic-head { padding-top: 16px; padding-bottom: 16px; min-height: 84px; }
+  }
+</style>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav aria-label="Main navigation" class="site-nav">
+<a href="../../index.html">Home</a>
+<a class="desktop-link" href="../../index.html#bento-study">Study Note</a>
+<a href="../aerodynamics.html">Aerodynamics ↗</a>
+</nav>
+</div></header>
+<main class="shell">
+<nav aria-label="Breadcrumb" class="breadcrumb">
+<a href="../../index.html">Home</a><span class="separator">›</span>
+<a href="../../index.html#bento-study">Study Note</a><span class="separator">›</span>
+<a href="../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><strong>Viscous Flow</strong>
+</nav>
+<div class="hero">
+<svg aria-label="Illustration of airflow around an airfoil and its near-wall flow region" class="flow-art" role="img" viewbox="0 0 510 208" xmlns="http://www.w3.org/2000/svg">
+<defs><lineargradient id="airfoilFill" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#c7dbfa" stop-opacity=".92"></stop><stop offset="1" stop-color="#e9f1fd" stop-opacity=".7"></stop></lineargradient></defs>
+<g fill="none" opacity=".57" stroke="#8cb8f1" stroke-linecap="round" stroke-width="1.2">
+<path d="M1 26C87 26 128 10 200 17S363 58 506 13"></path>
+<path d="M1 44C83 44 133 29 198 36S365 77 506 32"></path>
+<path d="M1 64C91 64 128 49 196 57S365 100 506 50"></path>
+<path d="M1 86C94 86 121 70 193 80S368 117 506 71"></path>
+<path d="M1 108C99 107 135 92 201 95S356 138 506 107"></path>
+<path d="M1 125C90 125 136 131 204 144S358 151 506 135"></path>
+<path d="M1 145C101 145 149 162 217 173S362 167 506 157"></path>
+<path d="M1 169C93 170 151 187 223 193S362 191 506 182"></path>
+</g>
+<path d="M136 106C175 74 221 80 266 93C297 102 330 116 380 120C288 127 223 128 180 122C158 120 142 115 136 106Z" fill="url(#airfoilFill)" stroke="#6da0eb" stroke-width="1.6"></path>
+<g fill="#67a2ef" opacity=".8"><path d="m102 49 6 4-7 3z"></path><path d="m307 25 6 4-7 3z"></path><path d="m448 168 6 4-7 3z"></path></g>
+</svg>
+<div class="hero-text">
+<h1>Viscous Flow</h1>
+<p class="hero-subtitle">Fundamentals of Viscous Flow</p>
+<p class="hero-description">Study notes on viscous momentum transport, the Navier–Stokes equations, exact laminar-flow solutions, boundary-layer theory, and flow separation.</p>
+</div>
+</div>
+<div class="contents-header"><h2>Study Contents</h2><span class="count">06 CHAPTERS · 22 ARTICLES</span></div>
+<section aria-labelledby="chapter-title-1" class="chapter" id="chapter-1">
+<div class="chapter-heading">
+<span aria-hidden="true" class="chapter-mark">01</span>
+<h2 id="chapter-title-1">Fundamentals of Viscous Flow</h2>
+<span class="chapter-counter">4 ARTICLES</span>
+</div>
+<article aria-labelledby="topic-1-1" class="topic-card">
+<a aria-label="Open Viscosity and Momentum Diffusion article" class="topic-head" href="viscous-flow/viscosity-and-momentum-diffusion.html">
+<span class="topic-number">1.1</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-1-1">Viscosity and Momentum Diffusion</span>
+<span class="topic-description">Viscous momentum transport and diffusion across fluid layers.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+<article aria-labelledby="topic-1-2" class="topic-card">
+<a aria-label="Open Rate of Deformation and Viscous Stress article" class="topic-head" href="viscous-flow/rate-of-deformation-and-viscous-stress.html">
+<span class="topic-number">1.2</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-1-2">Rate of Deformation and Viscous Stress</span>
+<span class="topic-description">Local fluid deformation and the corresponding viscous stresses.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+<article aria-labelledby="topic-1-3" class="topic-card">
+<a aria-label="Open Newtonian Fluid and Constitutive Relation article" class="topic-head" href="viscous-flow/newtonian-fluid-and-constitutive-relation.html">
+<span class="topic-number">1.3</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-1-3">Newtonian Fluid and Constitutive Relation</span>
+<span class="topic-description">Relating viscous stress to the rate of fluid deformation.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+<article aria-labelledby="topic-1-4" class="topic-card">
+<a aria-label="Open Boundary Conditions at Solid Walls article" class="topic-head" href="viscous-flow/boundary-conditions-at-solid-walls.html">
+<span class="topic-number">1.4</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-1-4">Boundary Conditions at Solid Walls</span>
+<span class="topic-description">No-slip, impermeability, and wall boundary conditions.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+</section>
+<section aria-labelledby="chapter-title-2" class="chapter" id="chapter-2">
+<div class="chapter-heading">
+<span aria-hidden="true" class="chapter-mark">02</span>
+<h2 id="chapter-title-2">Governing Equations of Viscous Flow</h2>
+<span class="chapter-counter">3 ARTICLES</span>
+</div>
+<article aria-labelledby="topic-2-1" class="topic-card">
+<a aria-label="Open Navier–Stokes Equations article" class="topic-head" href="viscous-flow/navier-stokes-equations.html">
+<span class="topic-number">2.1</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-2-1">Navier–Stokes Equations</span>
+<span class="topic-description">Momentum conservation with viscous stress contributions.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+<article aria-labelledby="topic-2-2" class="topic-card">
+<a aria-label="Open Nondimensionalization and Reynolds Number article" class="topic-head" href="viscous-flow/nondimensionalization-and-reynolds-number.html">
+<span class="topic-number">2.2</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-2-2">Nondimensionalization and Reynolds Number</span>
+<span class="topic-description">Comparing inertial and viscous effects through characteristic scales.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+<article aria-labelledby="topic-2-3" class="topic-card">
+<a aria-label="Open Dominant Balance in Viscous Flows article" class="topic-head" href="viscous-flow/dominant-balance-in-viscous-flows.html">
+<span class="topic-number">2.3</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-2-3">Dominant Balance in Viscous Flows</span>
+<span class="topic-description">Identifying the leading physical terms under different flow conditions.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+</section>
+<section aria-labelledby="chapter-title-3" class="chapter" id="chapter-3">
+<div class="chapter-heading">
+<span aria-hidden="true" class="chapter-mark">03</span>
+<h2 id="chapter-title-3">Exact Solutions of Laminar Viscous Flow</h2>
+<span class="chapter-counter">4 ARTICLES</span>
+</div>
+<article aria-labelledby="topic-3-1" class="topic-card">
+<a aria-label="Open Plane Couette Flow article" class="topic-head" href="viscous-flow/plane-couette-flow.html">
+<span class="topic-number">3.1</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-3-1">Plane Couette Flow</span>
+<span class="topic-description">Shear-driven flow between parallel plates.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+<article aria-labelledby="topic-3-2" class="topic-card">
+<a aria-label="Open Plane Poiseuille Flow article" class="topic-head" href="viscous-flow/plane-poiseuille-flow.html">
+<span class="topic-number">3.2</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-3-2">Plane Poiseuille Flow</span>
+<span class="topic-description">Pressure-driven laminar flow between stationary plates.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+<article aria-labelledby="topic-3-3" class="topic-card">
+<a aria-label="Open Hagen–Poiseuille Flow article" class="topic-head" href="viscous-flow/hagen-poiseuille-flow.html">
+<span class="topic-number">3.3</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-3-3">Hagen–Poiseuille Flow</span>
+<span class="topic-description">Fully developed laminar flow through a circular pipe.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+<article aria-labelledby="topic-3-4" class="topic-card">
+<a aria-label="Open Stokes’ First Problem article" class="topic-head" href="viscous-flow/stokes-first-problem.html">
+<span class="topic-number">3.4</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-3-4">Stokes’ First Problem</span>
+<span class="topic-description">Transient viscous diffusion from an impulsively moving plate.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+</section>
+<section aria-labelledby="chapter-title-4" class="chapter" id="chapter-4">
+<div class="chapter-heading">
+<span aria-hidden="true" class="chapter-mark">04</span>
+<h2 id="chapter-title-4">Laminar Boundary-Layer Theory</h2>
+<span class="chapter-counter">4 ARTICLES</span>
+</div>
+<article aria-labelledby="topic-4-1" class="topic-card">
+<a aria-label="Open Formation of Boundary Layers article" class="topic-head" href="viscous-flow/formation-of-boundary-layers.html">
+<span class="topic-number">4.1</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-4-1">Formation of Boundary Layers</span>
+<span class="topic-description">Viscous effects near solid surfaces.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+<article aria-labelledby="topic-4-2" class="topic-card">
+<a aria-label="Open Boundary-Layer Scaling Analysis article" class="topic-head" href="viscous-flow/boundary-layer-scaling-analysis.html">
+<span class="topic-number">4.2</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-4-2">Boundary-Layer Scaling Analysis</span>
+<span class="topic-description">Estimating boundary-layer thickness from dominant balances.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+<article aria-labelledby="topic-4-3" class="topic-card">
+<a aria-label="Open Prandtl Boundary-Layer Equations article" class="topic-head" href="viscous-flow/prandtl-boundary-layer-equations.html">
+<span class="topic-number">4.3</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-4-3">Prandtl Boundary-Layer Equations</span>
+<span class="topic-description">Simplifying the governing equations for thin boundary layers.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+<article aria-labelledby="topic-4-4" class="topic-card">
+<a aria-label="Open Blasius Similarity Solution article" class="topic-head" href="viscous-flow/blasius-similarity-solution.html">
+<span class="topic-number">4.4</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-4-4">Blasius Similarity Solution</span>
+<span class="topic-description">Laminar flat-plate boundary-layer velocity profile.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+</section>
+<section aria-labelledby="chapter-title-5" class="chapter" id="chapter-5">
+<div class="chapter-heading">
+<span aria-hidden="true" class="chapter-mark">05</span>
+<h2 id="chapter-title-5">Integral Boundary-Layer Analysis</h2>
+<span class="chapter-counter">3 ARTICLES</span>
+</div>
+<article aria-labelledby="topic-5-1" class="topic-card">
+<a aria-label="Open Boundary-Layer Thickness Parameters article" class="topic-head" href="viscous-flow/boundary-layer-thickness-parameters.html">
+<span class="topic-number">5.1</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-5-1">Boundary-Layer Thickness Parameters</span>
+<span class="topic-description">Displacement and momentum thickness measures.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+<article aria-labelledby="topic-5-2" class="topic-card">
+<a aria-label="Open von Kármán Momentum Integral Equation article" class="topic-head" href="viscous-flow/von-karman-momentum-integral-equation.html">
+<span class="topic-number">5.2</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-5-2">von Kármán Momentum Integral Equation</span>
+<span class="topic-description">Integral momentum balance across a boundary layer.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+<article aria-labelledby="topic-5-3" class="topic-card">
+<a aria-label="Open Approximate Laminar Boundary-Layer Solutions article" class="topic-head" href="viscous-flow/approximate-laminar-boundary-layer-solutions.html">
+<span class="topic-number">5.3</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-5-3">Approximate Laminar Boundary-Layer Solutions</span>
+<span class="topic-description">Estimating boundary-layer behavior with assumed profiles.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+</section>
+<section aria-labelledby="chapter-title-6" class="chapter" id="chapter-6">
+<div class="chapter-heading">
+<span aria-hidden="true" class="chapter-mark">06</span>
+<h2 id="chapter-title-6">Pressure Gradient, Flow Separation and Transition</h2>
+<span class="chapter-counter">4 ARTICLES</span>
+</div>
+<article aria-labelledby="topic-6-1" class="topic-card">
+<a aria-label="Open Effects of Pressure Gradients article" class="topic-head" href="viscous-flow/effects-of-pressure-gradients.html">
+<span class="topic-number">6.1</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-6-1">Effects of Pressure Gradients</span>
+<span class="topic-description">Acceleration and deceleration of near-wall flow.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+<article aria-labelledby="topic-6-2" class="topic-card">
+<a aria-label="Open Boundary-Layer Separation article" class="topic-head" href="viscous-flow/boundary-layer-separation.html">
+<span class="topic-number">6.2</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-6-2">Boundary-Layer Separation</span>
+<span class="topic-description">Near-wall flow reversal under adverse pressure gradients.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+<article aria-labelledby="topic-6-3" class="topic-card">
+<a aria-label="Open Skin-Friction and Pressure Drag article" class="topic-head" href="viscous-flow/skin-friction-and-pressure-drag.html">
+<span class="topic-number">6.3</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-6-3">Skin-Friction and Pressure Drag</span>
+<span class="topic-description">Viscous and pressure contributions to aerodynamic drag.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+<article aria-labelledby="topic-6-4" class="topic-card">
+<a aria-label="Open Laminar–Turbulent Transition article" class="topic-head" href="viscous-flow/laminar-turbulent-transition.html">
+<span class="topic-number">6.4</span>
+<span class="topic-heading-copy">
+<span class="topic-title" id="topic-6-4">Laminar–Turbulent Transition</span>
+<span class="topic-description">The development of turbulence from a laminar boundary layer.</span>
+</span>
+<svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+</a>
+</article>
+</section>
+<a class="back-bottom" href="../aerodynamics.html">← Back to Aerodynamics</a>
+</main>
+<footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Viscous Flow</span></div></footer>
+<script defer src="../../assets/study-tracker.js?v=20261022-search1"></script>
+</body>
+</html>
