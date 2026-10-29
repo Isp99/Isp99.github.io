@@ -41,6 +41,18 @@
       body.inner-page .note-card .note-title { font-size: 21px; }
       body.inner-page .back-bottom { font-size: 15px; }
     }
+    /* Desktop layout: three subjects in the first row, two in the second. */
+    @media (min-width: 900px) {
+      body.inner-page .aerodynamics-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 19px;
+      }
+      body.inner-page .aerodynamics-grid .note-card {
+        min-width: 0;
+        min-height: 272px;
+        padding: 23px 23px 24px;
+      }
+    }
   </style>
 </head>
 <body class="inner-page">
@@ -68,14 +80,14 @@
     <div class="hero">
       <div class="hero-text">
         <h1>Aerodynamics</h1>
-        <p class="hero-description">Fundamental principles and advanced topics in fluid motion, compressible flow, viscous effects, and hypersonics.</p>
+        <p class="hero-description">Fundamental principles and advanced topics in fluid motion, compressible flow, viscous effects, turbulence, and hypersonics.</p>
       </div>
     </div>
     <div class="contents-header">
       <h2>Study Contents</h2>
-      <span class="count">04 SUBJECTS</span>
+      <span class="count">05 SUBJECTS</span>
     </div>
-    <div class="note-grid">
+    <div class="note-grid aerodynamics-grid">
       <a class="note-card" href="aerodynamics/fundamentals.html">
         <div class="note-top">
           <span class="note-index">01 / AERODYNAMICS</span>
@@ -115,9 +127,22 @@
           <li>Turbulence</li>
         </ul>
       </a>
-      <a class="note-card" href="aerodynamics/hypersonic-flow.html">
+      <a class="note-card" href="aerodynamics/turbulent-flow.html">
         <div class="note-top">
           <span class="note-index">04 / AERODYNAMICS</span>
+          <span class="note-arrow" aria-hidden="true">↗</span>
+        </div>
+        <h3 class="note-title">Turbulent Flow</h3>
+        <p class="note-sub">Transition, Fluctuations and Modeling</p>
+        <ul>
+          <li>Transition to Turbulence</li>
+          <li>Statistical Description</li>
+          <li>RANS / LES Basics</li>
+        </ul>
+      </a>
+      <a class="note-card" href="aerodynamics/hypersonic-flow.html">
+        <div class="note-top">
+          <span class="note-index">05 / AERODYNAMICS</span>
           <span class="note-arrow" aria-hidden="true">↗</span>
         </div>
         <h3 class="note-title">Hypersonic Flow</h3>
