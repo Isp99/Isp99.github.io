@@ -8,6 +8,8 @@
 <title>Fundamentals | Engineering Notebook</title>
 
 <link href="../../assets/site.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" integrity="sha384-WwGtaC6ywCHxA5cstpj/3+xIZvTez8dq2IcBQaXRkenHZ7FVVq1ZROtURwfbtTlG" crossorigin="anonymous"/>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" integrity="sha384-a1WQdjRj162i159OYq041X6I4K8NenkrI09LlPmiHg0YOb7CR+wJOraXwK9abpnE" crossorigin="anonymous"></script>
 <style>
   /* Match typography shared with study/aerodynamics.html.
      Chapter and article layouts remain controlled by site.css. */
@@ -71,12 +73,13 @@
     body.inner-page .topic-head { padding-top: 16px; padding-bottom: 16px; min-height: 84px; }
   }
 
-  /* Fundamentals hero: precise, scalable governing equations (no raster text). */
+
+  /* Fundamentals: KaTeX equation typography and quiet blue-tone cards. */
   body.inner-page .hero {
     display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
     align-items: center;
-    gap: 24px;
+    gap: 22px;
     min-height: 278px;
     padding: 32px 0 31px;
     overflow: visible;
@@ -89,43 +92,58 @@
   body.inner-page .governing-equations {
     grid-column: 2;
     grid-row: 1;
-    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    min-width: 0;
   }
   body.inner-page .equation-card {
-    min-width: 0;
-    min-height: 66px;
-    padding: 12px 10px;
+    box-sizing: border-box;
     display: flex;
-    align-items: center;
     justify-content: center;
-    overflow-x: auto;
-    background: linear-gradient(140deg,#fff 15%,#f6faff 100%);
-    border: 1px solid #dce7f6;
+    align-items: center;
+    min-width: 0;
+    min-height: 65px;
+    padding: 13px 12px;
+    border: 1px solid #dce7f5;
     border-radius: 15px;
-    box-shadow: 0 4px 14px rgba(41,91,160,.055);
+    background: #eef4fc;
+    box-shadow: none;
+    overflow-x: auto;
+    overflow-y: hidden;
     scrollbar-width: thin;
   }
-  body.inner-page .equation-card math {
+  body.inner-page .equation-tex {
     display: inline-block;
     flex-shrink: 0;
-    font-family: "Cambria Math","STIX Two Math","Latin Modern Math",serif;
-    font-size: clamp(11px, 1.12vw, 14px);
-    color: #142f54;
     white-space: nowrap;
+    color: #183b6b;
+    font-size: 15.5px;
+    line-height: 1.55;
   }
-  body.inner-page .equation-card:nth-child(3) math {
-    font-size: clamp(10px, 1.01vw, 13px);
+  body.inner-page .equation-card:nth-child(3) .equation-tex {
+    font-size: 14.6px;
+  }
+  body.inner-page .equation-tex .katex {
+    font-size: 1em;
+  }
+  body.inner-page .equation-tex math {
+    font-size: inherit;
+    font-family: "Cambria Math", "STIX Two Math", serif;
   }
   @media (max-width: 850px) {
-    body.inner-page .hero { grid-template-columns: 1fr; row-gap: 22px; }
+    body.inner-page .hero {
+      grid-template-columns: minmax(0,1fr);
+      row-gap: 22px;
+    }
     body.inner-page .hero-text { grid-column: 1; grid-row: 1; }
     body.inner-page .governing-equations { grid-column: 1; grid-row: 2; }
-    body.inner-page .equation-card { justify-content: flex-start; min-height: 61px; padding: 11px 15px; }
-    body.inner-page .equation-card math,
-    body.inner-page .equation-card:nth-child(3) math { font-size: 13px; }
+    body.inner-page .equation-card { min-height: 61px; justify-content: center; }
+  }
+  @media (max-width: 520px) {
+    body.inner-page .equation-card { justify-content: flex-start; }
+    body.inner-page .equation-tex { font-size: 15px; }
+    body.inner-page .equation-card:nth-child(3) .equation-tex { font-size: 14.4px; }
   }
 
 </style>
@@ -147,9 +165,9 @@
 </nav>
 <div class="hero">
 <div class="governing-equations" aria-label="Conservation of mass, momentum, and total energy">
-<div class="equation-card" aria-label="Mass conservation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mfrac linethickness="1"><mrow><mo>∂</mo><mi>ρ</mi></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mrow><mo>(</mo><mi>ρ</mi><mi mathvariant="bold">V</mi><mo>)</mo></mrow></mrow><mo>=</mo><mn>0</mn></mrow></math></div>
-<div class="equation-card" aria-label="Momentum conservation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mfrac linethickness="1"><mrow><mo>∂</mo><mrow><mo>(</mo><mi>ρ</mi><mi mathvariant="bold">V</mi><mo>)</mo></mrow></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mrow><mo>(</mo><mi>ρ</mi><mi mathvariant="bold">V</mi><mo>⊗</mo><mi mathvariant="bold">V</mi><mo>)</mo></mrow></mrow><mo>=</mo><mo>−</mo><mo>∇</mo><mi>p</mi><mo>+</mo><mi>ρ</mi><mi mathvariant="bold">f</mi><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mi mathvariant="bold">τ</mi></mrow></mrow></math></div>
-<div class="equation-card" aria-label="Energy conservation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mfrac linethickness="1"><mrow><mo>∂</mo><mrow><mo>(</mo><mi>ρ</mi><mi>E</mi><mo>)</mo></mrow></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mrow><mo>[</mo><mrow><mo>(</mo><mi>ρ</mi><mi>E</mi><mo>+</mo><mi>p</mi><mo>)</mo></mrow><mi mathvariant="bold">V</mi><mo>]</mo></mrow></mrow><mo>=</mo><mrow><mo>∇</mo><mo>⋅</mo><msub <mi>τ</mi>><mi mathvariant="bold">W</mi></msub></mrow><mo>−</mo><mrow><mo>∇</mo><mo>⋅</mo><mi mathvariant="bold">q</mi></mrow><mo>+</mo><mi>ρ</mi><mi mathvariant="bold">f</mi><mo>⋅</mo><mi mathvariant="bold">V</mi><mo>+</mo><msub <mi>v</mi>><mover <mo>˙</mo>><mi>q</mi></mover></msub></mrow></math></div>
+<div class="equation-card" aria-label="Mass conservation"><span class="equation-tex" data-latex="\frac{\partial\rho}{\partial t}+\nabla\cdot(\rho\mathbf{V})=0"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mfrac linethickness="1"><mrow><mo>∂</mo><mi>ρ</mi></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mrow><mo>(</mo><mi>ρ</mi><mi mathvariant="bold">V</mi><mo>)</mo></mrow></mrow><mo>=</mo><mn>0</mn></mrow></math></span></div>
+<div class="equation-card" aria-label="Momentum conservation"><span class="equation-tex" data-latex="\frac{\partial(\rho\mathbf{V})}{\partial t}+\nabla\cdot(\rho\mathbf{V}\otimes\mathbf{V})=-\nabla p+\rho\mathbf{f}+\nabla\cdot\boldsymbol{\tau}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mfrac linethickness="1"><mrow><mo>∂</mo><mrow><mo>(</mo><mi>ρ</mi><mi mathvariant="bold">V</mi><mo>)</mo></mrow></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mrow><mo>(</mo><mi>ρ</mi><mi mathvariant="bold">V</mi><mo>⊗</mo><mi mathvariant="bold">V</mi><mo>)</mo></mrow></mrow><mo>=</mo><mo>−</mo><mo>∇</mo><mi>p</mi><mo>+</mo><mi>ρ</mi><mi mathvariant="bold">f</mi><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mi mathvariant="bold">τ</mi></mrow></mrow></math></span></div>
+<div class="equation-card" aria-label="Energy conservation"><span class="equation-tex" data-latex="\frac{\partial(\rho E)}{\partial t}+\nabla\cdot[(\rho E+p)\mathbf{V}]=\nabla\cdot\mathbf{W}_{\tau}-\nabla\cdot\mathbf{q}+\rho\mathbf{f}\cdot\mathbf{V}+\dot{q}_v"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mfrac linethickness="1"><mrow><mo>∂</mo><mrow><mo>(</mo><mi>ρ</mi><mi>E</mi><mo>)</mo></mrow></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mrow><mo>[</mo><mrow><mo>(</mo><mi>ρ</mi><mi>E</mi><mo>+</mo><mi>p</mi><mo>)</mo></mrow><mi mathvariant="bold">V</mi><mo>]</mo></mrow></mrow><mo>=</mo><mrow><mo>∇</mo><mo>⋅</mo><msub <mi>τ</mi>><mi mathvariant="bold">W</mi></msub></mrow><mo>−</mo><mrow><mo>∇</mo><mo>⋅</mo><mi mathvariant="bold">q</mi></mrow><mo>+</mo><mi>ρ</mi><mi mathvariant="bold">f</mi><mo>⋅</mo><mi mathvariant="bold">V</mi><mo>+</mo><msub <mi>v</mi>><mover <mo>˙</mo>><mi>q</mi></mover></msub></mrow></math></span></div>
 </div>
 <div class="hero-text">
 <h1>Fundamentals</h1>
@@ -419,5 +437,17 @@
 <a class="back-bottom" href="../aerodynamics.html">← Back to Aerodynamics</a>
 </main>
 <footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Aerodynamics</span></div></footer>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (!window.katex) return; // Original MathML remains visible if the CDN is unavailable.
+  document.querySelectorAll(".equation-tex").forEach(function (element) {
+    katex.render(element.dataset.latex, element, {
+      displayMode: false,
+      throwOnError: false,
+      output: "htmlAndMathml"
+    });
+  });
+});
+</script>
 </body>
 </html>
