@@ -99,14 +99,14 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 \frac{\partial u}{\partial t}
 +u\frac{\partial u}{\partial x}+v\frac{\partial u}{\partial y}
 &=-\frac1\rho\frac{\partial p}{\partial x}
-+\nu\left(\frac{\partial^2u}{\partial x^2}+\frac{\partial^2u}{\partial y^2}\right),\\[1.5ex]
++\nu\left(\frac{\partial^2u}{\partial x^2}+\frac{\partial^2u}{\partial y^2}\right),\\[2.0em]
 \frac{\partial v}{\partial t}
 +u\frac{\partial v}{\partial x}+v\frac{\partial v}{\partial y}
 &=-\frac1\rho\frac{\partial p}{\partial y}
 +\nu\left(\frac{\partial^2v}{\partial x^2}+\frac{\partial^2v}{\partial y^2}\right).
 \end{aligned}\]</div></li><li>위 식에서 \(y\)방향 운동량식을 \(x\)로 미분하고, \(x\)방향 운동량식을 \(y\)로 미분한 뒤 차를 구하면 <strong>Pressure의 혼합편미분 항</strong>은 상쇄되고 <strong>Time Derivative</strong>는 Vorticity의 시간변화가 됨.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
 \text{Pressure term}&=-\frac1\rho\frac{\partial^2p}{\partial x\partial y}
-+\frac1\rho\frac{\partial^2p}{\partial y\partial x}=0,\\[2ex]
++\frac1\rho\frac{\partial^2p}{\partial y\partial x}=0,\\[2.0em]
 \text{Time term}&=\frac{\partial}{\partial t}
 \left(\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}\right)
 =\frac{\partial\omega_z}{\partial t}.
@@ -114,20 +114,20 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 \frac{\partial}{\partial x}\left(u\frac{\partial v}{\partial x}
 +v\frac{\partial v}{\partial y}\right)
 -\frac{\partial}{\partial y}\left(u\frac{\partial u}{\partial x}
-+v\frac{\partial u}{\partial y}\right)\\[2.5ex]
++v\frac{\partial u}{\partial y}\right)\\[2.0em]
 &=u\left(\frac{\partial^2v}{\partial x^2}
 -\frac{\partial^2u}{\partial x\partial y}\right)
 +v\left(\frac{\partial^2v}{\partial x\partial y}
 -\frac{\partial^2u}{\partial y^2}\right)
 +\left(\frac{\partial u}{\partial x}+\frac{\partial v}{\partial y}\right)
-\left(\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}\right)\\[2.5ex]
+\left(\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}\right)\\[2.0em]
 &=u\frac{\partial\omega_z}{\partial x}
 +v\frac{\partial\omega_z}{\partial y}
 +\underbrace{\left(\frac{\partial u}{\partial x}
 +\frac{\partial v}{\partial y}\right)}_{0}\omega_z.
 \end{aligned}\]</div></li><li>점성항은 미분 순서를 바꾸면 Vorticity의 <strong>Laplacian</strong>으로 나타낼 수 있음.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
 \nu\left[\frac{\partial}{\partial x}(\nabla^2v)-\frac{\partial}{\partial y}(\nabla^2u)\right]
-&=\nu\nabla^2\left(\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}\right)\\[2ex]
+&=\nu\nabla^2\left(\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}\right)\\[2.0em]
 &=\nu\left(\frac{\partial^2\omega_z}{\partial x^2}+\frac{\partial^2\omega_z}{\partial y^2}\right).
 \end{aligned}\]</div></li><li>시간항·대류항·점성항을 합치면 2차원 <strong>Vorticity Transport Equation</strong>은<div class="equation key wide-equation" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \underbrace{\frac{\partial\omega_z}{\partial t}}_{\text{Local Change}}
 +\underbrace{u\frac{\partial\omega_z}{\partial x}
