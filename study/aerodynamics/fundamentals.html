@@ -70,6 +70,64 @@
     body.inner-page .topic-card .topic-number { font-size: 15px; }
     body.inner-page .topic-head { padding-top: 16px; padding-bottom: 16px; min-height: 84px; }
   }
+
+  /* Fundamentals hero: precise, scalable governing equations (no raster text). */
+  body.inner-page .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 24px;
+    min-height: 278px;
+    padding: 32px 0 31px;
+    overflow: visible;
+  }
+  body.inner-page .hero-text {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: none;
+  }
+  body.inner-page .governing-equations {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  body.inner-page .equation-card {
+    min-width: 0;
+    min-height: 66px;
+    padding: 12px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: auto;
+    background: linear-gradient(140deg,#fff 15%,#f6faff 100%);
+    border: 1px solid #dce7f6;
+    border-radius: 15px;
+    box-shadow: 0 4px 14px rgba(41,91,160,.055);
+    scrollbar-width: thin;
+  }
+  body.inner-page .equation-card math {
+    display: inline-block;
+    flex-shrink: 0;
+    font-family: "Cambria Math","STIX Two Math","Latin Modern Math",serif;
+    font-size: clamp(11px, 1.12vw, 14px);
+    color: #142f54;
+    white-space: nowrap;
+  }
+  body.inner-page .equation-card:nth-child(3) math {
+    font-size: clamp(10px, 1.01vw, 13px);
+  }
+  @media (max-width: 850px) {
+    body.inner-page .hero { grid-template-columns: 1fr; row-gap: 22px; }
+    body.inner-page .hero-text { grid-column: 1; grid-row: 1; }
+    body.inner-page .governing-equations { grid-column: 1; grid-row: 2; }
+    body.inner-page .equation-card { justify-content: flex-start; min-height: 61px; padding: 11px 15px; }
+    body.inner-page .equation-card math,
+    body.inner-page .equation-card:nth-child(3) math { font-size: 13px; }
+  }
+
 </style>
 </head>
 <body class="inner-page">
@@ -88,21 +146,11 @@
 <a href="../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><strong>Fundamentals</strong>
 </nav>
 <div class="hero">
-<svg aria-label="Illustration of airflow around an airfoil" class="flow-art" role="img" viewbox="0 0 510 208" xmlns="http://www.w3.org/2000/svg">
-<defs><lineargradient id="airfoilFill" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#c7dbfa" stop-opacity=".92"></stop><stop offset="1" stop-color="#e9f1fd" stop-opacity=".7"></stop></lineargradient></defs>
-<g fill="none" opacity=".57" stroke="#8cb8f1" stroke-linecap="round" stroke-width="1.2">
-<path d="M1 26C87 26 128 10 200 17S363 58 506 13"></path>
-<path d="M1 44C83 44 133 29 198 36S365 77 506 32"></path>
-<path d="M1 64C91 64 128 49 196 57S365 100 506 50"></path>
-<path d="M1 86C94 86 121 70 193 80S368 117 506 71"></path>
-<path d="M1 108C99 107 135 92 201 95S356 138 506 107"></path>
-<path d="M1 125C90 125 136 131 204 144S358 151 506 135"></path>
-<path d="M1 145C101 145 149 162 217 173S362 167 506 157"></path>
-<path d="M1 169C93 170 151 187 223 193S362 191 506 182"></path>
-</g>
-<path d="M136 106C175 74 221 80 266 93C297 102 330 116 380 120C288 127 223 128 180 122C158 120 142 115 136 106Z" fill="url(#airfoilFill)" stroke="#6da0eb" stroke-width="1.6"></path>
-<g fill="#67a2ef" opacity=".8"><path d="m102 49 6 4-7 3z"></path><path d="m307 25 6 4-7 3z"></path><path d="m448 168 6 4-7 3z"></path></g>
-</svg>
+<div class="governing-equations" aria-label="Conservation of mass, momentum, and total energy">
+<div class="equation-card" aria-label="Mass conservation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mfrac linethickness="1"><mrow><mo>∂</mo><mi>ρ</mi></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mrow><mo>(</mo><mi>ρ</mi><mi mathvariant="bold">V</mi><mo>)</mo></mrow></mrow><mo>=</mo><mn>0</mn></mrow></math></div>
+<div class="equation-card" aria-label="Momentum conservation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mfrac linethickness="1"><mrow><mo>∂</mo><mrow><mo>(</mo><mi>ρ</mi><mi mathvariant="bold">V</mi><mo>)</mo></mrow></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mrow><mo>(</mo><mi>ρ</mi><mi mathvariant="bold">V</mi><mo>⊗</mo><mi mathvariant="bold">V</mi><mo>)</mo></mrow></mrow><mo>=</mo><mo>−</mo><mo>∇</mo><mi>p</mi><mo>+</mo><mi>ρ</mi><mi mathvariant="bold">f</mi><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mi mathvariant="bold">τ</mi></mrow></mrow></math></div>
+<div class="equation-card" aria-label="Energy conservation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mfrac linethickness="1"><mrow><mo>∂</mo><mrow><mo>(</mo><mi>ρ</mi><mi>E</mi><mo>)</mo></mrow></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mrow><mo>[</mo><mrow><mo>(</mo><mi>ρ</mi><mi>E</mi><mo>+</mo><mi>p</mi><mo>)</mo></mrow><mi mathvariant="bold">V</mi><mo>]</mo></mrow></mrow><mo>=</mo><mrow><mo>∇</mo><mo>⋅</mo><msub <mi>τ</mi>><mi mathvariant="bold">W</mi></msub></mrow><mo>−</mo><mrow><mo>∇</mo><mo>⋅</mo><mi mathvariant="bold">q</mi></mrow><mo>+</mo><mi>ρ</mi><mi mathvariant="bold">f</mi><mo>⋅</mo><mi mathvariant="bold">V</mi><mo>+</mo><msub <mi>v</mi>><mover <mo>˙</mo>><mi>q</mi></mover></msub></mrow></math></div>
+</div>
 <div class="hero-text">
 <h1>Fundamentals</h1>
 <p class="hero-subtitle">Foundations of Aerodynamics</p>
