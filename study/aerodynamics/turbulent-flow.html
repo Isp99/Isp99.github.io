@@ -53,6 +53,9 @@ body.turbulent-page .topic-card:hover {
  border-color:#cbdcf2;border-left-color:#2f65bd;
 }
 body.turbulent-page .topic-head:hover .topic-title {color:#132a49}
+body.turbulent-page .topic-card.available:hover{transform:translateY(-2px);border-color:#92b4e5;box-shadow:0 10px 22px rgba(40,76,129,.09)}
+body.turbulent-page .topic-card.available .topic-head:hover .topic-title{color:#2d62b6}
+body.turbulent-page .topic-card.available .topic-head:focus-visible{outline:3px solid #739eec;outline-offset:-3px}
 body.turbulent-page .topic-planned {
  flex:none;color:#879bb5;font-size:11px;letter-spacing:.015em;
  border:1px solid #dce7f5;border-radius:8px;padding:5px 8px;background:#f7faff;
@@ -108,7 +111,7 @@ body.turbulent-page .contents-note {margin:-12px 0 26px;color:#879ab2;font-size:
   </div>
  </div>
  <div class="contents-header"><h2>Study Contents</h2><span class="count">05 CHAPTERS · 17 ARTICLES</span></div>
- <p class="contents-note">Article pages are in preparation.</p>
+ <p class="contents-note">2 articles available · 15 articles in preparation.</p>
  
 <section class="chapter" id="chapter-1" aria-labelledby="chapter-title-1">
  <div class="chapter-heading">
@@ -117,25 +120,25 @@ body.turbulent-page .contents-note {margin:-12px 0 26px;color:#879ab2;font-size:
    <span class="chapter-counter">2 ARTICLES</span>
  </div>
  
- <article class="topic-card" id="topic-1-1" aria-labelledby="topic-title-1-1">
-   <div class="topic-head">
+ <article class="topic-card available" id="topic-1-1" aria-labelledby="topic-title-1-1">
+   <a class="topic-head" href="turbulent-flow/characteristics-of-turbulent-flow.html" aria-label="Read 1-1 article">
      <span class="topic-number">1.1</span>
      <span class="topic-heading-copy">
        <span class="topic-title" id="topic-title-1-1">Characteristics of Turbulent Flow</span>
        <span class="topic-description">Irregular fluctuations, mixing, and three-dimensional vortical motion.</span>
      </span>
-     <span class="topic-planned" aria-label="Article in preparation">Planned</span>
-   </div>
+     <svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+   </a>
  </article>
- <article class="topic-card" id="topic-1-2" aria-labelledby="topic-title-1-2">
-   <div class="topic-head">
+ <article class="topic-card available" id="topic-1-2" aria-labelledby="topic-title-1-2">
+   <a class="topic-head" href="turbulent-flow/index-notation-and-einstein-notation.html" aria-label="Read 1-2 article">
      <span class="topic-number">1.2</span>
      <span class="topic-heading-copy">
        <span class="topic-title" id="topic-title-1-2">Index Notation and Einstein Notation</span>
        <span class="topic-description">Compact notation for velocity components, tensors, and repeated indices.</span>
      </span>
-     <span class="topic-planned" aria-label="Article in preparation">Planned</span>
-   </div>
+     <svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg>
+   </a>
  </article>
 </section>
 

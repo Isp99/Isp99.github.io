@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Characteristics of Turbulent Flow — Engineering Notebook">
+<title>Characteristics of Turbulent Flow | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav>
+</div></header>
+<main class="shell tl-page">
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../turbulent-flow.html">Turbulent Flow</a><span class="separator">›</span><strong>Characteristics of Turbulent Flow</strong></nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">TURBULENT FLOW / 1.1</div><h1>Characteristics of Turbulent Flow</h1><p class="hero-subtitle">Fundamentals of Turbulent Flow</p><p class="hero-description">Laminar and turbulent flow, Reynolds number, and transition.</p></div></div>
+<article class="article-content">
+<div class="lesson-meta"><span>01 / Fundamentals of Turbulent Flow</span><span>Study Notes · 1.1</span></div>
+<nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#section-1">01 · Laminar Flow and Turbulent Flow</a></li><li><a href="#section-2">02 · Reynolds Number and Transition to Turbulence</a></li></ul></nav>
+<section class="lesson-section" id="section-1"><h2><span class="section-tag">01</span>Laminar Flow and Turbulent Flow</h2><ul class="study-points"><li><span class="point-text"><strong>Laminar Flow</strong>는 유체 입자들이 층을 이루어 매끄러운 경로를 따라 이동하며, 인접한 유체층 사이의 혼합이 거의 없이 서로 미끄러지듯 흐르는 유동</span><ul class="nested-points"><li><span class="point-text">Turbulence flow에 의한 강한 혼합 없이 주로 <strong>분자 점성에 의해 운동량이 전달됨</strong>.</span></li><li><span class="point-text">유동 내부에 <strong>와류가 존재할 수 있으나, Turbulence flow특유의 다중 스케일 eddy 운동은 나타나지 않음</strong>.</span></li><li><span class="point-text">Steady Flow뿐 아니라 Unsteady Flow도 가능하므로, 시간에 따른 속도 변화가 반드시 Turbulence flow를 의미하지는 않음.</span></li></ul></li><li><span class="point-text"><strong>Turbulent Flow</strong>는 유체 내부에서 불규칙한 <strong>Velocity Fluctuation</strong>이 발생하며, 시간과 공간에 따라 속도장이 복잡하게 변화하는 흐름임.</span><ul class="nested-points"><li><span class="point-text">불규칙한 3차원 속도fluctuation이 발생하며, 다양한 공간 및 시간 스케일의 운동이 상호작용함.</span></li><li><span class="point-text">분자 점성에 의한 운동량 전달뿐 아니라 <strong>유체의 불규칙한 운동에 의해 운동량과 물질의 혼합이 강화</strong></span></li><li><span class="point-text">평균유동이 Steady 상태여도 순간 속도장은 지속적으로 fluctuation할 수 있음.</span></li></ul></li><li><span class="point-text">Turbulence flowfluctuation은 일반적으로 <strong>Three-Dimensional</strong>으로  평균유동이 2차원이어도 순간 Spanwise Motion은 존재</span></li><li><span class="point-text">Turbulence flow에서는 불규칙한 <strong>Velocity Fluctuation</strong>에 의해서도 운동량이 전달됨. 이 <strong>전달이 평균 속도분포와 벽면 마찰을 어떻게 바꾸는지 이해하는 것이 Turbulence flow해석의 목적</strong></span></li></ul></section>
+<section class="lesson-section" id="section-2"><h2><span class="section-tag">02</span>Reynolds Number and Transition to Turbulence</h2><ul class="study-points"><li><span class="point-text"><strong>Reynolds Number</strong>는 유동에서 관성력과 점성력의 상대적인 크기를 나타내는 무차원수로, 유동의 안정성과 Turbulence flow천이를 판단하는 주요 지표임.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\mathrm{Re}_L=\frac{\rho U_{\mathrm{ref}}L}{\mu}
+=\frac{U_{\mathrm{ref}}L}{\nu},
+\qquad \nu=\frac{\mu}{\rho}.\]</div></li><li><span class="point-text">실제 유동에는 <strong>외부 진동, 표면 거칠기 등에 의해 작은 속도 교란(Velocity Disturbance)이 발생</strong>할 수 있음. 이러한 교란의 성장 또는 감쇠는 관성과 점성의 상대적인 영향에 따라 달라짐.</span><ul class="nested-points"><li><span class="point-text"><strong>Low Reynolds Number</strong>: <br> <strong>점성에 의한 운동량 확산이 강하여</strong> 유체 입자 사이의 <strong>속도 차이가 완화</strong>되고, 교란이 감쇠되기 쉬워 안정적인 층류가 유지되기 쉬움.</span></li><li><span class="point-text"><strong>High Reynolds Number</strong>:<br> <strong>점성에 의한 교란 감쇠 효과가 상대적으로 약해</strong>져 유동의 불안정성에 의해 교란이 성장할 수 있음. 성장한 교란은 비선형 상호작용을 거쳐 복잡한 3차원 유동 구조를 형성하며 Turbulence flow로 천이할 수 있음.</span></li></ul></li><li><span class="point-text">층류에서 Turbulence flow로 변화하기 시작하는 Reynolds Number를 <strong>Critical Reynolds Number</strong>라 하며, 대표적인 유동 조건에서 다음과 같은 경험적 기준을 사용</span><ul class="nested-points"><li><span class="point-text"><strong>Circular Pipe Flow</strong>: 관 직경 \(D\)를 대표길이로 사용하며, 일반적으로 \(\mathrm{Re}_D&lt;2300\)에서 층류, \(2300\sim4000\)에서 천이영역, \(\mathrm{Re}_D&gt;4000\)에서 Turbulence flow로 분류</span></li><li><span class="point-text"><strong>Flat Plate Boundary Layer</strong>: 평판 앞전으로부터의 거리 \(x\)를 대표길이로 사용하며, 일반적으로 \(\mathrm{Re}_x\approx5\times10^5\) 부근을 Turbulence flow천이의 대표적인 기준으로 사용</span></li></ul></li><li><span class="point-text">이러한 임계값은 절대적인 기준이 아니며, 실제 Turbulence flow천이는 유동 형상, 표면 거칠기, 초기 교란 및 압력구배 등에 영향을 받음.</span></li><li><span class="point-text">따라서 Reynolds Number는 Turbulence flow발생 가능성을 판단하는 지표이며, 모든 유동에 적용되는 단일 임계값은 존재하지 않음.</span></li></ul></section>
+</article>
+<div class="article-pager"><a class="next" href="index-notation-and-einstein-notation.html"><span class="direction">NEXT →</span><span class="adjacent">Index Notation and Einstein Notation</span></a></div>
+<a class="back-bottom" href="../turbulent-flow.html">← Back to Turbulent Flow</a>
+</main>
+<footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Turbulent Flow</span></div></footer>
+<script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
+</body></html>

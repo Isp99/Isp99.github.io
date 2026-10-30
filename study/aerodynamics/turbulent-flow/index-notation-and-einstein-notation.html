@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Index Notation and Einstein Notation — Engineering Notebook">
+<title>Index Notation and Einstein Notation | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav>
+</div></header>
+<main class="shell tl-page">
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../turbulent-flow.html">Turbulent Flow</a><span class="separator">›</span><strong>Index Notation and Einstein Notation</strong></nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">TURBULENT FLOW / 1.2</div><h1>Index Notation and Einstein Notation</h1><p class="hero-subtitle">Fundamentals of Turbulent Flow</p><p class="hero-description">Velocity components, Einstein summation, and compact momentum equations.</p></div></div>
+<article class="article-content">
+<div class="lesson-meta"><span>01 / Fundamentals of Turbulent Flow</span><span>Study Notes · 1.2</span></div>
+<nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#section-1">01 · Purpose and Necessity of Index Notation</a></li><li><a href="#section-2">02 · Index Notation: Components and Directions</a></li><li><a href="#section-3">03 · Einstein Summation: Repeated Indices</a></li><li><a href="#section-4">04 · Convective Term: Free and Dummy Indices</a></li><li><a href="#section-5">05 · Continuity Equation and Viscous Diffusion</a></li></ul></nav>
+<section class="lesson-section" id="section-1"><h2><span class="section-tag">01</span>Purpose and Necessity of Index Notation</h2><ul class="study-points"><li><span class="point-text">3차원 유동에서는 속도성분이 세 개이므로 같은 구조의 운동량방정식을 각 방향에 반복하여 써야 하므로 상당히 귀찮고 복잡함</span></li><li><span class="point-text"><strong>Index Notation</strong>을 사용하면 방향 성분을 첨자로 나타내어 세 방정식을 하나의 형태로 정리할 수 있음.</span></li><li><span class="point-text">좌표를 \(x_1=x\), \(x_2=y\), \(x_3=z\)로 두고, 순간속도의 세 성분을 \(U_1\), \(U_2\), \(U_3\)로 나타냄 따라서 운동량 방정식은</span><div class="equation" role="group" aria-label="Mathematical equation">\[\frac{\partial U_1}{\partial t}+U_1\frac{\partial U_1}{\partial x_1}
++U_2\frac{\partial U_1}{\partial x_2}+U_3\frac{\partial U_1}{\partial x_3}
+=-\frac{1}{\rho}\frac{\partial P}{\partial x_1}+\nu\left(\frac{\partial^2U_1}{\partial x_1^2}+\frac{\partial^2U_1}{\partial x_2^2}+\frac{\partial^2U_1}{\partial x_3^2}\right).\]</div><div class="equation" role="group" aria-label="Mathematical equation">\[\frac{\partial U_2}{\partial t}+U_1\frac{\partial U_2}{\partial x_1}
++U_2\frac{\partial U_2}{\partial x_2}+U_3\frac{\partial U_2}{\partial x_3}
+=-\frac{1}{\rho}\frac{\partial P}{\partial x_2}+\nu\left(\frac{\partial^2U_2}{\partial x_1^2}+\frac{\partial^2U_2}{\partial x_2^2}+\frac{\partial^2U_2}{\partial x_3^2}\right).\]</div><div class="equation" role="group" aria-label="Mathematical equation">\[\frac{\partial U_3}{\partial t}+U_1\frac{\partial U_3}{\partial x_1}
++U_2\frac{\partial U_3}{\partial x_2}+U_3\frac{\partial U_3}{\partial x_3}
+=-\frac{1}{\rho}\frac{\partial P}{\partial x_3}+\nu\left(\frac{\partial^2U_3}{\partial x_1^2}+\frac{\partial^2U_3}{\partial x_2^2}+\frac{\partial^2U_3}{\partial x_3^2}\right).\]</div></li><li><span class="point-text">세 식에서 달라지는 것은 운동량을 관찰하는 방향뿐임. 이 방향을 \(i\)로, 대류와 확산이 일어나는 방향을 \(j\)로 나타내면 아래의 규칙으로 세 식을 함께 표현할 수 있음.</span></li></ul></section>
+<section class="lesson-section" id="section-2"><h2><span class="section-tag">02</span>Index Notation: Components and Directions</h2><ul class="study-points"><li><span class="point-text"><strong>Index Notation</strong>은 벡터나 텐서의 각 성분을 첨자로 나타내는 표기법임. 속도벡터 \(\mathbf U=(U_1,U_2,U_3)\)의 성분을 일반적으로 \(U_i\)로 나타내면</span><div class="equation" role="group" aria-label="Mathematical equation">\[U_i=\begin{cases}U_1,&amp;i=1,\\[0.85em]U_2,&amp;i=2,\\[0.85em]U_3,&amp;i=3.\end{cases}\]</div></li><li><span class="point-text">\(U_i\)는 세 성분의 합이 아니라 <strong>\(i\)방향 속도성분</strong>을 뜻함. 어느 성분을 다루는지는 \(i\)의 값으로 결정됨.</span></li><li><span class="point-text">속도가 위치에 대해 변한다고 하면 다음과 서도 다른 두개의 index \(i,j\)를 사용해 표현가능</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\frac{\partial U_i}{\partial x_j},\qquad i,j=1,2,3.\]</div></li><li><span class="point-text">여기서는 \(i\)가 속도성분의 방향, \(j\)가 미분하는 좌표방향을 나타냄.</span></li><li><span class="point-text">각 \((i,j)\) 조합을 행렬의 성분으로 배열하면 다음 9개 성분을 얻음. 행은 속도성분 \(i\), 열은 미분방향 \(j\)에 해당함.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\frac{\partial U_i}{\partial x_j}
+=\begin{bmatrix}
+\dfrac{\partial U_1}{\partial x_1}&amp;\dfrac{\partial U_1}{\partial x_2}&amp;\dfrac{\partial U_1}{\partial x_3}\\[0.85em]
+\dfrac{\partial U_2}{\partial x_1}&amp;\dfrac{\partial U_2}{\partial x_2}&amp;\dfrac{\partial U_2}{\partial x_3}\\[0.85em]
+\dfrac{\partial U_3}{\partial x_1}&amp;\dfrac{\partial U_3}{\partial x_2}&amp;\dfrac{\partial U_3}{\partial x_3}
+\end{bmatrix}.\]</div></li><li><span class="point-text">\(\frac{\partial U_i}{\partial x_j}\)에서는 \(i\)와 \(j\)가 각각 한 번씩 등장하므로, 아래에서 설명할 자동 합산은 일어나지 않음.</span></li></ul></section>
+<section class="lesson-section" id="section-3"><h2><span class="section-tag">03</span>Einstein Summation: Repeated Indices</h2><ul class="study-points"><li><span class="point-text"><strong>Einstein Summation Convention</strong>은 <strong>같은 항에서 두 번 반복되는 Index에 대해 자동으로 합한다</strong>는 정의</span></li><li><span class="point-text">두 벡터의 성분을 \(a_i\), \(b_i\)라 하면, 다음 식에서는 \(i\)가 두 번 등장하므로</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+a_ib_i
+&amp;=\sum_{i=1}^{3}a_ib_i =a_1b_1+a_2b_2+a_3b_3.
+\end{aligned}\]</div></li><li><span class="point-text">합산되는 Index를 <strong>Dummy Index</strong>라 하며 \(a_jb_j\) 처럼 임의의 기호 사용가능</span></li><li><span class="point-text">반면 한 항에서 한 번만 등장하고 방향을 지정하는 Index를 <strong>Free Index</strong>라 함. 성분 방정식의 각 항과 양변에서는 같은 Free Index가 유지되어야 함.</span></li><li><span class="point-text">같은 항에서 하나의 Index가 세 번 이상 반복되는 표기는 여기서 사용하지 않음. 또한 합산 여부는 식 전체가 아니라 <strong>각 항별로</strong> 판단함.</span></li></ul></section>
+<section class="lesson-section" id="section-4"><h2><span class="section-tag">04</span>Convective Term: Free and Dummy Indices</h2><ul class="study-points"><li><span class="point-text">대류항 \(U_j\frac{\partial U_i}{\partial x_j}\)에서는 \(j\)가 두 번 등장하므로 세 방향의 대류를 합함. \(i\)는 한 번 등장하므로 관찰하는 속도성분의 방향을 유지함.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+U_j\frac{\partial U_i}{\partial x_j}
+&amp;=\sum_{j=1}^{3}U_j\frac{\partial U_i}{\partial x_j},\\[0.85em]
+&amp;=U_1\frac{\partial U_i}{\partial x_1}+U_2\frac{\partial U_i}{\partial x_2}+U_3\frac{\partial U_i}{\partial x_3}.
+\end{aligned}\]</div></li><li><span class="point-text">예를 들어 \(i=1\)로 정하면 \(x_1\)방향 속도 \(U_1\)이 세 방향의 이동에 의해 변하는 대류항을 얻음.</span><div class="equation" role="group" aria-label="Mathematical equation">\[U_j\frac{\partial U_1}{\partial x_j}=U_1\frac{\partial U_1}{\partial x_1}+U_2\frac{\partial U_1}{\partial x_2}+U_3\frac{\partial U_1}{\partial x_3}.\]</div></li></ul></section>
+<section class="lesson-section" id="section-5"><h2><span class="section-tag">05</span>Continuity Equation and Viscous Diffusion</h2><ul class="study-points"><li><span class="point-text">비압축성 연속방정식에서 \(i\)는 속도성분과 미분좌표에 두 번 등장하므로,</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\frac{\partial U_i}{\partial x_i}
+&amp;=\sum_{i=1}^{3}\frac{\partial U_i}{\partial x_i},\\[0.85em]
+&amp;=\frac{\partial U_1}{\partial x_1}+\frac{\partial U_2}{\partial x_2}+\frac{\partial U_3}{\partial x_3},\\[0.85em]
+&amp;=\nabla\cdot\mathbf U.
+\end{aligned}\]</div></li><li><span class="point-text">따라서</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\frac{\partial U_i}{\partial x_i}=0.\]</div></li><li><span class="point-text">점성 확산항에서도</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\frac{\partial^2U_i}{\partial x_j\partial x_j}
+&amp;=\sum_{j=1}^{3}\frac{\partial^2U_i}{\partial x_j^2},\\[0.85em]
+&amp;=\frac{\partial^2U_i}{\partial x_1^2}+\frac{\partial^2U_i}{\partial x_2^2}+\frac{\partial^2U_i}{\partial x_3^2}.
+\end{aligned}\]</div></li><li><span class="point-text">따라서 앞의 세 운동량방정식을 하나의 성분식으로 정리하면</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\frac{\partial U_i}{\partial t}+U_j\frac{\partial U_i}{\partial x_j}=-\frac{1}{\rho}\frac{\partial P}{\partial x_i}+\nu\frac{\partial^2U_i}{\partial x_j\partial x_j}.\]</div></li></ul></section>
+</article>
+<div class="article-pager"><a class="prev" href="characteristics-of-turbulent-flow.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Characteristics of Turbulent Flow</span></a></div>
+<a class="back-bottom" href="../turbulent-flow.html">← Back to Turbulent Flow</a>
+</main>
+<footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Turbulent Flow</span></div></footer>
+<script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
+</body></html>
