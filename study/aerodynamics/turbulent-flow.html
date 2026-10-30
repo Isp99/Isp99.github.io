@@ -33,12 +33,18 @@ body.turbulent-page .hero-text::before {
 body.turbulent-page .hero-description {margin-top:17px;font-size:16px;line-height:1.65;max-width:495px}
 body.turbulent-page .turbulence-visual {
  grid-column:2;width:100%;max-width:490px;aspect-ratio:2/1;position:relative;
- overflow:visible;align-self:center;pointer-events:none;
+ overflow:visible;align-self:center;pointer-events:none;isolation:isolate;
+}
+body.turbulent-page .turbulence-visual::before {
+ content:"";position:absolute;inset:-14px -16px;z-index:-1;
+ background:radial-gradient(ellipse at 54% 51%,rgba(148,194,242,.19) 0%,rgba(206,226,249,.11) 42%,transparent 75%);
+ filter:blur(12px);pointer-events:none;
 }
 body.turbulent-page .turbulence-visual img {
  display:block;width:100%;height:100%;object-fit:cover;
- -webkit-mask-image:radial-gradient(ellipse 83% 83% at 52% 51%,#000 65%,transparent 100%);
- mask-image:radial-gradient(ellipse 83% 83% at 52% 51%,#000 65%,transparent 100%);
+ opacity:.97;mix-blend-mode:multiply;
+ -webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 52%,rgba(0,0,0,.80) 68%,rgba(0,0,0,.28) 86%,transparent 100%);
+ mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 52%,rgba(0,0,0,.80) 68%,rgba(0,0,0,.28) 86%,transparent 100%);
 }
 /* The topic cards are visible table-of-contents entries, not broken links. */
 body.turbulent-page .topic-card,
