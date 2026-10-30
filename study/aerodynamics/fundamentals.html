@@ -9,53 +9,6 @@
 
 <link href="../../assets/site.css" rel="stylesheet"/>
 <style>
-
-  /* Fundamentals: inline SVG illustration and separate hero columns. */
-  body.inner-page .hero.fundamentals-hero {
-    display: grid;
-    grid-template-columns: minmax(0, 42%) minmax(0, 58%);
-    align-items: center;
-    min-height: 280px;
-    padding: 26px 0 27px;
-    overflow: visible;
-  }
-  body.inner-page .fundamentals-hero .hero-text {
-    max-width: none;
-    min-width: 0;
-    padding-right: 18px;
-    position: relative;
-    z-index: 1;
-  }
-  body.inner-page .fundamentals-hero .hero-description {
-    max-width: 390px;
-  }
-  body.inner-page .fundamentals-hero .fundamentals-art {
-    width: 100%;
-    min-width: 0;
-    margin: 0;
-    line-height: 0;
-    pointer-events: none;
-    z-index: 0;
-  }
-  body.inner-page .fundamentals-hero .fundamentals-art svg {
-    width: 100%;
-    height: auto;
-    display: block;
-    overflow: visible;
-  }
-  @media (max-width: 740px) {
-    body.inner-page .hero.fundamentals-hero {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 12px;
-      padding: 30px 0 22px;
-    }
-    body.inner-page .fundamentals-hero .hero-text { padding-right: 0; }
-    body.inner-page .fundamentals-hero .fundamentals-art {
-      max-width: 640px;
-      justify-self: center;
-    }
-  }
-
   /* Match typography shared with study/aerodynamics.html.
      Chapter and article layouts remain controlled by site.css. */
   body.inner-page .hero-text .hero-description {
@@ -134,84 +87,26 @@
 <a href="../../index.html#bento-study">Study Note</a><span class="separator">›</span>
 <a href="../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><strong>Fundamentals</strong>
 </nav>
-<div class="hero fundamentals-hero">
+<div class="hero">
+<svg aria-label="Illustration of airflow around an airfoil" class="flow-art" role="img" viewbox="0 0 510 208" xmlns="http://www.w3.org/2000/svg">
+<defs><lineargradient id="airfoilFill" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#c7dbfa" stop-opacity=".92"></stop><stop offset="1" stop-color="#e9f1fd" stop-opacity=".7"></stop></lineargradient></defs>
+<g fill="none" opacity=".57" stroke="#8cb8f1" stroke-linecap="round" stroke-width="1.2">
+<path d="M1 26C87 26 128 10 200 17S363 58 506 13"></path>
+<path d="M1 44C83 44 133 29 198 36S365 77 506 32"></path>
+<path d="M1 64C91 64 128 49 196 57S365 100 506 50"></path>
+<path d="M1 86C94 86 121 70 193 80S368 117 506 71"></path>
+<path d="M1 108C99 107 135 92 201 95S356 138 506 107"></path>
+<path d="M1 125C90 125 136 131 204 144S358 151 506 135"></path>
+<path d="M1 145C101 145 149 162 217 173S362 167 506 157"></path>
+<path d="M1 169C93 170 151 187 223 193S362 191 506 182"></path>
+</g>
+<path d="M136 106C175 74 221 80 266 93C297 102 330 116 380 120C288 127 223 128 180 122C158 120 142 115 136 106Z" fill="url(#airfoilFill)" stroke="#6da0eb" stroke-width="1.6"></path>
+<g fill="#67a2ef" opacity=".8"><path d="m102 49 6 4-7 3z"></path><path d="m307 25 6 4-7 3z"></path><path d="m448 168 6 4-7 3z"></path></g>
+</svg>
 <div class="hero-text">
 <h1>Fundamentals</h1>
 <p class="hero-subtitle">Foundations of Aerodynamics</p>
 <p class="hero-description">Core concepts and governing principles that form the basis of aerodynamics, including flow description, conservation laws, and the fundamental equations for fluid motion.</p>
-</div>
-<div class="fundamentals-art" aria-hidden="false">
-<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Transparent control volume showing fluid transport, mass conservation, and flowing streamlines" viewBox="0 0 800 350" preserveAspectRatio="xMidYMid meet">
-  <defs>
-    <linearGradient id="fundFlow" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#c3dcfa"/><stop offset="45%" stop-color="#3e93e9"/><stop offset="100%" stop-color="#93c3f5"/></linearGradient>
-    <linearGradient id="fundStrong" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#80b9f1"/><stop offset="50%" stop-color="#226cd1"/><stop offset="100%" stop-color="#d3e7fa"/></linearGradient>
-    <linearGradient id="fundFront" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b4d8fc" stop-opacity=".16"/><stop offset="55%" stop-color="#4e9cea" stop-opacity=".17"/><stop offset="100%" stop-color="#d7edff" stop-opacity=".09"/></linearGradient>
-    <linearGradient id="fundSide" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#93c6fb" stop-opacity=".05"/><stop offset="100%" stop-color="#65aaef" stop-opacity=".25"/></linearGradient>
-    <linearGradient id="fundTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#edf7ff" stop-opacity=".45"/><stop offset="100%" stop-color="#a4cefa" stop-opacity=".17"/></linearGradient>
-    <radialGradient id="fundHaze"><stop offset="0" stop-color="#83baf5" stop-opacity=".25"/><stop offset=".7" stop-color="#c2ddfc" stop-opacity=".12"/><stop offset="1" stop-color="#eaf5ff" stop-opacity="0"/></radialGradient>
-    <filter id="fundSoft" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="15"/></filter>
-    <clipPath id="fundCubeClip"><path d="M 363 84 L 568 84 L 625 121 L 625 290 L 417 294 L 363 263 Z"/></clipPath>
-  </defs>
-  <ellipse cx="457" cy="197" rx="356" ry="106" fill="url(#fundHaze)" filter="url(#fundSoft)"/>
-  <g font-family="Georgia, 'Times New Roman', serif" fill="#7185a5">
-    <text x="24" y="43" font-size="19" opacity=".84">Conservation Law</text>
-    <text x="24" y="78" font-size="18" font-style="italic" opacity=".78">d/dt ∫ ρ dV + ∮ ρ V·n dA = 0</text>
-    <g font-family="Inter, system-ui, sans-serif" font-size="14" opacity=".72">
-      <text x="693" y="54">Mass</text><text x="693" y="75">Momentum</text><text x="693" y="96">Energy</text>
-    </g>
-  </g>
-  <g><path d="M -18 133.0 C 90 131.0 210 138.0 311 127.0 C 408 106.6 482 161.4 576 146.0 C 672 145.0 723 127.0 816 123.0" fill="none" stroke="url(#fundStrong)" stroke-width="2.3" opacity="0.38"/>
-<path d="M -18 144.6 C 90 142.6 210 149.6 311 138.6 C 408 119.1 482 172.1 576 157.6 C 672 156.6 723 138.6 816 134.6" fill="none" stroke="url(#fundFlow)" stroke-width="1.7" opacity="0.49"/>
-<path d="M -18 156.2 C 90 154.2 210 161.2 311 150.2 C 408 131.6 482 182.8 576 169.2 C 672 168.2 723 150.2 816 146.2" fill="none" stroke="url(#fundFlow)" stroke-width="1.7" opacity="0.60"/>
-<path d="M -18 167.8 C 90 165.8 210 172.8 311 161.8 C 408 144.1 482 193.5 576 180.8 C 672 179.8 723 161.8 816 157.8" fill="none" stroke="url(#fundStrong)" stroke-width="2.3" opacity="0.71"/>
-<path d="M -18 179.4 C 90 177.4 210 184.4 311 173.4 C 408 156.6 482 204.2 576 192.4 C 672 191.4 723 173.4 816 169.4" fill="none" stroke="url(#fundFlow)" stroke-width="1.7" opacity="0.82"/>
-<path d="M -18 191.0 C 90 189.0 210 196.0 311 185.0 C 408 169.1 482 214.9 576 204.0 C 672 203.0 723 185.0 816 181.0" fill="none" stroke="url(#fundFlow)" stroke-width="1.7" opacity="0.38"/>
-<path d="M -18 202.6 C 90 200.6 210 207.6 311 196.6 C 408 181.6 482 225.6 576 215.6 C 672 214.6 723 196.6 816 192.6" fill="none" stroke="url(#fundStrong)" stroke-width="2.3" opacity="0.49"/>
-<path d="M -18 214.2 C 90 212.2 210 219.2 311 208.2 C 408 194.1 482 236.3 576 227.2 C 672 226.2 723 208.2 816 204.2" fill="none" stroke="url(#fundFlow)" stroke-width="1.7" opacity="0.60"/>
-<path d="M -18 225.8 C 90 223.8 210 230.8 311 219.8 C 408 206.6 482 247.0 576 238.8 C 672 237.8 723 219.8 816 215.8" fill="none" stroke="url(#fundFlow)" stroke-width="1.7" opacity="0.71"/>
-<path d="M -18 237.4 C 90 235.4 210 242.4 311 231.4 C 408 219.1 482 257.7 576 250.4 C 672 249.4 723 231.4 816 227.4" fill="none" stroke="url(#fundStrong)" stroke-width="2.3" opacity="0.82"/>
-<path d="M -18 249.0 C 90 247.0 210 254.0 311 243.0 C 408 231.6 482 268.4 576 262.0 C 672 261.0 723 243.0 816 239.0" fill="none" stroke="url(#fundFlow)" stroke-width="1.7" opacity="0.38"/>
-<path d="M -18 260.6 C 90 258.6 210 265.6 311 254.6 C 408 244.1 482 279.1 576 273.6 C 672 272.6 723 254.6 816 250.6" fill="none" stroke="url(#fundFlow)" stroke-width="1.7" opacity="0.49"/>
-<path d="M -18 272.2 C 90 270.2 210 277.2 311 266.2 C 408 256.6 482 289.8 576 285.2 C 672 284.2 723 266.2 816 262.2" fill="none" stroke="url(#fundStrong)" stroke-width="2.3" opacity="0.60"/></g>
-  <path d="M 363 84 L 568 84 L 625 121 L 625 290 L 417 294 L 363 263 Z" fill="url(#fundHaze)" opacity=".5"/>
-  <g clip-path="url(#fundCubeClip)">
-    <path d="M 315 132 C 410 103 488 160 557 163 S 641 149 692 156" fill="none" stroke="#368de6" stroke-width="12" opacity=".065"/>
-    <path d="M 306 190 C 412 164 492 212 560 205 S 661 198 692 202" fill="none" stroke="#398edf" stroke-width="17" opacity=".065"/>
-    <path d="M 307 239 C 422 211 496 253 557 251 S 658 237 695 245" fill="none" stroke="#206ac9" stroke-width="15" opacity=".07"/>
-  </g>
-  <path d="M 363 84 L 417 121 L 417 294 L 363 263 Z" fill="url(#fundSide)"/>
-  <path d="M 363 84 L 568 84 L 625 121 L 417 121 Z" fill="url(#fundTop)"/>
-  <path d="M 417 121 L 625 121 L 625 290 L 417 294 Z" fill="url(#fundFront)"/>
-  <g fill="none" stroke="#79b0ea" stroke-width="1.6" opacity=".67">
-    <path d="M 363 84 L 568 84 L 625 121 L 625 290 L 417 294 L 363 263 Z"/>
-    <path d="M 363 84 L 417 121 L 625 121"/>
-    <path d="M 417 121 L 417 294"/>
-    <path d="M 568 84 L 568 262 L 625 290" stroke-dasharray="5 6" opacity=".55"/>
-    <path d="M 363 263 L 568 262" stroke-dasharray="5 6" opacity=".55"/>
-  </g>
-  <g opacity=".9"><path d="M 123 153 l -11 -4 v 8 Z" fill="#277cdd" opacity=".76"/>
-<path d="M 220 191 l -11 -4 v 8 Z" fill="#5d9bf1" opacity=".76"/>
-<path d="M 310 217 l -11 -4 v 8 Z" fill="#277cdd" opacity=".76"/>
-<path d="M 677 176 l -11 -4 v 8 Z" fill="#5d9bf1" opacity=".76"/>
-<path d="M 735 210 l -11 -4 v 8 Z" fill="#277cdd" opacity=".76"/>
-<path d="M 696 250 l -11 -4 v 8 Z" fill="#5d9bf1" opacity=".76"/><circle cx="114" cy="174" r="2.5" fill="#2e79d2" stroke="#e4f3ff" stroke-width=".8" opacity=".83"/>
-<circle cx="170" cy="214" r="3" fill="#9bc9ff" stroke="#e4f3ff" stroke-width=".8" opacity=".83"/>
-<circle cx="275" cy="162" r="2.3" fill="#9bc9ff" stroke="#e4f3ff" stroke-width=".8" opacity=".83"/>
-<circle cx="307" cy="204" r="2.5" fill="#2e79d2" stroke="#e4f3ff" stroke-width=".8" opacity=".83"/>
-<circle cx="456" cy="169" r="3" fill="#9bc9ff" stroke="#e4f3ff" stroke-width=".8" opacity=".83"/>
-<circle cx="526" cy="210" r="2.5" fill="#9bc9ff" stroke="#e4f3ff" stroke-width=".8" opacity=".83"/>
-<circle cx="587" cy="186" r="3.1" fill="#2e79d2" stroke="#e4f3ff" stroke-width=".8" opacity=".83"/>
-<circle cx="666" cy="215" r="2.7" fill="#9bc9ff" stroke="#e4f3ff" stroke-width=".8" opacity=".83"/>
-<circle cx="723" cy="170" r="2.2" fill="#9bc9ff" stroke="#e4f3ff" stroke-width=".8" opacity=".83"/></g>
-  <g fill="none" stroke="#418bda" stroke-width="1.2" opacity=".30">
-    <path d="M 355 106 L 611 106" stroke-dasharray="3 7"/>
-    <path d="M 379 273 L 602 273" stroke-dasharray="3 7"/>
-  </g>
-  <g font-family="Georgia, 'Times New Roman', serif" fill="#788eae" font-size="16" opacity=".8">
-    <text x="461" y="328" text-anchor="middle">Control Volume</text>
-    <text x="691" y="328" text-anchor="middle" font-size="15">Flux across surface</text>
-  </g>
-</svg>
 </div>
 </div>
 <div class="contents-header"><h2>Study Contents</h2><span class="count">08 CHAPTERS · 20 ARTICLES</span></div>
