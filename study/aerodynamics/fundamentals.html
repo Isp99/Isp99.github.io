@@ -9,6 +9,17 @@
 
 <link href="../../assets/site.css" rel="stylesheet"/>
 <style>
+
+  /* Fundamentals artwork only; text and chapter layouts remain unchanged. */
+  @media (min-width: 741px) {
+    body.inner-page .hero .flow-art {
+      width: 780px;
+      max-width: none;
+      right: -35px;
+      top: -6px;
+      opacity: 1;
+    }
+  }
   /* Match typography shared with study/aerodynamics.html.
      Chapter and article layouts remain controlled by site.css. */
   body.inner-page .hero-text .hero-description {
@@ -88,74 +99,44 @@
 <a href="../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><strong>Fundamentals</strong>
 </nav>
 <div class="hero">
-<svg aria-label="Airflow around a streamlined airfoil with subtle governing equations" class="flow-art" role="img" viewBox="0 0 510 230" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="fundLight" cx="60%" cy="51%" r="62%">
-      <stop offset="0" stop-color="#8ebafb" stop-opacity=".30"/>
-      <stop offset=".55" stop-color="#b8d5fb" stop-opacity=".12"/>
-      <stop offset="1" stop-color="#f5f8fd" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="fundStream" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#b6d1f5" stop-opacity=".05"/>
-      <stop offset=".26" stop-color="#80acee" stop-opacity=".67"/>
-      <stop offset=".62" stop-color="#367cde" stop-opacity=".95"/>
-      <stop offset="1" stop-color="#8cb7f5" stop-opacity=".34"/>
-    </linearGradient>
-    <linearGradient id="fundWingBody" x1=".18" y1="0" x2=".55" y2="1">
-      <stop offset="0" stop-color="#ffffff"/>
-      <stop offset=".22" stop-color="#f4f9ff"/>
-      <stop offset=".52" stop-color="#dceafa"/>
-      <stop offset=".83" stop-color="#abcbee"/>
-      <stop offset="1" stop-color="#76a3d5"/>
-    </linearGradient>
-    <linearGradient id="fundWingEdge" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#4a8fdb"/>
-      <stop offset=".42" stop-color="#8ab7ec"/>
-      <stop offset="1" stop-color="#437ec0"/>
-    </linearGradient>
-    <linearGradient id="fundWake" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#78a9ee" stop-opacity=".15"/>
-      <stop offset="1" stop-color="#bad8ff" stop-opacity="0"/>
-    </linearGradient>
-    <filter id="fundShadow" x="-15%" y="-100%" width="135%" height="300%">
-      <feGaussianBlur stdDeviation="4"/>
-    </filter>
-  </defs>
-  <!-- Artwork is contained entirely in the original SVG slot; the HTML hero text is untouched. -->
-  <ellipse cx="302" cy="122" rx="238" ry="108" fill="url(#fundLight)"/>
-  <path d="M70 112 C145 105 165 70 251 70 C338 70 390 108 519 91 L519 177 C405 177 330 180 249 168 C155 156 131 154 70 154 Z" fill="url(#fundWake)"/>
-  <!-- Formula watermark deliberately stays to the right of the paragraph. -->
-  <g fill="#668bbf" opacity=".40" font-family="Cambria Math, STIX Two Math, Georgia, serif" font-size="17" font-style="italic">
-    <text x="186" y="25">Dφ/Dt = ∂φ/∂t + u · ∇φ</text>
-    <text x="272" y="61" font-size="15">∂ρ/∂t + ∇·(ρu) = 0</text>
-    <text x="229" y="215" font-size="16">ρ Du/Dt = −∇p + ∇·τ + ρf</text>
+<svg aria-label="Large metallic airfoil with layered blue streamlines and faint conservation equations" class="flow-art" role="img" viewBox="0 0 800 270" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <radialGradient id="fundamental-photo-fade" cx="53%" cy="50%" r="74%">
+    <stop offset="0" stop-color="white"/><stop offset=".61" stop-color="white"/>
+    <stop offset=".91" stop-color="white" stop-opacity=".20"/><stop offset="1" stop-color="black"/>
+  </radialGradient>
+  <mask id="fundamental-photo-mask" maskUnits="userSpaceOnUse" x="278" y="30" width="545" height="236">
+    <rect x="278" y="30" width="545" height="236" fill="url(#fundamental-photo-fade)"/>
+  </mask>
+  <linearGradient id="fundamental-fade-stream" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#92b9ed" stop-opacity="0"/>
+    <stop offset=".50" stop-color="#6aa6eb" stop-opacity=".35"/>
+    <stop offset="1" stop-color="#4c9bf1" stop-opacity=".65"/>
+  </linearGradient>
+</defs>
+<g opacity=".72" fill="none" stroke="url(#fundamental-fade-stream)" stroke-width=".85">
+  <path d="M120 129 C235 123 278 114 347 79"/>
+  <path d="M125 147 C229 143 282 137 354 107"/>
+  <path d="M136 167 C234 164 280 162 361 143"/>
+  <path d="M147 187 C234 184 276 187 365 190"/>
+</g>
+<image x="283" y="37" width="541" height="234" preserveAspectRatio="none" mask="url(#fundamental-photo-mask)" href="data:image/webp;base64,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"/>
+<g fill="#6a8ab8" opacity=".37" font-family="Cambria Math, Georgia, serif" font-style="italic">
+  <g font-size="17">
+    <text x="246" y="18">Dφ</text><path d="M243 23 H272" fill="none" stroke="#6a8ab8" stroke-width=".85"/><text x="247" y="40">Dt</text>
+    <text x="284" y="31">=</text>
+    <text x="315" y="18">∂φ</text><path d="M312 23 H341" fill="none" stroke="#6a8ab8" stroke-width=".85"/><text x="315" y="40">∂t</text>
+    <text x="350" y="31">+ u · ∇φ</text>
   </g>
-  <!-- Smooth, carefully layered streamlines. -->
-  <g fill="none" stroke="url(#fundStream)" stroke-linecap="round">
-    <path d="M-16 65 C69 73 126 73 181 51 C235 29 289 34 358 49 C428 65 464 62 527 47" stroke-width="1.0" opacity=".50"/>
-    <path d="M-16 81 C72 88 130 83 180 68 C234 48 282 49 355 65 C418 82 464 80 527 69" stroke-width="1.15" opacity=".72"/>
-    <path d="M-16 98 C69 102 129 99 181 84 C229 67 290 70 355 84 C423 99 466 102 527 89" stroke-width="1.35" opacity=".82"/>
-    <path d="M-16 116 C69 117 127 113 180 103 C231 91 293 94 357 104 C414 115 466 124 527 115" stroke-width="1.5" opacity=".90"/>
-    <path d="M-16 133 C69 135 126 130 172 122 C222 114 299 115 359 127 C421 141 467 138 527 135" stroke-width="1.35" opacity=".77"/>
-    <path d="M-16 151 C74 151 124 148 180 146 C239 144 291 156 359 159 C426 163 472 159 527 155" stroke-width="1.42" opacity=".81"/>
-    <path d="M-16 169 C72 164 130 166 182 176 C244 186 291 186 357 179 C423 173 474 181 527 174" stroke-width="1.22" opacity=".69"/>
-    <path d="M-16 187 C72 180 131 188 190 197 C253 208 303 205 365 194 C425 183 465 198 527 193" stroke-width="1.0" opacity=".48"/>
+  <g font-size="17">
+    <text x="562" y="55">∂ρ</text><path d="M558 60 H591" fill="none" stroke="#6a8ab8" stroke-width=".85"/><text x="561" y="78">∂t</text>
+    <text x="598" y="69">+ ∇ · (ρu) = 0</text>
   </g>
-  <g fill="none" stroke="#ffffff" stroke-opacity=".36" stroke-width="1.6">
-    <path d="M112 107 C203 82 261 71 345 93 C414 110 448 112 515 105"/>
-    <path d="M98 169 C207 169 250 206 369 179 C433 165 478 166 516 165"/>
+  <g font-size="17">
+    <text x="215" y="243">ρ</text><text x="235" y="234">Du</text><path d="M233 239 H263" fill="none" stroke="#6a8ab8" stroke-width=".85"/><text x="238" y="257">Dt</text>
+    <text x="273" y="247">= −∇p + μ∇²u</text>
   </g>
-  <!-- Dimensional polished airfoil; larger silhouette and shading than the previous outline. -->
-  <path d="M152 135 C202 90 254 94 302 107 C360 121 418 140 501 144 C394 155 289 170 210 163 C176 159 158 146 152 135Z" fill="#467cc3" opacity=".18" transform="translate(1 5)" filter="url(#fundShadow)"/>
-  <path d="M152 133 C190 96 245 96 294 108 C360 124 412 139 501 144 C398 155 292 164 217 158 C186 155 163 145 152 133Z" fill="url(#fundWingBody)" stroke="url(#fundWingEdge)" stroke-width="1.75" stroke-linejoin="round"/>
-  <path d="M157 131 C207 92 260 101 302 113 C377 133 426 139 498 144" fill="none" stroke="#ffffff" stroke-opacity=".96" stroke-width="1.6"/>
-  <path d="M168 143 C221 165 357 158 501 144" fill="none" stroke="#5b91d2" stroke-opacity=".41" stroke-width=".95"/>
-  <path d="M181 126 C231 105 286 112 349 129" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="1"/>
-  <g fill="#5e9ce9" opacity=".70">
-    <path d="M81 103 l8 4 -8 4z"/>
-    <path d="M408 81 l8 4 -8 4z"/>
-    <path d="M453 188 l8 4 -8 4z"/>
-  </g>
+</g>
 </svg>
 <div class="hero-text">
 <h1>Fundamentals</h1>
