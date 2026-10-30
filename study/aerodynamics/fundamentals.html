@@ -88,66 +88,73 @@
 <a href="../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><strong>Fundamentals</strong>
 </nav>
 <div class="hero">
-<svg aria-label="Airfoil streamlines with faint material derivative, continuity and momentum equations" class="flow-art" role="img" viewBox="0 0 510 230" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="Airflow around a streamlined airfoil with subtle governing equations" class="flow-art" role="img" viewBox="0 0 510 230" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <radialGradient id="fund-halo" cx="55%" cy="54%" r="65%">
-      <stop offset="0" stop-color="#9ec5fd" stop-opacity=".23"/>
-      <stop offset=".65" stop-color="#bcd6fa" stop-opacity=".08"/>
-      <stop offset="1" stop-color="#e8f2ff" stop-opacity="0"/>
+    <radialGradient id="fundLight" cx="60%" cy="51%" r="62%">
+      <stop offset="0" stop-color="#8ebafb" stop-opacity=".30"/>
+      <stop offset=".55" stop-color="#b8d5fb" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#f5f8fd" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="fund-wing" x1=".14" x2=".73" y1="0" y2="1">
+    <linearGradient id="fundStream" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#b6d1f5" stop-opacity=".05"/>
+      <stop offset=".26" stop-color="#80acee" stop-opacity=".67"/>
+      <stop offset=".62" stop-color="#367cde" stop-opacity=".95"/>
+      <stop offset="1" stop-color="#8cb7f5" stop-opacity=".34"/>
+    </linearGradient>
+    <linearGradient id="fundWingBody" x1=".18" y1="0" x2=".55" y2="1">
       <stop offset="0" stop-color="#ffffff"/>
-      <stop offset=".31" stop-color="#e9f2ff"/>
-      <stop offset=".70" stop-color="#c6dcf6"/>
-      <stop offset="1" stop-color="#a6c6e9"/>
+      <stop offset=".22" stop-color="#f4f9ff"/>
+      <stop offset=".52" stop-color="#dceafa"/>
+      <stop offset=".83" stop-color="#abcbee"/>
+      <stop offset="1" stop-color="#76a3d5"/>
     </linearGradient>
-    <linearGradient id="fund-wing-edge" x1="0" x2="1" y1="0" y2="0">
-      <stop offset="0" stop-color="#387ad2"/>
-      <stop offset=".62" stop-color="#70a7e8"/>
-      <stop offset="1" stop-color="#3a74bc"/>
+    <linearGradient id="fundWingEdge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4a8fdb"/>
+      <stop offset=".42" stop-color="#8ab7ec"/>
+      <stop offset="1" stop-color="#437ec0"/>
     </linearGradient>
-    <linearGradient id="fund-stream" x1="0" x2="1" y1="0" y2="0">
-      <stop offset="0" stop-color="#93bdec" stop-opacity="0"/>
-      <stop offset=".22" stop-color="#6ba0e6" stop-opacity=".68"/>
-      <stop offset=".62" stop-color="#3c83da" stop-opacity=".95"/>
-      <stop offset="1" stop-color="#83b4f3" stop-opacity=".15"/>
+    <linearGradient id="fundWake" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#78a9ee" stop-opacity=".15"/>
+      <stop offset="1" stop-color="#bad8ff" stop-opacity="0"/>
     </linearGradient>
-    <linearGradient id="fund-wash" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0" stop-color="#98bff3" stop-opacity=".15"/>
-      <stop offset="1" stop-color="#9cc7fa" stop-opacity="0"/>
-    </linearGradient>
+    <filter id="fundShadow" x="-15%" y="-100%" width="135%" height="300%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
   </defs>
-  <ellipse cx="282" cy="128" rx="252" ry="105" fill="url(#fund-halo)"/>
-  <!-- Physical equations act as a light editorial watermark. -->
-  <g fill="#5684bc" font-family="Cambria Math, STIX Two Math, Georgia, serif" font-style="italic" opacity=".39">
-    <text x="23" y="29" font-size="17">Dφ/Dt = ∂φ/∂t + u · ∇φ</text>
-    <text x="295" y="61" font-size="17">∂ρ/∂t + ∇·(ρu) = 0</text>
-    <text x="30" y="217" font-size="17">ρ Du/Dt = −∇p + ∇·τ + ρf</text>
+  <!-- Artwork is contained entirely in the original SVG slot; the HTML hero text is untouched. -->
+  <ellipse cx="302" cy="122" rx="238" ry="108" fill="url(#fundLight)"/>
+  <path d="M70 112 C145 105 165 70 251 70 C338 70 390 108 519 91 L519 177 C405 177 330 180 249 168 C155 156 131 154 70 154 Z" fill="url(#fundWake)"/>
+  <!-- Formula watermark deliberately stays to the right of the paragraph. -->
+  <g fill="#668bbf" opacity=".40" font-family="Cambria Math, STIX Two Math, Georgia, serif" font-size="17" font-style="italic">
+    <text x="186" y="25">Dφ/Dt = ∂φ/∂t + u · ∇φ</text>
+    <text x="272" y="61" font-size="15">∂ρ/∂t + ∇·(ρu) = 0</text>
+    <text x="229" y="215" font-size="16">ρ Du/Dt = −∇p + ∇·τ + ρf</text>
   </g>
-  <!-- A soft velocity field keeps the technical drawing integrated with the page. -->
-  <path d="M95 98 C176 98 184 59 262 59 C347 59 371 101 513 86 L513 165 C377 168 339 180 250 177 C172 174 157 154 87 154 Z" fill="url(#fund-wash)"/>
-  <g fill="none" stroke="url(#fund-stream)" stroke-linecap="round">
-    <path d="M-8 75 C82 76 117 72 169 51 C239 22 293 36 355 56 C417 76 458 69 518 58" stroke-width="1.0" opacity=".42"/>
-    <path d="M-8 91 C83 91 121 85 172 68 C236 42 282 48 347 72 C405 94 455 88 518 78" stroke-width="1.05" opacity=".59"/>
-    <path d="M-8 108 C81 107 126 101 168 89 C223 72 282 70 350 91 C408 109 458 107 518 99" stroke-width="1.3" opacity=".78"/>
-    <path d="M-8 124 C85 124 124 120 163 109 C213 94 282 91 348 111 C412 130 460 125 518 121" stroke-width="1.55" opacity=".82"/>
-    <path d="M-8 143 C75 142 124 137 158 134 C224 132 301 144 351 151 C421 161 463 150 518 144" stroke-width="1.15" opacity=".74"/>
-    <path d="M-8 158 C82 158 128 163 177 173 C240 188 282 182 348 173 C407 166 461 168 518 164" stroke-width="1.25" opacity=".65"/>
-    <path d="M-8 177 C93 177 135 189 195 197 C265 210 316 195 375 188 C435 181 472 185 518 183" stroke-width="1.0" opacity=".48"/>
+  <!-- Smooth, carefully layered streamlines. -->
+  <g fill="none" stroke="url(#fundStream)" stroke-linecap="round">
+    <path d="M-16 65 C69 73 126 73 181 51 C235 29 289 34 358 49 C428 65 464 62 527 47" stroke-width="1.0" opacity=".50"/>
+    <path d="M-16 81 C72 88 130 83 180 68 C234 48 282 49 355 65 C418 82 464 80 527 69" stroke-width="1.15" opacity=".72"/>
+    <path d="M-16 98 C69 102 129 99 181 84 C229 67 290 70 355 84 C423 99 466 102 527 89" stroke-width="1.35" opacity=".82"/>
+    <path d="M-16 116 C69 117 127 113 180 103 C231 91 293 94 357 104 C414 115 466 124 527 115" stroke-width="1.5" opacity=".90"/>
+    <path d="M-16 133 C69 135 126 130 172 122 C222 114 299 115 359 127 C421 141 467 138 527 135" stroke-width="1.35" opacity=".77"/>
+    <path d="M-16 151 C74 151 124 148 180 146 C239 144 291 156 359 159 C426 163 472 159 527 155" stroke-width="1.42" opacity=".81"/>
+    <path d="M-16 169 C72 164 130 166 182 176 C244 186 291 186 357 179 C423 173 474 181 527 174" stroke-width="1.22" opacity=".69"/>
+    <path d="M-16 187 C72 180 131 188 190 197 C253 208 303 205 365 194 C425 183 465 198 527 193" stroke-width="1.0" opacity=".48"/>
   </g>
-  <!-- Crisp, aerodynamic foil in subtle polished-blue material. -->
-  <path d="M156 128 C193 94 235 97 267 102 C333 112 369 131 464 138 C367 148 273 157 213 150 C180 146 165 137 156 128Z" fill="#6b9edb" fill-opacity=".10" transform="translate(0 4)"/>
-  <path d="M156 127 C191 95 232 96 267 102 C335 112 375 132 468 137 C366 146 274 155 211 149 C181 146 164 136 156 127Z" fill="url(#fund-wing)" stroke="url(#fund-wing-edge)" stroke-width="1.65" stroke-linejoin="round"/>
-  <path d="M163 124 C211 93 267 103 316 116 C365 130 411 136 467 137" fill="none" stroke="#ffffff" stroke-opacity=".83" stroke-width="1.55"/>
-  <path d="M183 141 C248 157 339 149 468 137" fill="none" stroke="#6b9fdc" stroke-opacity=".32" stroke-width=".85"/>
-  <g fill="#4e92e3" opacity=".69">
-    <path d="M78 103 l8 4 -8 4z"/>
-    <path d="M408 83 l8 4 -8 4z"/>
-    <path d="M420 177 l8 4 -8 4z"/>
+  <g fill="none" stroke="#ffffff" stroke-opacity=".36" stroke-width="1.6">
+    <path d="M112 107 C203 82 261 71 345 93 C414 110 448 112 515 105"/>
+    <path d="M98 169 C207 169 250 206 369 179 C433 165 478 166 516 165"/>
   </g>
-  <g fill="#86addd" opacity=".54">
-    <circle cx="134" cy="111" r="2"/>
-    <circle cx="326" cy="182" r="2"/>
+  <!-- Dimensional polished airfoil; larger silhouette and shading than the previous outline. -->
+  <path d="M152 135 C202 90 254 94 302 107 C360 121 418 140 501 144 C394 155 289 170 210 163 C176 159 158 146 152 135Z" fill="#467cc3" opacity=".18" transform="translate(1 5)" filter="url(#fundShadow)"/>
+  <path d="M152 133 C190 96 245 96 294 108 C360 124 412 139 501 144 C398 155 292 164 217 158 C186 155 163 145 152 133Z" fill="url(#fundWingBody)" stroke="url(#fundWingEdge)" stroke-width="1.75" stroke-linejoin="round"/>
+  <path d="M157 131 C207 92 260 101 302 113 C377 133 426 139 498 144" fill="none" stroke="#ffffff" stroke-opacity=".96" stroke-width="1.6"/>
+  <path d="M168 143 C221 165 357 158 501 144" fill="none" stroke="#5b91d2" stroke-opacity=".41" stroke-width=".95"/>
+  <path d="M181 126 C231 105 286 112 349 129" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="1"/>
+  <g fill="#5e9ce9" opacity=".70">
+    <path d="M81 103 l8 4 -8 4z"/>
+    <path d="M408 81 l8 4 -8 4z"/>
+    <path d="M453 188 l8 4 -8 4z"/>
   </g>
 </svg>
 <div class="hero-text">
