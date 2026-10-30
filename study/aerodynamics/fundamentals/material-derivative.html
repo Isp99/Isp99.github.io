@@ -86,7 +86,7 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 <li>예를 들어 <strong>Density</strong>는 단위체적당 질량으로 정의되며, 연속체 관점에서는 다음과 같이 표현함.<div class="equation" role="group" aria-label="Mathematical expression">\[\rho(x,y,z,t)=\lim_{\Delta\mathcal V\to0}\frac{\Delta m}{\Delta\mathcal V}\]</div></li>
 <li>여기서 \(\Delta\mathcal V\to0\)은 연속체 모델에서의 수학적 극한을 의미함. 실제 평균화 체적은 <strong>충분한 분자를 포함하면서도 유동의 변화 길이에 비해 작아야 함</strong>.</li>
 <li>이러한 가정을 통해 Density, Pressure, Temperature, Velocity 등을 공간과 시간의 연속적인 함수로 정의할 수 있음.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
- \rho&=\rho(x,y,z,t),\qquad p=p(x,y,z,t),\\[0.6cm]
+ \rho&=\rho(x,y,z,t),\qquad p=p(x,y,z,t),\\[2.0em]
  T&=T(x,y,z,t),\qquad \mathbf V=\mathbf V(x,y,z,t)
  \end{aligned}\]</div></li>
 <li>연속체 가정의 타당성은 분자의 평균자유행로와 유동의 대표길이의 비율인 <strong>Knudsen Number</strong>로 판단함.<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \mathrm{Kn}=\frac{\lambda}{L}\ll1}\]</div><ul class="definitions"><li>\(\lambda\): Mean Free Path (평균자유행로)</li><li>\(L\): Characteristic Length (대표길이)</li></ul></li>
@@ -94,7 +94,7 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 <section class="lesson-section" id="descriptions"><h2><span class="section-tag">02</span>Eulerian and Lagrangian Descriptions</h2><ul class="study-points"><li>유체의 운동은 <strong>공간의 고정된 위치</strong>에서 물리량의 변화를 관찰하거나, <strong>개별 유체입자를 따라 이동</strong>하며 관찰할 수 있음. 이에 따라 Eulerian과 Lagrangian의 두 가지 기술 방식으로 구분함.</li>
 <li><strong>Eulerian Description:</strong> 공간의 한 위치를 고정하고 유체의 변화를 관찰함.<div class="equation" role="group" aria-label="Mathematical expression">\[\rho=\rho(x_0,y_0,z_0,t),\qquad\text{고정점의 변화율}=\frac{\partial\rho}{\partial t}\]</div></li>
 <li><strong>Lagrangian Description:</strong> 같은 유체입자를 따라가며 관찰함.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
- \mathbf x&=\bigl(x(t),y(t),z(t)\bigr),\\[0.6cm]
+ \mathbf x&=\bigl(x(t),y(t),z(t)\bigr),\\[2.0em]
  \frac{\mathrm dx}{\mathrm dt}&=u,\quad
  \frac{\mathrm dy}{\mathrm dt}=v,\quad
  \frac{\mathrm dz}{\mathrm dt}=w
@@ -126,7 +126,7 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
  &=\frac{\partial\rho}{\partial t}
  +\frac{\partial\rho}{\partial x}\frac{\mathrm dx}{\mathrm dt}
  +\frac{\partial\rho}{\partial y}\frac{\mathrm dy}{\mathrm dt}
- +\frac{\partial\rho}{\partial z}\frac{\mathrm dz}{\mathrm dt}\\[0.6cm]
+ +\frac{\partial\rho}{\partial z}\frac{\mathrm dz}{\mathrm dt}\\[2.0em]
  &=\frac{\partial\rho}{\partial t}
  +u\frac{\partial\rho}{\partial x}
  +v\frac{\partial\rho}{\partial y}
@@ -135,7 +135,7 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 <li>유체입자의 속도 성분 \(u=\mathrm dx/\mathrm dt\), \(v=\mathrm dy/\mathrm dt\), \(w=\mathrm dz/\mathrm dt\)를 사용하고, 공간미분을 나타내는 <strong>Gradient Operator</strong>를 정의하면<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
  \nabla&=\mathbf i\frac{\partial}{\partial x}
  +\mathbf j\frac{\partial}{\partial y}
- +\mathbf k\frac{\partial}{\partial z},\\[0.6cm]
+ +\mathbf k\frac{\partial}{\partial z},\\[2.0em]
  \mathbf V\cdot\nabla&=
  u\frac{\partial}{\partial x}
  +v\frac{\partial}{\partial y}
@@ -145,10 +145,10 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 <section class="lesson-section" id="acceleration"><h2><span class="section-tag">04</span>Acceleration</h2><ul class="study-points"><li>앞에서 정의한 Material Derivative를 속도의 각 성분에 적용하면<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
  a_x=\frac{\mathrm Du}{\mathrm Dt}
  &=\frac{\partial u}{\partial t}
- +u\frac{\partial u}{\partial x}+v\frac{\partial u}{\partial y}+w\frac{\partial u}{\partial z},\\[0.6cm]
+ +u\frac{\partial u}{\partial x}+v\frac{\partial u}{\partial y}+w\frac{\partial u}{\partial z},\\[2.0em]
  a_y=\frac{\mathrm Dv}{\mathrm Dt}
  &=\frac{\partial v}{\partial t}
- +u\frac{\partial v}{\partial x}+v\frac{\partial v}{\partial y}+w\frac{\partial v}{\partial z},\\[0.6cm]
+ +u\frac{\partial v}{\partial x}+v\frac{\partial v}{\partial y}+w\frac{\partial v}{\partial z},\\[2.0em]
  a_z=\frac{\mathrm Dw}{\mathrm Dt}
  &=\frac{\partial w}{\partial t}
  +u\frac{\partial w}{\partial x}+v\frac{\partial w}{\partial y}+w\frac{\partial w}{\partial z}
@@ -159,11 +159,11 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
  \mathbf a=(\mathbf V\cdot\nabla)\mathbf V\]</div></li>
 <li>예를 들어 \(u=Ax\), \(v=-Ay\), \(w=0\)인 steady state를 고려함. \(A\)를 상수로 두고 각 속도 성분을 미분하면, <strong>Local Acceleration</strong>은 0이지만 <strong>Convective Acceleration</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
  \frac{\partial u}{\partial t}&=0,\qquad
- \frac{\partial v}{\partial t}=0,\\[0.85cm]
- a_x&=u\frac{\partial u}{\partial x}+v\frac{\partial u}{\partial y}\\[0.22cm]
- &=(Ax)A+(-Ay)0=A^2x,\\[0.85cm]
- a_y&=u\frac{\partial v}{\partial x}+v\frac{\partial v}{\partial y}\\[0.22cm]
- &=(Ax)0+(-Ay)(-A)=A^2y,\\[0.85cm]
+ \frac{\partial v}{\partial t}=0,\\[2.0em]
+ a_x&=u\frac{\partial u}{\partial x}+v\frac{\partial u}{\partial y}\\[2.0em]
+ &=(Ax)A+(-Ay)0=A^2x,\\[2.0em]
+ a_y&=u\frac{\partial v}{\partial x}+v\frac{\partial v}{\partial y}\\[2.0em]
+ &=(Ax)0+(-Ay)(-A)=A^2y,\\[2.0em]
  \mathbf a&=A^2x\,\mathbf i+A^2y\,\mathbf j
  \end{aligned}\]</div></li>
 <li>고정점의 속도는 일정하지만, 입자는 다른 위치로 이동하면서 속도가 변함.</li></ul></section>

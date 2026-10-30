@@ -106,28 +106,28 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 v=\frac{\partial\phi}{\partial y},\qquad
 w=\frac{\partial\phi}{\partial z}\]</div></li>
 <li><p>Potential flow 에 Curl을 취해보면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\nabla\times\mathbf V
-&=\nabla\times(\nabla\phi),\\[2.0ex]
+&=\nabla\times(\nabla\phi),\\[2.0em]
 &=\begin{pmatrix}
 \displaystyle\frac{\partial^2\phi}{\partial y\partial z}-\frac{\partial^2\phi}{\partial z\partial y}\\[2.0ex]
 \displaystyle\frac{\partial^2\phi}{\partial z\partial x}-\frac{\partial^2\phi}{\partial x\partial z}\\[2.0ex]
 \displaystyle\frac{\partial^2\phi}{\partial x\partial y}-\frac{\partial^2\phi}{\partial y\partial x}
-\end{pmatrix},\\[2.0ex]
+\end{pmatrix},\\[2.0em]
 &=\mathbf 0.\end{aligned}\]</div></li>
 <li><p>따라서 <strong> Velocity Potential 이 존재하려면 유동은 Irrotational Flow </strong></p><div class="equation key" role="group" aria-label="수학 수식">\[\text{Potential Flow}\implies\text{Irrotational Flow}\]</div></li></ul></section>
 <section class="lesson-section" id="laplace-equation"><h2><span class="section-tag">02</span>Laplace Equation</h2><ul class="study-points"><li><p>Incompressible을 가정한 뒤 Potential flow 조건에 대입하면, <a href="#eq-eq-potentialDef">앞의 식</a>를 대입하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\nabla\cdot\mathbf V
 &=\frac{\partial u}{\partial x}
 +\frac{\partial v}{\partial y}
-+\frac{\partial w}{\partial z}\\[2.0ex]
++\frac{\partial w}{\partial z}\\[2.0em]
 &=\frac{\partial}{\partial x}
 \left(\frac{\partial\phi}{\partial x}\right)
 +\frac{\partial}{\partial y}
 \left(\frac{\partial\phi}{\partial y}\right)
 +\frac{\partial}{\partial z}
-\left(\frac{\partial\phi}{\partial z}\right)\\[2.0ex]
+\left(\frac{\partial\phi}{\partial z}\right)\\[2.0em]
 &=\frac{\partial^2\phi}{\partial x^2}
 +\frac{\partial^2\phi}{\partial y^2}
-+\frac{\partial^2\phi}{\partial z^2}\\[2.0ex]
-&=\nabla^2\phi,\\[2.0ex]
++\frac{\partial^2\phi}{\partial z^2}\\[2.0em]
+&=\nabla^2\phi,\\[2.0em]
 &=0.\end{aligned}\]</div></li>
 <li><p>따라서,</p><div class="equation key" role="group" aria-label="수학 수식" id="eq-eq-LaplaceNew">\[\nabla^2\phi
 =\frac{\partial^2\phi}{\partial x^2}
@@ -151,17 +151,17 @@ v=-\frac{\partial\psi}{\partial x}\]</div></li>
 <li><p>2차원에서 <strong>Streamline을 따라 유동이 이동할때</strong> 미소변위는</p><div class="equation" role="group" aria-label="수학 수식">\[\mathrm{d}\mathbf r=\mathrm{d} x\,\mathbf i+\mathrm{d} y\,\mathbf j\]</div></li>
 <li><p>따라서 \(\mathbf V\)와 \(\mathrm{d}\mathbf r\)가 평행하다는 조건으로부터 두 벡터의 외적은 0이므로</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\mathbf V\times\mathrm{d}\mathbf r
 &=(u\mathbf i+v\mathbf j)
-\times(\mathrm{d} x\,\mathbf i+\mathrm{d} y\,\mathbf j),\\[2.0ex]
-&=(u\mathrm{d} y-v\mathrm{d} x)\mathbf k,\\[2.0ex]
+\times(\mathrm{d} x\,\mathbf i+\mathrm{d} y\,\mathbf j),\\[2.0em]
+&=(u\mathrm{d} y-v\mathrm{d} x)\mathbf k,\\[2.0em]
 &=\mathbf 0.\end{aligned}\]</div></li>
 <li><p>따라서 <strong>Streamline을 따라 이동하는 미소변위</strong>는 다음 관계를 만족함.</p><div class="equation" role="group" aria-label="수학 수식" id="eq-eq-streamlineCondition">\[u\mathrm{d} y-v\mathrm{d} x=0\]</div></li>
 <li><p>한편 Stream Function은 \(\psi(x,y)\)로 표현되는 Scalar Function이므로, 미소변위 \((\mathrm{d} x,\mathrm{d} y)\)에 따른 \(\psi\)의 변화량을 전미분하면</p><div class="equation" role="group" aria-label="수학 수식" id="eq-eq-psiDifferential">\[\begin{aligned}\mathrm{d}\psi
 &=\frac{\partial\psi}{\partial x}\mathrm{d} x
-+\frac{\partial\psi}{\partial y}\mathrm{d} y,\\[2.0ex]
-&=-v\mathrm{d} x+u\mathrm{d} y,\\[2.0ex]
++\frac{\partial\psi}{\partial y}\mathrm{d} y,\\[2.0em]
+&=-v\mathrm{d} x+u\mathrm{d} y,\\[2.0em]
 &=u\mathrm{d} y-v\mathrm{d} x.\end{aligned}\]</div></li>
 <li><p>여기서 Streamline을 따라 이동하면 <a href="#eq-eq-streamlineCondition">앞의 식</a>에 의해 \(u\mathrm{d} y-v\mathrm{d} x=0\)이므로</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\mathrm{d}\psi
-&=u\mathrm{d} y-v\mathrm{d} x,\\[2.0ex]
+&=u\mathrm{d} y-v\mathrm{d} x,\\[2.0em]
 &=0.\end{aligned}\]</div></li>
 <li><p>따라서 Streamline을 따라 Stream Function의 값은 변하지 않으며, 다음 관계를 얻음.</p><div class="equation key" role="group" aria-label="수학 수식" id="eq-eq-psiStreamline">\[\psi=\mathrm{constant}
 \qquad \text{along a streamline}\]</div></li>
@@ -179,13 +179,13 @@ v=-\frac{\partial\psi}{\partial x}\]</div></li>
 <text x="363" y="107" fill="#a8583a" font-size="17">B</text><text x="361" y="240" fill="#a8583a" font-size="17">A</text>
 <text x="610" y="56" fill="#56769b" font-size="16">Streamline B</text><text x="603" y="251" fill="#56769b" font-size="16">Streamline A</text></svg><figcaption>두 유선 사이를 가로지르는 단면을 통과하는 단위깊이당 체적유량</figcaption></figure></li>
 <li><p>2차원 유동에서 곡선 위의 미소변위가 \((\mathrm{d} x,\mathrm{d} y)\)일 때, 곡선의 진행 방향에 대한 오른쪽 법선방향으로 통과하는 단위깊이당 미소 체적유량은</p><div class="equation" role="group" aria-label="수학 수식" id="eq-eq-psiFlowDifferential">\[\begin{aligned}\mathrm{d} Q'
-&=\mathbf V\cdot\mathbf n\,\mathrm{d} s,\\[2.0ex]
+&=\mathbf V\cdot\mathbf n\,\mathrm{d} s,\\[2.0em]
 &=u\mathrm{d} y-v\mathrm{d} x.\end{aligned}\]</div></li>
 <li><p><a href="#eq-eq-psiDifferential">앞의 식</a>과 비교하면 \(\mathrm{d}\psi=u\mathrm{d} y-v\mathrm{d} x\)이므로 (여기서는 streamline 을 따르는 유동이 아니므로 이 값은 0 이아님 )</p><div class="equation" role="group" aria-label="수학 수식">\[\mathrm{d} Q'=\mathrm{d}\psi\]</div></li>
 <li><p>따라서 서로 다른 두 Streamline 위의 점 \(A,B\)를 연결하는 곡선을 따라 적분하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}Q'_{AB}
-&=\int_A^B\mathrm{d} Q',\\[2.0ex]
-&=\int_A^B(u\mathrm{d} y-v\mathrm{d} x),\\[2.0ex]
-&=\int_{\psi_A}^{\psi_B}\mathrm{d}\psi,\\[2.0ex]
+&=\int_A^B\mathrm{d} Q',\\[2.0em]
+&=\int_A^B(u\mathrm{d} y-v\mathrm{d} x),\\[2.0em]
+&=\int_{\psi_A}^{\psi_B}\mathrm{d}\psi,\\[2.0em]
 &=\psi_B-\psi_A.\end{aligned}\]</div></li>
 <li><p>따라서 <strong>두 Streamline의 Stream Function 값 차이는 두 유선 사이를 통과하는 단위깊이당 체적유량</strong>을 나타냄.</p><div class="equation key" role="group" aria-label="수학 수식" id="eq-eq-psiFlowRate">\[Q'_{AB}=\psi_B-\psi_A\]</div></li>
 <li><p>여기서 \(Q'\)의 단위는 \(\mathrm{m^2/s}\)이므로, Stream Function \(\psi\) 역시 \(\mathrm{m^2/s}\)의 단위를 가짐.</p></li>
@@ -197,22 +197,22 @@ v=-\frac{\partial\psi}{\partial x}\]</div></li>
 =\omega_z\mathbf k\]</div></li>
 <li><p>여기서 \(\omega_z\)에 stream function을 대입하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\omega_z
 &=\frac{\partial v}{\partial x}
--\frac{\partial u}{\partial y},\\[2.0ex]
+-\frac{\partial u}{\partial y},\\[2.0em]
 &=\frac{\partial}{\partial x}
 \left(-\frac{\partial\psi}{\partial x}\right)
 -\frac{\partial}{\partial y}
-\left(\frac{\partial\psi}{\partial y}\right),\\[2.0ex]
+\left(\frac{\partial\psi}{\partial y}\right),\\[2.0em]
 &=-\frac{\partial^2\psi}{\partial x^2}
--\frac{\partial^2\psi}{\partial y^2},\\[2.0ex]
+-\frac{\partial^2\psi}{\partial y^2},\\[2.0em]
 &=-\left(
 \frac{\partial^2\psi}{\partial x^2}
 +\frac{\partial^2\psi}{\partial y^2}
-\right),\\[2.0ex]
+\right),\\[2.0em]
 &=-\nabla^2\psi.\end{aligned}\]</div></li>
 <li><p>따라서 <strong>Stream Function과 Vorticity</strong>는 다음 관계를 만족함.</p><div class="equation key" role="group" aria-label="수학 수식" id="eq-eq-psiVorticity">\[\nabla^2\psi=-\omega_z\]</div></li>
 <li><p>이 방정식은 2차원 incompressible flow에서 <strong>Stream Function과 Vorticity를 연결하는 Poisson Equation</strong>이며, CFD의 <strong>Stream Function--Vorticity Formulation</strong>에서 중요하게 활용됨.</p></li>
 <li><p>특히 유동이 <strong>Irrotational Flow</strong>라면 Vorticity가 0이므로</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\nabla^2\psi
-&=-\omega_z,\\[2.0ex]
+&=-\omega_z,\\[2.0em]
 &=0.\end{aligned}\]</div></li>
 <li><p>따라서 <strong>2차원 Incompressible 및 Irrotational Flow</strong>에서는 Stream Function 역시 <strong>Laplace Equation</strong>을 만족함.</p></li>
 <li><p>한편 <strong>Velocity Potential</strong> \(\phi\)는 속도장을 Gradient로 표현하는 함수이므로, 비회전 유동에서는</p><div class="equation" role="group" aria-label="수학 수식">\[\mathbf V=\nabla\phi\]</div></li>
@@ -230,10 +230,10 @@ v=\frac{\partial\phi}{\partial y}
 \left(
 \frac{\partial\psi}{\partial x}\mathbf i
 +\frac{\partial\psi}{\partial y}\mathbf j
-\right),\\[2.0ex]
+\right),\\[2.0em]
 &=(u\mathbf i+v\mathbf j)
-\cdot(-v\mathbf i+u\mathbf j),\\[2.0ex]
-&=-uv+vu,\\[2.0ex]
+\cdot(-v\mathbf i+u\mathbf j),\\[2.0em]
+&=-uv+vu,\\[2.0em]
 &=0.\end{aligned}\]</div></li>
 <li><p>따라서 두 함수의 Gradient는 서로 수직이며, 속도가 0이 아닌 곳에서는 <strong>동일 Potential선과 Streamline이 서로 직교</strong>함.</p><div class="equation key" role="group" aria-label="수학 수식" id="eq-eq-potentialStreamOrthogonal">\[\nabla\phi\cdot\nabla\psi=0\]</div></li>
 <li><p>이와 같이 두 함수를 함께 사용하면 <strong>2차원 비압축성 비회전 유동</strong>에서 속도장의 크기와 방향, Streamline, 등일 Potential선 및 체적유량을 서로 연관시켜 해석할 수 있음.</p></li></ul></section></article>

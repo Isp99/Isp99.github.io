@@ -82,7 +82,7 @@ body.inner-page .breadcrumb{font-size:16px}
 <section class="lesson-section" id="newton-second-law">
 <h2><span class="section-tag">01</span>Newton's Second Law and the Force Terms</h2>
 <ul class="study-points">
-<li><strong>Key Physical Principle</strong>: 유체에 작용하는 외력은 유체의 운동량 변화율과 같음.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{gathered}\Downarrow\\[1.5em] \text{(Force)}=\text{(Time rate of change of momentum)} \end{gathered}\]</div></li>
+<li><strong>Key Physical Principle</strong>: 유체에 작용하는 외력은 유체의 운동량 변화율과 같음.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{gathered}\Downarrow\\[2.0em] \text{(Force)}=\text{(Time rate of change of momentum)} \end{gathered}\]</div></li>
 <li>동일한 유체입자로 이루어진 System의 운동량을 \(\mathbf P_{\mathrm{sys}}\)라 하면<div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf F=\frac{\mathrm d \mathbf P_{\mathrm{sys}}}{\mathrm d t},\qquad\mathbf P_{\mathrm{sys}}=\iiint_{\mathrm{sys}}\rho\mathbf V\,\mathrm d \mathcal V.\]</div></li>
 <li>먼저 좌변의 <strong>Force Term</strong>을 구함. 유체에 작용하는 힘은 다음 두 종류로 나뉨.
 <ol class="definitions">
@@ -106,14 +106,14 @@ body.inner-page .breadcrumb{font-size:16px}
 <section class="lesson-section" id="momentum-flow">
 <h2><span class="section-tag">02</span>Momentum Flow and Momentum Change inside the CV</h2>
 <ul class="study-points">
-<li>이제 물리 법칙의 우변인 <strong>운동량 변화율</strong>을 구함. 유체가 운동량을 가지고 CV 경계를 통과하므로, 외력의 효과는 <strong>운동량의 순유출률</strong>과 <strong>CV 내부 운동량 변화율</strong>에 함께 나타남.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{gathered} \text{(Force)}\\[1.5em] =\text{(Net momentum flow out through }S\text{)}\\[1.5em] +\text{(Time rate of change of momentum in }\mathcal V\text{)} \end{gathered}\]</div></li>
+<li>이제 물리 법칙의 우변인 <strong>운동량 변화율</strong>을 구함. 유체가 운동량을 가지고 CV 경계를 통과하므로, 외력의 효과는 <strong>운동량의 순유출률</strong>과 <strong>CV 내부 운동량 변화율</strong>에 함께 나타남.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{gathered} \text{(Force)}\\[2.0em] =\text{(Net momentum flow out through }S\text{)}\\[2.0em] +\text{(Time rate of change of momentum in }\mathcal V\text{)} \end{gathered}\]</div></li>
 <li>먼저 운동량 유량은 <strong>질량유량 \(\times\) 속도</strong> 이므로 미소면적을 통과하는 운동량 유량은<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d \dot{\mathbf P}_{\mathrm{flow}} =\mathbf V\,\mathrm d \dot m=(\rho\mathbf V\cdot\mathrm d \mathbf S)\mathbf V.\]</div></li>
 <li>표면 \(S\) 전체에 적분하면 <strong>Momentum Net Outflow Rate</strong>는<div class="equation" role="group" aria-label="Mathematical expression">\[\dot{\mathbf P}_{\mathrm{net,out}}=\iint_S(\rho\mathbf V\cdot\mathrm d \mathbf S)\mathbf V.\]</div></li>
 <li>다음으로 미소체적에 포함된 <strong>미소 운동량</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d \mathbf P=\mathbf V\,\mathrm d m=\rho\mathbf V\,\mathrm d \mathcal V.\]</div></li>
 <li>이를 CV 전체에 적분하면 <strong>CV 내부 운동량</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf P_{CV}=\iiint_{\mathcal V}\rho\mathbf V\,\mathrm d \mathcal V.\]</div></li>
 <li>따라서 CV 내부 운동량의 <strong>시간 변화율</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\partial\mathbf P_{CV}}{\partial t}=\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho\mathbf V\,\mathrm d \mathcal V.\]</div></li>
 <li>운동량 보존에 따라 순유출률과 내부 변화율의 합은 외력과 같으므로<div class="equation" role="group" aria-label="Mathematical expression">\[\iint_S(\rho\mathbf V\cdot\mathrm d \mathbf S)\mathbf V +\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho\mathbf V\,\mathrm d \mathcal V=\mathbf F.\]</div></li>
-<li>앞에서 구한 Force Term <a href="#eq-totalForce">Total External Force</a>을 대입하면 <strong>Integral Momentum Equation</strong>을 얻음.<div class="equation key" id="eq-momentumIntNew" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \begin{aligned} &\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho\mathbf V\,\mathrm d \mathcal V +\iint_S(\rho\mathbf V\cdot\mathrm d \mathbf S)\mathbf V\\[1.5em] &\qquad=-\iint_Sp\,\mathrm d \mathbf S +\iiint_{\mathcal V}\rho\mathbf f\,\mathrm d \mathcal V +\iint_S\boldsymbol\tau\cdot\mathrm d \mathbf S. \end{aligned} }\]</div></li>
+<li>앞에서 구한 Force Term <a href="#eq-totalForce">Total External Force</a>을 대입하면 <strong>Integral Momentum Equation</strong>을 얻음.<div class="equation key" id="eq-momentumIntNew" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \begin{aligned} &\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho\mathbf V\,\mathrm d \mathcal V +\iint_S(\rho\mathbf V\cdot\mathrm d \mathbf S)\mathbf V\\[2.0em] &\qquad=-\iint_Sp\,\mathrm d \mathbf S +\iiint_{\mathcal V}\rho\mathbf f\,\mathrm d \mathcal V +\iint_S\boldsymbol\tau\cdot\mathrm d \mathbf S. \end{aligned} }\]</div></li>
 <li>적분형은 경계에서의 유동과 힘을 연결하므로, 내부의 모든 국소 유동을 구하지 않고도 유한 영역의 전체 운동량 수지를 분석할 수 있음.</li>
 </ul></section>
 </article>

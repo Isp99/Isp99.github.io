@@ -86,7 +86,7 @@ body.inner-page .breadcrumb{font-size:16px}
 <div class="equation" role="group" aria-label="Mathematical expression">\[\delta m=\rho\,\delta\mathcal V,\qquad \frac{\mathrm D(\delta m)}{\mathrm D t}=0\]</div></li>
 <li>질량의 곱을 미분하고 \(\rho\delta\mathcal V\)로 나누면
 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
-0&=\delta\mathcal V\frac{\mathrm D\rho}{\mathrm D t}+\rho\frac{\mathrm D(\delta\mathcal V)}{\mathrm D t}\\[1ex]
+0&=\delta\mathcal V\frac{\mathrm D\rho}{\mathrm D t}+\rho\frac{\mathrm D(\delta\mathcal V)}{\mathrm D t}\\[2.0em]
 \frac{1}{\delta\mathcal V}\frac{\mathrm D(\delta\mathcal V)}{\mathrm D t}&=-\frac{1}{\rho}\frac{\mathrm D\rho}{\mathrm D t}=\nabla\cdot\mathbf V
 \end{aligned}\]</div></li>
 <li>따라서 <strong>Divergence는 유체입자의 상대 체적변화율</strong>임. 유체입자의 질량은 일정하므로 체적과 밀도는 서로 반대로 변함.
@@ -99,7 +99,7 @@ body.inner-page .breadcrumb{font-size:16px}
 <section class="lesson-section" id="incompressible"><h2><span class="section-tag">02</span>Incompressible Flow</h2>
 <ul class="study-points">
 <li><strong>Incompressible Flow</strong>는 유체입자를 따라갈 때 밀도가 변하지 않는 유동을 의미하며 이를 Material Derivative로 나타내면 \(\mathrm D\rho/\mathrm D t=0\)임. 앞에서 유도한 Material Form에 대입하면<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
-\frac{\mathrm D\rho}{\mathrm D t}&=0\\
+\frac{\mathrm D\rho}{\mathrm D t}&=0\\[2.0em]
 0+\rho\nabla\cdot\mathbf V&=0
 \end{aligned}\]</div></li>
 <li>따라서,<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \nabla\cdot\mathbf V=\frac{\partial u}{\partial x}+\frac{\partial v}{\partial y}+\frac{\partial w}{\partial z}=0}\]</div></li>
@@ -108,13 +108,13 @@ body.inner-page .breadcrumb{font-size:16px}
 <section class="lesson-section" id="steady"><h2><span class="section-tag">03</span>Steady Flow</h2>
 <ul class="study-points">
 <li><strong>Steady Flow</strong>에서는 고정점의 물리량이 시간에 따라 변하지 않음. 이 조건을 연속방정식에 적용하면<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
- \frac{\partial\rho}{\partial t}&=0\\[0.6cm]
+ \frac{\partial\rho}{\partial t}&=0\\[2.0em]
  \nabla\cdot(\rho\mathbf V)&=0
  \end{aligned}\]</div></li>
 <li>Steady state에서도 이동하는 입자의 밀도는 변할 수 있음.<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\mathrm D\rho}{\mathrm Dt}=u\frac{\partial\rho}{\partial x}+v\frac{\partial\rho}{\partial y}+w\frac{\partial\rho}{\partial z}\]</div></li>
 <li>정상·균일밀도 유동에서 단면적이 변하면<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
- \rho V_1A_1&=\rho V_2A_2\\[0.6cm]
- V_1A_1&=V_2A_2\\[0.6cm]
+ \rho V_1A_1&=\rho V_2A_2\\[2.0em]
+ V_1A_1&=V_2A_2\\[2.0em]
  \frac{V_2}{V_1}&=\frac{A_1}{A_2}
  \end{aligned}\]</div></li>
 <li>이 조건에서는 단면적이 작아지는 곳에서 속력이 증가함.</li>
