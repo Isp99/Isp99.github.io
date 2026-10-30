@@ -1,2 +1,392 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Turbulent Flow — Engineering Notebook"><title>Turbulent Flow | Engineering Notebook</title><link rel="stylesheet" href="../../assets/site.css"></head><body class="inner-page"><header class="site-header"><div class="shell"><a class="brand" href="../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a><nav class="site-nav" aria-label="Main navigation"><a href="../../index.html">Home</a><a class="desktop-link" href="../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../index.html#bento-projects">Practice Project</a></nav></div></header><main class="shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../index.html">Home</a><span class="separator">›</span><a href="../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../aerodynamics.html">Aerodynamics</a><span class="separator">›</span><strong>Turbulent Flow</strong></nav><div class="hero"><div class="hero-text"><h1>Turbulent Flow</h1><p class="hero-subtitle">Transition, Fluctuations and Modeling</p></div></div><div class="article-content"><h2>Study Contents</h2><p>The detailed study notes for this subject will be added as the notebook develops.</p><span class="placeholder-hint">Contents in preparation</span></div><a class="back-bottom" href="../aerodynamics.html">← Back to Aerodynamics</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Aerodynamics</span></div></footer><script defer src="../../assets/study-tracker.js?v=20261022-search1"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Fundamentals of Turbulent Flow — Reynolds averaging, RANS modeling, turbulent boundary layers, and CFD.">
+<title>Turbulent Flow | Engineering Notebook</title>
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+<style>
+/* Typography and chapter hierarchy follow the Fundamentals / Viscous Flow pages. */
+body.inner-page .breadcrumb {font-size:16px}
+body.inner-page .contents-header h2 {font-size:24px}
+body.inner-page .contents-header .count {font-size:14px}
+body.inner-page .back-bottom {font-size:16px}
+body.inner-page .chapter-heading h2 {font-size:26px;line-height:1.3}
+body.inner-page .chapter-heading .chapter-mark {font-size:16px}
+body.inner-page .chapter-heading .chapter-counter {font-size:14px}
+body.inner-page .topic-head {min-height:92px;padding-top:18px;padding-bottom:18px}
+body.inner-page .topic-card .topic-title {font-size:19px;line-height:1.35}
+body.inner-page .topic-card .topic-description {font-size:13px}
+body.inner-page .topic-card .topic-number {font-size:16px}
+/* Hero uses the established soft-blue equation-card language. */
+body.turbulent-page .hero {
+ display:grid;
+ grid-template-columns:minmax(0,1fr) minmax(0,490px);
+ gap:22px;
+ align-items:center;
+ min-height:275px;
+ padding:29px 0 31px;
+ overflow:visible;
+}
+body.turbulent-page .hero-text {
+ grid-column:1;min-width:0;max-width:none;position:relative;z-index:1;
+}
+body.turbulent-page .hero-text::before {
+ content:"";display:block;width:25px;height:3px;border-radius:5px;background:#4e8edb;margin-bottom:13px;
+}
+body.turbulent-page .hero-description {
+ margin-top:17px;
+ font-size:16px;
+ line-height:1.65;
+ max-width:495px;
+}
+body.turbulent-page .governing-equations {
+ grid-column:2;position:relative;isolation:isolate;display:flex;flex-direction:column;gap:9px;
+ min-width:0;max-width:490px;
+}
+body.turbulent-page .governing-equations::before {
+ content:"";position:absolute;z-index:-1;pointer-events:none;inset:-22px -15px;
+ background:radial-gradient(ellipse at 75% 40%,rgba(174,210,252,.27),rgba(213,231,252,.10) 58%,transparent 78%);
+ border-radius:33px;
+}
+body.turbulent-page .equation-card {
+ box-sizing:border-box;min-width:0;height:68px;padding:9px 13px;
+ display:grid;grid-template-columns:38px minmax(0,1fr);align-items:center;column-gap:9px;
+ overflow:hidden;border:1px solid rgba(190,211,240,.78);border-radius:15px;
+ background:linear-gradient(112deg,rgba(255,255,255,.94),rgba(231,242,255,.79));
+ box-shadow:0 5px 15px rgba(55,106,177,.07);
+}
+body.turbulent-page .equation-icon {
+ display:grid;place-items:center;width:38px;height:38px;border-radius:50%;
+ background:#e6f0fd;color:#4283d4;
+}
+body.turbulent-page .equation-icon svg {width:21px;height:21px;display:block}
+body.turbulent-page .equation-tex {
+ justify-self:center;white-space:nowrap;color:#35669f;text-align:center;font-size:24px;line-height:1.45;
+}
+body.turbulent-page .equation-tex .katex {font-size:1em;color:inherit}
+body.turbulent-page .equation-tex math {font-size:inherit;color:inherit;font-family:"Cambria Math","STIX Two Math",serif}
+/* The topic cards are visible table-of-contents entries, not broken links. */
+body.turbulent-page .topic-card,
+body.turbulent-page .topic-card:hover {
+ transform:none;box-shadow:0 5px 16px rgba(40,76,129,.032);
+ border-color:#cbdcf2;border-left-color:#2f65bd;
+}
+body.turbulent-page .topic-head:hover .topic-title {color:#132a49}
+body.turbulent-page .topic-planned {
+ flex:none;color:#879bb5;font-size:11px;letter-spacing:.015em;
+ border:1px solid #dce7f5;border-radius:8px;padding:5px 8px;background:#f7faff;
+}
+body.turbulent-page .contents-note {margin:-12px 0 26px;color:#879ab2;font-size:12px;line-height:1.5}
+@media(max-width:860px){
+ body.turbulent-page .hero {grid-template-columns:minmax(0,1fr);gap:24px;min-height:0;padding:29px 0 35px}
+ body.turbulent-page .hero-text {grid-column:1}
+ body.turbulent-page .governing-equations {grid-column:1;max-width:100%}
+}
+@media(max-width:600px){
+ body.inner-page .breadcrumb {font-size:14px}
+ body.inner-page .contents-header h2 {font-size:22px}
+ body.inner-page .contents-header .count {font-size:13px}
+ body.inner-page .back-bottom {font-size:15px}
+ body.inner-page .chapter-heading h2 {font-size:22px}
+ body.inner-page .chapter-heading .chapter-mark {font-size:14px}
+ body.inner-page .chapter-heading .chapter-counter {font-size:12px}
+ body.inner-page .topic-card .topic-title {font-size:17px}
+ body.inner-page .topic-card .topic-description {font-size:12px}
+ body.inner-page .topic-card .topic-number {font-size:15px}
+ body.inner-page .topic-head {min-height:84px;padding-top:16px;padding-bottom:16px}
+ body.turbulent-page .hero-description {font-size:15px}
+ body.turbulent-page .equation-card {height:61px;grid-template-columns:33px minmax(0,1fr);gap:8px;padding:7px 9px}
+ body.turbulent-page .equation-icon {width:33px;height:33px}
+ body.turbulent-page .equation-icon svg {width:19px;height:19px}
+ body.turbulent-page .equation-tex {font-size:21px}
+ body.turbulent-page .topic-planned {font-size:10px;padding:4px 6px}
+}
+@media(max-width:390px){body.turbulent-page .topic-planned {display:none}}
+</style>
+</head>
+<body class="inner-page turbulent-page">
+<header class="site-header"><div class="shell">
+ <a class="brand" href="../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+ <nav class="site-nav" aria-label="Main navigation">
+  <a href="../../index.html">Home</a>
+  <a class="desktop-link" href="../../index.html#bento-study">Study Note</a>
+  <a href="../aerodynamics.html">Aerodynamics ↗</a>
+ </nav>
+</div></header>
+<main class="shell">
+ <nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="../../index.html">Home</a><span class="separator">›</span>
+  <a href="../../index.html#bento-study">Study Note</a><span class="separator">›</span>
+  <a href="../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
+  <strong>Turbulent Flow</strong>
+ </nav>
+ <div class="hero">
+  <div class="hero-text">
+   <h1>Turbulent Flow</h1>
+   <p class="hero-subtitle">Fundamentals of Turbulent Flow</p>
+   <p class="hero-description">Turbulence characteristics, Reynolds-averaged equations, RANS modeling, turbulent boundary layers, and CFD applications.</p>
+  </div>
+  <div class="governing-equations" aria-label="Representative turbulence equations">
+  <div class="equation-card" aria-label="Reynolds decomposition">
+ <span class="equation-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8c4-4 5 4 9 0s6-3 9 0M3 16c4-4 5 4 9 0s6-3 9 0"/></svg></span>
+ <span class="equation-tex" data-latex="u_i=\overline{u_i}+u_i^{\prime}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>u</mi><mi>i</mi></msub><mo>=</mo><mover><msub><mi>u</mi><mi>i</mi></msub><mo>¯</mo></mover><mo>+</mo><msubsup><mi>u</mi><mi>i</mi><mo>′</mo></msubsup></mrow></math></span>
+</div>
+<div class="equation-card" aria-label="Reynolds stress">
+ <span class="equation-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h11c3 0 4-4 1-4-1 0-2 .5-2 2M3 12h17M5 17h10c3 0 4 4 1 4-1 0-2-.5-2-2"/></svg></span>
+ <span class="equation-tex" data-latex="R_{ij}=\overline{u_i^{\prime}u_j^{\prime}}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>R</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><mover><mrow><msubsup><mi>u</mi><mi>i</mi><mo>′</mo></msubsup><msubsup><mi>u</mi><mi>j</mi><mo>′</mo></msubsup></mrow><mo>¯</mo></mover></mrow></math></span>
+</div>
+<div class="equation-card" aria-label="Turbulent kinetic energy">
+ <span class="equation-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2 4-1 5-1 8-2-1-2-3-2-4-3 3-5 6-5 9a8 8 0 0 0 16 0c0-3-2-6-5-9 0 3-1 4-3 5"/><path d="M12 15c-1 2-2 3-1 5"/></svg></span>
+ <span class="equation-tex" data-latex="k=\frac{1}{2}\overline{u_i^{\prime}u_i^{\prime}}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>k</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mover><mrow><msubsup><mi>u</mi><mi>i</mi><mo>′</mo></msubsup><msubsup><mi>u</mi><mi>i</mi><mo>′</mo></msubsup></mrow><mo>¯</mo></mover></mrow></math></span>
+</div>
+  </div>
+ </div>
+ <div class="contents-header"><h2>Study Contents</h2><span class="count">05 CHAPTERS · 17 ARTICLES</span></div>
+ <p class="contents-note">Article pages are in preparation.</p>
+ 
+<section class="chapter" id="chapter-1" aria-labelledby="chapter-title-1">
+ <div class="chapter-heading">
+   <span class="chapter-mark" aria-hidden="true">01</span>
+   <h2 id="chapter-title-1">Fundamentals of Turbulent Flow</h2>
+   <span class="chapter-counter">2 ARTICLES</span>
+ </div>
+ 
+ <article class="topic-card" id="topic-1-1" aria-labelledby="topic-title-1-1">
+   <div class="topic-head">
+     <span class="topic-number">1.1</span>
+     <span class="topic-heading-copy">
+       <span class="topic-title" id="topic-title-1-1">Characteristics of Turbulent Flow</span>
+       <span class="topic-description">Irregular fluctuations, mixing, and three-dimensional vortical motion.</span>
+     </span>
+     <span class="topic-planned" aria-label="Article in preparation">Planned</span>
+   </div>
+ </article>
+ <article class="topic-card" id="topic-1-2" aria-labelledby="topic-title-1-2">
+   <div class="topic-head">
+     <span class="topic-number">1.2</span>
+     <span class="topic-heading-copy">
+       <span class="topic-title" id="topic-title-1-2">Index Notation and Einstein Notation</span>
+       <span class="topic-description">Compact notation for velocity components, tensors, and repeated indices.</span>
+     </span>
+     <span class="topic-planned" aria-label="Article in preparation">Planned</span>
+   </div>
+ </article>
+</section>
+
+<section class="chapter" id="chapter-2" aria-labelledby="chapter-title-2">
+ <div class="chapter-heading">
+   <span class="chapter-mark" aria-hidden="true">02</span>
+   <h2 id="chapter-title-2">Reynolds-Averaged Governing Equations</h2>
+   <span class="chapter-counter">4 ARTICLES</span>
+ </div>
+ 
+ <article class="topic-card" id="topic-2-1" aria-labelledby="topic-title-2-1">
+   <div class="topic-head">
+     <span class="topic-number">2.1</span>
+     <span class="topic-heading-copy">
+       <span class="topic-title" id="topic-title-2-1">Reynolds Decomposition and Averaging</span>
+       <span class="topic-description">Separating instantaneous quantities into mean and fluctuating components.</span>
+     </span>
+     <span class="topic-planned" aria-label="Article in preparation">Planned</span>
+   </div>
+ </article>
+ <article class="topic-card" id="topic-2-2" aria-labelledby="topic-title-2-2">
+   <div class="topic-head">
+     <span class="topic-number">2.2</span>
+     <span class="topic-heading-copy">
+       <span class="topic-title" id="topic-title-2-2">Reynolds-Averaged Navier–Stokes Equations</span>
+       <span class="topic-description">Mean-flow equations and the additional stresses produced by averaging.</span>
+     </span>
+     <span class="topic-planned" aria-label="Article in preparation">Planned</span>
+   </div>
+ </article>
+ <article class="topic-card" id="topic-2-3" aria-labelledby="topic-title-2-3">
+   <div class="topic-head">
+     <span class="topic-number">2.3</span>
+     <span class="topic-heading-copy">
+       <span class="topic-title" id="topic-title-2-3">Reynolds Stress and Closure Problem</span>
+       <span class="topic-description">Reynolds stresses and the unknown correlations requiring closure.</span>
+     </span>
+     <span class="topic-planned" aria-label="Article in preparation">Planned</span>
+   </div>
+ </article>
+ <article class="topic-card" id="topic-2-4" aria-labelledby="topic-title-2-4">
+   <div class="topic-head">
+     <span class="topic-number">2.4</span>
+     <span class="topic-heading-copy">
+       <span class="topic-title" id="topic-title-2-4">Turbulent Kinetic Energy Equation</span>
+       <span class="topic-description">Production, transport, and dissipation of turbulent kinetic energy.</span>
+     </span>
+     <span class="topic-planned" aria-label="Article in preparation">Planned</span>
+   </div>
+ </article>
+</section>
+
+<section class="chapter" id="chapter-3" aria-labelledby="chapter-title-3">
+ <div class="chapter-heading">
+   <span class="chapter-mark" aria-hidden="true">03</span>
+   <h2 id="chapter-title-3">RANS Turbulence Modeling</h2>
+   <span class="chapter-counter">5 ARTICLES</span>
+ </div>
+ 
+ <article class="topic-card" id="topic-3-1" aria-labelledby="topic-title-3-1">
+   <div class="topic-head">
+     <span class="topic-number">3.1</span>
+     <span class="topic-heading-copy">
+       <span class="topic-title" id="topic-title-3-1">Eddy Viscosity and Boussinesq Hypothesis</span>
+       <span class="topic-description">Relating modeled Reynolds stresses to the mean rate of strain.</span>
+     </span>
+     <span class="topic-planned" aria-label="Article in preparation">Planned</span>
+   </div>
+ </article>
+ <article class="topic-card" id="topic-3-2" aria-labelledby="topic-title-3-2">
+   <div class="topic-head">
+     <span class="topic-number">3.2</span>
+     <span class="topic-heading-copy">
+       <span class="topic-title" id="topic-title-3-2">Turbulence Scales and Model Variables</span>
+       <span class="topic-description">Characteristic turbulence scales and transport-model variables.</span>
+     </span>
+     <span class="topic-planned" aria-label="Article in preparation">Planned</span>
+   </div>
+ </article>
+ <article class="topic-card" id="topic-3-3" aria-labelledby="topic-title-3-3">
+   <div class="topic-head">
+     <span class="topic-number">3.3</span>
+     <span class="topic-heading-copy">
+       <span class="topic-title" id="topic-title-3-3">k–ϵ Turbulence Model</span>
+       <span class="topic-description">Two-equation modeling using turbulent kinetic energy and dissipation.</span>
+     </span>
+     <span class="topic-planned" aria-label="Article in preparation">Planned</span>
+   </div>
+ </article>
+ <article class="topic-card" id="topic-3-4" aria-labelledby="topic-title-3-4">
+   <div class="topic-head">
+     <span class="topic-number">3.4</span>
+     <span class="topic-heading-copy">
+       <span class="topic-title" id="topic-title-3-4">k–ω and SST Turbulence Models</span>
+       <span class="topic-description">Specific dissipation rate and shear-stress transport formulations.</span>
+     </span>
+     <span class="topic-planned" aria-label="Article in preparation">Planned</span>
+   </div>
+ </article>
+ <article class="topic-card" id="topic-3-5" aria-labelledby="topic-title-3-5">
+   <div class="topic-head">
+     <span class="topic-number">3.5</span>
+     <span class="topic-heading-copy">
+       <span class="topic-title" id="topic-title-3-5">Limitations of RANS Models</span>
+       <span class="topic-description">Assumptions and prediction limits of Reynolds-averaged turbulence models.</span>
+     </span>
+     <span class="topic-planned" aria-label="Article in preparation">Planned</span>
+   </div>
+ </article>
+</section>
+
+<section class="chapter" id="chapter-4" aria-labelledby="chapter-title-4">
+ <div class="chapter-heading">
+   <span class="chapter-mark" aria-hidden="true">04</span>
+   <h2 id="chapter-title-4">Turbulent Boundary-Layer Theory</h2>
+   <span class="chapter-counter">3 ARTICLES</span>
+ </div>
+ 
+ <article class="topic-card" id="topic-4-1" aria-labelledby="topic-title-4-1">
+   <div class="topic-head">
+     <span class="topic-number">4.1</span>
+     <span class="topic-heading-copy">
+       <span class="topic-title" id="topic-title-4-1">Turbulent Boundary-Layer Structure</span>
+       <span class="topic-description">Near-wall regions and velocity profiles in turbulent boundary layers.</span>
+     </span>
+     <span class="topic-planned" aria-label="Article in preparation">Planned</span>
+   </div>
+ </article>
+ <article class="topic-card" id="topic-4-2" aria-labelledby="topic-title-4-2">
+   <div class="topic-head">
+     <span class="topic-number">4.2</span>
+     <span class="topic-heading-copy">
+       <span class="topic-title" id="topic-title-4-2">Friction Velocity and Law of the Wall</span>
+       <span class="topic-description">Wall units, friction velocity, and the logarithmic velocity profile.</span>
+     </span>
+     <span class="topic-planned" aria-label="Article in preparation">Planned</span>
+   </div>
+ </article>
+ <article class="topic-card" id="topic-4-3" aria-labelledby="topic-title-4-3">
+   <div class="topic-head">
+     <span class="topic-number">4.3</span>
+     <span class="topic-heading-copy">
+       <span class="topic-title" id="topic-title-4-3">Pressure Gradient and Turbulent Separation</span>
+       <span class="topic-description">Adverse pressure gradients and turbulent boundary-layer separation.</span>
+     </span>
+     <span class="topic-planned" aria-label="Article in preparation">Planned</span>
+   </div>
+ </article>
+</section>
+
+<section class="chapter" id="chapter-5" aria-labelledby="chapter-title-5">
+ <div class="chapter-heading">
+   <span class="chapter-mark" aria-hidden="true">05</span>
+   <h2 id="chapter-title-5">Turbulence Modeling in CFD</h2>
+   <span class="chapter-counter">3 ARTICLES</span>
+ </div>
+ 
+ <article class="topic-card" id="topic-5-1" aria-labelledby="topic-title-5-1">
+   <div class="topic-head">
+     <span class="topic-number">5.1</span>
+     <span class="topic-heading-copy">
+       <span class="topic-title" id="topic-title-5-1">Energy Spectrum and Overview of LES/DNS</span>
+       <span class="topic-description">Turbulence scales, energy spectra, and resolved-flow simulations.</span>
+     </span>
+     <span class="topic-planned" aria-label="Article in preparation">Planned</span>
+   </div>
+ </article>
+ <article class="topic-card" id="topic-5-2" aria-labelledby="topic-title-5-2">
+   <div class="topic-head">
+     <span class="topic-number">5.2</span>
+     <span class="topic-heading-copy">
+       <span class="topic-title" id="topic-title-5-2">Near-Wall Treatment and Mesh Requirements</span>
+       <span class="topic-description">Near-wall resolution, wall functions, and y-plus considerations.</span>
+     </span>
+     <span class="topic-planned" aria-label="Article in preparation">Planned</span>
+   </div>
+ </article>
+ <article class="topic-card" id="topic-5-3" aria-labelledby="topic-title-5-3">
+   <div class="topic-head">
+     <span class="topic-number">5.3</span>
+     <span class="topic-heading-copy">
+       <span class="topic-title" id="topic-title-5-3">Turbulence Model Selection and Validation</span>
+       <span class="topic-description">Model choice and comparison with reference or experimental data.</span>
+     </span>
+     <span class="topic-planned" aria-label="Article in preparation">Planned</span>
+   </div>
+ </article>
+</section>
+ <a class="back-bottom" href="../aerodynamics.html">← Back to Aerodynamics</a>
+</main>
+<footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Turbulent Flow</span></div></footer>
+<script defer src="../../assets/study-tracker.js?v=20261022-search1"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+ const equations = document.querySelectorAll(".equation-tex");
+ if (window.katex) equations.forEach(function (element) {
+   katex.render(element.dataset.latex, element, {displayMode:false,throwOnError:false,output:"htmlAndMathml"});
+ });
+ function fit() {
+   equations.forEach(function (element) {
+     element.style.fontSize = "";
+     const card=element.closest(".equation-card");
+     if (!card) return;
+     const st=getComputedStyle(card), icon=card.querySelector(".equation-icon");
+     const gap=parseFloat(st.columnGap)||0;
+     const room=card.clientWidth-parseFloat(st.paddingLeft)-parseFloat(st.paddingRight)-(icon?icon.getBoundingClientRect().width+gap:0)-6;
+     const needed=element.getBoundingClientRect().width;
+     if (room>0 && needed>room) element.style.fontSize=(parseFloat(getComputedStyle(element).fontSize)*room/needed).toFixed(2)+"px";
+   });
+ }
+ fit();
+ window.addEventListener("resize",fit);
+ if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+});
+</script>
 </body></html>
