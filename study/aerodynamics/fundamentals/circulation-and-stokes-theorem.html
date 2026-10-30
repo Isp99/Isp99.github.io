@@ -107,22 +107,22 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 <path d="M624 62 L624 117 M617 62 L631 62 M617 117 L631 117" stroke="#214f83" stroke-width="1.7"/>
 <text x="635" y="92" font-size="16" fill="#214f83">Δv Δt</text>
 </svg><figcaption>\(v_B&gt;v_A\)인 경우. \(x\)방향의 공통 이동을 생략하고 \(y\)방향 변위만 표시함.</figcaption></figure></li><li>두 끝점의 속도차와 미소 회전각 \(\Delta\alpha\)는 다음과 같이 연결됨. \(\Delta x,\Delta t\to 0\)인 국소 극한에서 \(x\)방향 선요소의 회전율은<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
-\Delta v&=v(x+\Delta x,y)-v(x,y)\\[2ex]
-&\simeq\frac{\partial v}{\partial x}\Delta x,\\[2ex]
-\Delta\alpha&\simeq\frac{\Delta v\,\Delta t}{\Delta x}\\[2ex]
-&\simeq\frac{\partial v}{\partial x}\Delta t,\\[2ex]
+\Delta v&=v(x+\Delta x,y)-v(x,y)\\[2.0em]
+&\simeq\frac{\partial v}{\partial x}\Delta x,\\[2.0em]
+\Delta\alpha&\simeq\frac{\Delta v\,\Delta t}{\Delta x}\\[2.0em]
+&\simeq\frac{\partial v}{\partial x}\Delta t,\\[2.0em]
 \frac{\mathrm d\alpha}{\mathrm dt}&=\frac{\partial v}{\partial x}.
 \end{aligned}\]</div></li><li>마찬가지로 \(y\)방향 미소 선요소의 양 끝에서 \(x\)방향 속도가 다르면 선요소가 기울어짐. 위쪽 끝점이 오른쪽으로 이동하면 <strong>시계방향 회전</strong>이므로 음의 부호를 붙이면<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
-\Delta u&\simeq\frac{\partial u}{\partial y}\Delta y,\\[2ex]
-\Delta\beta&\simeq-\frac{\Delta u\,\Delta t}{\Delta y}\\[2ex]
-&\simeq-\frac{\partial u}{\partial y}\Delta t,\\[2ex]
+\Delta u&\simeq\frac{\partial u}{\partial y}\Delta y,\\[2.0em]
+\Delta\beta&\simeq-\frac{\Delta u\,\Delta t}{\Delta y}\\[2.0em]
+&\simeq-\frac{\partial u}{\partial y}\Delta t,\\[2.0em]
 \frac{\mathrm d\beta}{\mathrm dt}&=-\frac{\partial u}{\partial y}.
 \end{aligned}\]</div></li><li>두 선요소는 <strong>Deformation</strong> 때문에 서로 다른 비율로 기울어질 수 있음. 따라서 두 회전율의 <strong>평균</strong>을 취하여 국소 회전각속도 \(\Omega_z\)를 정의하면<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
-\Omega_z&=\frac12\left(\frac{\mathrm d\alpha}{\mathrm dt}+\frac{\mathrm d\beta}{\mathrm dt}\right)\\[2ex]
+\Omega_z&=\frac12\left(\frac{\mathrm d\alpha}{\mathrm dt}+\frac{\mathrm d\beta}{\mathrm dt}\right)\\[2.0em]
 &=\frac12\left(\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}\right).
 \end{aligned}\]</div></li><li>따라서 <strong>속도구배가 존재한다는 사실만으로 Rotation이 발생하는 것은 아님.</strong> 두 방향의 회전율이 상쇄되면 \(\Omega_z=0\)이고, 상쇄되지 않으면 국소 회전이 존재함.</li></ul></section><section class="lesson-section" id="vorticity"><h2><span class="section-tag">02</span>Vorticity</h2><ul class="study-points"><li>유체 내부의 한 점에서 얼마나 강한 국소적인 회전 운동이 존재하는지를 나타내는 물리량을 <strong>Vorticity</strong>라 정의하고, 회전각속도의 두 배로 나타냄.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
-\omega_x&=\frac{\partial w}{\partial y}-\frac{\partial v}{\partial z},\\[1.5ex]
-\omega_y&=\frac{\partial u}{\partial z}-\frac{\partial w}{\partial x},\\[1.5ex]
+\omega_x&=\frac{\partial w}{\partial y}-\frac{\partial v}{\partial z},\\[2.0em]
+\omega_y&=\frac{\partial u}{\partial z}-\frac{\partial w}{\partial x},\\[2.0em]
 \omega_z&=\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}.
 \end{aligned}\]</div></li><li>따라서 Vorticity의 벡터 형태는<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \boldsymbol\omega=\nabla\times\mathbf V=2\boldsymbol\Omega}\]</div><div style="overflow-x:auto"><table class="comparison-table"><colgroup><col style="width:20%"><col style="width:34%"><col style="width:46%"></colgroup><thead><tr><th>구분</th><th>Rotation</th><th>Vorticity</th></tr></thead><tbody><tr><td>의미</td><td>유체 요소 자체의 회전 운동</td><td>국소 회전 운동의 강도와 방향을 나타내는 물리량</td></tr><tr><td>물리적 해석</td><td>유체 요소가 얼마나 빠르게 회전하는지</td><td>그 위치의 유동이 얼마나 강한 국소 회전성을 갖는지</td></tr><tr><td>정량화</td><td>Angular Velocity</td><td>Angular Velocity의 2배</td></tr><tr><td>특징</td><td>운동 자체</td><td>유동장 전체에서 정의되는 벡터장</td></tr></tbody></table></div></li><li><strong>Irrotational Flow</strong>에서는 \(\boldsymbol\omega=0\).</li><li>Streamline의 곡률과 유체 요소의 국소 회전은 구분해야 함. 원형 Streamline에서도 Vorticity가 0인 유동이 가능함.</li></ul></section><section class="lesson-section" id="circulation"><h2><span class="section-tag">03</span>Circulation around a Small Rectangle</h2><ul class="study-points"><li>유체가 어떤 <strong>폐곡선 주변에서 얼마나 강한 순환 운동을 하고 있는지를 나타내는 물리량</strong>을 Circulation이라 정의함.</li><li>폐곡선을 따라 속도의 접선 성분을 적분하여 정량화하며, \(+z\) 방향에서 보아 <strong>반시계방향 적분을 양수</strong>로 둠.<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \Gamma=\oint_C\mathbf V\cdot\mathrm d\mathbf l}\]</div></li><li>폐곡선 \(C\)를 따른 벡터장의 선적분은 그 폐곡선이 경계인 면 \(S\)에서 Curl의 법선 성분을 적분한 값과 같음. 이를 <strong>Stokes’ Theorem</strong>이라고 함.<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \Gamma=\oint_C\mathbf V\cdot\mathrm d\mathbf l=\iint_S(\nabla\times\mathbf V)\cdot\mathbf n\,\mathrm dA}\]</div><figure class="lesson-figure"><svg viewBox="0 0 760 255" role="img" aria-label="반시계 방향 폐곡선과 접선속도의 선적분을 나타낸 개념도" xmlns="http://www.w3.org/2000/svg">
 <defs><marker id="circ-arrow" markerWidth="8" markerHeight="8" refX="6.5" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#3974b7" stroke-width="1.1"/></marker></defs>
@@ -137,10 +137,10 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 <text x="465" y="168" font-size="15" fill="#617d9e">Positive / negative contributions</text>
 <text x="465" y="190" font-size="15" fill="#617d9e">sum along the closed curve</text>
 </svg><figcaption>폐곡선 \(C\)를 따라 속도의 접선 성분을 적분하여 Circulation을 계산함.</figcaption></figure></li></ul></section><section class="lesson-section" id="relation"><h2><span class="section-tag">04</span>Relation between Circulation and Vorticity</h2><ul class="study-points"><li>Vorticity의 정의 \(\boldsymbol\omega=\nabla\times\mathbf V\)를 Stokes’ Theorem에 대입하면 Circulation은<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
-\Gamma&=\oint_C\mathbf V\cdot\mathrm d\mathbf l\\[1.5ex]
-&=\iint_S(\nabla\times\mathbf V)\cdot\mathbf n\,\mathrm dA\\[1.5ex]
+\Gamma&=\oint_C\mathbf V\cdot\mathrm d\mathbf l\\[2.0em]
+&=\iint_S(\nabla\times\mathbf V)\cdot\mathbf n\,\mathrm dA\\[2.0em]
 &=\iint_S\boldsymbol\omega\cdot\mathbf n\,\mathrm dA.
 \end{aligned}\]</div></li><li>따라서 Circulation과 Vorticity의 관계는<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \begin{gathered}
-\Gamma=\iint_S\boldsymbol\omega\cdot\mathbf n\,\mathrm dA\\[0.7em]
+\Gamma=\iint_S\boldsymbol\omega\cdot\mathbf n\,\mathrm dA\\[2.0em]
 \text{\scriptsize (Circulation = Vorticity Flux through the Enclosed Surface)}
 \end{gathered}}\]</div></li><li><strong>Vorticity</strong>는 한 점에서의 국소적인 회전성인 반면, <strong>Circulation</strong>은 폐곡선을 따른 유동의 순환성을 나타냄.</li><li>Vorticity는 위치에 따라 달라지며 SI 단위는 \(\mathrm{s^{-1}}\)임. Circulation은 선택한 폐곡선에 따라 정해지며 단위는 \(\mathrm{m^2/s}\)임.</li></ul></section></article><div class="article-pager"><a href="irrotational-and-compressible-extensions.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Irrotational and Compressible Extensions</span></a><a class="next" href="vorticity-transport-equation.html"><span class="direction">NEXT →</span><span class="adjacent">Vorticity Transport Equation</span></a></div><a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Aerodynamics</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>

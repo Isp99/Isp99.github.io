@@ -58,29 +58,29 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 <article class="article-content"><div class="lesson-meta"><span>08 / Aerodynamic Forces and Moments</span><span>Study Notes · 8.1</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#section-1">01 · Surface Pressure and Shear Stress</a></li><li><a href="#section-2">02 · Lift and Drag</a></li></ul></nav><section class="lesson-section" id="section-1"><h2><span class="section-tag">01</span>Surface Pressure and Shear Stress</h2><ul class="study-points"><li>물체 표면의 미소면적 \(\mathrm d A\)에서 <strong>Pressure Force</strong>와 <strong>Shear Force</strong>가 발생함. \(\mathbf n_b\)를 물체에서 유체 쪽으로 향하는 단위법선벡터라 하면, 각각의 <strong>미소 공력</strong>은 <div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d\mathbf F_p=-p\mathbf n_b\,\mathrm d A,\qquad
 \mathrm d\mathbf F_\tau=\boldsymbol\tau\cdot\mathbf n_b\,\mathrm d A\]</div></li><li>두 힘을 합하면 미소면적에 작용하는 <strong>전체 공력</strong>은 <div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d\mathbf F=(-p\mathbf n_b+\boldsymbol\tau\cdot\mathbf n_b)\mathrm d A\]</div></li><li>표면 전체를 적분하면 { <div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \mathbf F=\oint_{S_b}
 (-p\mathbf n_b+\boldsymbol\tau\cdot\mathbf n_b)\mathrm d A.}\]</div></li><li>일정한 자유류 압력 \(p_\infty\)는 닫힌 표면에서 합력이 0이므로, \(p\) 대신 \(p-p_\infty\)를 사용해도 같음. <div class="equation" role="group" aria-label="Mathematical expression">\[\oint_{S_b}p_\infty\mathbf n_b\,\mathrm d A
-=p_\infty\oint_{S_b}\mathbf n_b\,\mathrm d A=0.\]</div></li><li>기준점 \(O\)에 대한 모멘트는 <strong>위치벡터 \(\times\) 힘</strong>을 적분함. <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}\mathrm d\mathbf M_O&=(\mathbf r-\mathbf r_O)\times\mathrm d\mathbf F,\\
+=p_\infty\oint_{S_b}\mathbf n_b\,\mathrm d A=0.\]</div></li><li>기준점 \(O\)에 대한 모멘트는 <strong>위치벡터 \(\times\) 힘</strong>을 적분함. <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}\mathrm d\mathbf M_O&=(\mathbf r-\mathbf r_O)\times\mathrm d\mathbf F,\\[2.0em]
 \mathbf M_O&=\oint_{S_b}(\mathbf r-\mathbf r_O)\times
 (-p\mathbf n_b+\boldsymbol\tau\cdot\mathbf n_b)\mathrm d A.\end{aligned}\]</div></li></ul></section>
-<section class="lesson-section" id="section-2"><h2><span class="section-tag">02</span>Lift and Drag</h2><ul class="study-points"><li>물체에 작용하는 공기역학적 힘은 자유류 방향의 <strong>Drag</strong>와 그에 수직인 방향의 <strong>Lift</strong>로 분해할 수 있음. 자유류 방향 단위벡터를 \(\mathbf e_D\), 양력 방향 단위벡터를 \(\mathbf e_L\)로 정의하면 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}D&=\mathbf F\cdot\mathbf e_D,\\[2.0ex]
+<section class="lesson-section" id="section-2"><h2><span class="section-tag">02</span>Lift and Drag</h2><ul class="study-points"><li>물체에 작용하는 공기역학적 힘은 자유류 방향의 <strong>Drag</strong>와 그에 수직인 방향의 <strong>Lift</strong>로 분해할 수 있음. 자유류 방향 단위벡터를 \(\mathbf e_D\), 양력 방향 단위벡터를 \(\mathbf e_L\)로 정의하면 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}D&=\mathbf F\cdot\mathbf e_D,\\[2.0em]
 L&=\mathbf F\cdot\mathbf e_L.\end{aligned}\]</div></li><li><strong>Chord</strong>는 Airfoil의 <strong>Leading Edge(앞전)</strong>와 <strong>Trailing Edge(뒷전)</strong>를 연결한 직선이며, 그 길이를 <strong>Chord Length</strong> \(c\)라 함.<ul class="definitions"><li><strong>Axial Force (\(A\))</strong>: Chord에 평행한 방향의 힘.</li><li><strong>Normal Force (\(N\))</strong>: Chord에 수직인 방향의 힘.</li><li><strong>Angle of Attack (\(\alpha\))</strong>: Chord와 자유류 방향 사이의 각도.</li></ul><figure class="lesson-figure"><svg viewBox="0 0 720 410" role="img" aria-label="Lift drag axial and normal components on a pitched airfoil" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2d70b6"/></marker><marker id="arrR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#b55353"/></marker></defs>
  <g transform="translate(360 214) rotate(16)"><path d="M-190 0C-120 -38 -20 -33 190 0 C30 14 -115 13 -190 0Z" fill="#e9f1fb" stroke="#6f7e94" stroke-width="2"/><path d="M-190 0H190" stroke="#879cb7" stroke-dasharray="6 5"/><text x="-95" y="28" fill="#526f92" font-size="16">Chord</text><text x="-200" y="-15" fill="#526f92" font-size="15">LE</text><text x="185" y="23" fill="#526f92" font-size="15">TE</text></g>
  <g stroke-width="4" fill="none"><path d="M75 120H215" stroke="#2d70b6" marker-end="url(#arrB)"/><path d="M360 214H529 M360 214V57" stroke="#2d70b6" marker-end="url(#arrB)"/><path d="M360 214L515 257 M360 214L403 62" stroke="#b55353" marker-end="url(#arrR)"/></g>
  <g fill="#526580" font-size="21" font-family="sans-serif"><text x="116" y="110">U∞</text><text x="544" y="218">D</text><text x="350" y="45">L</text><text x="525" y="282">A</text><text x="411" y="59">N</text><text x="245" y="294">α</text></g>
  <path d="M168 257 H283 M168 257L281 289" stroke="#9aabc2" fill="none" stroke-dasharray="5 6"/></svg><figcaption>Airfoil force decomposition (adapted from the attached TikZ diagram).</figcaption></figure></li><li>Chord 방향 단위벡터를 \(\mathbf e_c\), Chord 수직방향 단위벡터를 \(\mathbf e_n\)으로 정의하면, 전체 공기역학적 힘은 <div class="equation" role="group" aria-label="Mathematical expression">\[\mathbf F=A\mathbf e_c+N\mathbf e_n.\]</div></li><li>자유류 방향은 Chord 방향에 대해 \(\alpha\)만큼 회전한 방향이므로 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}\mathbf e_D
 &=\cos\alpha\,\mathbf e_c
-+\sin\alpha\,\mathbf e_n,\\[2.0ex]
++\sin\alpha\,\mathbf e_n,\\[2.0em]
 \mathbf e_L
 &=-\sin\alpha\,\mathbf e_c
 +\cos\alpha\,\mathbf e_n.\end{aligned}\]</div></li><li>이를 Lift와 Drag의 정의에 대입하면 <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}D
-&=\mathbf F\cdot\mathbf e_D,\\[2.0ex]
+&=\mathbf F\cdot\mathbf e_D,\\[2.0em]
 &=(A\mathbf e_c+N\mathbf e_n)
 \cdot
-(\cos\alpha\,\mathbf e_c+\sin\alpha\,\mathbf e_n),\\[2.0ex]
+(\cos\alpha\,\mathbf e_c+\sin\alpha\,\mathbf e_n),\\[2.0em]
 &=A\cos\alpha+N\sin\alpha.\end{aligned}\]</div> <div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}L
-&=\mathbf F\cdot\mathbf e_L,\\[2.0ex]
+&=\mathbf F\cdot\mathbf e_L,\\[2.0em]
 &=(A\mathbf e_c+N\mathbf e_n)
 \cdot
-(-\sin\alpha\,\mathbf e_c+\cos\alpha\,\mathbf e_n),\\[2.0ex]
+(-\sin\alpha\,\mathbf e_c+\cos\alpha\,\mathbf e_n),\\[2.0em]
 &=-A\sin\alpha+N\cos\alpha.\end{aligned}\]</div></li><li><strong>Pressure Drag</strong>와 <strong>Skin-Friction Drag</strong>는 힘의 발생 원인에 따른 구분이며, Lift와 Drag는 자유류에 대한 힘의 방향에 따른 구분임.</li></ul></section></article>
 <div class="article-pager"><a href="flow-around-a-circular-cylinder.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Flow around a Circular Cylinder</span></a><a class="next" href="cylinder-forces-and-kutta-joukowski-theorem.html"><span class="direction">NEXT →</span><span class="adjacent">D'Alembert's Paradox</span></a></div>
 <a class="back-bottom" href="../fundamentals.html">← Back to Fundamentals</a></main>

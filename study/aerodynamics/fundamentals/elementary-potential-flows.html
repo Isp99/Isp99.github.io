@@ -135,7 +135,7 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 </div></div>
 <article class="article-content"><div class="lesson-meta"><span>07 / Potential Flow</span><span>Study Notes · 7.2</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#introduction">01 · Introduction</a></li><li><a href="#uniform-flow">02 · Uniform Flow</a></li><li><a href="#source-and-sink">03 · Source and Sink</a></li><li><a href="#doublet">04 · Doublet</a></li><li><a href="#vortex-flow">05 · Vortex Flow</a></li></ul></nav><section class="lesson-section" id="introduction"><h2><span class="section-tag">06</span>Introduction</h2><ul class="study-points"><li><p>Laplace Equation의 선형성을 통해서 Superposition 의 원리를 다음과 같이 적용 가능함</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\nabla^2\phi_1&=0, \qquad \nabla^2\phi_2=0.\end{aligned}\]</div></li>
 <li><p>을 만족하는 두 포텐셜은 다음 관계 성림</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\nabla^2(\phi_1+\phi_2)
-&=\nabla^2\phi_1+\nabla^2\phi_2,\\[2.0ex]
+&=\nabla^2\phi_1+\nabla^2\phi_2,\\[2.0em]
 &=0.\end{aligned}\]</div></li>
 <li><p>이를 활용하면 복잡한 유동을 후술한 4개의 간단한 Potential Flow의 합으로 생각 가능하며 이들은 아래와 같음</p>
 <ul class="nested-points" aria-label="Four elementary potential flows">
@@ -158,7 +158,7 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 <li><p>\(+x\)방향으로 일정한 속도 \(U\)를 갖는 유동을 고려함.</p><div class="equation" role="group" aria-label="수학 수식">\[u=U,\qquad v=0.\]</div></li>
 <li><p>Potential function의 정의로 부터 \(\phi\) 를 구하기 위해 속도를 를 \(x\)에 대해 적분하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\frac{\partial\phi}{\partial x}&=U, \qquad {\rightarrow} \qquad  \phi=Ux+f(y).\end{aligned}\]</div></li>
 <li><p>적분 후 남은 함수 \(f(y)\)는 \(v=0\) 조건으로 결정함.</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\frac{\partial\phi}{\partial y}&=v=0,\qquad {\rightarrow} \qquad \phi=Ux+C.\end{aligned}\]</div></li>
-<li><p>상수 \(C\)는 속도에 영향을 주지 않으므로 0으로 둠. 같은 방식으로 Stream function을 구하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\frac{\partial\psi}{\partial y}=U&\quad\Longrightarrow\quad\psi=Uy+g(x),\\
+<li><p>상수 \(C\)는 속도에 영향을 주지 않으므로 0으로 둠. 같은 방식으로 Stream function을 구하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\frac{\partial\psi}{\partial y}=U&\quad\Longrightarrow\quad\psi=Uy+g(x),\\[2.0em]
 -\frac{\partial\psi}{\partial x}=g'(x) =0   &\quad\Longrightarrow\quad g(x)=C.\end{aligned}\]</div></li>
 <li><p>따라서,</p><div class="equation key" role="group" aria-label="수학 수식" id="eq-eq-uniformNew">\[\phi=Ux \qquad \psi=Uy\]</div></li></ul></section>
 <section class="lesson-section" id="source-and-sink"><h2><span class="section-tag">08</span>Source and Sink</h2><figure class="lesson-figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 310" role="img" aria-label="Source에서는 유선이 원점으로부터 방출되고 Sink에서는 원점으로 수렴함"><defs><marker id="pf-s" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="none" stroke="#2363a5" stroke-width="1.4"/></marker></defs>
@@ -175,8 +175,8 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 <li><p>원점을 중심으로 하는 극좌표 \((r,\theta)\)를 사용하며, <strong>단위 깊이당 체적유량</strong>을 \(Q\)로 정의함. 반지름 \(r\)인 원에서 방사형 속도 \(V_r\)가 일정하므로</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{gathered}\begin{aligned}
 Q&=\int_0^{2\pi}V_r(r)\,r\mathrm{d}\theta,\\[1.5ex]
 &=2\pi rV_r
-\end{aligned}\\[0.3cm]
-\Downarrow\\[0.3cm]
+\end{aligned}\\[2.0em]
+\Downarrow\\[2.0em]
 V_r=\frac{Q}{2\pi r},\qquad V_\theta=0.\end{gathered}\]</div></li>
 <li><p><strong>Potential function</strong>의 정의로부터 \(\phi\)를 구하기 위해 방사형 속도 \(V_r\)를 \(r\)에 대해 적분하면</p><div class="equation" role="group" aria-label="수학 수식">\[\frac{\partial\phi}{\partial r}=\frac{Q}{2\pi r}\qquad\rightarrow\qquad\phi=\frac{Q}{2\pi}\ln r+f(\theta).\]</div></li>
 <li><p>적분 후 남은 함수 \(f(\theta)\)는 \(V_\theta=0\) 조건으로 결정함.</p><div class="equation" role="group" aria-label="수학 수식">\[\frac1r\frac{\partial\phi}{\partial\theta}=\frac{f'(\theta)}r=0\qquad\rightarrow\qquad\phi=\frac{Q}{2\pi}\ln r+C_\phi.\]</div></li>
@@ -222,17 +222,17 @@ V_r=\frac{Q}{2\pi r},\qquad V_\theta=0.\end{gathered}\]</div></li>
 <figcaption>Source–Sink 쌍의 극한으로 정의되는 Doublet 유동 개념도</figcaption>
 </figure><ul class="study-points"><li><p>정의: <strong>같은 세기의 Source와 Sink를 무한히 가까이 접근시키면서, 세기와 거리의 곱을 일정하게 유지하여 얻는 유동</strong></p></li>
 <li><p>먼저 Source \(+Q\)와 Sink \(-Q\)를 각각 \(x=-\ell/2\), \(x=+\ell/2\)에 놓음. 임의의 점 \((x,y)\)에서 Source와 Sink까지의 거리를 각각 \(r_s\), \(r_k\)로 정의하면</p><div class="equation" role="group" aria-label="수학 수식">\[r_s=\sqrt{(x+\ell/2)^2+y^2},\qquad r_k=\sqrt{(x-\ell/2)^2+y^2}.\]</div></li>
-<li><p><strong>Potential function</strong>은 Source와 Sink의 Potential function을 중첩하여 구함. 두 유동에 동일한 기준반지름 \(r_0\)를 사용하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\phi&=\frac{Q}{2\pi}\ln\frac{r_s}{r_0}-\frac{Q}{2\pi}\ln\frac{r_k}{r_0},\\[1.5ex]
+<li><p><strong>Potential function</strong>은 Source와 Sink의 Potential function을 중첩하여 구함. 두 유동에 동일한 기준반지름 \(r_0\)를 사용하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\phi&=\frac{Q}{2\pi}\ln\frac{r_s}{r_0}-\frac{Q}{2\pi}\ln\frac{r_k}{r_0},\\[2.0em]
 &=\frac{Q}{2\pi}\ln\frac{r_s}{r_k}.\end{aligned}\]</div></li>
-<li><p>\(r=\sqrt{x^2+y^2}\), \(x=r\cos\theta\)를 대입하고 \(\ell\ll r\)에서 \(\sqrt{1+\epsilon}\simeq1+\epsilon/2\)를 적용하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}r_s&=r\sqrt{1+\frac{\ell\cos\theta}{r}+\frac{\ell^2}{4r^2}}\simeq r+\frac\ell2\cos\theta,\\[1.5ex]
+<li><p>\(r=\sqrt{x^2+y^2}\), \(x=r\cos\theta\)를 대입하고 \(\ell\ll r\)에서 \(\sqrt{1+\epsilon}\simeq1+\epsilon/2\)를 적용하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}r_s&=r\sqrt{1+\frac{\ell\cos\theta}{r}+\frac{\ell^2}{4r^2}}\simeq r+\frac\ell2\cos\theta,\\[2.0em]
 r_k&=r\sqrt{1-\frac{\ell\cos\theta}{r}+\frac{\ell^2}{4r^2}}\simeq r-\frac\ell2\cos\theta.\end{aligned}\]</div></li>
-<li><p>따라서 \(\ln(1+\epsilon)\simeq\epsilon\)를 사용하면 Potential function에 포함된 거리비의 로그는</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\ln\frac{r_s}{r_k}&\simeq\ln\left(1+\frac{\ell\cos\theta}{2r}\right)-\ln\left(1-\frac{\ell\cos\theta}{2r}\right),\\[1.5ex]
-&\simeq\frac{\ell\cos\theta}{2r}+\frac{\ell\cos\theta}{2r},\\[1.5ex]
+<li><p>따라서 \(\ln(1+\epsilon)\simeq\epsilon\)를 사용하면 Potential function에 포함된 거리비의 로그는</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\ln\frac{r_s}{r_k}&\simeq\ln\left(1+\frac{\ell\cos\theta}{2r}\right)-\ln\left(1-\frac{\ell\cos\theta}{2r}\right),\\[2.0em]
+&\simeq\frac{\ell\cos\theta}{2r}+\frac{\ell\cos\theta}{2r},\\[2.0em]
 &=\frac{\ell\cos\theta}{r}.\end{aligned}\]</div></li>
-<li><p>위 결과를 대입한 뒤 \(\ell\rightarrow0\)에서 세기와 거리의 곱 \(Q\ell=\kappa\)를 일정하게 유지하면 <strong>Doublet</strong>의 Potential function을 얻음.</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{gathered}\phi\simeq\frac{Q\ell}{2\pi r}\cos\theta\\[0.3cm]
-\Downarrow\quad\ell\rightarrow0,\quad Q\ell=\kappa\\[0.3cm]
+<li><p>위 결과를 대입한 뒤 \(\ell\rightarrow0\)에서 세기와 거리의 곱 \(Q\ell=\kappa\)를 일정하게 유지하면 <strong>Doublet</strong>의 Potential function을 얻음.</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{gathered}\phi\simeq\frac{Q\ell}{2\pi r}\cos\theta\\[2.0em]
+\Downarrow\quad\ell\rightarrow0,\quad Q\ell=\kappa\\[2.0em]
 \phi=\frac{\kappa}{2\pi r}\cos\theta.\end{gathered}\]</div></li>
-<li><p>Potential function을 미분하여 방사형 속도와 원주방향 속도를 구하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}V_r&=\frac{\partial\phi}{\partial r}=-\frac{\kappa}{2\pi r^2}\cos\theta,\\[1.5ex]
+<li><p>Potential function을 미분하여 방사형 속도와 원주방향 속도를 구하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}V_r&=\frac{\partial\phi}{\partial r}=-\frac{\kappa}{2\pi r^2}\cos\theta,\\[2.0em]
 V_\theta&=\frac1r\frac{\partial\phi}{\partial\theta}=-\frac{\kappa}{2\pi r^2}\sin\theta.\end{aligned}\]</div></li>
 <li><p><strong>Stream function</strong>의 정의로부터 \(\psi\)를 구하기 위해 \(\partial\psi/\partial\theta=rV_r\)를 \(\theta\)에 대해 적분하면</p><div class="equation" role="group" aria-label="수학 수식">\[\frac{\partial\psi}{\partial\theta}=-\frac{\kappa}{2\pi r}\cos\theta\qquad\rightarrow\qquad\psi=-\frac{\kappa}{2\pi r}\sin\theta+g(r).\]</div></li>
 <li><p>적분 후 남은 함수 \(g(r)\)는 \(V_\theta=-\partial\psi/\partial r\) 조건으로 결정함. 적분 결과를 미분하여 앞에서 구한 \(V_\theta\)와 비교하면</p><div class="equation" role="group" aria-label="수학 수식">\[-\frac{\kappa}{2\pi r^2}\sin\theta-g'(r)=-\frac{\kappa}{2\pi r^2}\sin\theta\qquad\rightarrow\qquad g'(r)=0.\]</div></li>
@@ -248,8 +248,8 @@ V_\theta&=\frac1r\frac{\partial\phi}{\partial\theta}=-\frac{\kappa}{2\pi r^2}\si
 <li><p>방사형 속도는 0이며, 원점을 둘러싸는 원형 경로의 순환이 반지름과 관계없이 \(\Gamma\)로 일정한 유동을 고려함. 반지름 \(r\)인 원에서 원주방향 속도 \(V_\theta\)가 일정하므로</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{gathered}\begin{aligned}
 \Gamma&=\int_0^{2\pi}V_\theta(r)\,r\mathrm{d}\theta,\\[1.5ex]
 &=2\pi rV_\theta
-\end{aligned}\\[0.3cm]
-\Downarrow\\[0.3cm]
+\end{aligned}\\[2.0em]
+\Downarrow\\[2.0em]
 V_r=0,\qquad V_\theta=\frac{\Gamma}{2\pi r}.\end{gathered}\]</div></li>
 <li><p><strong>Potential function</strong>의 정의로부터 \(\phi\)를 구하기 위해 \(\partial\phi/\partial\theta=rV_\theta\)를 \(\theta\)에 대해 적분하면</p><div class="equation" role="group" aria-label="수학 수식">\[\frac{\partial\phi}{\partial\theta}=rV_\theta=\frac{\Gamma}{2\pi}\qquad\rightarrow\qquad\phi=\frac{\Gamma}{2\pi}\theta+f(r).\]</div></li>
 <li><p>적분 후 남은 함수 \(f(r)\)는 \(V_r=0\) 조건으로 결정함.</p><div class="equation" role="group" aria-label="수학 수식">\[\frac{\partial\phi}{\partial r}=f'(r)=0\qquad\rightarrow\qquad\phi=\frac{\Gamma}{2\pi}\theta+C_\phi.\]</div></li>
@@ -257,8 +257,8 @@ V_r=0,\qquad V_\theta=\frac{\Gamma}{2\pi r}.\end{gathered}\]</div></li>
 <li><p>적분 후 남은 함수 \(g(\theta)\)는 \(V_r=(1/r)\partial\psi/\partial\theta=0\) 조건으로 결정함.</p><div class="equation" role="group" aria-label="수학 수식">\[\frac1r\frac{\partial\psi}{\partial\theta}=\frac{g'(\theta)}r=0\qquad\rightarrow\qquad\psi=-\frac{\Gamma}{2\pi}\ln r+C_\psi.\]</div></li>
 <li><p>상수 \(C_\phi\), \(C_\psi\)는 속도에 영향을 주지 않으므로, \(C_\phi=0\)으로 두고 기준반지름 \(r_0\)에서 \(\psi=0\)이 되도록 \(C_\psi=\frac{\Gamma}{2\pi}\ln r_0\)로 정하면</p><div class="equation key" role="group" aria-label="수학 수식" id="eq-eq-vortexNew">\[\phi=\frac{\Gamma}{2\pi}\theta\qquad\psi=-\frac{\Gamma}{2\pi}\ln\frac r{r_0}\]</div></li>
 <li><p>\(\Gamma&gt;0\)이면 반시계방향, \(\Gamma&lt;0\)이면 시계방향 유동이며, 원점은 속도가 특이해지는 지점이므로 위 식은 \(r&gt;0\)에 적용함.</p></li>
-<li><p>원점을 제외한 영역에서 와도를 계산하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\omega_z&=\frac1r\frac{\partial(rV_\theta)}{\partial r}-\frac1r\frac{\partial V_r}{\partial\theta},\\[1.5ex]
-&=\frac1r\frac{\partial}{\partial r}\left(\frac{\Gamma}{2\pi}\right)-0,\\[1.5ex]
+<li><p>원점을 제외한 영역에서 와도를 계산하면</p><div class="equation" role="group" aria-label="수학 수식">\[\begin{aligned}\omega_z&=\frac1r\frac{\partial(rV_\theta)}{\partial r}-\frac1r\frac{\partial V_r}{\partial\theta},\\[2.0em]
+&=\frac1r\frac{\partial}{\partial r}\left(\frac{\Gamma}{2\pi}\right)-0,\\[2.0em]
 &=0\qquad(r>0).\end{aligned}\]</div></li>
 <li><p>따라서 유선은 원형이지만 원점 밖의 유동은 <strong>비회전</strong>임. 원점을 둘러싼 순환은 \(\Gamma\)이며, 원점의 특이점을 포함하는 면에 Stokes 정리를 그대로 적용할 수는 없음.</p></li></ul></section></article>
 <div class="article-pager"><a href="stream-function.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Stream Function</span></a><a class="next" href="flow-around-a-circular-cylinder.html"><span class="direction">NEXT →</span><span class="adjacent">Flow around a Circular Cylinder</span></a></div>

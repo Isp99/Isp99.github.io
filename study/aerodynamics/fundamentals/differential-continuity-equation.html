@@ -123,7 +123,7 @@ body.inner-page .breadcrumb{font-size:16px}
 <li>이를 한쪽으로 정리하면 <strong>Integral Continuity Equation</strong>을 얻음.<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \frac{\partial}{\partial t}\iiint_{\mathcal V}\rho\,\mathrm d\mathcal V+\iint_S\rho\mathbf V\cdot\mathrm d\mathbf S=0}\]</div></li>
 <li>즉, 순유출 질량유량이 양수이면 CV 내부의 질량은 감소함.<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
  \frac{\mathrm dm_{CV}}{\mathrm dt}
- &=-\left(\sum\dot m_{\mathrm{out}}-\sum\dot m_{\mathrm{in}}\right)\\[0.6cm]
+ &=-\left(\sum\dot m_{\mathrm{out}}-\sum\dot m_{\mathrm{in}}\right)\\[2.0em]
  &=\sum\dot m_{\mathrm{in}}-\sum\dot m_{\mathrm{out}}
  \end{aligned}\]</div></li>
 <li>정상유동에서는 내부 질량이 변하지 않으므로<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\mathrm dm_{CV}}{\mathrm dt}=0\quad\Longrightarrow\quad\sum\dot m_{\mathrm{in}}=\sum\dot m_{\mathrm{out}}\]</div></li>
@@ -136,9 +136,9 @@ body.inner-page .breadcrumb{font-size:16px}
 <li>또한 CV가 공간에 고정되어 있으므로 시간미분을 체적적분 안으로 옮길 수 있음.<div class="equation" role="group" aria-label="Mathematical expression">\[\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho\,\mathrm d\mathcal V=\iiint_{\mathcal V}\frac{\partial\rho}{\partial t}\,\mathrm d\mathcal V\]</div></li>
 <li>두 관계를 Integral Continuity Equation에 대입하여 순서대로 정리하면<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
  \frac{\partial}{\partial t}\iiint_{\mathcal V}\rho\,\mathrm d\mathcal V+\iint_S\rho\mathbf V\cdot\mathrm d\mathbf S
- &=\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho\,\mathrm d\mathcal V+\iiint_{\mathcal V}\nabla\cdot(\rho\mathbf V)\,\mathrm d\mathcal V\\[0.6cm]
- &=\iiint_{\mathcal V}\frac{\partial\rho}{\partial t}\,\mathrm d\mathcal V+\iiint_{\mathcal V}\nabla\cdot(\rho\mathbf V)\,\mathrm d\mathcal V\\[0.6cm]
- &=\iiint_{\mathcal V}\left[\frac{\partial\rho}{\partial t}+\nabla\cdot(\rho\mathbf V)\right]\mathrm d\mathcal V\\[0.6cm]
+ &=\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho\,\mathrm d\mathcal V+\iiint_{\mathcal V}\nabla\cdot(\rho\mathbf V)\,\mathrm d\mathcal V\\[2.0em]
+ &=\iiint_{\mathcal V}\frac{\partial\rho}{\partial t}\,\mathrm d\mathcal V+\iiint_{\mathcal V}\nabla\cdot(\rho\mathbf V)\,\mathrm d\mathcal V\\[2.0em]
+ &=\iiint_{\mathcal V}\left[\frac{\partial\rho}{\partial t}+\nabla\cdot(\rho\mathbf V)\right]\mathrm d\mathcal V\\[2.0em]
  &=0
  \end{aligned}\]</div></li>
 <li>임의의 CV에 대해 성립하므로, 유동장이 매끄러운 위치에서는 적분 안의 항이 0이어야 함. 따라서 <strong>Differential Continuity Equation</strong>은<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \frac{\partial\rho}{\partial t}+\nabla\cdot(\rho\mathbf V)=0}\]</div></li>
@@ -153,7 +153,7 @@ body.inner-page .breadcrumb{font-size:16px}
 <li>따라서 연속방정식의 <strong>Material Form</strong>은<div class="equation key" id="material-form" role="group" aria-label="Material form of continuity">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \frac{\mathrm D\rho}{\mathrm D t}+\rho\nabla\cdot\mathbf V=0}\]</div></li>
 <li>미분형 연속방정식과 Material Form은 <strong>동일한 질량보존법칙을 서로 다른 관점에서 표현한 것</strong>임.
 <div class="equation" role="group" aria-label="Eulerian and material forms of continuity">\[\begin{gathered}
-\underbrace{\frac{\partial\rho}{\partial t}+\nabla\cdot(\rho\mathbf V)=0}_{\text{Eulerian Form}}\\[0.5cm]
+\underbrace{\frac{\partial\rho}{\partial t}+\nabla\cdot(\rho\mathbf V)=0}_{\text{Eulerian Form}}\\[2.0em]
 \underbrace{\frac{\mathrm D\rho}{\mathrm D t}+\rho\nabla\cdot\mathbf V=0}_{\text{Material Form}}
 \end{gathered}\]</div>
 <ul class="definitions">

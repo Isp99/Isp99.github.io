@@ -121,7 +121,7 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 </figure></li>
 <li>시간 \(\mathrm dt\) 동안 단면적 \(A\)를 통과하는 유체의 <strong>미소체적</strong> \(\mathrm d\mathcal V\)는<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d\mathcal V=(V_n\mathrm dt)A\]</div></li>
 <li>이때 유체의 밀도를 \(\rho\)라 하면, 통과하는 유체의 <strong>미소질량</strong> \(\mathrm dm\)은<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
-  \mathrm dm&=\rho\,\mathrm d\mathcal V\\[0.6cm]
+  \mathrm dm&=\rho\,\mathrm d\mathcal V\\[2.0em]
   &=\rho V_n A\,\mathrm dt
   \end{aligned}\]</div></li>
 <li>따라서 단위시간당 통과하는 질량인 <strong>Mass Flow Rate (질량유량)</strong>은<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle \dot m=\rho V_n A}\]</div></li>
@@ -134,13 +134,13 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 <li><strong>System</strong>은 동일한 유체입자들로 구성된 집합이며, <strong>Control Volume (CV)</strong>은 유동을 관찰하기 위해 설정한 공간 영역임. 여기서는 공간에 고정된 CV를 고려함.</li>
 <li>고정된 CV의 체적 영역을 \(\mathcal V\), 닫힌 경계면을 \(S\)로 나타냄. \(S\) 위에서 바깥쪽 면적벡터는<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm d\mathbf S=\mathbf n\,\mathrm dS=\mathbf n\,\mathrm dA\]</div></li>
 <li>단위질량당 물리량을 \(b\)라 하면, 밀도 \(\rho\)와 미소체적 \(\mathrm d\mathcal V\)를 갖는 유체의 <strong>미소 물리량</strong> \(\mathrm dB\)는<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
- \mathrm dB&=b\,\mathrm dm\\[0.6cm]
+ \mathrm dB&=b\,\mathrm dm\\[2.0em]
  &=\rho b\,\mathrm d\mathcal V
  \end{aligned}\]</div></li>
 <li>따라서 CV 내부에 포함된 <strong>전체 물리량</strong> \(B_{CV}\)는 미소 물리량을 CV 전체에 대해 적분하여 구할 수 있으며,<div class="equation" role="group" aria-label="Mathematical expression">\[B_{CV}=\iiint_{\mathcal V}\rho b\,\mathrm d\mathcal V\]</div></li>
 <li>미소시간 \(\mathrm dt\) 동안 미소면적 \(\mathrm dA\)를 통해 이동하는 유체가 운반하는 <strong>순유출 물리량</strong> \(\mathrm dB_{\mathrm{cross}}\)는<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
  \mathrm dB_{\mathrm{cross}}
- &=b\,\rho(V_n\mathrm dt)\mathrm dA\\[0.6cm]
+ &=b\,\rho(V_n\mathrm dt)\mathrm dA\\[2.0em]
  &=\rho b(\mathbf V\cdot\mathbf n)\mathrm dA\,\mathrm dt
  \end{aligned}\]</div></li>
 <li>이때 \(\mathbf V\cdot\mathbf n>0\)이면 유출, \(\mathbf V\cdot\mathbf n<0\)이면 유입을 의미함. 따라서 CS 전체를 통한 <strong>단위시간당 순유출량</strong>은<div class="equation" role="group" aria-label="Mathematical expression">\[\dot B_{\mathrm{net,out}}=\iint_S\rho b(\mathbf V\cdot\mathbf n)\mathrm dA\]</div></li>
@@ -157,7 +157,7 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 <li>따라서<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
  \frac{\mathrm dB_{\mathrm{sys}}}{\mathrm dt}
  &=\frac{\mathrm dB_{CV}}{\mathrm dt}
- +\frac{\mathrm dB_{\mathrm{out}}-\mathrm dB_{\mathrm{in}}}{\mathrm dt}\\[0.6cm]
+ +\frac{\mathrm dB_{\mathrm{out}}-\mathrm dB_{\mathrm{in}}}{\mathrm dt}\\[2.0em]
  &=\frac{\partial}{\partial t}\iiint_{\mathcal V}\rho b\,\mathrm d\mathcal V
  +\iint_S\rho b(\mathbf V\cdot\mathbf n)\mathrm dA
  \end{aligned}\]</div></li>

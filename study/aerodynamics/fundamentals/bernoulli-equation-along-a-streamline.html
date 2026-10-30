@@ -81,21 +81,21 @@ window.MathJax={loader:{load:['[tex]/bbox']},tex:{packages:{'[+]':['bbox']},inli
 <li>유체입자의 순간적인 이동 방향은 해당 위치의 속도 벡터와 일치하므로, 시간 \(\mathrm dt\) 동안의 미소변위는<div class="equation" role="group" aria-label="Mathematical expression">\[\mathrm dx=u\,\mathrm dt,\quad \mathrm dy=v\,\mathrm dt,\quad \mathrm dz=w\,\mathrm dt\quad\Longrightarrow\quad v\,\mathrm dx=u\,\mathrm dy,\quad w\,\mathrm dx=u\,\mathrm dz\]</div></li>
 <li>이는 특정 유체입자가 실제로 이동하는 경로를 나타냄. 따라서 위 관계를 Euler Equation에 대입하면, 공간상의 임의의 두 점이 아니라 <strong>유체입자의 이동 경로</strong>를 따라 방정식을 전개하게 됨. 정상유동에서는 이 경로가 <strong>Streamline</strong>과 일치함.</li>
 <li>위 관계를 \(x\)방향 Euler Equation의 좌변에 대입하고 <strong>Total Differential</strong>로 정리하면,<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
-\mathrm{LHS}&=u\frac{\partial u}{\partial x}\mathrm dx+u\frac{\partial u}{\partial y}\mathrm dy+u\frac{\partial u}{\partial z}\mathrm dz\\[1.4ex]
-&=u\left(\frac{\partial u}{\partial x}\mathrm dx+\frac{\partial u}{\partial y}\mathrm dy+\frac{\partial u}{\partial z}\mathrm dz\right)\\[1.4ex]
-&=u\,\mathrm du\\[1.4ex]
+\mathrm{LHS}&=u\frac{\partial u}{\partial x}\mathrm dx+u\frac{\partial u}{\partial y}\mathrm dy+u\frac{\partial u}{\partial z}\mathrm dz\\[2.0em]
+&=u\left(\frac{\partial u}{\partial x}\mathrm dx+\frac{\partial u}{\partial y}\mathrm dy+\frac{\partial u}{\partial z}\mathrm dz\right)\\[2.0em]
+&=u\,\mathrm du\\[2.0em]
 &=\mathrm d\left(\frac{u^2}{2}\right).
 \end{aligned}\]</div></li>
 <li>따라서 \(x\)방향 식은 다음과 같고, \(y,z\)방향에도 같은 계산을 적용하면,<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
-u\,\mathrm du&=-\frac1\rho\frac{\partial p}{\partial x}\mathrm dx,\\[1.4ex]
-v\,\mathrm dv&=-\frac1\rho\frac{\partial p}{\partial y}\mathrm dy,\\[1.4ex]
+u\,\mathrm du&=-\frac1\rho\frac{\partial p}{\partial x}\mathrm dx,\\[2.0em]
+v\,\mathrm dv&=-\frac1\rho\frac{\partial p}{\partial y}\mathrm dy,\\[2.0em]
 w\,\mathrm dw&=-\frac1\rho\frac{\partial p}{\partial z}\mathrm dz.
 \end{aligned}\]</div></li>
 <li>\(x,y,z\) 방향에서 유체입자가 경험하는 미소 속도변화를 모두 더하면 <strong>속력 변화</strong>와 <strong>압력 변화</strong> 사이의 관계는<div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
 u\,\mathrm du+v\,\mathrm dv+w\,\mathrm dw
-&=\frac12\mathrm d(u^2+v^2+w^2)\\[1.5ex]
-&=\mathrm d\left(\frac{V^2}{2}\right)\\[1.5ex]
-&=-\frac1\rho\left(\frac{\partial p}{\partial x}\mathrm dx+\frac{\partial p}{\partial y}\mathrm dy+\frac{\partial p}{\partial z}\mathrm dz\right)\\[1.5ex]
+&=\frac12\mathrm d(u^2+v^2+w^2)\\[2.0em]
+&=\mathrm d\left(\frac{V^2}{2}\right)\\[2.0em]
+&=-\frac1\rho\left(\frac{\partial p}{\partial x}\mathrm dx+\frac{\partial p}{\partial y}\mathrm dy+\frac{\partial p}{\partial z}\mathrm dz\right)\\[2.0em]
 &=-\frac{\mathrm dp}{\rho}.
 \end{aligned}\]</div></li>
 <li>따라서 <strong>Streamline Euler Equation</strong>을 얻음.<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle V\,\mathrm dV+\frac{\mathrm dp}{\rho}=0}\]</div></li>
@@ -104,7 +104,7 @@ u\,\mathrm du+v\,\mathrm dv+w\,\mathrm dw
 =\int_{V_1}^{V_2}V\,\mathrm dV+\int_1^2\mathrm d\left(\frac p\rho\right)+\int_1^2\frac p{\rho^2}\,\mathrm d\rho\]</div></li>
 <li>여기서 <strong>Streamline을 따라 밀도 \(\rho\)가 일정</strong>하다고 가정하면 \(\mathrm d\rho=0\)이므로<div class="equation" role="group" aria-label="Mathematical expression">\[\int_{V_1}^{V_2}V\,\mathrm dV+\int_1^2\frac{\mathrm dp}{\rho}
 =\int_{V_1}^{V_2}V\,\mathrm dV+\int_1^2\mathrm d\left(\frac p\rho\right)+\underbrace{\int_1^2\frac p{\rho^2}\,\mathrm d\rho}_{=0}\]</div><div class="equation" role="group" aria-label="Mathematical expression">\[\begin{aligned}
-\frac{V_2^2-V_1^2}{2}+\frac{p_2-p_1}{\rho}&=0,\\[1.5ex]
+\frac{V_2^2-V_1^2}{2}+\frac{p_2-p_1}{\rho}&=0,\\[2.0em]
 p_1+\frac12\rho V_1^2&=p_2+\frac12\rho V_2^2.
 \end{aligned}\]</div></li>
 <li>따라서 <strong>Bernoulli Equation</strong>은<div class="equation key" role="group" aria-label="Mathematical expression">\[\bbox[10pt,border:1px solid #172f51]{\displaystyle p+\frac12\rho V^2=C\qquad\text{along a streamline}}\]</div></li>
