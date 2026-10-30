@@ -74,76 +74,95 @@
   }
 
 
-  /* Fundamentals: KaTeX equation typography and quiet blue-tone cards. */
+  /* Fundamentals: compact, background-integrated equation ribbons. */
   body.inner-page .hero {
     display: grid;
-    grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 405px);
+    grid-template-rows: auto auto;
     align-items: center;
-    gap: 22px;
-    min-height: 278px;
-    padding: 32px 0 31px;
+    column-gap: 22px;
+    row-gap: 8px;
+    min-height: 0;
+    padding: 24px 0 20px;
     overflow: visible;
   }
   body.inner-page .hero-text {
     grid-column: 1;
     grid-row: 1;
     max-width: none;
+    align-self: center;
+    position: relative;
+  }
+  body.inner-page .hero > .hero-description {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    max-width: 765px;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.65;
+    color: #7c90ad;
   }
   body.inner-page .governing-equations {
     grid-column: 2;
     grid-row: 1;
+    width: 100%;
+    max-width: 405px;
+    min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    min-width: 0;
+    gap: 7px;
   }
   body.inner-page .equation-card {
     box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-width: 0;
-    min-height: 65px;
-    padding: 13px 12px;
-    border: 1px solid #dce7f5;
-    border-radius: 15px;
-    background: #eef4fc;
-    box-shadow: none;
+    height: 50px;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow-x: auto;
     overflow-y: hidden;
     scrollbar-width: thin;
+    background: transparent;
+    border: 1px solid #d7e4f4;
+    border-radius: 12px;
+    box-shadow: none;
   }
   body.inner-page .equation-tex {
     display: inline-block;
     flex-shrink: 0;
     white-space: nowrap;
-    color: #183b6b;
-    font-size: 15.5px;
-    line-height: 1.55;
+    color: #173a68;
+    font-size: 22px;
+    line-height: 1.5;
   }
-  body.inner-page .equation-card:nth-child(3) .equation-tex {
-    font-size: 14.6px;
-  }
-  body.inner-page .equation-tex .katex {
-    font-size: 1em;
-  }
+  body.inner-page .equation-card:nth-child(2) .equation-tex { font-size: 18.5px; }
+  body.inner-page .equation-card:nth-child(3) .equation-tex { font-size: 16.5px; }
+  body.inner-page .equation-tex .katex { font-size: 1em; }
   body.inner-page .equation-tex math {
     font-size: inherit;
     font-family: "Cambria Math", "STIX Two Math", serif;
   }
-  @media (max-width: 850px) {
+  @media (max-width: 860px) {
     body.inner-page .hero {
-      grid-template-columns: minmax(0,1fr);
-      row-gap: 22px;
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 16px;
+      padding: 28px 0 20px;
     }
     body.inner-page .hero-text { grid-column: 1; grid-row: 1; }
-    body.inner-page .governing-equations { grid-column: 1; grid-row: 2; }
-    body.inner-page .equation-card { min-height: 61px; justify-content: center; }
+    body.inner-page .hero > .hero-description {
+      grid-column: 1; grid-row: 2; max-width: 100%;
+    }
+    body.inner-page .governing-equations {
+      grid-column: 1; grid-row: 3; max-width: 100%;
+    }
   }
   @media (max-width: 520px) {
     body.inner-page .equation-card { justify-content: flex-start; }
-    body.inner-page .equation-tex { font-size: 15px; }
-    body.inner-page .equation-card:nth-child(3) .equation-tex { font-size: 14.4px; }
+    body.inner-page .equation-tex { font-size: 20px; }
+    body.inner-page .equation-card:nth-child(2) .equation-tex { font-size: 17px; }
+    body.inner-page .equation-card:nth-child(3) .equation-tex { font-size: 15px; }
+    body.inner-page .hero > .hero-description { font-size: 15px; }
   }
 
 </style>
@@ -165,15 +184,15 @@
 </nav>
 <div class="hero">
 <div class="governing-equations" aria-label="Conservation of mass, momentum, and total energy">
-<div class="equation-card" aria-label="Mass conservation"><span class="equation-tex" data-latex="\frac{\partial\rho}{\partial t}+\nabla\cdot(\rho\mathbf{V})=0"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mfrac linethickness="1"><mrow><mo>∂</mo><mi>ρ</mi></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mrow><mo>(</mo><mi>ρ</mi><mi mathvariant="bold">V</mi><mo>)</mo></mrow></mrow><mo>=</mo><mn>0</mn></mrow></math></span></div>
-<div class="equation-card" aria-label="Momentum conservation"><span class="equation-tex" data-latex="\frac{\partial(\rho\mathbf{V})}{\partial t}+\nabla\cdot(\rho\mathbf{V}\otimes\mathbf{V})=-\nabla p+\rho\mathbf{f}+\nabla\cdot\boldsymbol{\tau}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mfrac linethickness="1"><mrow><mo>∂</mo><mrow><mo>(</mo><mi>ρ</mi><mi mathvariant="bold">V</mi><mo>)</mo></mrow></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mrow><mo>(</mo><mi>ρ</mi><mi mathvariant="bold">V</mi><mo>⊗</mo><mi mathvariant="bold">V</mi><mo>)</mo></mrow></mrow><mo>=</mo><mo>−</mo><mo>∇</mo><mi>p</mi><mo>+</mo><mi>ρ</mi><mi mathvariant="bold">f</mi><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mi mathvariant="bold">τ</mi></mrow></mrow></math></span></div>
-<div class="equation-card" aria-label="Energy conservation"><span class="equation-tex" data-latex="\frac{\partial(\rho E)}{\partial t}+\nabla\cdot[(\rho E+p)\mathbf{V}]=\nabla\cdot\mathbf{W}_{\tau}-\nabla\cdot\mathbf{q}+\rho\mathbf{f}\cdot\mathbf{V}+\dot{q}_v"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mfrac linethickness="1"><mrow><mo>∂</mo><mrow><mo>(</mo><mi>ρ</mi><mi>E</mi><mo>)</mo></mrow></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mrow><mo>[</mo><mrow><mo>(</mo><mi>ρ</mi><mi>E</mi><mo>+</mo><mi>p</mi><mo>)</mo></mrow><mi mathvariant="bold">V</mi><mo>]</mo></mrow></mrow><mo>=</mo><mrow><mo>∇</mo><mo>⋅</mo><msub <mi>τ</mi>><mi mathvariant="bold">W</mi></msub></mrow><mo>−</mo><mrow><mo>∇</mo><mo>⋅</mo><mi mathvariant="bold">q</mi></mrow><mo>+</mo><mi>ρ</mi><mi mathvariant="bold">f</mi><mo>⋅</mo><mi mathvariant="bold">V</mi><mo>+</mo><msub <mi>v</mi>><mover <mo>˙</mo>><mi>q</mi></mover></msub></mrow></math></span></div>
+<div class="equation-card" aria-label="Mass conservation"><span class="equation-tex" data-latex="\frac{\partial\rho}{\partial t}+\nabla\cdot(\rho\mathbf{V})=0"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mfrac><mrow><mo>∂</mo><mi>ρ</mi></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mrow><mo>(</mo><mi>ρ</mi><mi mathvariant="bold">V</mi><mo>)</mo></mrow></mrow><mo>=</mo><mn>0</mn></mrow></math></span></div>
+<div class="equation-card" aria-label="Momentum conservation"><span class="equation-tex" data-latex="\frac{\partial(\rho\mathbf{V})}{\partial t}+\nabla\cdot(\rho\mathbf{V}\otimes\mathbf{V})=-\nabla p+\rho\mathbf{f}+\nabla\cdot\boldsymbol{\tau}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mfrac><mrow><mo>∂</mo><mrow><mo>(</mo><mi>ρ</mi><mi mathvariant="bold">V</mi><mo>)</mo></mrow></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mrow><mo>(</mo><mi>ρ</mi><mi mathvariant="bold">V</mi><mo>⊗</mo><mi mathvariant="bold">V</mi><mo>)</mo></mrow></mrow><mo>=</mo><mo>−</mo><mo>∇</mo><mi>p</mi><mo>+</mo><mi>ρ</mi><mi mathvariant="bold">f</mi><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mi mathvariant="bold">τ</mi></mrow></mrow></math></span></div>
+<div class="equation-card" aria-label="Energy conservation"><span class="equation-tex" data-latex="\frac{\partial(\rho E)}{\partial t}+\nabla\cdot[(\rho E+p)\mathbf{V}]=\nabla\cdot\mathbf{W}_{\tau}-\nabla\cdot\mathbf{q}+\rho\mathbf{f}\cdot\mathbf{V}+\dot{q}_v"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mfrac><mrow><mo>∂</mo><mrow><mo>(</mo><mi>ρ</mi><mi>E</mi><mo>)</mo></mrow></mrow><mrow><mo>∂</mo><mi>t</mi></mrow></mfrac><mo>+</mo><mrow><mo>∇</mo><mo>⋅</mo><mrow><mo>[</mo><mrow><mo>(</mo><mi>ρ</mi><mi>E</mi><mo>+</mo><mi>p</mi><mo>)</mo></mrow><mi mathvariant="bold">V</mi><mo>]</mo></mrow></mrow><mo>=</mo><mrow><mo>∇</mo><mo>⋅</mo><msub><mi mathvariant="bold">W</mi><mi>τ</mi></msub></mrow><mo>−</mo><mrow><mo>∇</mo><mo>⋅</mo><mi mathvariant="bold">q</mi></mrow><mo>+</mo><mi>ρ</mi><mi mathvariant="bold">f</mi><mo>⋅</mo><mi mathvariant="bold">V</mi><mo>+</mo><msub><mover accent="true"><mi>q</mi><mo>˙</mo></mover><mi>v</mi></msub></mrow></math></span></div>
 </div>
 <div class="hero-text">
 <h1>Fundamentals</h1>
 <p class="hero-subtitle">Foundations of Aerodynamics</p>
-<p class="hero-description">Core concepts and governing principles that form the basis of aerodynamics, including flow description, conservation laws, and the fundamental equations for fluid motion.</p>
 </div>
+<p class="hero-description">Core concepts and governing principles that form the basis of aerodynamics, including flow description, conservation laws, and the fundamental equations for fluid motion.</p>
 </div>
 <div class="contents-header"><h2>Study Contents</h2><span class="count">08 CHAPTERS · 20 ARTICLES</span></div>
 <section aria-labelledby="chapter-title-1" class="chapter" id="chapter-1">
@@ -439,14 +458,35 @@
 <footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Aerodynamics</span></div></footer>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  if (!window.katex) return; // Original MathML remains visible if the CDN is unavailable.
-  document.querySelectorAll(".equation-tex").forEach(function (element) {
-    katex.render(element.dataset.latex, element, {
-      displayMode: false,
-      throwOnError: false,
-      output: "htmlAndMathml"
+  const equations = document.querySelectorAll(".equation-tex");
+  if (window.katex) {
+    equations.forEach(function (element) {
+      katex.render(element.dataset.latex, element, {
+        displayMode: false,
+        throwOnError: false,
+        output: "htmlAndMathml"
+      });
     });
-  });
+  }
+  function fitEquations() {
+    equations.forEach(function (element) {
+      element.style.fontSize = "";
+      const card = element.closest(".equation-card");
+      if (!card) return;
+      const style = getComputedStyle(card);
+      const available = card.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight) - 4;
+      const actual = element.getBoundingClientRect().width;
+      if (actual > available && available > 0) {
+        const size = parseFloat(getComputedStyle(element).fontSize);
+        element.style.fontSize = (size * available / actual).toFixed(2) + "px";
+      }
+    });
+  }
+  fitEquations();
+  window.addEventListener("resize", fitEquations);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(fitEquations);
+  }
 });
 </script>
 </body>
