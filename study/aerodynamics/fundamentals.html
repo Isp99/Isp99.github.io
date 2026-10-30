@@ -77,7 +77,7 @@
   /* Fundamentals hero: soft-gradient equation cards with accent icons. */
   body.inner-page .hero {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 630px);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 470px);
     grid-template-rows: auto auto;
     align-items: center;
     column-gap: 18px;
@@ -103,9 +103,10 @@
     border-radius: 5px;
   }
   body.inner-page .hero > .hero-description {
-    grid-column: 1 / -1;
+    grid-column: 1;
     grid-row: 2;
-    max-width: 710px;
+    max-width: 100%;
+    align-self: start;
     margin: 0;
     font-size: 16px;
     line-height: 1.65;
@@ -113,17 +114,20 @@
   }
   body.inner-page .governing-equations {
     grid-column: 2;
-    grid-row: 1;
+    grid-row: 1 / span 2;
     position: relative;
     isolation: isolate;
     width: 100%;
-    max-width: 630px;
+    max-width: 470px;
     min-width: 0;
     margin-top: 30px;
     align-self: center;
     display: flex;
     flex-direction: column;
     gap: 8px;
+  }
+  @media (max-width: 860px) {
+    body.inner-page .hero-description-break { display: none; }
   }
   body.inner-page .governing-equations::before {
     content: "";
@@ -239,7 +243,7 @@
 <h1>Fundamentals</h1>
 <p class="hero-subtitle">Foundations of Aerodynamics</p>
 </div>
-<p class="hero-description">Basic principles of fluid motion, including conservation laws, vorticity, potential flow, and aerodynamic forces.</p>
+<p class="hero-description">Basic principles of fluid motion, including conservation laws,<br class="hero-description-break"> vorticity, potential flow, and aerodynamic forces.</p>
 </div>
 <div class="contents-header"><h2>Study Contents</h2><span class="count">08 CHAPTERS · 20 ARTICLES</span></div>
 <section aria-labelledby="chapter-title-1" class="chapter" id="chapter-1">
