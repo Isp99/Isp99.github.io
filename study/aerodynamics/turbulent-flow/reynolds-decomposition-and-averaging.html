@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Reynolds Decomposition and Averaging — Engineering Notebook">
+<title>Reynolds Decomposition and Averaging | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav>
+</div></header>
+<main class="shell tl-page">
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="../../../index.html">Home</a><span class="separator">›</span>
+  <a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span>
+  <a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
+  <a href="../turbulent-flow.html">Turbulent Flow</a><span class="separator">›</span>
+  <strong>Reynolds Decomposition and Averaging</strong>
+</nav>
+<div class="hero"><div class="hero-text">
+  <div class="eyebrow">TURBULENT FLOW / 2.1</div>
+  <h1>Reynolds Decomposition and Averaging</h1>
+  <p class="hero-subtitle">Reynolds-Averaged Governing Equations</p>
+  <p class="hero-description">Mean and fluctuating components, time and ensemble averaging, and the averaged continuity equation.</p>
+</div></div>
+<article class="article-content">
+  <div class="lesson-meta"><span>02 / Reynolds-Averaged Governing Equations</span><span>Study Notes · 2.1</span></div>
+  <nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong>
+    <ul>
+      <li><a href="#section-1">01 · Reasons for Reynolds Decomposition</a></li>
+      <li><a href="#section-2">02 · Time Averaging and Ensemble Averaging</a></li>
+      <li><a href="#section-3">03 · Mean Value of the Fluctuating Component</a></li>
+      <li><a href="#section-4">04 · Averaging Rules Used in the Derivation</a></li>
+      <li><a href="#section-5">05 · Decomposition to the Continuity Equation</a></li>
+    </ul>
+  </nav>
+  <section class="lesson-section" id="section-1"><h2><span class="section-tag">01</span>Reasons for Reynolds Decomposition</h2>
+    <ul class="study-points">
+      <li><span class="point-text"><strong>Turbulent Flow</strong>에서는 속도와 압력이 시간과 공간에 따라 불규칙하게 변동(<strong>Fluctuation</strong>)함. 이러한 난류 변동을 모두 직접 해상하려면 매우 높은 계산비용이 요구됨.</span></li>
+      <li><span class="point-text">따라서 순간적인 유동을 직접 계산하는 <strong>Direct Numerical Simulation (DNS)</strong> 대신, 유동의 평균적인 거동을 해석하는 <strong>Reynolds-Averaged Navier–Stokes (RANS)</strong> 방법을 주로 사용함.</span></li>
+      <li><span class="point-text">즉, DNS는 순간속도 \(U_i\)를 직접 계산하고, RANS는 평균속도 \(\overline{U_i}\)를 주요 미지수로 계산하는 방법임.</span></li>
+      <li><span class="point-text">이를 위해 순간속도를 <strong>평균속도(Mean Velocity)</strong>와 <strong>변동속도(Velocity Fluctuation)</strong>로 분리하며, 이를 <strong>Reynolds Decomposition</strong>이라고 함.</span></li>
+      <li><span class="point-text">본 교재에서는 순간속도를 \(U_i\), 평균속도를 \(\overline{U_i}\), 변동속도를 \(u_i\)로 표기함.</span>
+        <div class="equation key" role="group" aria-label="Reynolds decomposition">\[U_i(\mathbf x,t)=\overline{U_i}(\mathbf x,t)+u_i(\mathbf x,t).\]</div>
+      </li>
+    </ul>
+  </section>
+  <section class="lesson-section" id="section-2"><h2><span class="section-tag">02</span>Time Averaging and Ensemble Averaging</h2>
+    <ul class="study-points">
+      <li><span class="point-text">난류의 불규칙한 변동과 평균유동 자체의 시간적 변화를 구분하기 위해 다음 두 가지 평균을 정의함.</span>
+        <ul class="nested-points">
+          <li><span class="point-text"><strong>Time Averaging</strong>: 하나의 유동에서 서로 다른 시각에 얻은 값을 평균함.</span></li>
+          <li><span class="point-text"><strong>Ensemble Averaging</strong>: 동일한 시각에서 얻은 여러 유동의 값을 평균함.</span></li>
+        </ul>
+      </li>
+      <li><span class="point-text"><strong>Time Averaging</strong>은 한 위치에서 시간에 따라 변하는 순간속도를 충분히 긴 시간 동안 평균하는 방법임.</span>
+        <div class="equation key" role="group" aria-label="Time averaging">\[\overline{U_i}(\mathbf x)=\lim_{T\to\infty}\frac{1}{T}\int_{t_0}^{t_0+T}U_i(\mathbf x,t)\,\mathrm dt.\]</div>
+      </li>
+      <li><span class="point-text"><strong>Ensemble Averaging</strong>은 동일한 시점에서 얻은 여러 유동의 순간속도를 평균하는 방법임.</span>
+        <div class="equation key" role="group" aria-label="Ensemble averaging">\[\overline{U_i}(\mathbf x,t)=\lim_{N\to\infty}\frac{1}{N}\sum_{n=1}^{N}U_i^{(n)}(\mathbf x,t).\]</div>
+      </li>
+      <li><span class="point-text">위 두 식은 평균의 <strong>수학적 정의</strong>이며, 실제 RANS 계산에서 매 순간 여러 DNS 해석을 수행해 평균한다는 의미는 아님.</span></li>
+      <li><span class="point-text">다음과 같이 평균유동이 주기적으로 변화하고 그 주변에 난류 변동이 존재하는 예시를 생각함.</span>
+        <div class="equation" role="group" aria-label="Fluctuating flow example">\[U^{(n)}(t)=\underbrace{10+2\sin(2\pi t)}_{\text{Mean Flow}}+\underbrace{u^{(n)}(t)}_{\text{Turbulent Fluctuation}}.\]</div>
+        <ul class="nested-points">
+          <li><span class="point-text">\(2\sin(2\pi t)\): 평균유동 자체의 주기적인 시간 변화.</span></li>
+          <li><span class="point-text">\(u^{(n)}(t)\): 평균속도 주변의 불규칙한 난류 변동.</span></li>
+        </ul>
+      </li>
+      <li><span class="point-text"><strong>Time Averaging</strong>: 이 예시에서 충분히 긴 시간 동안 평균하면, 난류 변동과 평균유동의 주기적인 변화가 모두 제거되어 상수 평균값만 남음. (변동의 장시간 평균이 0이라고 가정)</span>
+        <div class="equation" role="group" aria-label="Time averaged example">\[\overline{U}^{\,T}=\lim_{T\to\infty}\frac{1}{T}\int_0^T U^{(n)}(t)\,\mathrm dt=10.\]</div>
+      </li>
+      <li><span class="point-text"><strong>Ensemble Averaging</strong>: 동일한 시각에서 여러 유동을 평균하므로 난류 변동은 제거되지만, 평균유동의 시간적 변화는 유지됨.</span>
+        <div class="equation" role="group" aria-label="Ensemble averaged example">\[\overline{U}^{\,E}(t)=\lim_{N\to\infty}\frac{1}{N}\sum_{n=1}^{N}U^{(n)}(t)=10+2\sin(2\pi t).\]</div>
+      </li>
+      <li><span class="point-text">이후 RANS 유도에서는 <strong>평균장이 시간에 따라 변하는 경우</strong>도 포함함.</span></li>
+    </ul>
+  </section>
+  <section class="lesson-section" id="section-3"><h2><span class="section-tag">03</span>Mean Value of the Fluctuating Component</h2>
+    <ul class="study-points">
+      <li><span class="point-text">Reynolds Decomposition의 양변에 평균을 취하면 다음과 같음.</span>
+        <div class="equation" role="group" aria-label="Average of Reynolds decomposition">\[\begin{aligned}
+\overline{U_i}
+&=\overline{\overline{U_i}+u_i},\\[1.2em]
+&=\overline{\overline{U_i}}+\overline{u_i},\\[1.2em]
+&=\overline{U_i}+\overline{u_i}.
+\end{aligned}\]</div>
+      </li>
+      <li><span class="point-text">평균장을 다시 평균하면 같은 평균장이므로 \(\overline{\overline{U_i}}=\overline{U_i}\)를 사용함. 양변에서 \(\overline{U_i}\)를 빼면</span>
+        <div class="equation key" role="group" aria-label="Zero mean fluctuation">\[\overline{u_i}=0.\]</div>
+      </li>
+      <li><span class="point-text">즉, <strong>Velocity Fluctuation의 평균은 0</strong>임. 이는 매 순간의 변동속도가 0이라는 뜻이 아니라, 평균값에 대한 양의 편차와 음의 편차를 평균하면 0이 된다는 뜻임.</span></li>
+      <li><span class="point-text">압력도 동일하게 순간 압력 \(P\), 평균 압력 \(\overline{P}\), 압력 변동 \(p\)로 분리할 수 있음.</span>
+        <div class="equation key" role="group" aria-label="Pressure decomposition">\[P=\overline{P}+p,\qquad \overline{p}=0.\]</div>
+      </li>
+    </ul>
+  </section>
+  <section class="lesson-section" id="section-4"><h2><span class="section-tag">04</span>Averaging Rules Used in the Derivation</h2>
+    <ul class="study-points">
+      <li><span class="point-text">평균이 충분히 정의되고 평균 연산과 미분을 교환할 수 있는 유동장을 가정함. 평균 연산은 선형이므로 물리량 \(f\), \(g\)와 상수 \(a\), \(b\)에 대하여</span>
+        <div class="equation" role="group" aria-label="Linearity of averaging">\[\overline{af+bg}=a\overline f+b\overline g.\]</div>
+      </li>
+      <li><span class="point-text">평균과 미분을 교환할 수 있는 조건에서는</span>
+        <div class="equation" role="group" aria-label="Interchange of averaging and derivatives">\[\overline{\frac{\partial f}{\partial t}}=\frac{\partial\overline f}{\partial t},\qquad
+\overline{\frac{\partial f}{\partial x_j}}=\frac{\partial\overline f}{\partial x_j}.\]</div>
+      </li>
+      <li><span class="point-text">평균 성분은 평균 연산 밖으로 꺼낼 수 있으므로, 평균속도와 변동속도의 곱을 평균하면</span>
+        <div class="equation" role="group" aria-label="Product of mean velocity and fluctuation">\[\overline{\overline{U_i}u_j}=\overline{U_i}\,\overline{u_j}=\overline{U_i}\cdot0=0.\]</div>
+      </li>
+      <li><span class="point-text">그러나 두 Velocity Fluctuation의 곱 \(\overline{u_i u_j}\)는 일반적으로 0이 아님.</span></li>
+      <li><span class="point-text">특히 \(\overline{u_i^2}\)는 해당 속도성분의 변동 세기를 나타내며, 제곱의 평균이므로 음수가 될 수 없음. 이 항은 이후 Reynolds Stress에서 다시 다룸.</span></li>
+    </ul>
+  </section>
+  <section class="lesson-section" id="section-5"><h2><span class="section-tag">05</span>Decomposition to the Continuity Equation</h2>
+    <ul class="study-points">
+      <li><span class="point-text">비압축성 유동에서 순간속도는 다음 연속방정식을 만족함.</span>
+        <div class="equation key" role="group" aria-label="Instantaneous incompressible continuity">\[\frac{\partial U_i}{\partial x_i}=0.\]</div>
+      </li>
+      <li><span class="point-text">이 식에 평균을 취하고 \(\overline{u_i}=0\)을 사용하면</span>
+        <div class="equation" role="group" aria-label="Averaged continuity derivation">\[\begin{aligned}
+\overline{\frac{\partial U_i}{\partial x_i}}
+&=\frac{\partial\overline{U_i}}{\partial x_i}+\frac{\partial\overline{u_i}}{\partial x_i},\\[1.2em]
+&=\frac{\partial\overline{U_i}}{\partial x_i}=0.
+\end{aligned}\]</div>
+        <div class="equation key" role="group" aria-label="Mean continuity equation">\[\therefore\quad \frac{\partial\overline{U_i}}{\partial x_i}=0.\]</div>
+      </li>
+      <li><span class="point-text">따라서 순간속도장이 연속방정식을 만족하면 <strong>Mean Velocity 역시 동일한 형태의 비압축성 연속방정식</strong>을 만족함.</span></li>
+      <li><span class="point-text">변동속도는 순간속도와 평균속도의 차이이므로</span>
+        <div class="equation" role="group" aria-label="Fluctuation continuity derivation">\[\begin{aligned}
+\frac{\partial u_i}{\partial x_i}
+&=\frac{\partial}{\partial x_i}\left(U_i-\overline{U_i}\right),\\[1.2em]
+&=\underbrace{\frac{\partial U_i}{\partial x_i}}_{0}-\underbrace{\frac{\partial\overline{U_i}}{\partial x_i}}_{0}=0.
+\end{aligned}\]</div>
+        <div class="equation key" role="group" aria-label="Fluctuating continuity equation">\[\therefore\quad \frac{\partial u_i}{\partial x_i}=0.\]</div>
+      </li>
+      <li><span class="point-text"><strong>Velocity Fluctuation 또한 비압축성 연속방정식을 만족</strong>함.</span></li>
+    </ul>
+  </section>
+</article>
+<div class="article-pager">
+  <a class="prev" href="index-notation-and-einstein-notation.html">
+    <span class="direction">← PREVIOUS</span><span class="adjacent">Index Notation and Einstein Notation</span>
+  </a>
+</div>
+<a class="back-bottom" href="../turbulent-flow.html">← Back to Turbulent Flow</a>
+</main>
+<footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Reynolds-Averaged Governing Equations</span></div></footer>
+<script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
+</body></html>
