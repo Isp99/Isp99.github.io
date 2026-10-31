@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Reynolds-Averaged Navier–Stokes Equations — Engineering Notebook">
+<title>Reynolds-Averaged Navier–Stokes Equations | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+}
+.tl-page .note-box{border:1px solid #b9cce9;border-radius:11px;background:#f5f8ff;padding:22px 25px;margin:37px 0 42px}
+.tl-page .note-title{font-weight:800;color:#234f88;font-size:16px;margin-bottom:15px}
+.tl-page .note-box .study-points>li{font-size:14px;margin-bottom:17px}
+.tl-page .note-box .equation{margin:21px 0 25px;font-size:15px}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){.tl-page .note-box{padding:17px 14px}.tl-page .note-box .equation{font-size:13px}}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav>
+</div></header>
+<main class="shell tl-page">
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="../../../index.html">Home</a><span class="separator">›</span>
+  <a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span>
+  <a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
+  <a href="../turbulent-flow.html">Turbulent Flow</a><span class="separator">›</span>
+  <strong>Reynolds-Averaged Navier–Stokes Equations</strong>
+</nav>
+<div class="hero"><div class="hero-text">
+  <div class="eyebrow">TURBULENT FLOW / 2.2</div>
+  <h1>Reynolds-Averaged Navier–Stokes Equations</h1>
+  <p class="hero-subtitle">Reynolds-Averaged Governing Equations</p>
+  <p class="hero-description">Derivation of incompressible RANS, term-by-term Reynolds averaging, and turbulent momentum transport.</p>
+</div></div>
+<article class="article-content"><div class="lesson-meta"><span>02 / Reynolds-Averaged Governing Equations</span><span>Study Notes · 2.2</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#section-1">01 · Starting Equations and Assumptions</a></li><li><a href="#section-2">02 · 1. Unsteady Term</a></li><li><a href="#section-3">03 · 2. Pressure Gradient Term</a></li><li><a href="#section-4">04 · 3. Viscous Term</a></li><li><a href="#section-5">05 · 4. Convective Term</a></li><li><a href="#section-6">06 · Averaged Momentum Equation</a></li></ul></nav>
+<section class="lesson-section" id="section-1"><h2><span class="section-tag">01</span>Starting Equations and Assumptions</h2>
+<ul class="study-points">
+<li><span class="point-text">평균속도와 평균압력을 계산하려면 순간 운동량방정식을 평균변수의 방정식으로 바꾸어야 함. 이를 위해 <strong>Reynolds Decomposition</strong>을 대입한 뒤 각 항에 평균을 취함.</span></li>
+<li><span class="point-text">상수 밀도 \(\rho\)와 상수 점성계수 \(\mu\)를 갖는 비압축성 <strong>Newtonian Flow</strong>를 고려하며, Body Force는 무시함. 순간 운동량방정식은</span><div class="equation" role="group" aria-label="Mathematical equation">\[\rho\left(\frac{\partial U_i}{\partial t}+U_j\frac{\partial U_i}{\partial x_j}\right)=-\frac{\partial P}{\partial x_i}+\mu\frac{\partial^2U_i}{\partial x_j\partial x_j}.\]</div></li>
+<li><span class="point-text">대류항에 <strong>Product Rule</strong>을 적용하고 비압축성 <strong>Continuity Equation</strong> \(\partial U_j/\partial x_j=0\)을 사용하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+U_j\frac{\partial U_i}{\partial x_j}
+&amp;=\frac{\partial}{\partial x_j}(U_iU_j)-U_i\frac{\partial U_j}{\partial x_j},\\[1.5em]
+&amp;=\frac{\partial}{\partial x_j}(U_iU_j).
+\end{aligned}\]</div></li>
+<li><span class="point-text">따라서 순간 운동량방정식을 다음 <strong>Conservative Form</strong>으로 나타낼 수 있음.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\rho\left[\frac{\partial U_i}{\partial t}+\frac{\partial}{\partial x_j}(U_iU_j)\right]=-\frac{\partial P}{\partial x_i}+\mu\frac{\partial^2U_i}{\partial x_j\partial x_j}.\]</div></li>
+<li><span class="point-text">이제 속도와 압력을 평균성분과 변동성분으로 분리하고, 위 방정식의 네 항을 차례로 평균함.</span><div class="equation" role="group" aria-label="Mathematical equation">\[U_i=\overline{U_i}+u_i,\qquad U_j=\overline{U_j}+u_j,\qquad P=\overline P+p.\]</div><div class="equation" role="group" aria-label="Mathematical equation">\[\overline{u_i}=0,\qquad\overline{u_j}=0,\qquad\overline p=0.\]</div></li>
+</ul></section>
+<section class="lesson-section" id="section-2"><h2><span class="section-tag">02</span>1. Unsteady Term</h2>
+<ul class="study-points">
+<li><span class="point-text">시간 미분항에 Reynolds Decomposition을 대입하고 평균하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\overline{\frac{\partial U_i}{\partial t}}
+&amp;=\overline{\frac{\partial}{\partial t}\left(\overline{U_i}+u_i\right)},\\[1.5em]
+&amp;=\overline{\frac{\partial\overline{U_i}}{\partial t}+\frac{\partial u_i}{\partial t}},\\[1.5em]
+&amp;=\frac{\partial\overline{U_i}}{\partial t}+\frac{\partial\overline{u_i}}{\partial t},\\[1.5em]
+&amp;=\frac{\partial\overline{U_i}}{\partial t}.
+\end{aligned}\]</div></li>
+<li><span class="point-text">Velocity Fluctuation의 평균은 0이므로 평균속도의 시간 미분만 남음.</span></li>
+</ul></section>
+<section class="lesson-section" id="section-3"><h2><span class="section-tag">03</span>2. Pressure Gradient Term</h2>
+<ul class="study-points">
+<li><span class="point-text">압력도 \(P=\overline P+p\)로 나누고 평균을 취하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\overline{-\frac{\partial P}{\partial x_i}}
+&amp;=-\overline{\frac{\partial}{\partial x_i}\left(\overline P+p\right)},\\[1.5em]
+&amp;=-\left(\frac{\partial\overline P}{\partial x_i}+\frac{\partial\overline p}{\partial x_i}\right),\\[1.5em]
+&amp;=-\frac{\partial\overline P}{\partial x_i}.
+\end{aligned}\]</div></li>
+<li><span class="point-text">\(\overline p=0\)이므로 Pressure Fluctuation 항은 사라지고 Mean Pressure Gradient만 남음.</span></li>
+</ul></section>
+<section class="lesson-section" id="section-4"><h2><span class="section-tag">04</span>3. Viscous Term</h2>
+<ul class="study-points">
+<li><span class="point-text">점성계수 \(\mu\)가 상수이므로 평균 연산 밖으로 꺼낼 수 있음. Reynolds Decomposition을 대입하고 평균하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\overline{\mu\frac{\partial^2U_i}{\partial x_j\partial x_j}}
+&amp;=\mu\overline{\frac{\partial^2}{\partial x_j\partial x_j}\left(\overline{U_i}+u_i\right)},\\[1.5em]
+&amp;=\mu\left(\frac{\partial^2\overline{U_i}}{\partial x_j\partial x_j}+\frac{\partial^2\overline{u_i}}{\partial x_j\partial x_j}\right),\\[1.5em]
+&amp;=\mu\frac{\partial^2\overline{U_i}}{\partial x_j\partial x_j}.
+\end{aligned}\]</div></li>
+<li><span class="point-text">\(\overline{u_i}=0\)이므로 평균속도의 점성 확산항만 남음.</span></li>
+</ul></section>
+<section class="lesson-section" id="section-5"><h2><span class="section-tag">05</span>4. Convective Term</h2>
+<ul class="study-points">
+<li><span class="point-text">대류항에는 순간속도의 곱 \(U_iU_j\)가 포함되므로, 각각의 평균속도만으로 정리되지 않음. 먼저 순간속도의 곱에 Reynolds Decomposition을 적용하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+U_iU_j
+&amp;=(\overline{U_i}+u_i)(\overline{U_j}+u_j),\\[1.5em]
+&amp;=\overline{U_i}\,\overline{U_j}+\overline{U_i}u_j+u_i\overline{U_j}+u_iu_j.
+\end{aligned}\]</div></li>
+<li><span class="point-text">양변에 평균을 취하고 전개하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\overline{U_iU_j}
+&amp;=\overline{\overline{U_i}\,\overline{U_j}+\overline{U_i}u_j+u_i\overline{U_j}+u_iu_j},\\[1.5em]
+&amp;=\overline{U_i}\,\overline{U_j}+\overline{U_i}\,\overline{u_j}+\overline{u_i}\,\overline{U_j}+\overline{u_iu_j},\\[1.5em]
+&amp;=\overline{U_i}\,\overline{U_j}+\overline{u_iu_j}.
+\end{aligned}\]</div></li>
+<li><span class="point-text">순간속도의 곱에 평균을 취하면 <strong>두 Velocity Fluctuation의 곱의 평균</strong> \(\overline{u_iu_j}\)가 남음. 각각의 변동속도 평균이 0이더라도 곱의 평균은 0일 필요가 없음.</span></li>
+<li><span class="point-text">이를 보존형 대류항에 대입하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\overline{\frac{\partial}{\partial x_j}(U_iU_j)}
+&amp;=\frac{\partial}{\partial x_j}\left(\overline{U_iU_j}\right),\\[1.5em]
+&amp;=\frac{\partial}{\partial x_j}\left(\overline{U_i}\,\overline{U_j}+\overline{u_iu_j}\right),\\[1.5em]
+&amp;=\frac{\partial}{\partial x_j}\left(\overline{U_i}\,\overline{U_j}\right)+\frac{\partial\overline{u_iu_j}}{\partial x_j}.
+\end{aligned}\]</div></li>
+<li><span class="point-text"><strong>Convection Term</strong>은 유체의 이동에 의한 운동량 수송을 나타냄. 평균을 취하면 평균유동에 의한 운동량 수송 외에 <strong>Velocity Fluctuation의 상관항</strong>이 별도로 나타남.</span></li>
+<li><span class="point-text">이는 난류 변동이 평균유동에 더해 추가적인 운동량 수송에 기여한다는 의미임.</span><div class="note-box" role="note"><div class="note-title">Note. Physical Meaning of the Convection Term</div><ul class="study-points">
+<li><span class="point-text">평균유동의 Convection Term에 비압축성 연속방정식을 적용하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\frac{\partial}{\partial x_j}\left(\overline{U_i}\,\overline{U_j}\right)
+&amp;=\overline{U_j}\frac{\partial\overline{U_i}}{\partial x_j},\\[1.5em]
+&amp;=\overline{U_x}\frac{\partial\overline{U_x}}{\partial x}+\overline{U_y}\frac{\partial\overline{U_x}}{\partial y}+\overline{U_z}\frac{\partial\overline{U_x}}{\partial z}\qquad(i=1).
+\end{aligned}\]</div></li>
+<li><span class="point-text">즉, \(\overline{U_i}\,\overline{U_j}\)는 <strong>\(i\)방향 운동량이 \(j\)방향으로 수송되는 평균 대류 플럭스(밀도 제외)</strong>를 나타내며, \(\partial(\overline{U_i}\,\overline{U_j})/\partial x_j\)는 그 플럭스의 <strong>발산(Divergence)</strong>을 의미함. \(j\)는 세 방향에 대해 합산되는 Dummy Index임.</span></li>
+</ul></div></li>
+</ul></section>
+<section class="lesson-section" id="section-6"><h2><span class="section-tag">06</span>Averaged Momentum Equation</h2>
+<ul class="study-points">
+<li><span class="point-text">앞에서 구한 Unsteady Term, Convective Term, Pressure Gradient Term, Viscous Term을 모두 대입하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\rho\left[\frac{\partial U_i}{\partial t}+\frac{\partial}{\partial x_j}(U_iU_j)\right]=-\frac{\partial P}{\partial x_i}+\mu\frac{\partial^2U_i}{\partial x_j\partial x_j}.\]</div><div class="derivation-arrow" aria-label="Reynolds Decomposition and Averaging">\(\Downarrow\)<span>Reynolds Decomposition and Averaging</span></div><div class="equation" role="group" aria-label="Mathematical equation">\[\rho\left[\frac{\partial\overline{U_i}}{\partial t}+\frac{\partial}{\partial x_j}\left(\overline{U_i}\,\overline{U_j}\right)+\frac{\partial\overline{u_iu_j}}{\partial x_j}\right]=-\frac{\partial\overline P}{\partial x_i}+\mu\frac{\partial^2\overline{U_i}}{\partial x_j\partial x_j}.\]</div></li>
+<li><span class="point-text">Velocity Fluctuation의 상관항을 우변으로 옮기면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\rho\left[\frac{\partial\overline{U_i}}{\partial t}+\frac{\partial}{\partial x_j}\left(\overline{U_i}\,\overline{U_j}\right)\right]=-\frac{\partial\overline P}{\partial x_i}+\mu\frac{\partial^2\overline{U_i}}{\partial x_j\partial x_j}-\rho\frac{\partial\overline{u_iu_j}}{\partial x_j}.\]</div></li>
+<li><span class="point-text">평균속도도 연속방정식 \(\partial\overline{U_j}/\partial x_j=0\)을 만족하므로 평균 대류항은</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\frac{\partial}{\partial x_j}\left(\overline{U_i}\,\overline{U_j}\right)
+&amp;=\overline{U_j}\frac{\partial\overline{U_i}}{\partial x_j}+\overline{U_i}\frac{\partial\overline{U_j}}{\partial x_j},\\[1.5em]
+&amp;=\overline{U_j}\frac{\partial\overline{U_i}}{\partial x_j}.
+\end{aligned}\]</div></li>
+<li><span class="point-text">따라서 비압축성 유동의 <strong>Reynolds-Averaged Navier–Stokes (RANS) Equation</strong>은</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\rho\left(\frac{\partial\overline{U_i}}{\partial t}+\overline{U_j}\frac{\partial\overline{U_i}}{\partial x_j}\right)=-\frac{\partial\overline P}{\partial x_i}+\mu\frac{\partial^2\overline{U_i}}{\partial x_j\partial x_j}-\rho\frac{\partial\overline{u_iu_j}}{\partial x_j}.\]</div></li>
+<li><span class="point-text">기존 Momentum Equation과 비교하면 <strong>Reynolds Decomposition과 Averaging</strong>을 적용하는 과정에서 난류의 Velocity Fluctuation에 의한 <strong>추가적인 운동량 수송항</strong>이 나타남.</span></li>
+<li><span class="point-text">이 항은 변동속도 성분 사이의 상관관계 \(\overline{u_iu_j}\)에서 유래하며, 평균유동 외에 난류 변동이 운동량 수송에 기여한다는 물리적 의미를 가짐.</span></li>
+<li><span class="point-text">이를 응력의 발산 형태로 표현하기 위해 다음 절에서 <strong>Reynolds Stress</strong>를 정의함.</span></li>
+<li><span class="point-text">여기까지는 <strong>Turbulence Model을 도입하지 않은 정확한 평균방정식</strong>임. 평균유동이 정상이어도 Velocity Fluctuation의 상관항은 남을 수 있으며, 이를 구하는 방법이 <strong>RANS Turbulence Modeling</strong>의 핵심이 됨.</span></li>
+</ul></section>
+</article>
+<div class="article-pager"><a class="prev" href="reynolds-decomposition-and-averaging.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Reynolds Decomposition and Averaging</span></a></div>
+<a class="back-bottom" href="../turbulent-flow.html">← Back to Turbulent Flow</a>
+</main>
+<footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Reynolds-Averaged Governing Equations</span></div></footer>
+<script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
+</body></html>
