@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Reynolds Stress and Closure Problem — Engineering Notebook">
+<title>Reynolds Stress and Closure Problem | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+}
+.tl-page .note-box{border:1px solid #b9cce9;border-radius:11px;background:#f5f8ff;padding:22px 25px;margin:37px 0 42px}
+.tl-page .note-title{font-weight:800;color:#234f88;font-size:16px;margin-bottom:15px}
+.tl-page .note-box .study-points>li{font-size:14px;margin-bottom:17px}
+.tl-page .note-box .equation{margin:21px 0 25px;font-size:15px}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){.tl-page .note-box{padding:17px 14px}.tl-page .note-box .equation{font-size:13px}}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav>
+</div></header>
+<main class="shell tl-page">
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="../../../index.html">Home</a><span class="separator">›</span>
+  <a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span>
+  <a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
+  <a href="../turbulent-flow.html">Turbulent Flow</a><span class="separator">›</span>
+  <strong>Reynolds Stress and Closure Problem</strong>
+</nav>
+<div class="hero"><div class="hero-text">
+  <div class="eyebrow">TURBULENT FLOW / 2.3</div>
+  <h1>Reynolds Stress and Closure Problem</h1>
+  <p class="hero-subtitle">Reynolds-Averaged Governing Equations</p>
+  <p class="hero-description">Momentum flux, Reynolds stress formulation, and the closure problem in turbulence modeling.</p>
+</div></div>
+<article class="article-content"><div class="lesson-meta"><span>02 / Reynolds-Averaged Governing Equations</span><span>Study Notes · 2.3</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#section-1">01 · From Momentum Flux to Apparent Stress</a></li><li><a href="#section-2">02 · Reynolds Stress in RANS Equation</a></li><li><a href="#section-3">03 · Introduction to the Closure Problem</a></li></ul></nav><section class="lesson-section" id="section-1"><h2><span class="section-tag">01</span>From Momentum Flux to Apparent Stress</h2><ul class="study-points"><li><span class="point-text">평균방정식에 남는 \(\overline{u_i u_j}\)는 velocity flucuation 성분의 Covariance 이며, 이에 밀도를 곱한 \(\rho\overline{u_i u_j}\)는 \(j\)방향으로 전달되는 \(i\)방향의 <strong>Turbulent Momentum Flux</strong>임.</span><div class="note-box" role="note"><div class="note-title">Note. Momentum Flux and Its Divergence</div><ul class="study-points"><li><span class="point-text"><strong>Momentum Flux</strong>는 단위 시간, 단위 면적을 통과하여 전달되는 운동량임. \(y\)방향으로 이동하는 유체가 \(x\)방향 운동량을 수송하는 경우,</span><div class="equation" role="group" aria-label="Mathematical equation">\[\underbrace{\rho v}_{\text{Mass Flux}}\times\underbrace{u}_{\text{Momentum per Unit Mass}}=\rho uv.\]</div></li>
+<li><span class="point-text">따라서 난류에 의한 Momentum Flux는 Velocity Fluctuation의 곱을 평균하여 나타냄.</span><div class="equation" role="group" aria-label="Mathematical equation">\[J_{ij}^{\mathrm{turb}}=\rho\overline{u_i u_j}.\]</div></li>
+<li><span class="point-text">반면 \(-\rho\frac{\partial\overline{u_iu_j}}{\partial x_j}\) 항 (<strong>Momentum Flux의 Divergence</strong>) 검사체적에 들어오는 운동량과 나가는 운동량의 차이를 나타냄. \(y\)방향의 미소 검사체적을 고려하면,</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\frac{J(y)-J(y+\mathrm dy)}{\mathrm dy}
+&amp;=\frac{J(y)-\left(J(y)+\frac{\partial J}{\partial y}\mathrm dy\right)}{\mathrm dy},\\[1.5em]
+&amp;=-\frac{\partial J}{\partial y}.
+\end{aligned}\]</div></li>
+<li><span class="point-text">즉, <strong>Momentum Flux</strong>는 면을 통과하는 운동량 수송을 나타내며, <strong>Divergence</strong>는 단위 체적당 운동량 순유출률을 나타냄. 따라서 순유입률에는 음의 부호가 붙음.</span></li></ul></div></li>
+<li><span class="point-text">난류에 의한 운동량 수송이 평균유동에 미치는 효과는 점성응력의 효과와 유사함.</span><ul class="nested-points">
+<li><span class="point-text"><strong>점성은 분자들의 운동량 교환</strong>을 통해 유체층 사이에서 운동량을 전달함.</span></li>
+<li><span class="point-text"><strong>난류는 Velocity Fluctuation</strong>에 의해 유체층 사이에서 운동량을 전달함.</span></li>
+<li><span class="point-text">점성응력과 난류에 의한 운동량 수송은 평균 운동량 방정식에서 각각 \(\frac{\partial\tau_{ij}}{\partial x_j}\)와 \(-\rho\frac{\partial\overline{u_i u_j}}{\partial x_j}\)로 나타나며, <strong>동일한 발산 형태</strong>를 가짐.</span></li>
+</ul></li>
+<li><span class="point-text">따라서 <strong>난류에 의한 추가적인 운동량 수송 효과</strong>를 일종의 Stress로 표현하고, 이를 <strong>Reynolds Stress</strong> \(\tau_{ij}^{R}\)로 정의함.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\tau_{ij}^{R}=-\rho\overline{u_i u_j}.\]</div></li>
+<li><span class="point-text">\(\tau_{ij}^{R}\)는 음의 부호를 포함한 응력 형태이며, 문헌에 따라 \(\rho\overline{u_i u_j}\)를 Reynolds Stress라고 부르 도 하므로 부호 정의를 확인해야 함.</span></li></ul></section><section class="lesson-section" id="section-2"><h2><span class="section-tag">02</span>Reynolds Stress in RANS Equation</h2><ul class="study-points"><li><span class="point-text">이후 Reynolds Stress를 통해 RANS Equation 을 표현하면,</span><div class="equation" role="group" aria-label="Mathematical equation">\[\rho\left(\frac{\partial\overline{U_i}}{\partial t}+\overline{U_j}\frac{\partial\overline{U_i}}{\partial x_j}\right)=-\frac{\partial\overline P}{\partial x_i}+\mu\frac{\partial^2\overline{U_i}}{\partial x_j\partial x_j}-\rho\frac{\partial\overline{u_iu_j}}{\partial x_j}.\]</div><div class="derivation-arrow" aria-label="Reynolds stress substitution">\(\Downarrow\)</div><div class="equation" role="group" aria-label="Mathematical equation">\[\rho\left(\frac{\partial\overline{U_i}}{\partial t}+\overline{U_j}\frac{\partial\overline{U_i}}{\partial x_j}\right)=-\frac{\partial\overline P}{\partial x_i}+\frac{\partial}{\partial x_j}\left[\mu\left(\frac{\partial\overline{U_i}}{\partial x_j}+\frac{\partial\overline{U_j}}{\partial x_i}\right)+\tau_{ij}^{R}\right].\]</div><div class="note-box" role="note"><div class="note-title">Note. Viscous Diffusion as Stress Divergence</div><ul class="study-points"><li><span class="point-text">비압축성 Newtonian Flow에서 점성계수 \(\mu\)가 상수일 경우, Viscous Stress의 Divergence를 전개하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\frac{\partial}{\partial x_j}\left[\mu\left(\frac{\partial\overline{U_i}}{\partial x_j}+\frac{\partial\overline{U_j}}{\partial x_i}\right)\right]
+&amp;=\mu\frac{\partial^2\overline{U_i}}{\partial x_j\partial x_j}+\mu\frac{\partial^2\overline{U_j}}{\partial x_j\partial x_i}.
+\end{aligned}\]</div></li>
+<li><span class="point-text">두 번째 항은 혼합 편미분의 순서를 교환하고, 비압축성 연속방정식을 적용하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\mu\frac{\partial^2\overline{U_j}}{\partial x_j\partial x_i}
+&amp;=\mu\frac{\partial}{\partial x_i}\left(\underbrace{\frac{\partial\overline{U_j}}{\partial x_j}}_{=0}\right),\\[1.5em]
+&amp;=0.
+\end{aligned}\]</div></li>
+<li><span class="point-text">따라서 <strong>Viscous Stress의 Divergence와 Viscous Diffusion Term은 동일한 형태</strong>로 정리됨.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\mu\frac{\partial^2\overline{U_i}}{\partial x_j\partial x_j}=\frac{\partial}{\partial x_j}\left[\mu\left(\frac{\partial\overline{U_i}}{\partial x_j}+\frac{\partial\overline{U_j}}{\partial x_i}\right)\right].\]</div></li></ul></div></li>
+<li><span class="point-text">따라서 Viscous Stress와 Reynolds Stress를 하나의 발산항으로 결합하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\frac{\partial}{\partial x_j}\left[\mu\left(\frac{\partial\overline{U_i}}{\partial x_j}+\frac{\partial\overline{U_j}}{\partial x_i}\right)+\tau_{ij}^{R}\right]
+&amp;=\frac{\partial\overline{\tau}_{ij}}{\partial x_j}+\frac{\partial\tau_{ij}^{R}}{\partial x_j},\\[2.0em]
+&amp;=\frac{\partial}{\partial x_j}\left(\overline{\tau}_{ij}+\tau_{ij}^{R}\right).
+\end{aligned}\]</div></li>
+<li><span class="point-text">이를 평균 운동량 방정식에 대입하면 최종 <strong>RANS Equation</strong>을 얻음.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\rho\left(\frac{\partial\overline{U_i}}{\partial t}+\overline{U_j}\frac{\partial\overline{U_i}}{\partial x_j}\right)=-\frac{\partial\overline P}{\partial x_i}+\frac{\partial}{\partial x_j}\left(\overline{\tau}_{ij}+\tau_{ij}^{R}\right).\]</div></li></ul></section><section class="lesson-section" id="section-3"><h2><span class="section-tag">03</span>Introduction to the Closure Problem</h2><ul class="study-points"><li><span class="point-text">아래에서는 \(u=u_1\), \(v=u_2\), \(w=u_3\) 으로 표시하고 Reynolds Stress를 풀어서 써보면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\boldsymbol{\tau}^{R}=-\rho\begin{pmatrix}\overline{u^2}&amp;\overline{u v}&amp;\overline{u w}\\[2.0em]\overline{u v}&amp;\overline{v^2}&amp;\overline{v w}\\[2.0em]\overline{u w}&amp;\overline{v w}&amp;\overline{w^2}\end{pmatrix}\]</div></li>
+<li><span class="point-text">\(\overline{u_i u_j}=\overline{u_j u_i}\)이므로 Reynolds Stress는 총 6개의  독립성분을 가짐</span></li>
+<li><span class="point-text">평균속도 3개와 평균압력에 대해 Continuity Equation 1개와 평균 운동량방정식 3개가 있지만, <strong>평균을 취하면서 \(\overline{u_i u_j}\)에 해당하는 독립적인 미지 상관성분 6개가 추가됨</strong></span></li>
+<li><span class="point-text">\(\overline{u_i u_j}\)에 대한 <strong>정확한 수송방정식을 추가</strong>해도 Triple Correlation, Pressure--Strain Correlation 등 새로운 미지 상관항이 등장함. 따라서 <strong>방정식을 평균하는 것만으로 모든 미지량을 결정할 수 없음.</strong></span></li>
+<li><span class="point-text">이를 <strong>Closure Problem</strong>이라 함. 이를 해결하기 위해 Turbulence Model은 미지의 Reynolds Stress를 평균속도 등의 변수로 근사하여 방정식을 계산할 수 있도록 함.</span></li></ul></section></article><div class="article-pager"><a class="prev" href="reynolds-averaged-navier-stokes-equations.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Reynolds-Averaged Navier–Stokes Equations</span></a></div><a class="back-bottom" href="../turbulent-flow.html">← Back to Turbulent Flow</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Reynolds-Averaged Governing Equations</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>
