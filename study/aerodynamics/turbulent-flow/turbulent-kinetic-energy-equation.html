@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Turbulent Kinetic Energy Equation — Engineering Notebook">
-<title>Turbulent Kinetic Energy Equation | Engineering Notebook</title>
+<meta name="description" content="Turbulent Kinetic Energy Equation (1) — Engineering Notebook">
+<title>Turbulent Kinetic Energy Equation (1) | Engineering Notebook</title>
 <link rel="stylesheet" href="../../../assets/site.css">
 <style>
 body.inner-page .breadcrumb{font-size:16px}
@@ -90,6 +90,11 @@ body.inner-page .breadcrumb{font-size:16px}
 .tl-page .motivation-box .nested-points>li{font-size:15px;color:#536b89;margin:8px 0}
 .tl-page .motivation-box .nested-points>li::before{background:#c39676}
 @media(max-width:740px){.tl-page .motivation-box .nested-points>li{font-size:14px}}
+.tl-page .ref-link{color:#3166b5;text-decoration:underline;text-underline-offset:2px}
+.tl-page .note-box{max-width:94%;margin:26px auto 34px}
+.tl-page .note-box .note-content>.point-text{display:block;line-height:1.9;margin-bottom:20px}
+.tl-page .note-box .equation{font-size:14px}
+.tl-page .nested-points .point-text{font-size:14px;line-height:1.85}
 </style>
 <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
@@ -106,16 +111,16 @@ body.inner-page .breadcrumb{font-size:16px}
   <a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span>
   <a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
   <a href="../turbulent-flow.html">Turbulent Flow</a><span class="separator">›</span>
-  <strong>Turbulent Kinetic Energy Equation</strong>
+  <strong>Turbulent Kinetic Energy Equation (1)</strong>
 </nav>
 <div class="hero"><div class="hero-text">
   <div class="eyebrow">TURBULENT FLOW / 2.4</div>
-  <h1>Turbulent Kinetic Energy Equation</h1>
+  <h1>Turbulent Kinetic Energy Equation (1)</h1>
   <p class="hero-subtitle">Reynolds-Averaged Governing Equations</p>
-  <p class="hero-description">Production, transport, and dissipation of turbulent kinetic energy.</p>
+  <p class="hero-description">TKE definition, fluctuating momentum equation, and production of turbulent kinetic energy.</p>
 </div></div>
 <article class="article-content">
-<div class="lesson-meta"><span>02 / Reynolds-Averaged Governing Equations</span><span>Study Notes · 2.4</span></div>
+<div class="lesson-meta"><span>02 / Reynolds-Averaged Governing Equations</span><span>Study Notes · 2.4 · Part 1</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#section-1">01 · Definition of Turbulent Kinetic Energy</a></li><li><a href="#section-2">02 · Momentum Equation of Velocity Fluctuation</a></li><li><a href="#section-3">03 · 1. Time Change, Mean Convection Term</a></li><li><a href="#section-4">04 · 2. Second Term --  Introduction to Production</a></li></ul></nav>
 <div class="motivation-box" role="note" aria-label="Physical Motivation">
 <div class="motivation-title">Physical Motivation</div>
 <div class="motivation-content">
@@ -131,6 +136,225 @@ body.inner-page .breadcrumb{font-size:16px}
 <li><span class="point-text">따라서 평균유동의 운동에너지와 난류 변동의 운동에너지를 구분하고, 후자를 <strong>Turbulent Kinetic Energy (TKE)</strong>로 정의하여 그 수송방정식을 유도함.</span></li>
 </ul>
 </div></div>
+<section class="lesson-section" id="section-1"><h2><span class="section-tag">01</span>Definition of Turbulent Kinetic Energy</h2><ul class="study-points"><li><span class="point-text">난류 유동에서 <strong>Velocity Fluctuation 이 가지는 단위질량당 평균 운동에너지</strong>를 Turbulent Kinetic Energy (TKE) 라고 정의함</span></li>
+<li><span class="point-text">단위질량당 운동에너지에 Reynolds Decomposition을 적용하면</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\frac12\overline{U_iU_i}
+&amp;=\frac12\overline{(\overline{U_i}+u_i)(\overline{U_i}+u_i)},\\[2.0em]
+&amp;=\frac12\overline{U_i}\overline{U_i}+\overline{U_i}\overline{u_i}+\frac12\overline{u_i u_i},\\[2.0em]
+&amp;=\frac12\overline{U_i}\overline{U_i}+\frac12\overline{u_i u_i}.
+\end{aligned}\]</div>
+</li>
+<li><span class="point-text">첫 항이 <strong>평균유동의 운동에너지</strong>이고, 두 번째 항을 <strong>Turbulent Kinetic Energy (TKE)</strong> \(k\)로 정의함.</span>
+<div class="equation key" id="eq-kdef" role="group" aria-label="Mathematical equation">\[k=\frac12\overline{u_i u_i}=\frac12\left(\overline{u^2}+\overline{v^2}+\overline{w^2}\right).\]</div>
+</li>
+<li><span class="point-text">유체가 평균적으로 이동하는 것과 별개로, 난류에 의해 유체 입자의 속도가 불규칙하게 변하는 데 해당하는 운동에너지로 Turbulence flow fluctuation의 전체 세기를 비교하는데 활용</span></li>
+<li><span class="point-text">평균속도가 0이어도 Turbulence flowf luctuation이 존재하면 \(k&gt;0\).</span></li></ul></section>
+<section class="lesson-section" id="section-2"><h2><span class="section-tag">02</span>Momentum Equation of Velocity Fluctuation</h2><ul class="study-points"><li><span class="point-text">TKE의 시간적·공간적 변화를 설명하기 위해 순간 운동량방정식에서 평균 운동량방정식을 제거하여
+<strong>Velocity Fluctuation</strong>에 대한 운동량방정식(Fluctuating Momentum Equation)을 유도함.</span></li>
+<li><span class="point-text">Incompressible 운동량 방정식에서</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\rho\left(
+\frac{\partial U_i}{\partial t}
++U_j\frac{\partial U_i}{\partial x_j}
+\right)
+=-\frac{\partial P}{\partial x_i}
++\mu\frac{\partial^2 U_i}{\partial x_j\partial x_j}.\]</div>
+</li>
+<li><span class="point-text">Reynolds Decomposition \(U_i=\overline{U_i}+u_i,\), \(P=\overline{P}+p.\) 을 적용하고 이때 비선형 항은 다음과 같다</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+U_j\frac{\partial U_i}{\partial x_j}
+&amp;=(\overline{U_j}+u_j)
+\frac{\partial(\overline{U_i}+u_i)}{\partial x_j}
+\\[2.0ex]
+&amp;=\overline{U_j}\frac{\partial\overline{U_i}}{\partial x_j}
++\overline{U_j}\frac{\partial u_i}{\partial x_j}
++u_j\frac{\partial\overline{U_i}}{\partial x_j}
++u_j\frac{\partial u_i}{\partial x_j}.
+\end{aligned}\]</div>
+</li>
+<li><span class="point-text">이를 순간 운동량방정식에 대입하고 mean 성분 과 fluctuation 성분을 구분하면</span>
+<div class="equation" id="eq-251" role="group" aria-label="Mathematical equation">\[\begin{gathered}
+\rho\left(
+\frac{\partial\overline{U_i}}{\partial t}
++\overline{U_j}\frac{\partial\overline{U_i}}{\partial x_j}
+\right)
++\rho\left(
+\frac{\partial u_i}{\partial t}
++\overline{U_j}\frac{\partial u_i}{\partial x_j}
++u_j\frac{\partial\overline{U_i}}{\partial x_j}
++u_j\frac{\partial u_i}{\partial x_j}
+\right)\\[1.5em]
+=-\frac{\partial\overline{P}}{\partial x_i}
+-\frac{\partial p}{\partial x_i}
++\mu\frac{\partial^2\overline{U_i}}{\partial x_j\partial x_j}
++\mu\frac{\partial^2u_i}{\partial x_j\partial x_j}
+\end{gathered}\]</div>
+</li>
+<li><span class="point-text">한편, Reynolds 평균을 적용하여 얻은
+<strong>RANS Equation</strong>은</span>
+<div class="equation" id="eq-252" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\rho\left(
+\frac{\partial\overline{U_i}}{\partial t}
++\overline{U_j}\frac{\partial\overline{U_i}}{\partial x_j}
+\right)
+&amp;=-\frac{\partial\overline{P}}{\partial x_i}
++\mu\frac{\partial^2\overline{U_i}}{\partial x_j\partial x_j}-\rho\frac{\partial\overline{u_i u_j}}{\partial x_j}.
+\end{aligned}\]</div>
+</li>
+<li><span class="point-text">순간 운동량방정식 (Eq. <a class="ref-link" href="#eq-251">1</a>) 에서 RANS Equation (Eq. <a class="ref-link" href="#eq-252">2</a>) 을 빼면 평균장만으로 이루어진 항들이 소거되고,
+Velocity Fluctuation과 관련된 항들이 남으며 다음과 같음</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\rho\left(
+\frac{\partial u_i}{\partial t}
++\overline{U_j}\frac{\partial u_i}{\partial x_j}
++u_j\frac{\partial\overline{U_i}}{\partial x_j}
++u_j\frac{\partial u_i}{\partial x_j}
+\right)
+&amp;=-\frac{\partial p}{\partial x_i}
++\mu\frac{\partial^2u_i}{\partial x_j\partial x_j}
++\rho\frac{\partial\overline{u_i u_j}}{\partial x_j}.
+\end{aligned}\]</div>
+</li>
+<li><span class="point-text">마지막으로 양변을 \(\rho\)로 나누고
+\(\nu=\mu/\rho\)를 적용한 뒤 Reynolds Stress 관련 항을
+좌변으로 이동하면 <strong>Fluctuating Momentum Equation</strong>을 얻음.</span>
+<div class="equation key" id="eq-fluct" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+&amp;\left(
+\frac{\partial u_i}{\partial t}
++\overline{U_j}\frac{\partial u_i}{\partial x_j}
+\right)
++u_j\frac{\partial\overline{U_i}}{\partial x_j}
++u_j\frac{\partial u_i}{\partial x_j}
+-\frac{\partial\overline{u_i u_j}}{\partial x_j}
+=-\frac{1}{\rho}\frac{\partial p}{\partial x_i}
++\nu\frac{\partial^2u_i}{\partial x_j\partial x_j}.
+\end{aligned}\]</div>
+</li>
+<li><span class="point-text">이 방정식에 \(u_i\)를 곱한 뒤 평균을 취하면, Velocity Fluctuation의 운동량방정식을 <strong>Turbulent Kinetic Energy (TKE)</strong>
+Transprot Equation으로 변환할 수 있음.</span></li></ul></section>
+<section class="lesson-section" id="section-3"><h2><span class="section-tag">03</span>1. Time Change, Mean Convection Term</h2><ul class="study-points"><li><span class="point-text">시간항과 평균 대류항에 \(u_i\) 를 곱하고 평균을 취하면 Product Rule와 TKE 정의에 따라서</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\overline{u_i\left(\frac{\partial u_i}{\partial t}+\overline{U_j}\frac{\partial u_i}{\partial x_j}\right)}
+&amp;=\frac12\frac{\partial\overline{u_i u_i}}{\partial t}+\frac12\overline{U_j}\frac{\partial\overline{u_i u_i}}{\partial x_j},\\[2.0em]
+&amp;=\frac{\partial k}{\partial t}+\overline{U_j}\frac{\partial k}{\partial x_j}.
+\end{aligned}\]</div>
+</li></ul></section>
+<section class="lesson-section" id="section-4"><h2><span class="section-tag">04</span>2. Second Term --  Introduction to Production</h2><ul class="study-points"><li><span class="point-text">이번에는 두 번째 항 \Large \(u_j\frac{\partial\overline{U_i{\partial x_j}\) 에 대해서 \(u_i\)를 곱하고 평균하면</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\overline{u_i u_j\frac{\partial\overline{U_i}}{\partial x_j}}
+=\overline{u_i u_j}\frac{\partial\overline{U_i}}{\partial x_j}\]</div>
+</li>
+<li><span class="point-text">이 항을 우변으로 이항한 뒤 마이너스 기호를 포함해 \(P_k\) 라는 기호로 나타내면</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\frac{\partial k}{\partial t}
++\overline{U_j}\frac{\partial k}{\partial x_j}
+=
+\underbrace{
+-\overline{u_i u_j}
+\frac{\partial\overline{U_i}}{\partial x_j}
+}_{P_k}
++ \cdot \cdot \ \cdot\]</div>
+</li>
+<li><span class="point-text">이때 \(P_k&gt;0\)이면 이 항은 <strong>TKE를 증가시키는 방향</strong>으로 작용함.</span></li>
+<li><span class="point-text">여기서 흥미로운 점은 <strong>RANS Equation</strong>에 <strong>평균속도 \(\overline{U_i}\)</strong> 를 곱한 <strong>평균유동의 운동에너지방정식</strong> 에도 이 항이 나온다는 점임</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\frac{\partial\overline{U_i}}{\partial t}
++\overline{U_j}
+\frac{\partial\overline{U_i}}{\partial x_j}
+&amp;=-\frac{1}{\rho}
+\frac{\partial\overline{P}}{\partial x_i}
++\nu\frac{\partial^2\overline{U_i}}
+{\partial x_j\partial x_j}
+-\frac{\partial\overline{u_i u_j}}{\partial x_j}.
+\end{aligned}\]</div>
+</li>
+<li><span class="point-text">여기에 평균속도 \(\overline{U_i}\)를 곱하면 Reynolds Stress 항은</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+-\overline{U_i}
+\frac{\partial\overline{u_i u_j}}{\partial x_j}
+&amp;=-\frac{\partial}{\partial x_j}
+\left(
+\overline{U_i}\,\overline{u_i u_j}
+\right)
++\overline{u_i u_j}
+\frac{\partial\overline{U_i}}{\partial x_j}
+\\[1.5em]
+&amp;=-\frac{\partial}{\partial x_j}
+\left(
+\overline{U_i}\,\overline{u_i u_j}
+\right)-P_k.
+\end{aligned}\]</div>
+</li>
+<li><span class="point-text">첫 번째 항은 <strong>공간적 에너지 수송</strong>을 나타내며,
+두 번째 항은 <strong>\(-P_k\)</strong>로 나타남.</span></li>
+<li><span class="point-text">따라서 평균유동의 운동에너지방정식과 난류에너지 수송방정식을 비교하면 다음과 같음.</span>
+<ul class="nested-points"><li><span class="point-text"><strong>Mean Kinetic Energy Equation</strong>
+
+평균유동의 단위질량당 운동에너지를
+\(K=\frac12\overline{U_i}\,\overline{U_i}\)로 정의하면</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\underbrace{
+\frac{\partial K}{\partial t}
++\overline{U_j}\frac{\partial K}{\partial x_j}
+}_{\text{평균 운동에너지 변화}}
+=\cdots
+\underbrace{-P_k}_{\text{에너지 손실}}.\]</div>
+</li>
+<li><span class="point-text"><strong>Turbulent Kinetic Energy Equation</strong>
+
+반면 난류 운동에너지방정식에서는</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\underbrace{
+\frac{\partial k}{\partial t}
++\overline{U_j}\frac{\partial k}{\partial x_j}
+}_{\text{난류 운동에너지 변화}}
+=\cdots
+\underbrace{+P_k}_{\text{에너지 공급}}.\]</div>
+</li></ul>
+</li>
+<li><span class="point-text">두 방정식을 더하면 \(P_k\) 항은</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\underbrace{-P_k+P_k}_{0}=0.\]</div>
+</li>
+<li><span class="point-text">즉, \(P_k&gt;0\)이면 <strong>평균유동의 운동에너지가 감소하는 방향</strong>으로 작용하고,
+<strong>난류 운동에너지는 증가하는 방향으로 작용</strong></span></li>
+<li><span class="point-text">따라서 이 변수를 <strong>평균유동과 난류 변동 사이</strong>의 단위질량당 <strong>운동에너지 전달률</strong>을 나타내는 Production 이라고 정의</span>
+<div class="equation key" id="eq-pk" role="group" aria-label="Mathematical equation">\[P_k=-\overline{u_i u_j}\frac{\partial \overline{U_i}}{\partial x_j}=\frac{\tau_{ij}^{R}}{\rho}\frac{\partial \overline{U_i}}{\partial x_j},\qquad \qquad [P_k] = m^3/s^2 =W/s\]</div>
+
+<ul class="nested-points"><li><span class="point-text">\(P_k&gt;0\) 평균유동에서 난류 운동에너지로 전달</span></li>
+<li><span class="point-text">\(P_k&lt;0\) 난류 운동에너지에서 평균유동으로 전달</span></li></ul>
+</li>
+<li><span class="point-text">또한 <strong>Production은 새로운 에너지를 생성하는 항이 아니라, Mean Flow와 Velocity Fluctuation 사이의 운동에너지 전달을 나타내는 항</strong></span>
+<div class="note-box" role="note"><div class="note-content"><span class="point-text">\(P_k\)는 단순히 \(\overline{u_i u_j}\) 과 \(\frac{\partial \overline{U_i{\partial x_j}\) 의 곱이 아니라 Einstein notation 에 의한 합임을 유의</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+P_k=-\Bigg[
+&amp;\overline{u^2}\frac{\partial\overline U}{\partial x}
++\overline{uv}\frac{\partial\overline U}{\partial y}
++\overline{uw}\frac{\partial\overline U}{\partial z}
+\\[1.5em]
+&amp;+\overline{uv}\frac{\partial\overline V}{\partial x}
++\overline{v^2}\frac{\partial\overline V}{\partial y}
++\overline{vw}\frac{\partial\overline V}{\partial z}
+\\[1.5em]
+&amp;+\overline{uw}\frac{\partial\overline W}{\partial x}
++\overline{vw}\frac{\partial\overline W}{\partial y}
++\overline{w^2}\frac{\partial\overline W}{\partial z}
+\Bigg].
+\end{aligned}\]</div>
+</div></div>
+</li>
+<li><span class="point-text">벽면 근처의 전단유동을 예시로 생각하보면,</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\frac{\partial\overline{U}}{\partial y}&gt;0\]</div>
+</li>
+<li><span class="point-text">벽에서 멀어질수록 평균유속이 증가하는 상황임</span></li>
+<li><span class="point-text">이때 난류에 의해 유체가 상하로 움직이면 다음 현상이 발생</span>
+<ul class="nested-points"><li><span class="point-text"><strong>위쪽으로 이동하는 유체</strong>: 상대적으로 속도가 느린 유체가 빠른 유동 영역으로 들어오므로 \(u&lt;0,\;v&gt;0\).</span></li>
+<li><span class="point-text"><strong>아래쪽으로 이동하는 유체</strong>: 상대적으로 속도가 빠른 유체가 느린 유동 영역으로 들어오므로 \(u&gt;0,\;v&lt;0\).</span></li></ul>
+</li>
+<li><span class="point-text">두 경우 모두 \(uv&lt;0\)이므로 일반적인 벽면 전단유동에서</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\overline{uv}&lt;0\]</div>
+</li>
+<li><span class="point-text">이므로</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[P_k= \underbrace{-\overline{uv}}_{&gt;0}
+\underbrace{\frac{\partial\overline{U}}{\partial y}}_{&gt;0}
+\quad\Longrightarrow\quad P_k&gt;0\]</div>
+</li>
+<li><span class="point-text">따라서 평균유동에서 난류 운동에너지로 전달됨을 알 수 있음</span></li></ul></section>
 </article>
 <div class="article-pager"><a class="prev" href="reynolds-stress-and-closure-problem.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Reynolds Stress and Closure Problem</span></a></div>
 <a class="back-bottom" href="../turbulent-flow.html">← Back to Turbulent Flow</a>
