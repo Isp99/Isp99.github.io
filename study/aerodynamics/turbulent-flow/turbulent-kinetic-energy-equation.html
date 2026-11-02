@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Turbulent Kinetic Energy Equation — Engineering Notebook">
+<title>Turbulent Kinetic Energy Equation | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+}
+.tl-page .note-box{border:1px solid #b9cce9;border-radius:11px;background:#f5f8ff;padding:22px 25px;margin:37px 0 42px}
+.tl-page .note-title{font-weight:800;color:#234f88;font-size:16px;margin-bottom:15px}
+.tl-page .note-box .study-points>li{font-size:14px;margin-bottom:17px}
+.tl-page .note-box .equation{margin:21px 0 25px;font-size:15px}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){.tl-page .note-box{padding:17px 14px}.tl-page .note-box .equation{font-size:13px}}
+.tl-page .motivation-box{border:1px solid #b9cce9;border-radius:12px;background:#f5f8ff;padding:29px 32px;margin:9px 0 28px}
+.tl-page .motivation-box .study-points>li{margin-bottom:25px;line-height:2}
+.tl-page .motivation-box .study-points>li:last-child{margin-bottom:0}
+.tl-page .motivation-box .nested-points{padding-top:10px;padding-bottom:6px}
+.tl-page .motivation-box .nested-points>li{font-size:15px;color:#536b89;margin:8px 0}
+@media(max-width:740px){.tl-page .motivation-box{padding:21px 16px}.tl-page .motivation-box .nested-points>li{font-size:14px}}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav>
+</div></header>
+<main class="shell tl-page">
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="../../../index.html">Home</a><span class="separator">›</span>
+  <a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span>
+  <a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
+  <a href="../turbulent-flow.html">Turbulent Flow</a><span class="separator">›</span>
+  <strong>Turbulent Kinetic Energy Equation</strong>
+</nav>
+<div class="hero"><div class="hero-text">
+  <div class="eyebrow">TURBULENT FLOW / 2.4</div>
+  <h1>Turbulent Kinetic Energy Equation</h1>
+  <p class="hero-subtitle">Reynolds-Averaged Governing Equations</p>
+  <p class="hero-description">Production, transport, and dissipation of turbulent kinetic energy.</p>
+</div></div>
+<article class="article-content">
+<div class="lesson-meta"><span>02 / Reynolds-Averaged Governing Equations</span><span>Study Notes · 2.4</span></div>
+<div class="motivation-box" role="note" aria-label="Turbulent Kinetic Energy introduction">
+<ul class="study-points">
+<li><span class="point-text">앞서 정의한 <strong>Reynolds Stress</strong>는 Velocity Fluctuation에 의한 운동량 수송이 평균유동에 미치는 영향을 나타냄.</span></li>
+<li><span class="point-text">그러나 Reynolds Stress의 정의만으로는 Velocity Fluctuation이 <strong>어떻게 생성되고, 유지되며 소멸하는지</strong> 설명할 수 없음</span></li>
+<li><span class="point-text">이를 이해하기 위해 난류 운동에너지의 변화 과정을 살펴볼 필요가 있음.</span>
+<ul class="nested-points">
+<li><span class="point-text"><strong>Production</strong>: 평균유동에서 난류로의 운동에너지 전달</span></li>
+<li><span class="point-text"><strong>Transport</strong>: 난류 운동에너지의 공간적 수송</span></li>
+<li><span class="point-text"><strong>Dissipation</strong>: 점성작용에 의한 난류 운동에너지의 내부에너지 전환</span></li>
+</ul></li>
+<li><span class="point-text">따라서 평균유동의 운동에너지와 난류 변동의 운동에너지를 구분하고, 후자를 <strong>Turbulent Kinetic Energy (TKE)</strong>로 정의하여 그 수송방정식을 유도함.</span></li>
+</ul></div>
+</article>
+<div class="article-pager"><a class="prev" href="reynolds-stress-and-closure-problem.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Reynolds Stress and Closure Problem</span></a></div>
+<a class="back-bottom" href="../turbulent-flow.html">← Back to Turbulent Flow</a>
+</main>
+<footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Reynolds-Averaged Governing Equations</span></div></footer>
+<script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
+</body></html>
