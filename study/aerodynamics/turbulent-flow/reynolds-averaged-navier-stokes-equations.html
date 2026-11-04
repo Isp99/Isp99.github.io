@@ -54,13 +54,49 @@ body.inner-page .breadcrumb{font-size:16px}
  .tl-page .article-pager .adjacent{font-size:14px}
  .tl-page .back-bottom{font-size:15px}
 }
-.tl-page .note-box{border:1px solid #b9cce9;border-radius:11px;background:#f5f8ff;padding:22px 25px;margin:37px 0 42px}
-.tl-page .note-title{font-weight:800;color:#234f88;font-size:16px;margin-bottom:15px}
-.tl-page .note-box .study-points>li{font-size:14px;margin-bottom:17px}
-.tl-page .note-box .equation{margin:21px 0 25px;font-size:15px}
+.tl-page .note-box{
+  border:0.6pt solid #00008c;
+  border-radius:2mm;
+  background:#f5f5ff;
+  padding:0;
+  margin:37px 0 42px;
+  overflow:hidden;
+}
+.tl-page .note-box .note-title{
+  display:block;
+  margin:0;
+  padding:2mm 4mm;
+  background:#e0e0ff;
+  color:#00004d;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-weight:700;
+  font-size:18px;
+  line-height:1.45;
+  border-bottom:0.6pt solid #00008c;
+}
+.tl-page .note-box > .study-points{
+  margin:0;
+  padding:4mm;
+}
+.tl-page .note-box .study-points>li{
+  margin-bottom:0.65cm;
+  font-size:14px;
+  color:#000;
+}
+.tl-page .note-box .study-points>li::before{background:#000}
+.tl-page .note-box .point-text,
+.tl-page .note-box .point-text strong{color:#000}
+.tl-page .note-box .equation{
+  margin:21px 0 25px;
+  font-size:15px;
+  color:#000;
+}
 .tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
 .tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
-@media(max-width:740px){.tl-page .note-box{padding:17px 14px}.tl-page .note-box .equation{font-size:13px}}
+@media(max-width:740px){
+  .tl-page .note-box .note-title{font-size:16px}
+  .tl-page .note-box .equation{font-size:13px}
+}
 </style>
 <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
@@ -150,7 +186,7 @@ U_iU_j
 &amp;=\frac{\partial}{\partial x_j}\left(\overline{U_i}\,\overline{U_j}\right)+\frac{\partial\overline{u_iu_j}}{\partial x_j}.
 \end{aligned}\]</div></li>
 <li><span class="point-text"><strong>Convection Term</strong>은 유체의 이동에 의한 운동량 수송을 나타냄. 평균을 취하면 평균유동에 의한 운동량 수송 외에 <strong>Velocity Fluctuation Correlation Term</strong>이 별도로 나타남.</span></li>
-<li><span class="point-text">이는 난류 변동이 평균유동에 더해 추가적인 운동량 수송에 기여한다는 의미임.</span><div class="note-box" role="note"><div class="note-title">Note. Physical Meaning of the Convection Term</div><ul class="study-points">
+<li><span class="point-text">이는 난류 변동이 평균유동에 더해 추가적인 운동량 수송에 기여한다는 의미임.</span><div class="note-box" role="note"><div class="note-title">Physical Meaning of the Convection Term</div><ul class="study-points">
 <li><span class="point-text">평균유동의 Convection Term에 비압축성 연속방정식을 적용하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
 \frac{\partial}{\partial x_j}\left(\overline{U_i}\,\overline{U_j}\right)
 &amp;=\overline{U_j}\frac{\partial\overline{U_i}}{\partial x_j},\\[1.5em]
