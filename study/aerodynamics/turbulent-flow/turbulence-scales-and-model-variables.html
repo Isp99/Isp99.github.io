@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Turbulence Scales and Model Variables — Engineering Notebook">
+<title>Turbulence Scales and Model Variables | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+}
+.tl-page .note-box{border:1px solid #b9cce9;border-radius:11px;background:#f5f8ff;padding:22px 25px;margin:37px 0 42px}
+.tl-page .note-title{font-weight:800;color:#234f88;font-size:16px;margin-bottom:15px}
+.tl-page .note-box .study-points>li{font-size:14px;margin-bottom:17px}
+.tl-page .note-box .equation{margin:21px 0 25px;font-size:15px}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){.tl-page .note-box{padding:17px 14px}.tl-page .note-box .equation{font-size:13px}}
+/* LaTeX motivationbox: ivory / copper / midnight; 0.7pt frame; 2mm corners. */
+.tl-page .motivation-box{
+  width:90%;
+  margin:9px auto 28px;
+  border:0.7pt solid #946346;
+  border-radius:2mm;
+  background:#fffdf2;
+  overflow:hidden;
+}
+.tl-page .motivation-box .motivation-title{
+  background:#f1e6dc;
+  color:#172b47;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:18px;
+  font-weight:750;
+  line-height:1.45;
+  padding:2mm 4mm 2mm 5mm;
+  border-bottom:0.7pt solid #946346;
+}
+.tl-page .motivation-box .motivation-content{
+  padding:3mm 4mm 3mm 5mm;
+}
+.tl-page .motivation-box .study-points>li{margin-bottom:calc(25px + 0.3cm);line-height:2}
+.tl-page .motivation-box .study-points>li:last-child{margin-bottom:0}
+.tl-page .motivation-box .study-points>li::before{background:#a97452}
+.tl-page .motivation-box .nested-points{padding-top:10px;padding-bottom:6px}
+.tl-page .motivation-box .nested-points>li{font-size:15px;color:#536b89;margin:8px 0}
+.tl-page .motivation-box .nested-points>li::before{background:#c39676}
+@media(max-width:740px){.tl-page .motivation-box .nested-points>li{font-size:14px}}
+.tl-page .ref-link{color:#3166b5;text-decoration:underline;text-underline-offset:2px}
+.tl-page .note-box{max-width:94%;margin:26px auto 34px}
+.tl-page .note-box .note-content>.point-text{display:block;line-height:1.9;margin-bottom:20px}
+.tl-page .note-box .equation{font-size:14px}
+.tl-page .nested-points .point-text{font-size:14px;line-height:1.85}
+
+/* Faithful HTML equivalent of the LaTeX tcolorbox 'notebox':
+   colback=blue!4, colframe=blue!55!black, colbacktitle=blue!12,
+   coltitle=blue!30!black, boxrule=0.6pt, arc=2mm,
+   left/right/top/bottom=4mm. */
+.tl-page .note-box{
+  border:0.6pt solid #00008c;
+  border-radius:2mm;
+  background:#f5f5ff;
+  padding:0;
+  margin:37px 0 42px;
+  overflow:hidden;
+}
+.tl-page .note-box .note-title{
+  display:block;
+  margin:0;
+  padding:2mm 4mm;
+  background:#e0e0ff;
+  color:#00004d;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-weight:700;
+  font-size:18px;
+  line-height:1.45;
+  border-bottom:0.6pt solid #00008c;
+}
+.tl-page .note-box > .study-points{
+  margin:0;
+  padding:4mm;
+}
+.tl-page .note-box .study-points>li{
+  margin-bottom:0.65cm;
+  font-size:14px;
+  color:#000;
+}
+.tl-page .note-box .study-points>li::before{background:#000}
+.tl-page .note-box .point-text,
+.tl-page .note-box .point-text strong{color:#000}
+.tl-page .note-box .equation{
+  margin:21px 0 25px;
+  font-size:15px;
+  color:#000;
+}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){
+  .tl-page .note-box .note-title{font-size:16px}
+  .tl-page .note-box .equation{font-size:13px}
+}
+.tl-page .note-box{max-width:none;margin:37px 0 42px}
+.tl-page .note-box .equation{font-size:15px;color:#000}
+.tl-page .nested-points .point-text{font-size:14px;line-height:1.85}
+.tl-page .decomp-matrix{font-size:12px}
+.tl-page .equation:has(.decomp-matrix){overflow-x:auto}
+.tl-page .note-box{max-width:none}
+.tl-page .note-box .note-title{font-size:18px}
+.tl-page .note-box .study-points>li{margin-bottom:0.65cm}
+.tl-page .note-box .nested-points>li{color:#000}
+.tl-page .section-tag{font-variant-numeric:tabular-nums}
+@media(max-width:740px){.tl-page .note-box .note-title{font-size:16px}}
+
+/* Physical Motivation tcolorbox: orange!3!white, brown!55!white frame,
+   brown!15!white title, blue!30!black type, 0.6pt/2mm and 4mm inset. */
+.tl-page .intro-motivation{
+ background:#fff9f2;border:0.6pt solid #ab8876;border-radius:2mm;
+ margin:12px 0 65px;overflow:hidden;
+}
+.tl-page .intro-motivation .intro-title{
+ background:#f3eae5;color:#182b50;
+ font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+ font-size:18px;font-weight:750;line-height:1.5;padding:3mm 4mm;
+ border-bottom:0.6pt solid #ab8876;
+}
+.tl-page .intro-motivation .intro-body{padding:4mm}
+.tl-page .intro-motivation .study-points>li{margin-bottom:0.65cm;color:#4b5260}
+.tl-page .intro-motivation .study-points>li:last-child{margin-bottom:0}
+.tl-page .intro-motivation .study-points>li::before{background:#b28b72}
+.tl-page .scale-group{scroll-margin-top:24px}
+.tl-page .scale-group+.scale-group{margin-top:65px}
+.tl-page .scale-group h3{font-size:21px;color:#1a3c64;line-height:1.45;margin:0 0 28px;font-weight:750}
+.tl-page .scale-group .equation{margin:26px 0 35px}
+@media(max-width:740px){.tl-page .intro-motivation{margin-bottom:44px}.tl-page .scale-group+.scale-group{margin-top:44px}.tl-page .scale-group h3{font-size:18px}}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav>
+</div></header>
+<main class="shell tl-page">
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="../../../index.html">Home</a><span class="separator">›</span>
+  <a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span>
+  <a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
+  <a href="../turbulent-flow.html">Turbulent Flow</a><span class="separator">›</span>
+  <strong>Turbulence Scales and Model Variables</strong>
+</nav>
+<div class="hero"><div class="hero-text">
+  <div class="eyebrow">TURBULENT FLOW / 3.2</div>
+  <h1>Turbulence Scales and Model Variables</h1>
+  <p class="hero-subtitle">RANS Turbulence Modeling</p>
+  <p class="hero-description">Characteristic turbulence scales and transport-model variables.</p>
+</div></div>
+<article class="article-content"><div class="lesson-meta"><span>03 / RANS Turbulence Modeling</span><span>Study Notes · 3.2</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#velocity-scale">01 · Velocity Scale</a></li><li><a href="#time-scale">02 · Time Scale</a></li><li><a href="#length-scale">03 · Length Scale</a></li><li><a href="#eddy-viscosity-relationship">04 · Relationship with Eddy Viscosity</a></li></ul></nav><div class="intro-motivation" role="note" aria-label="Physical Motivation">
+<div class="intro-title">Physical Motivation</div>
+<div class="intro-body"><ul class="study-points">
+<li><span class="point-text">앞서 <strong>Boussinesq Hypothesis</strong>를 통해 <strong>Reynolds Stress를 Eddy Viscosity로 모델링</strong>함.</span></li>
+<li><span class="point-text">그러나 Reynolds Stress를 계산하기 위해 필요한 <strong>Eddy Viscosity \(\mu_t\)는 아직 결정되지 않은 미지수</strong>임.</span></li>
+<li><span class="point-text">Eddy Viscosity는 <strong>velocity fluctuation의 세기</strong>뿐 아니라, 그 변동에 의해 <strong>운동량이 얼마나 먼 거리까지 전달되는지</strong>에도 의존함.</span></li>
+<li><span class="point-text">따라서 Eddy Viscosity를 계산하려면 다음 두 가지 <strong>Turbulence Scale</strong>에 대한 정보가 필요함.</span><ul class="nested-points"><li><span class="point-text"><strong>Turbulence Velocity Scale</strong>: 난류 속도 변동이 얼마나 강한지</span></li>
+<li><span class="point-text"><strong>Turbulence Length 또는 Time Scale</strong>: 난류 운동이 어느 정도의 공간 또는 시간 규모에서 이루어지는지</span></li></ul></li>
+</ul></div></div>
+<section class="lesson-section" id="section-1"><h2><span class="section-tag">01</span>Velocity, Time, and Length Scales</h2><div class="scale-group" id="velocity-scale"><h3>Velocity Scale (\(u_t\))</h3><ul class="study-points"><li><span class="point-text">Velocity Scale은 불규칙한 Velocity Fluctuation을 하나의 대표적인 속도 규모(scale)로 표현한 값 (Order of magnitude 정도로 이해하면 편함)</span></li>
+<li><span class="point-text">앞서 정의한 TKE \(k\)의 차원은</span><div class="equation" role="group" aria-label="Mathematical equation">\[[k]=\frac{\mathrm{m}^2}{\mathrm{s}^2}.\]</div></li>
+<li><span class="point-text">이므로 난류의 대표적인 Velocity Scale은 다음과 같이 정의</span><div class="equation key" role="group" aria-label="Mathematical equation">\[u_t\sim\sqrt{k}.\]</div></li>
+<li><span class="point-text">단, \(u_t\)는 개별 Eddy의 실제 이동속도가 아니라 <strong>\(k\)로부터 구성한 대표적인 속도 규모</strong></span></li></ul></div>
+<div class="scale-group" id="time-scale"><h3>Time Scale (\(t_t\))</h3><ul class="study-points"><li><span class="point-text">Velocity Scale만으로는 난류에 의한 운동량 전달을 결정할 수 없음. 난류 운동이 <strong>어느 정도의 시간 규모에서 유지되고 변화하는지</strong>도 필요함.</span></li>
+<li><span class="point-text">이를 위해 <strong>Turbulent Dissipation Rate \(\epsilon\)</strong>을 사용함. Incompressible flow에서 단위질량당 TKE의 점성 소산률은</span><div class="equation" role="group" aria-label="Mathematical equation">\[\epsilon=2\nu\overline{s_{ij}s_{ij}},\qquad s_{ij}=\frac12\left(\frac{\partial u_i}{\partial x_j}+\frac{\partial u_j}{\partial x_i}\right).\]</div></li>
+<li><span class="point-text">\(\epsilon\)은 <strong>난류 운동에너지가 분자 점성에 의해 내부에너지로 전환되는 비율</strong>이며, 차원은</span><div class="equation" role="group" aria-label="Mathematical equation">\[[\epsilon]=\frac{\mathrm{m}^2}{\mathrm{s}^3}=\frac{[k]}{s}\]</div></li>
+<li><span class="point-text">Dissipation rate의 차원은 kinetic energy \(k\)를 시간 \(s\)로 나눈 것과 같음</span></li>
+<li><span class="point-text">즉 단위시간동안 kinetic energy가 소산되는 양 (소산률)을 의미</span></li>
+<li><span class="point-text">따라서 <strong>에너지 규모를 소산률로 나누면 대표적인 시간 규모</strong>를 얻을 수 있음.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[t_t\sim\frac{k}{\epsilon}.\]</div></li>
+<li><span class="point-text">예를 들어</span><div class="equation" role="group" aria-label="Mathematical equation">\[k=1\ \mathrm{m^2/s^2},\qquad \epsilon=0.1\ \mathrm{m^2/s^3}\]</div></li>
+<li><span class="point-text">이면,</span><div class="equation" role="group" aria-label="Mathematical equation">\[t_t\sim10\ \mathrm{s}\]</div></li>
+<li><span class="point-text">으로 난류 에디가 소산되는 대표 시간 규모가 약 10초</span></li>
+<li><span class="point-text">실제 TKE는 Production, Transport, Diffusion의 영향도 받으므로 \(k/\epsilon\)은 에너지가 정확히 그 시간 후 사라진다는 의미가 아니라 <strong>에너지와 소산률로 정의한 특성시간</strong>임.</span></li></ul></div>
+<div class="scale-group" id="length-scale"><h3>Length Scale (\(\ell_t\))</h3><ul class="study-points"><li><span class="point-text">위에서 정의한 물리량들을 바탕으로 <strong>운동량 혼합이 발생하는 대표적인 공간 규모</strong>를 결정할 수 있다.</span></li>
+<li><span class="point-text">이 공간규모를 Length Scale \(\ell_t\)라 하며 velocity와 time scale의 곱으로 정의</span></li>
+<li><span class="point-text">Length Scale은 난류 운동이 발생하는 <strong>대표적인 공간 규모</strong>를 의미하며, 난류에 의한 운동량 혼합거리를 추정하는 데 사용함.</span></li>
+<li><span class="point-text">앞에서 Velocity Scale \(u_t\)와 Time Scale \(t_t\)를 얻었으므로, 속도와 시간의 곱으로 길이 규모를 구성하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\ell_t&amp;\sim u_t t_t,\\[2.0em]
+&amp;\sim\sqrt{k}\frac{k}{\epsilon},\\[2.0em]
+&amp;\sim\frac{k^{3/2}}{\epsilon}.
+\end{aligned}\]</div></li>
+<li><span class="point-text">따라서 대표 Length Scale은</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\ell_t\sim\frac{k^{3/2}}{\epsilon}.\]</div></li>
+<li><span class="point-text">이는 <strong>난류 운동의 대표적인 공간 규모</strong>를 나타내며, 개별 Eddy가 소산되기 전까지 이동하는 정확한 거리와 동일한 뜻은 아님.</span></li></ul></div>
+<div class="scale-group" id="eddy-viscosity-relationship"><h3>Relationship with Eddy Viscosity</h3><ul class="study-points"><li><span class="point-text"><strong>Eddy Viscosity \(\mu_t\)</strong>는 Dynamic Viscosity \(\mu\)와 동일한 차원을 가짐.</span><div class="equation" role="group" aria-label="Mathematical equation">\[[\mu_t]=\frac{\mathrm{kg}}{\mathrm{m\,s}},\qquad \mu_t=\rho\nu_t.\]</div></li>
+<li><span class="point-text">Velocity Scale과 Length Scale의 곱이 Kinematic Eddy Viscosity \(\nu_t\)의 차원을 가지므로, 앞서 Boussinesq Hypothesis에 사용한 <strong>Dynamic Eddy Viscosity \(\mu_t\)를 구하려면 밀도 \(\rho\)를 곱함</strong>.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\mu_t&amp;\sim\rho u_t\ell_t,\\[2.0em]
+&amp;\sim\rho\sqrt{k}\frac{k^{3/2}}{\epsilon},\\[2.0em]
+&amp;\sim\rho\frac{k^2}{\epsilon}.
+\end{aligned}\]</div></li>
+<li><span class="point-text">따라서</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\mu_t\sim\rho\frac{k^2}{\epsilon}\]</div></li>
+<li><span class="point-text">따라서 난류의 <strong>Velocity Scale</strong>과 <strong>Length 또는 Time Scale</strong>을 알면 Eddy Viscosity의 규모를 추정할 수 있음</span></li>
+<li><span class="point-text">한가지 예시로 후술할 \(k\)–\(\epsilon\) model에선</span><div class="equation" role="group" aria-label="Mathematical equation">\[\mu_t=\rho C_\mu\frac{k^2}{\epsilon}\]</div></li>
+<li><span class="point-text">으로 Eddy viscosity를 계산</span></li>
+<li><span class="point-text">이때 \(k\)와 \(\epsilon\)은 각각의 <strong>Transport Equation</strong>을 풀어 계산함. (정확히는 modeled transport equation)</span><ul class="nested-points"><li><span class="point-text"><strong>\(k\) Transport Equation</strong>: 앞서 유도한 Exact TKE Equation의 미지항들을 모델링하여 구성한 수송방정식</span></li>
+<li><span class="point-text"><strong>\(\epsilon\) Transport Equation</strong>: Turbulent Dissipation Rate의 수송을 모델링한 방정식</span></li></ul></li></ul></div></section>
+</article><div class="article-pager"><a class="prev" href="eddy-viscosity-and-boussinesq-hypothesis.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Eddy Viscosity and Boussinesq Hypothesis</span></a></div>
+<a class="back-bottom" href="../turbulent-flow.html">← Back to Turbulent Flow</a>
+</main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>RANS Turbulence Modeling</span></div></footer>
+<script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>
