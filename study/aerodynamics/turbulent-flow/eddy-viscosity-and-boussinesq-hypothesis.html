@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Eddy Viscosity and Boussinesq Hypothesis — Engineering Notebook">
+<title>Eddy Viscosity and Boussinesq Hypothesis | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+}
+.tl-page .note-box{border:1px solid #b9cce9;border-radius:11px;background:#f5f8ff;padding:22px 25px;margin:37px 0 42px}
+.tl-page .note-title{font-weight:800;color:#234f88;font-size:16px;margin-bottom:15px}
+.tl-page .note-box .study-points>li{font-size:14px;margin-bottom:17px}
+.tl-page .note-box .equation{margin:21px 0 25px;font-size:15px}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){.tl-page .note-box{padding:17px 14px}.tl-page .note-box .equation{font-size:13px}}
+/* LaTeX motivationbox: ivory / copper / midnight; 0.7pt frame; 2mm corners. */
+.tl-page .motivation-box{
+  width:90%;
+  margin:9px auto 28px;
+  border:0.7pt solid #946346;
+  border-radius:2mm;
+  background:#fffdf2;
+  overflow:hidden;
+}
+.tl-page .motivation-box .motivation-title{
+  background:#f1e6dc;
+  color:#172b47;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:18px;
+  font-weight:750;
+  line-height:1.45;
+  padding:2mm 4mm 2mm 5mm;
+  border-bottom:0.7pt solid #946346;
+}
+.tl-page .motivation-box .motivation-content{
+  padding:3mm 4mm 3mm 5mm;
+}
+.tl-page .motivation-box .study-points>li{margin-bottom:calc(25px + 0.3cm);line-height:2}
+.tl-page .motivation-box .study-points>li:last-child{margin-bottom:0}
+.tl-page .motivation-box .study-points>li::before{background:#a97452}
+.tl-page .motivation-box .nested-points{padding-top:10px;padding-bottom:6px}
+.tl-page .motivation-box .nested-points>li{font-size:15px;color:#536b89;margin:8px 0}
+.tl-page .motivation-box .nested-points>li::before{background:#c39676}
+@media(max-width:740px){.tl-page .motivation-box .nested-points>li{font-size:14px}}
+.tl-page .ref-link{color:#3166b5;text-decoration:underline;text-underline-offset:2px}
+.tl-page .note-box{max-width:94%;margin:26px auto 34px}
+.tl-page .note-box .note-content>.point-text{display:block;line-height:1.9;margin-bottom:20px}
+.tl-page .note-box .equation{font-size:14px}
+.tl-page .nested-points .point-text{font-size:14px;line-height:1.85}
+
+/* Faithful HTML equivalent of the LaTeX tcolorbox 'notebox':
+   colback=blue!4, colframe=blue!55!black, colbacktitle=blue!12,
+   coltitle=blue!30!black, boxrule=0.6pt, arc=2mm,
+   left/right/top/bottom=4mm. */
+.tl-page .note-box{
+  border:0.6pt solid #00008c;
+  border-radius:2mm;
+  background:#f5f5ff;
+  padding:0;
+  margin:37px 0 42px;
+  overflow:hidden;
+}
+.tl-page .note-box .note-title{
+  display:block;
+  margin:0;
+  padding:2mm 4mm;
+  background:#e0e0ff;
+  color:#00004d;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-weight:700;
+  font-size:18px;
+  line-height:1.45;
+  border-bottom:0.6pt solid #00008c;
+}
+.tl-page .note-box > .study-points{
+  margin:0;
+  padding:4mm;
+}
+.tl-page .note-box .study-points>li{
+  margin-bottom:0.65cm;
+  font-size:14px;
+  color:#000;
+}
+.tl-page .note-box .study-points>li::before{background:#000}
+.tl-page .note-box .point-text,
+.tl-page .note-box .point-text strong{color:#000}
+.tl-page .note-box .equation{
+  margin:21px 0 25px;
+  font-size:15px;
+  color:#000;
+}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){
+  .tl-page .note-box .note-title{font-size:16px}
+  .tl-page .note-box .equation{font-size:13px}
+}
+.tl-page .note-box{max-width:none;margin:37px 0 42px}
+.tl-page .note-box .equation{font-size:15px;color:#000}
+.tl-page .nested-points .point-text{font-size:14px;line-height:1.85}
+.tl-page .decomp-matrix{font-size:12px}
+.tl-page .equation:has(.decomp-matrix){overflow-x:auto}
+.tl-page .note-box{max-width:none}
+.tl-page .note-box .note-title{font-size:18px}
+.tl-page .note-box .study-points>li{margin-bottom:0.65cm}
+.tl-page .note-box .nested-points>li{color:#000}
+.tl-page .section-tag{font-variant-numeric:tabular-nums}
+@media(max-width:740px){.tl-page .note-box .note-title{font-size:16px}}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav>
+</div></header>
+<main class="shell tl-page">
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="../../../index.html">Home</a><span class="separator">›</span>
+  <a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span>
+  <a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
+  <a href="../turbulent-flow.html">Turbulent Flow</a><span class="separator">›</span>
+  <strong>Eddy Viscosity and Boussinesq Hypothesis</strong>
+</nav>
+<div class="hero"><div class="hero-text">
+  <div class="eyebrow">TURBULENT FLOW / 3.1</div>
+  <h1>Eddy Viscosity and Boussinesq Hypothesis</h1>
+  <p class="hero-subtitle">RANS Turbulence Modeling</p>
+  <p class="hero-description">Relating modeled Reynolds stresses to the mean rate of strain.</p>
+</div></div>
+<article class="article-content"><div class="lesson-meta"><span>03 / RANS Turbulence Modeling</span><span>Study Notes · 3.1</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#section-1">01 · Eddy Viscosity</a></li><li><a href="#section-2">02 · Mathematical Decomposition of Reynolds Stress</a></li><li><a href="#section-3">03 · Boussinesq Hypothesis (Eddy-viscosity hypothesis)</a></li><li><a href="#section-4">04 · Modified Pressure and Modeled Production</a></li></ul></nav>
+<section class="lesson-section" id="section-1"><h2><span class="section-tag">01</span>Eddy Viscosity</h2><ul class="study-points"><li><span class="point-text">Closure Problem을 해결하기 위해 Reynolds Stress를
+모델링하며, 이 과정에서 <strong>Eddy Viscosity라는 개념이 도입됨.</strong></span></li>
+<li><span class="point-text">난류에 의해서도 운동량 전달이 발생하며,
+이를 <strong>분자 점성의 효과와 유사한 방식으로 표현</strong>하기 위해
+도입한 계수가 <strong>Eddy Viscosity</strong>임.</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\text{Eddy Viscosity}=\mu_t.\]</div>
+</li>
+<li><span class="point-text">Eddy Viscosity는 난류에 의한 추가적인 운동량 전달을
+나타내기 위한 개념으로, <strong>실제 유체의 물성치가 아님.</strong>
+이는 유체 고유의 분자 점성을 의미하는 점성계수 \(\mu\)와 구별됨.</span>
+<ul class="nested-points"><li><span class="point-text"><strong>Molecular Viscosity</strong>: 
+ 분자 수준의 운동량 전달을 나타내는 유체의 물성치</span></li>
+<li><span class="point-text"><strong>Eddy Viscosity</strong>: 
+ 난류에 의한 추가적인 운동량 전달을 나타내며,
+ 유동 상태와 위치에 따라 달라지는 <strong>모델 계수</strong></span></li></ul>
+</li></ul></section>
+<section class="lesson-section" id="section-2"><h2><span class="section-tag">02</span>Mathematical Decomposition of Reynolds Stress</h2><ul class="study-points"><li><span class="point-text">Reynolds Stress는 난류의 Fluctuation 에 의한 <strong>운동량 전달이 평균유동에 미치는 영향</strong>을 나타내며, 이는 <strong>\(x,y,z\) 모든 방향에서 서로 다른 크기로 작용</strong> 함</span></li>
+<li><span class="point-text">이러한 영향을 <strong>\(x,y,z\) 모든 방향에서 동일한 크기의 영향</strong>과 <strong>나머지 deviation 으로 나누어 Reynolds Stress 를 기술</strong>할 수 있으며 각각 <strong>Isotropic Part</strong>와 <strong>Deviatoric Part</strong>라고 정의함</span>
+<ul class="nested-points"><li><span class="point-text"><strong>Isotropic Part</strong>: 
+ 모든 방향에 동일하게 기여하는 응력 성분 으로 Diagonal Components 의 평균</span></li>
+<li><span class="point-text"><strong>Deviatoric Part</strong>: 
+ Isotropic 부분을 제외한 나머지 응력 성분으로, Diagonal Components의 deviation 값과 Off- diagonal 성분</span></li></ul>
+</li>
+<li><span class="point-text">예를 들어 Reynolds Stress의 대각성분과 비대각성분이
+다음과 같다고 가정하면</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\overline{u^2}=2,\qquad
+\overline{v^2}=8,\qquad
+\overline{w^2}=11.\]</div>
+
+<div class="equation" role="group" aria-label="Mathematical equation">\[\overline{uv}=1,\qquad
+\overline{uw}=0,\qquad
+\overline{vw}=-2.\]</div>
+</li>
+<li><span class="point-text">Diagonal component의 평균은 7 이므로 <strong>Isotropic Part</strong>와 <strong>Deviatoric Part</strong>로
+나누어 표현하면,</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\underbrace{
+\begin{bmatrix}
+2 &amp; 1 &amp; 0 \\
+1 &amp; 8 &amp; -2 \\
+0 &amp; -2 &amp; 11
+\end{bmatrix}
+}_{\text{Original}}
+=
+\underbrace{
+\begin{bmatrix}
+7 &amp; 0 &amp; 0 \\
+0 &amp; 7 &amp; 0 \\
+0 &amp; 0 &amp; 7
+\end{bmatrix}
+}_{\text{Isotropic Part}}
++
+\underbrace{
+\begin{bmatrix}
+-5 &amp; 1 &amp; 0 \\
+1 &amp; 1 &amp; -2 \\
+0 &amp; -2 &amp; 4
+\end{bmatrix}
+}_{\text{Deviatoric Part}}.\]</div>
+</li>
+<li><span class="point-text"><strong>Isotropic Part</strong>는 <strong>마치 압력같이 7 이라는 동일한 크기로 모든 방향</strong>에 기여</span></li>
+<li><span class="point-text"><strong>Deviatoric Part</strong>는 다음 두 성분을 모두 포함</span>
+<ul class="nested-points"><li><span class="point-text"><strong>Diagonal Components</strong>:
+\((-5,1,4)\)와 같이 각 방향의 정규응력이 평균값에서 벗어난 정도를 나타냄.</span></li>
+<li><span class="point-text"><strong>Off-diagonal Components</strong>:
+\((1,0,-2)\)와 같이 서로 다른 방향의 속도 변동 사이의 상관관계에 의한 <strong>전단응력 성분</strong>을 나타냄.</span></li></ul>
+</li>
+<li><span class="point-text">Reynolds Stress의 Isotropic Part는 TKE 정의로부터 결정할 수 있음</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[k=\frac{1}{2}\overline{u_i u_i}
+=\frac{1}{2}
+\left(
+\overline{u^2}+\overline{v^2}+\overline{w^2}
+\right) \qquad \Rightarrow \qquad \overline{u^2}+\overline{v^2}+\overline{w^2} = 2k\]</div>
+</li>
+<li><span class="point-text">이때 Isotropic Part 는 대각성분의 평균 이므로</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\left( \frac{\overline{u^2}+\overline{v^2}+\overline{w^2}}{3} \right) = \frac{2}{3}k\]</div>
+</li>
+<li><span class="point-text">따라서 Reynolds Stress의 Isotropic Part는 다음과 같이 정의</span>
+<div class="equation key" role="group" aria-label="Mathematical equation">\[\tau_{ij}^{R,\mathrm{iso}}
+=-\frac{2}{3}\rho k\delta_{ij}.\]</div>
+</li>
+<li><span class="point-text">여기서 \(\delta_{ij}\)는 Kronecker Delta로 \(i=j\)에서 1, \(i\neq j\)에서 0</span></li>
+<li><span class="point-text">Reynolds Stress에서 Isotropic Part를 제외하면
+Deviatoric Part가 정의됨.</span>
+<div class="equation key" role="group" aria-label="Mathematical equation">\[\tau_{ij}^{R,\mathrm{dev}}
+=-\rho\left(
+\overline{u_i u_j}
+-\frac{2}{3}k\delta_{ij}
+\right).\]</div>
+</li>
+<li><span class="point-text">따라서 Reynolds Stress는</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\tau_{ij}^{R}
+=
+\underbrace{
+-\rho\left(
+\overline{u_i u_j}-\frac{2}{3}k\delta_{ij}
+\right)
+}_{\text{Deviatoric Part}}
++
+\underbrace{
+\left(-\frac{2}{3}\rho k\delta_{ij}\right)
+}_{\text{Isotropic Part}}.\]</div>
+</li>
+<li><span class="point-text">이를 Tensor의 행렬 형태로 표현하면</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\underbrace{
+-\rho
+\begin{bmatrix}
+\overline{u^2} &amp; \overline{uv} &amp; \overline{uw} \\
+\overline{uv} &amp; \overline{v^2} &amp; \overline{vw} \\
+\overline{uw} &amp; \overline{vw} &amp; \overline{w^2}
+\end{bmatrix}
+}_{\text{Reynolds Stress}}
+=
+\underbrace{
+-\rho
+\begin{bmatrix}
+\overline{u^2}-\frac{2}{3}k &amp; \overline{uv} &amp; \overline{uw} \\
+\overline{uv} &amp; \overline{v^2}-\frac{2}{3}k &amp; \overline{vw} \\
+\overline{uw} &amp; \overline{vw} &amp; \overline{w^2}-\frac{2}{3}k
+\end{bmatrix}
+}_{\text{Deviatoric Part}}
++
+\underbrace{
+-\rho
+\begin{bmatrix}
+\frac{2}{3}k &amp; 0 &amp; 0 \\
+0 &amp; \frac{2}{3}k &amp; 0 \\
+0 &amp; 0 &amp; \frac{2}{3}k
+\end{bmatrix}
+}_{\text{Isotropic Part}}\]</div>
+</li>
+<li><span class="point-text">이러한 분해는 Reynolds Stress의
+<strong>수학적 분해</strong>에 해당하며,
+실제 난류가 등방성이라는 가정을 의미하지 않음.</span></li></ul></section>
+<section class="lesson-section" id="section-3"><h2><span class="section-tag">03</span>Boussinesq Hypothesis (Eddy-viscosity hypothesis)</h2><ul class="study-points"><li><span class="point-text"><strong>Boussinesq Hypothesis</strong>는 Reynolds Stress의 <strong>Deviatoric Part가 Mean Strain-Rate Tensor에 선형 비례한다는 가정</strong>이며, 이를 <strong>Eddy Viscosity를 이용하여 모델링</strong>함.</span>
+<ul class="nested-points"><li><span class="point-text">이는 Newtonian flow 에서 shear stress의 정의</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\tau_{ij}^{\mu}  =\mu\left(
+\frac{\partial U_i}{\partial x_j}
++\frac{\partial U_j}{\partial x_i}
+\right) =2\mu S_{ij}\]</div>
+<span class="point-text">와 동일한 form을 가짐</span></li>
+<li><span class="point-text">난류에 의한 운동량 전달을 분자 점성과 유사한 효과로 취급하며, \(\mu\) 대신 Eddy Viscosity \(\mu_t\)를 사용한다는 점에서
+<strong>Eddy-Viscosity Hypothesis</strong>라고도 함.</span></li>
+<li><span class="point-text">단, 이는 <strong>정확한 물리법칙이 아니라</strong> 난류에 의한 운동량 전달을 단순화하여 표현하기 위한 <strong>모델링 가정</strong></span></li></ul>
+</li>
+<li><span class="point-text"><strong>Mean Strain-Rate Tensor</strong>는 평균속도의 공간적 변화에 따른 유체의 국소적인 변형률을
+나타내며, 다음과 같이 정의되므로</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\overline{S}_{ij}
+=\frac{1}{2}
+\left(
+\frac{\partial\overline{U_i}}{\partial x_j}
++
+\frac{\partial\overline{U_j}}{\partial x_i}
+\right).\]</div>
+</li>
+<li><span class="point-text">비압축성 유동에서는 Continuity Equation에 의해</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[% S_{ii}
+% =\frac{\partial\overline{U_i}}{\partial x_i}
+% =0.
+%\]</div>
+</li>
+<li><span class="point-text">따라서 Boussinesq Hypothesis에서는 Deviatoric Part를 다음과 같이 모델링</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\tau_{ij}^{R,\mathrm{dev}}
+\approx 2\mu_t \overline{S}_{ij}.\]</div>
+</li>
+<li><span class="point-text">여기서 \(\mu_t\)는 Eddy Viscosity이며, 문헌에 따라 Mean Strain-Rate Tensor를 bar 없이 \(S_{i,j}\) 로 표기하는 경우도 있음</span></li>
+<li><span class="point-text"><strong>Incompressible flow 에서 Boussinesq Hypothesis를 적용한 Reynolds Stress의 모델식</strong>은</span>
+<div class="equation key" role="group" aria-label="Mathematical equation">\[-\rho\overline{u_i u_j}
+\approx
+2\mu_t \overline{S}_{ij}
+-\frac{2}{3}\rho k\delta_{ij}.\]</div>
+</li>
+<li><span class="point-text">\(\mu_t\)는 여전히 미지수이므로 이를 결정하기 위한 추가적인 Turbulence Model이 필요하며 대표적으로 Mixing-Length Model, \(k\)--\(\varepsilon\) Model 및 \(k\)--\(\omega\) Model 등이 있음</span>
+<div class="note-box" role="note"><div class="note-title">Compressible Flow for Boussinesq Hypothesis</div><ul class="study-points"><li><span class="point-text">Boussinesq Hypothesis는 Reynolds Stress의
+<strong>Deviatoric Part를 Mean Strain-Rate Tensor를
+이용하여 모델링</strong>함.</span></li>
+<li><span class="point-text">이때 <strong>Deviatoric Part는 정의상 Diagonal 성분의 합을 나타내는 Trace가 0</strong>이어야 하므로,
+Incompressible flow와 compressible flow 에서 적용되는 식에 차이가 있음.</span></li>
+<li><span class="point-text"><strong>Incompressible Flow</strong>에서는 Continuity Equation에 의해 Mean Strain-Rate Tensor의 Trace가 0</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[tr(S_{ij}) =  S_{ii}
+=
+\frac{\partial\overline{U_i}}{\partial x_i}
+=0.\]</div>
+<span class="point-text">따라서 Mean Strain-Rate Tensor 자체가
+<strong>Deviatoric Tensor</strong>이므로, 위와 같이 표현된거 였음</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\tau_{ij}^{R,\mathrm{dev}}
+=
+2\mu_t S_{ij}.\]</div>
+</li>
+<li><span class="point-text">하지만 <strong>Compressible Flow</strong>에서는 Continuity Equation =0 을 적용할 수 없어 일반적으로 \(tr(S_{ij})\) 가 0이 아닐 수 있음.</span></li>
+<li><span class="point-text">따라서 Mean Strain-Rate Tensor에 포함된 <strong>Isotropic Part를 제거</strong>하여 Deviatoric Part를 정의해야 함.</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[S_{ij}
+=
+\underbrace{
+\frac{1}{3}S_{kk}\delta_{ij}
+}_{\text{Isotropic Part}}
++
+\underbrace{
+\left(
+S_{ij}-\frac{1}{3}S_{kk}\delta_{ij}
+\right)
+}_{\text{Deviatoric Part}}.\]</div>
+</li>
+<li><span class="point-text">이때 Deviatoric Strain-Rate Tensor는</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[S_{ij}^{\mathrm{dev}}
+=
+S_{ij}-\frac{1}{3}S_{kk}\delta_{ij}.\]</div>
+<span class="point-text">이며 Trace는</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+S_{ii}^{\mathrm{dev}}
+&amp;=S_{ii}-\frac{1}{3}S_{kk}\delta_{ii}\\[0.5em]
+&amp;=S_{ii}-S_{kk}\\[0.5em]
+&amp;=0.
+\end{aligned}\]</div>
+</li>
+<li><span class="point-text"><strong>General Boussinesq Model</strong>에서는
+Reynolds Stress의 Deviatoric Part를
+Mean Strain-Rate Tensor의 Deviatoric Part에
+선형 비례하도록 모델링함.</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\tau_{ij}^{R,\mathrm{dev}}
+=
+2\mu_t
+\left(
+S_{ij}-\frac{1}{3}S_{kk}\delta_{ij}
+\right).\]</div>
+<span class="point-text">비압축성 유동에서는 \(S_{kk}=0\)이므로</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\tau_{ij}^{R,\mathrm{dev}}
+=
+2\mu_t S_{ij}.\]</div>
+</li>
+<li><span class="point-text">즉, <strong>Boussinesq Hypothesis의 모델링 대상은 항상 Reynolds Stress의 Deviatoric Part</strong>이므로 
+<strong>Compressible flow에선 Mean Strain-Rate Tensor를 Isotropic Tensor와 Deviatoric Tensor로 분해가 필요</strong></span></li></ul></div>
+</li></ul></section>
+<section class="lesson-section" id="section-4"><h2><span class="section-tag">04</span>Modified Pressure and Modeled Production</h2><ul class="study-points"><li><span class="point-text">앞서 유도한 RANS Equation은 다음과 같음</span><div class="equation" role="group" aria-label="Mathematical equation">\[\rho\left(\frac{\partial\overline{U_i}}{\partial t}+\overline{U_j}\frac{\partial\overline{U_i}}{\partial x_j}\right)=-\frac{\partial\overline P}{\partial x_i}+\frac{\partial}{\partial x_j}\left[\mu\left(\frac{\partial\overline{U_i}}{\partial x_j}+\frac{\partial\overline{U_j}}{\partial x_i}\right)-\rho\overline{u_i u_j}\right]\]</div></li>
+<li><span class="point-text">Reynolds Stress에 <strong>Boussinesq Hypothesis</strong>를 적용하면,</span><div class="equation" role="group" aria-label="Mathematical equation">\[\rho\left(\frac{\partial\overline{U_i}}{\partial t}+\overline{U_j}\frac{\partial\overline{U_i}}{\partial x_j}\right)=-\frac{\partial\overline P}{\partial x_i}+\frac{\partial}{\partial x_j}\left[2\mu\overline S_{ij}+\left(2\mu_t\overline S_{ij}-\frac{2}{3}\rho k\delta_{ij}\right)\right]\]</div><div class="derivation-arrow" aria-label="Boussinesq substitution">\(\Downarrow\)</div><div class="equation key" role="group" aria-label="Mathematical equation">\[\rho\left(\frac{\partial\overline{U_i}}{\partial t}+\overline{U_j}\frac{\partial\overline{U_i}}{\partial x_j}\right)
+=-\frac{\partial}{\partial x_i}\underbrace{\left(\overline P+\frac{2}{3}\rho k\right)}_{\substack{P^* : \text{\scriptsize Modified Pressure}}}+\frac{\partial}{\partial x_j}\left[2(\mu+\mu_t)\overline S_{ij}\right].\]</div></li>
+<li><span class="point-text">Modified Pressure는 실제 Mean Pressure와 Reynolds Stress의 <strong>Isotropic Part를 합친 유효 압력</strong>으로, 난류에 의한 Isotropic stress가 압력과 유사하게 작용함을 의미</span></li>
+<li><span class="point-text">따라서 <strong>Turbulent Kinetic Energy의 공간적 구배 또한 Pressure Gradient와 같은 형태로 평균유동의 운동량 변화에 기여</strong></span></li>
+<li><span class="point-text">\(\mu_t\)는 공간에 따라 변할 수 있으므로 미분을 진행할때 주의해야함</span><div class="equation" role="group" aria-label="Mathematical equation">\[\frac{\partial}{\partial x_j}\left[2(\mu+\mu_t)\overline{S}_{ij}\right]=2(\mu+\mu_t)\frac{\partial\overline{S}_{ij}}{\partial x_j}+\underbrace{2\frac{\partial\mu_t}{\partial x_j}\overline{S}_{ij}}_{\text{Additional Term}}.\]</div></li>
+<li><span class="point-text">같은 가정으로 Production을 계산하면, incompressible 조건과 앞의 TKE 유도에서 사용한 첨자 교환 관계에 의해</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+P_k&amp;=-\overline{u_i u_j}\frac{\partial\overline{U_i}}{\partial x_j},\\[2.0em]
+&amp;=\left(\frac{2\mu_t}{\rho}\overline{S}_{ij}-\frac23k\delta_{ij}\right)\frac{\partial\overline{U_i}}{\partial x_j},\\[2.0em]
+&amp;=\frac{2\mu_t}{\rho}\overline{S}_{ij}\overline{S}_{ij}-\frac23k\underbrace{\frac{\partial\overline{U_i}}{\partial x_i}}_{0},\\[2.0em]
+&amp;=\frac{2\mu_t}{\rho}\overline{S}_{ij}\overline{S}_{ij}.
+\end{aligned}\]</div></li>
+<li><span class="point-text">이후 두 방정식 모델에서 \(P_k\)는 위 Eddy-Viscosity Closure로 계산한 Production을 뜻함. \(\mu_t\geq0\)이면 이 모델의 \(P_k\geq0\)이므로, 정확한 유동의 국소적인 역에너지 전달을 모두 표현하지는 못함.</span></li>
+<li><span class="point-text">\(\overline{S}_{ij}\overline{S}_{ij}\)는 음수가 아니므로, <strong>Boussinesq Hypothesis에서 \(\mu_t\geq0\)이면 \(P_k\geq0\)</strong>임.</span></li>
+<li><span class="point-text">이는 모델이 <strong>평균유동에서 난류로의 에너지 전달 또는 0의 Production만 예측</strong>함을 의미하며, Reynolds Stress를 <strong>Mean Strain Rate에 비례</strong>시킨 Boussinesq Hypothesis의 결과임.</span></li></ul></section>
+</article><div class="article-pager"><a class="prev" href="turbulent-kinetic-energy-equation-2.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Turbulent Kinetic Energy Equation (2)</span></a></div><a class="back-bottom" href="../turbulent-flow.html">← Back to Turbulent Flow</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>RANS Turbulence Modeling</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>
