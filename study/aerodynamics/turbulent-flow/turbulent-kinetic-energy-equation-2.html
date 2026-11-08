@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Turbulent Kinetic Energy Equation (2) — Engineering Notebook">
+<title>Turbulent Kinetic Energy Equation (2) | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+}
+.tl-page .note-box{border:1px solid #b9cce9;border-radius:11px;background:#f5f8ff;padding:22px 25px;margin:37px 0 42px}
+.tl-page .note-title{font-weight:800;color:#234f88;font-size:16px;margin-bottom:15px}
+.tl-page .note-box .study-points>li{font-size:14px;margin-bottom:17px}
+.tl-page .note-box .equation{margin:21px 0 25px;font-size:15px}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){.tl-page .note-box{padding:17px 14px}.tl-page .note-box .equation{font-size:13px}}
+/* LaTeX motivationbox: ivory / copper / midnight; 0.7pt frame; 2mm corners. */
+.tl-page .motivation-box{
+  width:90%;
+  margin:9px auto 28px;
+  border:0.7pt solid #946346;
+  border-radius:2mm;
+  background:#fffdf2;
+  overflow:hidden;
+}
+.tl-page .motivation-box .motivation-title{
+  background:#f1e6dc;
+  color:#172b47;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:18px;
+  font-weight:750;
+  line-height:1.45;
+  padding:2mm 4mm 2mm 5mm;
+  border-bottom:0.7pt solid #946346;
+}
+.tl-page .motivation-box .motivation-content{
+  padding:3mm 4mm 3mm 5mm;
+}
+.tl-page .motivation-box .study-points>li{margin-bottom:calc(25px + 0.3cm);line-height:2}
+.tl-page .motivation-box .study-points>li:last-child{margin-bottom:0}
+.tl-page .motivation-box .study-points>li::before{background:#a97452}
+.tl-page .motivation-box .nested-points{padding-top:10px;padding-bottom:6px}
+.tl-page .motivation-box .nested-points>li{font-size:15px;color:#536b89;margin:8px 0}
+.tl-page .motivation-box .nested-points>li::before{background:#c39676}
+@media(max-width:740px){.tl-page .motivation-box .nested-points>li{font-size:14px}}
+.tl-page .ref-link{color:#3166b5;text-decoration:underline;text-underline-offset:2px}
+.tl-page .note-box{max-width:94%;margin:26px auto 34px}
+.tl-page .note-box .note-content>.point-text{display:block;line-height:1.9;margin-bottom:20px}
+.tl-page .note-box .equation{font-size:14px}
+.tl-page .nested-points .point-text{font-size:14px;line-height:1.85}
+
+/* Faithful HTML equivalent of the LaTeX tcolorbox 'notebox':
+   colback=blue!4, colframe=blue!55!black, colbacktitle=blue!12,
+   coltitle=blue!30!black, boxrule=0.6pt, arc=2mm,
+   left/right/top/bottom=4mm. */
+.tl-page .note-box{
+  border:0.6pt solid #00008c;
+  border-radius:2mm;
+  background:#f5f5ff;
+  padding:0;
+  margin:37px 0 42px;
+  overflow:hidden;
+}
+.tl-page .note-box .note-title{
+  display:block;
+  margin:0;
+  padding:2mm 4mm;
+  background:#e0e0ff;
+  color:#00004d;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-weight:700;
+  font-size:18px;
+  line-height:1.45;
+  border-bottom:0.6pt solid #00008c;
+}
+.tl-page .note-box > .study-points{
+  margin:0;
+  padding:4mm;
+}
+.tl-page .note-box .study-points>li{
+  margin-bottom:0.65cm;
+  font-size:14px;
+  color:#000;
+}
+.tl-page .note-box .study-points>li::before{background:#000}
+.tl-page .note-box .point-text,
+.tl-page .note-box .point-text strong{color:#000}
+.tl-page .note-box .equation{
+  margin:21px 0 25px;
+  font-size:15px;
+  color:#000;
+}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){
+  .tl-page .note-box .note-title{font-size:16px}
+  .tl-page .note-box .equation{font-size:13px}
+}
+.tl-page .note-box{max-width:none;margin:37px 0 42px}
+.tl-page .note-box .equation{font-size:15px;color:#000}
+.tl-page .nested-points .point-text{font-size:14px;line-height:1.85}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav>
+</div></header>
+<main class="shell tl-page">
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="../../../index.html">Home</a><span class="separator">›</span>
+  <a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span>
+  <a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
+  <a href="../turbulent-flow.html">Turbulent Flow</a><span class="separator">›</span>
+  <strong>Turbulent Kinetic Energy Equation (2)</strong>
+</nav>
+<div class="hero"><div class="hero-text">
+  <div class="eyebrow">TURBULENT FLOW / 2.5</div>
+  <h1>Turbulent Kinetic Energy Equation (2)</h1>
+  <p class="hero-subtitle">Reynolds-Averaged Governing Equations</p>
+  <p class="hero-description">Turbulent and pressure transport, viscous dissipation, and the exact TKE balance.</p>
+</div></div>
+<article class="article-content"><div class="lesson-meta"><span>02 / Reynolds-Averaged Governing Equations</span><span>Study Notes · 2.5 · Part 2</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#section-1">01 · 3. Turbulent Transport and Pressure Transport</a></li><li><a href="#section-2">02 · 5. Reynolds Stress Term</a></li><li><a href="#section-3">03 · 5. Viscous Transport and Dissipation</a></li><li><a href="#section-4">04 · Exact TKE Balance</a></li></ul></nav>
+<section class="lesson-section" id="section-1"><h2><span class="section-tag">01</span>3. Turbulent Transport and Pressure Transport</h2>
+<div class="equation key" role="group" aria-label="Mathematical equation">\[\left(
+\frac{\partial u_i}{\partial t}
++\overline{U_j}\frac{\partial u_i}{\partial x_j}
+\right)
++u_j\frac{\partial\overline{U_i}}{\partial x_j}
++u_j\frac{\partial u_i}{\partial x_j}
+-\frac{\partial\overline{u_i u_j}}{\partial x_j}
+=-\frac{1}{\rho}\frac{\partial p}{\partial x_i}
++\nu\frac{\partial^2u_i}{\partial x_j\partial x_j}.\]</div>
+<ul class="study-points"><li><span class="point-text">Velocity Fluctuation에 의한 대류항에 \(u_i\)를 곱하고 평균을 취하면</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\overline{u_i u_j\frac{\partial u_i}{\partial x_j}}
+&amp;=\frac12\overline{u_j\frac{\partial}{\partial x_j}(u_i u_i)},\\[2.0em]
+&amp;=\frac12\overline{\frac{\partial}{\partial x_j}(u_j u_i u_i)-u_i u_i\frac{\partial u_j}{\partial x_j}},\\[2.0em]
+&amp;=\frac{\partial}{\partial x_j}
+\left(\frac12\overline{u_i u_i u_j}\right)
+\end{aligned}\]</div>
+
+<div class="note-box" role="note"><div class="note-title">Mean of Product and Product of Means</div><ul class="study-points"><li><span class="point-text">곱의 평균(Mean of Product)과
+평균의 곱(Product of Means)은 일반적으로 서로 다름.</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\overline{u_i u_i u_j}
+\neq
+\overline{u_i}\,\overline{u_i}\,\overline{u_j}.\]</div>
+</li></ul></div>
+</li>
+<li><span class="point-text">위 결과는 Divergence 형태 이며 아래와 같이 보면 구조가 쉽게 이해됨</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\frac{\partial}{\partial x_j}
+\underbrace{\left(
+\frac12\overline{u_i u_i u_j}
+\right)}_{\text{Turbulent Kinetic Energy Flux}}\]</div>
+</li>
+<li><span class="point-text">이는 Advection form으로 바꾸면 다음과 같음</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\underbrace{u_j}_{\text{수송속도}}
+\underbrace{\frac{\partial}{\partial x_j}
+\left(\frac12u_i u_i\right)}_{\text{변동 운동에너지의 공간 변화율}}\]</div>
+</li>
+<li><span class="point-text">앞서 얻은 항은 <strong>Turbulent Kinetic Energy Flux의 Divergence</strong>를 나타내며,
+Flux \(T_j\)를 다음과 같이 정의함.</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[T_j=\frac12\overline{u_i u_i u_j}.\]</div>
+</li>
+<li><span class="point-text">TKE 수송방정식에서 해당 Flux Divergence 항을 이항하며, 이를 <strong>Turbulent Transport</strong> 항으로 나타냄.</span>
+<div class="equation key" role="group" aria-label="Mathematical equation">\[\text{Turbulent Transport}
+=-\frac{\partial T_j}{\partial x_j}
+=-\frac12\frac{\partial\overline{u_i u_i u_j}}{\partial x_j}\]</div>
+</li>
+<li><span class="point-text">Flux Divergence는 <strong>특정 위치에서 난류 운동에너지의 순유출</strong>을 나타내므로,</span>
+<ul class="nested-points"><li><span class="point-text">\(\frac{\partial T_j}{\partial x_j}&gt;0\):
+ 순유출로 인해 해당 위치의 TKE가 감소하는 방향으로 작용함.</span></li>
+<li><span class="point-text">\(\frac{\partial T_j}{\partial x_j}&lt;0\):
+ 순유입으로 인해 해당 위치의 TKE가 증가하는 방향으로 작용함.</span></li></ul>
+</li>
+<li><span class="point-text">따라서 <strong>Turbulent Transport</strong>는 <strong>Velocity Fluctuation에 의해 난류 운동에너지가
+공간적으로 재분배되는 과정</strong>을 나타냄.</span>
+<div class="note-box" role="note"><div class="note-title">Advection Form and Flux Divergence Form</div><ul class="study-points"><li><span class="point-text">유체의 이동에 의해 물리량이 운반되는 현상을
+<strong>Advection</strong>이라 하며,
+수송되는 물리량을 \(\phi\)라 하면 다음과 같이 표현됨.</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[U_j\frac{\partial \phi}{\partial x_j}.\]</div>
+<span class="point-text">여기서 \(\phi\)는 Velocity, Temperature, Concentration 등
+유체에 의해 수송되는 물리량을 의미함.</span></li>
+<li><span class="point-text">Product Rule을 이용하면 Advection Term을
+다음과 같이 변형할 수 있음.</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[U_j\frac{\partial \phi}{\partial x_j}
+=\frac{\partial(U_j\phi)}{\partial x_j}
+-\phi\frac{\partial U_j}{\partial x_j}.\]</div>
+<span class="point-text"><strong>Incompressible Flow</strong>에서는 Continuity Equation에 의해
+\(\frac{\partial U_j}{\partial x_j}=0\)이므로
+Advection Term은 Flux Divergence Form으로 변환됨.</span>
+<div class="equation key" role="group" aria-label="Mathematical equation">\[U_j\frac{\partial \phi}{\partial x_j}
+=\frac{\partial(U_j\phi)}{\partial x_j}.\]</div>
+</li>
+<li><span class="point-text">두 표현은 동일한 대류 수송 현상을
+서로 다른 수학적 형태로 나타냄.</span>
+<ul class="nested-points"><li><span class="point-text"><strong>Advection Form</strong>:
+ 유체의 이동에 따라 유체 입자가 경험하는
+ <strong>물리량의 변화율</strong>을 표현함.</span></li>
+<li><span class="point-text"><strong>Flux Divergence Form</strong>:
+ 검사체적 경계를 통한
+ <strong>물리량 Flux의 순유출률</strong>을 표현함.</span></li></ul>
+</li>
+<li><span class="point-text">즉, <strong>Incompressible Flow</strong>에서는
+Continuity Equation에 의해
+Advection Form과 Flux Divergence Form이 수학적으로 동일하며,
+두 형태 모두 물리량의 대류 수송을 나타냄.</span></li></ul></div>
+</li>
+<li><span class="point-text">압력항에도 Product Rule과 fluctuation의 Continuity Equation을 적용하면</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+-\frac{1}{\rho}\overline{u_i\frac{\partial p}{\partial x_i}}
+&amp;=-\frac{1}{\rho}\overline{\frac{\partial}{\partial x_i}(p u_i)-p\frac{\partial u_i}{\partial x_i}},\\[2.0em]
+&amp;=-\frac{1}{\rho}\frac{\partial \overline{p u_i}}{\partial x_i},\\[2.0em]
+&amp;=-\frac{\partial}{\partial x_j}\left(\frac{\overline{p u_j}}{\rho}\right).
+\end{aligned}\]</div>
+</li>
+<li><span class="point-text">다른 Transport Term과 동일하게 수송 방향을 \(j\) 로 나타내기 위해서 Index의 이름을 \(i\)에서 \(j\)로 바꿈</span></li>
+<li><span class="point-text">따라서 <strong>Pressure Transport</strong>는 pressure fluctuation 이 유체에 하는 일을 통해 <strong>난류 운동에너지가 공간적으로 재분배되는 과정</strong>을 나타냄.</span></li></ul></section>
+<section class="lesson-section" id="section-2"><h2><span class="section-tag">02</span>5. Reynolds Stress Term</h2><ul class="study-points"><li><span class="point-text">Reynolds Stress 항에 \(u_i\) 를 곱하고 평균을 취하면</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+-\overline{u_i\frac{\partial\overline{u_i u_j}}{\partial x_j}} 
+&amp;=-\overline{u_i}\frac{\partial\overline{u_i u_j}}{\partial x_j}\\[0.8em]
+&amp;=0
+\end{aligned}\]</div>
+</li>
+<li><span class="point-text">따라서 해당항은 소거됨</span></li></ul></section>
+<section class="lesson-section" id="section-3"><h2><span class="section-tag">03</span>5. Viscous Transport and Dissipation</h2><ul class="study-points"><li><span class="point-text">Production rule</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\frac{\partial}{\partial x_j}
+\left(u_i\frac{\partial u_i}{\partial x_j}\right)
+&amp;=
+\frac{\partial u_i}{\partial x_j}
+\frac{\partial u_i}{\partial x_j}
++
+u_i\frac{\partial^2u_i}{\partial x_j\partial x_j}
+\end{aligned}\]</div>
+</li>
+<li><span class="point-text">에 따라서 Reynolds Stress Term에 점성항에 ui를 곱하고 Reynolds 평균을 취하면,</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\nu\overline{
+u_i\frac{\partial^2u_i}{\partial x_j\partial x_j}
+}
+&amp;=\nu\frac{\partial}{\partial x_j}
+\left(
+\overline{u_i\frac{\partial u_i}{\partial x_j}}
+\right)
+-\nu\overline{
+\frac{\partial u_i}{\partial x_j}
+\frac{\partial u_i}{\partial x_j}
+},\\[2.0em]
+&amp;=\nu\frac{\partial^2k}{\partial x_j\partial x_j}
+-\nu\overline{
+\frac{\partial u_i}{\partial x_j}
+\frac{\partial u_i}{\partial x_j}
+}.
+\end{aligned}\]</div>
+</li>
+<li><span class="point-text">첫 번째 항은 <strong>점성에 의해 난류 운동에너지가 공간적으로 확산</strong>되는 효과를 나타내는 <strong>Viscous Diffusion</strong></span></li>
+<li><span class="point-text">두 번째 항은 Velocity Fluctuation의
+속도구배 제곱에 비례하는 감소항이며,
+<strong>Pseudo-Dissipation</strong>에 해당함.</span></li>
+<li><span class="point-text">이때 Dissipation은 유체의 거시적인 <strong>운동에너지가 분자 수준의 불규칙한 열운동에너지로 비가역적으로 전환</strong>되는 현상</span></li>
+<li><span class="point-text">위 물리량이 <strong>Pseudo</strong>-Dissipation인 이유</span>
+<ul class="nested-points"><li><span class="point-text">Velocity Gradient에는 유체의 변형뿐 아니라 <strong>회전 성분도 포함</strong>되어 있음.</span></li>
+<li><span class="point-text">실제 Viscous dissipation 은 점성응력이 <strong>유체를 변형</strong>시키는 과정에서 운동에너지가 내부에너지로 전환되는 현상</span></li>
+<li><span class="point-text">따라서 이를 명확하게 표현하려면 Strain Rate가 필요함.</span></li></ul>
+</li>
+<li><span class="point-text">따라서 Velocity Fluctuation에 의한 <strong>Strain Rate Tensor</strong> \(s_{ij}\)를 정의함.</span>
+<div class="equation key" role="group" aria-label="Mathematical equation">\[s_{ij}=\frac12\left(
+\frac{\partial u_i}{\partial x_j}
++\frac{\partial u_j}{\partial x_i}
+\right).\]</div>
+</li>
+<li><span class="point-text">\(s_{ij}=s_{ji}\)이고, incompressible Newtonian Fluid에서 Fluctuating Viscous Stress는 \(\tau'_{ij}=2\mu s_{ij}\)로 표현됨.</span></li>
+<li><span class="point-text">Incompressible condition을 적용하면 Velocity Fluctuation의 Laplacian을 Strain Rate Tensor의 발산으로 나타낼 수 있음.</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+2\frac{\partial s_{ij}}{\partial x_j}
+&amp;=\frac{\partial}{\partial x_j}
+\left(
+\frac{\partial u_i}{\partial x_j}
++\frac{\partial u_j}{\partial x_i}
+\right),\\[2.0em]
+&amp;=\frac{\partial^2u_i}{\partial x_j\partial x_j}
++\frac{\partial}{\partial x_i}
+\underbrace{\left(
+\frac{\partial u_j}{\partial x_j}
+\right)}_{0},\\[2.0em]
+&amp;=\frac{\partial^2u_i}{\partial x_j\partial x_j}.
+\end{aligned}\]</div>
+</li>
+<li><span class="point-text">따라서 앞서 전개한 점성항을
+Strain Rate Tensor로 다시 표현하고
+Product Rule을 적용하면</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\nu\overline{
+u_i\frac{\partial^2u_i}{\partial x_j\partial x_j}
+}
+&amp;=2\nu\overline{
+u_i\frac{\partial s_{ij}}{\partial x_j}
+},\\[2.0em]
+&amp;=2\nu\frac{\partial\overline{u_i s_{ij}}}{\partial x_j}
+-2\nu\overline{
+s_{ij}\frac{\partial u_i}{\partial x_j}
+}
+\end{aligned}\]</div>
+</li>
+<li><span class="point-text">이때 우변의 두번쨰 항을 다음과 같이 나타내면</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+s_{ij}\frac{\partial u_i}{\partial x_j}
+&amp;=\frac12\left(
+s_{ij}\frac{\partial u_i}{\partial x_j}
++s_{ji}\frac{\partial u_j}{\partial x_i}
+\right),\\[2.0em]
+&amp;=s_{ij}\frac12\left(
+\frac{\partial u_i}{\partial x_j}
++\frac{\partial u_j}{\partial x_i}
+\right),\\[2.0em]
+&amp;=s_{ij}s_{ij}
+\end{aligned}\]</div>
+</li>
+<li><span class="point-text">따라서</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\nu\overline{
+u_i\frac{\partial^2u_i}{\partial x_j\partial x_j}
+}=2\nu\frac{\partial\overline{u_i s_{ij}}}{\partial x_j}-2\nu\overline{s_{ij}s_{ij}
+}\]</div>
+</li>
+<li><span class="point-text">두 번째 항은
+<strong>Viscous Stress와 Strain Rate의 곱</strong>에 해당하며,
+점성응력에 의해 난류 운동에너지가
+내부에너지로 전환되는 효과를 나타냄.</span></li>
+<li><span class="point-text">Newtonian Fluid에서 점성응력은
+Strain Rate에 비례하므로,
+단위질량당 <strong>Dissipation Rate</strong>를 다음과 같이 정의함.</span>
+<div class="equation key" role="group" aria-label="Mathematical equation">\[\epsilon
+=2\nu\overline{s_{ij}s_{ij}}
+\geq0,
+\qquad
+[\epsilon]=\mathrm{m^2/s^3}.\]</div>
+</li>
+<li><span class="point-text">\(s_{ij}s_{ij}\)는 Strain Rate Tensor의
+각 성분을 제곱하여 합한 값이므로 음수가 될 수 없음.
+따라서 Dissipation은 TKE 수송방정식에서
+항상 \(-\epsilon\)으로 나타나며,
+<strong>난류 운동에너지를 감소시키는 방향으로 작용</strong></span></li>
+<li><span class="point-text">즉, <strong>Viscous Transport</strong>는
+난류 운동에너지의 공간적 재분배를 나타내고,
+Dissipation은 점성작용에 의해
+<strong>난류 운동에너지가 내부에너지로 전환</strong>되는 과정을 나타냄.</span></li></ul></section>
+<section class="lesson-section" id="section-4"><h2><span class="section-tag">04</span>Exact TKE Balance</h2><ul class="study-points"><li><span class="point-text">따라서 Fluctuating Momentum Equation 인 아래의 방정식에 서 지금까지 \(u_i\) 를 곱하고 평균을 취한 결과를 모두 대입하면</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\left(
+\frac{\partial u_i}{\partial t}
++\overline{U_j}\frac{\partial u_i}{\partial x_j}
+\right)
++u_j\frac{\partial\overline{U_i}}{\partial x_j}
++u_j\frac{\partial u_i}{\partial x_j}
+-\frac{\partial\overline{u_i u_j}}{\partial x_j}
+=-\frac{1}{\rho}\frac{\partial p}{\partial x_i}
++\nu\frac{\partial^2u_i}{\partial x_j\partial x_j}.\]</div>
+</li>
+<li><span class="point-text">Incompressible 유동의 <strong>Exact TKE Equation</strong>은 다음과 같다</span>
+<div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\frac{\partial k}{\partial t}
++\overline{U_j}\frac{\partial k}{\partial x_j}
+={}&amp;-\overline{u_i u_j}\frac{\partial\overline{U_i}}{\partial x_j}
+-\frac12\frac{\partial\overline{u_i u_i u_j}}{\partial x_j}
+-\frac{1}{\rho}\frac{\partial\overline{p u_j}}{\partial x_j}
++2\nu\frac{\partial\overline{u_i s_{ij}}}{\partial x_j}
+-2\nu\overline{s_{ij}s_{ij}}
+\end{aligned}\]</div>
+
+<div class="derivation-arrow" aria-label="Equation transformation">\(\Downarrow\)</div>
+
+<div class="equation key" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\underbrace{
+\frac{\partial k}{\partial t}
++\overline{U_j}\frac{\partial k}{\partial x_j}
+}_{\substack{\text{Unsteady and}\\\text{Mean Advection}}}
+={}&amp;
+\underbrace{P_k}_{\text{Production}}
+-
+\underbrace{\epsilon}_{\text{Dissipation}}
+\\[0.8em]
+&amp;-\frac{\partial}{\partial x_j}
+\left[
+\underbrace{
+\frac12\overline{u_i u_i u_j}
+}_{\text{Turbulent Transport}}
++
+\underbrace{
+\frac{\overline{p u_j}}{\rho}
+}_{\text{Pressure Transport}}
+-
+\underbrace{
+2\nu\overline{u_i s_{ij}}
+}_{\text{Viscous Transport}}
+\right].
+\end{aligned}\]</div>
+</li>
+<li><span class="point-text">Exact TKE Equation은 난류 운동에너지의 <strong>시간적 변화와 평균유동에 의한 수송</strong>이 <strong>Production, Dissipation 및 Transport</strong>에 의해
+결정됨을 나타냄.</span>
+<ul class="nested-points"><li><span class="point-text"><strong>Production</strong>은 평균유동과 난류 사이의 에너지 교환</span></li>
+<li><span class="point-text"><strong>Dissipation</strong>은 난류 운동에너지의 내부에너지 전환,</span></li>
+<li><span class="point-text"><strong>Transport</strong>는 난류 운동에너지의 공간적 재분배를 나타냄</span></li></ul>
+</li></ul></section>
+</article><div class="article-pager"><a class="prev" href="turbulent-kinetic-energy-equation.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Turbulent Kinetic Energy Equation (1)</span></a></div><a class="back-bottom" href="../turbulent-flow.html">← Back to Turbulent Flow</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Reynolds-Averaged Governing Equations</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>
