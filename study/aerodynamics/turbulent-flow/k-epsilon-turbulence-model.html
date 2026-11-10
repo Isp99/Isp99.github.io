@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Standard k-epsilon turbulence model: exact and modeled TKE and dissipation-rate equations, model constants, and applicable conditions.">
+<title>k–ε Turbulence Model | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+}
+.tl-page .note-box{border:1px solid #b9cce9;border-radius:11px;background:#f5f8ff;padding:22px 25px;margin:37px 0 42px}
+.tl-page .note-title{font-weight:800;color:#234f88;font-size:16px;margin-bottom:15px}
+.tl-page .note-box .study-points>li{font-size:14px;margin-bottom:17px}
+.tl-page .note-box .equation{margin:21px 0 25px;font-size:15px}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){.tl-page .note-box{padding:17px 14px}.tl-page .note-box .equation{font-size:13px}}
+/* LaTeX motivationbox: ivory / copper / midnight; 0.7pt frame; 2mm corners. */
+.tl-page .motivation-box{
+  width:90%;
+  margin:9px auto 28px;
+  border:0.7pt solid #946346;
+  border-radius:2mm;
+  background:#fffdf2;
+  overflow:hidden;
+}
+.tl-page .motivation-box .motivation-title{
+  background:#f1e6dc;
+  color:#172b47;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:18px;
+  font-weight:750;
+  line-height:1.45;
+  padding:2mm 4mm 2mm 5mm;
+  border-bottom:0.7pt solid #946346;
+}
+.tl-page .motivation-box .motivation-content{
+  padding:3mm 4mm 3mm 5mm;
+}
+.tl-page .motivation-box .study-points>li{margin-bottom:calc(25px + 0.3cm);line-height:2}
+.tl-page .motivation-box .study-points>li:last-child{margin-bottom:0}
+.tl-page .motivation-box .study-points>li::before{background:#a97452}
+.tl-page .motivation-box .nested-points{padding-top:10px;padding-bottom:6px}
+.tl-page .motivation-box .nested-points>li{font-size:15px;color:#536b89;margin:8px 0}
+.tl-page .motivation-box .nested-points>li::before{background:#c39676}
+@media(max-width:740px){.tl-page .motivation-box .nested-points>li{font-size:14px}}
+.tl-page .ref-link{color:#3166b5;text-decoration:underline;text-underline-offset:2px}
+.tl-page .note-box{max-width:94%;margin:26px auto 34px}
+.tl-page .note-box .note-content>.point-text{display:block;line-height:1.9;margin-bottom:20px}
+.tl-page .note-box .equation{font-size:14px}
+.tl-page .nested-points .point-text{font-size:14px;line-height:1.85}
+
+/* Faithful HTML equivalent of the LaTeX tcolorbox 'notebox':
+   colback=blue!4, colframe=blue!55!black, colbacktitle=blue!12,
+   coltitle=blue!30!black, boxrule=0.6pt, arc=2mm,
+   left/right/top/bottom=4mm. */
+.tl-page .note-box{
+  border:0.6pt solid #00008c;
+  border-radius:2mm;
+  background:#f5f5ff;
+  padding:0;
+  margin:37px 0 42px;
+  overflow:hidden;
+}
+.tl-page .note-box .note-title{
+  display:block;
+  margin:0;
+  padding:2mm 4mm;
+  background:#e0e0ff;
+  color:#00004d;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-weight:700;
+  font-size:18px;
+  line-height:1.45;
+  border-bottom:0.6pt solid #00008c;
+}
+.tl-page .note-box > .study-points{
+  margin:0;
+  padding:4mm;
+}
+.tl-page .note-box .study-points>li{
+  margin-bottom:0.65cm;
+  font-size:14px;
+  color:#000;
+}
+.tl-page .note-box .study-points>li::before{background:#000}
+.tl-page .note-box .point-text,
+.tl-page .note-box .point-text strong{color:#000}
+.tl-page .note-box .equation{
+  margin:21px 0 25px;
+  font-size:15px;
+  color:#000;
+}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){
+  .tl-page .note-box .note-title{font-size:16px}
+  .tl-page .note-box .equation{font-size:13px}
+}
+.tl-page .note-box{max-width:none;margin:37px 0 42px}
+.tl-page .note-box .equation{font-size:15px;color:#000}
+.tl-page .nested-points .point-text{font-size:14px;line-height:1.85}
+.tl-page .decomp-matrix{font-size:12px}
+.tl-page .equation:has(.decomp-matrix){overflow-x:auto}
+.tl-page .note-box{max-width:none}
+.tl-page .note-box .note-title{font-size:18px}
+.tl-page .note-box .study-points>li{margin-bottom:0.65cm}
+.tl-page .note-box .nested-points>li{color:#000}
+.tl-page .section-tag{font-variant-numeric:tabular-nums}
+@media(max-width:740px){.tl-page .note-box .note-title{font-size:16px}}
+
+/* Physical Motivation tcolorbox: orange!3!white, brown!55!white frame,
+   brown!15!white title, blue!30!black type, 0.6pt/2mm and 4mm inset. */
+.tl-page .intro-motivation{
+ background:#fff9f2;border:0.6pt solid #ab8876;border-radius:2mm;
+ margin:12px 0 65px;overflow:hidden;
+}
+.tl-page .intro-motivation .intro-title{
+ background:#f3eae5;color:#182b50;
+ font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+ font-size:18px;font-weight:750;line-height:1.5;padding:3mm 4mm;
+ border-bottom:0.6pt solid #ab8876;
+}
+.tl-page .intro-motivation .intro-body{padding:4mm}
+.tl-page .intro-motivation .study-points>li{margin-bottom:0.65cm;color:#4b5260}
+.tl-page .intro-motivation .study-points>li:last-child{margin-bottom:0}
+.tl-page .intro-motivation .study-points>li::before{background:#b28b72}
+.tl-page .scale-group{scroll-margin-top:24px}
+.tl-page .scale-group+.scale-group{margin-top:65px}
+.tl-page .scale-group h3{font-size:21px;color:#1a3c64;line-height:1.45;margin:0 0 28px;font-weight:750}
+.tl-page .scale-group .equation{margin:26px 0 35px}
+@media(max-width:740px){.tl-page .intro-motivation{margin-bottom:44px}.tl-page .scale-group+.scale-group{margin-top:44px}.tl-page .scale-group h3{font-size:18px}}
+
+
+/* Term-by-term exact epsilon budget, preserving the visual grammar of chapter 3.2. */
+.tl-page .exact-terms{counter-reset:exact;list-style:none;margin:22px 0 55px;padding:0}
+.tl-page .exact-terms>li{counter-increment:exact;position:relative;padding:0 0 0 38px;margin:0 0 41px;line-height:1.75}
+.tl-page .exact-terms>li::before{content:counter(exact,decimal-leading-zero);position:absolute;left:0;top:0;border-radius:7px;padding:3px 6px;background:#e7effb;color:#3266b8;font-size:12px;font-weight:800}
+.tl-page .exact-terms strong{display:block;color:#183353;font-size:16px}
+.tl-page .exact-terms .equation{margin:16px 0 12px}
+.tl-page .model-comparison{border:1px solid #dae5f5;background:#fbfdff;border-radius:11px;padding:7px 22px;margin:15px 0 46px}
+.tl-page .compare-row{display:flex;align-items:flex-start;gap:14px;border-bottom:1px solid #e1eaf6;padding:16px 0}
+.tl-page .compare-row:last-child{border-bottom:0}
+.tl-page .compare-index{flex:none;color:#4777be;font-size:12px;font-weight:800;padding-top:13px}
+.tl-page .model-comparison .equation{flex:1;min-width:0;margin:0;text-align:left}
+.tl-page .note-body{padding:20px 24px 24px;color:#000;line-height:1.85;font-size:14px}
+.tl-page .note-body p{margin:0 0 12px}
+.tl-page .note-body p:nth-of-type(3){margin-top:22px}
+.tl-page .note-body strong{color:#00004d}
+.tl-page .table-scroll{overflow-x:auto;margin-top:22px}
+.tl-page .explain-table{width:100%;min-width:510px;border-collapse:collapse;font-size:13px;line-height:1.6;text-align:center}
+.tl-page .explain-table th,.tl-page .explain-table td{border:1px solid #a7bbe2;padding:12px 11px}
+.tl-page .explain-table thead th{background:#e7ebff;color:#152c58}
+.tl-page .explain-table tbody th{width:17%;font-weight:750;color:#1b365d}
+@media(max-width:740px){.tl-page .exact-terms>li{padding-left:32px}.tl-page .exact-terms strong{font-size:14px}.tl-page .model-comparison{padding:7px 12px}.tl-page .compare-row{gap:6px}.tl-page .compare-index{font-size:10px}.tl-page .note-body{padding:17px 14px}}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav>
+</div></header>
+<main class="shell tl-page">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../turbulent-flow.html">Turbulent Flow</a><span class="separator">›</span><strong>k–ε Turbulence Model</strong>
+</nav>
+<div class="hero"><div class="hero-text">
+<div class="eyebrow">TURBULENT FLOW / 3.3</div><h1>k–ε Turbulence Model</h1><p class="hero-subtitle">RANS Turbulence Modeling</p>
+<p class="hero-description">Two-equation modeling using turbulent kinetic energy and dissipation.</p></div></div>
+<article class="article-content"><div class="lesson-meta"><span>03 / RANS Turbulence Modeling</span><span>Study Notes · 3.3</span></div>
+<nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul>
+<li><a href="#closing-tke">01 · Closing the TKE Equation</a></li>
+<li><a href="#epsilon-transport">02 · Dissipation-Rate ε Transport Equation</a></li>
+<li><a href="#applicable-conditions">03 · Applicable Conditions</a></li>
+</ul></nav>
+<section class="lesson-section" id="closing-tke"><h2><span class="section-tag">01</span>Closing the TKE Equation</h2><ul class="study-points"><li><span class="point-text">아래의 <strong>Exact TKE Equation</strong>에서</span><div class="equation" role="group" aria-label="Mathematical equation">\[\frac{\partial k}{\partial t}+\overline{U_j}\frac{\partial k}{\partial x_j}=P_k-\epsilon-\frac{\partial}{\partial x_j}\left[\frac12\overline{u_i u_i u_j}+\frac{\overline{p u_j}}{\rho}-2\nu\overline{u_i s_{ij}}\right]\]</div></li>
+<li><span class="point-text">Turbulent Transport와 Pressure Transport항은 직접 계산할 수 없으므로 모델링이 필요.</span></li>
+<li><span class="point-text">두 항의 합은 <strong>Velocity와 Pressure Fluctuation에 의해 전달되는 TKE Flux</strong>를 의미하며, 외부 강제력이 없다면 TKE가 높은 영역에서 낮은 영역으로 전달이 발생.</span></li>
+<li><span class="point-text">따라서 이러한 <strong>난류 혼합의 평균적인 효과</strong>를 TKE가 높은 영역에서 낮은 영역으로 전달되는 <strong>확산 현상으로 가정</strong>.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\frac12\overline{u_i u_i u_j}+\frac{\overline{p u_j}}{\rho}\approx-\frac{\mu_t}{\rho\sigma_k}\frac{\partial k}{\partial x_j}\]</div></li>
+<li><span class="point-text">이때 확산계수에 해당하는 \(D_k\)는 다음과 같음.</span><div class="equation" role="group" aria-label="Mathematical equation">\[D_k=\frac{\nu_t}{\sigma_k}=\frac{\mu_t}{\rho\sigma_k}\]</div></li>
+<li><span class="point-text">TKE의 난류 확산계수를 Eddy Viscosity를 이용해 표현하는 이유</span><ul class="nested-points"><li><span class="point-text">TKE는 난류 운동에 의해 전달되므로 동일한 속도 및 길이 규모에 영향을 받기 때문에 \(D_k\sim\nu_t\) (\(\because\;\nu_t\sim u_t\ell_t\)).</span></li>
+<li><span class="point-text">운동량의 난류 확산 \(\nu_t\)과 TKE의 난류 확산 \(D_k\)가 정확히 같은 크기라고 정할 근거는 없으므로 <strong>두 확산계수의 상대적인 크기를 조정하기 위해 모델 상수 \(\sigma_k\)를 도입</strong>.</span></li></ul></li>
+<li><span class="point-text">따라서 이를 <strong>\(k\) Transport Equation</strong>에 대입하면,</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\frac{\partial k}{\partial t}+\overline{U_j}\frac{\partial k}{\partial x_j}=P_k-\epsilon+\frac{\partial}{\partial x_j}\left[\left(\nu+\frac{\mu_t}{\rho\sigma_k}\right)\frac{\partial k}{\partial x_j}\right]\]</div></li></ul><aside class="note-box" role="note" aria-label="Transport and Diffusion"><div class="note-title">Transport and Diffusion</div>
+<div class="note-body">
+<p><strong>Transport — 물리량의 전달</strong></p><p>Transport는 어떤 물리량이 공간적으로 한 위치에서 다른 위치로 전달되는 현상 전체를 의미함.</p>
+<p><strong>Diffusion — 물리량의 공간적 구배에 따른 전달</strong></p><p>Diffusion은 물리량의 공간적 구배에 의해 높은 값에서 낮은 값으로 전달되는 현상으로, Transport의 한 형태임.</p>
+<div class="table-scroll"><table class="explain-table"><thead><tr><th>구분</th><th>Transport</th><th>Diffusion</th></tr></thead><tbody>
+<tr><th>의미</th><td>물리량의 공간적 전달</td><td>공간적 구배에 따른 확산</td></tr>
+<tr><th>전달 방향</th><td>전달 메커니즘에 따라 결정</td><td>높은 값 → 낮은 값</td></tr>
+<tr><th>대표 사례</th><td>Convection, Pressure Transport, Diffusion</td><td>Molecular Diffusion, Eddy Diffusion</td></tr>
+<tr><th>관계</th><td>포괄적인 개념</td><td>Transport의 한 형태</td></tr>
+</tbody></table></div></div></aside></section>
+<section class="lesson-section" id="epsilon-transport"><h2><span class="section-tag">02</span>Dissipation-Rate \(\epsilon\) Transport Equation</h2><ul class="study-points"><li><span class="point-text">\(k\)만으로는 \(\mu_t=\rho C_\mu k^2/\epsilon\)를 계산할 수 없으므로 \(\epsilon\)의 수송방정식도 필요하며 아래와 같음 (여기서는 유도하지 않음).</span><div class="equation" role="group" aria-label="Mathematical equation">\[\frac{\partial\epsilon}{\partial t}+\overline{U_j}\frac{\partial\epsilon}{\partial x_j}=\underbrace{P_{\epsilon,1}+P_{\epsilon,2}+P_{\epsilon,3}}_{\text{Production}}+\underbrace{T_\epsilon}_{\text{Transport}}+\underbrace{D_\epsilon}_{\text{Diffusion}}-\underbrace{\Phi_\epsilon}_{\text{Destruction}}\]</div></li>
+<li><span class="point-text">각 항의 의미는 다음과 같음.</span></li></ul><ol class="exact-terms"><li><strong>\(P_{\epsilon,1}\) — 평균속도 구배에 의한 생성항</strong><div class="equation" role="group" aria-label="Mathematical equation">\[P_{\epsilon,1}=-2\nu\left(\overline{\frac{\partial u_i}{\partial x_k}\frac{\partial u_j}{\partial x_k}}+\overline{\frac{\partial u_k}{\partial x_i}\frac{\partial u_k}{\partial x_j}}\right)\frac{\partial\overline{U}_i}{\partial x_j}\]</div></li>
+<li><strong>\(P_{\epsilon,2}\) — 평균속도 구배의 공간 변화에 의한 생성항</strong><div class="equation" role="group" aria-label="Mathematical equation">\[P_{\epsilon,2}=-2\nu\overline{u_j\frac{\partial u_i}{\partial x_k}}\frac{\partial^2\overline{U}_i}{\partial x_j\partial x_k}\]</div></li>
+<li><strong>\(P_{\epsilon,3}\) — 속도 변동 구배의 상호작용에 의한 생성항</strong><div class="equation" role="group" aria-label="Mathematical equation">\[P_{\epsilon,3}=-2\nu\overline{\frac{\partial u_i}{\partial x_j}\frac{\partial u_i}{\partial x_k}\frac{\partial u_k}{\partial x_j}}\]</div></li>
+<li><strong>\(T_\epsilon\) — 난류 및 압력 변동에 의한 수송항</strong><div class="equation" role="group" aria-label="Mathematical equation">\[T_\epsilon=-\frac{\partial}{\partial x_j}\left(\overline{\nu u_j\frac{\partial u_i}{\partial x_k}\frac{\partial u_i}{\partial x_k}}+\frac{2\nu}{\rho}\overline{\frac{\partial p}{\partial x_k}\frac{\partial u_j}{\partial x_k}}\right)\]</div></li>
+<li><strong>\(D_\epsilon\) — 분자 점성에 의한 확산항</strong><div class="equation" role="group" aria-label="Mathematical equation">\[D_\epsilon=\nu\frac{\partial^2\epsilon}{\partial x_j\partial x_j}\]</div></li>
+<li><strong>\(\Phi_\epsilon\) — 점성에 의한 소멸항</strong><div class="equation" role="group" aria-label="Mathematical equation">\[\Phi_\epsilon=2\nu^2\overline{\frac{\partial^2u_i}{\partial x_j\partial x_k}\frac{\partial^2u_i}{\partial x_j\partial x_k}}\]</div></li></ol><ul class="study-points"><li><span class="point-text">\(\epsilon\)에 대해서도 고차 상관항 등이 포함되어 있어 \(k\), \(\epsilon\), \(\nu_t\)를 이용하여 모델링함.</span></li>
+<li><span class="point-text"><strong>Exact Equation과 Modeled Equation의 비교</strong></span></li></ul><div class="model-comparison" aria-label="Exact-to-modeled term correspondence"><div class="compare-row"><span class="compare-index">01</span><div class="equation" role="group" aria-label="Mathematical equation">\[\underbrace{P_{\epsilon,1}+P_{\epsilon,2}}_{\text{Production}}\;\longrightarrow\;C_{\epsilon1}\frac{\epsilon}{k}P_k\]</div></div>
+<div class="compare-row"><span class="compare-index">02</span><div class="equation" role="group" aria-label="Mathematical equation">\[\underbrace{P_{\epsilon,3}-\Phi_\epsilon}_{\text{Destruction}}\;\longrightarrow\;-C_{\epsilon2}\frac{\epsilon^2}{k}\]</div></div>
+<div class="compare-row"><span class="compare-index">03</span><div class="equation" role="group" aria-label="Mathematical equation">\[\underbrace{T_\epsilon}_{\text{Turbulent Transport}}\;\longrightarrow\;\frac{\partial}{\partial x_j}\left(\frac{\nu_t}{\sigma_\epsilon}\frac{\partial\epsilon}{\partial x_j}\right)\]</div></div>
+<div class="compare-row"><span class="compare-index">04</span><div class="equation" role="group" aria-label="Mathematical equation">\[\underbrace{D_\epsilon}_{\text{Molecular Diffusion}}\;=\;\nu\frac{\partial^2\epsilon}{\partial x_j\partial x_j}\]</div></div></div><ul class="study-points"><li><span class="point-text">따라서 <strong>Modeled \(\epsilon\) Transport Equation</strong>은</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\frac{\partial\epsilon}{\partial t}+\overline{U_j}\frac{\partial\epsilon}{\partial x_j}=C_{\epsilon1}\frac{\epsilon}{k}P_k-C_{\epsilon2}\frac{\epsilon^2}{k}+\frac{\partial}{\partial x_j}\left[\left(\nu+\frac{\nu_t}{\sigma_\epsilon}\right)\frac{\partial\epsilon}{\partial x_j}\right]\]</div></li>
+<li><span class="point-text">여기서 <strong>TKE Production</strong> 및 <strong>Kinematic Eddy Viscosity</strong>는</span><div class="equation" role="group" aria-label="Mathematical equation">\[P_k=-\overline{u_i u_j}\frac{\partial\overline{U}_i}{\partial x_j},\qquad \nu_t=C_\mu\frac{k^2}{\epsilon}\]</div></li>
+<li><span class="point-text">첫 항은 Turbulence Flow 생성과 연계된 \(\epsilon\)의 생성, 두 번째는 \(\epsilon\)의 감소, 세 번째는 분자 및 모델 난류 확산을 나타내며 각 항의 단위는 \(\mathrm{m^2/s^4}\).</span></li>
+<li><span class="point-text">상수는 다음과 같고, 이 상수들은 보편적인 자연상수가 아니라 모델에 포함된 보정값임.</span><div class="equation" role="group" aria-label="Mathematical equation">\[C_\mu=0.09,\quad C_{\epsilon1}=1.44,\quad C_{\epsilon2}=1.92,\quad \sigma_k=1.0,\quad\sigma_\epsilon=1.3\]</div></li>
+<li><span class="point-text">최종적으로 구한 \(k\)와 \(\epsilon\)으로 <strong>Eddy Viscosity</strong>를 계산함.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\mu_t=\rho C_\mu\frac{k^2}{\epsilon},\qquad P_k=\frac{2\mu_t}{\rho}\overline{S}_{ij}\overline{S}_{ij}\]</div></li>
+<li><span class="point-text">평균속도구배에서 \(P_k\)를 구하고, \(k\)와 \(\epsilon\)을 풀어 \(\mu_t\)를 갱신하면 평균 운동량방정식과 Turbulence Flow 방정식이 서로 결합됨. 계산된 \(k\), \(\epsilon\)은 양수여야 함.</span></li></ul></section>
+<section class="lesson-section" id="applicable-conditions"><h2><span class="section-tag">03</span>Applicable Conditions</h2><ul class="study-points"><li><span class="point-text">Standard \(k\)–\(\epsilon\) Model은 충분히 발달한 난류를 대상으로 하며, 특히 <strong>Free Shear Flow</strong>의 해석에 널리 사용되는 기본적인 난류 모델임. 여기서는 밀도가 일정한 비압축성 유동을 대상으로 하며 압축성 및 부력 보정항은 고려하지 않음.</span></li>
+<li><span class="point-text">Standard \(k\)–\(\epsilon\) Model은 벽면 근처의 <strong>Viscous Sublayer</strong>를 직접 해석하는 데 한계가 있음. 따라서 <strong>Wall Function</strong>을 사용하거나 <strong>Low-Reynolds-Number Modification</strong>이 적용된 모델을 사용해야 함.</span></li>
+<li><span class="point-text">Standard \(k\)–\(\epsilon\) Model은 <strong>Boussinesq Hypothesis</strong>를 통해 Reynolds Stress를 모델링하므로 복잡한 난류 구조와 비평형 거동을 정확하게 예측하는 데 한계가 있음. 특히 다음과 같은 유동에서 오차가 커질 수 있음.</span><ul class="nested-points"><li><span class="point-text">강한 Adverse Pressure Gradient</span></li>
+<li><span class="point-text">Flow Separation</span></li>
+<li><span class="point-text">Anisotropic Turbulence</span></li></ul></li>
+<li><span class="point-text">이러한 한계를 개선하기 위해 <strong>RNG 및 Realizable \(k\)–\(\epsilon\) Model</strong> 등이 개발되었으며 Eddy Viscosity의 계산 방법과 \(\epsilon\) 수송방정식 등을 수정하여 복잡한 유동에 대한 예측 성능을 개선함.</span></li></ul></section>
+</article>
+<div class="article-pager"><a class="prev" href="turbulence-scales-and-model-variables.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Turbulence Scales and Model Variables</span></a></div>
+<a class="back-bottom" href="../turbulent-flow.html">← Back to Turbulent Flow</a>
+</main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>RANS Turbulence Modeling</span></div></footer>
+<script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
+</body></html>
