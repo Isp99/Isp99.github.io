@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Menter BSL and SST k-omega turbulence models: blending, cross-diffusion, eddy-viscosity limiter, production limiter, and SST-2003 transport equations.">
+<title>BLS k–ω and SST Turbulence Models | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+}
+.tl-page .note-box{border:1px solid #b9cce9;border-radius:11px;background:#f5f8ff;padding:22px 25px;margin:37px 0 42px}
+.tl-page .note-title{font-weight:800;color:#234f88;font-size:16px;margin-bottom:15px}
+.tl-page .note-box .study-points>li{font-size:14px;margin-bottom:17px}
+.tl-page .note-box .equation{margin:21px 0 25px;font-size:15px}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){.tl-page .note-box{padding:17px 14px}.tl-page .note-box .equation{font-size:13px}}
+/* LaTeX motivationbox: ivory / copper / midnight; 0.7pt frame; 2mm corners. */
+.tl-page .motivation-box{
+  width:90%;
+  margin:9px auto 28px;
+  border:0.7pt solid #946346;
+  border-radius:2mm;
+  background:#fffdf2;
+  overflow:hidden;
+}
+.tl-page .motivation-box .motivation-title{
+  background:#f1e6dc;
+  color:#172b47;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:18px;
+  font-weight:750;
+  line-height:1.45;
+  padding:2mm 4mm 2mm 5mm;
+  border-bottom:0.7pt solid #946346;
+}
+.tl-page .motivation-box .motivation-content{
+  padding:3mm 4mm 3mm 5mm;
+}
+.tl-page .motivation-box .study-points>li{margin-bottom:calc(25px + 0.3cm);line-height:2}
+.tl-page .motivation-box .study-points>li:last-child{margin-bottom:0}
+.tl-page .motivation-box .study-points>li::before{background:#a97452}
+.tl-page .motivation-box .nested-points{padding-top:10px;padding-bottom:6px}
+.tl-page .motivation-box .nested-points>li{font-size:15px;color:#536b89;margin:8px 0}
+.tl-page .motivation-box .nested-points>li::before{background:#c39676}
+@media(max-width:740px){.tl-page .motivation-box .nested-points>li{font-size:14px}}
+.tl-page .ref-link{color:#3166b5;text-decoration:underline;text-underline-offset:2px}
+.tl-page .note-box{max-width:94%;margin:26px auto 34px}
+.tl-page .note-box .note-content>.point-text{display:block;line-height:1.9;margin-bottom:20px}
+.tl-page .note-box .equation{font-size:14px}
+.tl-page .nested-points .point-text{font-size:14px;line-height:1.85}
+
+/* Faithful HTML equivalent of the LaTeX tcolorbox 'notebox':
+   colback=blue!4, colframe=blue!55!black, colbacktitle=blue!12,
+   coltitle=blue!30!black, boxrule=0.6pt, arc=2mm,
+   left/right/top/bottom=4mm. */
+.tl-page .note-box{
+  border:0.6pt solid #00008c;
+  border-radius:2mm;
+  background:#f5f5ff;
+  padding:0;
+  margin:37px 0 42px;
+  overflow:hidden;
+}
+.tl-page .note-box .note-title{
+  display:block;
+  margin:0;
+  padding:2mm 4mm;
+  background:#e0e0ff;
+  color:#00004d;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-weight:700;
+  font-size:18px;
+  line-height:1.45;
+  border-bottom:0.6pt solid #00008c;
+}
+.tl-page .note-box > .study-points{
+  margin:0;
+  padding:4mm;
+}
+.tl-page .note-box .study-points>li{
+  margin-bottom:0.65cm;
+  font-size:14px;
+  color:#000;
+}
+.tl-page .note-box .study-points>li::before{background:#000}
+.tl-page .note-box .point-text,
+.tl-page .note-box .point-text strong{color:#000}
+.tl-page .note-box .equation{
+  margin:21px 0 25px;
+  font-size:15px;
+  color:#000;
+}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){
+  .tl-page .note-box .note-title{font-size:16px}
+  .tl-page .note-box .equation{font-size:13px}
+}
+.tl-page .note-box{max-width:none;margin:37px 0 42px}
+.tl-page .note-box .equation{font-size:15px;color:#000}
+.tl-page .nested-points .point-text{font-size:14px;line-height:1.85}
+.tl-page .decomp-matrix{font-size:12px}
+.tl-page .equation:has(.decomp-matrix){overflow-x:auto}
+.tl-page .note-box{max-width:none}
+.tl-page .note-box .note-title{font-size:18px}
+.tl-page .note-box .study-points>li{margin-bottom:0.65cm}
+.tl-page .note-box .nested-points>li{color:#000}
+.tl-page .section-tag{font-variant-numeric:tabular-nums}
+@media(max-width:740px){.tl-page .note-box .note-title{font-size:16px}}
+
+/* Physical Motivation tcolorbox: orange!3!white, brown!55!white frame,
+   brown!15!white title, blue!30!black type, 0.6pt/2mm and 4mm inset. */
+.tl-page .intro-motivation{
+ background:#fff9f2;border:0.6pt solid #ab8876;border-radius:2mm;
+ margin:12px 0 65px;overflow:hidden;
+}
+.tl-page .intro-motivation .intro-title{
+ background:#f3eae5;color:#182b50;
+ font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+ font-size:18px;font-weight:750;line-height:1.5;padding:3mm 4mm;
+ border-bottom:0.6pt solid #ab8876;
+}
+.tl-page .intro-motivation .intro-body{padding:4mm}
+.tl-page .intro-motivation .study-points>li{margin-bottom:0.65cm;color:#4b5260}
+.tl-page .intro-motivation .study-points>li:last-child{margin-bottom:0}
+.tl-page .intro-motivation .study-points>li::before{background:#b28b72}
+.tl-page .scale-group{scroll-margin-top:24px}
+.tl-page .scale-group+.scale-group{margin-top:65px}
+.tl-page .scale-group h3{font-size:21px;color:#1a3c64;line-height:1.45;margin:0 0 28px;font-weight:750}
+.tl-page .scale-group .equation{margin:26px 0 35px}
+@media(max-width:740px){.tl-page .intro-motivation{margin-bottom:44px}.tl-page .scale-group+.scale-group{margin-top:44px}.tl-page .scale-group h3{font-size:18px}}
+
+
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav>
+</div></header>
+<main class="shell tl-page">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../turbulent-flow.html">Turbulent Flow</a><span class="separator">›</span><strong>BLS k–ω and SST Turbulence Models</strong>
+</nav>
+<div class="hero"><div class="hero-text">
+<div class="eyebrow">TURBULENT FLOW / 3.5</div><h1>BLS k–ω and SST Turbulence Models</h1><p class="hero-subtitle">RANS Turbulence Modeling</p>
+<p class="hero-description">Baseline k–ω blending and shear-stress transport formulations.</p></div></div>
+<article class="article-content"><div class="lesson-meta"><span>03 / RANS Turbulence Modeling</span><span>Study Notes · 3.5</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#blending-and-bls-k-omega">01 · Blending and BLS \(k\)–\(\omega\) Model</a></li>
+<li><a href="#introduction-to-sst">02 · Introduction to SST Model</a></li>
+<li><a href="#sst-transport-equations">03 · SST Transport Equations</a></li></ul></nav><section class="lesson-section" id="blending-and-bls-k-omega"><h2><span class="section-tag">01</span>Blending and BLS \(k\)–\(\omega\) Model</h2><ul class="study-points"><li><span class="point-text">\(k\)–\(\epsilon\) 와 \(k\)–\(\omega\) Model의 단점을 보완하기 위해 Menter는 <strong>벽면 근처에서는 \(k\)–\(\omega\) Model을, 외부 영역에서는 \(k\)–\(\epsilon\) Model을 사용하는 Blending 기법</strong>을 제안</span></li>
+<li><span class="point-text">그러나 두 모델은 <strong>서로 다른 변수를 사용</strong>하므로, 하나의 수송방정식으로 결합하려면 <strong>동일한 종속변수로 표현할 필요가 있음</strong></span></li>
+<li><span class="point-text">벽면 근처에서 \(k\)–\(\omega\) Model의 장점을 유지하기 위해 \(k\)와 \(\omega\)를 공통 변수로 선택하고, \(k\)–\(\epsilon\) Model의 \(\epsilon\) 수송방정식을 \(\omega\) 수송방정식으로 변환</span><ul class="nested-points"><li><span class="point-text">\(k\)–\(\epsilon\) 모델은 벽면 근처에서 별도의 Wall Function 또는 Low Reynolds 수 보정이 필요</span></li>
+<li><span class="point-text">\(k\)–\(\omega\) 모델은 벽면 근처까지 적분하기 좋은 구조를 가지고 있음</span></li></ul></li>
+<li><span class="point-text">앞에서 정의한 Specific Dissipation Rate의 관계를 이용하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\epsilon=\beta^*k\omega
+\qquad\Longrightarrow\qquad
+\omega=\frac{\epsilon}{\beta^*k}\]</div></li>
+<li><span class="point-text">위 관계를 시간과 공간에 따라 변화하는 유동에 적용하기 위해 미분하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\frac{D\epsilon}{Dt}
+&=\beta^*\frac{D(k\omega)}{Dt},\\[2.0em]
+&=\beta^*\left(
+k\frac{D\omega}{Dt}
++\omega\frac{Dk}{Dt}
+\right)\\[2.599em]
+\therefore \  \frac{D\omega}{Dt}
+&=\frac{1}{\beta^*k}\frac{D\epsilon}{Dt}
+-\frac{\omega}{k}\frac{Dk}{Dt}.
+\end{aligned}\]</div></li>
+<li><span class="point-text">따라서 \(k\)–\(\epsilon\) Model의 \(k\) 및 \(\epsilon\) Transport equation에 위 관계에 대입하면 \(\omega\)에 대한 수송방정식을 얻을 수 있음.</span></li>
+<li><span class="point-text">이때 Diffusion Term을 변환하는 과정에서 <strong>기존 Standard \(k\)–\(\omega\) Model에는 없었던 Cross-Diffusion term 이라는 새로운 항이 등장</strong></span></li>
+<li><span class="point-text">먼저 Cross-Diffusion 이 발생하는 수학적 원리를 확인하기 위해, 두 확산항의 유효 확산계수 \(\sigma_k\)를 동일한 \(A\)로 단순화하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+D_k= \frac{\partial}{\partial x_j}
+\left[
+\left(\nu+\frac{\nu_t}{\sigma_k}\right)
+\frac{\partial k}{\partial x_j}
+\right]
+&=\frac{\partial}{\partial x_j}
+\left(A\frac{\partial k}{\partial x_j}\right),\\[2.0em]
+D_\epsilon=\frac{\partial}{\partial x_j}
+\left[
+\left(\nu+\frac{\nu_t}{\sigma_\epsilon}\right)
+\frac{\partial\epsilon}{\partial x_j}
+\right]
+&=\frac{\partial}{\partial x_j}
+\left(A\frac{\partial\epsilon}{\partial x_j}\right).
+\end{aligned}\]</div></li>
+<li><span class="point-text">앞에서 얻은 \(\omega\) 수송방정식의 확산항에 \(\epsilon=\beta^*k\omega\)를 대입하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\frac{D_\epsilon}{\beta^*k}
+-\frac{\omega}{k}D_k& =\frac{1}{k}
+\frac{\partial}{\partial x_j}
+\left[
+A\frac{\partial(k\omega)}{\partial x_j}
+\right]
+-\frac{\omega}{k}
+\frac{\partial}{\partial x_j}
+\left[
+A\frac{\partial k}{\partial x_j}
+\right],\\[2.0em]
+&=\underbrace{
+\frac{\partial}{\partial x_j}
+\left(A\frac{\partial\omega}{\partial x_j}\right)
+}_{\text{Diffusion}}
++
+\underbrace{
+\frac{2A}{k}
+\frac{\partial k}{\partial x_j}
+\frac{\partial\omega}{\partial x_j}
+}_{\text{Cross-Diffusion}}.
+\end{aligned}\]</div></li>
+<li><span class="point-text">즉, \(\epsilon\)을 \(k\omega\)로 표현하고 확산항에 미분하면 <strong>\(k\)와 \(\omega\)의 spatial gradient가 결합된 Cross-Diffusion Term</strong>이 발생</span></li>
+<li><span class="point-text">\(k\)–\(\epsilon\) Model의 Cross-Diffusion은 다음 형태로 모델링함.</span><div class="equation" role="group" aria-label="Mathematical equation">\[CD_{k\omega}
+=
+2\frac{\sigma_{\omega2}}{\omega}
+\frac{\partial k}{\partial x_j}
+\frac{\partial\omega}{\partial x_j}\]</div></li>
+<li><span class="point-text">따라서 두 모델을 모두 \(k\)와 \(\omega\)로 표현할 수 있지만, <strong>transformed \(k\)–\(\epsilon\) Model에는 Cross-Diffusion Term이 추가적으로 존재</strong></span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\text{$k$--$\omega$ Model:}\quad
+\frac{D\omega}{Dt}
+&=\alpha_1\frac{\omega}{k}P_k-\beta_1\omega^2 +\frac{\partial}{\partial x_j}
+\left[
+\left(\nu+\sigma_{\omega1}\frac{\mu_t}{\rho}\right)
+\frac{\partial\omega}{\partial x_j}
+\right]
+\\[3.0ex]
+\text{Transformed $k$--$\epsilon$ Model:}\quad
+\frac{D\omega}{Dt}
+&=\alpha_2\frac{\omega}{k}P_k-\beta_2\omega^2+\frac{\partial}{\partial x_j}
+\left[
+\left(\nu+\sigma_{\omega2}\frac{\mu_t}{\rho}\right)
+\frac{\partial\omega}{\partial x_j}
+\right]
+\\[1.5em]
+&\quad+2\frac{\sigma_{\omega2}}{\omega}
+\frac{\partial k}{\partial x_j}
+\frac{\partial\omega}{\partial x_j}.
+\end{aligned}\]</div></li>
+<li><span class="point-text"><strong>벽 근처에서는 \(k\)–\(\omega\) Model</strong>의 특성을, <strong>벽에서 먼 영역에서는 Transformed \(k\)–\(\epsilon\) Model</strong>의 특성을 적용하기 위해 <strong>Blending Function \(F_1\)</strong>을 도입함.</span></li>
+<li><span class="point-text">\(F_1\)은 <strong>벽면 근처에서 1</strong>에 가까워지고, <strong>외부 영역에서는 0</strong>에 가까워지도록 정의하며 이를 이용하여 \(\alpha_{1,2}\ \beta_{1,2},\ \sigma_{1,2}\)와 같은 각 모델의 계수 \(\phi\)를 다음과 같이 연결</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\phi=F_1\phi_1+(1-F_1)\phi_2,
+\qquad 0\leq F_1\leq1\]</div><ul class="nested-points"><li><span class="point-text">\(F_1\approx1\): 벽면 근처에서 Standard \(k\)–\(\omega\) Model의 계수가 적용</span></li>
+<li><span class="point-text">\(F_1\approx0\): 외부 영역에서 transformed \(k\)–\(\epsilon\) Model의 계수가 적용</span></li></ul></li>
+<li><span class="point-text">특히 Cross-Diffusion은 transformed \(k\)–\(\epsilon\) Model에만 존재하므로, Blending 과정에서 \((1-F_1)\)이 곱해짐.</span><div class="equation" role="group" aria-label="Mathematical equation">\[CD_{k\omega}^{SST}
+=
+2(1-F_1)\frac{\sigma_{\omega2}}{\omega}
+\frac{\partial k}{\partial x_j}
+\frac{\partial\omega}{\partial x_j}\]</div></li>
+<li><span class="point-text">이러한 Blending을 통해 두 모델을 결합한 것이 <strong>BSL (Baseline) \(k\)–\(\omega\) Model</strong>임</span></li>
+<li><span class="point-text">그러나 BSL Model은 두 모델의 장점을 결합했음에도, <strong>강한 Adverse Pressure Gradient가 발생하는 bounday layer</strong>에서 <strong>난류 전단응력을 과대평가</strong>하여 Separation을 늦게 예측할 수 있음.</span></li></ul></section>
+
+<section class="lesson-section" id="introduction-to-sst"><h2><span class="section-tag">02</span>Introduction to SST Model</h2><ul class="study-points"><li><span class="point-text">Eddy Viscosity는 \(\mu_t=\rho\frac{k}{\omega} \) 이므로 Reynolds stress는</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\tau^R_{xy}
+&=\mu_t\frac{\partial\overline U}{\partial y}\\[2.0em]
+&=\rho\frac{k}{\omega}
+\frac{\partial\overline U}{\partial y}
+\end{aligned}\]</div></li>
+<li><span class="point-text">즉, \(k\)와 \(\omega\)가 일정하다면 평균 속도 구배가 커질수록 난류 전단응력이 계속 증가하는 구조.</span></li>
+<li><span class="point-text">하지만 실제 난류 전단응력은 속도 변동 사이의 상관관계로 발생하므로, 주어진 난류 운동에너지에 비해 무한정 커질 수는 없으므로 <strong>Eddy Viscosity의 크기를 제한할 필요가 있음</strong></span></li>
+<li><span class="point-text">이를 위해 SST Model에서는 평균 Strain Rate의 크기 \(S\)를 이용하여 <strong>Eddy Viscosity Limiter</strong>를 도입함.</span><div class="equation" role="group" aria-label="Mathematical equation">\[S=\sqrt{2\overline{S}_{ij}\overline{S}_{ij}},
+\qquad
+\overline{S}_{ij}
+=\frac{1}{2}
+\left(
+\frac{\partial\overline{U_i}}{\partial x_j}
++\frac{\partial\overline{U_j}}{\partial x_i}
+\right)\]</div><div class="equation key" role="group" aria-label="Mathematical equation">\[\mu_t=\min\left(
+\frac{\rho k}{\omega},
+\frac{a_1\rho k}{SF_2}
+\right)=
+\frac{\rho a_1 k}
+{\max(a_1\omega,SF_2)},
+\qquad a_1=0.31\]</div></li>
+<li><span class="point-text">여기서 <strong>\(F_2\)는 벽면까지의 거리와 국소 난류 규모를 고려</strong>하여 Limiter의 작동을 조절하는 <strong>두 번째 Blending Function</strong></span><ul class="nested-points"><li><span class="point-text">\(a_1\omega\geq SF_2\): 기존의 \(\mu_t=\rho k/\omega\) 관계를 유지함.</span></li>
+<li><span class="point-text">\(SF_2&gt;a_1\omega\): \(\mu_t\)가 기존 값보다 작아지도록 제한됨.</span></li></ul></li>
+<li><span class="point-text">따라서 <strong>과도한 난류 전단응력의 예측을 억제하여 Adverse Pressure Gradient 및 Separation 예측을 개선</strong>할 수 있음.</span></li>
+<li><span class="point-text">즉, <strong>BSL Model에 Eddy Viscosity Limiter를 추가한 것이 SST (Shear Stress Transport) Model</strong>임.</span></li>
+<li><span class="point-text">지금 기술하는 SST-2003에서는 Stagnation point 등 velocity gradient가 커지는 영역에서 과도한 TKE Production을 방지하기 위해 Production Limiter 적용</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\widehat P_k
+=\min(P_k,10\beta^*k\omega)=\min(P_k,10\epsilon),
+\qquad \beta^*=0.09\]</div><div class="equation" role="group" aria-label="Mathematical equation">\[P_k=\frac{\mu_t}{\rho}S^2\]</div></li>
+<li><span class="point-text">즉, TKE Production이 Dissipation의 10배를 초과하지 않도록 제한</span><div class="equation" role="group" aria-label="Mathematical equation">\[\widehat P_k=
+\begin{cases}
+P_k, & P_k\leq10\epsilon \\[2.0em]
+10\epsilon, & P_k>10\epsilon
+\end{cases}\]</div></li></ul></section>
+
+<section class="lesson-section" id="sst-transport-equations"><h2><span class="section-tag">03</span>SST Transport Equations</h2><ul class="study-points"><li><span class="point-text">앞에서 살펴본 Blending, Cross-Diffusion, Eddy Viscosity Limiter 및 Production Limiter를 적용하면 <strong>SST-2003 Model의 지배방정식</strong>을 얻을 수 있음.</span></li>
+<li><span class="point-text">Incompressible Flow 에서 <strong>SST-2003 Model의 kinetic energy transport equation</strong> 은</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\frac{\partial k}{\partial t}
++\overline{U_j}\frac{\partial k}{\partial x_j}
+=
+\widehat P_k-\beta^*k\omega
++\frac{\partial}{\partial x_j}
+\left[
+\left(\nu+\sigma_k\frac{\mu_t}{\rho}\right)
+\frac{\partial k}{\partial x_j}
+\right]\]</div></li>
+<li><span class="point-text">그리고 <strong>SST-2003 Model의 Specific Dissipation Rate transport equation</strong> 은</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\frac{\partial\omega}{\partial t}
++\overline{U_j}\frac{\partial\omega}{\partial x_j}
+={}&
+\frac{\gamma\rho}{\mu_t}\widehat P_k
+-\beta\omega^2+
+\frac{\partial}{\partial x_j}
+\left[
+\left(\nu+\sigma_\omega\frac{\mu_t}{\rho}\right)
+\frac{\partial\omega}{\partial x_j}
+\right]+
+\underbrace{
+2(1-F_1)\frac{\sigma_{\omega2}}{\omega}
+\frac{\partial k}{\partial x_j}
+\frac{\partial\omega}{\partial x_j}
+}_{\text{Cross-Diffusion}}
+\end{aligned}\]</div></li>
+<li><span class="point-text">\(\omega\) 수송방정식에서는 기존 Standard \(k\)–\(\omega\) Model과 달리 <strong>Cross-Diffusion이 추가되며</strong>, 각 모델 계수는 Blending Function \(F_1\)을 통해 결정됨.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\sigma_k
+&=F_1\sigma_{k1}+(1-F_1)\sigma_{k2},\\[2.0em]
+\sigma_\omega
+&=F_1\sigma_{\omega1}+(1-F_1)\sigma_{\omega2},\\[2.0em]
+\beta
+&=F_1\beta_1+(1-F_1)\beta_2,\\[2.0em]
+\gamma
+&=F_1\gamma_1+(1-F_1)\gamma_2.
+\end{aligned}\]</div></li>
+<li><span class="point-text">\(\sigma_{\omega2}\)는 외부 영역의 모델 계수이며, \(\beta^*\)는 두 영역에 공통으로 사용하는 상수</span></li>
+<li><span class="point-text">또한 SST에서는 Eddy Viscosity Limiter에 의해 \(\mu_t\)가 항상 \(\rho k/\omega\)와 같지는 않으므로, \(\omega\) 방정식의 Production을 임의로 \(\gamma\omega\widehat P_k/k\)로 변형하면 동일한 모델이 되지 않음.</span></li>
+<li><span class="point-text">\(F_1\)과 \(F_2\)는 벽면까지의 거리 및 국소 난류 규모에 따라 계산되며, 여기서는 두 함수의 상세 정의보다 모델의 결합 원리와 수송방정식의 구조에 초점을 맞춤.</span></li>
+<li><span class="point-text">최종적으로 SST Model은 <strong>벽면 근처의 난류 예측, 자유류 경계조건에 대한 민감도 완화, Adverse Pressure Gradient 및 Separation 예측 개선</strong>을 목적으로 하는 Two-Equation Eddy-Viscosity Model임.</span></li></ul></section></article>
+<div class="article-pager"><a class="prev" href="k-omega-turbulence-models.html"><span class="direction">← PREVIOUS</span><span class="adjacent">k–ω Turbulence Models</span></a></div>
+<a class="back-bottom" href="../turbulent-flow.html">← Back to Turbulent Flow</a>
+</main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>RANS Turbulence Modeling</span></div></footer>
+<script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
+</body></html>
