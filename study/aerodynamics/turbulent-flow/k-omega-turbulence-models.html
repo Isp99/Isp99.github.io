@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Wilcox k–omega turbulence model: specific dissipation rate, k and omega transport equations, wall asymptotic behavior, and free-stream sensitivity.">
+<title>k–ω Turbulence Models | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+}
+.tl-page .note-box{border:1px solid #b9cce9;border-radius:11px;background:#f5f8ff;padding:22px 25px;margin:37px 0 42px}
+.tl-page .note-title{font-weight:800;color:#234f88;font-size:16px;margin-bottom:15px}
+.tl-page .note-box .study-points>li{font-size:14px;margin-bottom:17px}
+.tl-page .note-box .equation{margin:21px 0 25px;font-size:15px}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){.tl-page .note-box{padding:17px 14px}.tl-page .note-box .equation{font-size:13px}}
+/* LaTeX motivationbox: ivory / copper / midnight; 0.7pt frame; 2mm corners. */
+.tl-page .motivation-box{
+  width:90%;
+  margin:9px auto 28px;
+  border:0.7pt solid #946346;
+  border-radius:2mm;
+  background:#fffdf2;
+  overflow:hidden;
+}
+.tl-page .motivation-box .motivation-title{
+  background:#f1e6dc;
+  color:#172b47;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:18px;
+  font-weight:750;
+  line-height:1.45;
+  padding:2mm 4mm 2mm 5mm;
+  border-bottom:0.7pt solid #946346;
+}
+.tl-page .motivation-box .motivation-content{
+  padding:3mm 4mm 3mm 5mm;
+}
+.tl-page .motivation-box .study-points>li{margin-bottom:calc(25px + 0.3cm);line-height:2}
+.tl-page .motivation-box .study-points>li:last-child{margin-bottom:0}
+.tl-page .motivation-box .study-points>li::before{background:#a97452}
+.tl-page .motivation-box .nested-points{padding-top:10px;padding-bottom:6px}
+.tl-page .motivation-box .nested-points>li{font-size:15px;color:#536b89;margin:8px 0}
+.tl-page .motivation-box .nested-points>li::before{background:#c39676}
+@media(max-width:740px){.tl-page .motivation-box .nested-points>li{font-size:14px}}
+.tl-page .ref-link{color:#3166b5;text-decoration:underline;text-underline-offset:2px}
+.tl-page .note-box{max-width:94%;margin:26px auto 34px}
+.tl-page .note-box .note-content>.point-text{display:block;line-height:1.9;margin-bottom:20px}
+.tl-page .note-box .equation{font-size:14px}
+.tl-page .nested-points .point-text{font-size:14px;line-height:1.85}
+
+/* Faithful HTML equivalent of the LaTeX tcolorbox 'notebox':
+   colback=blue!4, colframe=blue!55!black, colbacktitle=blue!12,
+   coltitle=blue!30!black, boxrule=0.6pt, arc=2mm,
+   left/right/top/bottom=4mm. */
+.tl-page .note-box{
+  border:0.6pt solid #00008c;
+  border-radius:2mm;
+  background:#f5f5ff;
+  padding:0;
+  margin:37px 0 42px;
+  overflow:hidden;
+}
+.tl-page .note-box .note-title{
+  display:block;
+  margin:0;
+  padding:2mm 4mm;
+  background:#e0e0ff;
+  color:#00004d;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-weight:700;
+  font-size:18px;
+  line-height:1.45;
+  border-bottom:0.6pt solid #00008c;
+}
+.tl-page .note-box > .study-points{
+  margin:0;
+  padding:4mm;
+}
+.tl-page .note-box .study-points>li{
+  margin-bottom:0.65cm;
+  font-size:14px;
+  color:#000;
+}
+.tl-page .note-box .study-points>li::before{background:#000}
+.tl-page .note-box .point-text,
+.tl-page .note-box .point-text strong{color:#000}
+.tl-page .note-box .equation{
+  margin:21px 0 25px;
+  font-size:15px;
+  color:#000;
+}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){
+  .tl-page .note-box .note-title{font-size:16px}
+  .tl-page .note-box .equation{font-size:13px}
+}
+.tl-page .note-box{max-width:none;margin:37px 0 42px}
+.tl-page .note-box .equation{font-size:15px;color:#000}
+.tl-page .nested-points .point-text{font-size:14px;line-height:1.85}
+.tl-page .decomp-matrix{font-size:12px}
+.tl-page .equation:has(.decomp-matrix){overflow-x:auto}
+.tl-page .note-box{max-width:none}
+.tl-page .note-box .note-title{font-size:18px}
+.tl-page .note-box .study-points>li{margin-bottom:0.65cm}
+.tl-page .note-box .nested-points>li{color:#000}
+.tl-page .section-tag{font-variant-numeric:tabular-nums}
+@media(max-width:740px){.tl-page .note-box .note-title{font-size:16px}}
+
+/* Physical Motivation tcolorbox: orange!3!white, brown!55!white frame,
+   brown!15!white title, blue!30!black type, 0.6pt/2mm and 4mm inset. */
+.tl-page .intro-motivation{
+ background:#fff9f2;border:0.6pt solid #ab8876;border-radius:2mm;
+ margin:12px 0 65px;overflow:hidden;
+}
+.tl-page .intro-motivation .intro-title{
+ background:#f3eae5;color:#182b50;
+ font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+ font-size:18px;font-weight:750;line-height:1.5;padding:3mm 4mm;
+ border-bottom:0.6pt solid #ab8876;
+}
+.tl-page .intro-motivation .intro-body{padding:4mm}
+.tl-page .intro-motivation .study-points>li{margin-bottom:0.65cm;color:#4b5260}
+.tl-page .intro-motivation .study-points>li:last-child{margin-bottom:0}
+.tl-page .intro-motivation .study-points>li::before{background:#b28b72}
+.tl-page .scale-group{scroll-margin-top:24px}
+.tl-page .scale-group+.scale-group{margin-top:65px}
+.tl-page .scale-group h3{font-size:21px;color:#1a3c64;line-height:1.45;margin:0 0 28px;font-weight:750}
+.tl-page .scale-group .equation{margin:26px 0 35px}
+@media(max-width:740px){.tl-page .intro-motivation{margin-bottom:44px}.tl-page .scale-group+.scale-group{margin-top:44px}.tl-page .scale-group h3{font-size:18px}}
+
+
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav>
+</div></header>
+<main class="shell tl-page">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../turbulent-flow.html">Turbulent Flow</a><span class="separator">›</span><strong>k–ω Turbulence Models</strong>
+</nav>
+<div class="hero"><div class="hero-text">
+<div class="eyebrow">TURBULENT FLOW / 3.4</div><h1>k–ω Turbulence Models</h1><p class="hero-subtitle">RANS Turbulence Modeling</p>
+<p class="hero-description">Specific dissipation rate and standard k–ω model formulations.</p></div></div>
+<article class="article-content"><div class="lesson-meta"><span>03 / RANS Turbulence Modeling</span><span>Study Notes · 3.4</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#specific-dissipation-rate">01 · Specific Dissipation Rate</a></li><li><a href="#basic-k-omega-structure">02 · Basic k–ω Structure</a></li></ul></nav><section class="lesson-section" id="specific-dissipation-rate"><h2><span class="section-tag">01</span>Specific Dissipation Rate</h2><ul class="study-points"><li><span class="point-text">앞에서 난류의 대표 시간 규모를 다음과 같이 추정했었음.</span><div class="equation" role="group" aria-label="Mathematical equation">\[t_t\sim\frac{k}{\epsilon}\]</div></li>
+<li><span class="point-text">이 관계를 반대로 생각하면, 난류의 시간 규모에 대한 역수를 얻을 수 있음.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\frac{1}{t_t}\sim\frac{\epsilon}{k}\]</div></li>
+<li><span class="point-text">이는 시간의 역수 차원을 가지므로, <strong>난류의 특성 주파수에 해당하는 물리량</strong>으로 해석할 수 있음.</span></li>
+<li><span class="point-text">이를 바탕으로 \(k\)–\(\omega\) Model에서는 <strong>Specific Dissipation Rate</strong> \(\omega\)를 도입함.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\epsilon_{\mathrm{model}}=\beta^*k\omega,\qquad\omega=\frac{\epsilon_{\mathrm{model}}}{\beta^*k},\qquad t_t\sim\omega^{-1}\]</div></li>
+<li><span class="point-text">두 변수의 의미는 다음과 같음.</span><ul class="nested-points"><li><span class="point-text">\(\epsilon\): 단위시간당 소산되는 난류 운동에너지</span></li>
+<li><span class="point-text">\(\omega\): 난류 운동에너지에 대한 상대적인 소산 속도</span></li></ul></li>
+<li><span class="point-text">따라서 \(\epsilon\)은 에너지 소산의 크기를 나타내는 반면, \(\omega\)는 난류의 대표 시간 규모를 나타내는 변수로 이해할 수 있음.</span></li>
+<li><span class="point-text">\(\beta^*\)는 \(\omega\)와 모델 소산율 사이의 비례관계를 결정하는 Model Constant이며, 기본 Wilcox Model에서는 \(\beta^*=0.09\)를 사용함.</span><ul class="nested-points"><li><span class="point-text">독립적인 물리법칙에서 유도된 값이 아니라, 난류 모델의 Closure를 구성하는 상수임.</span></li></ul></li></ul></section><section class="lesson-section" id="basic-k-omega-structure"><h2><span class="section-tag">02</span>Basic \(k\)–\(\omega\) Structure</h2><ul class="study-points"><li><span class="point-text">\(k\)–\(\omega\) Model은 \(k\)–\(\epsilon\) Model과 마찬가지로 두 개의 수송방정식을 사용하지만, \(\epsilon\) 대신 <strong>난류의 시간 규모와 관련된 \(\omega\)를 독립적인 수송변수로 사용</strong>함.</span><ul class="nested-points"><li><span class="point-text">기본적인 구조를 설명하기 위해 여기서는 <strong>Wilcox 1988 Model</strong>을 사용함.</span></li></ul></li>
+<li><span class="point-text">앞에서 배운 \(k\)–\(\epsilon\) Model의 Eddy Viscosity는 다음과 같았음.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\mu_t=\rho C_\mu\frac{k^2}{\epsilon}\]</div></li>
+<li><span class="point-text">여기서 \(\epsilon_{\mathrm{model}}=\beta^*k\omega\) 관계를 적용하고 \(C_\mu=\beta^*=0.09\)를 사용하면 다음과 같이 표현할 수 있음.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\mu_t&=\rho C_\mu\frac{k^2}{\beta^*k\omega},\\[1.1em]&=\rho\frac{k}{\omega}.\end{aligned}\]</div></li>
+<li><span class="point-text">따라서 두 모델은 모두 난류의 세기와 Time Scale을 이용하여 Eddy Viscosity를 결정하며, 기본적인 관계는 다음과 같음.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\mu_t=\rho C_\mu\frac{k^2}{\epsilon}\qquad\leftrightarrow\qquad\mu_t=\rho\frac{k}{\omega}\]</div></li>
+<li><span class="point-text">다만 이러한 관계는 <strong>Eddy Viscosity의 계산 구조를 비교하기 위한 것</strong>이며, \(k\)–\(\omega\) Model의 수송방정식이 기존 \(k\)–\(\epsilon\) 수송방정식을 단순히 변수 치환하여 얻어진다는 의미는 아님.</span></li>
+<li><span class="point-text">Wilcox \(k\)–\(\omega\) Model에서는 \(k\)와 \(\omega\)에 대해 각각 별도의 수송방정식을 모델링함.</span></li>
+<li><span class="point-text">먼저 \(k\) 수송방정식에서는 기존 TKE Equation과 마찬가지로 Production, Dissipation 및 Diffusion을 고려함.</span><ul class="nested-points"><li><span class="point-text">이때 난류 운동에너지의 소산항을 \(-\epsilon_{\mathrm{model}}=-\beta^*k\omega\)로 표현하고, 확산항에는 해당 모델의 Closure를 적용함.</span></li></ul></li>
+<li><span class="point-text"><strong>Modeled \(k\) Transport Equation</strong>은 다음과 같음.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\frac{\partial k}{\partial t}+\overline{U_j}\frac{\partial k}{\partial x_j}=\underbrace{P_k}_{\text{Production}}-\underbrace{\beta^*k\omega}_{\text{Dissipation}}+\underbrace{\frac{\partial}{\partial x_j}\left[\left(\nu+\sigma_k\frac{\mu_t}{\rho}\right)\frac{\partial k}{\partial x_j}\right]}_{\text{Diffusion}}\]</div></li>
+<li><span class="point-text">다음으로 \(\omega\)의 공간적 수송과 시간적 변화를 계산하기 위해 별도의 <strong>Specific Dissipation Rate Transport Equation</strong>을 사용함.</span></li>
+<li><span class="point-text">Wilcox Model에서는 \(\omega\)의 Production, Destruction 및 Diffusion을 다음과 같이 모델링함.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\frac{\partial\omega}{\partial t}+\overline{U_j}\frac{\partial\omega}{\partial x_j}=\underbrace{\alpha\frac{\omega}{k}P_k}_{\text{Production}}-\underbrace{\beta\omega^2}_{\text{Destruction}}+\underbrace{\frac{\partial}{\partial x_j}\left[\left(\nu+\sigma_\omega\frac{\mu_t}{\rho}\right)\frac{\partial\omega}{\partial x_j}\right]}_{\\text{Diffusion}}\]</div></li>
+<li><span class="point-text">이 \(\omega\) 수송방정식은 Wilcox Model에서 별도로 구성한 모델 방정식으로, 기존 \(k\)–\(\epsilon\) Model의 \(\epsilon\) 방정식에 \(-\epsilon_{\mathrm{model}}=-\beta^*k\omega\)를 대입한 결과는 아님.</span></li>
+<li><span class="point-text">이 표기에서 난류 확산계수는 \(\mu_t/(\rho\sigma)\)가 아니라 \(\sigma\mu_t/\rho\) 형태로 정의하며, Model Constant는 다음과 같음.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\beta^*=0.09,\qquad\beta=\frac{3}{40},\qquad\alpha=\frac59,\qquad\sigma_k=\sigma_\omega=0.5\]</div></li>
+<li><span class="point-text">\(\omega\) 수송방정식의 각 항은 \(\mathrm{s^{-2}}\) 차원을 가지며, Production과 Destruction 및 Diffusion에 경험적인 Closure가 적용됨.</span></li>
+<li><span class="point-text">\(k\)–\(\omega\) Model의 중요한 특징은 <strong>벽면 근처에서 \(\omega\)의 거동을 수학적으로 예측할 수 있다는 것</strong>임.</span></li>
+<li><span class="point-text">벽면에 매우 가까워지면 다음과 같은 현상이 발생함.</span><ul class="nested-points"><li><span class="point-text"><strong>Convection</strong>: 벽면 근처의 유체 속도가 작아져 상대적으로 영향이 작아짐.</span></li>
+<li><span class="point-text"><strong>Production</strong>: 난류 운동이 억제되어 주요 항에 비해 영향이 작아짐.</span></li>
+<li><span class="point-text"><strong>Turbulent Diffusion</strong>: Eddy Viscosity가 감소하므로 영향이 작아짐.</span></li>
+<li><span class="point-text"><strong>Molecular Diffusion</strong>: 벽면에 수직한 방향의 \(\omega\) 구배가 매우 커지므로 중요해짐.</span></li>
+<li><span class="point-text"><strong>Destruction</strong>: \(\omega\)가 크게 증가하므로 \(\beta\omega^2\)도 커짐.</span></li></ul></li>
+<li><span class="point-text">따라서 벽면 극한에서는 Molecular Diffusion과 Destruction이 지배적인 균형을 이루며, 주요 항만 남기면 다음과 같음.</span><div class="equation" role="group" aria-label="Mathematical equation">\[0\approx\underbrace{\nu\frac{d^2\omega}{dy^2}}_{\text{Molecular Diffusion}}-\underbrace{\beta\omega^2}_{\text{Destruction}}\]</div></li>
+<li><span class="point-text">방정식을 풀면, \(\omega\)의 벽면 점근해(Asymptotic Solution)는 다음과 같음.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\omega\sim\frac{6\nu}{\beta y^2}\]</div></li>
+<li><span class="point-text">이 관계를 통해 벽면으로부터의 거리와 \(\omega\)의 관계를 예측할 수 있으며, 이를 바탕으로 벽면 경계조건을 구성할 수 있음.</span></li>
+<li><span class="point-text">따라서 \(k\)–\(\omega\) Model은 적절한 벽면 경계조건과 충분한 격자를 사용하면 Viscous Sublayer까지 수송방정식을 직접 적분할 수 있어 <strong>벽면 부근 유동 해석에 유리함</strong>.</span></li>
+<li><span class="point-text">반면 자유류(Free Stream)에서는 지정한 \(\omega\) 값에 따라 난류 혼합과 경계층의 예측 결과가 크게 달라지는 <strong>Free-Stream Sensitivity</strong> 문제가 존재함.</span></li>
+<li><span class="point-text">이러한 자유류 민감도를 개선하면서 벽면 해석의 장점을 유지하기 위해, 이후 \(k\)–\(\omega\)와 \(k\)–\(\epsilon\) Model의 특성을 결합한 SST \(k\)–\(\omega\) Model을 도입함.</span></li></ul></section></article>
+<div class="article-pager"><a class="prev" href="k-epsilon-turbulence-model.html"><span class="direction">← PREVIOUS</span><span class="adjacent">k–ε Turbulence Model</span></a></div>
+<a class="back-bottom" href="../turbulent-flow.html">← Back to Turbulent Flow</a>
+</main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>RANS Turbulence Modeling</span></div></footer>
+<script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
+</body></html>
