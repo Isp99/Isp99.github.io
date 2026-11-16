@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Turbulent boundary-layer structure: molecular and Reynolds shear stresses, Inner and Outer Layers, Overlap Region, Viscous Sublayer, Buffer Layer, Log-Law Region and Defect Layer.">
+<title>Turbulent Boundary-Layer Structure | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+}
+.tl-page .note-box{border:1px solid #b9cce9;border-radius:11px;background:#f5f8ff;padding:22px 25px;margin:37px 0 42px}
+.tl-page .note-title{font-weight:800;color:#234f88;font-size:16px;margin-bottom:15px}
+.tl-page .note-box .study-points>li{font-size:14px;margin-bottom:17px}
+.tl-page .note-box .equation{margin:21px 0 25px;font-size:15px}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){.tl-page .note-box{padding:17px 14px}.tl-page .note-box .equation{font-size:13px}}
+/* LaTeX motivationbox: ivory / copper / midnight; 0.7pt frame; 2mm corners. */
+.tl-page .motivation-box{
+  width:90%;
+  margin:9px auto 28px;
+  border:0.7pt solid #946346;
+  border-radius:2mm;
+  background:#fffdf2;
+  overflow:hidden;
+}
+.tl-page .motivation-box .motivation-title{
+  background:#f1e6dc;
+  color:#172b47;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:18px;
+  font-weight:750;
+  line-height:1.45;
+  padding:2mm 4mm 2mm 5mm;
+  border-bottom:0.7pt solid #946346;
+}
+.tl-page .motivation-box .motivation-content{
+  padding:3mm 4mm 3mm 5mm;
+}
+.tl-page .motivation-box .study-points>li{margin-bottom:calc(25px + 0.3cm);line-height:2}
+.tl-page .motivation-box .study-points>li:last-child{margin-bottom:0}
+.tl-page .motivation-box .study-points>li::before{background:#a97452}
+.tl-page .motivation-box .nested-points{padding-top:10px;padding-bottom:6px}
+.tl-page .motivation-box .nested-points>li{font-size:15px;color:#536b89;margin:8px 0}
+.tl-page .motivation-box .nested-points>li::before{background:#c39676}
+@media(max-width:740px){.tl-page .motivation-box .nested-points>li{font-size:14px}}
+.tl-page .ref-link{color:#3166b5;text-decoration:underline;text-underline-offset:2px}
+.tl-page .note-box{max-width:94%;margin:26px auto 34px}
+.tl-page .note-box .note-content>.point-text{display:block;line-height:1.9;margin-bottom:20px}
+.tl-page .note-box .equation{font-size:14px}
+.tl-page .nested-points .point-text{font-size:14px;line-height:1.85}
+
+/* Faithful HTML equivalent of the LaTeX tcolorbox 'notebox':
+   colback=blue!4, colframe=blue!55!black, colbacktitle=blue!12,
+   coltitle=blue!30!black, boxrule=0.6pt, arc=2mm,
+   left/right/top/bottom=4mm. */
+.tl-page .note-box{
+  border:0.6pt solid #00008c;
+  border-radius:2mm;
+  background:#f5f5ff;
+  padding:0;
+  margin:37px 0 42px;
+  overflow:hidden;
+}
+.tl-page .note-box .note-title{
+  display:block;
+  margin:0;
+  padding:2mm 4mm;
+  background:#e0e0ff;
+  color:#00004d;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-weight:700;
+  font-size:18px;
+  line-height:1.45;
+  border-bottom:0.6pt solid #00008c;
+}
+.tl-page .note-box > .study-points{
+  margin:0;
+  padding:4mm;
+}
+.tl-page .note-box .study-points>li{
+  margin-bottom:0.65cm;
+  font-size:14px;
+  color:#000;
+}
+.tl-page .note-box .study-points>li::before{background:#000}
+.tl-page .note-box .point-text,
+.tl-page .note-box .point-text strong{color:#000}
+.tl-page .note-box .equation{
+  margin:21px 0 25px;
+  font-size:15px;
+  color:#000;
+}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){
+  .tl-page .note-box .note-title{font-size:16px}
+  .tl-page .note-box .equation{font-size:13px}
+}
+.tl-page .note-box{max-width:none;margin:37px 0 42px}
+.tl-page .note-box .equation{font-size:15px;color:#000}
+.tl-page .nested-points .point-text{font-size:14px;line-height:1.85}
+.tl-page .decomp-matrix{font-size:12px}
+.tl-page .equation:has(.decomp-matrix){overflow-x:auto}
+.tl-page .note-box{max-width:none}
+.tl-page .note-box .note-title{font-size:18px}
+.tl-page .note-box .study-points>li{margin-bottom:0.65cm}
+.tl-page .note-box .nested-points>li{color:#000}
+.tl-page .section-tag{font-variant-numeric:tabular-nums}
+@media(max-width:740px){.tl-page .note-box .note-title{font-size:16px}}
+
+/* Physical Motivation tcolorbox: orange!3!white, brown!55!white frame,
+   brown!15!white title, blue!30!black type, 0.6pt/2mm and 4mm inset. */
+.tl-page .intro-motivation{
+ background:#fff9f2;border:0.6pt solid #ab8876;border-radius:2mm;
+ margin:12px 0 65px;overflow:hidden;
+}
+.tl-page .intro-motivation .intro-title{
+ background:#f3eae5;color:#182b50;
+ font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+ font-size:18px;font-weight:750;line-height:1.5;padding:3mm 4mm;
+ border-bottom:0.6pt solid #ab8876;
+}
+.tl-page .intro-motivation .intro-body{padding:4mm}
+.tl-page .intro-motivation .study-points>li{margin-bottom:0.65cm;color:#4b5260}
+.tl-page .intro-motivation .study-points>li:last-child{margin-bottom:0}
+.tl-page .intro-motivation .study-points>li::before{background:#b28b72}
+.tl-page .scale-group{scroll-margin-top:24px}
+.tl-page .scale-group+.scale-group{margin-top:65px}
+.tl-page .scale-group h3{font-size:21px;color:#1a3c64;line-height:1.45;margin:0 0 28px;font-weight:750}
+.tl-page .scale-group .equation{margin:26px 0 35px}
+@media(max-width:740px){.tl-page .intro-motivation{margin-bottom:44px}.tl-page .scale-group+.scale-group{margin-top:44px}.tl-page .scale-group h3{font-size:18px}}
+
+
+.tl-page .term-break{display:block;height:.15em}
+.tl-page .term-break{display:block;height:0.15em}
+.tl-page .boundary-layer-diagram{margin:42px 0 36px}
+.tl-page .diagram-scroll{overflow-x:auto;overflow-y:hidden;max-width:100%;scrollbar-width:thin}
+.tl-page .diagram-scroll svg{display:block;width:100%;height:auto;min-width:760px}
+.tl-page .boundary-layer-diagram figcaption{text-align:center;color:#667f9b;font-size:13px;line-height:1.6;margin:12px 0 0}
+@media(max-width:740px){.tl-page .boundary-layer-diagram{margin:30px 0 29px}.tl-page .diagram-scroll svg{min-width:760px}.tl-page .boundary-layer-diagram figcaption{font-size:12px}}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav>
+</div></header>
+<main class="shell tl-page">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../turbulent-flow.html">Turbulent Flow</a><span class="separator">›</span><strong>Turbulent Boundary-Layer Structure</strong>
+</nav>
+<div class="hero"><div class="hero-text">
+<div class="eyebrow">TURBULENT FLOW / 4.1</div><h1>Turbulent Boundary-Layer Structure</h1><p class="hero-subtitle">Turbulent Boundary-Layer Theory</p>
+<p class="hero-description">Near-wall regions and velocity profiles in turbulent boundary layers.</p></div></div>
+<article class="article-content">
+  <div class="lesson-meta"><span>04 / Turbulent Boundary-Layer Theory</span><span>Study Notes · 4.1</span></div>
+  <nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul>
+   <li><a href="#molecular-and-turbulent-shear-stress">01 · Molecular and Turbulent Shear Stress</a></li>
+   <li><a href="#classification-of-boundary-layer">02 · Classification of Boundary Layer</a></li>
+  </ul></nav>
+  <section class="lesson-section" id="molecular-and-turbulent-shear-stress"><h2><span class="section-tag">01</span>Molecular and Turbulent Shear Stress</h2><ul class="study-points"><li><span class="point-text">No-Slip Condition에 의해 벽면에서 유체의 속도는 벽의 속도와 같아짐. 고정된 벽을 따라 흐르는 유동에서는 벽면의 평균속도가 0이고, 벽에서 멀어질수록 평균속도가 증가하므로 Velocity Gradient가 형성됨.</span></li>
+<li><span class="point-text">층류에서는 Molecular Viscosity가 전단 방향 운동량 전달을 담당하지만, 난류에서는 Velocity Fluctuation에 의한 <strong>Reynolds Shear Stress</strong>가 추가됨.</span></li>
+<li><span class="point-text">정상적인 2차원 경계층의 주유동 방향 속도를 \(\overline{U}(x,y)\)라 하면, 전단 방향의 <strong>Total Shear Stress</strong>를 다음과 같이 나타낼 수 있음.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\tau_{\mathrm{tot}}\approx
+\underbrace{\mu\frac{\partial\overline{U}}{\partial y}}_{\tau_{\mathrm{visc}}}
++\underbrace{\left(-\rho\overline{uv}\right)}_{\tau_R}.\]</div><span class="point-text">}}</span></li>
+<li><span class="point-text">벽에서는 No-Slip 및 No-Penetration 조건에 의해 순간 Velocity Fluctuation도 \(u=v=w=0\)이므로, 벽면에서 Reynolds Shear Stress는 0</span></li>
+<li><span class="point-text">따라서 <strong>벽면에서의 전단응력은 Molecular Viscosity로 결정</strong>되지만, <strong>벽에서 멀어지면서</strong> Reynolds Shear Stress가 커져 <strong>난류에 의한 운동량 전달이 중요</strong>해짐. 경계층 외측에서는 Reynolds Shear Stress도 다시 감소함.</span></li>
+<li><span class="point-text">즉, Boundary Layer는 벽의 점성 효과에 의해 형성되지만, <strong>경계층 전체가 Molecular Viscosity에 의해 지배되는 것은 아님</strong>. 이러한 운동량 전달의 차이가 벽면 난류를 여러 영역으로 구분하는 이유임.</span></li></ul></section>
+<section class="lesson-section" id="classification-of-boundary-layer"><h2><span class="section-tag">02</span>Classification of Boundary Layer</h2><ul class="study-points"><li><span class="point-text">위 설명처럼 Turbulent Boundary Layer에서는 <strong>벽면에 가까운 영역</strong>과 <strong>Boundary Layer의 outer region</strong>에서 <strong>중요한 속도 및 길이 규모가 달라</strong>짐.</span></li>
+<li><span class="point-text">따라서 먼저 Boundary Layer 를 <strong>Inner Layer</strong>와 <strong>Outer Layer</strong>로 구분하고, 벽면 근처인 <strong>Inner Layer</strong>를 더 세부적으로 구분함</span></li>
+<li><span class="point-text">서로 다른 두 무차원 거리인 \(y^+\)와 \(y/\delta\)를 사용하여 표현하며 자세한건 정의 및 의미는 뒤에서 추가설명</span><ul class="nested-points"><li><span class="point-text">\(y\): 벽으로부터의 거리</span></li>
+<li><span class="point-text">\(\delta\): Boundary Layer Thickness</span></li>
+<li><span class="point-text">\(y^+\): 벽면 마찰과 점성을 기준으로 한 거리</span></li></ul></li>
+<li><span class="point-text">먼저 Boundary layer는 다음과 같이 구분할 수 있음</span><ul class="nested-points"><li><span class="point-text"><strong>Inner Layer</strong> </span><ul class="nested-points"><li><span class="point-text"><strong>위치조건</strong>: \(y/\delta&lt; 0.1\)</span></li></ul><ul class="nested-points"><li><span class="point-text"><strong>특징</strong>: 벽면의 영향을 강하게 받는 벽 근처 영역으로, <strong>wall shear stress와 molecular viscosity을 기준</strong>으로 mean velocity 가 설정되는 영역.</span></li></ul></li>
+<li><span class="point-text"><strong>Outer Layer</strong> </span><ul class="nested-points"><li><span class="point-text"><strong>위치조건</strong>: \(y^+&gt;50\)</span></li></ul><ul class="nested-points"><li><span class="point-text"><strong>특징</strong>:점성이 mean velocity 에 미치는 직접적인 영향이 무시할 수 있을 정도로 작아지는 외곽 영역</span></li></ul></li>
+<li><span class="point-text"><strong>Overlap Layer</strong> </span><ul class="nested-points"><li><span class="point-text"><strong>위치조건</strong>: \(y^+&gt;50,\;y/\delta&lt;0.1\)</span></li></ul><ul class="nested-points"><li><span class="point-text"><strong>특징</strong>: 높은 Re 에서 Inner layer의 바깥쪽과 Outer layer 안쪽이 서로 교차하는 영역으로 Log-law 가 성립</span></li></ul></li></ul></li>
+<li><span class="point-text">Inner는 <strong>‘경계층 전체에 비해 벽에 충분히 가까운가’</strong>,를 <strong>Outer는 ‘점성이 직접 작용하는 벽 근처 영역에서 충분히 벗어났는가’</strong>를 판단하기 때문에 서로 다른 변수 (\(y/\delta, \ y^+\)) 를 기준으로 판단함</span></li>
+<li><span class="point-text">Inner layer 중에서 <strong>벽과 가까워 viscosity의 영향이 큰 영역인 Viscous Wall Region</strong> 과 <strong>Log 법칙이 적용되는 Log-Law region</strong> 으로 나뉜다.</span><ul class="nested-points"><li><span class="point-text">Log-law region 은 Inner layer를 넘어서 outer layer 일부까지 포함</span></li></ul></li>
+<li><span class="point-text">Log-Law region 부터 Outerlayer 끝 (BL의 끝) 까지는 Defect(Wake) Layer</span></li>
+<li><span class="point-text">Viscous Wall Region은 다시 Viscous Sublayer 와 Buffer Layer 로 뉨</span><ul class="nested-points"><li><span class="point-text"><strong>Viscous Wall Region</strong> (\(y^+&lt;50\)): <span class="term-break"></span> Molecular Viscosity의 직접적인 기여가 중요한 벽면 근처 영영</span><ul class="nested-points"><li><span class="point-text"><strong>Viscous Sublayer</strong> (\(y^+&lt;5\)): <span class="term-break"></span> 점성응력이 지배하며 평균속도가 벽에서 거의 선형적으로 증가하는 영역</span></li>
+<li><span class="point-text"><strong>Buffer Layer</strong> (\(5&lt; y^+&lt;30\)): <span class="term-break"></span> 점성응력과 Reynolds Shear Stress가 모두 중요한 전이 영역</span></li></ul></li>
+<li><span class="point-text"><strong>Log-Law Region</strong> (\(y^+&gt;30,\;y/\delta&lt;0.3\)): <span class="term-break"></span> 대표적으로 로그 형태의 평균속도 분포가 나타나는 영역</span></li>
+<li><span class="point-text"><strong>Defect Layer</strong> (\(y/\delta \gtrsim 0.3\)): <span class="term-break"></span> 경계층 외측에서 Boundary-Layer Edge 속도 \(U_e(x)\)와 평균속도 \(\overline{U}\)의 차이인 Velocity Defect \((U_e(x)-\overline{U})\)를 기준으로 유동을 설명하는 영역. 난류에 의한 운동량 수송과 경계층 전체 규모의 영향이 중요해짐</span></li></ul></li>
+<li><span class="point-text">위의 수치는 충분히 높은 Reynolds Number에서 사용하는 <strong>대표적인 근사 범위</strong>임. 특히 Log-Law Region과 Overlap Region은 서로 밀접하지만 정확히 같은 구간으로 정의되지는 않으며, 영역 간 경계도 완전히 분리되지 않음.</span></li></ul>
+<figure class="boundary-layer-diagram">
+  <div class="diagram-scroll">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 400" width="1400" height="400" role="img" aria-labelledby="bl-diagram-title bl-diagram-desc" font-family="Inter, Arial, sans-serif">
+    <title id="bl-diagram-title">Turbulent Boundary Layer regions</title>
+    <desc id="bl-diagram-desc">The Inner Layer overlaps the Outer Layer. The near-wall Viscous Wall Region contains a narrow Viscous Sublayer and the Buffer Layer in a two-to-eight visual width ratio; the Log-Law Region and Defect Layer extend outward.</desc>
+    <defs><marker id="bl-arw" viewBox="0 0 10 10" markerWidth="6" markerHeight="6" refX="9" refY="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10Z" fill="#3e6d88"/></marker></defs>
+    <rect x="0" y="0" width="1400" height="46" fill="#ebf3f7" stroke="#b2c3ce" stroke-width="1"/>
+    <rect x="0" y="0" width="6.5" height="46" fill="#3e6d88"/>
+    <text x="700" y="29" text-anchor="middle" font-size="25" font-weight="700" fill="#274050">Turbulent Boundary Layer</text>
+    <rect x="0" y="46" width="1400" height="114" fill="#f4f8fa"/>
+    <rect x="372" y="46" width="190" height="114" fill="#efe7da"/>
+    <rect x="0" y="46" width="1400" height="114" fill="none" stroke="#b2c3ce"/>
+    <path d="M372 46 V160 M562 46 V160" stroke="#b2c3ce" stroke-width="1.1" stroke-dasharray="6 5"/>
+    <text x="252" y="83" text-anchor="middle" font-size="25" font-weight="700" fill="#274050">Inner Layer</text>
+    <path d="M162 75 H8 M342 75 H559" fill="none" stroke="#3e6d88" stroke-width="2.1" marker-end="url(#bl-arw)"/>
+    <text x="467" y="108" text-anchor="middle" font-size="16" fill="#274050">Overlap Region</text>
+    <text x="980" y="139" text-anchor="middle" font-size="25" font-weight="700" fill="#274050">Outer Layer</text>
+    <path d="M894 129 H375 M1066 129 H1396" fill="none" stroke="#3e6d88" stroke-width="2.1" marker-end="url(#bl-arw)"/>
+    <rect x="0" y="160" width="108" height="81" fill="#e6f1ee"/>
+    <rect x="0" y="241" width="21.6" height="46" fill="#c0ddd5"/>
+    <rect x="21.6" y="241" width="86.4" height="46" fill="#f0f2e9"/>
+    <rect x="108" y="160" width="410" height="127" fill="#e9f2f7"/>
+    <rect x="518" y="160" width="882" height="127" fill="#f2f5f7"/>
+    <rect x="0" y="160" width="1400" height="127" fill="none" stroke="#b2c3ce" stroke-width="1.3"/>
+    <path d="M108 160 V287 M518 160 V287 M0 241 H108" stroke="#b2c3ce" stroke-width="1.3"/>
+    <path d="M21.6 241 V287" stroke="#3e6d88" stroke-width="1.5"/>
+    <text x="54" y="190" text-anchor="middle" font-size="13" fill="#274050"><tspan x="54">Wall</tspan><tspan x="54" dy="18">Viscous</tspan><tspan x="54" dy="18">Region</tspan></text>
+    <text x="64.8" y="260" text-anchor="middle" font-size="14" fill="#274050"><tspan x="64.8">Buffer</tspan><tspan x="64.8" dy="18">Layer</tspan></text>
+    <text x="313" y="231" text-anchor="middle" font-size="25" font-weight="700" fill="#274050">Log-Law Region</text>
+    <text x="959" y="231" text-anchor="middle" font-size="25" font-weight="700" fill="#274050">Defect Layer</text>
+    <path d="M50 353 L4 290" stroke="#3e6d88" stroke-width="2.2" marker-end="url(#bl-arw)" fill="none"/>
+    <text x="70" y="374" font-size="21" font-weight="700" fill="#274050">Viscous Sublayer</text>
+  </svg>
+  </div>
+  <figcaption>Schematic structure of a turbulent boundary layer. Region widths are not to scale.</figcaption>
+</figure>
+<ul class="study-points"><li><span class="point-text">이처럼 각 영역의 평균속도 분포를 정량적으로 비교하기 위해 <strong>벽면 기준의 속도와 길이 규모</strong>를 도입함.</span></li></ul></section>
+</article>
+<div class="article-pager"><a class="prev" href="limitations-of-rans-models.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Limitations of RANS Models</span></a></div>
+<a class="back-bottom" href="../turbulent-flow.html">← Back to Turbulent Flow</a>
+</main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Turbulent Boundary-Layer Theory</span></div></footer>
+<script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
+</body></html>
