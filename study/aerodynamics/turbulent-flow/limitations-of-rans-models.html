@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Limitations of RANS models: stress anisotropy, separation, curvature, rotation, transition, URANS and numerical verification.">
+<title>Limitations of RANS Models | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+}
+.tl-page .note-box{border:1px solid #b9cce9;border-radius:11px;background:#f5f8ff;padding:22px 25px;margin:37px 0 42px}
+.tl-page .note-title{font-weight:800;color:#234f88;font-size:16px;margin-bottom:15px}
+.tl-page .note-box .study-points>li{font-size:14px;margin-bottom:17px}
+.tl-page .note-box .equation{margin:21px 0 25px;font-size:15px}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){.tl-page .note-box{padding:17px 14px}.tl-page .note-box .equation{font-size:13px}}
+/* LaTeX motivationbox: ivory / copper / midnight; 0.7pt frame; 2mm corners. */
+.tl-page .motivation-box{
+  width:90%;
+  margin:9px auto 28px;
+  border:0.7pt solid #946346;
+  border-radius:2mm;
+  background:#fffdf2;
+  overflow:hidden;
+}
+.tl-page .motivation-box .motivation-title{
+  background:#f1e6dc;
+  color:#172b47;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:18px;
+  font-weight:750;
+  line-height:1.45;
+  padding:2mm 4mm 2mm 5mm;
+  border-bottom:0.7pt solid #946346;
+}
+.tl-page .motivation-box .motivation-content{
+  padding:3mm 4mm 3mm 5mm;
+}
+.tl-page .motivation-box .study-points>li{margin-bottom:calc(25px + 0.3cm);line-height:2}
+.tl-page .motivation-box .study-points>li:last-child{margin-bottom:0}
+.tl-page .motivation-box .study-points>li::before{background:#a97452}
+.tl-page .motivation-box .nested-points{padding-top:10px;padding-bottom:6px}
+.tl-page .motivation-box .nested-points>li{font-size:15px;color:#536b89;margin:8px 0}
+.tl-page .motivation-box .nested-points>li::before{background:#c39676}
+@media(max-width:740px){.tl-page .motivation-box .nested-points>li{font-size:14px}}
+.tl-page .ref-link{color:#3166b5;text-decoration:underline;text-underline-offset:2px}
+.tl-page .note-box{max-width:94%;margin:26px auto 34px}
+.tl-page .note-box .note-content>.point-text{display:block;line-height:1.9;margin-bottom:20px}
+.tl-page .note-box .equation{font-size:14px}
+.tl-page .nested-points .point-text{font-size:14px;line-height:1.85}
+
+/* Faithful HTML equivalent of the LaTeX tcolorbox 'notebox':
+   colback=blue!4, colframe=blue!55!black, colbacktitle=blue!12,
+   coltitle=blue!30!black, boxrule=0.6pt, arc=2mm,
+   left/right/top/bottom=4mm. */
+.tl-page .note-box{
+  border:0.6pt solid #00008c;
+  border-radius:2mm;
+  background:#f5f5ff;
+  padding:0;
+  margin:37px 0 42px;
+  overflow:hidden;
+}
+.tl-page .note-box .note-title{
+  display:block;
+  margin:0;
+  padding:2mm 4mm;
+  background:#e0e0ff;
+  color:#00004d;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-weight:700;
+  font-size:18px;
+  line-height:1.45;
+  border-bottom:0.6pt solid #00008c;
+}
+.tl-page .note-box > .study-points{
+  margin:0;
+  padding:4mm;
+}
+.tl-page .note-box .study-points>li{
+  margin-bottom:0.65cm;
+  font-size:14px;
+  color:#000;
+}
+.tl-page .note-box .study-points>li::before{background:#000}
+.tl-page .note-box .point-text,
+.tl-page .note-box .point-text strong{color:#000}
+.tl-page .note-box .equation{
+  margin:21px 0 25px;
+  font-size:15px;
+  color:#000;
+}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){
+  .tl-page .note-box .note-title{font-size:16px}
+  .tl-page .note-box .equation{font-size:13px}
+}
+.tl-page .note-box{max-width:none;margin:37px 0 42px}
+.tl-page .note-box .equation{font-size:15px;color:#000}
+.tl-page .nested-points .point-text{font-size:14px;line-height:1.85}
+.tl-page .decomp-matrix{font-size:12px}
+.tl-page .equation:has(.decomp-matrix){overflow-x:auto}
+.tl-page .note-box{max-width:none}
+.tl-page .note-box .note-title{font-size:18px}
+.tl-page .note-box .study-points>li{margin-bottom:0.65cm}
+.tl-page .note-box .nested-points>li{color:#000}
+.tl-page .section-tag{font-variant-numeric:tabular-nums}
+@media(max-width:740px){.tl-page .note-box .note-title{font-size:16px}}
+
+/* Physical Motivation tcolorbox: orange!3!white, brown!55!white frame,
+   brown!15!white title, blue!30!black type, 0.6pt/2mm and 4mm inset. */
+.tl-page .intro-motivation{
+ background:#fff9f2;border:0.6pt solid #ab8876;border-radius:2mm;
+ margin:12px 0 65px;overflow:hidden;
+}
+.tl-page .intro-motivation .intro-title{
+ background:#f3eae5;color:#182b50;
+ font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+ font-size:18px;font-weight:750;line-height:1.5;padding:3mm 4mm;
+ border-bottom:0.6pt solid #ab8876;
+}
+.tl-page .intro-motivation .intro-body{padding:4mm}
+.tl-page .intro-motivation .study-points>li{margin-bottom:0.65cm;color:#4b5260}
+.tl-page .intro-motivation .study-points>li:last-child{margin-bottom:0}
+.tl-page .intro-motivation .study-points>li::before{background:#b28b72}
+.tl-page .scale-group{scroll-margin-top:24px}
+.tl-page .scale-group+.scale-group{margin-top:65px}
+.tl-page .scale-group h3{font-size:21px;color:#1a3c64;line-height:1.45;margin:0 0 28px;font-weight:750}
+.tl-page .scale-group .equation{margin:26px 0 35px}
+@media(max-width:740px){.tl-page .intro-motivation{margin-bottom:44px}.tl-page .scale-group+.scale-group{margin-top:44px}.tl-page .scale-group h3{font-size:18px}}
+
+
+.tl-page .term-break{display:block;height:.15em}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav>
+</div></header>
+<main class="shell tl-page">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../turbulent-flow.html">Turbulent Flow</a><span class="separator">›</span><strong>Limitations of RANS Models</strong>
+</nav>
+<div class="hero"><div class="hero-text">
+<div class="eyebrow">TURBULENT FLOW / 3.6</div><h1>Limitations of RANS Models</h1><p class="hero-subtitle">RANS Turbulence Modeling</p>
+<p class="hero-description">Assumptions and prediction limits of Reynolds-averaged turbulence models.</p></div></div>
+<article class="article-content">
+<div class="lesson-meta"><span>03 / RANS Turbulence Modeling</span><span>Study Notes · 3.6</span></div>
+<nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul>
+<li><a href="#anisotropy-and-local-stress-strain-alignment">01 · Anisotropy and Local Stress–Strain Alignment</a></li>
+<li><a href="#separation-curvature-and-rotation">02 · Separation, Curvature, and Rotation</a></li>
+<li><a href="#what-rans-predictions-represent">03 · What RANS Predictions Represent</a></li>
+</ul></nav>
+<section class="lesson-section" id="anisotropy-and-local-stress-strain-alignment">
+<h2><span class="section-tag">01</span>Anisotropy and Local Stress–Strain Alignment</h2>
+<ul class="study-points">
+<li><span class="point-text">선형 Eddy-Viscosity Model은 하나의 \(\mu_t\)로 Reynolds Stress의 방향과 크기를 평균 Strain에 연결함. 실제 Turbulence flow응력은 상류의 이력, 압력fluctuation, 회전 및 벽의 영향에도 의존함.</span></li>
+<li><span class="point-text">Anisotropy 의 정도는 \(k&gt;0\)에서 다음과 같이 나타낼 수 있음.</span><div class="equation" role="group" aria-label="Mathematical equation">\[b_{ij}=\frac{\overline{u_i u_j}}{2k}-\frac13\delta_{ij},\qquad b_{ii}=0.\]</div></li>
+<li><span class="point-text">Boussinesq 가정을 대입하면 \(b_{ij}\approx-\mu_t\overline{S}_{ij}/(\rho k)\)임. 즉, 모델은 비등방성 자체를 모두 무시하는 것이 아니라, 그 형태를 <strong>국소 평균 Strain에 제한</strong></span></li>
+<li><span class="point-text">예를 들어 \(\overline{U}=\overline{U}(y)\)인 단순 전단에서는 \(S_{11}=S_{22}=S_{33}=0\)이므로 모델은 \(\overline{u_1^2}=\overline{u_2^2}=\overline{u_3^2}=2k/3\)를 예측함. 실제 벽 Turbulence flow의 Normal Stress들은 일반적으로 서로 다르므로 이 부분을 재현하지 못함.</span></li>
+</ul>
+</section>
+<section class="lesson-section" id="separation-curvature-and-rotation">
+<h2><span class="section-tag">02</span>Separation, Curvature, and Rotation</h2>
+<ul class="study-points">
+<li><span class="point-text"><strong>Strong Separation</strong>:<span class="term-break"></span>상류에서 생성된 Turbulence flow가 이동하고 큰 재순환 운동이 생기므로 국소 평균 Strain과 Stress의 단순 관계가 약해질 수 있음. 분리 위치와 재부착 위치가 모델에 민감해짐.</span></li>
+<li><span class="point-text"><strong>Curvature and Strong Rotation</strong>:<span class="term-break"></span>회전과 곡률은 Turbulence flow에너지의 방향별 분배 및 안정화·불안정화에 영향을 줌. 선형 기본 모델은 이 효과를 충분히 구분하지 못하므로 필요에 따라 보정 모델이나 Reynolds Stress Model을 검토함.</span></li>
+<li><span class="point-text"><strong>Secondary Flow</strong>:<span class="term-break"></span>비원형 덕트에서 Normal-Stress Anisotropy가 유발하는 2차 유동은 단순 선형 Eddy-Viscosity Model로 표현하기 어려움</span></li>
+<li><span class="point-text"><strong>Transition</strong>:<span class="term-break"></span>기본적으로 Fully Turbulent를 가정한 모델은 자연천이 위치를 별도로 예측하는 모델이 아님. 천이가 성능에 중요한 경우에는 천이모델 또는 실험에 근거한 천이조건이 필요함.</span></li>
+</ul>
+</section>
+<section class="lesson-section" id="what-rans-predictions-represent">
+<h2><span class="section-tag">03</span>What RANS Predictions Represent</h2>
+<ul class="study-points">
+<li><span class="point-text">RANS의 평균장은 순간 Eddy를 재현한 결과가 아님. URANS는 평균장의 비정상 운동을 계산하지만, 시간간격을 줄이는 것만으로 모든 Turbulence flowfluctuation을 직접 해상하는 LES가 되지는 않음.</span></li>
+<li><span class="point-text">격자 수렴은 선택한 모델의 방정식을 더 정확하게 푼다는 의미임. 격자를 세밀하게 해도 모델 자체의 Closure Error는 남음.</span></li>
+<li><span class="point-text">압축성 고속유동에서는 Shock–Boundary-Layer Interaction, Turbulence flow열유속, 온도에 따른 물성변화 등의 영향이 추가됨. incompressible 검증에서 잘 맞은 모델이라도 관심 조건의 압력·마찰·열유속을 별도로 검증해야 함.</span></li>
+</ul>
+</section>
+</article>
+<div class="article-pager"><a class="prev" href="bls-k-omega-and-sst-turbulence-models.html"><span class="direction">← PREVIOUS</span><span class="adjacent">BLS k–ω and SST Turbulence Models</span></a></div>
+<a class="back-bottom" href="../turbulent-flow.html">← Back to Turbulent Flow</a>
+</main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>RANS Turbulence Modeling</span></div></footer>
+<script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
+</body></html>
