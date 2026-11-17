@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Friction velocity, viscous length scale, dimensionless wall distance and velocity, and friction Reynolds number.">
+<title>Wall Scales and Wall Coordinates | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+}
+.tl-page .note-box{border:1px solid #b9cce9;border-radius:11px;background:#f5f8ff;padding:22px 25px;margin:37px 0 42px}
+.tl-page .note-title{font-weight:800;color:#234f88;font-size:16px;margin-bottom:15px}
+.tl-page .note-box .study-points>li{font-size:14px;margin-bottom:17px}
+.tl-page .note-box .equation{margin:21px 0 25px;font-size:15px}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){.tl-page .note-box{padding:17px 14px}.tl-page .note-box .equation{font-size:13px}}
+/* LaTeX motivationbox: ivory / copper / midnight; 0.7pt frame; 2mm corners. */
+.tl-page .motivation-box{
+  width:90%;
+  margin:9px auto 28px;
+  border:0.7pt solid #946346;
+  border-radius:2mm;
+  background:#fffdf2;
+  overflow:hidden;
+}
+.tl-page .motivation-box .motivation-title{
+  background:#f1e6dc;
+  color:#172b47;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:18px;
+  font-weight:750;
+  line-height:1.45;
+  padding:2mm 4mm 2mm 5mm;
+  border-bottom:0.7pt solid #946346;
+}
+.tl-page .motivation-box .motivation-content{
+  padding:3mm 4mm 3mm 5mm;
+}
+.tl-page .motivation-box .study-points>li{margin-bottom:calc(25px + 0.3cm);line-height:2}
+.tl-page .motivation-box .study-points>li:last-child{margin-bottom:0}
+.tl-page .motivation-box .study-points>li::before{background:#a97452}
+.tl-page .motivation-box .nested-points{padding-top:10px;padding-bottom:6px}
+.tl-page .motivation-box .nested-points>li{font-size:15px;color:#536b89;margin:8px 0}
+.tl-page .motivation-box .nested-points>li::before{background:#c39676}
+@media(max-width:740px){.tl-page .motivation-box .nested-points>li{font-size:14px}}
+.tl-page .ref-link{color:#3166b5;text-decoration:underline;text-underline-offset:2px}
+.tl-page .note-box{max-width:94%;margin:26px auto 34px}
+.tl-page .note-box .note-content>.point-text{display:block;line-height:1.9;margin-bottom:20px}
+.tl-page .note-box .equation{font-size:14px}
+.tl-page .nested-points .point-text{font-size:14px;line-height:1.85}
+
+/* Faithful HTML equivalent of the LaTeX tcolorbox 'notebox':
+   colback=blue!4, colframe=blue!55!black, colbacktitle=blue!12,
+   coltitle=blue!30!black, boxrule=0.6pt, arc=2mm,
+   left/right/top/bottom=4mm. */
+.tl-page .note-box{
+  border:0.6pt solid #00008c;
+  border-radius:2mm;
+  background:#f5f5ff;
+  padding:0;
+  margin:37px 0 42px;
+  overflow:hidden;
+}
+.tl-page .note-box .note-title{
+  display:block;
+  margin:0;
+  padding:2mm 4mm;
+  background:#e0e0ff;
+  color:#00004d;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-weight:700;
+  font-size:18px;
+  line-height:1.45;
+  border-bottom:0.6pt solid #00008c;
+}
+.tl-page .note-box > .study-points{
+  margin:0;
+  padding:4mm;
+}
+.tl-page .note-box .study-points>li{
+  margin-bottom:0.65cm;
+  font-size:14px;
+  color:#000;
+}
+.tl-page .note-box .study-points>li::before{background:#000}
+.tl-page .note-box .point-text,
+.tl-page .note-box .point-text strong{color:#000}
+.tl-page .note-box .equation{
+  margin:21px 0 25px;
+  font-size:15px;
+  color:#000;
+}
+.tl-page .derivation-arrow{text-align:center;color:#3467b2;font-size:25px;padding:2px 0 9px}
+.tl-page .derivation-arrow span{display:block;font-size:13px;font-weight:700;margin-top:6px;color:#577696}
+@media(max-width:740px){
+  .tl-page .note-box .note-title{font-size:16px}
+  .tl-page .note-box .equation{font-size:13px}
+}
+.tl-page .note-box{max-width:none;margin:37px 0 42px}
+.tl-page .note-box .equation{font-size:15px;color:#000}
+.tl-page .nested-points .point-text{font-size:14px;line-height:1.85}
+.tl-page .decomp-matrix{font-size:12px}
+.tl-page .equation:has(.decomp-matrix){overflow-x:auto}
+.tl-page .note-box{max-width:none}
+.tl-page .note-box .note-title{font-size:18px}
+.tl-page .note-box .study-points>li{margin-bottom:0.65cm}
+.tl-page .note-box .nested-points>li{color:#000}
+.tl-page .section-tag{font-variant-numeric:tabular-nums}
+@media(max-width:740px){.tl-page .note-box .note-title{font-size:16px}}
+
+/* Physical Motivation tcolorbox: orange!3!white, brown!55!white frame,
+   brown!15!white title, blue!30!black type, 0.6pt/2mm and 4mm inset. */
+.tl-page .intro-motivation{
+ background:#fff9f2;border:0.6pt solid #ab8876;border-radius:2mm;
+ margin:12px 0 65px;overflow:hidden;
+}
+.tl-page .intro-motivation .intro-title{
+ background:#f3eae5;color:#182b50;
+ font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+ font-size:18px;font-weight:750;line-height:1.5;padding:3mm 4mm;
+ border-bottom:0.6pt solid #ab8876;
+}
+.tl-page .intro-motivation .intro-body{padding:4mm}
+.tl-page .intro-motivation .study-points>li{margin-bottom:0.65cm;color:#4b5260}
+.tl-page .intro-motivation .study-points>li:last-child{margin-bottom:0}
+.tl-page .intro-motivation .study-points>li::before{background:#b28b72}
+.tl-page .scale-group{scroll-margin-top:24px}
+.tl-page .scale-group+.scale-group{margin-top:65px}
+.tl-page .scale-group h3{font-size:21px;color:#1a3c64;line-height:1.45;margin:0 0 28px;font-weight:750}
+.tl-page .scale-group .equation{margin:26px 0 35px}
+@media(max-width:740px){.tl-page .intro-motivation{margin-bottom:44px}.tl-page .scale-group+.scale-group{margin-top:44px}.tl-page .scale-group h3{font-size:18px}}
+
+
+.tl-page .term-break{display:block;height:.15em}
+.tl-page .term-break{display:block;height:0.15em}
+.tl-page .boundary-layer-diagram{margin:42px 0 36px}
+.tl-page .diagram-scroll{overflow-x:auto;overflow-y:hidden;max-width:100%;scrollbar-width:thin}
+.tl-page .diagram-scroll svg{display:block;width:100%;height:auto;min-width:760px}
+.tl-page .boundary-layer-diagram figcaption{text-align:center;color:#667f9b;font-size:13px;line-height:1.6;margin:12px 0 0}
+@media(max-width:740px){.tl-page .boundary-layer-diagram{margin:30px 0 29px}.tl-page .diagram-scroll svg{min-width:760px}.tl-page .boundary-layer-diagram figcaption{font-size:12px}}
+
+/* Additional spacing at four marked boundary-layer classification bullets. */
+.tl-page #classification-of-boundary-layer .study-points > li.gap-top-lg { margin-top:72px; }
+.tl-page #classification-of-boundary-layer .study-points > li.gap-top-md { margin-top:62px; }
+.tl-page #classification-of-boundary-layer .nested-points > li.gap-top-sm { margin-top:30px; }
+@media (max-width:740px) {
+ .tl-page #classification-of-boundary-layer .study-points > li.gap-top-lg { margin-top:62px; }
+ .tl-page #classification-of-boundary-layer .study-points > li.gap-top-md { margin-top:54px; }
+ .tl-page #classification-of-boundary-layer .nested-points > li.gap-top-sm { margin-top:24px; }
+}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav>
+</div></header>
+<main class="shell tl-page">
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../turbulent-flow.html">Turbulent Flow</a><span class="separator">›</span><strong>Wall Scales and Wall Coordinates</strong>
+</nav>
+<div class="hero"><div class="hero-text">
+<div class="eyebrow">TURBULENT FLOW / 4.2</div><h1>Wall Scales and Wall Coordinates</h1><p class="hero-subtitle">Turbulent Boundary-Layer Theory</p>
+<p class="hero-description">Friction velocity, viscous length scale, and dimensionless wall coordinates.</p></div></div>
+<article class="article-content"><div class="lesson-meta"><span>04 / Turbulent Boundary-Layer Theory</span><span>Study Notes · 4.2</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#friction-velocity">01 · Friction Velocity</a></li><li><a href="#viscous-length-scale">02 · Viscous Length Scale</a></li><li><a href="#dimensionless-wall-coordinates">03 · Dimensionless Wall Coordinates</a></li></ul></nav><section class="lesson-section" id="friction-velocity"><h2><span class="section-tag">01</span>Friction Velocity</h2><ul class="study-points"><li><span class="point-text">Freestream을 기준으로 유동을 해석할 때는 <strong>\(U_{\infty}\)를 Reference Velocity</strong>로 사용할 수 있음. 반면 Boundary-Layer Edge의 국소 속도는 \(U_e(x)\)로 구분함.</span></li>
+<li><span class="point-text">하지만 벽에 매우 가까운 유체 요소를 생각해보면, <strong>boundary layer 바깥의 자유류 속도 보다 벽면의 shear stress의 영양을 더 많이 받음</strong></span></li>
+<li><span class="point-text">따라서 벽 근처의 유동 현상을 정량적로 묘사하려면 자유류 속도 \(U_{\infty}\) 대신 <strong>벽면 마찰의 크기를 대변하는 벽면 전단응력 에 기반한 새로운 기준 속도</strong>(Reference Scale)가 필요</span></li>
+<li><span class="point-text">이를 Friction Velocity 로 정의하며 다음과 같음</span></li>
+<li><span class="point-text">\(\tau_w/\rho\)는 속도 제곱의 차원을 가지므로, Friction Velocity \(u_\tau\)를 다음과 같이 정의</span><div class="equation key" role="group" aria-label="Mathematical equation">\[u_\tau=\sqrt{\frac{|\tau_w|}{\rho}}.\]</div><div class="equation" role="group" aria-label="Mathematical equation">\[\left[\frac{\tau_w}{\rho}\right]
+=\frac{\mathrm{N/m^2}}{\mathrm{kg/m^3}}
+=\mathrm{m^2/s^2}.\]</div></li>
+<li><span class="point-text">\(u_\tau\)는 실제 유체 입자의 이동 속도가 아니라, <strong>벽면 전단응력의 크기를 속도 단위로 표현한 Scale</strong>임. 이하의 벽면 속도분포 유도에서는 \(\tau_w&gt;0\)인 부착유동을 고려함.</span></li></ul></section>
+<section class="lesson-section" id="viscous-length-scale"><h2><span class="section-tag">02</span>Viscous Length Scale</h2><ul class="study-points"><li><span class="point-text">위의 설명과 같이 <strong>벽 근처유동은 자유류 유동과 다른 특성</strong>을 가지며 같은 실제 거리 \(y\)만큼 떨어져 있어도 <strong>유체의 점성이나 벽면 마찰이 다르면 난류 구조가 달라짐</strong></span></li>
+<li><span class="point-text">따라서 \(u_\tau\)와 함께 사용할 <strong>벽면 기준의 길이 규모</strong>가 필요하며 이를 <strong>Viscous Length Scale</strong>로 아래와 같이 정의</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\ell_\nu=\frac{\nu}{u_\tau}.\]</div><div class="equation" role="group" aria-label="Mathematical equation">\[[\ell_\nu]
+=\left[\frac{\nu}{u_\tau}\right]
+=\frac{\mathrm{m^2/s}}{\mathrm{m/s}}
+=\mathrm{m}\]</div></li>
+<li><span class="point-text">앞에서 정의한 Viscous Length Scale \(\ell_\nu\)의 물리적 의미를 이해하기 위해, 먼저 Dynamic Viscosity와 Kinematic Viscosity의 차이를 살펴볼 필요가 있음</span><ul class="nested-points"><li><span class="point-text"><strong>Dynamic Viscosity (\(\mu\))</strong> :<span class="term-break"></span> 유체 내부에서 속도 구배에 의해 발생하는 점성 전단응력의 크기를 결정하는 물성치로, <strong>직관적으로 유체의 끈적이는 정도</strong>를 나타냄</span></li>
+<li><span class="point-text"><strong>Kinematic Viscosity (\(\nu=\mu/\rho\))</strong> : <span class="term-break"></span> 점성 효과를 밀도, 즉 관성의 크기로 나눈 값으로, <strong>점성에 의한 운동량 변화가 얼마나 빠르게 확산</strong>되는지를 나타냄</span></li></ul></li>
+<li><span class="point-text">따라서 Viscous Length Scale \(\ell_\nu\)는 벽면 근처에서 <strong>점성에 의해 운동량이 확산되는 대표적인 characteristic legnth</strong></span></li>
+<li><span class="point-text">Viscous Length Scale의 크기는 다음과 같은 물리적 의미를 가짐</span><ul class="nested-points"><li><span class="point-text"><strong>High \(\ell_\nu\)</strong> : 점성에 의한 운동량 확산이 상대적으로 강해, 속도가 변화하는 거리 스케일이 커짐.</span></li>
+<li><span class="point-text"><strong>Low \(\ell_\nu\)</strong> : 벽면 전단응력에 따른 속도 변화가 상대적으로 강해, 짧은 거리에서 속도가 급격하게 변함.</span></li></ul></li></ul></section>
+<section class="lesson-section" id="dimensionless-wall-coordinates"><h2><span class="section-tag">03</span>Dimensionless Wall Coordinates</h2><ul class="study-points"><li><span class="point-text">벽면으로부터의 실제 거리 \(y\)가 같더라도 <strong>유동 조건에 따라 벽 근처에서의 물리현상은는 달라질 수 있음</strong></span></li>
+<li><span class="point-text">예를 들어 같은 \(y=1mm\) 이라도 <strong>어떤 유동에서는 아직 점성의 영향이 지배적</strong>일 수도 있지만, <strong>다른 유동에서는 이미 점성 영향이 약해진 거리</strong>일 수도 있음</span></li>
+<li><span class="point-text">따라서 벽 근처 유동에서는 실제 거리 \(y\) 를 그대로 사용하지 않고, viscous length scale \(\ell_\nu\) 로 나누어 무차원 거리로 표현하며 이를 Dimensionless wall distance \(y^+\) 라 함</span></li>
+<li><span class="point-text">실제 거리 \(y\)와 평균속도 \(\overline{U}\)는 유동 조건마다 크기가 다르므로, 서로 다른 벽면 유동을 비교하기 위해 \(\ell_\nu\)와 \(u_\tau\)로 무차원화함.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[y^+=\frac{y}{\ell_\nu}=\frac{yu_\tau}{\nu}\]</div></li>
+<li><span class="point-text">\(y^+\)는 <strong>벽면으로부터 몇 개의 Viscous Length 만큼 떨어져 있는지</strong>를, 예를 들어 \(y^+=3\)이면 \(y=3\ell_\nu\)</span></li>
+<li><span class="point-text">평균속도 \(\overline{U}\) 또한 위처럼 유동조건에 따라 벽 근처에서의 물리적 의미가 달라질수 있음</span></li>
+<li><span class="point-text">같은 \(\overline{U}=10 m/s\) 라도 느린 저속 유동의 경우처럼 <strong>이미 자유류 속도에 도달한 매우 빠른 속도</strong>일 수도 있지만, 엄청난 고속 유동에서는 <strong>이제 막 벽면 마찰을 벗어나기 시작한</strong> 아주 느린 속도 일 수 있음</span></li>
+<li><span class="point-text">따라서 속도 또한 Dimensionless velocity 로 다음과 같이 정의</span><div class="equation key" role="group" aria-label="Mathematical equation">\[u^+=\frac{\overline{U}}{u_\tau}.\]</div></li>
+<li><span class="point-text">\(u^+\)는 평균속도가 Friction Velocity 의 몇 배인가를 나타냄.</span></li>
+<li><span class="point-text">\(y^+\) 랑 \(y/\delta\) 두 변수를 기준으로 layer들을 나눴는데 이 두 변수는 다음과같이 연결 가능</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+y^+
+&=\frac{yu_\tau}{\nu},\\[2.0em]
+&=\frac{y}{\delta}\frac{\delta u_\tau}{\nu},\\[2.0em]
+&=Re_\tau\frac{y}{\delta},
+\qquad \left( \because\   Re_\tau=\frac{\delta u_\tau}{\nu} \right) .
+\end{aligned}\]</div></li>
+<li><span class="point-text">즉, <strong>\(y^+\)와 \(y/\delta\)는 서로 다른 영역을 뜻하는 기호가 아니라 같은 거리를 다른 기준 길이로 나타낸 좌표</strong>임. 두 길이 규모의 차이를 이해하면 Inner, Outer 및 Overlap Region의 관계를 설명할 수 있음.</span></li>
+<li><span class="point-text">이때, \(Re_\tau\)는 <strong>Friction Reynolds Number</strong>로, 전체 경계층 두께 \(\delta\)가 Viscous Length scale \(\ell_\nu\)의 몇 배인지를 나타냄</span><div class="equation key" role="group" aria-label="Mathematical equation">\[Re_\tau=\frac{\delta u_\tau}{\nu}
+=\frac{\delta}{\ell_\nu}\]</div></li>
+<li><span class="point-text">각 무차원수의 물리적 의미는 다음과 같이 정리 가능</span><ul class="nested-points"><li><span class="point-text">\(y^+=\dfrac{y}{\ell_\nu}\) : 벽면으로부터 <strong>몇 개의 Viscous Length Scale</strong>만큼 떨어져 있는지</span></li>
+<li><span class="point-text">\(\dfrac{y}{\delta}\) : 벽면으로부터 <strong>전체 경계층 두께의 몇 배</strong>만큼 떨어져 있는지</span></li>
+<li><span class="point-text">\(Re_\tau=\dfrac{\delta}{\ell_\nu}\) : <strong>전체 경계층 두께가 viscous length scale의 몇 배</strong>인지</span></li></ul></li></ul></section></article>
+<div class="article-pager"><a class="prev" href="turbulent-boundary-layer-structure.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Turbulent Boundary-Layer Structure</span></a></div>
+<a class="back-bottom" href="../turbulent-flow.html">← Back to Turbulent Flow</a>
+</main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Turbulent Boundary-Layer Theory</span></div></footer>
+<script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
+</body></html>
