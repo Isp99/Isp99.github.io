@@ -19,21 +19,19 @@
   .lr-heading span{font-size:12px;color:#8295ad;font-weight:750}
   /* Full-width, horizontally structured paper rows for a growing archive. */
   .lr-grid{display:grid;grid-template-columns:1fr;gap:12px}
-  .lr-card{display:grid;grid-template-columns:112px minmax(0,1fr) 155px;align-items:center;gap:19px;background:#fff;border:1px solid #dce6f3;border-radius:14px;padding:18px 26px;min-height:138px;transition:transform .18s,border-color .18s}
+  .lr-card{display:grid;grid-template-columns:112px minmax(0,1fr) 125px;align-items:center;gap:19px;background:#fff;border:1px solid #dce6f3;border-radius:14px;padding:18px 26px;min-height:138px;transition:transform .18s,border-color .18s}
   .lr-card:hover{border-color:#9eb9e0;transform:translateY(-2px)}
-  .lr-card-index{align-self:stretch;display:grid;grid-template-rows:auto 1fr;gap:4px;border-right:1px solid #e5edf6;padding:3px 12px 3px 0}
-  .lr-no{font-size:13px;font-weight:850;color:#3866a8;letter-spacing:.065em;align-self:start;text-align:left}
-  .lr-year{font-size:17px;color:#647c9b;font-weight:700;justify-self:center;align-self:center;transform:translateY(-7px)}
-  .lr-card-main{min-width:0}
+  .lr-card-index{align-self:stretch;display:flex;align-items:center;justify-content:center;border-right:1px solid #e5edf6;padding:0 12px 0 0}
+  .lr-no{font-size:16px;font-weight:850;color:#3866a8;letter-spacing:.04em;text-align:center}
+    .lr-card-main{min-width:0}
   .lr-card h3{font-size:20px;line-height:1.4;letter-spacing:-.02em;color:#183454;margin:0 0 9px;font-weight:750}
-  .lr-card p{color:#637c9e;font-size:15px;line-height:1.5;margin:0;font-weight:550;font-style:italic}
+  .lr-card p{color:#637c9e;font-size:15px;line-height:1.5;margin:0;font-weight:550}.lr-card p em{font-style:italic;font-weight:600}.lr-pub-year{font-size:15px;color:#536e94;font-weight:750;margin-right:5px}
   .lr-card .lr-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}
   .lr-tags span{font-size:11px;color:#3161ac;background:#edf4ff;border:1px solid #dce8f7;border-radius:99px;padding:6px 10px}
-  .lr-bottom{align-self:stretch;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding-left:15px;border-left:1px solid #e5edf6;text-align:center;color:#526b8b;font-size:17px;line-height:1.45}
-  .lr-bottom b{position:absolute;right:0;bottom:0;color:#2f63b3;font-size:22px;line-height:1}
+  .lr-bottom{align-self:stretch;display:flex;align-items:center;justify-content:center;padding-left:11px;border-left:1px solid #e5edf6;text-align:center;color:#526b8b;font-size:17px;line-height:1.45}
   .lr-bottom span{font-weight:700}
   @media(max-width:850px){
-    .lr-card{grid-template-columns:96px minmax(0,1fr) 128px;gap:14px;padding:17px 19px;min-height:138px}
+    .lr-card{grid-template-columns:96px minmax(0,1fr) 118px;gap:14px;padding:17px 19px;min-height:138px}
     .lr-bottom{font-size:15px;padding-left:12px}
   }
   .lr-muted{margin:35px 0 62px}
@@ -41,10 +39,10 @@
   @media(max-width:760px){
     .lr-wrap{padding:0 18px}.lr-hero{padding:31px 25px}
     .lr-card{grid-template-columns:1fr;gap:12px;min-height:0;padding:19px}
-    .lr-card-index{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;border:0;gap:12px;padding:0}.lr-year{transform:none}
+    .lr-card-index{display:flex;justify-content:center;align-items:center;border:0;padding:0}
     .lr-card h3{font-size:19px}
     .lr-card p{font-size:13px}
-    .lr-bottom{grid-column:1;display:flex;position:static;flex-direction:row;align-items:center;justify-content:space-between;text-align:left;padding:10px 0 0;border:0;border-top:1px solid #e5edf6}.lr-bottom b{position:static}
+    .lr-bottom{grid-column:1;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px 0 0;border:0;border-top:1px solid #e5edf6}
     .lr-nav .site-nav{gap:9px;flex-wrap:wrap}.lr-nav .site-nav a{font-size:11px}
   }
 </style>
@@ -60,12 +58,12 @@
 <section><div class="lr-heading"><h2>Paper Notes</h2><span>01 PAPER</span></div>
 <div class="lr-grid">
 <a class="lr-card" href="fusion-deeponet.html" aria-label="Open Fusion-DeepONet Paper Notes">
-  <div class="lr-card-index"><span class="lr-no">PAPER 001</span><span class="lr-year">2026</span></div>
+  <div class="lr-card-index"><span class="lr-no">PAPER 001</span></div>
   <div class="lr-card-main">
     <h3>Fusion-DeepONet: A Data-Efficient Neural Operator for Geometry-Dependent Hypersonic and Supersonic Flows</h3>
-    <p>Journal of Computational Physics</p>
+    <p><span class="lr-pub-year">(2026)</span> <em>Journal of Computational Physics</em></p>
   </div>
-  <div class="lr-bottom"><span>Peyvan et al.</span><b aria-hidden="true">↗</b></div>
+  <div class="lr-bottom"><span>Peyvan et al.</span></div>
 </a>
 </div></section>
 <section class="lr-muted"><div class="lr-heading"><h2>Research Trends</h2><span>COMING LATER</span></div><p>Topic-based comparison and synthesis of multiple research papers will be organized here.</p></section>
