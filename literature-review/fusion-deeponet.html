@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Fusion-DeepONet paper notes — method, validation, original figures and numerical results from Peyvan et al., Journal of Computational Physics (2026).">
+  <title>Fusion-DeepONet | Paper Notes — Engineering Notebook</title>
+  <link rel="stylesheet" href="../assets/site.css">
+  <style>
+    :root { --paper-blue:#2d62b6; --paper-ink:#1b2d45; --paper-border:#dce6f3; --paper-muted:#6e819b; --paper-soft:#f0f5fc; }
+    body.inner-page { background:#f5f8fc; color:var(--paper-ink); }
+    .paper-shell { max-width:1180px; margin:0 auto; padding:0 34px; }
+    .paper-header .site-nav { gap:24px; }
+    .paper-header .site-nav a.active { color:#2458a9; font-weight:800; }
+    .paper-crumb { margin:25px 0 26px; font-size:13px; color:#8193aa; display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .paper-crumb a:hover { color:var(--paper-blue); }
+    .paper-top { background:#fff; border:1px solid var(--paper-border); border-radius:17px; padding:35px 42px 37px; box-shadow:0 8px 26px rgba(44,74,120,.035); }
+    .paper-kicker { color:#3567ad; font-size:12px; font-weight:850; letter-spacing:.12em; text-transform:uppercase; }
+    .paper-top h1 { margin:14px 0 13px; font-size:clamp(27px,3.3vw,42px); line-height:1.22; letter-spacing:-.048em; color:#132943; }
+    .paper-sub { font-size:15px; color:#4f6683; font-weight:600; line-height:1.65; }
+    .paper-meta { display:flex; flex-wrap:wrap; align-items:center; gap:8px 20px; margin:19px 0 14px; font-size:13px; color:#7487a0; }
+    .paper-tags { display:flex; gap:7px; flex-wrap:wrap; margin:15px 0 20px; }
+    .paper-tags span { color:#2d5eae; background:#e9f1fd; border:1px solid #d1e0f5; border-radius:999px; padding:7px 11px; font-size:11px; font-weight:700; }
+    .paper-links { display:flex; flex-wrap:wrap; gap:9px; }
+    .paper-links a { font-size:12px; color:#2254a3; border:1px solid #cbdbf0; background:#fff; border-radius:8px; padding:9px 12px; font-weight:750; }
+    .paper-links a.primary { background:#2d62b6; color:#fff; border-color:#2d62b6; }
+    .paper-links a:hover { filter:brightness(.96); }
+    .paper-layout { display:grid; grid-template-columns:210px minmax(0,1fr); gap:28px; align-items:start; margin:28px 0 65px; }
+    .paper-toc { position:sticky; top:23px; background:#fff; border:1px solid var(--paper-border); border-radius:12px; padding:21px 18px; }
+    .paper-toc h2 { font-size:11px; letter-spacing:.1em; color:#69809e; margin:0 0 15px; }
+    .paper-toc a { display:block; color:#63768e; font-size:12px; line-height:1.45; padding:9px 0; border-top:1px solid #edf2f8; }
+    .paper-toc a:hover { color:#2458a9; }
+    .paper-article { min-width:0; }
+    .paper-section { margin-bottom:19px; padding:30px 35px; border:1px solid var(--paper-border); background:#fff; border-radius:15px; }
+    .paper-section h2 { display:flex; align-items:center; gap:12px; color:#182e49; font-size:23px; letter-spacing:-.035em; margin:0 0 20px; }
+    .paper-number { display:inline-grid; place-items:center; flex:none; min-width:38px; height:34px; background:#366ab7; border-radius:8px; color:#fff; font-size:15px; letter-spacing:0; }
+    .paper-section h3 { color:#25476d; font-size:18px; margin:31px 0 12px; padding-top:12px; border-top:1px solid #edf2f9; letter-spacing:-.02em; }
+    .paper-section h3:first-of-type { margin-top:15px; padding-top:0; border:0; }
+    .paper-section h4 { margin:20px 0 9px; font-size:15px; color:#284b79; }
+    .paper-section p,.paper-section li { color:#344961; font-size:14px; line-height:1.86; }
+    .paper-section p { margin:9px 0 13px; }
+    .paper-section ul,.paper-section ol { padding-left:23px; margin:7px 0 18px; }
+    .paper-section li { margin-bottom:7px; }
+    .paper-section strong { color:#193d70; font-weight:780; }
+    .paper-lead { background:#f0f5fd; border-left:4px solid #356fbe; padding:17px 19px; border-radius:7px; font-weight:650; line-height:1.8; font-size:14px; color:#214367; }
+    .recall-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .recall-item { border:1px solid #dfe9f6; background:#f8fbff; padding:15px 16px; border-radius:9px; }
+    .recall-item dt { font-weight:820; font-size:12px; color:#3567ad; margin:0 0 8px; }
+    .recall-item dd { margin:0; color:#304864; font-size:13px; line-height:1.7; }
+    .paper-equation { overflow-x:auto; text-align:center; background:#f7f9fd; border:1px solid #e1eaf5; padding:17px 11px; margin:18px 0; border-radius:10px; color:#1c3b62; font-size:15px; }
+    figure.paper-figure { margin:23px 0; padding:18px; border-radius:11px; border:1px solid #dbe6f3; background:#fbfdff; }
+    .paper-figure a.figure-link { display:block; text-align:center; }
+    .paper-figure img { display:block; width:auto; max-width:100%; max-height:600px; object-fit:contain; margin:0 auto; height:auto; border-radius:3px; background:white; }
+    .paper-figure figcaption { margin-top:13px; font-size:12px; line-height:1.65; color:#6b7f9a; }
+    .paper-figure figcaption strong { font-weight:750; }
+    .paper-figure .figure-open { display:inline-block; margin-top:8px; color:#376bb7; font-size:12px; font-weight:750; }
+    .paper-table-wrap { margin:19px 0 10px; overflow:auto; border:1px solid #dbe5f2; border-radius:10px; }
+    table.paper-table { width:100%; min-width:580px; border-collapse:collapse; font-size:12px; text-align:center; }
+    .paper-table caption { caption-side:top; text-align:left; background:#f0f5fd; border-bottom:1px solid #dbe6f3; color:#284d7f; font-weight:800; padding:12px 15px; }
+    .paper-table th { background:#f7faff; color:#355878; font-weight:800; font-size:11px; padding:11px 10px; white-space:nowrap; }
+    .paper-table td { padding:11px 10px; color:#344963; border-top:1px solid #e6edf6; white-space:nowrap; }
+    .paper-table tbody tr.highlight { background:#edf5ff; font-weight:800; }
+    .paper-table td:first-child,.paper-table th:first-child { text-align:left; }
+    .paper-table strong { color:#1f60ad; }
+    .paper-source { margin:7px 0 19px; font-size:11px!important; color:#8a9bb0!important; line-height:1.6!important; }
+    .paper-note { background:#f6f8fc; color:#657995; border:1px dashed #c7d6e8; padding:13px 16px; font-size:12px; line-height:1.7; border-radius:8px; }
+    .paper-empty { min-height:160px; background:#fbfcff; border:1px dashed #cfdeef; border-radius:10px; }
+    .paper-license { font-size:12px; color:#74869d; line-height:1.8; padding:19px 5px 32px; }
+    .paper-license a { color:#376bb7; text-decoration:underline; text-underline-offset:3px; }
+    .paper-footer { margin-top:30px; padding:25px 0; border-top:1px solid #dce5f2; text-align:center; font-size:12px; color:#7a8da4; }
+    @media(max-width:900px) { .paper-layout {grid-template-columns:1fr;gap:16px;} .paper-toc{position:static;display:flex;flex-wrap:wrap;gap:4px 16px;align-items:center;} .paper-toc h2{width:100%;margin-bottom:3px;} .paper-toc a{border:0;padding:5px 0;} }
+    @media(max-width:640px) { .paper-shell{padding:0 16px;} .paper-top{padding:25px 22px;} .paper-section{padding:24px 18px;} .paper-section h2{font-size:20px;} .recall-grid{grid-template-columns:1fr;} .paper-meta{font-size:12px;} .paper-header .site-nav{gap:9px;flex-wrap:wrap;} .paper-header .site-nav a{font-size:11px;} .paper-figure img{max-height:none;} }
+  </style>
+  <script>window.MathJax = {tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body class="inner-page">
+<header class="site-header paper-header"><div class="shell">
+  <a class="brand" href="../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a href="../index.html">Home</a>
+    <a href="../index.html#bento-study">Study Note</a>
+    <a href="../index.html#bento-projects">Practice Project</a>
+    <a class="active" aria-current="page" href="index.html">Literature Review</a>
+  </nav>
+</div></header>
+<main class="paper-shell">
+  <nav class="paper-crumb" aria-label="Breadcrumb"><a href="../index.html">Home</a><span>›</span><a href="index.html">Literature Review</a><span>›</span><strong>Paper Notes / 001</strong></nav>
+  <div class="paper-top">
+    <div class="paper-kicker">LITERATURE REVIEW / PAPER NOTES · 001</div>
+    <h1>Fusion-DeepONet: A Data-Efficient Neural Operator for Geometry-Dependent Hypersonic and Supersonic Flows</h1>
+    <div class="paper-sub">Geometry-Dependent High-Speed CFD · Neural Operator · Surface Heat Flux</div>
+    <div class="paper-meta"><span>Ahmad Peyvan · Varun Kumar · George Em Karniadakis</span><span>Journal of Computational Physics, Vol. 544, Article 114432 (2026)</span></div>
+    <div class="paper-tags"><span>Neural Operator</span><span>Hypersonic CFD</span><span>Geometry Generalization</span><span>Irregular Grid</span><span>Heat Flux</span></div>
+    <div class="paper-links">
+      <a class="primary" href="https://arxiv.org/html/2501.01934v2" target="_blank" rel="noopener">Read Original Paper ↗</a>
+      <a href="https://doi.org/10.1016/j.jcp.2025.114432" target="_blank" rel="noopener">Journal / DOI ↗</a>
+      <a href="https://github.com/ahmadpeyvan/Fusion-DeepONet" target="_blank" rel="noopener">Source Code ↗</a>
+    </div>
+  </div>
+
+  <div class="paper-layout">
+    <aside class="paper-toc" aria-label="Contents">
+      <h2>ON THIS PAGE</h2>
+      <a href="#quick">01 · Quick Recall</a>
+      <a href="#background">02 · Background</a>
+      <a href="#method">03 · Methodology</a>
+      <a href="#results">04 · Results &amp; Validation</a>
+      <a href="#limitations">05 · Limitations</a>
+      <a href="#insights">06 · My Insights</a>
+      <a href="#takeaway">07 · Final Takeaway</a>
+    </aside>
+    <article class="paper-article">
+      <section class="paper-section" id="quick">
+        <h2><span class="paper-number">01</span>Quick Recall</h2>
+        <dl class="recall-grid">
+          <div class="recall-item"><dt>Research Problem</dt><dd>Geometry 변화와 제한된 CFD Training Data 조건에서 Hypersonic/Supersonic 유동장을 정확하게 예측</dd></div>
+          <div class="recall-item"><dt>Key Idea</dt><dd>Branch Network의 Hidden Layer 정보를 Trunk Network의 Hidden Layer에 전달하는 Multi-scale Fusion Conditioning</dd></div>
+          <div class="recall-item"><dt>Method</dt><dd>Fusion-DeepONet과 Derivative-Enhanced Loss (DEL)를 활용한 Field 및 Gradient 학습</dd></div>
+          <div class="recall-item"><dt>Validation</dt><dd>Semi-ellipse (M=10), Reentry Capsule (M=5–8), Converging-Diverging Nozzle (Re=1000)</dd></div>
+          <div class="recall-item"><dt>Main Result</dt><dd>Semi-ellipse Irregular Grid의 평균 Relative L² Error 6.39%; Capsule Heat Flux 오차 34.15% → 6.47% (P=3, DD)</dd></div>
+          <div class="recall-item"><dt>Takeaway</dt><dd>Geometry-dependent CFD Surrogate와 Gradient-sensitive Heat Flux 예측에서 활용할 수 있는 구조와 학습 전략</dd></div>
+        </dl>
+        <p class="paper-lead">Geometry와 유동 조건을 입력받아 고속 유동장을 예측하는 Fusion-DeepONet을 제안하고, 적은 학습 데이터에서도 변화하는 Geometry·Grid에 대한 예측 성능을 검증함. Derivative-Enhanced Loss를 추가하여 Temperature Field뿐 아니라 Surface Heat Flux의 정확도까지 개선함.</p>
+      </section>
+
+      <section class="paper-section" id="background">
+        <h2><span class="paper-number">02</span>Research Background &amp; Motivation</h2>
+        <h3>2.1 Research Background</h3>
+        <p>Hypersonic 및 Supersonic Flow에서는 Geometry 변화에 따라 Shock 위치, 압력 분포, Temperature Field가 크게 달라짐. Aerospace Design Optimization에서는 다양한 형상과 유동 조건에 대한 고해상도 CFD 계산을 반복 수행해야 하므로 높은 계산비용이 발생함.</p>
+        <ul>
+          <li><strong>Geometry Dependence:</strong> 형상 변화에 따라 유동장의 공간 구조와 계산 Grid가 함께 달라짐.</li>
+          <li><strong>Data Scarcity:</strong> High-Fidelity CFD Dataset의 생성 비용이 커 충분한 Training Cases 확보가 어려움.</li>
+          <li><strong>Sharp Gradient:</strong> Shock 주변의 큰 변수 구배와 불연속 구조를 학습하기 어려움.</li>
+          <li><strong>Gradient Accuracy:</strong> Field Prediction Error가 작아도 Spatial Derivative 및 Heat Flux 오차가 클 수 있음.</li>
+        </ul>
+        <h3>2.2 Research Objectives</h3>
+        <ol>
+          <li>제한된 CFD Data로 Geometry-dependent Hypersonic/Supersonic Flow를 예측하는 Neural Operator 개발.</li>
+          <li>Uniform/Irregular Grid 및 Unseen Parametric Geometry에서의 일반화 성능 평가.</li>
+          <li>Temperature Gradient의 학습 정확도를 향상하여 Surface Heat Flux를 정밀하게 계산.</li>
+        </ol>
+      </section>
+
+      <section class="paper-section" id="method">
+        <h2><span class="paper-number">03</span>Methodology</h2>
+        <h3>3.1 Conventional DeepONet</h3>
+        <p>DeepONet은 입력 Function 또는 Parameter를 처리하는 <strong>Branch Network</strong>와 예측 위치를 입력받는 <strong>Trunk Network</strong>로 구성됨. 일반적인 DeepONet에서는 두 Network의 최종 특징 벡터를 결합해 출력 Field를 예측함.</p>
+        <div class="paper-equation">\( \mathcal{G}(\boldsymbol{\mu},\mathbf{x})=\sum_{k=1}^{p}b_k(\boldsymbol{\mu})\,t_k(\mathbf{x}) \)</div>
+        <p>\(\boldsymbol{\mu}\)는 Geometry 또는 Flow Parameters, \(\mathbf{x}=(x,y)\)는 Query Coordinates임. 기존 방식은 Branch 정보가 Trunk의 최종 특징과 결합되므로 Geometry 정보가 중간 Feature Extraction에 직접 작용하지 않음.</p>
+
+        <h3>3.2 Fusion-DeepONet</h3>
+        <p>제안된 Fusion-DeepONet은 Branch Network의 여러 Hidden Layer 정보를 누적하고, 이 정보를 Trunk Network의 Hidden Layer Output에 적용하여 <strong>Geometry-dependent Basis Functions</strong>를 형성함.</p>
+        <div class="paper-equation">\( \mathbf{S}^{0}=\mathbf{Z}^{1},\qquad \mathbf{S}^{m}=\mathbf{Z}^{m+1}+\mathbf{S}^{m-1} \)</div>
+        <div class="paper-equation">\( \widehat{\mathbf{Y}}^{\,l}=\mathbf{Y}^{l}\odot\widetilde{\mathbf{S}}^{\,l-1} \)</div>
+        <p>\(\mathbf{Y}^{l}\)은 Trunk의 Hidden Feature, \(\widetilde{\mathbf{S}}^{\,l-1}\)은 Branch에서 계산한 Conditioning Feature임. \(\odot\)는 Element-wise Multiplication을 의미함. 이 과정에서 Geometry와 Flow Parameters가 Spatial Feature의 형성 과정에 반영됨.</p>
+        <figure class="paper-figure">
+          <a class="figure-link" href="https://arxiv.org/html/extracted/6472857/Figures/Fusion_DeepONet.png" target="_blank" rel="noopener"><img loading="lazy" src="https://arxiv.org/html/extracted/6472857/Figures/Fusion_DeepONet.png" alt="Original Figure 9: Fusion-DeepONet network architecture showing branch-to-trunk conditioning."></a>
+          <figcaption><strong>Original Figure 9.</strong> Fusion-DeepONet Architecture. Branch Hidden Layer Encoding으로 Trunk의 중간 표현을 Conditioning하는 구조. 원본: Peyvan et al., arXiv:2501.01934v2, Fig. 9 (CC BY-NC-SA 4.0, unchanged).<br><a class="figure-open" href="https://arxiv.org/html/2501.01934v2" target="_blank" rel="noopener">Open paper &amp; original figure ↗</a></figcaption>
+        </figure>
+        <p>핵심 차별점은 단순히 Final Output을 조합하는 것이 아니라 <strong>Trunk 내부의 Multi-scale Feature Representation 자체를 Geometry에 따라 변형</strong>한다는 점임.</p>
+
+        <h3>3.3 Derivative-Enhanced Loss (DEL)</h3>
+        <p>Surface Heat Flux는 벽면의 Temperature Gradient에 의존함. 따라서 Temperature Prediction의 높은 정확도가 Heat Flux Prediction까지 보장하지 않음.</p>
+        <div class="paper-equation">\( q_n=-\kappa\frac{\partial T}{\partial n} \)</div>
+        <p>논문은 Field Loss에 Spatial Derivative Loss를 추가함.</p>
+        <div class="paper-equation">\( \mathcal{L}=\|\mathcal{G}-\widehat{\mathcal{G}}\|_{L^2(\Omega)}^2+\lambda_1\|d\mathcal{G}-\widehat d\,\widehat{\mathcal{G}}\|_{L^2(\Omega)}^2 \)</div>
+        <ul>
+          <li><strong>DD (Discrete Derivative):</strong> 인접한 Point 간 Difference를 이용하여 Derivative Target을 구성.</li>
+          <li><strong>LSD (Least Squares Differentiation):</strong> 주변 Point의 Local Linear Approximation으로 Gradient를 추정하고 Directional Derivative를 계산.</li>
+        </ul>
+        <p>DEL은 Spatial Derivative에 대한 학습 제약을 제공하며, 최종 Heat Flux Prediction 시에는 학습된 Neural Operator의 Automatic Differentiation 결과를 사용함.</p>
+      </section>
+
+      <section class="paper-section" id="results">
+        <h2><span class="paper-number">04</span>Results &amp; Validation</h2>
+        <div class="paper-table-wrap">
+          <table class="paper-table">
+            <caption>Validation Cases — Data Generation &amp; Test Conditions</caption>
+            <thead><tr><th>Case</th><th>Flow</th><th>Train / Test</th><th>Predicted Quantities</th></tr></thead>
+            <tbody>
+              <tr><td>Semi-ellipse</td><td>Inviscid, M=10</td><td>28 / 8</td><td>ρ, u, v, p</td></tr>
+              <tr><td>Reentry Capsule</td><td>Viscous, M=5–8</td><td>48 / 12</td><td>T → Surface Heat Flux</td></tr>
+              <tr><td>C-D Nozzle</td><td>Viscous, Re=1000</td><td>42 / 18</td><td>ρ, u, v, p, T</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="paper-source">모든 CFD 학습 데이터는 Trixi.jl 기반 Entropy-Stable Discontinuous Galerkin Spectral Element Method(ES-DGSEM)로 생성됨. Source: Peyvan et al., Section 3.</p>
+
+        <h3>4.1 Case 1 — Semi-Ellipse Hypersonic Flow</h3>
+        <p><strong>Objective:</strong> Geometry가 변화하는 M=10 Inviscid Flow에서 Uniform/Irregular Grid의 Prediction Accuracy를 평가함. Semi-ellipse의 장축 \(a\), 단축 \(b\)로 36개 형상을 생성했으며, 이 중 28개를 학습에 사용함.</p>
+        <div class="paper-table-wrap">
+          <table class="paper-table">
+            <caption>Table 2 (selected columns) — Average Relative L² Error</caption>
+            <thead><tr><th>Framework</th><th>Grid</th><th>Parameters</th><th>Mean L² Error</th><th>Training Time (s)</th></tr></thead>
+            <tbody>
+              <tr class="highlight"><td>Fusion-DeepONet</td><td>Uniform</td><td>37,854</td><td><strong>3.70%</strong></td><td>1,471.05</td></tr>
+              <tr><td>Vanilla-DeepONet</td><td>Uniform</td><td>37,854</td><td>36.41%</td><td>78.60</td></tr>
+              <tr><td>POD-DeepONet</td><td>Uniform</td><td>15,807</td><td>27.18%</td><td>177.40</td></tr>
+              <tr><td>U-Net</td><td>Uniform</td><td>7,056,116</td><td>4.54%</td><td>3,164.90</td></tr>
+              <tr><td>FNO</td><td>Uniform</td><td>171,556,804</td><td>8.21%</td><td>1,650.30</td></tr>
+              <tr class="highlight"><td>Fusion-DeepONet</td><td>Irregular</td><td>37,854</td><td><strong>6.39%</strong></td><td>536.20</td></tr>
+              <tr><td>Vanilla-DeepONet</td><td>Irregular</td><td>37,854</td><td>39.20%</td><td>369.78</td></tr>
+              <tr><td>MeshGraphNet</td><td>Irregular</td><td>277,061</td><td>49.46%</td><td>1,178.30</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="paper-source">Values transcribed from Peyvan et al., Table 2. Mean relative L² error and parameter counts are reproduced; the per-variable columns are omitted for compact display.</p>
+        <p>Uniform Grid에서 Fusion-DeepONet의 평균 Error는 3.70%로 U-Net의 4.54%와 경쟁 가능한 수준이며, 학습 파라미터 수는 훨씬 적음. Irregular Grid에서는 평균 Error 6.39%로 Vanilla-DeepONet(39.20%), MeshGraphNet(49.46%)을 크게 앞섬.</p>
+        <figure class="paper-figure">
+          <a class="figure-link" href="https://arxiv.org/html/extracted/6472857/Figures/u_4.png" target="_blank" rel="noopener"><img loading="lazy" src="https://arxiv.org/html/extracted/6472857/Figures/u_4.png" alt="Original Figure 13: x-velocity predictions, ground truth and point-wise errors for MeshGraphNet, Vanilla DeepONet and Fusion DeepONet on irregular grid."></a>
+          <figcaption><strong>Original Figure 13.</strong> Irregular Grid x-Velocity Prediction vs. Ground Truth vs. Absolute Error. Unseen Semi-ellipse Case 5. Source: Peyvan et al., Fig. 13 (CC BY-NC-SA 4.0, unchanged).</figcaption>
+        </figure>
+        <p><strong>Key Finding:</strong> Branch–Trunk Multi-scale Conditioning이 제한된 학습 데이터와 서로 다른 Grid Point Distribution 조건에서 높은 일반화 성능을 제공함. 단, 동일 Parameter Count의 Vanilla-DeepONet보다 Training Time은 증가함.</p>
+
+        <h3>4.2 Case 2 — Hypersonic Reentry Capsule</h3>
+        <p><strong>Objective:</strong> Geometry Parameters (Nose Radius \(R\), Angle \(\alpha\)) 및 Freestream Mach Number 변화에 따른 Temperature Field와 Surface Heat Flux 예측을 검증함. 60개 CFD Case 중 48개 학습, 12개 테스트를 수행함.</p>
+        <p>Temperature Field만을 MSE Loss로 학습한 경우 12개 Test Case의 평균 Relative L² Error는 약 <strong>0.98%</strong>였으나, Heat Flux Prediction은 훨씬 큰 오차를 나타냄.</p>
+        <figure class="paper-figure">
+          <a class="figure-link" href="https://arxiv.org/html/extracted/6472857/Figures/Temperature_noder.png" target="_blank" rel="noopener"><img loading="lazy" src="https://arxiv.org/html/extracted/6472857/Figures/Temperature_noder.png" alt="Original Figure 21a: Reentry capsule temperature prediction, CFD ground truth, and point-wise error for an unseen test sample."></a>
+          <figcaption><strong>Original Figure 21(a).</strong> Reentry Capsule Temperature Field, prediction / reference / point-wise error. Source: Peyvan et al., Fig. 21(a) (CC BY-NC-SA 4.0, unchanged).</figcaption>
+        </figure>
+        <div class="paper-table-wrap">
+          <table class="paper-table">
+            <caption>Table 3 — Heat Flux Prediction Error and Temperature Error</caption>
+            <thead><tr><th>Loss</th><th>Heat Flux, P=3</th><th>Heat Flux, P=7</th><th>L²(T), P=3</th><th>L²(T), P=7</th><th>Train (h)</th></tr></thead>
+            <tbody>
+              <tr><td>No DEL</td><td>34.15%</td><td>27.69%</td><td>0.98%</td><td>0.95%</td><td>8.67</td></tr>
+              <tr><td>LSD</td><td>21.95%</td><td>14.10%</td><td>1.30%</td><td>1.33%</td><td>9.39</td></tr>
+              <tr class="highlight"><td>DD</td><td><strong>6.47%</strong></td><td><strong>11.34%</strong></td><td>1.34%</td><td>1.31%</td><td>8.00</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="paper-source">Values transcribed from Peyvan et al., Table 3. Training uses P=3 data; inference uses P=3 or P=7. Heat Flux is calculated from automatic differentiation of the trained model.</p>
+        <p>Derivative-Enhanced Loss를 적용하면 Temperature Field의 상대오차는 약간 증가할 수 있지만, Gradient 및 Heat Flux 예측이 개선됨. P=3 평가에서 DD 방식은 평균 Heat Flux Error를 <strong>34.15% → 6.47%</strong>로 감소시킴.</p>
+        <figure class="paper-figure">
+          <a class="figure-link" href="https://arxiv.org/html/extracted/6472857/Figures/HFP.png" target="_blank" rel="noopener"><img loading="lazy" src="https://arxiv.org/html/extracted/6472857/Figures/HFP.png" alt="Original Figure 23: Surface heat flux prediction comparison between ground truth, no derivative loss, least squares derivative and discrete derivative."></a>
+          <figcaption><strong>Original Figure 23.</strong> Heat Flux Prediction: Ground Truth / No DEL / LSD / DD, evaluated on P=3 and P=7 Grid. Source: Peyvan et al., Fig. 23 (CC BY-NC-SA 4.0, unchanged).</figcaption>
+        </figure>
+        <p><strong>Key Finding:</strong> Field Accuracy와 Gradient Accuracy를 별도로 평가해야 하며, 고속 유동의 Wall Heat Flux처럼 Spatial Derivative에 의존하는 물리량에는 Derivative-Aware Training이 중요함.</p>
+
+        <h3>4.3 Case 3 — Converging-Diverging Nozzle</h3>
+        <p><strong>Objective:</strong> Geometry Parameter(입구·출구 높이, Throat Location)가 변하는 Internal Compressible Flow에 대한 일반화 성능 검증. Inlet Mach Number는 0.6이며, Nozzle의 Diverging Section에서 Supersonic Flow가 형성됨. \(Re=1000\), 42개 학습 / 18개 테스트.</p>
+        <div class="paper-table-wrap">
+          <table class="paper-table">
+            <caption>Table 4 — Relative L² Error for C-D Nozzle (18 Unseen Cases)</caption>
+            <thead><tr><th>Framework</th><th>Density</th><th>u-Velocity</th><th>v-Velocity</th><th>Pressure</th><th>Temperature</th></tr></thead>
+            <tbody>
+              <tr class="highlight"><td>Fusion-DeepONet</td><td><strong>1.29%</strong></td><td><strong>2.41%</strong></td><td><strong>11.26%</strong></td><td><strong>1.39%</strong></td><td><strong>0.97%</strong></td></tr>
+              <tr><td>MeshGraphNet</td><td>4.00%</td><td>7.25%</td><td>23.33%</td><td>3.29%</td><td>3.66%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="paper-source">Values transcribed from Peyvan et al., Table 4. Source compares models trained with different hardware/software; timing is omitted here to avoid an unqualified speed comparison.</p>
+        <p>모든 Primitive Variable에서 Fusion-DeepONet의 평균 Error가 MeshGraphNet보다 낮음. 그러나 <strong>v-Velocity의 Relative Error(11.26%)가 다른 변수보다 큼</strong>. 저자들은 여러 변수를 하나의 Trunk Network로 동시에 예측하는 구조와 변수별 Solution Structure 차이와 관련지어 설명함.</p>
+        <figure class="paper-figure">
+          <a class="figure-link" href="https://arxiv.org/html/extracted/6472857/Figures/rho_cd.png" target="_blank" rel="noopener"><img loading="lazy" src="https://arxiv.org/html/extracted/6472857/Figures/rho_cd.png" alt="Original Figure 24a: Density prediction in converging-diverging nozzle, reference field and point-wise error."></a>
+          <figcaption><strong>Original Figure 24(a).</strong> C-D Nozzle Density Field; prediction / ground truth / point-wise error. Source: Peyvan et al., Fig. 24(a) (CC BY-NC-SA 4.0, unchanged).</figcaption>
+        </figure>
+      </section>
+
+      <section class="paper-section" id="limitations">
+        <h2><span class="paper-number">05</span>Limitations</h2>
+        <h3>5.1 Geometry Generalization</h3>
+        <p>검증 사례는 모두 소수의 Geometry Parameters로 표현되는 2D Parametric Shape에 해당함. 학습에 포함되지 않은 Parameter Combination에 대해서는 평가했으나, 완전히 다른 Topology 또는 복잡한 3D Non-Parametric Geometry에 대한 결과는 제시되지 않음.</p>
+        <h3>5.2 Flow Physics</h3>
+        <p>검증은 주로 Steady/2D Compressible Flow에 집중됨. 저자들도 3D, Transient Flow 및 Chemical Reactions를 향후 확장 대상으로 제시함.</p>
+        <h3>5.3 Derivative &amp; Cost Trade-offs</h3>
+        <p>DD는 Coarse Resolution에서 높은 Heat Flux Accuracy를 제공했으나, Resolution-independent Gradient Prediction에는 제약이 있음. LSD는 높은 Resolution에서 오차를 줄이는 특성이 확인됨. Fusion Conditioning은 동일 크기의 Vanilla-DeepONet보다 Training Computational Cost를 증가시킴.</p>
+        <div class="paper-note">Notes: 위 항목 중 검증 범위의 해석(새로운 Topology에 대한 근거 부족)은 논문의 Experimental Setup을 근거로 정리한 분석이며, 실제로 실험에서 불가능하다고 증명된 내용은 아님.</div>
+      </section>
+
+      <section class="paper-section" id="insights">
+        <h2><span class="paper-number">06</span>My Insights</h2>
+        <div class="paper-empty" aria-label="Personal notes intentionally left blank"></div>
+      </section>
+
+      <section class="paper-section" id="takeaway">
+        <h2><span class="paper-number">07</span>Final Takeaway</h2>
+        <ol>
+          <li><strong>Multi-scale Fusion:</strong> Branch Encoding을 Trunk Hidden Layers에 Conditioning하여 Geometry-dependent Feature Representation을 개선함.</li>
+          <li><strong>Data-Efficient Learning:</strong> Semi-ellipse의 28개 Training Cases를 이용해 Irregular Grid에서 평균 Relative L² Error 6.39%를 달성함.</li>
+          <li><strong>Gradient-Aware Learning:</strong> Temperature Field의 Prediction Accuracy만으로 Heat Flux Accuracy를 보장할 수 없으며, DD 기반 DEL은 P=3 테스트에서 Heat Flux Error를 6.47%까지 낮춤.</li>
+        </ol>
+      </section>
+      <div class="paper-license">
+        <strong>Reference:</strong> Peyvan, A., Kumar, V., &amp; Karniadakis, G. E. (2026). “Fusion-DeepONet: A data-efficient neural operator for geometry-dependent hypersonic and supersonic flows.” <em>Journal of Computational Physics</em>, 544, 114432. <a href="https://doi.org/10.1016/j.jcp.2025.114432" target="_blank" rel="noopener">DOI</a>.<br>
+        <strong>Figures:</strong> Original figure assets are linked from <a href="https://arxiv.org/html/2501.01934v2" target="_blank" rel="noopener">arXiv v2</a>, distributed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>. Figures are shown unchanged, with original figure numbers and attribution. Tables are reformatted/transcribed from the cited numerical results. This personal page is intended for non-commercial educational use.
+      </div>
+    </article>
+  </div>
+</main>
+<footer class="paper-footer">Engineering Notebook · Literature Review · Paper Notes</footer>
+</body>
+</html>
