@@ -16,14 +16,15 @@
     .paper-crumb a:hover { color:var(--paper-blue); }
     .paper-top { background:#fff; border:1px solid var(--paper-border); border-radius:17px; padding:35px 42px 37px; box-shadow:0 8px 26px rgba(44,74,120,.035); }
     .paper-kicker { color:#3567ad; font-size:12px; font-weight:850; letter-spacing:.12em; text-transform:uppercase; }
-    .paper-top h1 { margin:14px 0 13px; font-size:clamp(27px,3.3vw,42px); line-height:1.22; letter-spacing:-.048em; color:#132943; }
+    .paper-top h1 { margin:14px 0 13px; font-size:clamp(26px,3.05vw,39px); line-height:1.25; letter-spacing:-.048em; color:#132943; }
     .paper-sub { font-size:15px; color:#4f6683; font-weight:600; line-height:1.65; }
     .paper-meta { display:flex; flex-direction:column; align-items:flex-start; gap:12px; margin:27px 0 25px; }
     .paper-meta-row { display:flex; align-items:baseline; flex-wrap:wrap; column-gap:14px; row-gap:5px; }
     
-    .paper-authors { color:#263e60; font-size:17px; font-weight:700; line-height:1.6; }
-    .paper-journal { color:#4e6786; font-size:15px; font-style:italic; font-weight:600; line-height:1.65; }
-    .paper-pub-details { color:#526c8e; font-size:14px; font-weight:800; font-style:normal; }
+    .paper-authors { color:#263e60; font-size:18px; font-weight:700; line-height:1.6; }
+    .paper-journal { color:#4e6786; font-size:16px; font-style:italic; font-weight:600; line-height:1.65; }
+    .paper-pub-details { color:#526c8e; font-size:15px; font-weight:800; font-style:normal; }
+    .paper-affiliation { color:#687f9c; font-size:14px; line-height:1.7; font-weight:550; }
     .paper-tags { display:flex; gap:7px; flex-wrap:wrap; margin:15px 0 20px; }
     .paper-tags span { color:#2d5eae; background:#e9f1fd; border:1px solid #d1e0f5; border-radius:999px; padding:7px 11px; font-size:11px; font-weight:700; }
     .paper-links { display:flex; flex-wrap:wrap; gap:9px; }
@@ -74,7 +75,7 @@
     .paper-license a { color:#376bb7; text-decoration:underline; text-underline-offset:3px; }
     .paper-footer { margin-top:30px; padding:25px 0; border-top:1px solid #dce5f2; text-align:center; font-size:12px; color:#7a8da4; }
     @media(max-width:900px) { .paper-layout {grid-template-columns:1fr;gap:16px;} .paper-toc{position:static;display:flex;flex-wrap:wrap;gap:4px 16px;align-items:center;} .paper-toc h2{width:100%;margin-bottom:3px;} .paper-toc a{border:0;padding:5px 0;} }
-    @media(max-width:640px) { .paper-shell{padding:0 16px;} .paper-top{padding:25px 22px;} .paper-section{padding:24px 18px;} .paper-section h2{font-size:20px;} .recall-grid{grid-template-columns:1fr;} .paper-authors{font-size:15px;}.paper-journal{font-size:14px;}.paper-pub-details{font-size:13px;}.paper-meta-row{align-items:flex-start;flex-direction:column;gap:2px;} .paper-header .site-nav{gap:9px;flex-wrap:wrap;} .paper-header .site-nav a{font-size:11px;} .paper-figure img{max-height:none;} }
+    @media(max-width:640px) { .paper-shell{padding:0 16px;} .paper-top{padding:25px 22px;} .paper-section{padding:24px 18px;} .paper-section h2{font-size:20px;} .recall-grid{grid-template-columns:1fr;} .paper-authors{font-size:16px;}.paper-journal{font-size:15px;}.paper-pub-details{font-size:14px;}.paper-affiliation{font-size:13px;}.paper-meta-row{align-items:flex-start;flex-direction:column;gap:2px;} .paper-header .site-nav{gap:9px;flex-wrap:wrap;} .paper-header .site-nav a{font-size:11px;} .paper-figure img{max-height:none;} }
 
     /* Article reading rhythm: increase vertical whitespace between text and figures */
     .paper-section p, .paper-section li { line-height: 2.1; }
@@ -142,6 +143,7 @@
     <div class="paper-meta">
       <div class="paper-meta-row"><span class="paper-authors">Ahmad Peyvan · Varun Kumar · George Em Karniadakis</span></div>
       <div class="paper-meta-row"><span class="paper-journal">Journal of Computational Physics</span><span class="paper-pub-details">Vol. 544 · Article 114432 · 2026</span></div>
+      <div class="paper-meta-row"><span class="paper-affiliation">Brown University · Division of Applied Mathematics / School of Engineering</span></div>
     </div>
     <div class="paper-links">
       <a class="primary" href="https://arxiv.org/html/2501.01934v2" target="_blank" rel="noopener">Read Original Paper ↗</a>
