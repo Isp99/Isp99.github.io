@@ -70,6 +70,25 @@
     .paper-footer { margin-top:30px; padding:25px 0; border-top:1px solid #dce5f2; text-align:center; font-size:12px; color:#7a8da4; }
     @media(max-width:900px) { .paper-layout {grid-template-columns:1fr;gap:16px;} .paper-toc{position:static;display:flex;flex-wrap:wrap;gap:4px 16px;align-items:center;} .paper-toc h2{width:100%;margin-bottom:3px;} .paper-toc a{border:0;padding:5px 0;} }
     @media(max-width:640px) { .paper-shell{padding:0 16px;} .paper-top{padding:25px 22px;} .paper-section{padding:24px 18px;} .paper-section h2{font-size:20px;} .recall-grid{grid-template-columns:1fr;} .paper-meta{font-size:12px;} .paper-header .site-nav{gap:9px;flex-wrap:wrap;} .paper-header .site-nav a{font-size:11px;} .paper-figure img{max-height:none;} }
+
+    /* Article reading rhythm: increase vertical whitespace between text and figures */
+    .paper-section p, .paper-section li { line-height: 2.1; }
+    .paper-section p { margin: 16px 0 23px; }
+    .paper-section ul, .paper-section ol { margin: 17px 0 29px; }
+    .paper-section li { margin-bottom: 13px; }
+    .paper-section h3 { margin-top: 43px; margin-bottom: 19px; padding-top: 23px; }
+    .paper-section h3:first-of-type { margin-top: 23px; }
+    .paper-section h4 { margin: 28px 0 14px; }
+    .paper-equation { margin: 27px 0 30px; padding: 23px 15px; line-height: 2; }
+    figure.paper-figure { margin: 33px 0 37px; padding: 23px; }
+    .paper-figure figcaption { margin-top: 18px; line-height: 1.9; }
+    .paper-section { padding-top: 36px; padding-bottom: 39px; margin-bottom: 25px; }
+    .paper-section h2 { margin-bottom: 27px; }
+    .paper-lead { line-height: 2.0; padding: 21px 23px; }
+    .recall-item dd { line-height: 1.95; }
+    .paper-image-unavailable {display:none; text-align:center; padding:26px 18px; border-radius:8px; background:#f2f6fc; color:#5c708c; font-size:13px; line-height:1.85;}
+    .paper-image-unavailable a{display:inline-block;margin-top:10px;color:#245bab;font-weight:750;text-decoration:underline;text-underline-offset:3px;}
+    @media(max-width:640px){.paper-section{padding:27px 20px 32px}.paper-section p,.paper-section li{line-height:1.95}.paper-section h3{margin-top:34px}.paper-equation{padding:17px 9px}}
   </style>
   <script>window.MathJax = {tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
@@ -155,7 +174,7 @@
         <div class="paper-equation">\( \widehat{\mathbf{Y}}^{\,l}=\mathbf{Y}^{l}\odot\widetilde{\mathbf{S}}^{\,l-1} \)</div>
         <p>\(\mathbf{Y}^{l}\)은 Trunk의 Hidden Feature, \(\widetilde{\mathbf{S}}^{\,l-1}\)은 Branch에서 계산한 Conditioning Feature임. \(\odot\)는 Element-wise Multiplication을 의미함. 이 과정에서 Geometry와 Flow Parameters가 Spatial Feature의 형성 과정에 반영됨.</p>
         <figure class="paper-figure">
-          <a class="figure-link" href="https://arxiv.org/html/extracted/6472857/Figures/Fusion_DeepONet.png" target="_blank" rel="noopener"><img loading="lazy" src="https://arxiv.org/html/extracted/6472857/Figures/Fusion_DeepONet.png" alt="Original Figure 9: Fusion-DeepONet network architecture showing branch-to-trunk conditioning."></a>
+          <a class="figure-link" href="https://arxiv.org/html/2501.01934v2" target="_blank" rel="noopener"><img loading="lazy" src="https://www.swiftscholar.net/files/papers/6a26de1eb3112f1aaf640813/images/19.jpg" data-image-sources="https://ars.els-cdn.com/content/image/1-s2.0-S0021999125007144-gr9.jpg|https://arxiv.org/html/extracted/6472857/Figures/Fusion_DeepONet.png" data-figure-label="Original Figure 9" alt="Original Figure 9: Fusion-DeepONet network architecture showing branch-to-trunk conditioning."><span class="paper-image-unavailable">해당 Figure의 외부 이미지 호스팅에 연결할 수 없습니다.<br><span>Original Figure 9 · 원문에서 확인</span><br><a href="https://arxiv.org/html/2501.01934v2" target="_blank" rel="noopener">원문 Figure 보러 가기 ↗</a></span></a>
           <figcaption><strong>Original Figure 9.</strong> Fusion-DeepONet Architecture. Branch Hidden Layer Encoding으로 Trunk의 중간 표현을 Conditioning하는 구조. 원본: Peyvan et al., arXiv:2501.01934v2, Fig. 9 (CC BY-NC-SA 4.0, unchanged).<br><a class="figure-open" href="https://arxiv.org/html/2501.01934v2" target="_blank" rel="noopener">Open paper &amp; original figure ↗</a></figcaption>
         </figure>
         <p>핵심 차별점은 단순히 Final Output을 조합하는 것이 아니라 <strong>Trunk 내부의 Multi-scale Feature Representation 자체를 Geometry에 따라 변형</strong>한다는 점임.</p>
@@ -208,7 +227,7 @@
         <p class="paper-source">Values transcribed from Peyvan et al., Table 2. Mean relative L² error and parameter counts are reproduced; the per-variable columns are omitted for compact display.</p>
         <p>Uniform Grid에서 Fusion-DeepONet의 평균 Error는 3.70%로 U-Net의 4.54%와 경쟁 가능한 수준이며, 학습 파라미터 수는 훨씬 적음. Irregular Grid에서는 평균 Error 6.39%로 Vanilla-DeepONet(39.20%), MeshGraphNet(49.46%)을 크게 앞섬.</p>
         <figure class="paper-figure">
-          <a class="figure-link" href="https://arxiv.org/html/extracted/6472857/Figures/u_4.png" target="_blank" rel="noopener"><img loading="lazy" src="https://arxiv.org/html/extracted/6472857/Figures/u_4.png" alt="Original Figure 13: x-velocity predictions, ground truth and point-wise errors for MeshGraphNet, Vanilla DeepONet and Fusion DeepONet on irregular grid."></a>
+          <a class="figure-link" href="https://arxiv.org/html/2501.01934v2" target="_blank" rel="noopener"><img loading="lazy" src="https://www.swiftscholar.net/files/papers/6a26de1eb3112f1aaf640813/images/25.jpg" data-image-sources="https://ars.els-cdn.com/content/image/1-s2.0-S0021999125007144-gr13.jpg|https://arxiv.org/html/extracted/6472857/Figures/u_4.png" data-figure-label="Original Figure 13" alt="Original Figure 13: x-velocity predictions, ground truth and point-wise errors for MeshGraphNet, Vanilla DeepONet and Fusion DeepONet on irregular grid."><span class="paper-image-unavailable">해당 Figure의 외부 이미지 호스팅에 연결할 수 없습니다.<br><span>Original Figure 13 · 원문에서 확인</span><br><a href="https://arxiv.org/html/2501.01934v2" target="_blank" rel="noopener">원문 Figure 보러 가기 ↗</a></span></a>
           <figcaption><strong>Original Figure 13.</strong> Irregular Grid x-Velocity Prediction vs. Ground Truth vs. Absolute Error. Unseen Semi-ellipse Case 5. Source: Peyvan et al., Fig. 13 (CC BY-NC-SA 4.0, unchanged).</figcaption>
         </figure>
         <p><strong>Key Finding:</strong> Branch–Trunk Multi-scale Conditioning이 제한된 학습 데이터와 서로 다른 Grid Point Distribution 조건에서 높은 일반화 성능을 제공함. 단, 동일 Parameter Count의 Vanilla-DeepONet보다 Training Time은 증가함.</p>
@@ -217,7 +236,7 @@
         <p><strong>Objective:</strong> Geometry Parameters (Nose Radius \(R\), Angle \(\alpha\)) 및 Freestream Mach Number 변화에 따른 Temperature Field와 Surface Heat Flux 예측을 검증함. 60개 CFD Case 중 48개 학습, 12개 테스트를 수행함.</p>
         <p>Temperature Field만을 MSE Loss로 학습한 경우 12개 Test Case의 평균 Relative L² Error는 약 <strong>0.98%</strong>였으나, Heat Flux Prediction은 훨씬 큰 오차를 나타냄.</p>
         <figure class="paper-figure">
-          <a class="figure-link" href="https://arxiv.org/html/extracted/6472857/Figures/Temperature_noder.png" target="_blank" rel="noopener"><img loading="lazy" src="https://arxiv.org/html/extracted/6472857/Figures/Temperature_noder.png" alt="Original Figure 21a: Reentry capsule temperature prediction, CFD ground truth, and point-wise error for an unseen test sample."></a>
+          <a class="figure-link" href="https://arxiv.org/html/2501.01934v2" target="_blank" rel="noopener"><img loading="lazy" src="https://ars.els-cdn.com/content/image/1-s2.0-S0021999125007144-gr21.jpg" data-image-sources="https://arxiv.org/html/extracted/6472857/Figures/Temperature_noder.png" data-figure-label="Original Figure 21(a)" alt="Original Figure 21a: Reentry capsule temperature prediction, CFD ground truth, and point-wise error for an unseen test sample."><span class="paper-image-unavailable">해당 Figure의 외부 이미지 호스팅에 연결할 수 없습니다.<br><span>Original Figure 21(a) · 원문에서 확인</span><br><a href="https://arxiv.org/html/2501.01934v2" target="_blank" rel="noopener">원문 Figure 보러 가기 ↗</a></span></a>
           <figcaption><strong>Original Figure 21(a).</strong> Reentry Capsule Temperature Field, prediction / reference / point-wise error. Source: Peyvan et al., Fig. 21(a) (CC BY-NC-SA 4.0, unchanged).</figcaption>
         </figure>
         <div class="paper-table-wrap">
@@ -234,7 +253,7 @@
         <p class="paper-source">Values transcribed from Peyvan et al., Table 3. Training uses P=3 data; inference uses P=3 or P=7. Heat Flux is calculated from automatic differentiation of the trained model.</p>
         <p>Derivative-Enhanced Loss를 적용하면 Temperature Field의 상대오차는 약간 증가할 수 있지만, Gradient 및 Heat Flux 예측이 개선됨. P=3 평가에서 DD 방식은 평균 Heat Flux Error를 <strong>34.15% → 6.47%</strong>로 감소시킴.</p>
         <figure class="paper-figure">
-          <a class="figure-link" href="https://arxiv.org/html/extracted/6472857/Figures/HFP.png" target="_blank" rel="noopener"><img loading="lazy" src="https://arxiv.org/html/extracted/6472857/Figures/HFP.png" alt="Original Figure 23: Surface heat flux prediction comparison between ground truth, no derivative loss, least squares derivative and discrete derivative."></a>
+          <a class="figure-link" href="https://arxiv.org/html/2501.01934v2" target="_blank" rel="noopener"><img loading="lazy" src="https://www.swiftscholar.net/files/papers/6a26de1eb3112f1aaf640813/images/55.jpg" data-image-sources="https://ars.els-cdn.com/content/image/1-s2.0-S0021999125007144-gr23.jpg|https://arxiv.org/html/extracted/6472857/Figures/HFP.png" data-figure-label="Original Figure 23" alt="Original Figure 23: Surface heat flux prediction comparison between ground truth, no derivative loss, least squares derivative and discrete derivative."><span class="paper-image-unavailable">해당 Figure의 외부 이미지 호스팅에 연결할 수 없습니다.<br><span>Original Figure 23 · 원문에서 확인</span><br><a href="https://arxiv.org/html/2501.01934v2" target="_blank" rel="noopener">원문 Figure 보러 가기 ↗</a></span></a>
           <figcaption><strong>Original Figure 23.</strong> Heat Flux Prediction: Ground Truth / No DEL / LSD / DD, evaluated on P=3 and P=7 Grid. Source: Peyvan et al., Fig. 23 (CC BY-NC-SA 4.0, unchanged).</figcaption>
         </figure>
         <p><strong>Key Finding:</strong> Field Accuracy와 Gradient Accuracy를 별도로 평가해야 하며, 고속 유동의 Wall Heat Flux처럼 Spatial Derivative에 의존하는 물리량에는 Derivative-Aware Training이 중요함.</p>
@@ -254,7 +273,7 @@
         <p class="paper-source">Values transcribed from Peyvan et al., Table 4. Source compares models trained with different hardware/software; timing is omitted here to avoid an unqualified speed comparison.</p>
         <p>모든 Primitive Variable에서 Fusion-DeepONet의 평균 Error가 MeshGraphNet보다 낮음. 그러나 <strong>v-Velocity의 Relative Error(11.26%)가 다른 변수보다 큼</strong>. 저자들은 여러 변수를 하나의 Trunk Network로 동시에 예측하는 구조와 변수별 Solution Structure 차이와 관련지어 설명함.</p>
         <figure class="paper-figure">
-          <a class="figure-link" href="https://arxiv.org/html/extracted/6472857/Figures/rho_cd.png" target="_blank" rel="noopener"><img loading="lazy" src="https://arxiv.org/html/extracted/6472857/Figures/rho_cd.png" alt="Original Figure 24a: Density prediction in converging-diverging nozzle, reference field and point-wise error."></a>
+          <a class="figure-link" href="https://arxiv.org/html/2501.01934v2" target="_blank" rel="noopener"><img loading="lazy" src="https://ars.els-cdn.com/content/image/1-s2.0-S0021999125007144-gr24.jpg" data-image-sources="https://arxiv.org/html/extracted/6472857/Figures/rho_cd.png" data-figure-label="Original Figure 24(a)" alt="Original Figure 24a: Density prediction in converging-diverging nozzle, reference field and point-wise error."><span class="paper-image-unavailable">해당 Figure의 외부 이미지 호스팅에 연결할 수 없습니다.<br><span>Original Figure 24(a) · 원문에서 확인</span><br><a href="https://arxiv.org/html/2501.01934v2" target="_blank" rel="noopener">원문 Figure 보러 가기 ↗</a></span></a>
           <figcaption><strong>Original Figure 24(a).</strong> C-D Nozzle Density Field; prediction / ground truth / point-wise error. Source: Peyvan et al., Fig. 24(a) (CC BY-NC-SA 4.0, unchanged).</figcaption>
         </figure>
       </section>
@@ -291,5 +310,16 @@
   </div>
 </main>
 <footer class="paper-footer">Engineering Notebook · Literature Review · Paper Notes</footer>
+<script>
+  /* Attempt alternate public figure hosts; do not leave broken-image icons on the page. */
+  document.querySelectorAll('.paper-figure img[data-image-sources]').forEach(function(img){
+    var queue=(img.getAttribute('data-image-sources')||'').split('|').filter(Boolean);
+    var fallback=img.parentElement.querySelector('.paper-image-unavailable');
+    img.addEventListener('error',function(){
+      if(queue.length){ img.src=queue.shift(); }
+      else { img.style.display='none'; if(fallback) fallback.style.display='block'; }
+    });
+  });
+</script>
 </body>
 </html>
