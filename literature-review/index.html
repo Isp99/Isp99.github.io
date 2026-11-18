@@ -17,19 +17,35 @@
   .lr-heading{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #dce6f3;padding-bottom:14px;margin-bottom:18px;gap:12px}
   .lr-heading h2{font-size:25px;letter-spacing:-.03em;color:#1b324e;margin:0}
   .lr-heading span{font-size:12px;color:#8295ad;font-weight:750}
-  .lr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:19px}
-  .lr-card{display:flex;flex-direction:column;background:#fff;border:1px solid #dce6f3;border-radius:14px;padding:27px;min-height:272px;transition:transform .18s,border-color .18s}
+  /* Full-width, horizontally structured paper rows for a growing archive. */
+  .lr-grid{display:grid;grid-template-columns:1fr;gap:15px}
+  .lr-card{display:grid;grid-template-columns:120px minmax(0,1fr) 205px;align-items:center;gap:24px;background:#fff;border:1px solid #dce6f3;border-radius:14px;padding:26px 29px;min-height:174px;transition:transform .18s,border-color .18s}
   .lr-card:hover{border-color:#9eb9e0;transform:translateY(-2px)}
-  .lr-no{font-size:11px;font-weight:800;color:#4674b7;letter-spacing:.09em;margin-bottom:18px}
-  .lr-card h3{font-size:22px;line-height:1.35;letter-spacing:-.025em;color:#183454;margin:0 0 10px}
-  .lr-card p{color:#7488a2;font-size:13px;line-height:1.75;margin:0}
-  .lr-card .lr-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto;padding-top:18px}
+  .lr-card-index{align-self:stretch;display:flex;flex-direction:column;justify-content:center;gap:9px;border-right:1px solid #e5edf6}
+  .lr-no{font-size:12px;font-weight:800;color:#4674b7;letter-spacing:.065em}
+  .lr-year{font-size:13px;color:#899ab0;font-weight:600}
+  .lr-card-main{min-width:0}
+  .lr-card h3{font-size:23px;line-height:1.35;letter-spacing:-.025em;color:#183454;margin:0 0 9px}
+  .lr-card p{color:#7488a2;font-size:14px;line-height:1.6;margin:0}
+  .lr-card .lr-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}
   .lr-tags span{font-size:11px;color:#3161ac;background:#edf4ff;border:1px solid #dce8f7;border-radius:99px;padding:6px 10px}
-  .lr-bottom{display:flex;justify-content:space-between;margin-top:18px;align-items:center;color:#7a8da4;font-size:12px}
-  .lr-bottom b{color:#2f63b3;font-size:17px}
+  .lr-bottom{align-self:stretch;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:18px;padding-left:19px;border-left:1px solid #e5edf6;text-align:right;color:#7a8da4;font-size:12px;line-height:1.6}
+  .lr-bottom b{color:#2f63b3;font-size:22px;line-height:1}
+  @media(max-width:850px){
+    .lr-card{grid-template-columns:97px minmax(0,1fr);gap:16px;padding:22px;min-height:160px}
+    .lr-bottom{grid-column:2;align-self:auto;display:flex;flex-direction:row;align-items:center;text-align:left;padding:0;border:0;gap:12px}
+  }
   .lr-muted{margin:35px 0 62px}
   .lr-muted p{font-size:14px;color:#8394aa}
-  @media(max-width:760px){.lr-wrap{padding:0 18px}.lr-hero{padding:31px 25px}.lr-grid{grid-template-columns:1fr}.lr-card{min-height:250px}.lr-nav .site-nav{gap:9px;flex-wrap:wrap}.lr-nav .site-nav a{font-size:11px}}
+  @media(max-width:760px){
+    .lr-wrap{padding:0 18px}.lr-hero{padding:31px 25px}
+    .lr-card{grid-template-columns:1fr;gap:12px;min-height:0;padding:22px}
+    .lr-card-index{flex-direction:row;justify-content:flex-start;align-items:center;border:0;gap:12px}
+    .lr-card h3{font-size:21px}
+    .lr-card p{font-size:13px}
+    .lr-bottom{grid-column:1;display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid #e5edf6}
+    .lr-nav .site-nav{gap:9px;flex-wrap:wrap}.lr-nav .site-nav a{font-size:11px}
+  }
 </style>
 </head>
 <body class="inner-page">
@@ -43,11 +59,13 @@
 <section><div class="lr-heading"><h2>Paper Notes</h2><span>01 PAPER</span></div>
 <div class="lr-grid">
 <a class="lr-card" href="fusion-deeponet.html" aria-label="Open Fusion-DeepONet Paper Notes">
-  <span class="lr-no">PAPER 001 · 2026</span>
-  <h3>Fusion-DeepONet</h3>
-  <p>A Data-Efficient Neural Operator for Geometry-Dependent Hypersonic and Supersonic Flows</p>
-  <div class="lr-tags"><span>Neural Operator</span><span>Hypersonic CFD</span><span>Geometry</span><span>Heat Flux</span></div>
-  <div class="lr-bottom"><span>Peyvan et al. · Journal of Computational Physics</span><b>↗</b></div>
+  <div class="lr-card-index"><span class="lr-no">PAPER 001</span><span class="lr-year">2026</span></div>
+  <div class="lr-card-main">
+    <h3>Fusion-DeepONet</h3>
+    <p>A Data-Efficient Neural Operator for Geometry-Dependent Hypersonic and Supersonic Flows</p>
+    <div class="lr-tags"><span>Neural Operator</span><span>Hypersonic CFD</span><span>Geometry</span><span>Heat Flux</span></div>
+  </div>
+  <div class="lr-bottom"><span>Peyvan et al.<br>Journal of Computational Physics</span><b aria-hidden="true">↗</b></div>
 </a>
 </div></section>
 <section class="lr-muted"><div class="lr-heading"><h2>Research Trends</h2><span>COMING LATER</span></div><p>Topic-based comparison and synthesis of multiple research papers will be organized here.</p></section>
