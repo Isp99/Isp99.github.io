@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Viscous Sublayer, Buffer Layer, Mixing-Length Model, Log Law, and the Overlap Region.">
+<title>Law of the Wall (Inner Scaling) | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css"><style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+.tl-page .velocity-diagram{margin:42px 0 35px}
+.tl-page .velocity-diagram .diagram-scroll{overflow-x:auto;overflow-y:hidden;max-width:100%;scrollbar-width:thin}
+.tl-page .velocity-diagram svg{display:block;width:100%;height:auto;min-width:730px}
+.tl-page .velocity-diagram figcaption{text-align:center;color:#667f9b;font-size:13px;line-height:1.6;margin:12px 0 0}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+ .tl-page .velocity-diagram figcaption{font-size:12px}
+}</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head><body class="inner-page">
+<header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav></div></header>
+<main class="shell tl-page"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../turbulent-flow.html">Turbulent Flow</a><span class="separator">›</span><strong>Law of the Wall (Inner Scaling)</strong></nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">TURBULENT FLOW / 4.3</div><h1>Law of the Wall (Inner Scaling)</h1><p class="hero-subtitle">Turbulent Boundary-Layer Theory</p><p class="hero-description">Viscous Sublayer, Buffer Layer, Mixing-Length Model, Log Law, and the Overlap Region.</p></div></div>
+<article class="article-content"><div class="lesson-meta"><span>04 / Turbulent Boundary-Layer Theory</span><span>Study Notes · 4.3</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#inner-layer-velocity-scaling">01 · Inner-Layer Velocity Scaling</a></li><li><a href="#viscous-sublayer">02 · Viscous Sublayer</a></li><li><a href="#buffer-layer">03 · Buffer Layer</a></li><li><a href="#log-law-and-overlap-region">04 · Log Law Region and Overlap Region</a></li></ul></nav><section class="lesson-section" id="inner-layer-velocity-scaling"><h2><span class="section-tag">01</span>Inner-Layer Velocity Scaling</h2><ul class="study-points"><li><span class="point-text">충분히 높은 Reynolds Number의 평형에 가까운 벽면 난류에서, 벽에 가까운 Inner Layer에서는 \(y/\delta\ll1\)이므로 경계층 전체 두께에 대한 직접 의존성이 약해짐.</span></li>
+<li><span class="point-text">따라서 벽면의 기준 속도 \(u_\tau\)와 길이 \(\ell_\nu\)를 사용하면, 무차원 평균속도는 주로 \(y^+\)의 함수로 표현</span><div class="equation key" role="group" aria-label="Mathematical equation">\[u^+=f_w(y^+).\]</div></li>
+<li><span class="point-text">이 관계를 <strong>Law of the Wall</strong>이라 함. 다만 함수의 형태는 벽에서의 거리에 따라 달라지므로, Viscous Sublayer, Buffer Layer 및 Log-Law Region을 차례대로 살펴볼 필요가 있음.</span></li></ul></section>
+<section class="lesson-section" id="viscous-sublayer"><h2><span class="section-tag">02</span>Viscous Sublayer</h2><ul class="study-points"><li><span class="point-text">벽에 매우 가까운 \(y^+<5\)에서는 Reynolds Shear Stress가 점성응력에 비해 매우 작음. 또한 벽면에 가까운 평형유동에서는 Total Shear Stress가 거의 \(\tau_w\)와 같으므로</span><div class="equation" role="group" aria-label="Mathematical equation">\[\mu\frac{\partial\overline{U}}{\partial y}\simeq\tau_w=\rho u_\tau^2.\]</div></li>
+<li><span class="point-text">\(\mu=\rho\nu\)를 대입하고 벽에서 \(\overline{U}(0)=0\)인 No-Slip Condition을 적용하여 적분하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\frac{\partial\overline{U}}{\partial y}&\simeq\frac{u_\tau^2}{\nu},\\[1.5em]\overline{U}(y)-\overline{U}(0)&\simeq\int_0^y\frac{u_\tau^2}{\nu}\,\mathrm{d}y,\\[1.5em]\overline{U}(y)&\simeq\frac{u_\tau^2}{\nu}y.\end{aligned}\]</div></li>
+<li><span class="point-text">양변을 \(u_\tau\)로 나누고 \(y^+=yu_\tau/\nu\)를 적용하면 <strong>Viscous Sublayer의 Linear Velocity Profile</strong>을 얻음.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[u^+\simeq y^+,\qquad y^+<5.\]</div></li>
+<li><span class="point-text">이 선형 관계는 <strong>No-Slip과 분자점성에 의한 운동량 전달</strong>에서 직접 얻어짐. 즉, 벽 근처에 난류가 존재하더라도 <strong>전단 운동량 전달은 Molecular Viscosity가 지배</strong>할 수 있음.</span></li></ul></section>
+<section class="lesson-section" id="buffer-layer"><h2><span class="section-tag">03</span>Buffer Layer</h2><ul class="study-points"><li><span class="point-text">벽에서 멀어져 \(5<y^+<30\)에 도달하면 Reynolds Shear Stress가 증가하므로, 점성응력만으로 Total Shear Stress를 설명할 수 없음.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\tau_{\mathrm{tot}}=\underbrace{\mu\frac{\partial\overline{U}}{\partial y}}_{\tau_{\mathrm{visc}}}+\underbrace{\left(-\rho\overline{uv}\right)}_{\tau_R}.\]</div></li>
+<li><span class="point-text">이 영역에서는 두 응력의 기여가 모두 중요하므로 \(u^+\simeq y^+\)라는 선형법칙은 더 이상 정확하지 않음. 한편 아직 로그법칙을 적용하기에도 점성의 영향이 큼.</span></li>
+<li><span class="point-text">따라서 <strong>Buffer Layer는 점성 지배 영역과 난류 전달이 지배적인 영역 사이의 Transition Region</strong>이며, 평균속도 \(u^+\)는 두 법칙을 연결하는 형태로 분포함.</span></li></ul></section>
+<section class="lesson-section" id="log-law-and-overlap-region"><h2><span class="section-tag">04</span>Log Law Region and Overlap Region</h2><ul class="study-points"><li><span class="point-text">충분히 높은 Reynolds Number에서는 벽면 Viscous Length Scale보다 충분히 멀지만 경계층 전체 두께보다는 아직 충분히 가까운 <strong>Overlap Region</strong>이 형성됨.</span><div class="equation" role="group" aria-label="Mathematical equation">\[y^+\gg1,\qquad\frac{y}{\delta}\ll1.\]</div></li>
+<li><span class="point-text">이 영역에서는 분자점성의 직접 기여가 작고 Total Shear Stress가 거의 벽면값과 같으므로, <strong>Reynolds Shear Stress가 전단 방향 운동량 전달을 주로 담당</strong></span><div class="equation" role="group" aria-label="Mathematical equation">\[\tau_R\simeq\tau_{\mathrm{tot}}\simeq\tau_w=\rho u_\tau^2.\]</div></li>
+<li><span class="point-text">동시에 \(\ell_\nu\ll y\ll\delta\)이므로 이 영역의 대표적인 혼합 길이를 결정하는 거리 규모는 벽까지의 거리 \(y\)가 됨. Mixing-Length Model에 따라 \(\ell_m=\kappa_v y\)로 모델링함.</span><ul class="nested-points"><li><span class="point-text"><strong>Mixing-Length Model</strong>: 난류에 의한 <strong>운동량 전달을 Eddy가 이동하며 주변 유체와 혼합되는 과정</strong>으로 설명하는 모델</span></li><li><span class="point-text">Mixing-Length \(\ell_m\)은 <strong>Eddy가 운동량을 교환하는 대표적인 거리</strong>로, Log-Law Region에서는 벽까지의 거리 \(y\)에 비례한다고 가정. \(\ell_m=\kappa_v y\) (\(\kappa_v\approx0.41\): von Kármán Constant)</span></li><li><span class="point-text">벽에서 멀어질수록 더 큰 규모의 난류 혼합이 가능해지고, 그 혼합 길이가 \(y\)에 비례하여 증가한다는 의미</span></li></ul></li>
+<li><span class="point-text">Mixing-Length 관계를 적용하여 Reynolds Shear Stress를 모델링하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\frac{\tau_R}{\rho}&\simeq\ell_m^2\left(\frac{\partial\overline U}{\partial y}\right)^2\\[1.5em]&=\kappa_v^2y^2\left(\frac{\partial\overline U}{\partial y}\right)^2.\end{aligned}\]</div></li>
+<li><span class="point-text">\(\tau_R/\rho\simeq u_\tau^2\)를 대입하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[u_\tau^2\simeq\kappa_v^2y^2\left(\frac{\partial\overline U}{\partial y}\right)^2.\]</div></li>
+<li><span class="point-text">양의 평균속도 구배를 갖는 벽면 유동에서 제곱근을 취하고 무차원화하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\frac{\partial\overline U}{\partial y}&\simeq\frac{u_\tau}{\kappa_v y},\\[1.5em]\frac{\mathrm{d}u^+}{\mathrm{d}y^+}&\simeq\frac{1}{\kappa_v y^+}.\end{aligned}\]</div></li>
+<li><span class="point-text">이를 Log-Law Region 안의 기준점 \((y_0^+,u_0^+)\)에서 적분하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}u^+-u_0^+&\simeq\int_{y_0^+}^{y^+}\frac{1}{\kappa_v\eta^+}\,\mathrm{d}\eta^+\\[1.5em]&=\frac{1}{\kappa_v}\ln\left(\frac{y^+}{y_0^+}\right).\end{aligned}\]</div></li>
+<li><span class="point-text">적분상수를 \(B=u_0^+-(1/\kappa_v)\ln y_0^+\)로 정리하면 <strong>Log Law of the Wall</strong>을 얻음.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[u^+\simeq\frac{1}{\kappa_v}\ln y^++B.\]</div></li>
+<li><span class="point-text">여기서 \(\kappa_v\)는 von Kármán Constant이며, 매끈한 벽에서 대표적으로 \(\kappa_v\approx0.41\), \(B\approx5.0\)을 사용함. \(B\)는 위 유도만으로 결정되지 않으며 실험적 속도분포와의 일치로 정함.</span></li>
+<li><span class="point-text">즉, <strong>Viscous Length Scale의 직접 영향은 작지만 벽면 마찰의 영향은 유지되는 영역</strong>에서 속도 구배가 벽까지의 거리의 역수에 비례하기 때문에 로그 형태의 평균속도 분포가 나타남.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\frac{\partial\overline U}{\partial y}\propto\frac1y.\]</div><figure class="velocity-diagram">
+<div class="diagram-scroll">
+<svg viewBox="0 0 980 525" role="img" aria-labelledby="lawwall-chart-title lawwall-chart-desc" xmlns="http://www.w3.org/2000/svg" style="font-family:Inter,ui-sans-serif,system-ui,sans-serif">
+<title id="lawwall-chart-title">Law of the Wall: semi-logarithmic mean velocity profile</title>
+<desc id="lawwall-chart-desc">The graph shows a linear law for y-plus less than five, a schematic buffer-layer connection between five and thirty, and a log law between thirty and one thousand.</desc>
+<rect width="980" height="525" fill="#fff"/>
+<rect x="80" y="83" width="191.1" height="347" fill="#e9f2fd"/>
+<rect x="271.1" y="83" width="212.7" height="347" fill="#fff8e9"/>
+<rect x="483.8" y="83" width="416.2" height="347" fill="#eef3fe"/>
+<g stroke="#d7e2ef" stroke-width="1"><path d="M80 368H900M80 306H900M80 244H900M80 182H900M80 120H900"/></g>
+<g stroke="#26476d" stroke-width="2.2" fill="none"><path d="M80 83V430H924M924 430l-8 -5m8 5l-8 5M80 83l-5 8m5 -8l5 8"/></g>
+<g fill="#49617e" font-size="17" text-anchor="middle"><text x="80" y="461">1</text><text x="353.3" y="461">10</text><text x="626.7" y="461">100</text><text x="900" y="461">1000</text></g>
+<g fill="#49617e" font-size="16" text-anchor="end"><text x="65" y="435">0</text><text x="65" y="373">5</text><text x="65" y="311">10</text><text x="65" y="249">15</text><text x="65" y="187">20</text><text x="65" y="125">25</text></g>
+<g font-size="19" fill="#243d61" font-weight="700" text-anchor="middle"><text x="175" y="112">Viscous Sublayer</text><text x="376" y="112">Buffer Layer</text><text x="692" y="112">Log-Law Region</text></g>
+<g stroke="#8eabc9" stroke-width="1.3" stroke-dasharray="5 7"><path d="M271.1 83V430M483.8 83V430"/></g>
+<polyline fill="none" stroke="#356fc1" stroke-width="4.7" stroke-linecap="round" stroke-linejoin="round" points="80.0,417.6 86.2,416.9 92.3,416.2 98.5,415.5 104.7,414.7 110.8,413.9 117.0,413.1 123.1,412.2 129.3,411.2 135.5,410.2 141.6,409.2 147.8,408.0 154.0,406.9 160.1,405.6 166.3,404.4 172.4,403.0 178.6,401.5 184.8,400.0 190.9,398.4 197.1,396.7 203.3,395.0 209.4,393.1 215.6,391.1 221.7,389.1 227.9,386.9 234.1,384.6 240.2,382.2 246.4,379.6 252.6,376.9 258.7,374.1 264.9,371.1 271.1,368.0"/>
+<path d="M271.1 368.0 C315 336 425 280 483.7 265.1" fill="none" stroke="#a48161" stroke-width="3.7" stroke-dasharray="9 7" stroke-linecap="round"/>
+<polyline fill="none" stroke="#bd7044" stroke-width="4.7" stroke-linecap="round" stroke-linejoin="round" points="483.7,265.1 488.4,263.9 493.1,262.8 497.8,261.6 502.5,260.4 507.1,259.2 511.8,258.0 516.5,256.8 521.2,255.6 525.8,254.4 530.5,253.2 535.2,252.0 539.9,250.8 544.5,249.6 549.2,248.5 553.9,247.3 558.6,246.1 563.3,244.9 567.9,243.7 572.6,242.5 577.3,241.3 582.0,240.1 586.6,238.9 591.3,237.7 596.0,236.5 600.7,235.3 605.3,234.2 610.0,233.0 614.7,231.8 619.4,230.6 624.1,229.4 628.7,228.2 633.4,227.0 638.1,225.8 642.8,224.6 647.4,223.4 652.1,222.2 656.8,221.0 661.5,219.9 666.1,218.7 670.8,217.5 675.5,216.3 680.2,215.1 684.9,213.9 689.5,212.7 694.2,211.5 698.9,210.3 703.6,209.1 708.2,207.9 712.9,206.7 717.6,205.6 722.3,204.4 727.0,203.2 731.6,202.0 736.3,200.8 741.0,199.6 745.7,198.4 750.3,197.2 755.0,196.0 759.7,194.8 764.4,193.6 769.0,192.4 773.7,191.3 778.4,190.1 783.1,188.9 787.8,187.7 792.4,186.5 797.1,185.3 801.8,184.1 806.5,182.9 811.1,181.7 815.8,180.5 820.5,179.3 825.2,178.1 829.8,177.0 834.5,175.8 839.2,174.6 843.9,173.4 848.6,172.2 853.2,171.0 857.9,169.8 862.6,168.6 867.3,167.4 871.9,166.2 876.6,165.0 881.3,163.8 886.0,162.7 890.6,161.5 895.3,160.3 900.0,159.1"/>
+<g font-size="21" font-weight="750"><text x="105" y="309" fill="#356fc1">u⁺ = y⁺</text><text x="540" y="290" fill="#ad6239">u⁺ = (1/κᵥ) ln y⁺ + B</text></g>
+<text x="492" y="506" text-anchor="middle" fill="#203957" font-size="22" font-weight="750">y⁺ (logarithmic scale)</text>
+<text x="25" y="72" text-anchor="middle" fill="#203957" font-size="22" font-weight="750">u⁺</text>
+<g font-size="15" fill="#687d95" text-anchor="middle"><text x="271.1" y="483">5</text><text x="483.8" y="483">30</text></g>
+</svg></div><figcaption>Linear and logarithmic Laws of the Wall on a semi-logarithmic axis. The dashed Buffer Layer connection is schematic.</figcaption></figure></li>
+<li><span class="point-text">Log Law를 벽면 \(y=0\)까지 연장하면 로그가 발산하므로 No-Slip Condition을 만족하지 못함. 따라서 이 법칙은 <strong>Overlap Region에 해당하는 범위</strong>에만 적용하며, 벽 근처에서는 선형법칙과 Buffer Layer의 연결을 고려해야 함.</span></li></ul></section></article>
+<div class="article-pager"><a class="prev" href="wall-scales-and-wall-coordinates.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Wall Scales and Wall Coordinates</span></a><a class="next" href="velocity-defect-law-outer-scaling.html"><span class="direction">NEXT →</span><span class="adjacent">Velocity-Defect Law (Outer Scaling)</span></a></div><a class="back-bottom" href="../turbulent-flow.html">← Back to Turbulent Flow</a>
+</main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Turbulent Boundary-Layer Theory</span></div></footer>
+<script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
+</body></html>
