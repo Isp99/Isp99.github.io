@@ -92,6 +92,29 @@
     .paper-image-unavailable {display:none; text-align:center; padding:26px 18px; border-radius:8px; background:#f2f6fc; color:#5c708c; font-size:13px; line-height:1.85;}
     .paper-image-unavailable .paper-fallback-link{display:inline-block;margin-top:10px;color:#245bab;font-weight:750;text-decoration:underline;text-underline-offset:3px;}
     @media(max-width:640px){.paper-section{padding:27px 20px 32px}.paper-section p,.paper-section li{line-height:1.95}.paper-section h3{margin-top:42px}figure.paper-figure{margin:36px 0 40px}.paper-table-wrap{margin:28px 0 22px}.paper-equation{padding:17px 9px}}
+  
+    /* Readability update: larger text, keeping the approved vertical spacing. */
+    .paper-section h2 { font-size:25px; }
+    .paper-section h3 { font-size:20px; }
+    .paper-section h4 { font-size:17px; }
+    .paper-section p, .paper-section li { font-size:16px; }
+    .paper-lead { font-size:16px; }
+    .recall-item dt { font-size:14px; }
+    .recall-item dd { font-size:15px; }
+    .paper-equation { font-size:16px; }
+    table.paper-table { font-size:14px; }
+    .paper-table th { font-size:13px; }
+    .paper-figure figcaption { font-size:13px; }
+    .paper-figure .figure-open { font-size:13px; }
+    .paper-source { font-size:12px!important; }
+    .paper-toc a { font-size:13px; }
+    @media(max-width:640px) {
+      .paper-section h2 { font-size:22px; }
+      .paper-section h3 { font-size:19px; }
+      .paper-section p, .paper-section li, .paper-lead { font-size:15px; }
+      .paper-table th { font-size:13px; }
+      table.paper-table { font-size:13px; }
+    }
   </style>
   <script>window.MathJax = {tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
