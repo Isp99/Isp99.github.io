@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Turbulence scales, energy spectra, and resolved-flow simulations.">
+<title>Energy Spectrum and Overview of LES/DNS | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css"><style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+.tl-page .velocity-diagram{margin:42px 0 35px}
+.tl-page .velocity-diagram .diagram-scroll{overflow-x:auto;overflow-y:hidden;max-width:100%;scrollbar-width:thin}
+.tl-page .velocity-diagram svg{display:block;width:100%;height:auto;min-width:730px}
+.tl-page .velocity-diagram figcaption{text-align:center;color:#667f9b;font-size:13px;line-height:1.6;margin:12px 0 0}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+ .tl-page .velocity-diagram figcaption{font-size:12px}
+}.tl-page .note-figure{margin:35px 0 40px}.tl-page .note-figure .diagram-scroll{overflow-x:auto;overflow-y:hidden;max-width:100%}.tl-page .note-figure svg{display:block;max-width:100%;height:auto;min-width:480px}.tl-page .note-figure figcaption{text-align:center;color:#667f9b;font-size:13px;line-height:1.6;margin:13px 0 0}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head><body class="inner-page">
+<header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav></div></header>
+<main class="shell tl-page"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../turbulent-flow.html">Turbulent Flow</a><span class="separator">›</span><strong>Energy Spectrum and Overview of LES/DNS</strong></nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">TURBULENT FLOW / 5.1</div><h1>Energy Spectrum and Overview of LES/DNS</h1><p class="hero-subtitle">Turbulence Modeling in CFD</p><p class="hero-description">Turbulence scales, energy spectra, and resolved-flow simulations.</p></div></div>
+<article class="article-content"><div class="lesson-meta"><span>05 / Turbulence Modeling in CFD</span><span>Study Notes · 5.1</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#energy-distribution-across-length-scales">01 · Energy Distribution across Length Scales</a></li><li><a href="#kolmogorov-inertial-range-scaling">02 · Kolmogorov Inertial-Range Scaling</a></li><li><a href="#kolmogorov-scales-and-dns-resolution">03 · Kolmogorov Scales and DNS Resolution</a></li><li><a href="#direct-numerical-simulation-dns">04 · Direct Numerical Simulation (DNS)</a></li></ul></nav><section class="lesson-section" id="energy-distribution-across-length-scales"><h2><span class="section-tag">01</span>Energy Distribution across Length Scales</h2><ul class="study-points"><li><span class="point-text">Turbulence flow에서는 <strong>서로 다른 크기의 Eddy가 동시에 존재</strong>하며, 각 Eddy는 운동에너지를 가지고 있음.</span></li><li><span class="point-text">일반적인 난류에서는 <strong>큰 Scale에서 작은 Scale로 에너지가 전달</strong>되고, \textbf{최종적으로 Viscosity에 의해 열로 소산됨.</span></li><li><span class="point-text">따라서 이러한 에너지 전달과 소산 과정을 이해하려면 \textbf{난류의 운동에너지가 서로 다른 Length Scale에 어떻게 분포하는지 알아야 함.</span></li><li><span class="point-text">앞에서 정의한 TKE \(k\)는 단위질량당 <strong>전체 난류 운동에너지</strong>를 나타내지만, <strong>각 Length Scale에 얼마나 많은 에너지가 존재하는지</strong>는 알려 주지 않음.</span></li><li><span class="point-text">따라서 이러한 에너지 분포를 정량적으로 나타내기 위해 <strong>Energy Spectrum</strong>을 도입함.</span></li><li><span class="point-text">이를 위해 먼저 공간적인 속도 변동을 서로 다른 파장 \(\lambda\)를 가진 성분으로 분해하고, 각 성분의 공간적 크기를 구분하기 위해 <strong>Wavenumber</strong> \(\kappa\)를 다음과 같이</span><div class="equation" role="group" aria-label="Mathematical equation">\[\kappa=\frac{2\pi}{\lambda},
+\qquad [\kappa]=\mathrm{m}^{-1}\]</div><ul class="nested-points"><li><span class="point-text">여기서 Wavelength(파장) \(\lambda\) 는 실제 파동이 아니라, <strong>공간적으로 변화하는 속도 분포</strong>에서 특정한 <strong>변화 패턴이 반복되는 거리</strong>를 의미</span><figure class="note-figure"><div class="diagram-scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 845 335" role="img" aria-label="Instantaneous spatial velocity fluctuation with varying length scales"><rect width="845" height="335" fill="#fff"/><path d="M64 24V265H780" stroke="#273c54" stroke-width="2" fill="none"/><path d="M64 205H780" stroke="#a5b7ca" stroke-dasharray="7 6" stroke-width="1.5"/><polyline fill="none" points="64.0,192.8 89.5,129.0 115.1,114.6 144.3,150.3 177.2,226.8 202.7,241.2 231.9,188.5 264.8,107.8 293.9,116.3 319.5,171.5 345.1,248.0 367.0,243.8 391.0,151.9 410.8,171.5 440.0,245.4 464.0,248.0 488.9,133.3 509.3,163.0 534.9,218.3 558.9,214.0 586.0,129.0 607.9,154.5 637.0,248.0 661.1,246.3 691.8,150.3 713.7,163.0 750.2,203.8" stroke="#2396b2" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/><text x="31" y="36" font-size="23" fill="#263f61" font-style="italic">u′</text><text x="788" y="276" font-size="23" fill="#263f61" font-style="italic">x</text><text x="420" y="305" font-size="17" text-anchor="middle" fill="#607b9b">Instantaneous Spatial Velocity Fluctuation</text></svg></div></figure></li><li><span class="point-text">이때 wavenumber는 속도 변동이 공간상에서 <strong> 얼마나 빠르게 반복되는지</strong>를 나타낸다는 것</span></li><li><span class="point-text">따라서 <strong>작은 Wavenumber는 큰 Length Scale</strong>에, <strong>큰 Wavenumber는 작은 Length Scale</strong>에 대응함.</span></li></ul></li><li><span class="point-text"><strong>각 Wavenumber에 분포하는 난류 운동에너지</strong>를 나타내는 함수로 <strong>Energy Spectrum</strong> \(E(\kappa)\)를 도입</span></li><li><span class="point-text">\(E(\kappa)\)는 Wavenumber에 대한 <strong>Turbulence energy distribution function</strong>이며, \(E(\kappa)d\kappa\)는 해당 Wavenumber 구간에 포함된 단위질량당 난류 운동에너지를 나타냄.</span><ul class="nested-points"><li><span class="point-text">난류 이론에서는 \(E(\kappa)\)의 표준 명칭이 Energy Spectrum 또는 Energy Spectral Density 로 distribution function이라는 단어 쓰는지는 모르겠음 근데 난 이게 이해하기 편헀음</span></li></ul><div class="equation key" role="group" aria-label="Mathematical equation">\[k=\int_0^\infty E(\kappa)\,\mathrm{d}\kappa,\qquad [E]=\mathrm{m^3/s^2}.\]</div></li><li><span class="point-text">앞에서 정의한 \(E(\kappa)\)는 <strong>모든 방향의 난류 운동에너지를 포함하는 3차원 Energy Spectrum</strong>으로, 특정 방향이나 단일 속도성분에 대한 Spectrum과 구분됨</span></li><li><span class="point-text">Energy Spectrum은 <strong>에너지가 분포하는 Wavenumber에 따라 다음 세 영역으로 구분</strong>할 수 있음.</span><ul class="nested-points"><li><span class="point-text">\textbf{Energy-Containing Range</span><ul class="nested-points"><li><span class="point-text"><strong>큰 Length Scale의 Eddy</strong>가 난류 <strong>운동에너지의 많은 부분</strong>을 가지고 있는 영역</span></li><li><span class="point-text">유동의 형상과 Mean Flow의 영향을 크게 받음</span></li></ul></li><li><span class="point-text">\textbf{Inertial Subrange</span><ul class="nested-points"><li><span class="point-text"><strong>Eddy 사이의 nonlinear interaction</strong> 을 통해 <strong>큰 Scale에서 작은 Scale로 에너지가 전달</strong>되는 영역</span></li><li><span class="point-text">충분히 높은 Reynolds Number에서 에너지 전달에 비해 점성 소산의 영향이 작음</span></li></ul></li><li><span class="point-text">\textbf{Dissipation Range</span><ul class="nested-points"><li><span class="point-text">작은 Length Scale의 운동에너지가 <strong>Viscosity에 의해 내부에너지로 전환</strong>되는 영역</span></li><li><span class="point-text">Wavenumber가 \textbf{증가할수록 Energy Spectrum이 빠르게 감소</span></li></ul></li></ul><figure class="note-figure"><div class="diagram-scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 855 430" role="img" aria-label="Schematic turbulence energy spectrum: energy containing range, inertial subrange with minus five thirds slope, and dissipation range">
+ <rect x="67" y="48" width="222" height="313" fill="#edf5ff"/><rect x="289" y="48" width="314" height="313" fill="#fdf8ec"/><rect x="603" y="48" width="213" height="313" fill="#edf3fb"/>
+ <path d="M67 41V361H829" stroke="#273c54" stroke-width="2.1" fill="none"/><path d="M60 53L67 41L74 53M817 354L829 361L817 368" fill="none" stroke="#273c54" stroke-width="2"/>
+ <path d="M96 283C150 80 221 80 289 103" fill="none" stroke="#3a72bf" stroke-width="4.5" stroke-linecap="round"/>
+ <path d="M289 103L603 251" fill="none" stroke="#c57746" stroke-width="4.5" stroke-linecap="round"/>
+ <path d="M603 251C661 268 718 350 760 358" fill="none" stroke="#3a72bf" stroke-width="4.5" stroke-linecap="round"/>
+ <text x="176" y="81" text-anchor="middle" fill="#334f74" font-size="17" font-weight="650">Energy-containing</text><text x="448" y="81" text-anchor="middle" fill="#334f74" font-size="17" font-weight="650">Inertial subrange</text><text x="712" y="81" text-anchor="middle" fill="#334f74" font-size="17" font-weight="650">Dissipation</text>
+ <text x="450" y="190" fill="#ab6339" font-size="21" text-anchor="middle" transform="rotate(23 450 190)">E ∝ κ⁻⁵ᐟ³</text>
+ <path d="M289 318H603" stroke="#7696b7" stroke-width="1.8" stroke-dasharray="6 4"/><path d="M298 311L289 318L298 325M594 311L603 318L594 325" stroke="#7696b7" fill="none" stroke-width="1.6"/>
+ <text x="446" y="306" text-anchor="middle" fill="#607b9b" font-size="15">Scale transfer</text>
+ <text x="190" y="395" text-anchor="middle" fill="#607b9b" font-size="16">Large scales</text><text x="713" y="395" text-anchor="middle" fill="#607b9b" font-size="16">Small scales</text>
+ <text x="825" y="392" font-size="18" fill="#273c54" text-anchor="end">log κ</text><text x="12" y="28" fill="#273c54" font-size="18">log E(κ)</text></svg></div><figcaption>Schematic energy spectrum at sufficiently high Reynolds number; axis scales are illustrative.</figcaption></figure></li></ul></section>
+<section class="lesson-section" id="kolmogorov-inertial-range-scaling"><h2><span class="section-tag">02</span>Kolmogorov Inertial-Range Scaling</h2><ul class="study-points"><li><span class="point-text">앞에서 Energy Spectrum \(E(\kappa)\)를 정의했지만, Wavenumber에 따라 난류 운동에너지가 <strong>어떤 형태로 분포하는지</strong>는 아직 알 수 없음.</span></li><li><span class="point-text">특히 Inertial Subrange에서는 큰 Scale에서 작은 Scale로 에너지가 전달되므로, 이 구간의 Energy Spectrum이 <strong>Wavenumber에 따라 어떻게 변하는지</strong> 알아볼 필요가 있음.</span></li><li><span class="point-text">충분히 높은 Reynolds Number의 통계적으로 정상인 난류에서는, Inertial Subrange를 통과하는 평균 에너지 전달률이 거의 일정하며, 이 값은 평균 Dissipation Rate \(\epsilon\)과 같아짐.</span><ul class="nested-points"><li><span class="point-text">Inertial Subrange에서는 에너지가 Scale 사이에서 전달되며, 해당 구간 내에서 직접 발생하는 점성 소산의 영향은 상대적으로 작음.</span></li><li><span class="point-text">따라서 이 구간의 Energy Spectrum은 Viscosity나 큰 Eddy의 형상보다 <strong>에너지 전달률 \(\epsilon\)과 Wavenumber \(\kappa\)</strong>에 의해 결정된다고 가정할 수 있음.</span></li></ul></li><li><span class="point-text">Kolmogorov는 <strong>충분한 Scale Separation</strong>과 <strong>작은 Scale의 Local Isotropy</strong>를 가정하고, Inertial Subrange의 Energy Spectrum을 다음과 같은 Power Law 형태로 표현함.</span><div class="equation" role="group" aria-label="Mathematical equation">\[E(\kappa)=C_K\epsilon^a\kappa^b\]</div></li><li><span class="point-text">여기서 \(C_K\)는 무차원 상수이며, \(a\)와 \(b\)는 차원해석을 통해 결정할 지수임.</span></li><li><span class="point-text">앞에서 정의한 Energy Spectrum과 TKE의 관계</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}[E(\kappa)]&=\mathrm{m^3s^{-2}},\
+\[
+2.0ex]
+[\epsilon]&=\mathrm{m^2s^{-3}},\
+\[
+2.0ex]
+[\kappa]&=\mathrm{m^{-1}}.\end{aligned}\]</div></li><li><span class="point-text">따라서 가정한 Power Law의 양변 차원을 비교하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\mathrm{m^3s^{-2}}
+&=(\mathrm{m^2s^{-3}})^a(\mathrm{m^{-1}})^b,\
+\[
+2.0ex]
+&=\mathrm{m^{2a-b}s^{-3a}}.\end{aligned}\]</div></li><li><span class="point-text">시간 차원을 비교하면 \(-3a=-2\)이므로 \(a=2/3\)을 얻고, 길이 차원을 비교하면 \(2a-b=3\)이므로 \(b=-5/3\)을 얻음.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}-3a&=-2
+\quad\Rightarrow\quad a=\frac{2}{3},\
+\[
+2.0ex]
+2a-b&=3
+\quad\Rightarrow\quad b=-\frac{5}{3}.\end{aligned}\]</div></li><li><span class="point-text">따라서 Inertial Subrange의 Energy Spectrum은 다음과 같은 관계를 만족함.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[E(\kappa)=C_K\epsilon^{2/3}\kappa^{-5/3}.\]</div></li><li><span class="point-text">이는 <strong>Inertial Subrange에서 Wavenumber가 증가할수록 Energy Spectrum이 \(\kappa^{-5/3}\)에 비례하여 감소함</strong>을 의미함.</span></li><li><span class="point-text">양변에 Log를 취하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\log E(\kappa)
+&=\log\left(C_K\epsilon^{2/3}\kappa^{-5/3}\right),\
+\[
+2.0ex]
+&=\log\left(C_K\epsilon^{2/3}\right)
+-\frac{5}{3}\log\kappa.\end{aligned}\]</div></li><li><span class="point-text">따라서 Energy Spectrum을 Log--Log Scale로 나타내면, <strong>Inertial Subrange에서 기울기가 \(-5/3\)인 직선</strong>이 나타남</span></li><li><span class="point-text">이를 통해 Inertial Subrange에서 <strong>난류 운동에너지가 Length Scale에 따라 얼마나 분포</strong>하는지 예측할 수 있으며 <strong>CFD 계산의 validation 으로도 활용</strong> 가능</span></li></ul></section>
+<section class="lesson-section" id="kolmogorov-scales-and-dns-resolution"><h2><span class="section-tag">03</span>Kolmogorov Scales and DNS Resolution</h2><ul class="study-points"><li><span class="point-text">그Energy Cascade를 통해 에너지가 계속 작은 Scale로 전달된다면,\textbf{어느 정도로 작은 Scale부터는 Viscosity가 중요해지고 에너지가 소산되기 시작함</span></li><li><span class="point-text">따라서 <strong>관성과 점성의 영향이 비슷해지는 대표적인 Length Scale</strong>을 알면 ,<strong>난류 에너지가 소산되는 가장 작은 대표 Scale을 추정</strong>할 수 있음.</span></li><li><span class="point-text">이를 위해 임의의 Length Scale \(\ell\)에서 대표속도를 \(u_\ell\)이라 하면, 해당 Scale의 Reynolds Number는 다음과 같음.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\mathrm{Re}_\ell=\frac{u_\ell\ell}{\nu}\]</div></li><li><span class="point-text">이 Reynolds Number는 해당 Scale에서 <strong>관성 효과와 점성 효과의 상대적인 크기</strong>를 나타냄.</span><ul class="nested-points"><li><span class="point-text">\(\mathrm{Re}_\ell\gg1\) : 관성 효과가 지배적이며, Eddy 사이의 비선형 <strong>에너지 전달이 중요</strong>함.</span></li><li><span class="point-text">\(\mathrm{Re}_\ell\sim1\) : 관성과 점성의 영향이 비슷해지며, Viscosity에 의한 <strong>에너지 소산이 중요</strong>해짐.</span></li></ul></li><li><span class="point-text">이러한 조건을 만족하는 대표적인 <strong>Dissipation Length Scale</strong>을 <strong>Kolmogorov Length Scale</strong> \(\eta\)라 하고, 해당 Scale의 대표속도를 \(u_\eta\)라 정의함.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\mathrm{Re}_\eta
+=\frac{u_\eta\eta}{\nu}\sim1\]</div></li><li><span class="point-text">따라서 Kolmogorov Scale에서 속도와 길이 사이에는 다음 관계가 성립함.</span><div class="equation" role="group" aria-label="Mathematical equation">\[u_\eta\sim\frac{\nu}{\eta}\]</div></li><li><span class="point-text">이제 Kolmogorov Length Scale \(\eta\)를 구하기 위해, 앞에서 배운 <strong>Energy Transfer Rate</strong> \(\epsilon\)을 이용함.</span></li><li><span class="point-text">단위질량당 난류 운동에너지의 규모는 \(u_\eta^2\)이고, 해당 Scale의 Eddy가 운동하는 대표 시간은 \(\eta/u_\eta\)이므로, 단위시간당 에너지 전달률은 다음과 같이 추정할 수 있음.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\epsilon
+\sim\frac{\text{Energy}}{\text{Time}}
+\sim\frac{u_\eta^2}{\eta/u_\eta}
+=\frac{u_\eta^3}{\eta}\]</div></li><li><span class="point-text">여기서 \(\epsilon\)은 충분히 높은 Reynolds Number의 정상적인 Energy Cascade에서 평균 에너지 전달률과 같아지는 <strong>평균 Dissipation Rate</strong>임.</span></li><li><span class="point-text">앞에서 얻은 \(u_\eta\sim\nu/\eta\)를 대입하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\epsilon
+&\sim\frac{u_\eta^3}{\eta},\
+\[
+2.0ex]
+&\sim\frac{(\nu/\eta)^3}{\eta},\
+\[
+2.0ex]
+&=\frac{\nu^3}{\eta^4}.\end{aligned}\]</div></li><li><span class="point-text">따라서 <strong>Kolmogorov Length Scale은 Viscosity와 Dissipation Rate에 의해 결정</strong>됨.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\eta\sim\left(\frac{\nu^3}{\epsilon}\right)^{1/4}\]</div></li><li><span class="point-text">같은 방식으로 Kolmogorov Velocity Scale과 Time Scale을 구할 수 있음.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}u_\eta
+&\sim\frac{\nu}{\eta},\
+\[
+2.0ex]
+&\sim(\nu\epsilon)^{1/4},\end{aligned}\]</div><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}t_\eta
+&\sim\frac{\eta}{u_\eta},\
+\[
+2.0ex]
+&\sim\left(\frac{\nu}{\epsilon}\right)^{1/2}.\end{aligned}\]</div></li><li><span class="point-text">이러한 규모 관계를 바탕으로 <strong>Kolmogorov Length, Velocity, Time Scales</strong>를 다음과 같이 정의함.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\eta=\left(\frac{\nu^3}{\epsilon}\right)^{1/4},
+\qquad
+u_\eta=(\nu\epsilon)^{1/4},
+\qquad
+t_\eta=\left(\frac{\nu}{\epsilon}\right)^{1/2}.\]</div></li><li><span class="point-text">각 Scale의 물리적 의미는 다음과 같음.</span><ul class="nested-points"><li><span class="point-text">\(\eta\) : <strong>Viscosity에 의한 에너지 소산이 중요해지는 대표적인 Length Scale</strong></span></li><li><span class="point-text">\(u_\eta\) : Kolmogorov Length Scale에서의 대표적인 Velocity Scale</span></li><li><span class="point-text">\(t_\eta\) : Kolmogorov Length Scale에서의 대표적인 Time Scale</span></li></ul></li><li><span class="point-text">특히 \(\eta\propto\epsilon^{-1/4}\)이므로, 동일한 유체에서 Dissipation Rate가 증가하면 Kolmogorov Length Scale은 감소함.</span></li><li><span class="point-text">즉, <strong>난류의 에너지 전달과 소산이 강해질수록 더 작은 공간적 Scale까지 고려해야 함</strong>을 의미함.</span></li></ul></section>
+<section class="lesson-section" id="direct-numerical-simulation-dns"><h2><span class="section-tag">04</span>Direct Numerical Simulation (DNS)</h2><ul class="study-points"><li><span class="point-text">Direct Numerical Simulation (DNS) 는 난류 <strong>Closure Model 없이 순간 Navier--Stokes Equation을 직접 풀어</strong>, Energy-Containing Scale부터 Dissipation Scale까지 난류의 운동을 해상하는 방법</span></li><li><span class="point-text">위에서 학습한 Kolmogorov Scaled 이 DNS에서 <strong>필요한 공간 및 시간 해상도를 판단하는 기준</strong>이 됨.</span></li><li><span class="point-text">따라서 가장 작은 Dissipation Scale까지 해상할 수 있도록 공간격자와 시간간격을 충분히 작게 설정해야 함.</span><ul class="nested-points"><li><span class="point-text">Spatial Resolution : Kolmogorov Length Scale \(\eta\) 수준의 작은 속도 변동까지 해상해야 함.</span></li><li><span class="point-text">Temporal Resolution : Kolmogorov Time Scale \(t_\eta\) 수준의 빠른 시간적 변화까지 해상해야 함.</span></li></ul></li><li><span class="point-text">이때 필요한 cell의 수는 다음과 같음</span><div class="equation key" role="group" aria-label="Mathematical equation">\[N_{\mathrm{cells}}\sim\mathrm{Re}_L^{9/4}\]</div></li><li><span class="point-text">따라서 Reynolds Number가 증가하면 DNS에서 요구되는 공간격자 수가 급격하게 증가함.</span></li><li><span class="point-text">결국 <strong>Reynolds Number가 높은 난류에서는 모든 Scale을 직접 해상하기 위한 계산비용이 매우 커지며</strong>, 이는 난류 모델링이 필요한 중요한 이유 중 하나임.</span></li></ul></section></article><div class="article-pager"><a class="prev" href="pressure-gradient-and-turbulent-separation.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Pressure Gradient and Turbulent Separation</span></a></div><a class="back-bottom" href="../turbulent-flow.html">← Back to Turbulent Flow</a>
+</main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Turbulence Modeling in CFD</span></div></footer>
+<script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script>
+</body></html>
