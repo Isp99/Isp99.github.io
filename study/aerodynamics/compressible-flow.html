@@ -32,7 +32,7 @@ body.compressible-page .hero-text::before {
 }
 body.compressible-page .hero-description {margin-top:17px;font-size:16px;line-height:1.65;max-width:495px}
 body.compressible-page .compressible-visual {
- grid-column:2;width:100%;max-width:490px;aspect-ratio:2/1;position:relative;
+ grid-column:2;width:100%;max-width:490px;aspect-ratio:680/303;position:relative;
  overflow:visible;align-self:center;pointer-events:none;isolation:isolate;
 }
 body.compressible-page .compressible-visual::before {
@@ -40,12 +40,9 @@ body.compressible-page .compressible-visual::before {
  background:radial-gradient(ellipse at 54% 51%,rgba(148,194,242,.19) 0%,rgba(206,226,249,.11) 42%,transparent 75%);
  filter:blur(12px);pointer-events:none;
 }
-body.compressible-page .compressible-visual svg {
- display:block;width:100%;height:100%;overflow:visible;
-}
-body.compressible-page .compressible-visual .shock-label {
- font:700 20px Inter,ui-sans-serif,system-ui,sans-serif;
- letter-spacing:.04em;fill:#587bab;
+body.compressible-page .compressible-visual img {
+ display:block;width:100%;height:auto;object-fit:contain;
+ mix-blend-mode:multiply;
 }
 /* The topic cards are visible table-of-contents entries, not broken links. */
 body.compressible-page .topic-card,
@@ -108,41 +105,9 @@ body.compressible-page .contents-note {margin:-12px 0 26px;color:#879ab2;font-si
 <p class="hero-description">Thermodynamic foundations, isentropic flow, shock relations, and Prandtl–Meyer expansion in compressible aerodynamics.</p>
 </div>
 <div class="compressible-visual">
-<svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Supersonic flow deflected by an inclined compression ramp, producing an oblique shock">
- <defs>
-  <linearGradient id="ramp-fill" x1="0" x2="1" y1="0" y2="1">
-   <stop offset="0" stop-color="#c6dafa" stop-opacity=".92"/>
-   <stop offset="1" stop-color="#e8f1fd" stop-opacity=".58"/>
-  </linearGradient>
-  <linearGradient id="shock-glow" x1="0" x2="1">
-   <stop offset="0" stop-color="#337ccc" stop-opacity=".75"/>
-   <stop offset="1" stop-color="#87b6ef" stop-opacity=".9"/>
-  </linearGradient>
-  <marker id="flow-arrow" markerWidth="8" markerHeight="8" refX="6.5" refY="3" orient="auto" markerUnits="strokeWidth">
-   <path d="M0 0 L6.8 3 L0 6" fill="none" stroke="#68a2e7" stroke-width="1.2"/>
-  </marker>
- </defs>
- <g fill="none" stroke="#b6d2f5" stroke-width="1.6" stroke-linecap="round" opacity=".56">
-   <path d="M24 49H696"/><path d="M24 92H696"/><path d="M24 135H696"/>
-   <path d="M24 178H696"/><path d="M24 221H696"/>
- </g>
- <g fill="none" stroke="#77ace9" stroke-width="2.4" stroke-linecap="round" opacity=".82" marker-end="url(#flow-arrow)">
-  <path d="M29 96H423L686 49"/>
-  <path d="M29 139H393L686 91"/>
-  <path d="M29 182H364L686 133"/>
-  <path d="M29 225H335L686 174"/>
- </g>
- <path d="M15 265H315L704 182V352H15Z" fill="url(#ramp-fill)" opacity=".90"/>
- <path d="M15 265H315L704 182" fill="none" stroke="#568ed6" stroke-width="3" stroke-linejoin="round"/>
- <path d="M315 265L473 33" fill="none" stroke="#8fbef2" stroke-width="14" opacity=".12" stroke-linecap="round"/>
- <path d="M315 265L473 33" fill="none" stroke="url(#shock-glow)" stroke-width="4.1" stroke-linecap="round"/>
- <path d="M328 260L481 39" fill="none" stroke="#d5e7ff" stroke-width="1.5" stroke-dasharray="6 9" opacity=".88"/>
- <path d="M315 265L400 246" stroke="#78a4d7" stroke-width="1.7" stroke-dasharray="5 7" fill="none" opacity=".68"/>
- <circle cx="315" cy="265" r="5" fill="#4b86d3"/>
- <text x="32" y="79" class="shock-label">M∞ &gt; 1</text>
- <text x="482" y="28" class="shock-label">Oblique Shock</text>
- <text x="470" y="300" class="shock-label" font-size="16">Compression Ramp</text>
-</svg>
+  <img src="../../assets/compressible-flow-hero.webp"
+       alt="Blue compressible-flow shock visualization with equations for shock and isentropic relations"
+       width="680" height="303" decoding="async" fetchpriority="high">
 </div>
 </div>
 <div class="contents-header"><h2>Study Contents</h2><span class="count">05 CHAPTERS · 14 ARTICLES</span></div>
