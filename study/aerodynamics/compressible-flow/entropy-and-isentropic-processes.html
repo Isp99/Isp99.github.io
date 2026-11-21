@@ -1,0 +1,91 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Entropy change, irreversible processes, and isentropic thermodynamic relations."><title>Entropy and Isentropic Processes | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css"><style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+.tl-page .velocity-diagram{margin:42px 0 35px}
+.tl-page .velocity-diagram .diagram-scroll{overflow-x:auto;overflow-y:hidden;max-width:100%;scrollbar-width:thin}
+.tl-page .velocity-diagram svg{display:block;width:100%;height:auto;min-width:730px}
+.tl-page .velocity-diagram figcaption{text-align:center;color:#667f9b;font-size:13px;line-height:1.6;margin:12px 0 0}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+ .tl-page .velocity-diagram figcaption{font-size:12px}
+}
+.tl-page .note-box{border:1px solid #dce6f4;background:#f6f9fe;border-radius:12px;padding:22px 22px 16px;margin:28px 0 34px;color:#385779}
+.tl-page .note-box h3{color:#285698;font-size:16px;font-weight:800;margin:0 0 18px}
+.tl-page .table-scroll,.tl-page .wave-diagram .diagram-scroll{overflow-x:auto;max-width:100%;scrollbar-width:thin}
+.tl-page .data-table{width:100%;border-collapse:collapse;background:white;font-size:13px;line-height:1.65;min-width:440px}
+.tl-page .wide-table{min-width:660px}
+.tl-page .data-table th,.tl-page .data-table td{border:1px solid #dce6f4;padding:12px 10px;vertical-align:middle;text-align:center}
+.tl-page .data-table thead th{background:#eaf1fb;color:#2c568c;font-weight:750}
+.tl-page .data-table tbody th{background:#f4f8fe;color:#3b5a80;min-width:105px}
+.tl-page .wave-diagram{margin:30px 0 38px}
+.tl-page .wave-diagram svg{display:block;width:100%;height:auto;min-width:570px}
+.tl-page .wave-diagram figcaption{text-align:center;color:#6e83a1;font-size:13px;margin:12px 0 0}
+@media(max-width:740px){.tl-page .note-box{padding:16px 12px}.tl-page .note-box h3{font-size:14px}.tl-page .wave-diagram figcaption{font-size:12px}}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head><body class="inner-page">
+<header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav></div></header>
+<main class="shell tl-page"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../compressible-flow.html">Compressible Flow</a><span class="separator">›</span><strong>Entropy and Isentropic Processes</strong></nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">COMPRESSIBLE FLOW / 1.2</div><h1>Entropy and Isentropic Processes</h1><p class="hero-subtitle">Fundamentals of Compressible Flow</p><p class="hero-description">Entropy change, irreversible processes, and isentropic thermodynamic relations.</p></div></div>
+<article class="article-content"><div class="lesson-meta"><span>01 / Fundamentals of Compressible Flow</span><span>Study Notes · 1.2</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#entropy-change">01 · Entropy Change</a></li><li><a href="#isentropic-thermodynamic-relations">02 · Isentropic Thermodynamic Relations</a></li></ul></nav><section class="lesson-section" id="entropy-change"><h2><span class="section-tag">01</span>Entropy Change</h2><ul class="study-points"><li><span class="point-text">같은 두 압력과 온도 상태를 연결하는 경로가 여러 가지일 때, <strong>어떤 과정이 실제로 가능한지와 Irreversible Process 손실이 있는지</strong>를 구분할 물리량이 필요</span></li><li><span class="point-text">Entropy는 이러한 상태 변화를 판단하는 기준이며, 단위질량당 엔트로피 \(s\) 를 다음과 같이 정의</span><div class="equation" role="group" aria-label="Mathematical equation">\[ds=\frac{\delta q_{\mathrm{rev}}}{T}\]</div></li><li><span class="point-text">Reversible Process 에서 열역학 제1법칙과 \(\delta q_{\mathrm{rev}}=T\mathrm{d} s\)를 결합하면 <strong>Gibbs Relation</strong>을 얻음.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\delta q_{\mathrm{rev}}-p\mathrm{d} v&=\mathrm{d} e,\\[2.0em]
+T\mathrm{d} s&=\mathrm{d} e+p\mathrm{d} v.\end{aligned}\]</div></li><li><span class="point-text">\(\mathrm{d} e=c_v\mathrm{d} T\)와 \(p/T=R/v\)를 대입한뒤 \(v=1/\rho\)의 미분관계 \(\mathrm{d} v/v=-\mathrm{d}\rho/\rho\)를 사용하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\mathrm{d} s&=c_v\frac{\mathrm{d} T}{T}+\frac{p}{T}\mathrm{d} v,\\[2.0em]
+&=c_v\frac{\mathrm{d} T}{T}+R\frac{\mathrm{d} v}{v},\\[2.0em]
+&=c_v\frac{\mathrm{d} T}{T}-R\frac{\mathrm{d}\rho}{\rho}.\end{aligned}\]</div></li><li><span class="point-text">상태방정식 \(p=\rho RT\)를 로그미분하면 \(\mathrm{d}\rho/\rho=\mathrm{d} p/p-\mathrm{d} T/T\) 이고 \(c_p=c_v+R\)를 적용하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\mathrm{d} s&=c_v\frac{\mathrm{d} T}{T}-R\left(\frac{\mathrm{d} p}{p}-\frac{\mathrm{d} T}{T}\right),\\[2.0em]
+&=c_p\frac{\mathrm{d} T}{T}-R\frac{\mathrm{d} p}{p}.\end{aligned}\]</div></li><li><span class="point-text">Calorically Perfect Gas의 일정한 \(c_p,c_v\)를 사용하여 상태 \(1\)에서 \(2\)까지 적분하면 <strong>Entropy Difference</strong>는</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}s_2-s_1&=c_p\int_{T_1}^{T_2}\frac{\mathrm{d} T}{T}-R\int_{p_1}^{p_2}\frac{\mathrm{d} p}{p},\\[2.0em]
+&=c_p\ln\frac{T_2}{T_1}-R\ln\frac{p_2}{p_1}.\end{aligned}\]</div><div class="equation key" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+s_2-s_1&=c_p\ln\frac{T_2}{T_1}-R\ln\frac{p_2}{p_1}
+\end{aligned}\]</div></li><li><span class="point-text">또는</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+s_2-s_1=c_v\ln\frac{T_2}{T_1}-R\ln\frac{\rho_2}{\rho_1}
+\end{aligned}\]</div></li><li><span class="point-text">이 결과는 상태량 사이의 관계이므로 실제 과정이 Irreversible Process이어도 두 끝 상태에 적용할 수 있음. 다만 비가역 과정의 실제 열전달을 \(\delta q=T\mathrm{d} s\)로 놓지는 않음.</span></li></ul></section>
+<section class="lesson-section" id="isentropic-thermodynamic-relations"><h2><span class="section-tag">02</span>Isentropic Thermodynamic Relations</h2><ul class="study-points"><li><span class="point-text">엔트로피 식을 알고 있어도 \(p\), \(T\), \(\rho\)를 매번 독립적으로 풀면 계산이 번거로움. <strong>엔트로피 변화가 없는 과정인 Isentropic </strong>이라는 조건을 적용하면 세 상태량 사이의 직접적인 비례관계를 얻을 수 있음.</span></li><li><span class="point-text"><strong>Isentropic Process</strong>에서는 \(s_2=s_1\) 이므로 Entropy Difference에 \(\mathrm{d} s=0\)을 적용하고 \(R/c_p=(\gamma-1)/\gamma\)를 사용하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}0&=c_p\ln\frac{T_2}{T_1}-R\ln\frac{p_2}{p_1},\\[2.0em]
+\ln\frac{T_2}{T_1}&=\frac{\gamma-1}{\gamma}\ln\frac{p_2}{p_1},\\[2.0em]
+\frac{T_2}{T_1}&=\left(\frac{p_2}{p_1}\right)^{(\gamma-1)/\gamma}.\end{aligned}\]</div></li><li><span class="point-text">두 상태의 \(\rho=p/(RT)\)에 위 temperature ratio를 대입하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\frac{\rho_2}{\rho_1}&=\frac{p_2/p_1}{T_2/T_1},\\[2.0em]
+&=\left(\frac{p_2}{p_1}\right)^{1/\gamma}.\end{aligned}\]</div></li><li><span class="point-text">정리하면, <strong>Isentropic Thermodynamic Relations</strong>는</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\frac{p_2}{p_1}
+=\left(\frac{\rho_2}{\rho_1}\right)^\gamma
+=\left(\frac{T_2}{T_1}\right)^{\frac{\gamma}{\gamma-1}}\]</div></li><li><span class="point-text">Adiabatic 조건만으로 Isentropic이 되지는 않음. <strong>shock wave와 마찰은 단열 상태에서도 엔트로피를 증가</strong>시키므로 위 관계를 직접 적용불가</span></li><li><span class="point-text">이 관계들로 기체의 상태는 연결했지만, <strong>한 위치의 압력 변화가 다른 위치에</strong> <strong>얼마나 빠르게 도달하는지</strong>는 아직 알 수 없음. 다음에는 압력교란의 전파속도를 질량·운동량 보존으로 구함.</span></li></ul></section></article>
+<div class="article-pager"><a class="prev" href="compressible-flow-and-thermodynamic-relations.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Compressible Flow and Thermodynamic Relations</span></a><a class="next" href="speed-of-sound.html"><span class="direction">NEXT →</span><span class="adjacent">Speed of Sound</span></a></div><a class="back-bottom" href="../compressible-flow.html">← Back to Compressible Flow</a></main>
+<footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Compressible Flow</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>
