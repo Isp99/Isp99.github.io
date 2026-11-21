@@ -1,2 +1,141 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Compressible Flow — Engineering Notebook"><title>Compressible Flow | Engineering Notebook</title><link rel="stylesheet" href="../../assets/site.css"></head><body class="inner-page"><header class="site-header"><div class="shell"><a class="brand" href="../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a><nav class="site-nav" aria-label="Main navigation"><a href="../../index.html">Home</a><a class="desktop-link" href="../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../index.html#bento-projects">Practice Project</a></nav></div></header><main class="shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../index.html">Home</a><span class="separator">›</span><a href="../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../aerodynamics.html">Aerodynamics</a><span class="separator">›</span><strong>Compressible Flow</strong></nav><div class="hero"><div class="hero-text"><h1>Compressible Flow</h1><p class="hero-subtitle">High-Speed Gas Dynamics</p></div></div><div class="article-content"><h2>Study Contents</h2><p>The detailed study notes for this subject will be added as the notebook develops.</p><span class="placeholder-hint">Contents in preparation</span></div><a class="back-bottom" href="../aerodynamics.html">← Back to Aerodynamics</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Aerodynamics</span></div></footer><script defer src="../../assets/study-tracker.js?v=20261022-search1"></script>
-</body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Study notes on compressible flow, isentropic relations, normal and oblique shocks, and Prandtl–Meyer expansion.">
+<title>Compressible Flow | Engineering Notebook</title>
+<link rel="stylesheet" href="../../assets/site.css">
+<style>
+  /* Match typography shared with study/aerodynamics.html.
+     Chapter and article layouts remain controlled by site.css. */
+  body.inner-page .hero-text .hero-description {
+    margin-top: 14px;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  body.inner-page .contents-header h2 {
+    font-size: 24px;
+  }
+  body.inner-page .contents-header .count {
+    font-size: 14px;
+  }
+  body.inner-page .back-bottom {
+    font-size: 16px;
+  }
+  /* Chapter > article hierarchy: align with the approved preview. */
+  body.inner-page .chapter-heading h2 {
+    font-size: 26px;
+    line-height: 1.3;
+  }
+  body.inner-page .chapter-heading .chapter-mark {
+    font-size: 16px;
+  }
+  body.inner-page .chapter-heading .chapter-counter {
+    font-size: 14px;
+  }
+  body.inner-page .topic-card .topic-title {
+    font-size: 19px;
+    line-height: 1.35;
+  }
+  body.inner-page .topic-card .topic-description {
+    font-size: 13px;
+  }
+  body.inner-page .topic-card .topic-number {
+    font-size: 16px;
+  }
+  /* Make article cards slightly more compact without changing the layout. */
+  body.inner-page .topic-head {
+    padding-top: 18px;
+    padding-bottom: 18px;
+    min-height: 92px;
+  }
+  /* Breadcrumb typography shared by Aerodynamics and Fundamentals. */
+  body.inner-page .breadcrumb {
+    font-size: 16px;
+  }
+  @media (max-width: 600px) {
+    body.inner-page .breadcrumb { font-size: 14px; }
+    body.inner-page .hero-text .hero-description { font-size: 15px; }
+    body.inner-page .contents-header h2 { font-size: 22px; }
+    body.inner-page .contents-header .count { font-size: 13px; }
+    body.inner-page .back-bottom { font-size: 15px; }
+    body.inner-page .chapter-heading h2 { font-size: 22px; }
+    body.inner-page .chapter-heading .chapter-mark { font-size: 14px; }
+    body.inner-page .chapter-heading .chapter-counter { font-size: 12px; }
+    body.inner-page .topic-card .topic-title { font-size: 17px; }
+    body.inner-page .topic-card .topic-description { font-size: 12px; }
+    body.inner-page .topic-card .topic-number { font-size: 15px; }
+    body.inner-page .topic-head { padding-top: 16px; padding-bottom: 16px; min-height: 84px; }
+  }
+body.inner-page .topic-planned{flex:none;color:#879bb5;font-size:11px;letter-spacing:.015em;border:1px solid #dce7f5;border-radius:8px;padding:5px 8px;background:#f7faff}
+@media(max-width:600px){body.inner-page .topic-planned{font-size:10px;padding:4px 6px}}
+</style>
+
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../index.html">Home</a><a class="desktop-link" href="../../index.html#bento-study" aria-current="page">Study Note</a><a href="../aerodynamics.html">Aerodynamics ↗</a></nav>
+</div></header>
+<main class="shell">
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../index.html">Home</a><span class="separator">›</span><a href="../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><strong>Compressible Flow</strong></nav>
+<div class="hero"><div class="hero-text">
+<h1>Compressible Flow</h1><p class="hero-subtitle">High-Speed Gas Dynamics</p>
+<p class="hero-description">Thermodynamic foundations, isentropic flow, shock relations, and Prandtl–Meyer expansion in compressible aerodynamics.</p>
+</div></div>
+<div class="contents-header"><h2>Study Contents</h2><span class="count">05 CHAPTERS · 14 ARTICLES</span></div>
+<section class="chapter" id="chapter-1" aria-labelledby="chapter-title-1">
+<div class="chapter-heading"><span class="chapter-mark" aria-hidden="true">01</span><h2 id="chapter-title-1">Fundamentals of Compressible Flow</h2><span class="chapter-counter">3 ARTICLES</span></div>
+<article class="topic-card available" id="topic-1-1" aria-labelledby="topic-title-1-1">
+<a class="topic-head" href="compressible-flow/compressible-flow-and-thermodynamic-relations.html" aria-label="Read 1.1 article">
+<span class="topic-number">1.1</span><span class="topic-heading-copy"><span class="topic-title" id="topic-title-1-1">Compressible Flow and Thermodynamic Relations</span><span class="topic-description">Density variations, state relations, and thermodynamic properties of gases.</span></span><svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg></a></article>
+<article class="topic-card available" id="topic-1-2" aria-labelledby="topic-title-1-2">
+<a class="topic-head" href="compressible-flow/speed-of-sound.html" aria-label="Read 1.2 article">
+<span class="topic-number">1.2</span><span class="topic-heading-copy"><span class="topic-title" id="topic-title-1-2">Speed of Sound</span><span class="topic-description">Propagation of small disturbances and the local acoustic speed.</span></span><svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg></a></article>
+<article class="topic-card available" id="topic-1-3" aria-labelledby="topic-title-1-3">
+<a class="topic-head" href="compressible-flow/mach-number-and-flow-regimes.html" aria-label="Read 1.3 article">
+<span class="topic-number">1.3</span><span class="topic-heading-copy"><span class="topic-title" id="topic-title-1-3">Mach Number and Flow Regimes</span><span class="topic-description">Mach number and classification of compressible-flow regimes.</span></span><svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg></a></article></section>
+<section class="chapter" id="chapter-2" aria-labelledby="chapter-title-2">
+<div class="chapter-heading"><span class="chapter-mark" aria-hidden="true">02</span><h2 id="chapter-title-2">Isentropic Flow</h2><span class="chapter-counter">2 ARTICLES</span></div>
+<article class="topic-card available" id="topic-2-1" aria-labelledby="topic-title-2-1">
+<a class="topic-head" href="compressible-flow/stagnation-properties.html" aria-label="Read 2.1 article">
+<span class="topic-number">2.1</span><span class="topic-heading-copy"><span class="topic-title" id="topic-title-2-1">Stagnation Properties</span><span class="topic-description">Stagnation states and relations between static and total properties.</span></span><svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg></a></article>
+<article class="topic-card available" id="topic-2-2" aria-labelledby="topic-title-2-2">
+<a class="topic-head" href="compressible-flow/isentropic-flow-relations.html" aria-label="Read 2.2 article">
+<span class="topic-number">2.2</span><span class="topic-heading-copy"><span class="topic-title" id="topic-title-2-2">Isentropic Flow Relations</span><span class="topic-description">Isentropic pressure, temperature, and density relations with Mach number.</span></span><svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg></a></article></section>
+<section class="chapter" id="chapter-3" aria-labelledby="chapter-title-3">
+<div class="chapter-heading"><span class="chapter-mark" aria-hidden="true">03</span><h2 id="chapter-title-3">Normal Shock Waves</h2><span class="chapter-counter">2 ARTICLES</span></div>
+<article class="topic-card available" id="topic-3-1" aria-labelledby="topic-title-3-1">
+<a class="topic-head" href="compressible-flow/conservation-equations-across-a-normal-shock.html" aria-label="Read 3.1 article">
+<span class="topic-number">3.1</span><span class="topic-heading-copy"><span class="topic-title" id="topic-title-3-1">Conservation Equations across a Normal Shock</span><span class="topic-description">Mass, momentum, and energy conservation across a normal shock.</span></span><svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg></a></article>
+<article class="topic-card available" id="topic-3-2" aria-labelledby="topic-title-3-2">
+<a class="topic-head" href="compressible-flow/rankine-hugoniot-conditions.html" aria-label="Read 3.2 article">
+<span class="topic-number">3.2</span><span class="topic-heading-copy"><span class="topic-title" id="topic-title-3-2">Rankine–Hugoniot Conditions</span><span class="topic-description">Jump conditions and thermodynamic changes across a normal shock.</span></span><svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg></a></article></section>
+<section class="chapter" id="chapter-4" aria-labelledby="chapter-title-4">
+<div class="chapter-heading"><span class="chapter-mark" aria-hidden="true">04</span><h2 id="chapter-title-4">Oblique Shock Waves</h2><span class="chapter-counter">4 ARTICLES</span></div>
+<article class="topic-card available" id="topic-4-1" aria-labelledby="topic-title-4-1">
+<a class="topic-head" href="compressible-flow/oblique-shock-geometry.html" aria-label="Read 4.1 article">
+<span class="topic-number">4.1</span><span class="topic-heading-copy"><span class="topic-title" id="topic-title-4-1">Oblique Shock Geometry</span><span class="topic-description">Flow deflection, shock inclination, and normal velocity components.</span></span><svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg></a></article>
+<article class="topic-card available" id="topic-4-2" aria-labelledby="topic-title-4-2">
+<a class="topic-head" href="compressible-flow/oblique-shock-relations.html" aria-label="Read 4.2 article">
+<span class="topic-number">4.2</span><span class="topic-heading-copy"><span class="topic-title" id="topic-title-4-2">Oblique Shock Relations</span><span class="topic-description">Velocity, pressure, and thermodynamic relations across oblique shocks.</span></span><svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg></a></article>
+<article class="topic-card available" id="topic-4-3" aria-labelledby="topic-title-4-3">
+<a class="topic-head" href="compressible-flow/theta-beta-mach-relation.html" aria-label="Read 4.3 article">
+<span class="topic-number">4.3</span><span class="topic-heading-copy"><span class="topic-title" id="topic-title-4-3">Theta–Beta–Mach Relation</span><span class="topic-description">The relationship between deflection angle, shock angle, and Mach number.</span></span><svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg></a></article>
+<article class="topic-card available" id="topic-4-4" aria-labelledby="topic-title-4-4">
+<a class="topic-head" href="compressible-flow/weak-and-strong-shock-solutions.html" aria-label="Read 4.4 article">
+<span class="topic-number">4.4</span><span class="topic-heading-copy"><span class="topic-title" id="topic-title-4-4">Weak and Strong Shock Solutions</span><span class="topic-description">Weak and strong branches of the oblique shock solution.</span></span><svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg></a></article></section>
+<section class="chapter" id="chapter-5" aria-labelledby="chapter-title-5">
+<div class="chapter-heading"><span class="chapter-mark" aria-hidden="true">05</span><h2 id="chapter-title-5">Prandtl–Meyer Expansion</h2><span class="chapter-counter">3 ARTICLES</span></div>
+<article class="topic-card available" id="topic-5-1" aria-labelledby="topic-title-5-1">
+<a class="topic-head" href="compressible-flow/mach-waves-and-expansion-fans.html" aria-label="Read 5.1 article">
+<span class="topic-number">5.1</span><span class="topic-heading-copy"><span class="topic-title" id="topic-title-5-1">Mach Waves and Expansion Fans</span><span class="topic-description">Mach waves and the structure of supersonic expansion fans.</span></span><svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg></a></article>
+<article class="topic-card available" id="topic-5-2" aria-labelledby="topic-title-5-2">
+<a class="topic-head" href="compressible-flow/prandtl-meyer-function.html" aria-label="Read 5.2 article">
+<span class="topic-number">5.2</span><span class="topic-heading-copy"><span class="topic-title" id="topic-title-5-2">Prandtl–Meyer Function</span><span class="topic-description">Isentropic supersonic expansion and the Prandtl–Meyer function.</span></span><svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg></a></article>
+<article class="topic-card available" id="topic-5-3" aria-labelledby="topic-title-5-3">
+<a class="topic-head" href="compressible-flow/supersonic-flow-over-corners.html" aria-label="Read 5.3 article">
+<span class="topic-number">5.3</span><span class="topic-heading-copy"><span class="topic-title" id="topic-title-5-3">Supersonic Flow over Corners</span><span class="topic-description">Supersonic compression and expansion at flow-turning corners.</span></span><svg aria-hidden="true" class="launch" height="21" viewBox="0 0 24 24" width="21"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"></path></svg></a></article></section>
+<a class="back-bottom" href="../aerodynamics.html">← Back to Aerodynamics</a>
+</main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>High-Speed Gas Dynamics</span></div></footer><script defer src="../../assets/study-tracker.js?v=20261022-search1"></script></body></html>
