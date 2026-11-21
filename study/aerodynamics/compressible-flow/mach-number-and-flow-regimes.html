@@ -1,93 +1,76 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Mach number and classification of compressible-flow regimes.">
-<title>Mach Number and Flow Regimes | Engineering Notebook</title>
-<link rel="stylesheet" href="../../../assets/site.css">
-<style>
-  /* Match typography shared with study/aerodynamics.html.
-     Chapter and article layouts remain controlled by site.css. */
-  body.inner-page .hero-text .hero-description {
-    margin-top: 14px;
-    font-size: 16px;
-    line-height: 1.65;
-  }
-  body.inner-page .contents-header h2 {
-    font-size: 24px;
-  }
-  body.inner-page .contents-header .count {
-    font-size: 14px;
-  }
-  body.inner-page .back-bottom {
-    font-size: 16px;
-  }
-  /* Chapter > article hierarchy: align with the approved preview. */
-  body.inner-page .chapter-heading h2 {
-    font-size: 26px;
-    line-height: 1.3;
-  }
-  body.inner-page .chapter-heading .chapter-mark {
-    font-size: 16px;
-  }
-  body.inner-page .chapter-heading .chapter-counter {
-    font-size: 14px;
-  }
-  body.inner-page .topic-card .topic-title {
-    font-size: 19px;
-    line-height: 1.35;
-  }
-  body.inner-page .topic-card .topic-description {
-    font-size: 13px;
-  }
-  body.inner-page .topic-card .topic-number {
-    font-size: 16px;
-  }
-  /* Make article cards slightly more compact without changing the layout. */
-  body.inner-page .topic-head {
-    padding-top: 18px;
-    padding-bottom: 18px;
-    min-height: 92px;
-  }
-  /* Breadcrumb typography shared by Aerodynamics and Fundamentals. */
-  body.inner-page .breadcrumb {
-    font-size: 16px;
-  }
-  @media (max-width: 600px) {
-    body.inner-page .breadcrumb { font-size: 14px; }
-    body.inner-page .hero-text .hero-description { font-size: 15px; }
-    body.inner-page .contents-header h2 { font-size: 22px; }
-    body.inner-page .contents-header .count { font-size: 13px; }
-    body.inner-page .back-bottom { font-size: 15px; }
-    body.inner-page .chapter-heading h2 { font-size: 22px; }
-    body.inner-page .chapter-heading .chapter-mark { font-size: 14px; }
-    body.inner-page .chapter-heading .chapter-counter { font-size: 12px; }
-    body.inner-page .topic-card .topic-title { font-size: 17px; }
-    body.inner-page .topic-card .topic-description { font-size: 12px; }
-    body.inner-page .topic-card .topic-number { font-size: 15px; }
-    body.inner-page .topic-head { padding-top: 16px; padding-bottom: 16px; min-height: 84px; }
-  }
-body.inner-page .topic-planned{flex:none;color:#879bb5;font-size:11px;letter-spacing:.015em;border:1px solid #dce7f5;border-radius:8px;padding:5px 8px;background:#f7faff}
-@media(max-width:600px){body.inner-page .topic-planned{font-size:10px;padding:4px 6px}}
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Mach number and classification of compressible-flow regimes."><title>Mach Number and Flow Regimes | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css"><style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+.tl-page .velocity-diagram{margin:42px 0 35px}
+.tl-page .velocity-diagram .diagram-scroll{overflow-x:auto;overflow-y:hidden;max-width:100%;scrollbar-width:thin}
+.tl-page .velocity-diagram svg{display:block;width:100%;height:auto;min-width:730px}
+.tl-page .velocity-diagram figcaption{text-align:center;color:#667f9b;font-size:13px;line-height:1.6;margin:12px 0 0}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+ .tl-page .velocity-diagram figcaption{font-size:12px}
+}
+.tl-page .note-box{border:1px solid #dce6f4;background:#f6f9fe;border-radius:12px;padding:22px 22px 16px;margin:28px 0 34px;color:#385779}
+.tl-page .note-box h3{color:#285698;font-size:16px;font-weight:800;margin:0 0 18px}
+.tl-page .table-scroll,.tl-page .wave-diagram .diagram-scroll{overflow-x:auto;max-width:100%;scrollbar-width:thin}
+.tl-page .data-table{width:100%;border-collapse:collapse;background:white;font-size:13px;line-height:1.65;min-width:440px}
+.tl-page .wide-table{min-width:660px}
+.tl-page .data-table th,.tl-page .data-table td{border:1px solid #dce6f4;padding:12px 10px;vertical-align:middle;text-align:center}
+.tl-page .data-table thead th{background:#eaf1fb;color:#2c568c;font-weight:750}
+.tl-page .data-table tbody th{background:#f4f8fe;color:#3b5a80;min-width:105px}
+.tl-page .wave-diagram{margin:30px 0 38px}
+.tl-page .wave-diagram svg{display:block;width:100%;height:auto;min-width:570px}
+.tl-page .wave-diagram figcaption{text-align:center;color:#6e83a1;font-size:13px;margin:12px 0 0}
+@media(max-width:740px){.tl-page .note-box{padding:16px 12px}.tl-page .note-box h3{font-size:14px}.tl-page .wave-diagram figcaption{font-size:12px}}
 </style>
-
-</head>
-<body class="inner-page">
-<header class="site-header"><div class="shell">
-<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
-<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav>
-</div></header>
-<main class="shell">
-<nav class="breadcrumb" aria-label="Breadcrumb">
-<a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span>
-<a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
-<a href="../compressible-flow.html">Compressible Flow</a><span class="separator">›</span><strong>Mach Number and Flow Regimes</strong></nav>
-<div class="hero"><div class="hero-text">
-<div class="eyebrow">COMPRESSIBLE FLOW / 1.3</div><h1>Mach Number and Flow Regimes</h1>
-<p class="hero-subtitle">Fundamentals of Compressible Flow</p><p class="hero-description">Mach number and classification of compressible-flow regimes.</p>
-</div></div>
-<article class="article-content"><div class="article-meta">01 / Fundamentals of Compressible Flow · Study Notes 1.3</div><h2>Study Notes</h2><p>Detailed notes for this topic will be added here.</p><span class="placeholder-hint">Contents in preparation</span></article>
-<div class="article-pager"><a class="prev" href="speed-of-sound.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Speed of Sound</span></a><a class="next" href="stagnation-properties.html"><span class="direction">NEXT →</span><span class="adjacent">Stagnation Properties</span></a></div>
-<a class="back-bottom" href="../compressible-flow.html">← Back to Compressible Flow</a>
-</main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>High-Speed Gas Dynamics</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head><body class="inner-page">
+<header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav></div></header>
+<main class="shell tl-page"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../compressible-flow.html">Compressible Flow</a><span class="separator">›</span><strong>Mach Number and Flow Regimes</strong></nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">COMPRESSIBLE FLOW / 1.3</div><h1>Mach Number and Flow Regimes</h1><p class="hero-subtitle">Fundamentals of Compressible Flow</p><p class="hero-description">Mach number and classification of compressible-flow regimes.</p></div></div>
+<article class="article-content"><div class="lesson-meta"><span>01 / Fundamentals of Compressible Flow</span><span>Study Notes · 1.3</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#mach-number-and-information-propagation">01 · Mach Number and Information Propagation</a></li></ul></nav><section class="lesson-section" id="mach-number-and-information-propagation"><h2><span class="section-tag">01</span>Mach Number and Information Propagation</h2><ul class="study-points"><li><span class="point-text">Pressure Disturbance는 기체에 대해 모든 방향으로 Speed of Sound \(a\)로 전파됨. 이를 \(x\)축의 좌우 방향으로 단순화하면, 정지한 기체에서는 오른쪽과 왼쪽으로 각각 \(+a\), \(-a\)의 속도로 전파됨.</span></li><li><span class="point-text">흐르는 기체에서는 유속 \(V\) 에 따라 Pressure Disturbance 가 이동하는 방향과 속도가 달라짐</span><div class="equation" role="group" aria-label="Mathematical equation">\[V_{\mathrm{disturbance}}=V\pm a\]</div><ul class="nested-points"><li><span class="point-text"><strong>오른쪽 방향:</strong> \(V_{\mathrm{disturbance}}=V+a\)</span></li><li><span class="point-text"><strong>왼쪽 방향:</strong> \(V_{\mathrm{disturbance}}=V-a\)</span></li></ul></li><li><span class="point-text">특히 왼쪽으로 전파되는 Pressure Disturbance의 실제 진행 방향은 \(V-a\)의 부호에 따라 결정</span><ul class="nested-points"><li><span class="point-text">\(V-a<0\)}: \(-x\) 방향이므로 Pressure Disturbance가 좌측으로 이동, 즉 Disturbance가 상류로 전파됨</span></li><li><span class="point-text">\(V-a>0\)}: \(+x\) 방향이므로 상류 방향으로 전파되는 Pressure Disturbance도 실제로는 유동 방향으로 이동, 즉 Disturbance가 상류로 전파되지 못함</span></li></ul></li><li><span class="point-text">따라서 음속 \(a\)만으로는 Pressure Disturbance의 전파 방향을 판단할 수 없으며, <strong>유속과 음속의 상대적인 크기</strong>를 비교할 필요가 있음. 이를 위해 <strong>Mach Number</strong>를 다음과 같이 정의</span><div class="equation key" role="group" aria-label="Mathematical equation">\[M=\frac{V}{a}=\frac{V}{\sqrt{\gamma RT}}.\]</div></li><li><span class="point-text">Mach Number는 \(M=1\)을 기준으로 유동을 분류하며, 높은 Supersonic 영역에서는 Hypersonic Flow를 추가로 구분</span><ul class="nested-points"><li><span class="point-text"><strong>Subsonic Flow (\(M<1\)):</strong> 유속이 음속보다 작으므로 Pressure Disturbance가 상류와 하류 양방향으로 전파될 수 있음.</span></li><li><span class="point-text"><strong>Sonic Flow (\(M=1\)):</strong> 유속과 음속이 같아 상류 방향으로 전파되는 Pressure Disturbance가 정지 좌표계에서 정지함.</span></li><li><span class="point-text"><strong>Supersonic Flow (\(M>1\)):</strong> 유속이 음속보다 크므로 Pressure Disturbance가 상류로 전파되지 못하고 하류 방향으로만 전달됨.</span></li><li><span class="point-text"><strong>Hypersonic Flow (\(M\gtrsim5\)):</strong> 매우 높은 Mach Number의 유동으로, 강한 압축에 따른 온도 상승과 Shock Wave, 고온 기체 효과 등이 중요해짐.</span></li></ul></li></ul></section></article>
+<div class="article-pager"><a class="prev" href="speed-of-sound.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Speed of Sound</span></a><a class="next" href="stagnation-properties.html"><span class="direction">NEXT →</span><span class="adjacent">Stagnation Properties</span></a></div><a class="back-bottom" href="../compressible-flow.html">← Back to Compressible Flow</a></main>
+<footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Compressible Flow</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>

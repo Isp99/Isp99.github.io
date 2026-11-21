@@ -1,93 +1,99 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Propagation of small disturbances and the local acoustic speed.">
-<title>Speed of Sound | Engineering Notebook</title>
-<link rel="stylesheet" href="../../../assets/site.css">
-<style>
-  /* Match typography shared with study/aerodynamics.html.
-     Chapter and article layouts remain controlled by site.css. */
-  body.inner-page .hero-text .hero-description {
-    margin-top: 14px;
-    font-size: 16px;
-    line-height: 1.65;
-  }
-  body.inner-page .contents-header h2 {
-    font-size: 24px;
-  }
-  body.inner-page .contents-header .count {
-    font-size: 14px;
-  }
-  body.inner-page .back-bottom {
-    font-size: 16px;
-  }
-  /* Chapter > article hierarchy: align with the approved preview. */
-  body.inner-page .chapter-heading h2 {
-    font-size: 26px;
-    line-height: 1.3;
-  }
-  body.inner-page .chapter-heading .chapter-mark {
-    font-size: 16px;
-  }
-  body.inner-page .chapter-heading .chapter-counter {
-    font-size: 14px;
-  }
-  body.inner-page .topic-card .topic-title {
-    font-size: 19px;
-    line-height: 1.35;
-  }
-  body.inner-page .topic-card .topic-description {
-    font-size: 13px;
-  }
-  body.inner-page .topic-card .topic-number {
-    font-size: 16px;
-  }
-  /* Make article cards slightly more compact without changing the layout. */
-  body.inner-page .topic-head {
-    padding-top: 18px;
-    padding-bottom: 18px;
-    min-height: 92px;
-  }
-  /* Breadcrumb typography shared by Aerodynamics and Fundamentals. */
-  body.inner-page .breadcrumb {
-    font-size: 16px;
-  }
-  @media (max-width: 600px) {
-    body.inner-page .breadcrumb { font-size: 14px; }
-    body.inner-page .hero-text .hero-description { font-size: 15px; }
-    body.inner-page .contents-header h2 { font-size: 22px; }
-    body.inner-page .contents-header .count { font-size: 13px; }
-    body.inner-page .back-bottom { font-size: 15px; }
-    body.inner-page .chapter-heading h2 { font-size: 22px; }
-    body.inner-page .chapter-heading .chapter-mark { font-size: 14px; }
-    body.inner-page .chapter-heading .chapter-counter { font-size: 12px; }
-    body.inner-page .topic-card .topic-title { font-size: 17px; }
-    body.inner-page .topic-card .topic-description { font-size: 12px; }
-    body.inner-page .topic-card .topic-number { font-size: 15px; }
-    body.inner-page .topic-head { padding-top: 16px; padding-bottom: 16px; min-height: 84px; }
-  }
-body.inner-page .topic-planned{flex:none;color:#879bb5;font-size:11px;letter-spacing:.015em;border:1px solid #dce7f5;border-radius:8px;padding:5px 8px;background:#f7faff}
-@media(max-width:600px){body.inner-page .topic-planned{font-size:10px;padding:4px 6px}}
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Propagation of small disturbances and the local acoustic speed."><title>Speed of Sound | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css"><style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+.tl-page .velocity-diagram{margin:42px 0 35px}
+.tl-page .velocity-diagram .diagram-scroll{overflow-x:auto;overflow-y:hidden;max-width:100%;scrollbar-width:thin}
+.tl-page .velocity-diagram svg{display:block;width:100%;height:auto;min-width:730px}
+.tl-page .velocity-diagram figcaption{text-align:center;color:#667f9b;font-size:13px;line-height:1.6;margin:12px 0 0}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+ .tl-page .velocity-diagram figcaption{font-size:12px}
+}
+.tl-page .note-box{border:1px solid #dce6f4;background:#f6f9fe;border-radius:12px;padding:22px 22px 16px;margin:28px 0 34px;color:#385779}
+.tl-page .note-box h3{color:#285698;font-size:16px;font-weight:800;margin:0 0 18px}
+.tl-page .table-scroll,.tl-page .wave-diagram .diagram-scroll{overflow-x:auto;max-width:100%;scrollbar-width:thin}
+.tl-page .data-table{width:100%;border-collapse:collapse;background:white;font-size:13px;line-height:1.65;min-width:440px}
+.tl-page .wide-table{min-width:660px}
+.tl-page .data-table th,.tl-page .data-table td{border:1px solid #dce6f4;padding:12px 10px;vertical-align:middle;text-align:center}
+.tl-page .data-table thead th{background:#eaf1fb;color:#2c568c;font-weight:750}
+.tl-page .data-table tbody th{background:#f4f8fe;color:#3b5a80;min-width:105px}
+.tl-page .wave-diagram{margin:30px 0 38px}
+.tl-page .wave-diagram svg{display:block;width:100%;height:auto;min-width:570px}
+.tl-page .wave-diagram figcaption{text-align:center;color:#6e83a1;font-size:13px;margin:12px 0 0}
+@media(max-width:740px){.tl-page .note-box{padding:16px 12px}.tl-page .note-box h3{font-size:14px}.tl-page .wave-diagram figcaption{font-size:12px}}
 </style>
-
-</head>
-<body class="inner-page">
-<header class="site-header"><div class="shell">
-<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
-<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav>
-</div></header>
-<main class="shell">
-<nav class="breadcrumb" aria-label="Breadcrumb">
-<a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span>
-<a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
-<a href="../compressible-flow.html">Compressible Flow</a><span class="separator">›</span><strong>Speed of Sound</strong></nav>
-<div class="hero"><div class="hero-text">
-<div class="eyebrow">COMPRESSIBLE FLOW / 1.2</div><h1>Speed of Sound</h1>
-<p class="hero-subtitle">Fundamentals of Compressible Flow</p><p class="hero-description">Propagation of small disturbances and the local acoustic speed.</p>
-</div></div>
-<article class="article-content"><div class="article-meta">01 / Fundamentals of Compressible Flow · Study Notes 1.2</div><h2>Study Notes</h2><p>Detailed notes for this topic will be added here.</p><span class="placeholder-hint">Contents in preparation</span></article>
-<div class="article-pager"><a class="prev" href="compressible-flow-and-thermodynamic-relations.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Compressible Flow and Thermodynamic Relations</span></a><a class="next" href="mach-number-and-flow-regimes.html"><span class="direction">NEXT →</span><span class="adjacent">Mach Number and Flow Regimes</span></a></div>
-<a class="back-bottom" href="../compressible-flow.html">← Back to Compressible Flow</a>
-</main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>High-Speed Gas Dynamics</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head><body class="inner-page">
+<header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav></div></header>
+<main class="shell tl-page"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../compressible-flow.html">Compressible Flow</a><span class="separator">›</span><strong>Speed of Sound</strong></nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">COMPRESSIBLE FLOW / 1.2</div><h1>Speed of Sound</h1><p class="hero-subtitle">Fundamentals of Compressible Flow</p><p class="hero-description">Propagation of small disturbances and the local acoustic speed.</p></div></div>
+<article class="article-content"><div class="lesson-meta"><span>01 / Fundamentals of Compressible Flow</span><span>Study Notes · 1.2</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#propagation-of-a-small-pressure-disturbance">01 · Propagation of a Small Pressure Disturbance</a></li><li><a href="#sound-speed-in-a-perfect-gas">02 · Sound Speed in a Perfect Gas</a></li></ul></nav><section class="lesson-section" id="propagation-of-a-small-pressure-disturbance"><h2><span class="section-tag">01</span>Propagation of a Small Pressure Disturbance</h2><ul class="study-points"><li><span class="point-text">기체의 한 지점에서 압력이 변하면 <strong>분자 간 충돌을 통해 인접한 영역으로 운동량이 전달</strong>됨. 따라서 압력 변화는 <strong>주변으로 즉시 전달되지 않고 유한한 속도로 전파</strong></span></li><li><span class="point-text">이러한 Pressure Disturbance의 전파되는 현상을 <strong>Pressure Wave</strong>라 하며, <strong>Infinitesimal Pressure Disturbance가 유체에 대해 전파되는 속도</strong>를 <strong>Speed of Sound</strong>라 함.</span></li><li><span class="point-text"><strong>정지한 기체 속에서 왼쪽으로 속력 \(a\)로 진행하는 Infinitesimal Pressure Wave</strong>를 고려</span><ul class="nested-points"><li><span class="point-text">단 쉬운 이해를 위해 wave와 함께 움직이는 좌표계로 생각하면 wave가 정지하고 기체가 오른쪽으로 흐르게 됨.</span></li></ul><figure class="wave-diagram"><div class="diagram-scroll"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 270" role="img" aria-label="Wave-fixed coordinate schematic of an infinitesimal pressure wave">
+<defs><marker id="wave-arrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#3869b5"/></marker></defs>
+<rect width="780" height="270" rx="14" fill="#f8fbff"/><path d="M390 35V204" stroke="#2c588f" stroke-width="4"/><text x="390" y="26" text-anchor="middle" font-size="19" font-weight="700" fill="#274b76">Wave</text>
+<path d="M55 107H353M428 107H723" stroke="#4e89d3" stroke-width="3" fill="none" marker-end="url(#wave-arrow)"/>
+<text x="207" y="87" font-size="22" text-anchor="middle" fill="#1e426b">a</text><text x="575" y="87" font-size="22" text-anchor="middle" fill="#1e426b">a − dV</text>
+<text x="208" y="151" text-anchor="middle" font-size="18" font-weight="700" fill="#42628e">Upstream</text><text x="208" y="178" text-anchor="middle" font-size="17" fill="#56779c">ρ, p, a</text>
+<text x="573" y="151" text-anchor="middle" font-size="18" font-weight="700" fill="#42628e">Downstream</text><text x="573" y="178" text-anchor="middle" font-size="17" fill="#56779c">ρ + dρ, p + dp, a − dV</text>
+<path d="M49 230H728" stroke="#b5c8e6" stroke-width="1.6" marker-end="url(#wave-arrow)"/><text x="740" y="236" font-size="18" fill="#476c99">x</text>
+</svg></div><figcaption>Wave-fixed frame schematic for an infinitesimal compressive Wave.</figcaption></figure></li><li><span class="point-text">Pressure wave <strong>기체를 압축</strong>해 <strong>압력과 밀도가 증가</strong>하고 이 결과로 <strong>동일한 질량유량을 유지하기 위해 속력이 감소</strong>해야 되므로</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+\text{upstream:}&\quad \rho,\ p,\ a,\\
+\text{downstream:}&\quad \rho+\mathrm{d}\rho,\ p+\mathrm{d} p,\ a-\mathrm{d} V.
+\end{aligned}\]</div></li><li><span class="point-text">따라서 질량보존식에 의해</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\rho a&=(\rho+\mathrm{d}\rho)(a-\mathrm{d} V),\\[2.0em]
+&=\rho a+a\mathrm{d}\rho-\rho\mathrm{d} V-\mathrm{d}\rho\,\mathrm{d} V,  \\[3.0em]
+a\mathrm{d}\rho&=\rho\mathrm{d} V \qquad \left(\  \because\  \mathrm{d}\rho\,\mathrm{d} V\approx0  \right)\end{aligned}\]</div></li><li><span class="point-text">같은 검사체적에 운동량보존을 적용하면, \(pA-(p+dp)A\)} 로부터 공통 질량유량 \(j=\rho a\)를 사용하면 압력 \(p\) 와 Momentum Flux \(\rho V^2\) 의 합이 일정하므로</span></li><li><span class="point-text">같은 검사체적에 운동량보존을 적용하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[p+\rho V^2=\mathrm{const.}\]</div></li><li><span class="point-text">이를 Upstream과 Downstream에 적용하고, 앞서 유도한 질량보존식 \(\rho a=(\rho+\mathrm{d}\rho)(a-\mathrm{d} V)\)를 대입하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}p+\rho a^2
+&=(p+\mathrm{d} p)+(\rho+\mathrm{d}\rho)(a-\mathrm{d} V)^2,\\[2.0ex]
+&=(p+\mathrm{d} p)+\rho a(a-\mathrm{d} V),\\[2.0ex]
+&=p+\mathrm{d} p+\rho a^2-\rho a\mathrm{d} V,\\[2.0ex]
+\mathrm{d} p
+&=\rho a\mathrm{d} V,\\[2.0ex]
+&=a^2\mathrm{d}\rho.\end{aligned}\]</div></li><li><span class="point-text">따라서 Speed of sound는</span><div class="equation key" role="group" aria-label="Mathematical equation">\[a^2=\frac{\partial p}{\partial\rho}\]</div></li><li><span class="point-text">음속은 <strong>밀도 변화에 대해 압력이 얼마나 크게 반응</strong>하는지를 나타냄</span></li></ul></section>
+<section class="lesson-section" id="sound-speed-in-a-perfect-gas"><h2><span class="section-tag">02</span>Sound Speed in a Perfect Gas</h2><ul class="study-points"><li><span class="point-text">음속 \(a^2=\partial p/\partial\rho\)는 <strong>기체의 물질 특성에 따라 달라짐</strong>. 따라서 실제 유동에서 음속을 계산하려면 <strong>압력 변화에 대한 기체의 압축 저항</strong>을 상태방정식과 연결해야 함.</span></li><li><span class="point-text">일정한 \(\gamma\)를 갖는 Calorically Perfect Gas의 Isentropic 관계 \(p=C\rho^\gamma\)를 밀도로 미분한뒤 앞서 유도한 음속의 정의에 대입하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\left(\frac{\partial p}{\partial\rho}\right)_s
+&=\gamma C\rho^{\gamma-1},\\[2.0em]
+&=\gamma\frac{p}{\rho},\\[3.0em]
+a^2&=\gamma\frac{p}{\rho}=\gamma RT.\end{aligned}\]</div></li><li><span class="point-text">따라서 Perfect gas의 <strong>Speed of Sound</strong>는</span><div class="equation key" role="group" aria-label="Mathematical equation">\[a=\sqrt{\gamma RT}.\]</div></li><li><span class="point-text">Calorically Perfect Gas에서 <strong>Speed of Sound는 온도만의 함수</strong>이며, <strong>온도가 증가할수록 Pressure Disturbance가 더 빠르게 전파</strong>됨.</span></li><li><span class="point-text">일반적으로 공기의 음속은 \(T=300\ \mathrm K\) \(R=287\ \mathrm{J/(kg\,K)}\), \(\gamma=1.4\) 이므로</span><div class="equation" role="group" aria-label="Mathematical equation">\[a=\sqrt{1.4(287)(300)}=347.19\ \mathrm{m/s}.\]</div></li></ul></section></article>
+<div class="article-pager"><a class="prev" href="compressible-flow-and-thermodynamic-relations.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Compressible Flow and Thermodynamic Relations</span></a><a class="next" href="mach-number-and-flow-regimes.html"><span class="direction">NEXT →</span><span class="adjacent">Mach Number and Flow Regimes</span></a></div><a class="back-bottom" href="../compressible-flow.html">← Back to Compressible Flow</a></main>
+<footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Compressible Flow</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>

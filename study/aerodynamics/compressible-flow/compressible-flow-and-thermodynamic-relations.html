@@ -1,93 +1,112 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Density variations, state relations, and thermodynamic properties of gases.">
-<title>Compressible Flow and Thermodynamic Relations | Engineering Notebook</title>
-<link rel="stylesheet" href="../../../assets/site.css">
-<style>
-  /* Match typography shared with study/aerodynamics.html.
-     Chapter and article layouts remain controlled by site.css. */
-  body.inner-page .hero-text .hero-description {
-    margin-top: 14px;
-    font-size: 16px;
-    line-height: 1.65;
-  }
-  body.inner-page .contents-header h2 {
-    font-size: 24px;
-  }
-  body.inner-page .contents-header .count {
-    font-size: 14px;
-  }
-  body.inner-page .back-bottom {
-    font-size: 16px;
-  }
-  /* Chapter > article hierarchy: align with the approved preview. */
-  body.inner-page .chapter-heading h2 {
-    font-size: 26px;
-    line-height: 1.3;
-  }
-  body.inner-page .chapter-heading .chapter-mark {
-    font-size: 16px;
-  }
-  body.inner-page .chapter-heading .chapter-counter {
-    font-size: 14px;
-  }
-  body.inner-page .topic-card .topic-title {
-    font-size: 19px;
-    line-height: 1.35;
-  }
-  body.inner-page .topic-card .topic-description {
-    font-size: 13px;
-  }
-  body.inner-page .topic-card .topic-number {
-    font-size: 16px;
-  }
-  /* Make article cards slightly more compact without changing the layout. */
-  body.inner-page .topic-head {
-    padding-top: 18px;
-    padding-bottom: 18px;
-    min-height: 92px;
-  }
-  /* Breadcrumb typography shared by Aerodynamics and Fundamentals. */
-  body.inner-page .breadcrumb {
-    font-size: 16px;
-  }
-  @media (max-width: 600px) {
-    body.inner-page .breadcrumb { font-size: 14px; }
-    body.inner-page .hero-text .hero-description { font-size: 15px; }
-    body.inner-page .contents-header h2 { font-size: 22px; }
-    body.inner-page .contents-header .count { font-size: 13px; }
-    body.inner-page .back-bottom { font-size: 15px; }
-    body.inner-page .chapter-heading h2 { font-size: 22px; }
-    body.inner-page .chapter-heading .chapter-mark { font-size: 14px; }
-    body.inner-page .chapter-heading .chapter-counter { font-size: 12px; }
-    body.inner-page .topic-card .topic-title { font-size: 17px; }
-    body.inner-page .topic-card .topic-description { font-size: 12px; }
-    body.inner-page .topic-card .topic-number { font-size: 15px; }
-    body.inner-page .topic-head { padding-top: 16px; padding-bottom: 16px; min-height: 84px; }
-  }
-body.inner-page .topic-planned{flex:none;color:#879bb5;font-size:11px;letter-spacing:.015em;border:1px solid #dce7f5;border-radius:8px;padding:5px 8px;background:#f7faff}
-@media(max-width:600px){body.inner-page .topic-planned{font-size:10px;padding:4px 6px}}
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Density variations, state relations, and thermodynamic properties of gases."><title>Compressible Flow and Thermodynamic Relations | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css"><style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+.tl-page .velocity-diagram{margin:42px 0 35px}
+.tl-page .velocity-diagram .diagram-scroll{overflow-x:auto;overflow-y:hidden;max-width:100%;scrollbar-width:thin}
+.tl-page .velocity-diagram svg{display:block;width:100%;height:auto;min-width:730px}
+.tl-page .velocity-diagram figcaption{text-align:center;color:#667f9b;font-size:13px;line-height:1.6;margin:12px 0 0}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+ .tl-page .velocity-diagram figcaption{font-size:12px}
+}
+.tl-page .note-box{border:1px solid #dce6f4;background:#f6f9fe;border-radius:12px;padding:22px 22px 16px;margin:28px 0 34px;color:#385779}
+.tl-page .note-box h3{color:#285698;font-size:16px;font-weight:800;margin:0 0 18px}
+.tl-page .table-scroll,.tl-page .wave-diagram .diagram-scroll{overflow-x:auto;max-width:100%;scrollbar-width:thin}
+.tl-page .data-table{width:100%;border-collapse:collapse;background:white;font-size:13px;line-height:1.65;min-width:440px}
+.tl-page .wide-table{min-width:660px}
+.tl-page .data-table th,.tl-page .data-table td{border:1px solid #dce6f4;padding:12px 10px;vertical-align:middle;text-align:center}
+.tl-page .data-table thead th{background:#eaf1fb;color:#2c568c;font-weight:750}
+.tl-page .data-table tbody th{background:#f4f8fe;color:#3b5a80;min-width:105px}
+.tl-page .wave-diagram{margin:30px 0 38px}
+.tl-page .wave-diagram svg{display:block;width:100%;height:auto;min-width:570px}
+.tl-page .wave-diagram figcaption{text-align:center;color:#6e83a1;font-size:13px;margin:12px 0 0}
+@media(max-width:740px){.tl-page .note-box{padding:16px 12px}.tl-page .note-box h3{font-size:14px}.tl-page .wave-diagram figcaption{font-size:12px}}
 </style>
-
-</head>
-<body class="inner-page">
-<header class="site-header"><div class="shell">
-<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
-<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav>
-</div></header>
-<main class="shell">
-<nav class="breadcrumb" aria-label="Breadcrumb">
-<a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span>
-<a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
-<a href="../compressible-flow.html">Compressible Flow</a><span class="separator">›</span><strong>Compressible Flow and Thermodynamic Relations</strong></nav>
-<div class="hero"><div class="hero-text">
-<div class="eyebrow">COMPRESSIBLE FLOW / 1.1</div><h1>Compressible Flow and Thermodynamic Relations</h1>
-<p class="hero-subtitle">Fundamentals of Compressible Flow</p><p class="hero-description">Density variations, state relations, and thermodynamic properties of gases.</p>
-</div></div>
-<article class="article-content"><div class="article-meta">01 / Fundamentals of Compressible Flow · Study Notes 1.1</div><h2>Study Notes</h2><p>Detailed notes for this topic will be added here.</p><span class="placeholder-hint">Contents in preparation</span></article>
-<div class="article-pager"><a class="next" href="speed-of-sound.html"><span class="direction">NEXT →</span><span class="adjacent">Speed of Sound</span></a></div>
-<a class="back-bottom" href="../compressible-flow.html">← Back to Compressible Flow</a>
-</main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>High-Speed Gas Dynamics</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head><body class="inner-page">
+<header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav></div></header>
+<main class="shell tl-page"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../compressible-flow.html">Compressible Flow</a><span class="separator">›</span><strong>Compressible Flow and Thermodynamic Relations</strong></nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">COMPRESSIBLE FLOW / 1.1</div><h1>Compressible Flow and Thermodynamic Relations</h1><p class="hero-subtitle">Fundamentals of Compressible Flow</p><p class="hero-description">Density variations, state relations, and thermodynamic properties of gases.</p></div></div>
+<article class="article-content"><div class="lesson-meta"><span>01 / Fundamentals of Compressible Flow</span><span>Study Notes · 1.1</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#compressible-flow-and-compressibility">01 · Compressible Flow and Compressibility</a></li><li><a href="#equation-of-state">02 · Equation of State</a></li><li><a href="#internal-energy-and-specific-heats">03 · Internal Energy and Specific Heats</a></li><li><a href="#entropy-change">04 · Entropy Change</a></li><li><a href="#isentropic-thermodynamic-relations">05 · Isentropic Thermodynamic Relations</a></li></ul></nav><section class="lesson-section" id="compressible-flow-and-compressibility"><h2><span class="section-tag">01</span>Compressible Flow and Compressibility</h2><ul class="study-points"><li><span class="point-text"><strong>Compressible Flow</strong>는 Incompressible Flow와 다르게 유동 과정에서 압력 및 온도 변화에 따른 <strong>Density 변화가 유동 특성에 유의미한 영향</strong>을 미치는 유동</span></li><li><span class="point-text"><strong>Compressibility</strong>는 <strong>압력 변화에 대해 유체의 체적 또는 밀도가 상대적으로 얼마나 변하는지</strong>를 나타내는 물성으로 온도를 일정하게 유지한 상태에서의 압축률을 <strong>Isothermal Compressibility</strong> \(\beta_T\)로 정의</span></li><li><span class="point-text">질량 \(m\)이 일정한 유체에 압력 변화 \(\Delta p\)를 가하면 체적 \(\mathcal V\)가 \(\Delta\mathcal V\)만큼 변함. 이때 상대적인 체적 변화율을 압력 변화로 나누면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\beta_T\approx
+-\frac{\Delta\mathcal V/\mathcal V}{\Delta p}.\]</div></li><li><span class="point-text">일반적으로 압력이 증가하면 체적이 감소하므로 \(\Delta\mathcal V<0\)임. 따라서 압축률을 양수로 표현하기 위해 음의 부호를 사용함. 압력 변화를 무한히 작게 하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\beta_T=-\frac{1}{\mathcal V}
+\left(\frac{\partial\mathcal V}{\partial p}\right)_T.\]</div></li><li><span class="point-text">이를 Density로 표현하기 위해 질량이 일정한 조건에서 \(\rho=m/\mathcal V\)를 미분하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\rho&=\frac{m}{\mathcal V},\\[2.0em]
+\mathrm d\rho
+&=-\frac{m}{\mathcal V^2}\mathrm d\mathcal V,\\[2.0em]
+&=-\frac{\rho}{\mathcal V}\mathrm d\mathcal V.\end{aligned}\]</div></li><li><span class="point-text">양변을 \(\rho\)로 나누어 정리하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[-\frac{1}{\mathcal V}\mathrm d\mathcal V
+=\frac{1}{\rho}\mathrm d\rho.\]</div></li><li><span class="point-text">따라서 <strong>Isothermal Compressibility</strong>는 체적 또는 Density를 이용하여 다음과 같이 표현할 수 있음.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\beta_T
+=-\frac{1}{\mathcal V}
+\left(\frac{\partial\mathcal V}{\partial p}\right)_T
+=\frac{1}{\rho}
+\left(\frac{\partial\rho}{\partial p}\right)_T.\]</div></li><li><span class="point-text">일반적으로 기체는 액체보다 압축률이 크며, 압축률의 단위는 \(\mathrm{Pa}^{-1}\)</span></li><li><span class="point-text">실제 유동의 압축성 여부는 압축률 자체의 크기보다 <strong>유동 과정에서 발생하는 Density 변화의 상대적인 크기</strong>를 기준으로 판단함.</span></li><li><span class="point-text">일반적인 기체 유동에서는 \(M\lesssim0.3\)일 때 Density 변화가 작아 <strong>Incompressible Approximation</strong>을 적용할 수 있음. 다만 온도 변화가 큰 유동에서는 낮은 Mach Number에서도 Density 변화를 고려해야 함.</span></li></ul></section>
+<section class="lesson-section" id="equation-of-state"><h2><span class="section-tag">02</span>Equation of State</h2><ul class="study-points"><li><span class="point-text">Compressible flow에선 기체가 <strong>압축 및 팽창하면서 밀도와 온도도 변하므로, 질량·운동량·에너지 보존식만으로는 상태를 결정하기 어려움</strong>.</span></li><li><span class="point-text">그러므로 <strong>압력, 밀도, 온도를 연결</strong>하는 관계가 필요 인 <strong>Equation of State</strong> 해석이 필요</span></li><li><span class="point-text">분자 사이의 상호작용을 무시하는 <strong>Perfect Gas</strong>는 압력 \(p\), 체적 \(\mathcal V\), 질량 \(m\), 절대온도 \(T\) 사이에 \(p\mathcal V=mRT\)를 만족함. 단위체적당 질량인 Density와 그 역수인 Specific Volume을 정의하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\rho=\frac{m}{\mathcal V},\qquad v=\frac{\mathcal V}{m}=\frac{1}{\rho}.\]</div></li><li><span class="point-text">위 정의를 상태방정식에 대입하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}p&=\frac{mRT}{\mathcal V},\\[2.0em]
+&=\rho RT.\end{aligned}\]</div></li><li><span class="point-text">따라서 유동 해석에 사용하는 Perfect gas의 <strong>Equation of State</strong>는</span><div class="equation key" role="group" aria-label="Mathematical equation">\[p=\rho RT,\qquad pv=RT.\]</div></li><li><span class="point-text">\(R\)은 단위질량 기준의 <strong>Specific Gas Constant</strong>이고 분자량을 \(\mathcal M\), Universal Gas Constant를 \(\mathcal R\)라 하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[R=\frac{\mathcal R}{\mathcal M},\qquad [R]=\mathrm{J/(kg\,K)}.\]</div><aside class="note-box"><h3>Specific Gas Constant vs. Universal Gas Constant</h3><div class="table-scroll"><table class="data-table"><thead><tr><th>구분</th><th>Specific Gas Constant</th><th>Universal Gas Constant</th></tr></thead><tbody>
+<tr><th>기호</th><td>\(R\) 또는 \(R_s\)</td><td>\(\mathcal R\) 또는 \(R_u\)</td></tr><tr><th>기준</th><td>\(1\ \mathrm{kg}\)</td><td>\(1\ \mathrm{mol}\)</td></tr><tr><th>SI 단위</th><td>\(\mathrm{J/(kg\,K)}\)</td><td>\(\mathrm{J/(mol\,K)}\)</td></tr><tr><th>값</th><td>기체별로 다름</td><td>\(8.314462618\)</td></tr></tbody></table></div></aside></li></ul></section>
+<section class="lesson-section" id="internal-energy-and-specific-heats"><h2><span class="section-tag">03</span>Internal Energy and Specific Heats</h2><ul class="study-points"><li><span class="point-text"><strong>Internal Energy</strong> \(e\)는 유체를 구성하는 <strong>분자들의 미시적인 운동과 분자 사이 상호작용</strong>에 의해 저장된 에너지로 다음과 같은 에너지가 포함됨</span><ul class="nested-points"><li><span class="point-text"><strong>Translational Energy</strong>: 분자들이 불규칙하게 이동하면서 갖는 운동에너지</span></li><li><span class="point-text"><strong>Rotational Energy</strong>: 분자들이 회전하면서 갖는 운동에너지</span></li><li><span class="point-text"><strong>Vibrational Energy</strong>: 분자 내부 원자들이 진동하면서 갖는 에너지</span></li><li><span class="point-text"><strong>Intermolecular Potential Energy</strong>: 분자 사이의 인력과 반발력 등에 의한 에너지</span><div class="equation" role="group" aria-label="Mathematical equation">\[e = e_{tr}+  e_{rot}+  e_{vib}+  e_{Inter}\]</div></li></ul></li><li><span class="point-text">일반적인 저속 기체 유동에선 Internal energy 가 Kinetic Energy \(e_k=V^2/2\) 보다 휠신 크지만, super/hypersonic에선 에너지의 크기가 비슷해지거나 Kinetic Energy가 더 커질 수 있음</span></li><li><span class="point-text">이 Internal energy에 pressure work \(pv\)를 더해 <strong>Enthalpy</strong> \(h\)를 정의</span><div class="equation" role="group" aria-label="Mathematical equation">\[h=e+pv=e+\frac{p}{\rho}.\]</div></li><li><span class="point-text">Enthapy 는 유체가 흐르면서 운반하는 <strong>에너지 중, 거시적인 운동에너지를 제외한 열역학적 에너지</strong> 를 의미</span></li><li><span class="point-text">또한 후술하겠지만, compressible flow에서 <strong>가속·감속에 따른 운동에너지와 열역학적 에너지 사이의 전환</strong>을 설명하는 물리량</span></li><li><span class="point-text"><strong>유체의 온도를 단위 온도(\(1\,\mathrm{K}\))만큼 변화시키는 데 필요한 (단위질량당) 에너지</strong>의 크기를 <strong>Specific Heat</strong> 로 정의</span></li><li><span class="point-text"><strong>Constant-Volume Specific Heat</strong> \(c_v\)는 체적이 일정할 때 Internal Energy의 온도에 대한 변화율이며, <strong>Constant-Pressure Specific Heat</strong> \(c_p\)는 압력이 일정할 때 Enthalpy의 온도에 대한 변화율로 다음과 같음</span><div class="equation key" role="group" aria-label="Mathematical equation">\[c_v=\left(\frac{\partial e}{\partial T}\right)_v,
+\qquad
+c_p=\left(\frac{\partial h}{\partial T}\right)_p.\]</div></li><li><span class="point-text">위 식은 Perfect Gas, Ideal Gas에 대해 전부 적용가능하지만, Hypersonic flow에서 dissociation 등이 존재하는 Variable-Composition Mixture 에선 유효하지 않음</span></li><li><span class="point-text">엔탈피 \(h=e+pv\)와 상태방정식 \(pv=RT\)를 결합한 후 미분한뒤 calorically Perfect Gas에서 \(\mathrm{d} h=c_p\mathrm{d} T\), \(\mathrm{d} e=c_v\mathrm{d} T\) 이므로</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}h&=e+RT\quad\Longrightarrow\quad \mathrm{d} h=\mathrm{d} e+R\mathrm{d} T,\\[2.0em]
+c_p\mathrm{d} T&=c_v\mathrm{d} T+R\mathrm{d} T\quad\Longrightarrow\quad c_p-c_v=R.\end{aligned}\]</div></li><li><span class="point-text"><strong>Specific Heat Ratio</strong>을 \(\gamma=c_p/c_v\) 으로 정의하면</span><div class="equation key" role="group" aria-label="Mathematical equation">\[c_v=\frac{R}{\gamma-1},\qquad c_p=\frac{\gamma R}{\gamma-1},\qquad \gamma=\frac{c_p}{c_v}.\]</div></li><li><span class="point-text">이후 에도 \(c_p,c_v\)가 일정한 <strong>Calorically Perfect Gas</strong>를 기본 모델로 사용</span></li><li><span class="point-text">필요에 따라 다른 Gas model이 사용될 수 있음</span><aside class="note-box"><h3>Comparison of Gas Models</h3><div class="table-scroll"><table class="data-table wide-table"><thead><tr><th>Gas Model</th><th>Equation of State</th><th>Specific Heat</th><th>Internal Energy / Enthalpy</th><th>Specific Heat Difference</th></tr></thead><tbody>
+<tr><th>Calorically Perfect Gas</th><td>\(p=\rho RT\)</td><td>\(c_p,c_v=\mathrm{const.}\)</td><td>\(e=c_vT\)<div>\(h=c_pT\)</div></td><td>\(c_p-c_v=R\)</td></tr>
+<tr><th>Thermally Perfect Gas (Ideal Gas)</th><td>\(p=\rho RT\)</td><td>\(c_p(T)\)<div>\(c_v(T)\)</div></td><td>\(e(T)\)<div>\(h(T)\)</div></td><td>\(c_p-c_v=R\)</td></tr>
+<tr><th>Real Gas</th><td>\(p=p(\rho,T)\)</td><td>\(c_p(T,p)\)<div>\(c_v(T,\rho)\)</div></td><td>\(e(T,\rho)\)<div>\(h(T,p)\)</div></td><td>Generally,<div>\(c_p-c_v\neq R\)</div></td></tr></tbody></table></div></aside></li></ul></section>
+<section class="lesson-section" id="entropy-change"><h2><span class="section-tag">04</span>Entropy Change</h2><ul class="study-points"><li><span class="point-text">같은 두 압력과 온도 상태를 연결하는 경로가 여러 가지일 때, <strong>어떤 과정이 실제로 가능한지와 Irreversible Process 손실이 있는지</strong>를 구분할 물리량이 필요</span></li><li><span class="point-text">Entropy는 이러한 상태 변화를 판단하는 기준이며, 단위질량당 엔트로피 \(s\) 를 다음과 같이 정의</span><div class="equation" role="group" aria-label="Mathematical equation">\[ds=\frac{\delta q_{\mathrm{rev}}}{T}\]</div></li><li><span class="point-text">Reversible Process 에서 열역학 제1법칙과 \(\delta q_{\mathrm{rev}}=T\mathrm{d} s\)를 결합하면 <strong>Gibbs Relation</strong>을 얻음.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\delta q_{\mathrm{rev}}-p\mathrm{d} v&=\mathrm{d} e,\\[2.0em]
+T\mathrm{d} s&=\mathrm{d} e+p\mathrm{d} v.\end{aligned}\]</div></li><li><span class="point-text">\(\mathrm{d} e=c_v\mathrm{d} T\)와 \(p/T=R/v\)를 대입한뒤 \(v=1/\rho\)의 미분관계 \(\mathrm{d} v/v=-\mathrm{d}\rho/\rho\)를 사용하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\mathrm{d} s&=c_v\frac{\mathrm{d} T}{T}+\frac{p}{T}\mathrm{d} v,\\[2.0em]
+&=c_v\frac{\mathrm{d} T}{T}+R\frac{\mathrm{d} v}{v},\\[2.0em]
+&=c_v\frac{\mathrm{d} T}{T}-R\frac{\mathrm{d}\rho}{\rho}.\end{aligned}\]</div></li><li><span class="point-text">상태방정식 \(p=\rho RT\)를 로그미분하면 \(\mathrm{d}\rho/\rho=\mathrm{d} p/p-\mathrm{d} T/T\) 이고 \(c_p=c_v+R\)를 적용하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\mathrm{d} s&=c_v\frac{\mathrm{d} T}{T}-R\left(\frac{\mathrm{d} p}{p}-\frac{\mathrm{d} T}{T}\right),\\[2.0em]
+&=c_p\frac{\mathrm{d} T}{T}-R\frac{\mathrm{d} p}{p}.\end{aligned}\]</div></li><li><span class="point-text">Calorically Perfect Gas의 일정한 \(c_p,c_v\)를 사용하여 상태 \(1\)에서 \(2\)까지 적분하면 <strong>Entropy Difference</strong>는</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}s_2-s_1&=c_p\int_{T_1}^{T_2}\frac{\mathrm{d} T}{T}-R\int_{p_1}^{p_2}\frac{\mathrm{d} p}{p},\\[2.0em]
+&=c_p\ln\frac{T_2}{T_1}-R\ln\frac{p_2}{p_1}.\end{aligned}\]</div><div class="equation key" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+s_2-s_1&=c_p\ln\frac{T_2}{T_1}-R\ln\frac{p_2}{p_1}
+\end{aligned}\]</div></li><li><span class="point-text">또는</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\begin{aligned}
+s_2-s_1=c_v\ln\frac{T_2}{T_1}-R\ln\frac{\rho_2}{\rho_1}
+\end{aligned}\]</div></li><li><span class="point-text">이 결과는 상태량 사이의 관계이므로 실제 과정이 Irreversible Process이어도 두 끝 상태에 적용할 수 있음. 다만 비가역 과정의 실제 열전달을 \(\delta q=T\mathrm{d} s\)로 놓지는 않음.</span></li></ul></section>
+<section class="lesson-section" id="isentropic-thermodynamic-relations"><h2><span class="section-tag">05</span>Isentropic Thermodynamic Relations</h2><ul class="study-points"><li><span class="point-text">엔트로피 식을 알고 있어도 \(p\), \(T\), \(\rho\)를 매번 독립적으로 풀면 계산이 번거로움. <strong>엔트로피 변화가 없는 과정인 Isentropic </strong>이라는 조건을 적용하면 세 상태량 사이의 직접적인 비례관계를 얻을 수 있음.</span></li><li><span class="point-text"><strong>Isentropic Process</strong>에서는 \(s_2=s_1\) 이므로 Entropy Difference에 \(\mathrm{d} s=0\)을 적용하고 \(R/c_p=(\gamma-1)/\gamma\)를 사용하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}0&=c_p\ln\frac{T_2}{T_1}-R\ln\frac{p_2}{p_1},\\[2.0em]
+\ln\frac{T_2}{T_1}&=\frac{\gamma-1}{\gamma}\ln\frac{p_2}{p_1},\\[2.0em]
+\frac{T_2}{T_1}&=\left(\frac{p_2}{p_1}\right)^{(\gamma-1)/\gamma}.\end{aligned}\]</div></li><li><span class="point-text">두 상태의 \(\rho=p/(RT)\)에 위 temperature ratio를 대입하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\frac{\rho_2}{\rho_1}&=\frac{p_2/p_1}{T_2/T_1},\\[2.0em]
+&=\left(\frac{p_2}{p_1}\right)^{1/\gamma}.\end{aligned}\]</div></li><li><span class="point-text">정리하면, <strong>Isentropic Thermodynamic Relations</strong>는</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\frac{p_2}{p_1}
+=\left(\frac{\rho_2}{\rho_1}\right)^\gamma
+=\left(\frac{T_2}{T_1}\right)^{\frac{\gamma}{\gamma-1}}\]</div></li><li><span class="point-text">Adiabatic 조건만으로 Isentropic이 되지는 않음. <strong>shock wave와 마찰은 단열 상태에서도 엔트로피를 증가</strong>시키므로 위 관계를 직접 적용불가</span></li><li><span class="point-text">이 관계들로 기체의 상태는 연결했지만, <strong>한 위치의 압력 변화가 다른 위치에</strong> <strong>얼마나 빠르게 도달하는지</strong>는 아직 알 수 없음. 다음에는 압력교란의 전파속도를 질량·운동량 보존으로 구함.</span></li></ul></section></article>
+<div class="article-pager"><a class="next" href="speed-of-sound.html"><span class="direction">NEXT →</span><span class="adjacent">Speed of Sound</span></a></div><a class="back-bottom" href="../compressible-flow.html">← Back to Compressible Flow</a></main>
+<footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals of Compressible Flow</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>
