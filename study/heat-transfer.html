@@ -1,1 +1,61 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Heat Transfer — Engineering Notebook"><title>Heat Transfer | Engineering Notebook</title><link rel="stylesheet" href="../assets/site.css"></head><body class="inner-page"><header class="site-header"><div class="shell"><a class="brand" href="../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a><nav class="site-nav" aria-label="Main navigation"><a href="../index.html">Home</a><a class="desktop-link" href="../index.html#bento-study" aria-current="page">Study Note</a><a href="../index.html#bento-projects">Practice Project</a></nav></div></header><main class="shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a><span class="separator">›</span><a href="../index.html#bento-study">Study Note</a><span class="separator">›</span><strong>Heat Transfer</strong></nav><div class="hero"><div class="hero-text"><h1>Heat Transfer</h1><p class="hero-subtitle">Thermal Science and Coupled Heat Transfer</p></div></div><div class="contents-header"><h2>Study Contents</h2><span class="count">04 TOPICS</span></div><div class="note-grid"><a class="note-card" href="heat-transfer/fundamentals.html"><div class="note-top"><span class="note-index">01 / STUDY</span><span class="note-arrow">↗</span></div><h3 class="note-title">Fundamentals</h3><p class="note-sub">Heat Transfer</p><span class="pending-label">Study notes in preparation</span></a><a class="note-card" href="heat-transfer/conduction.html"><div class="note-top"><span class="note-index">02 / STUDY</span><span class="note-arrow">↗</span></div><h3 class="note-title">Conduction</h3><p class="note-sub">Heat Transfer</p><span class="pending-label">Study notes in preparation</span></a><a class="note-card" href="heat-transfer/convection.html"><div class="note-top"><span class="note-index">03 / STUDY</span><span class="note-arrow">↗</span></div><h3 class="note-title">Convection</h3><p class="note-sub">Heat Transfer</p><span class="pending-label">Study notes in preparation</span></a><a class="note-card" href="heat-transfer/conjugate-heat-transfer.html"><div class="note-top"><span class="note-index">04 / STUDY</span><span class="note-arrow">↗</span></div><h3 class="note-title">Conjugate Heat Transfer</h3><p class="note-sub">Heat Transfer</p><span class="pending-label">Study notes in preparation</span></a></div><a class="back-bottom" href="../index.html#bento-study">← Back to Study Note</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Heat Transfer</span></div></footer></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Heat Transfer fundamentals, conduction, convection, radiation, and advanced coupled thermal problems.">
+<title>Heat Transfer | Engineering Notebook</title>
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+    /* Typography-only refinements; preserve the original layout in site.css. */
+    body.inner-page .hero-text .hero-description {
+      margin-top: 14px;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    body.inner-page .contents-header h2 {
+      font-size: 24px;
+    }
+    body.inner-page .contents-header .count {
+      font-size: 14px;
+    }
+    body.inner-page .note-card .note-index {
+      font-size: 14px;
+    }
+    body.inner-page .note-card .note-title {
+      font-size: 23px;
+    }
+    body.inner-page .back-bottom {
+      font-size: 16px;
+    }
+    /* Breadcrumb typography shared by Aerodynamics and Fundamentals. */
+    body.inner-page .breadcrumb {
+      font-size: 16px;
+    }
+    @media (max-width: 600px) {
+      body.inner-page .breadcrumb { font-size: 14px; }
+      body.inner-page .hero-text .hero-description { font-size: 15px; }
+      body.inner-page .contents-header h2 { font-size: 22px; }
+      body.inner-page .contents-header .count { font-size: 13px; }
+      body.inner-page .note-card .note-index { font-size: 13px; }
+      body.inner-page .note-card .note-title { font-size: 21px; }
+      body.inner-page .back-bottom { font-size: 15px; }
+    }
+    
+  body.inner-page .heat-transfer-grid .note-card{min-height:270px} 
+ @media(max-width:740px){body.inner-page .heat-transfer-grid .note-card{min-height:215px}}
+ </style>
+</head>
+<body class="inner-page">
+<header class="site-header"><div class="shell">
+<a class="brand" href="../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../index.html">Home</a><a class="desktop-link" href="../index.html#bento-study" aria-current="page">Study Note</a><a href="../index.html#bento-projects">Practice Project</a></nav>
+</div></header>
+<main class="shell"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a><span class="separator">›</span><a href="../index.html#bento-study">Study Note</a><span class="separator">›</span><strong>Heat Transfer</strong></nav>
+<div class="hero"><div class="hero-text"><h1>Heat Transfer</h1><p class="hero-subtitle">Thermal Science and Coupled Heat Transfer</p><p class="hero-description">Fundamental heat-transfer mechanisms and advanced thermal coupling, from conduction, convection, and radiation to conjugate heat transfer.</p></div></div>
+<div class="contents-header"><h2>Study Contents</h2><span class="count">02 SUBJECTS</span></div>
+<div class="note-grid heat-transfer-grid">
+<a class="note-card" href="heat-transfer/fundamentals.html"><div class="note-top"><span class="note-index">01 / HEAT TRANSFER</span><span class="note-arrow" aria-hidden="true">↗</span></div><h3 class="note-title">Fundamentals</h3><p class="note-sub">Foundations of Heat Transfer</p><ul><li>Intro</li><li>Conduction</li><li>Convection</li><li>Radiation</li></ul></a>
+<a class="note-card" href="heat-transfer/advanced.html"><div class="note-top"><span class="note-index">02 / HEAT TRANSFER</span><span class="note-arrow" aria-hidden="true">↗</span></div><h3 class="note-title">Advanced</h3><p class="note-sub">Coupled Heat Transfer</p><ul><li>Conjugate Heat Transfer</li></ul></a>
+</div><a class="back-bottom" href="../index.html#bento-study">← Back to Study Note</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Heat Transfer</span></div></footer>
+</body></html>
