@@ -1,93 +1,144 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Jump conditions and thermodynamic changes across a normal shock.">
-<title>Rankine–Hugoniot Conditions | Engineering Notebook</title>
-<link rel="stylesheet" href="../../../assets/site.css">
-<style>
-  /* Match typography shared with study/aerodynamics.html.
-     Chapter and article layouts remain controlled by site.css. */
-  body.inner-page .hero-text .hero-description {
-    margin-top: 14px;
-    font-size: 16px;
-    line-height: 1.65;
-  }
-  body.inner-page .contents-header h2 {
-    font-size: 24px;
-  }
-  body.inner-page .contents-header .count {
-    font-size: 14px;
-  }
-  body.inner-page .back-bottom {
-    font-size: 16px;
-  }
-  /* Chapter > article hierarchy: align with the approved preview. */
-  body.inner-page .chapter-heading h2 {
-    font-size: 26px;
-    line-height: 1.3;
-  }
-  body.inner-page .chapter-heading .chapter-mark {
-    font-size: 16px;
-  }
-  body.inner-page .chapter-heading .chapter-counter {
-    font-size: 14px;
-  }
-  body.inner-page .topic-card .topic-title {
-    font-size: 19px;
-    line-height: 1.35;
-  }
-  body.inner-page .topic-card .topic-description {
-    font-size: 13px;
-  }
-  body.inner-page .topic-card .topic-number {
-    font-size: 16px;
-  }
-  /* Make article cards slightly more compact without changing the layout. */
-  body.inner-page .topic-head {
-    padding-top: 18px;
-    padding-bottom: 18px;
-    min-height: 92px;
-  }
-  /* Breadcrumb typography shared by Aerodynamics and Fundamentals. */
-  body.inner-page .breadcrumb {
-    font-size: 16px;
-  }
-  @media (max-width: 600px) {
-    body.inner-page .breadcrumb { font-size: 14px; }
-    body.inner-page .hero-text .hero-description { font-size: 15px; }
-    body.inner-page .contents-header h2 { font-size: 22px; }
-    body.inner-page .contents-header .count { font-size: 13px; }
-    body.inner-page .back-bottom { font-size: 15px; }
-    body.inner-page .chapter-heading h2 { font-size: 22px; }
-    body.inner-page .chapter-heading .chapter-mark { font-size: 14px; }
-    body.inner-page .chapter-heading .chapter-counter { font-size: 12px; }
-    body.inner-page .topic-card .topic-title { font-size: 17px; }
-    body.inner-page .topic-card .topic-description { font-size: 12px; }
-    body.inner-page .topic-card .topic-number { font-size: 15px; }
-    body.inner-page .topic-head { padding-top: 16px; padding-bottom: 16px; min-height: 84px; }
-  }
-body.inner-page .topic-planned{flex:none;color:#879bb5;font-size:11px;letter-spacing:.015em;border:1px solid #dce7f5;border-radius:8px;padding:5px 8px;background:#f7faff}
-@media(max-width:600px){body.inner-page .topic-planned{font-size:10px;padding:4px 6px}}
-</style>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Jump conditions and thermodynamic changes across a normal shock."><title>Rankine–Hugoniot Conditions | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css"><style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+.tl-page .velocity-diagram{margin:42px 0 35px}
+.tl-page .velocity-diagram .diagram-scroll{overflow-x:auto;overflow-y:hidden;max-width:100%;scrollbar-width:thin}
+.tl-page .velocity-diagram svg{display:block;width:100%;height:auto;min-width:730px}
+.tl-page .velocity-diagram figcaption{text-align:center;color:#667f9b;font-size:13px;line-height:1.6;margin:12px 0 0}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+ .tl-page .velocity-diagram figcaption{font-size:12px}
+}
+.tl-page .note-box{border:1px solid #dce6f4;background:#f6f9fe;border-radius:12px;padding:22px 22px 16px;margin:28px 0 34px;color:#385779}
+.tl-page .note-box h3{color:#285698;font-size:16px;font-weight:800;margin:0 0 18px}
+.tl-page .table-scroll,.tl-page .wave-diagram .diagram-scroll{overflow-x:auto;max-width:100%;scrollbar-width:thin}
+.tl-page .data-table{width:100%;border-collapse:collapse;background:white;font-size:13px;line-height:1.65;min-width:440px}
+.tl-page .wide-table{min-width:660px}
+.tl-page .data-table th,.tl-page .data-table td{border:1px solid #dce6f4;padding:12px 10px;vertical-align:middle;text-align:center}
+.tl-page .data-table thead th{background:#eaf1fb;color:#2c568c;font-weight:750}
+.tl-page .data-table tbody th{background:#f4f8fe;color:#3b5a80;min-width:105px}
+.tl-page .wave-diagram{margin:30px 0 38px}
+.tl-page .wave-diagram svg{display:block;width:100%;height:auto;min-width:570px}
+.tl-page .wave-diagram figcaption{text-align:center;color:#6e83a1;font-size:13px;margin:12px 0 0}
+@media(max-width:740px){.tl-page .note-box{padding:16px 12px}.tl-page .note-box h3{font-size:14px}.tl-page .wave-diagram figcaption{font-size:12px}}
 
-</head>
-<body class="inner-page">
-<header class="site-header"><div class="shell">
-<a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
-<nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav>
-</div></header>
-<main class="shell">
-<nav class="breadcrumb" aria-label="Breadcrumb">
-<a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span>
-<a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span>
-<a href="../compressible-flow.html">Compressible Flow</a><span class="separator">›</span><strong>Rankine–Hugoniot Conditions</strong></nav>
-<div class="hero"><div class="hero-text">
-<div class="eyebrow">COMPRESSIBLE FLOW / 3.2</div><h1>Rankine–Hugoniot Conditions</h1>
-<p class="hero-subtitle">Normal Shock Waves</p><p class="hero-description">Jump conditions and thermodynamic changes across a normal shock.</p>
-</div></div>
-<article class="article-content"><div class="article-meta">03 / Normal Shock Waves · Study Notes 3.2</div><h2>Study Notes</h2><p>Detailed notes for this topic will be added here.</p><span class="placeholder-hint">Contents in preparation</span></article>
-<div class="article-pager"><a class="prev" href="conservation-equations-across-a-normal-shock.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Conservation Equations across a Normal Shock</span></a><a class="next" href="oblique-shock-geometry.html"><span class="direction">NEXT →</span><span class="adjacent">Oblique Shock Geometry</span></a></div>
-<a class="back-bottom" href="../compressible-flow.html">← Back to Compressible Flow</a>
-</main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>High-Speed Gas Dynamics</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>
+.tl-page .thermally-perfect-box{margin:40px 0}.tl-page .thermally-perfect-box .study-points>li{margin-bottom:24px}.tl-page .thermally-perfect-box .study-points>li:last-child{margin-bottom:0}
+
+/* Shock-fixed control-volume schematic; mirrors the source TikZ diagram. */
+.tl-page .shock-diagram{margin:20px 0 41px}
+.tl-page .shock-diagram svg{display:block;width:100%;height:auto;max-width:690px;margin:0 auto}
+.tl-page .shock-diagram figcaption{font-size:13px;color:#67809b;text-align:center;margin-top:13px;line-height:1.6}
+.tl-page .shock-diagram .wave-label{font-family:Arial,sans-serif;fill:#24476e;font-weight:600;font-size:20px}
+@media(max-width:740px){.tl-page .shock-diagram figcaption{font-size:12px}}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head><body class="inner-page">
+<header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a><nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav></div></header>
+<main class="shell tl-page"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../compressible-flow.html">Compressible Flow</a><span class="separator">›</span><strong>Rankine–Hugoniot Conditions</strong></nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">COMPRESSIBLE FLOW / 3.2</div><h1>Rankine–Hugoniot Conditions</h1><p class="hero-subtitle">Normal Shock Waves</p><p class="hero-description">Jump conditions and thermodynamic changes across a normal shock.</p></div></div>
+<article class="article-content"><div class="lesson-meta"><span>03 / Normal Shock Waves</span><span>Study Notes · 3.2</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#pressure-and-enthalpy-in-terms-of-density-ratio">01 · Pressure and Enthalpy in Terms of Density Ratio</a></li>
+<li><a href="#density-pressure-and-temperature-ratios">02 · Density, Pressure, and Temperature Ratios</a></li>
+<li><a href="#downstream-mach-number">03 · Downstream Mach Number</a></li>
+<li><a href="#changes-across-a-normal-shock">04 · Changes Across a Normal Shock</a></li>
+<li><a href="#entropy-change-and-stagnation-pressure-loss">05 · Entropy Change and Stagnation Pressure Loss</a></li></ul></nav><section class="lesson-section" id="pressure-and-enthalpy-in-terms-of-density-ratio"><h2><span class="section-tag">01</span>Pressure and Enthalpy in Terms of Density Ratio</h2><ul class="study-points"><li><span class="point-text">Shock Wave의 보존식에는 Pressure, Density, Velocity, Temperature 등 여러 미지수가 함께 등장함.</span></li>
+<li><span class="point-text">수식 전개를 간단하게 하고 하류 상태를 구하기 위해 <strong>Density Ratio</strong>와 <strong>Pressure Ratio</strong>를 각각 정의함.</span><div class="equation" role="group" aria-label="Mathematical equation">\[r=\frac{\rho_2}{\rho_1},\qquad P=\frac{p_2}{p_1}.\]</div></li>
+<li><span class="point-text">먼저 질량보존식으로부터</span><div class="equation" role="group" aria-label="Mathematical equation">\[\frac{V_2}{V_1}=\frac{\rho_1}{\rho_2}=\frac1r.\]</div></li>
+<li><span class="point-text">운동량 식을 전개하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}p_2-p_1&=\rho_1V_1^2-\rho_2V_2^2,\\[1.6em]&=\rho_1V_1(V_1-V_2),\\[1.6em]&=\rho_1V_1^2\left(1-\frac1r\right).\end{aligned}\]</div></li>
+<li><span class="point-text">양변을 \(p_1\)로 나누고 \(\rho_1V_1^2/p_1=\gamma M_1^2\)를 대입하면</span><div class="equation key" role="group" aria-label="Mathematical equation">\[P=1+\gamma M_1^2\left(1-\frac1r\right).\]</div></li>
+<li><span class="point-text">다음으로 에너지 식에 \(h=c_pT\)와 \(V_2=V_1/r\)을 대입하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[c_p(T_2-T_1)=\frac{V_1^2}{2}\left(1-\frac1{r^2}\right).\]</div></li>
+<li><span class="point-text">한편 Equation of State \(T_1=p_1/(\rho_1R)\), \(T_2=p_2/(\rho_2R)\)로부터</span><div class="equation" role="group" aria-label="Mathematical equation">\[\frac{T_2}{T_1}=\frac{P}{r}.\]</div></li>
+<li><span class="point-text">Speed of Sound의 정의 \(V_1^2=M_1^2a_1^2=\gamma RT_1M_1^2\)로부터</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\frac{V_1^2}{c_pT_1}&=\frac{\gamma RT_1M_1^2}{c_pT_1},\\[1.5em]&=\frac{\gamma R}{c_p}M_1^2,\\[1.5em]&=(\gamma-1)M_1^2.\end{aligned}\]</div></li>
+<li><span class="point-text">따라서 에너지 식도 \(r,P,M_1\)만으로 표현됨.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\frac{P}{r}-1=\frac{\gamma-1}{2}M_1^2\left(1-\frac1{r^2}\right).\]</div></li>
+<li><span class="point-text">운동량 식의 \(P\)를 에너지 식에 대입하여 \(r\)을 구하고, Pressure 및 Temperature Ratio를 순서대로 계산함.</span></li></ul></section>
+<section class="lesson-section" id="density-pressure-and-temperature-ratios"><h2><span class="section-tag">02</span>Density, Pressure, and Temperature Ratios</h2><ul class="study-points"><li><span class="point-text">에너지 관계식에 \(2r^2\)을 곱하고 운동량 관계식의 \(P\)를 대입하여 \(r\)에 대해 전개하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}2Pr-2r^2&=(\gamma-1)M_1^2(r^2-1),\\[2em]2r+2\gamma M_1^2(r-1)-2r^2&=(\gamma-1)M_1^2(r-1)(r+1),\\[2em](r-1)(2\gamma M_1^2-2r)&=(r-1)(\gamma-1)M_1^2(r+1).\end{aligned}\]</div></li>
+<li><span class="point-text">압축 Shock Wave에서는 \(r>1\)이므로 \((r-1)\)을 약분하고 정리하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}2\gamma M_1^2-2r&=(\gamma-1)M_1^2(r+1),\\[1.7em]\bigl[2+(\gamma-1)M_1^2\bigr]r&=(\gamma+1)M_1^2,\\[1.7em]r&=\frac{(\gamma+1)M_1^2}{2+(\gamma-1)M_1^2}.\end{aligned}\]</div></li>
+<li><span class="point-text">따라서 Normal Shock Wave의 <strong>Density Ratio</strong>는</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\frac{\rho_2}{\rho_1}=\frac{V_1}{V_2}=\frac{(\gamma+1)M_1^2}{2+(\gamma-1)M_1^2}.\]</div></li>
+<li><span class="point-text">구한 Density Ratio를 운동량 식에 넣으면 <strong>Pressure Ratio</strong>를 얻을 수 있음.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\frac{p_2}{p_1}&=1+\gamma M_1^2\left[1-\frac{2+(\gamma-1)M_1^2}{(\gamma+1)M_1^2}\right],\\[1.6em]&=1+\frac{2\gamma}{\gamma+1}(M_1^2-1),\\[1.6em]&=\frac{2\gamma M_1^2-(\gamma-1)}{\gamma+1}.\end{aligned}\]</div></li>
+<li><span class="point-text">Temperature Ratio는 Equation of State \(T=p/(\rho R)\)에서 Pressure Ratio를 Density Ratio로 나누어 얻음.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\frac{T_2}{T_1}&=\frac{p_2/p_1}{\rho_2/\rho_1},\\[1.7em]&=\frac{[2\gamma M_1^2-(\gamma-1)][2+(\gamma-1)M_1^2]}{(\gamma+1)^2M_1^2}.\end{aligned}\]</div></li>
+<li><span class="point-text">즉 Shock 전후의 물리량을 연결하는 <strong>Rankine–Hugoniot Conditions</strong>는 다음과 같음.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\begin{aligned}\frac{\rho_2}{\rho_1}&=\frac{(\gamma+1)M_1^2}{2+(\gamma-1)M_1^2},\\[2.3em]\frac{V_1}{V_2}&=\frac{(\gamma+1)M_1^2}{2+(\gamma-1)M_1^2},\\[2.3em]\frac{p_2}{p_1}&=\frac{2\gamma M_1^2-(\gamma-1)}{\gamma+1},\\[2.3em]\frac{T_2}{T_1}&=\frac{[2\gamma M_1^2-(\gamma-1)][2+(\gamma-1)M_1^2]}{(\gamma+1)^2M_1^2}.\end{aligned}\]</div></li>
+<li><span class="point-text">Isentropic Relation 대신 Mass, Momentum, Energy Conservation을 사용했으므로 <strong>Shock Wave 전후의 상태량을 직접 연결</strong>할 수 있음.</span></li>
+<li><span class="point-text"><strong>Upstream Mach Number와 Upstream Properties만으로 Downstream Properties를 계산</strong>할 수 있음.</span><aside class="note-box" id="stagnation-vs-normal-shock"><h3>Application Range of Stagnation and Normal Shock Relations</h3><ul class="study-points"><li><span class="point-text">Stagnation Relations는 <strong>현재 Static State와 이에 대응하는 Stagnation State 사이</strong>의 관계를 나타냄.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\frac{T_0}{T}&=1+\frac{\gamma-1}{2}M^2,\\[1.5em]\frac{p_0}{p}&=\left(1+\frac{\gamma-1}{2}M^2\right)^{\frac{\gamma}{\gamma-1}},\\[1.5em]\frac{\rho_0}{\rho}&=\left(1+\frac{\gamma-1}{2}M^2\right)^{\frac{1}{\gamma-1}}.\end{aligned}\]</div></li>
+<li><span class="point-text">Shock Wave의 Upstream과 Downstream에서 <strong>각각의 Static State에 대응하는 Stagnation State</strong>를 계산하는 데 사용함.</span><ul class="nested-points"><li><span class="point-text"><strong>Upstream:</strong> State \(1\)과 State \(01\)을 연결.</span></li>
+<li><span class="point-text"><strong>Downstream:</strong> State \(2\)와 State \(02\)를 연결.</span></li></ul></li>
+<li><span class="point-text"><strong>Stagnation Temperature 관계식은 Isentropic 가정이 필요 없으므로</strong> \(T_{01}=T_{02}\)가 되며, Energy Relation을 통해 Shock 전후의 Static Temperature Ratio를 연결할 수 있음.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\frac{T_2}{T_1}=\frac{1+\frac{\gamma-1}{2}M_1^2}{1+\frac{\gamma-1}{2}M_2^2}.\]</div></li>
+<li><span class="point-text">반면 <strong>Pressure 및 Density 정체량은 Isentropic 기준 감속을 사용</strong>함. Shock 전후 Entropy가 증가하여 \(p_{01}\ne p_{02}\), \(\rho_{01}\ne\rho_{02}\)이므로 이 관계를 동일한 정체압·정체밀도가 유지되는 것처럼 적용할 수 없음.</span></li>
+<li><span class="point-text"><strong>Rankine–Hugoniot Conditions</strong>는 Shock Wave를 가로지르는 Mass, Momentum, Energy Conservation으로부터 유도되어 <strong>Upstream과 Downstream의 Static Properties를 직접 연결</strong>함.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\frac{\rho_2}{\rho_1}&=\frac{(\gamma+1)M_1^2}{2+(\gamma-1)M_1^2},\\[2.3em]\frac{V_1}{V_2}&=\frac{(\gamma+1)M_1^2}{2+(\gamma-1)M_1^2},\\[2.3em]\frac{p_2}{p_1}&=\frac{2\gamma M_1^2-(\gamma-1)}{\gamma+1},\\[2.3em]\frac{T_2}{T_1}&=\frac{[2\gamma M_1^2-(\gamma-1)][2+(\gamma-1)M_1^2]}{(\gamma+1)^2M_1^2}.\end{aligned}\]</div></li>
+<li><span class="point-text">두 관계식의 적용 범위와 연결 대상을 비교하면 다음과 같음.</span><div class="table-scroll"><table class="data-table wide-table"><thead><tr><th>구분</th><th>Stagnation Relations</th><th>Normal Shock Relations</th></tr></thead><tbody><tr><th>연결 대상</th><td>Static State와 Stagnation State</td><td>Shock 전후 Static State</td></tr>
+<tr><th>적용 범위</th><td>Upstream과 Downstream에서 각각 적용</td><td>Shock을 가로질러 직접 적용</td></tr>
+<tr><th>연결 상태</th><td>\(1\leftrightarrow01\), \(2\leftrightarrow02\)</td><td>\(1\leftrightarrow2\)</td></tr>
+<tr><th>Adiabatic</th><td>\(T_0\) Energy Relation에 사용</td><td>Shock 전후 Energy Conservation에 필요</td></tr>
+<tr><th>Isentropic</th><td>\(p_0,\rho_0\)의 기준 감속에 필요</td><td>Shock 전후에 적용하지 않음</td></tr>
+<tr><th>Entropy 변화</th><td>Static–Stagnation 기준 감속에서 일정</td><td>Shock 전후 증가</td></tr>
+<tr><th>Shock 전후 연결</th><td>Stagnation Temperature 보존 및 개별 정체량 계산</td><td>Static Properties 직접 연결</td></tr></tbody></table></div></li>
+<li><span class="point-text"><strong>따라서 Shock Wave 해석에서는 Normal Shock Relations로 전후 Static Properties를 계산</strong>한 후, <strong>각 상태에 Stagnation Relations를 적용</strong>하여 Stagnation Properties의 변화를 구함.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\frac{p_{01}}{p_1}&=\left(1+\frac{\gamma-1}{2}M_1^2\right)^{\frac{\gamma}{\gamma-1}},\\[1.8em]\frac{p_{02}}{p_2}&=\left(1+\frac{\gamma-1}{2}M_2^2\right)^{\frac{\gamma}{\gamma-1}}.\end{aligned}\]</div></li>
+<li><span class="point-text">두 식을 결합하면 Shock을 가로지르는 Stagnation Pressure Ratio는</span><div class="equation" role="group" aria-label="Mathematical equation">\[\frac{p_{02}}{p_{01}}=\underbrace{\frac{p_2}{p_1}}_{\text{Normal Shock}}\underbrace{\left(\frac{1+\frac{\gamma-1}{2}M_2^2}{1+\frac{\gamma-1}{2}M_1^2}\right)^{\frac{\gamma}{\gamma-1}}}_{\text{Stagnation Relations}}.\]</div></li>
+<li><span class="point-text">Shock 전후의 Stagnation Properties 변화는</span><div class="equation key" role="group" aria-label="Mathematical equation">\[T_{01}=T_{02},\qquad p_{01}>p_{02},\qquad\rho_{01}>\rho_{02}.\]</div></li></ul></aside></li></ul></section>
+<section class="lesson-section" id="downstream-mach-number"><h2><span class="section-tag">03</span>Downstream Mach Number</h2><ul class="study-points"><li><span class="point-text">Normal Shock Wave를 <strong>통과하면 Velocity와 Temperature가 모두 변하며</strong> 이에 따라 <strong>Speed of Sound도 달라짐</strong>.</span></li>
+<li><span class="point-text">따라서 <strong>Downstream Mach Number \(M_2\)는 Velocity Ratio만으로 결정할 수 없으며</strong>, Density 및 Pressure Ratio를 이용해 계산함.</span></li>
+<li><span class="point-text">\(M=V/\sqrt{\gamma RT}\)에서 Velocity Ratio와 Temperature Ratio를 대입하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}\frac{M_2^2}{M_1^2}&=\left(\frac{V_2}{V_1}\right)^2\frac{T_1}{T_2}=\frac{1}{r^2}\frac{r}{P}=\frac{1}{rP},\\[1.8em]M_2^2&=\frac{2+(\gamma-1)M_1^2}{2\gamma M_1^2-(\gamma-1)}.\end{aligned}\]</div></li>
+<li><span class="point-text">정리하면 Downstream Mach Number는</span><div class="equation key" role="group" aria-label="Mathematical equation">\[M_2^2=\frac{1+\frac{\gamma-1}{2}M_1^2}{\gamma M_1^2-\frac{\gamma-1}{2}}.\]</div></li>
+<li><span class="point-text">\(M_1>1\)이면 \(M_2<1\)이므로 <strong>Shock Downstream은 항상 Subsonic</strong>.</span></li>
+<li><span class="point-text">Shock Wave가 매우 강해지는 극한을 고려하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[M_1\to\infty:\quad M_2\to\sqrt{\frac{\gamma-1}{2\gamma}},\qquad\frac{\rho_2}{\rho_1}\to\frac{\gamma+1}{\gamma-1}.\]</div></li>
+<li><span class="point-text">이는 Shock이 아무리 강해도 <strong>Downstream Mach Number \(M_2\)의 하한</strong>과 <strong>Density Ratio의 상한</strong>이 존재함을 의미하며, 감속과 압축에도 한계가 있음.</span><ul class="nested-points"><li><span class="point-text">공기 \(\gamma=1.4\)에서 \(M_2\)의 하한은 \(0.378\).</span></li>
+<li><span class="point-text">공기 \(\gamma=1.4\)에서 \(\rho_2/\rho_1\to6\), 즉 최대 Density Ratio는 \(6\).</span></li></ul></li></ul></section>
+<section class="lesson-section" id="changes-across-a-normal-shock"><h2><span class="section-tag">04</span>Changes Across a Normal Shock</h2><ul class="study-points"><li><span class="point-text">Normal Shock Wave를 통과하면 Velocity가 감소하고 Pressure, Temperature, Density가 증가함. 반면 <strong>Stagnation Properties는 서로 다른 변화</strong>를 보이므로 Upstream과 Downstream을 비교할 필요가 있음.</span></li>
+<li><span class="point-text">Steady Adiabatic Normal Shock에서 Calorically Perfect Gas를 가정하면 전후 물성치의 대소관계는 다음과 같음.</span><div class="table-scroll"><table class="data-table wide-table"><thead><tr><th>Property</th><th>Comparison</th><th>Change</th></tr></thead><tbody><tr><th>Static Temperature</th><td>\(T_2>T_1\)</td><td>Increase</td></tr>
+<tr><th>Static Pressure</th><td>\(p_2>p_1\)</td><td>Increase</td></tr>
+<tr><th>Velocity</th><td>\(V_2<V_1\)</td><td>Decrease</td></tr>
+<tr><th>Static Density</th><td>\(\rho_2>\rho_1\)</td><td>Increase</td></tr>
+<tr><th>Stagnation Temperature</th><td>\(T_{02}=T_{01}\)</td><td>Conserved</td></tr>
+<tr><th>Stagnation Pressure</th><td>\(p_{02}<p_{01}\)</td><td>Decrease</td></tr>
+<tr><th>Stagnation Density</th><td>\(\rho_{02}<\rho_{01}\)</td><td>Decrease</td></tr>
+<tr><th>Mach Number</th><td>\(M_2<1<M_1\)</td><td>Supersonic → Subsonic</td></tr></tbody></table></div></li>
+<li><span class="point-text"><strong>Static Properties:</strong> Shock Wave를 통과하면서 <strong>압축되고 감속</strong>하므로 Static Pressure와 Density가 증가함. Kinetic Energy 일부가 Internal Energy로 전환되어 Static Temperature가 증가함.</span><div class="equation" role="group" aria-label="Mathematical equation">\[p_1<p_2,\qquad\rho_1<\rho_2,\qquad T_1<T_2,\qquad V_1>V_2.\]</div></li>
+<li><span class="point-text"><strong>Stagnation Properties:</strong> Shock 전후 에너지는 보존되어 Stagnation Temperature는 일정하지만, Entropy 증가로 Stagnation Pressure와 Density는 감소함.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[p_{01}>p_{02},\qquad\rho_{01}>\rho_{02},\qquad T_{01}=T_{02}.\]</div></li></ul></section>
+<section class="lesson-section" id="entropy-change-and-stagnation-pressure-loss"><h2><span class="section-tag">05</span>Entropy Change and Stagnation Pressure Loss</h2><ul class="study-points"><li><span class="point-text">Entropy Relation에 Normal Shock의 Pressure Ratio와 Temperature Ratio를 대입하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}s_2-s_1&=c_p\ln\left(\frac{T_2}{T_1}\right)-R\ln\left(\frac{p_2}{p_1}\right),\\[2em]&=c_p\ln\left\{\left[1+\frac{2\gamma}{\gamma+1}(M_1^2-1)\right]\left[\frac{2+(\gamma-1)M_1^2}{(\gamma+1)M_1^2}\right]\right\}\\[2em]&\quad-R\ln\left[1+\frac{2\gamma}{\gamma+1}(M_1^2-1)\right].\end{aligned}\]</div></li>
+<li><span class="point-text"><strong>Subsonic Flow</strong>에서 \(M_1<1\)을 형식적으로 대입하면 \(s_2-s_1<0\)이 되어 Entropy가 감소하는 해를 얻음. 이는 물리적으로 허용되는 압축 Shock이 아님.</span></li>
+<li><span class="point-text"><strong>Supersonic Flow</strong>에서 \(M_1>1\)이면 \(s_2-s_1>0\)이므로 Shock 전후 <strong>Entropy가 증가</strong>. 따라서 정상적인 압축 Normal Shock Wave는 Supersonic Upstream에서만 발생함.</span></li>
+<li><span class="point-text">Entropy 증가로 인한 Stagnation Pressure 감소는 다음과 같이 정량화 가능.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}s_2-s_1&=c_p\ln\frac{T_{02}}{T_{01}}-R\ln\frac{p_{02}}{p_{01}},\\[1.7em]&=-R\ln\frac{p_{02}}{p_{01}}.\end{aligned}\]</div></li>
+<li><span class="point-text">이를 Stagnation Pressure Ratio로 정리하면</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\frac{p_{02}}{p_{01}}=\exp\left(-\frac{s_2-s_1}{R}\right)<1.\]</div></li>
+<li><span class="point-text">Shock 전후 Entropy 증가로 \(s_2-s_1>0\)이므로 항상 <strong>\(p_{01}>p_{02}\)</strong>가 성립함.</span></li></ul></section></article><div class="article-pager"><a class="prev" href="conservation-equations-across-a-normal-shock.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Conservation Equations across a Normal Shock</span></a><a class="next" href="oblique-shock-geometry.html"><span class="direction">NEXT →</span><span class="adjacent">Oblique Shock Geometry</span></a></div><a class="back-bottom" href="../compressible-flow.html">← Back to Compressible Flow</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>High-Speed Gas Dynamics</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>
