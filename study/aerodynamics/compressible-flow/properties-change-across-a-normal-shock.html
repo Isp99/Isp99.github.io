@@ -1,0 +1,98 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Changes in static and stagnation properties, entropy, and total-pressure loss across a normal shock."><title>Properties Change Across a Normal Shock | Engineering Notebook</title>
+<link rel="stylesheet" href="../../../assets/site.css"><style>
+body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+.tl-page .velocity-diagram{margin:42px 0 35px}
+.tl-page .velocity-diagram .diagram-scroll{overflow-x:auto;overflow-y:hidden;max-width:100%;scrollbar-width:thin}
+.tl-page .velocity-diagram svg{display:block;width:100%;height:auto;min-width:730px}
+.tl-page .velocity-diagram figcaption{text-align:center;color:#667f9b;font-size:13px;line-height:1.6;margin:12px 0 0}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+ .tl-page .velocity-diagram figcaption{font-size:12px}
+}
+.tl-page .note-box{border:1px solid #dce6f4;background:#f6f9fe;border-radius:12px;padding:22px 22px 16px;margin:28px 0 34px;color:#385779}
+.tl-page .note-box h3{color:#285698;font-size:16px;font-weight:800;margin:0 0 18px}
+.tl-page .table-scroll,.tl-page .wave-diagram .diagram-scroll{overflow-x:auto;max-width:100%;scrollbar-width:thin}
+.tl-page .data-table{width:100%;border-collapse:collapse;background:white;font-size:13px;line-height:1.65;min-width:440px}
+.tl-page .wide-table{min-width:660px}
+.tl-page .data-table th,.tl-page .data-table td{border:1px solid #dce6f4;padding:12px 10px;vertical-align:middle;text-align:center}
+.tl-page .data-table thead th{background:#eaf1fb;color:#2c568c;font-weight:750}
+.tl-page .data-table tbody th{background:#f4f8fe;color:#3b5a80;min-width:105px}
+.tl-page .wave-diagram{margin:30px 0 38px}
+.tl-page .wave-diagram svg{display:block;width:100%;height:auto;min-width:570px}
+.tl-page .wave-diagram figcaption{text-align:center;color:#6e83a1;font-size:13px;margin:12px 0 0}
+@media(max-width:740px){.tl-page .note-box{padding:16px 12px}.tl-page .note-box h3{font-size:14px}.tl-page .wave-diagram figcaption{font-size:12px}}
+
+.tl-page .thermally-perfect-box{margin:40px 0}.tl-page .thermally-perfect-box .study-points>li{margin-bottom:24px}.tl-page .thermally-perfect-box .study-points>li:last-child{margin-bottom:0}
+
+/* Shock-fixed control-volume schematic; mirrors the source TikZ diagram. */
+.tl-page .shock-diagram{margin:20px 0 41px}
+.tl-page .shock-diagram svg{display:block;width:100%;height:auto;max-width:690px;margin:0 auto}
+.tl-page .shock-diagram figcaption{font-size:13px;color:#67809b;text-align:center;margin-top:13px;line-height:1.6}
+.tl-page .shock-diagram .wave-label{font-family:Arial,sans-serif;fill:#24476e;font-weight:600;font-size:20px}
+@media(max-width:740px){.tl-page .shock-diagram figcaption{font-size:12px}}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head><body class="inner-page">
+<header class="site-header"><div class="shell"><a class="brand" href="../../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a><nav class="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a class="desktop-link" href="../../../index.html#bento-study" aria-current="page">Study Note</a><a href="../../aerodynamics.html">Aerodynamics ↗</a></nav></div></header>
+<main class="shell tl-page"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../../index.html">Home</a><span class="separator">›</span><a href="../../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../../aerodynamics.html">01 / Aerodynamics</a><span class="separator">›</span><a href="../compressible-flow.html">Compressible Flow</a><span class="separator">›</span><strong>Properties Change Across a Normal Shock</strong></nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">COMPRESSIBLE FLOW / 3.3</div><h1>Properties Change Across a Normal Shock</h1><p class="hero-subtitle">Normal Shock Waves</p><p class="hero-description">Changes in static and stagnation properties, entropy, and total-pressure loss across a normal shock.</p></div></div>
+<article class="article-content"><div class="lesson-meta"><span>03 / Normal Shock Waves</span><span>Study Notes · 3.3</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#changes-across-a-normal-shock">01 · Changes Across a Normal Shock</a></li><li><a href="#entropy-change-and-stagnation-pressure-loss">02 · Entropy Change and Stagnation Pressure Loss</a></li></ul></nav><section class="lesson-section" id="changes-across-a-normal-shock"><h2><span class="section-tag">01</span>Changes Across a Normal Shock</h2><ul class="study-points"><li><span class="point-text">Normal Shock Wave를 통과하면 Velocity가 감소하고 Pressure, Temperature, Density가 증가함. 반면 <strong>Stagnation Properties는 서로 다른 변화</strong>를 보이므로 Upstream과 Downstream을 비교할 필요가 있음.</span></li>
+<li><span class="point-text">Steady Adiabatic Normal Shock에서 Calorically Perfect Gas를 가정하면 전후 물성치의 대소관계는 다음과 같음.</span><div class="table-scroll"><table class="data-table wide-table"><thead><tr><th>Property</th><th>Comparison</th><th>Change</th></tr></thead><tbody><tr><th>Static Temperature</th><td>\(T_2>T_1\)</td><td>Increase</td></tr>
+<tr><th>Static Pressure</th><td>\(p_2>p_1\)</td><td>Increase</td></tr>
+<tr><th>Velocity</th><td>\(V_2<V_1\)</td><td>Decrease</td></tr>
+<tr><th>Static Density</th><td>\(\rho_2>\rho_1\)</td><td>Increase</td></tr>
+<tr><th>Stagnation Temperature</th><td>\(T_{02}=T_{01}\)</td><td>Conserved</td></tr>
+<tr><th>Stagnation Pressure</th><td>\(p_{02}<p_{01}\)</td><td>Decrease</td></tr>
+<tr><th>Stagnation Density</th><td>\(\rho_{02}<\rho_{01}\)</td><td>Decrease</td></tr>
+<tr><th>Mach Number</th><td>\(M_2<1<M_1\)</td><td>Supersonic → Subsonic</td></tr></tbody></table></div></li>
+<li><span class="point-text"><strong>Static Properties:</strong> Shock Wave를 통과하면서 <strong>압축되고 감속</strong>하므로 Static Pressure와 Density가 증가함. Kinetic Energy 일부가 Internal Energy로 전환되어 Static Temperature가 증가함.</span><div class="equation" role="group" aria-label="Mathematical equation">\[p_1<p_2,\qquad\rho_1<\rho_2,\qquad T_1<T_2,\qquad V_1>V_2.\]</div></li>
+<li><span class="point-text"><strong>Stagnation Properties:</strong> Shock 전후 에너지는 보존되어 Stagnation Temperature는 일정하지만, Entropy 증가로 Stagnation Pressure와 Density는 감소함.</span><div class="equation key" role="group" aria-label="Mathematical equation">\[p_{01}>p_{02},\qquad\rho_{01}>\rho_{02},\qquad T_{01}=T_{02}.\]</div></li></ul></section><section class="lesson-section" id="entropy-change-and-stagnation-pressure-loss"><h2><span class="section-tag">02</span>Entropy Change and Stagnation Pressure Loss</h2><ul class="study-points"><li><span class="point-text">Entropy Relation에 Normal Shock의 Pressure Ratio와 Temperature Ratio를 대입하면</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}s_2-s_1&=c_p\ln\left(\frac{T_2}{T_1}\right)-R\ln\left(\frac{p_2}{p_1}\right),\\[2em]&=c_p\ln\left\{\left[1+\frac{2\gamma}{\gamma+1}(M_1^2-1)\right]\left[\frac{2+(\gamma-1)M_1^2}{(\gamma+1)M_1^2}\right]\right\}\\[2em]&\quad-R\ln\left[1+\frac{2\gamma}{\gamma+1}(M_1^2-1)\right].\end{aligned}\]</div></li>
+<li><span class="point-text"><strong>Subsonic Flow</strong>에서 \(M_1<1\)을 형식적으로 대입하면 \(s_2-s_1<0\)이 되어 Entropy가 감소하는 해를 얻음. 이는 물리적으로 허용되는 압축 Shock이 아님.</span></li>
+<li><span class="point-text"><strong>Supersonic Flow</strong>에서 \(M_1>1\)이면 \(s_2-s_1>0\)이므로 Shock 전후 <strong>Entropy가 증가</strong>. 따라서 정상적인 압축 Normal Shock Wave는 Supersonic Upstream에서만 발생함.</span></li>
+<li><span class="point-text">Entropy 증가로 인한 Stagnation Pressure 감소는 다음과 같이 정량화 가능.</span><div class="equation" role="group" aria-label="Mathematical equation">\[\begin{aligned}s_2-s_1&=c_p\ln\frac{T_{02}}{T_{01}}-R\ln\frac{p_{02}}{p_{01}},\\[1.7em]&=-R\ln\frac{p_{02}}{p_{01}}.\end{aligned}\]</div></li>
+<li><span class="point-text">이를 Stagnation Pressure Ratio로 정리하면</span><div class="equation key" role="group" aria-label="Mathematical equation">\[\frac{p_{02}}{p_{01}}=\exp\left(-\frac{s_2-s_1}{R}\right)<1.\]</div></li>
+<li><span class="point-text">Shock 전후 Entropy 증가로 \(s_2-s_1>0\)이므로 항상 <strong>\(p_{01}>p_{02}\)</strong>가 성립함.</span></li></ul></section></article><div class="article-pager"><a class="prev" href="rankine-hugoniot-conditions.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Rankine–Hugoniot Conditions</span></a><a class="next" href="oblique-shock-geometry.html"><span class="direction">NEXT →</span><span class="adjacent">Oblique Shock Geometry</span></a></div><a class="back-bottom" href="../compressible-flow.html">← Back to Compressible Flow</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>High-Speed Gas Dynamics</span></div></footer><script defer src="../../../assets/study-tracker.js?v=20261022-search1"></script></body></html>
