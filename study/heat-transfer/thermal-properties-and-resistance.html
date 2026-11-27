@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Thermal conductivity and volumetric heat capacity in heat conduction."><title>Thermal Properties and Resistance | Heat Transfer | Engineering Notebook</title>
+<link rel="stylesheet" href="../../assets/site.css">
+<style>body.inner-page .breadcrumb{font-size:16px}
+.tl-page .article-content{padding:42px 46px 64px}
+.tl-page .lesson-meta{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:34px;font-size:14px;font-weight:750;letter-spacing:.05em;color:#8296b0;text-transform:uppercase}
+.tl-page .lesson-meta span:first-child{color:#2e61b7}
+.tl-page .lesson-toc{border:1px solid #dae5f5;background:#f5f8fe;border-radius:12px;padding:23px 25px;margin-bottom:61px}
+.tl-page .lesson-toc strong{display:block;color:#2c548e;font-size:18px;margin-bottom:17px}
+.tl-page .lesson-toc ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:9px 20px}
+.tl-page .lesson-toc a{font-size:16px;color:#537094;font-weight:650;line-height:1.55}
+.tl-page .lesson-toc a:hover{color:#265dc0;text-decoration:underline}
+.tl-page .lesson-section{scroll-margin-top:28px}
+.tl-page .lesson-section+.lesson-section{margin-top:73px;padding-top:42px;border-top:1px solid #e1eaf6}
+.tl-page .lesson-section h2{display:flex;align-items:center;gap:12px;font-size:23px!important;color:#183353;margin:0 0 34px!important;line-height:1.3}
+.tl-page .section-tag{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#e7effb;color:#3266b8;font-size:13px;font-weight:800}
+.tl-page .study-points{list-style:none;padding:0;margin:0}
+.tl-page .study-points>li{position:relative;padding-left:24px;font-size:15px;line-height:1.9;color:#465f7e;margin:0 0 39px;word-break:keep-all;overflow-wrap:anywhere}
+.tl-page .study-points>li:last-child{margin-bottom:0}
+.tl-page .study-points>li::before{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#3f71c1;left:3px;top:.81em}
+.tl-page .study-points>li .point-text{display:block}
+.tl-page .nested-points{list-style:none;padding:9px 0 1px 23px;margin:9px 0 10px}
+.tl-page .nested-points>li{position:relative;padding-left:20px;margin:10px 0;font-size:14px;line-height:1.85;color:#5f7694}
+.tl-page .nested-points>li::before{content:"";position:absolute;left:0;top:.85em;width:5px;height:5px;border-radius:50%;background:#9eb8e1}
+.tl-page strong{color:#23466f}
+.tl-page .equation{border:none;background:transparent;border-radius:0;margin:30px 0 40px;padding:10px 0;text-align:center;overflow-x:auto;overflow-y:hidden;color:#172f51;font-size:16px;max-width:100%;scrollbar-width:thin}
+.tl-page .equation.key{background:#f7f9fd;border:1px solid #e2eaf6;border-radius:10px;margin:39px 0 44px;padding:25px 16px}
+.tl-page .equation mjx-container[display="true"]{margin:.3em auto!important;min-width:max-content}
+.tl-page .eyebrow{font-size:12px}
+.tl-page .article-pager .direction{font-size:12px}
+.tl-page .article-pager .adjacent{font-size:15px;line-height:1.5}
+.tl-page .back-bottom{font-size:16px}
+.tl-page .velocity-diagram{margin:42px 0 35px}
+.tl-page .velocity-diagram .diagram-scroll{overflow-x:auto;overflow-y:hidden;max-width:100%;scrollbar-width:thin}
+.tl-page .velocity-diagram svg{display:block;width:100%;height:auto;min-width:730px}
+.tl-page .velocity-diagram figcaption{text-align:center;color:#667f9b;font-size:13px;line-height:1.6;margin:12px 0 0}
+@media(max-width:740px){
+ body.inner-page .breadcrumb{font-size:14px}
+ .tl-page .article-content{padding:23px 18px 31px}
+ .tl-page .lesson-meta{font-size:12px}
+ .tl-page .lesson-toc{padding:17px;margin-bottom:43px}
+ .tl-page .lesson-toc ul{grid-template-columns:1fr}
+ .tl-page .lesson-toc strong{font-size:16px}
+ .tl-page .lesson-toc a{font-size:14px}
+ .tl-page .lesson-section h2{font-size:20px!important}
+ .tl-page .study-points>li{font-size:14px;padding-left:21px;margin-bottom:33px}
+ .tl-page .nested-points{padding-left:11px}
+ .tl-page .nested-points>li{font-size:13px}
+ .tl-page .equation{font-size:14px;margin:24px 0 28px;padding:10px 0}
+ .tl-page .equation.key{margin:32px 0 36px;padding:23px 11px}
+ .tl-page .lesson-section+.lesson-section{margin-top:52px;padding-top:34px}
+ .tl-page .article-pager .adjacent{font-size:14px}
+ .tl-page .back-bottom{font-size:15px}
+ .tl-page .velocity-diagram figcaption{font-size:12px}
+}
+.tl-page .note-box{border:1px solid #dce6f4;background:#f6f9fe;border-radius:12px;padding:22px 22px 16px;margin:28px 0 34px;color:#385779}
+.tl-page .note-box h3{color:#285698;font-size:16px;font-weight:800;margin:0 0 18px}
+.tl-page .table-scroll,.tl-page .wave-diagram .diagram-scroll{overflow-x:auto;max-width:100%;scrollbar-width:thin}
+.tl-page .data-table{width:100%;border-collapse:collapse;background:white;font-size:13px;line-height:1.65;min-width:440px}
+.tl-page .wide-table{min-width:660px}
+.tl-page .data-table th,.tl-page .data-table td{border:1px solid #dce6f4;padding:12px 10px;vertical-align:middle;text-align:center}
+.tl-page .data-table thead th{background:#eaf1fb;color:#2c568c;font-weight:750}
+.tl-page .data-table tbody th{background:#f4f8fe;color:#3b5a80;min-width:105px}
+.tl-page .wave-diagram{margin:30px 0 38px}
+.tl-page .wave-diagram svg{display:block;width:100%;height:auto;min-width:570px}
+.tl-page .wave-diagram figcaption{text-align:center;color:#6e83a1;font-size:13px;margin:12px 0 0}
+@media(max-width:740px){.tl-page .note-box{padding:16px 12px}.tl-page .note-box h3{font-size:14px}.tl-page .wave-diagram figcaption{font-size:12px}}
+/* Heat Transfer notes: sidebar-style explanatory boxes. */
+.tl-page .note-box .study-points>li{margin-bottom:22px}
+.tl-page .note-box .study-points>li:last-child{margin-bottom:0}
+.tl-page .note-box .equation{margin:20px 0 25px}
+.tl-page .mode-summary{margin-top:11px}
+.tl-page .mode-summary>li{margin-bottom:16px}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head>
+<body class="inner-page"><header class="site-header"><div class="shell">
+<a class="brand" href="../../index.html"><span class="brand-logo">E.</span><span>Engineering Notebook<span class="brand-subtitle">PERSONAL KNOWLEDGE &amp; RESEARCH</span></span></a>
+<nav class="site-nav" aria-label="Main navigation"><a href="../../index.html">Home</a><a class="desktop-link" href="../../index.html#bento-study" aria-current="page">Study Note</a><a href="../heat-transfer.html">Heat Transfer ↗</a></nav></div></header>
+<main class="shell tl-page">
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../index.html">Home</a><span class="separator">›</span><a href="../../index.html#bento-study">Study Note</a><span class="separator">›</span><a href="../heat-transfer.html">Heat Transfer</a><span class="separator">›</span><a href="fundamentals.html">Fundamentals</a><span class="separator">›</span><strong>Thermal Properties and Resistance</strong></nav>
+<div class="hero"><div class="hero-text"><div class="eyebrow">HEAT TRANSFER / 2.3</div><h1>Thermal Properties and Resistance</h1><p class="hero-subtitle">Heat Conduction</p><p class="hero-description">Thermal conductivity and volumetric heat capacity in heat conduction.</p></div></div>
+<article class="article-content"><div class="lesson-meta"><span>02 / Heat Conduction</span><span>Study Notes · 2.3</span></div><nav class="lesson-toc" aria-label="On this page"><strong>On this page</strong><ul><li><a href="#thermal-conductivity-and-diffusivity">01 · Thermal Conductivity and Diffusivity</a></li></ul></nav><section class="lesson-section" id="thermal-conductivity-and-diffusivity"><h2><span class="section-tag">01</span>Thermal Conductivity and Diffusivity</h2><ul class="study-points">
+<li><span class="point-text"><strong>Thermal Conductivity</strong> \(k\)는 같은 Temperature Gradient에서 전달되는 Heat Flux를 결정함.</span></li>
+<li><span class="point-text"><strong>Volumetric Heat Capacity (체적 열용량)</strong> \(\rho c\ [\mathrm{J/(m^3\cdot K)}]\)는 단위체적의 온도를 변화시키는 데 필요한 열에너지의 크기를 나타냄.</span><ul class="nested-points">
+<li><span class="point-text">\(\rho c\)가 크면: <strong>동일한 에너지</strong>를 공급해도 <strong>온도가 적게 상승</strong>함.</span></li>
+<li><span class="point-text">\(\rho c\)가 작으면: <strong>동일한 에너지</strong>를 공급해도 <strong>온도가 크게 상승</strong>함.</span></li></ul></li></ul></section></article><div class="article-pager"><a class="prev" href="heat-diffusion-equation.html"><span class="direction">← PREVIOUS</span><span class="adjacent">Heat Diffusion Equation</span></a><a class="next" href="fundamentals.html#topic-3-1"><span class="direction">NEXT →</span><span class="adjacent">Physical Mechanism of Convection</span></a></div><a class="back-bottom" href="fundamentals.html">← Back to Fundamentals</a></main><footer class="site-footer"><div class="shell"><span>© Engineering Notebook</span><span>Fundamentals · Heat Transfer</span></div></footer><script defer src="../../assets/study-tracker.js?v=20261022-search1"></script></body></html>
